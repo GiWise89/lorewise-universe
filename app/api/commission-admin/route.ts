@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { requireCommissionAdminApi } from "@/lib/commissionAdminAuth";
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { calculateCommissionBenefit, ensureCommissionBenefitColumns, getActiveUniversePass, universePassBenefitFromCode } from "@/lib/universePass";
@@ -15,7 +17,6 @@ type RuntimeEnv = {
 const statuses = new Set(["new", "reviewing", "quoted", "accepted", "in_progress", "awaiting_balance", "balance_paid", "payment_issue", "completed", "declined", "cancelled"]);
 
 async function runtimeEnv() {
-  const { env } = await import("cloudflare:workers");
   return env as unknown as RuntimeEnv;
 }
 

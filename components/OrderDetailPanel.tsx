@@ -58,6 +58,7 @@ export function OrderDetailPanel({ referenceCode }: { referenceCode: string }) {
   }, [referenceCode]);
 
   async function cancelOrder() {
+    if (!order) return;
     if (!window.confirm(`Vuoi chiudere questa sessione Stripe${order.testMode ? " di prova" : ""} e annullare l’ordine?`)) return;
     setBusy(true);
     setMessage("");

@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import type { User } from "@supabase/supabase-js";
 import { ACCOUNT_PRIVACY_VERSION, LOREWISE_OWNER_EMAIL } from "@/lib/accountPolicy";
 import { ensureAdminNotificationsTable } from "@/lib/adminNotifications";
@@ -46,7 +48,6 @@ export async function ensureLoreWiseCustomersTable(database: D1Database) {
 
 export async function syncLoreWiseCustomer(user: User) {
   if (!user.email) throw new Error("L’identità verificata non contiene un indirizzo email.");
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   const database = runtime.DB;
   if (!database) throw new Error("Database account non disponibile.");

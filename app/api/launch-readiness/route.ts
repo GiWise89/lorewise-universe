@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import artworkDeliveries from "@/output/artwork-deliveries/delivery-index.json";
 import { verifiedWindowsInstaller } from "@/lib/gameDeliveryPolicy";
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
@@ -51,7 +53,6 @@ function configured(value: string | undefined) {
 export async function GET() {
   const auth = await requireOrderAdmin();
   if ("response" in auth) return auth.response;
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   const stripe = getStripeConfiguration(runtime);
   const manualDelivery = enabled(runtime.LOREWISE_MANUAL_DELIVERY_APPROVED);

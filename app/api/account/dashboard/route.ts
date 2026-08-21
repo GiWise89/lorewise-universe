@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ensureArtCommunityTables } from "@/lib/artCommunityServer";
 import { automaticArtworkDeliveryReady, getAutomaticArtworkDelivery } from "@/lib/automaticArtworkDelivery";
 import { ensureCommerceTables } from "@/lib/commerceServer";
@@ -30,7 +32,6 @@ export async function GET() {
   try {
     const user = await getLoreWiseUser();
     if (!user?.email) return Response.json({ error: "Sessione non valida." }, { status: 401 });
-    const { env } = await import("cloudflare:workers");
     const runtime = env as unknown as RuntimeEnv;
     const database = runtime.DB;
     if (!database) return Response.json({ error: "Archivio personale non disponibile." }, { status: 503 });

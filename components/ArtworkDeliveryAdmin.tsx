@@ -126,7 +126,7 @@ export function ArtworkDeliveryAdmin() {
           <label><input type="checkbox" checked={qualityChecks.manifestVerified} onChange={(event) => setQualityChecks((current) => ({ ...current, manifestVerified: event.target.checked }))} /><span>Manifesto, contenuti e SHA-256 del pacchetto sono stati verificati.</span></label>
           <label><input type="checkbox" checked={qualityChecks.certificateSeparate} onChange={(event) => setQualityChecks((current) => ({ ...current, certificateSeparate: event.target.checked }))} /><span>Il certificato nominativo è separato e non contiene dati precompilati nello ZIP.</span></label>
           <button type="button" disabled={busy || !Object.values(qualityChecks).every(Boolean)} onClick={approveDelivery}>Approva il pacchetto verificato</button>
-        </section> : deliveryApproved ? <p className="delivery-approved-note">Approvato il {currentDelivery.approvedAt ? new Intl.DateTimeFormat("it-IT", { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(`${currentDelivery.approvedAt.replace(" ", "T")}Z`)) : "—"}. Il file può essere assegnato soltanto tramite una licenza valida.</p> : null}
+        </section> : deliveryApproved ? <p className="delivery-approved-note">Approvato il {currentDelivery!.approvedAt ? new Intl.DateTimeFormat("it-IT", { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(`${currentDelivery!.approvedAt.replace(" ", "T")}Z`)) : "—"}. Il file può essere assegnato soltanto tramite una licenza valida.</p> : null}
       </div>
     </section>
 

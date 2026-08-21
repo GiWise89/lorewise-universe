@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser } from "@/lib/supabase/server";
@@ -7,7 +9,6 @@ type RuntimeEnv = { DB?: D1Database };
 export async function requireOrderAdmin() {
   const user = await getLoreWiseUser();
   if (!user?.email) return { response: Response.json({ error: "Sessione amministratore non valida." }, { status: 401 }) };
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   if (!runtime.DB) return { response: Response.json({ error: "Archivio ordini non disponibile." }, { status: 503 }) };
   await syncLoreWiseCustomer(user);

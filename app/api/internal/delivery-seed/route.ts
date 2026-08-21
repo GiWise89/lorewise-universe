@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { getAutomaticArtworkDelivery } from "@/lib/automaticArtworkDelivery";
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { verifiedWindowsInstaller } from "@/lib/gameDeliveryPolicy";
@@ -13,7 +15,6 @@ function secureEqual(left: string, right: string) {
 }
 
 async function authorized(request: Request) {
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   const expected = runtime.LOREWISE_DELIVERY_SEED_TOKEN?.trim() ?? "";
   const supplied = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "").trim() ?? "";
@@ -129,13 +130,13 @@ export async function POST(request: Request) {
       await runtime.DB.prepare(`INSERT INTO game_delivery_files
         (id, product_code, game_code, platform, version, object_key, filename, content_type, size, sha256,
          signature_status, scan_status, install_test_status, update_test_status, status, approved_by, approved_at, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'unsigned_disclosed', 'passed', 'passed',
-         'deferred_first_release', 'approved', 'authorized-seed', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'unsigned_disclosed', 'unchecked', 'unchecked',
+         'deferred_first_release', 'pending_review', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
         ON CONFLICT(product_code) DO UPDATE SET version = excluded.version, object_key = excluded.object_key,
           filename = excluded.filename, content_type = excluded.content_type, size = excluded.size, sha256 = excluded.sha256,
-          signature_status = 'unsigned_disclosed', scan_status = 'passed', install_test_status = 'passed',
-          update_test_status = 'deferred_first_release', status = 'approved', approved_by = 'authorized-seed',
-          approved_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP`)
+          signature_status = 'unsigned_disclosed', scan_status = 'unchecked', install_test_status = 'unchecked',
+          update_test_status = 'deferred_first_release', status = 'pending_review', approved_by = NULL,
+          approved_at = NULL, updated_at = CURRENT_TIMESTAMP`)
         .bind(crypto.randomUUID(), verifiedWindowsInstaller.productCode, verifiedWindowsInstaller.gameCode,
           verifiedWindowsInstaller.platform, verifiedWindowsInstaller.version, verifiedWindowsInstaller.objectKey,
           verifiedWindowsInstaller.filename, verifiedWindowsInstaller.contentType, verifiedWindowsInstaller.size,

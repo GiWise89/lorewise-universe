@@ -6,8 +6,8 @@ export const GAME_INSTALLER_DIRECT_UPLOAD_MAX_BYTES = 150 * 1024 * 1024;
 export const verifiedWindowsInstaller = {
   ...installer,
   signatureStatus: "Non firmato · avviso Windows obbligatorio",
-  scanStatus: "Microsoft Defender · nessun rilevamento",
-  runtimeStatus: "Installazione, avvio desktop e disinstallazione superati",
+  scanStatus: "Scansione Microsoft Defender da completare",
+  runtimeStatus: "Installazione, avvio desktop e disinstallazione da verificare",
   updateStatus: "Prima distribuzione · aggiornamento automatico non ancora collaudabile",
 } as const;
 

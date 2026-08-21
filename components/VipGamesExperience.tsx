@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, type FormEvent } from "react";
-import type { VIP_AREAS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP } from "@/lib/vipZone";
+import type { VIP_AREAS, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP } from "@/lib/vipZone";
 import type { VIP_ARTWORKS, VIP_ART_DROP } from "@/data/vip-artworks";
 import { VipArtExperience } from "@/components/VipArtExperience";
 import type { VIP_ATELIER } from "@/data/vip-atelier";
@@ -10,8 +10,9 @@ import type { VIP_DOWNLOAD_LIBRARY } from "@/data/vip-downloads";
 import { VipAtelierExperience } from "@/components/VipAtelierExperience";
 
 type VipPayload = {
-  member: { plan: string; badge: string | null; artworkDiscountPercent: number };
+  member: { plan: string; badge: string | null; artworkDiscountPercent: number; collectorDossiers: boolean; accessLabel: string };
   areas: typeof VIP_AREAS;
+  editorial: typeof VIP_EDITORIAL_STATUS;
   expansion: typeof VIP_EXPANSION;
   fuoriTrama: typeof VIP_FUORI_TRAMA_DROP;
   art: typeof VIP_ART_DROP & { artworks: typeof VIP_ARTWORKS };
@@ -114,13 +115,26 @@ export function VipGamesExperience() {
     </section>;
   }
 
-  const { areas, expansion, fuoriTrama, member } = payload;
+  const { areas, editorial, expansion, fuoriTrama, member } = payload;
   return <>
-    <nav className="vip-area-nav" aria-label="Sezioni della VIP Zone">
+    <aside className="vip-member-bar" aria-label="Stato Universe Pass">
       <div className="shell">
+        <img src="/brand/icons/lorewise-vip-official-v1.webp" alt="" aria-hidden="true" width="1024" height="1024" />
+        <p><small>LoreWise VIP</small><strong>Pass {member.plan} attivo</strong></p>
+        <div className="vip-editorial-status">
+          <span><small>Ultimo aggiornamento</small><strong>{editorial.lastUpdated}</strong></span>
+          <span><small>Prossimo VIP Drop</small><strong>{editorial.nextDrop}</strong></span>
+        </div>
+      </div>
+    </aside>
+    <nav className="vip-area-nav" aria-label="Sezioni della VIP Zone">
+      <div className="shell" role="tablist" aria-label="Aree riservate">
         {areas.map((area, index) => area.available ? <button
           className={area.id === activeArea ? "is-active" : undefined}
           type="button"
+          role="tab"
+          aria-selected={area.id === activeArea}
+          aria-controls={area.id}
           onClick={() => openArea(area.id)}
           key={area.id}
         >
@@ -128,18 +142,20 @@ export function VipGamesExperience() {
           <strong>{area.label}</strong>
           <small>{area.description}</small>
           <em>{area.status}</em>
+          <b>{area.update}</b>
         </button> : <div className="is-locked" aria-disabled="true" key={area.id}>
           <span>{String(index + 1).padStart(2, "0")}</span>
           <strong>{area.label}</strong>
           <small>{area.description}</small>
           <em>{area.status}</em>
+          <b>{area.update}</b>
         </div>)}
       </div>
     </nav>
 
     {activeArea === "art" ? <VipArtExperience art={payload.art} discountPercent={member.artworkDiscountPercent} /> : null}
     {activeArea === "atelier" ? <VipAtelierExperience atelier={payload.atelier} /> : null}
-    {activeArea === "downloads" ? <section className="vip-download-library" aria-labelledby="vip-download-library-title">
+    {activeArea === "downloads" ? <section className="vip-download-library" id="downloads" aria-labelledby="vip-download-library-title">
       <header className="vip-download-library-hero">
         <div className="shell">
           <p className="eyebrow">{payload.downloads.eyebrow}</p>
@@ -281,10 +297,12 @@ export function VipGamesExperience() {
           <h3>{character.title}</h3>
           <strong>{character.role}</strong>
           <p>{character.description}</p>
-          <p>{character.threat}</p>
-          <ul aria-label={`Segni distintivi di ${character.name}`}>
-            {character.traits.map((trait) => <li key={trait}>{trait}</li>)}
-          </ul>
+          {member.collectorDossiers ? <>
+            <p>{character.threat}</p>
+            <ul aria-label={`Segni distintivi di ${character.name}`}>
+              {character.traits.map((trait) => <li key={trait}>{trait}</li>)}
+            </ul>
+          </> : <p className="vip-collector-lock"><strong>Approfondimento Collector</strong> Minaccia, segni distintivi e note estese restano nel dossier Collector.</p>}
         </div>
       </article>)}
     </section>

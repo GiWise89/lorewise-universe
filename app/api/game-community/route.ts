@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ART_COMMENT_LIMITS, ART_REPORT_REASONS } from "@/lib/artCommunity";
 import { ensureGameCommunityTables } from "@/lib/gameCommunityServer";
 import { gameProjects } from "@/lib/gameCatalog";
@@ -20,7 +22,6 @@ type ReviewRow = {
 };
 
 async function runtimeDatabase() {
-  const { env } = await import("cloudflare:workers");
   return (env as unknown as RuntimeEnv).DB;
 }
 

@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { getStripeConfiguration, retrieveStripeInvoicePaymentIntent, sha256Hex, verifyStripeWebhook, type StripeRuntimeEnv } from "@/lib/stripe";
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { grantPaidInvoiceCredits, revokeUnusedInvoiceBenefits } from "@/lib/benefitEngine";
@@ -54,7 +56,6 @@ export async function POST(request: Request) {
   const signature = request.headers.get("stripe-signature") ?? "";
   let runtime: RuntimeEnv;
   try {
-    const { env } = await import("cloudflare:workers");
     runtime = env as unknown as RuntimeEnv;
   } catch {
     return Response.json({ error: "Webhook Stripe non configurato." }, { status: 503 });

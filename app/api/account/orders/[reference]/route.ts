@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { expireStripeCheckoutSession, getStripeConfiguration, type StripeRuntimeEnv } from "@/lib/stripe";
 import { getLoreWiseUser } from "@/lib/supabase/server";
@@ -8,7 +10,6 @@ type Context = { params: Promise<{ reference: string }> };
 async function authenticatedOrder(reference: string) {
   const user = await getLoreWiseUser();
   if (!user?.email) return { error: Response.json({ error: "Sessione non valida." }, { status: 401 }) };
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   if (!runtime.DB) return { error: Response.json({ error: "Archivio ordini non disponibile." }, { status: 503 }) };
   await ensureCommerceTables(runtime.DB);

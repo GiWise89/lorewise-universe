@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient } from "@/lib/supabase/server";
@@ -22,7 +24,6 @@ export async function GET(request: Request) {
     const code = new URL(request.url).searchParams.get("code")?.trim().toUpperCase() ?? "";
     if (!/^GS-GAME-\d{3}-WIN$/.test(code)) return downloadError("Codice prodotto non valido.", 400);
 
-    const { env } = await import("cloudflare:workers");
     const runtime = env as unknown as RuntimeEnv;
     if (!runtime.DB || !runtime.COMMISSION_UPLOADS) return downloadError("Archivio privato non disponibile.", 503);
     await syncLoreWiseCustomer(data.user);

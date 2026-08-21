@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { ensureAdminNotificationsTable } from "@/lib/adminNotifications";
 import { ensureSupportTicketTables, makeSupportReference } from "@/lib/supportTickets";
@@ -10,7 +12,6 @@ const categories = new Set(["account", "game", "download", "commission", "subscr
 async function context() {
   const user = await getLoreWiseUser();
   if (!user?.email) return { response: Response.json({ error: "Accedi al tuo LoreWise ID per aprire una richiesta." }, { status: 401 }) };
-  const { env } = await import("cloudflare:workers");
   const database = (env as unknown as RuntimeEnv).DB;
   if (!database) return { response: Response.json({ error: "Centro assistenza non disponibile." }, { status: 503 }) };
   await ensureCommerceTables(database);

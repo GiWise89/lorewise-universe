@@ -57,7 +57,7 @@ function readmeFor(downloadPackage: VipDownloadPackage) {
 const personalUseTerms = `CONDIZIONI D'USO PERSONALE — LOREWISE VIP\n\nI file inclusi sono opere originali GiWise Studio e restano protetti dal diritto d'autore.\n\nÈ consentito:\n- usare gli sfondi sui propri dispositivi personali;\n- conservare una copia privata di sicurezza.\n\nNon è consentito:\n- vendere, regalare o redistribuire i file;\n- pubblicare o caricare i file originali su siti, social, archivi o servizi di condivisione;\n- modificare i file per rivenderli o presentarli come propri;\n- usare i file per prodotti, pubblicità o altre attività commerciali senza autorizzazione scritta.\n\nL'accesso tramite Universe Pass non trasferisce la proprietà dell'opera né i diritti di sfruttamento commerciale.\n\n© GiWise Studio — LoreWise Universe\n`;
 
 async function sha256(bytes: Uint8Array) {
-  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  const digest = await crypto.subtle.digest("SHA-256", Uint8Array.from(bytes).buffer);
   return Array.from(new Uint8Array(digest), (value) => value.toString(16).padStart(2, "0")).join("");
 }
 

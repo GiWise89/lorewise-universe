@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { commissionRequestFiles, commissionRequests } from "@/db/schema";
@@ -107,7 +109,6 @@ async function ensureSchema(database: D1Database) {
 export async function POST(request: Request) {
   const user = await getLoreWiseUser();
   if (!user?.email) return Response.json({ error: "Accedi con il tuo LoreWise ID per inviare una commissione e ricevere automaticamente i vantaggi del piano." }, { status: 401 });
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   if (!runtime.DB || !runtime.COMMISSION_UPLOADS) {
     return Response.json({ error: "Archivio richieste non ancora disponibile." }, { status: 503 });

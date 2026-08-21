@@ -1247,7 +1247,7 @@ button:disabled, input:disabled { cursor: not-allowed; opacity: .65; }
 .studio-games-emblem figcaption strong { margin: 4px 0; color: #172554; font: 700 clamp(1.35rem, 2vw, 2rem) var(--font-lore-display), serif; }
 .studio-games-emblem figcaption small { color: #5b6480; font-size: .63rem; font-weight: 750; }
 .studio-games-index { border-block: 1px solid rgba(23, 37, 84, .15); background: #fffdf7; }
-.studio-games-index > div { display: grid; grid-template-columns: repeat(4, 1fr); }
+.studio-games-index > div { display: grid; grid-template-columns: repeat(5, 1fr); }
 .studio-games-index a { display: flex; align-items: center; gap: 13px; min-height: 84px; padding: 18px clamp(15px, 2.5vw, 31px); border-right: 1px solid rgba(23, 37, 84, .12); color: #172554; font-size: .72rem; font-weight: 850; }
 .studio-games-index a:last-child { border-right: 0; }
 .studio-games-index a span { color: #db2777; font: 700 1rem var(--font-lore-display), serif; }
@@ -5140,6 +5140,20 @@ body { background: var(--white); }
 .studio-games-hero-titles a:not(:first-child) span { color: #ffd36a; }
 .studio-games-page .studio-games-index { background: #0b0d18; }
 .studio-games-page .studio-games-index a { color: rgba(255,255,255,.82); }
+.studio-games-page .studio-games-index .studio-games-index-download { position:relative; z-index:1; justify-content:center; color:#ffd978; background:#24101d; border:1px solid rgba(231,185,87,.72); border-top:4px solid #e7b957; border-bottom-color:rgba(255,47,145,.48); box-shadow:inset 0 0 18px rgba(255,47,145,.12),0 0 16px rgba(231,185,87,.7),0 0 34px rgba(255,47,145,.3); font-size:.78rem; overflow:hidden; animation:studio-download-glow 3.2s ease-in-out infinite; }
+.studio-games-page .studio-games-index .studio-games-index-download span { color:#ff4fa3; }
+.studio-games-page .studio-games-index .studio-games-index-download strong { font-weight:900; }
+.studio-games-page .studio-games-index .studio-games-index-download b { margin-left:auto; font-size:1.15rem; line-height:1; transition:transform .2s ease; }
+.studio-games-page .studio-games-index .studio-games-index-download:hover,.studio-games-page .studio-games-index .studio-games-index-download:focus-visible { color:#17100a; background:#e7b957; box-shadow:inset 0 0 16px rgba(255,255,255,.28),0 0 26px rgba(231,185,87,.98),0 0 54px rgba(255,47,145,.48); animation-play-state:paused; }
+.studio-games-page .studio-games-index .studio-games-index-download:hover span,.studio-games-page .studio-games-index .studio-games-index-download:focus-visible span { color:#8b174f; }
+.studio-games-page .studio-games-index .studio-games-index-download:hover b,.studio-games-page .studio-games-index .studio-games-index-download:focus-visible b { transform:translateX(4px); }
+@keyframes studio-download-glow {
+  0%,100% { box-shadow:inset 0 0 14px rgba(255,47,145,.1),0 0 12px rgba(231,185,87,.5),0 0 28px rgba(255,47,145,.18); }
+  50% { box-shadow:inset 0 0 22px rgba(255,47,145,.18),0 0 26px rgba(231,185,87,.92),0 0 52px rgba(255,47,145,.4); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .studio-games-page .studio-games-index .studio-games-index-download { animation:none; }
+}
 .studio-games-page .studio-real-projects { padding-block: 92px 115px; }
 .studio-games-page .studio-real-projects > header { grid-template-columns: minmax(0,1.15fr) minmax(260px,.55fr); margin-bottom: 44px; }
 .studio-games-page .studio-real-projects > header h2 { font-size: clamp(3.4rem,6.5vw,7rem); }
@@ -6842,6 +6856,59 @@ body { background: var(--white); }
 .vip-art-lightbox-lore { max-width:68ch; margin:0 auto; padding:14px 22px 4px; color:#d3ccc2; font-size:.9rem; line-height:1.55; text-align:center; }
 .vip-art-lightbox figcaption { display:flex; justify-content:space-between; gap:30px; padding:14px 18px; color:#eee6d9; border-top:1px solid rgba(224,178,81,.22); font-size:.72rem; }
 .vip-art-lightbox figcaption span { color:#9b9187; }
+
+/* VIP Zone final polish: one visual rhythm across games, art, atelier and downloads. */
+.vip-zone-page {
+  --vip-gold:#dfb45a;
+  --vip-ivory:#f5eee3;
+  --vip-muted:#b9b0a5;
+  --vip-line:rgba(223,180,90,.22);
+  font-family:var(--font-body),sans-serif;
+}
+.vip-zone-page .eyebrow { color:var(--vip-gold); font-size:.7rem; font-weight:900; text-transform:uppercase; }
+.vip-zone-page :is(h1,h2) { letter-spacing:0; text-wrap:balance; }
+.vip-zone-page :is(button,a):focus-visible { outline:2px solid var(--vip-gold); outline-offset:3px; }
+.vip-member-bar { color:var(--vip-ivory); border-bottom:1px solid var(--vip-line); background:#080707; }
+.vip-member-bar .shell { display:flex; align-items:center; gap:16px; min-height:78px; }
+.vip-member-bar img { width:48px; height:48px; object-fit:contain; filter:drop-shadow(0 8px 14px rgba(0,0,0,.5)); }
+.vip-member-bar p { display:grid; gap:3px; margin:0; }
+.vip-member-bar small { color:var(--vip-gold); font-size:.58rem; font-weight:950; text-transform:uppercase; }
+.vip-member-bar strong { font:650 1.02rem/1.1 var(--font-display),Georgia,serif; }
+.vip-editorial-status { display:flex; gap:24px; margin-left:auto; }
+.vip-editorial-status > span { display:grid; gap:3px; padding-left:15px; border-left:1px solid var(--vip-line); }
+.vip-editorial-status small { color:var(--vip-muted); }
+.vip-editorial-status strong { color:var(--vip-ivory); font:800 .7rem/1.2 var(--font-body),sans-serif; text-transform:uppercase; }
+.vip-area-nav button b,.vip-area-nav .is-locked b { position:absolute; top:12px; right:12px; padding:4px 6px; color:#1a1209; background:var(--vip-gold); font-size:.48rem; line-height:1; text-transform:uppercase; }
+.vip-area-nav { position:sticky; top:0; z-index:30; padding-block:0; background:rgba(14,12,11,.97); backdrop-filter:blur(16px); }
+.vip-area-nav button,.vip-area-nav .is-locked { min-height:102px; }
+.vip-area-nav button.is-active { background:rgba(223,180,90,.07); }
+.vip-area-nav strong,.vip-art-switch strong,.vip-atelier-switch strong,.vip-atelier-process-tabs strong { font-family:var(--font-display),Georgia,serif; letter-spacing:0; }
+.vip-expansion-index { position:relative; top:auto; }
+.vip-expansion-intro,.vip-character-files,.vip-art-body,.vip-atelier-body,.vip-download-collections { padding-block:clamp(64px,7vw,96px); }
+.vip-character-copy > p:not(.eyebrow),.vip-atelier-stage-story > p,.vip-atelier-note p,.vip-atelier-studies article p { font-size:clamp(1rem,1.15vw,1.12rem); line-height:1.82; }
+.vip-collector-lock { margin-top:22px; padding:19px 21px!important; color:#bdb3a8!important; border:1px solid var(--vip-line)!important; border-left:3px solid var(--vip-gold)!important; background:rgba(223,180,90,.06); }
+.vip-collector-lock strong { display:block; margin-bottom:6px; color:var(--vip-gold); font-size:.68rem; text-transform:uppercase; }
+.vip-pass-value,.vip-faction,.vip-character,.vip-development,.vip-drop-register,.vip-fuori-trama,.vip-art-card,.vip-atelier-stage,.vip-atelier-note,.vip-atelier-studies article,.vip-download-collection { content-visibility:auto; contain-intrinsic-size:auto 760px; }
+.vip-zone-page img { max-width:100%; }
+@media (max-width:900px) {
+  .vip-member-bar .shell { min-height:70px; }
+  .vip-area-nav { overflow-x:auto; scrollbar-width:thin; }
+  .vip-area-nav .shell { width:max-content; min-width:100%; grid-template-columns:repeat(4,minmax(168px,1fr)); }
+  .vip-area-nav button,.vip-area-nav .is-locked { min-height:88px; padding:16px 14px; }
+  .vip-character-copy { padding-block:44px 68px; }
+}
+@media (max-width:620px) {
+  .vip-editorial-status { gap:10px; }
+  .vip-editorial-status > span:first-child { display:none; }
+  .vip-editorial-status > span { padding-left:10px; }
+  .vip-member-bar img { width:42px; height:42px; }
+  .vip-area-nav .shell { grid-template-columns:repeat(4,minmax(154px,1fr)); }
+  .vip-area-nav strong { font-size:1rem; }
+  .vip-area-nav small { display:none; }
+  .vip-area-nav button,.vip-area-nav .is-locked { min-height:72px; grid-template-columns:26px 1fr; }
+  .vip-expansion-intro,.vip-character-files,.vip-art-body,.vip-atelier-body,.vip-download-collections { padding-block:56px; }
+  .vip-character-copy > p:not(.eyebrow),.vip-atelier-stage-story > p,.vip-atelier-note p,.vip-atelier-studies article p { font-size:1rem; }
+}
 @media (max-width:900px) {
   .vip-art-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .vip-art-collection-heading { grid-template-columns:1fr; }
@@ -6857,4 +6924,105 @@ body { background: var(--white); }
   .vip-art-card.is-landscape .vip-art-preview { aspect-ratio:16/11; }
   .vip-art-lightbox { padding:14px; }
   .vip-art-lightbox figcaption { flex-direction:column; gap:5px; }
+}
+
+/* LoreWise Android: public release hub. */
+.app-download-page { color:#f5eee3; background:#090808; }
+.app-download-page .eyebrow,.studio-app-download-callout .eyebrow { margin:0; color:#dfb45a; font-size:.68rem; font-weight:950; text-transform:uppercase; }
+.app-download-hero { min-height:min(760px,82vh); display:grid; align-items:center; overflow:hidden; border-bottom:1px solid rgba(223,180,90,.28); background:#090808; }
+.app-download-hero-inner { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr); gap:clamp(44px,8vw,130px); align-items:center; padding-block:clamp(80px,10vw,150px); }
+.app-download-copy h1 { max-width:850px; margin:16px 0 25px; font:650 clamp(4.2rem,8.8vw,9rem)/.84 var(--font-display),Georgia,serif; letter-spacing:0; }
+.app-download-copy > p:last-of-type { max-width:62ch; color:#b9b0a5; font-size:clamp(.98rem,1.3vw,1.15rem); line-height:1.8; }
+.app-download-copy > a,.app-download-integrity a { display:inline-flex; gap:18px; margin-top:26px; padding-bottom:7px; color:#dfb45a; border-bottom:1px solid currentColor; font-size:.72rem; font-weight:950; text-transform:uppercase; }
+.app-download-identity { position:relative; aspect-ratio:1/1; display:grid; place-items:center; }
+.app-download-identity img:first-child { position:relative; z-index:2; width:82%; height:auto; filter:drop-shadow(0 34px 55px rgba(0,0,0,.62)); }
+.app-download-identity img:last-child { position:absolute; inset:8% 0 0 20%; width:80%; height:80%; object-fit:contain; opacity:.16; }
+.app-download-release { padding-block:clamp(80px,10vw,145px); border-bottom:1px solid rgba(223,180,90,.22); }
+.app-download-release-grid { display:grid; grid-template-columns:minmax(0,.9fr) minmax(480px,1.1fr); gap:clamp(60px,10vw,170px); }
+.app-download-release header h2,.app-download-access h2,.app-download-integrity h2,.studio-app-download-callout h2 { margin:14px 0 25px; font:650 clamp(3.4rem,6vw,7rem)/.88 var(--font-display),Georgia,serif; letter-spacing:0; }
+.app-download-release header > p:last-child { max-width:48ch; color:#a99f95; line-height:1.75; }
+.app-download-release-data dl { display:grid; grid-template-columns:1fr 1fr; margin:0; border-top:1px solid rgba(223,180,90,.28); }
+.app-download-release-data dl div { min-height:105px; padding:23px 20px 20px 0; border-bottom:1px solid rgba(223,180,90,.2); }
+.app-download-release-data dl div:nth-child(even) { padding-left:24px; border-left:1px solid rgba(223,180,90,.2); }
+.app-download-release-data dt,.app-download-integrity dt { color:#8f877f; font-size:.58rem; font-weight:950; text-transform:uppercase; }
+.app-download-release-data dd,.app-download-integrity dd { margin:8px 0 0; color:#f5eee3; font:650 1.15rem var(--font-display),Georgia,serif; }
+.app-download-state { display:grid; gap:9px; margin-top:34px; padding:30px 0; border-block:1px solid rgba(223,180,90,.28); }
+.app-download-state > span:first-child { color:#8f877f; font-size:.6rem; font-weight:950; text-transform:uppercase; }
+.app-download-state > strong { color:#dfb45a; font:650 clamp(2rem,3vw,3.3rem) var(--font-display),Georgia,serif; }
+.app-download-disabled { width:fit-content; margin-top:14px; padding:16px 20px; color:#17100a; background:#dfb45a; font-size:.7rem; font-weight:950; text-transform:uppercase; opacity:.58; }
+.app-download-state small { color:#8f877f; line-height:1.6; }
+.app-download-access { padding-block:clamp(80px,9vw,130px); color:#1f1830; background:#f3eee7; }
+.app-download-access .eyebrow { color:#7c3aed; }
+.app-download-access-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(60px,10vw,160px); }
+.app-download-access ol { margin:0; padding:0; list-style:none; border-top:1px solid rgba(31,24,48,.2); }
+.app-download-access li { display:grid; grid-template-columns:58px 1fr; gap:20px; padding:28px 0; border-bottom:1px solid rgba(31,24,48,.16); }
+.app-download-access li > span { color:#7c3aed; font:700 1rem var(--font-lore-display),serif; }
+.app-download-access li strong { font:650 1.4rem var(--font-display),Georgia,serif; }
+.app-download-access li p { margin:8px 0 0; color:#5f586b; line-height:1.65; }
+.app-download-integrity { padding-block:clamp(80px,10vw,145px); }
+.app-download-integrity-grid { display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(60px,11vw,180px); }
+.app-download-integrity-grid > div:last-child > p { max-width:65ch; color:#b9b0a5; font-size:1.05rem; line-height:1.8; }
+.app-download-integrity dl { margin:36px 0 0; border-top:1px solid rgba(223,180,90,.25); }
+.app-download-integrity dl div { display:grid; grid-template-columns:140px 1fr; gap:24px; padding:18px 0; border-bottom:1px solid rgba(223,180,90,.18); }
+.app-download-integrity dd { overflow-wrap:anywhere; }
+.studio-app-download-callout { padding-block:100px; color:#f5eee3; background:#0b0a09; }
+.studio-app-download-callout > div { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:end; }
+.studio-app-download-callout h2 { max-width:9ch; font-size:clamp(3.2rem,5.2vw,6.2rem); }
+.studio-app-download-callout h2 span { white-space:nowrap; }
+.studio-app-download-callout p { color:#b9b0a5; line-height:1.75; }
+.studio-app-download-callout a { display:inline-flex; margin-top:22px; padding-bottom:6px; color:#dfb45a; border-bottom:1px solid currentColor; font-weight:900; }
+.footer-app-link { color:#e7bd78!important; font-weight:900; }
+.app-download-install { padding-block:110px; color:#17120d; background:#e9e1d5; border-bottom:1px solid rgba(74,51,20,.3); }
+.app-download-install .eyebrow { color:#7138d0; }
+.app-download-install-heading { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(320px,.75fr); gap:90px; align-items:end; margin-bottom:68px; }
+.app-download-install-heading h2,.app-download-warnings h2 { max-width:820px; margin:14px 0 0; font:650 5.4rem/.9 var(--font-display),Georgia,serif; letter-spacing:0; }
+.app-download-install-heading > p { max-width:52ch; margin:0 0 8px; color:#5c5146; font-size:1.02rem; line-height:1.75; }
+.app-install-steps { display:grid; grid-template-columns:repeat(4,1fr); margin:0; padding:0; list-style:none; border-top:1px solid rgba(47,34,18,.28); border-bottom:1px solid rgba(47,34,18,.28); }
+.app-install-steps li { min-height:255px; padding:28px 28px 30px 0; }
+.app-install-steps li + li { padding-left:28px; border-left:1px solid rgba(47,34,18,.22); }
+.app-install-steps li > span { display:block; margin-bottom:54px; color:#7138d0; font:800 .75rem var(--font-lore-display),serif; }
+.app-install-steps strong { display:block; font:650 1.42rem/1.1 var(--font-display),Georgia,serif; }
+.app-install-steps p { margin:13px 0 0; color:#5c5146; font-size:.92rem; line-height:1.65; }
+.app-download-security-note { display:grid; grid-template-columns:.85fr 1.15fr; gap:90px; margin-top:70px; padding:58px 60px; color:#f4ede3; background:#100d0b; border-left:4px solid #dfb45a; }
+.app-download-security-note h3 { max-width:560px; margin:14px 0 0; font:650 2.25rem/1.03 var(--font-display),Georgia,serif; }
+.app-download-security-note > div:last-child p { max-width:70ch; margin:0; color:#bdb3a8; line-height:1.75; }
+.app-download-security-note > div:last-child p + p { margin-top:18px; color:#dfb45a; }
+.app-download-warnings { padding-block:110px; background:#0b0908; border-bottom:1px solid rgba(223,180,90,.25); }
+.app-download-warnings-layout { display:grid; grid-template-columns:minmax(320px,.8fr) minmax(0,1.2fr); gap:110px; }
+.app-download-warnings header { position:sticky; top:110px; align-self:start; }
+.app-download-warnings header h2 { max-width:650px; color:#f3ece2; font-size:4.6rem; }
+.app-download-warnings header > p:last-child { max-width:52ch; margin-top:28px; color:#a99f95; line-height:1.75; }
+.app-download-warning-list { border-top:1px solid rgba(223,180,90,.3); }
+.app-download-warning-list article { padding:30px 0 32px; border-bottom:1px solid rgba(223,180,90,.22); }
+.app-download-warning-list article > p { margin:0 0 10px; color:#dfb45a; font-size:.62rem; font-weight:950; text-transform:uppercase; }
+.app-download-warning-list h3 { margin:0; color:#f4ede3; font:650 1.65rem var(--font-display),Georgia,serif; }
+.app-download-warning-list span { display:block; max-width:68ch; margin-top:12px; color:#b9b0a5; line-height:1.7; }
+@media (max-width:900px) {
+  .app-download-hero-inner,.app-download-release-grid,.app-download-access-grid,.app-download-integrity-grid,.app-download-install-heading,.app-download-security-note,.app-download-warnings-layout,.studio-app-download-callout > div { grid-template-columns:1fr; }
+  .app-download-identity { width:min(560px,86vw); margin-inline:auto; }
+  .app-download-release-grid,.app-download-access-grid,.app-download-integrity-grid,.app-download-install-heading,.app-download-security-note,.app-download-warnings-layout { gap:48px; }
+  .app-install-steps { grid-template-columns:1fr 1fr; }
+  .app-install-steps li:nth-child(3) { border-left:0; }
+  .app-install-steps li:nth-child(n+3) { border-top:1px solid rgba(47,34,18,.22); }
+  .app-download-warnings header { position:static; }
+  .studio-games-index > div { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:620px) {
+  .app-download-hero { min-height:auto; }
+  .app-download-hero-inner { gap:30px; padding-block:64px; }
+  .app-download-copy h1 { font-size:clamp(3.6rem,19vw,5.2rem); overflow-wrap:anywhere; }
+  .app-download-identity { width:100%; }
+  .app-download-release-data dl { grid-template-columns:1fr; }
+  .app-download-release-data dl div,.app-download-release-data dl div:nth-child(even) { min-height:0; padding:19px 0; border-left:0; }
+  .app-download-access li { grid-template-columns:40px 1fr; }
+  .app-download-integrity dl div { grid-template-columns:1fr; gap:3px; }
+  .app-download-install,.app-download-warnings { padding-block:72px; }
+  .app-download-install-heading h2,.app-download-warnings header h2 { font-size:3rem; }
+  .app-install-steps { grid-template-columns:1fr; }
+  .app-install-steps li,.app-install-steps li + li { min-height:0; padding:24px 0; border-left:0; border-top:1px solid rgba(47,34,18,.22); }
+  .app-install-steps li:first-child { border-top:0; }
+  .app-install-steps li > span { margin-bottom:18px; }
+  .app-download-security-note { margin-top:48px; padding:34px 28px; }
+  .app-download-security-note h3 { font-size:1.8rem; }
+  .studio-app-download-callout { padding-block:70px; }
 }

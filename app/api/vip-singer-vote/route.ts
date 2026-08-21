@@ -69,6 +69,7 @@ export async function GET() {
   try {
     const access = await requireVipAccess();
     if ("error" in access) return access.error;
+    if (!access.user) return Response.json({ error: "Accesso non valido." }, { status: 401 });
     await ensureTables(access.runtime.DB!);
     return Response.json(await snapshot(access.runtime.DB!, access.user.id), {
       headers: { "Cache-Control": "private, no-store" },
@@ -82,6 +83,7 @@ export async function POST(request: Request) {
   try {
     const access = await requireVipAccess();
     if ("error" in access) return access.error;
+    if (!access.user) return Response.json({ error: "Accesso non valido." }, { status: 401 });
     const candidate = cleanName((await request.json().catch(() => null) as { candidate?: unknown } | null)?.candidate);
     if (!candidate) {
       return Response.json({ error: "Inserisci un nome valido da 2 a 60 caratteri." }, { status: 400 });

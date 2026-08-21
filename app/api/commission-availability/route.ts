@@ -1,7 +1,8 @@
+import { env } from "@/lib/netlifyRuntime";
+
 type RuntimeEnv = { DB?: D1Database };
 
 export async function GET() {
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   const total = 10;
   let reserved = 0;

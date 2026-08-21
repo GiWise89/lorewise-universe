@@ -1,6 +1,6 @@
 {
   "name": "lorewise-universe",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
+    "build:netlify": "next build",
+    "dev:netlify": "netlify dev",
     "start": "vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs tests/stripe.test.mjs tests/universe-pass.test.mjs tests/transactional-email.test.mjs",
     "test:stripe": "node --test tests/stripe.test.mjs",
@@ -51,6 +53,8 @@
     "@aws-sdk/lib-storage": "^3.1114.0",
     "@capacitor/android": "^8.0.0",
     "@capacitor/core": "^8.0.0",
+    "@netlify/blobs": "^11.0.1",
+    "@netlify/database": "^2.0.0",
     "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.112.3",
     "drizzle-orm": "0.45.2",
@@ -64,6 +68,7 @@
     "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^8.0.0",
     "@cloudflare/vite-plugin": "^1.53.0",
+    "@cloudflare/workers-types": "^5.20260821.1",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",

@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ACCOUNT_DELETION_CONFIRMATION } from "@/lib/accountPolicy";
 import { ensureAccountDeletionRequestsTable } from "@/lib/accountDeletion";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
@@ -10,7 +12,6 @@ async function authenticatedAccount() {
   if (!client) return { error: Response.json({ error: "Accesso non configurato." }, { status: 503 }) };
   const { data, error } = await client.auth.getUser();
   if (error || !data.user?.email) return { error: Response.json({ error: "Sessione non valida." }, { status: 401 }) };
-  const { env } = await import("cloudflare:workers");
   const database = (env as unknown as RuntimeEnv).DB;
   if (!database) return { error: Response.json({ error: "Archivio personale non disponibile." }, { status: 503 }) };
   await syncLoreWiseCustomer(data.user);

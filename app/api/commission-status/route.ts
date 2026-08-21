@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 type RuntimeEnv = { DB?: D1Database };
 import { COMMISSION_TERMS_VERSION } from "@/lib/commissionTerms";
 import { ensureCommerceTables } from "@/lib/commerceServer";
@@ -32,7 +34,6 @@ const referencePattern = /^LW-REQ-\d{8}-[A-F0-9]{6}$/;
 const terminalStatuses = new Set(["accepted", "in_progress", "awaiting_balance", "balance_paid", "completed", "declined", "cancelled"]);
 
 async function getRuntime() {
-  const { env } = await import("cloudflare:workers");
   return env as unknown as RuntimeEnv;
 }
 

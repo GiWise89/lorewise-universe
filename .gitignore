@@ -44,6 +44,13 @@ next-env.d.ts
 /outputs/
 /output/
 /work/
+/tsconfig.tsbuildinfo
+
+# Sorgenti originali e build locali non necessari alla pubblicazione Netlify
+/assets/
+/artifacts/
+/android/
+/android-shell/
 
 # Originali, bozze e materiale di lavorazione: mai nel repository pubblico
 /Vetrina Disegni/
@@ -55,3 +62,9 @@ next-env.d.ts
 
 # Build Android locale di debug: non e un download pubblico approvato
 /public/downloads/test/
+
+# Local Netlify folder
+.netlify
+
+# Configurazione della precedente pubblicazione OpenAI Sites
+/.openai/

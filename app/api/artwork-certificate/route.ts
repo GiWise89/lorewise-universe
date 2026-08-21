@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { catalogArtworks } from "@/lib/artCatalog";
 import { automaticArtworkDeliveryReady } from "@/lib/automaticArtworkDelivery";
 import { certificateLicenseId, createArtworkCertificatePdf } from "@/lib/artworkCertificate";
@@ -38,7 +40,6 @@ export async function GET(request: Request) {
     const artwork = catalogArtworks.find((item) => item.code === code && item.access === "commercial-original");
     if (!artwork?.title || !artwork.year) return certificateError("Opera commerciale non trovata.", 404);
 
-    const { env } = await import("cloudflare:workers");
     const runtime = env as unknown as RuntimeEnv;
     if (!runtime.DB || !runtime.ASSETS) return certificateError("Archivio licenze non disponibile.", 503);
     await syncLoreWiseCustomer(user);

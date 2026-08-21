@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { getAutomaticArtworkDelivery } from "@/lib/automaticArtworkDelivery";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
@@ -29,7 +31,6 @@ export async function GET(request: Request) {
     const code = new URL(request.url).searchParams.get("code")?.trim().toUpperCase() ?? "";
     if (!/^LW-(?:VIP-)?ART-\d{3}$/.test(code)) return downloadError("Codice opera non valido.", 400);
 
-    const { env } = await import("cloudflare:workers");
     const runtime = env as unknown as RuntimeEnv;
     if (!runtime.DB || !runtime.COMMISSION_UPLOADS) return downloadError("Archivio privato non disponibile.", 503);
 

@@ -27,9 +27,9 @@ export function VipAtelierExperience({ atelier }: { atelier: AtelierPayload }) {
   }
 
   return (
-    <section className="vip-atelier">
+    <section className="vip-atelier" id="atelier">
       <header className="vip-atelier-hero">
-        <img src={mediaUrl(heroMediaId)} alt="" aria-hidden="true" decoding="async" fetchPriority="high" />
+        <img src={mediaUrl(heroMediaId)} alt="" aria-hidden="true" width="1600" height="1200" decoding="async" fetchPriority="high" />
         <div className="vip-atelier-hero-shade" />
         <div className="shell">
           <p className="eyebrow">{atelier.eyebrow}</p>
@@ -75,7 +75,7 @@ export function VipAtelierExperience({ atelier }: { atelier: AtelierPayload }) {
 
               <div className="vip-atelier-stage">
                 <figure>
-                  <img src={mediaUrl(phase.mediaId)} alt={phase.title} decoding="async" />
+                  <img src={mediaUrl(phase.mediaId)} alt={phase.title} width="1600" height="1200" decoding="async" />
                   <figcaption>{phaseProgress}</figcaption>
                 </figure>
                 <div className="vip-atelier-stage-story">
@@ -110,7 +110,7 @@ export function VipAtelierExperience({ atelier }: { atelier: AtelierPayload }) {
                 <div className="vip-atelier-note-media">
                   {entry.mediaIds.map((mediaId, index) => (
                     <figure key={mediaId}>
-                      <img src={mediaUrl(mediaId)} alt={`${entry.title}${entry.mediaIds.length > 1 ? `, passaggio ${index + 1}` : ""}`} loading="lazy" decoding="async" />
+                      <img src={mediaUrl(mediaId)} alt={`${entry.title}${entry.mediaIds.length > 1 ? `, passaggio ${index + 1}` : ""}`} width="1200" height="1500" loading="lazy" decoding="async" />
                       {entry.mediaIds.length > 1 ? <figcaption>{index === 0 ? "Prima linea" : "Forma compiuta"}</figcaption> : null}
                     </figure>
                   ))}
@@ -133,7 +133,7 @@ export function VipAtelierExperience({ atelier }: { atelier: AtelierPayload }) {
             </header>
             {atelier.studies.map((study, index) => (
               <article key={study.id} className={index % 2 ? "is-reversed" : ""}>
-                <figure><img src={mediaUrl(study.mediaId)} alt={study.title} loading="lazy" decoding="async" /></figure>
+                <figure><img src={mediaUrl(study.mediaId)} alt={study.title} width="1200" height="1500" loading="lazy" decoding="async" /></figure>
                 <div>
                   <span>{study.index}</span>
                   <h3>{study.title}</h3>

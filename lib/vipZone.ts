@@ -8,6 +8,7 @@ export const VIP_AREAS = [
     label: "Giochi",
     description: "Anteprime, dossier e diari di sviluppo",
     status: "2 progetti",
+    update: "Aggiornato",
     available: true,
   },
   {
@@ -15,6 +16,7 @@ export const VIP_AREAS = [
     label: "Opere d'arte",
     description: "Opere, processi creativi ed edizioni riservate",
     status: "48 opere",
+    update: "Catalogo attivo",
     available: true,
   },
   {
@@ -22,6 +24,7 @@ export const VIP_AREAS = [
     label: "Atelier",
     description: "Processi, taccuini e studi riservati",
     status: "14 tavole",
+    update: "Nuovo",
     available: true,
   },
   {
@@ -29,9 +32,15 @@ export const VIP_AREAS = [
     label: "Download VIP",
     description: "File digitali inclusi nel Pass",
     status: "6 sfondi",
+    update: "Nuovo drop",
     available: true,
   },
 ] as const;
+
+export const VIP_EDITORIAL_STATUS = {
+  lastUpdated: "21 agosto 2026",
+  nextDrop: "In preparazione",
+} as const;
 
 export const VIP_FUORI_TRAMA_DROP = {
   code: "FT-ROSTER-CANTANTI-01",
@@ -210,7 +219,7 @@ export const VIP_MEDIA = {
   ...VIP_ATELIER_MEDIA,
 } as const;
 
-export type VipMediaId = keyof typeof VIP_MEDIA;
+export type VipMediaId = Extract<keyof typeof VIP_MEDIA, string>;
 
 export function getVipMedia(id: string | null | undefined) {
   return id && id in VIP_MEDIA ? VIP_MEDIA[id as VipMediaId] : null;

@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { getStripeConfiguration, setStripeSubscriptionCancellation, type StripeRuntimeEnv } from "@/lib/stripe";
 import { getLoreWiseUser } from "@/lib/supabase/server";
@@ -14,7 +16,6 @@ export async function POST(request: Request) {
     const body = await request.json().catch(() => null) as { cancelAtPeriodEnd?: unknown } | null;
     if (typeof body?.cancelAtPeriodEnd !== "boolean") return Response.json({ error: "Scelta non valida." }, { status: 400 });
 
-    const { env } = await import("cloudflare:workers");
     const runtime = env as unknown as RuntimeEnv;
     const stripe = getStripeConfiguration(runtime);
     if (!runtime.DB || !stripe.configured) {

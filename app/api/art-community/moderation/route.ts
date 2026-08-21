@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ensureArtCommunityTables } from "@/lib/artCommunityServer";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient } from "@/lib/supabase/server";
@@ -39,7 +41,6 @@ async function requireModerator() {
   if (!client) return { error: Response.json({ error: "Accesso non configurato." }, { status: 503 }) };
   const { data, error } = await client.auth.getUser();
   if (error || !data.user?.email) return { error: Response.json({ error: "Accesso richiesto." }, { status: 401 }) };
-  const { env } = await import("cloudflare:workers");
   const database = (env as unknown as RuntimeEnv).DB;
   if (!database) return { error: Response.json({ error: "Archivio di moderazione non disponibile." }, { status: 503 }) };
   await syncLoreWiseCustomer(data.user);

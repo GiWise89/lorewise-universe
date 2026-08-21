@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { getCommercialProductDraft } from "@/lib/commercialCatalog";
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { GAME_INSTALLER_DIRECT_UPLOAD_MAX_BYTES, GAME_INSTALLER_MIN_BYTES, gameInstallerUploadPolicy, verifiedWindowsInstaller } from "@/lib/gameDeliveryPolicy";
@@ -46,7 +48,6 @@ async function requireGameDeliveryAdmin() {
   if (!client) return { error: Response.json({ error: "Accesso non configurato." }, { status: 503 }) };
   const { data, error } = await client.auth.getUser();
   if (error || !data.user?.email) return { error: Response.json({ error: "Sessione amministratore non valida." }, { status: 401 }) };
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   if (!runtime.DB || !runtime.COMMISSION_UPLOADS) return { error: Response.json({ error: "Archivio privato non disponibile." }, { status: 503 }) };
   await syncLoreWiseCustomer(data.user);

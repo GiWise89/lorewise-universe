@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
 import { revokeUnusedInvoiceBenefits } from "@/lib/benefitEngine";
 import { cancelStripeSubscription, createStripeRefund, getStripeConfiguration, type StripeRuntimeEnv } from "@/lib/stripe";
@@ -7,7 +9,6 @@ const supportStatuses = new Set(["open", "reviewing", "approved", "rejected", "r
 export async function GET(request: Request) {
   const auth = await requireOrderAdmin();
   if ("response" in auth) return auth.response;
-  const { env } = await import("cloudflare:workers");
   const stripe = getStripeConfiguration(env as unknown as StripeRuntimeEnv);
   const url = new URL(request.url);
   const status = url.searchParams.get("status")?.trim() ?? "all";
@@ -105,7 +106,6 @@ export async function PATCH(request: Request) {
     if (refundRequest.status !== "approved" || refundRequest.order_status !== "paid" || !refundRequest.stripe_payment_intent_id) {
       return Response.json({ error: "Il rimborso richiede una richiesta approvata e un ordine Stripe pagato." }, { status: 409 });
     }
-    const { env } = await import("cloudflare:workers");
     const stripe = getStripeConfiguration(env as unknown as StripeRuntimeEnv);
     if (!stripe.configured) return Response.json({ error: stripe.blockers[0] || "Stripe non è configurato per il rimborso." }, { status: 503 });
     try {

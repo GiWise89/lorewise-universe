@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const downloadPackage = getVipDownloadPackage(url.searchParams.get("package"));
     if (!downloadPackage) return Response.json({ error: "Pacchetto VIP non valido." }, { status: 404, headers: privateHeaders });
-    const access = await requireVipAccess();
+    const access = await requireVipAccess({ prepareCommerce: false });
     if ("error" in access) return access.error;
     const bucket = access.runtime.COMMISSION_UPLOADS;
     if (!bucket) return Response.json({ error: "Archivio download VIP non disponibile." }, { status: 503, headers: privateHeaders });
@@ -28,7 +28,7 @@ export async function GET(request: Request) {
     }
 
     const { archive } = await createVipDownloadArchive(downloadPackage, sourceFiles);
-    return new Response(archive, { headers: {
+    return new Response(Uint8Array.from(archive).buffer, { headers: {
       ...privateHeaders,
       "Content-Type": "application/zip",
       "Content-Length": String(archive.byteLength),

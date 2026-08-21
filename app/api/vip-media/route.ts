@@ -11,7 +11,7 @@ export async function GET(request: Request) {
       return Response.json({ error: "Questa risorsa non è disponibile per il download." }, { status: 400 });
     }
 
-    const access = await requireVipAccess();
+    const access = await requireVipAccess({ prepareCommerce: false });
     if ("error" in access) return access.error;
     if (!access.runtime.COMMISSION_UPLOADS) {
       return Response.json({ error: "Archivio immagini VIP non disponibile." }, { status: 503, headers: { "Cache-Control": "private, no-store" } });
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
       headers: {
         "Content-Type": object.httpMetadata?.contentType ?? media.contentType,
         "Content-Length": String(object.size),
-        "Cache-Control": wantsDownload ? "private, no-store" : "private, max-age=900, stale-while-revalidate=60",
+        "Cache-Control": wantsDownload ? "private, no-store" : "private, max-age=3600, stale-while-revalidate=300",
         "Content-Disposition": wantsDownload && "downloadName" in media
           ? `attachment; filename="${media.downloadName}"`
           : "inline",

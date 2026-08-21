@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ACCOUNT_PROFILE_LIMITS } from "@/lib/accountPolicy";
 import { ensureAccountDeletionRequestsTable } from "@/lib/accountDeletion";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
@@ -24,7 +26,6 @@ type CustomerProfileRow = {
 async function authenticatedCustomer() {
   const user = await getLoreWiseUser();
   if (!user) return { error: Response.json({ error: "Sessione non valida." }, { status: 401 }) };
-  const { env } = await import("cloudflare:workers");
   const database = (env as unknown as RuntimeEnv).DB;
   if (!database) return { error: Response.json({ error: "Archivio personale non disponibile." }, { status: 503 }) };
   await syncLoreWiseCustomer(user);

@@ -1,9 +1,24 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { getVipDownload, getVipMedia, VIP_AREAS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP, VIP_MEDIA } from "../lib/vipZone.ts";
+import { getVipDownload, getVipMedia, VIP_AREAS, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP, VIP_MEDIA } from "../lib/vipZone.ts";
 import { VIP_ARTWORKS, VIP_ART_DROP } from "../data/vip-artworks.ts";
 import { VIP_ATELIER, VIP_ATELIER_MEDIA_PRIVATE } from "../data/vip-atelier.ts";
 import { VIP_DOWNLOAD_LIBRARY } from "../data/vip-downloads.ts";
+import { buildVipMemberProfile, evaluateVipAccess } from "../lib/vipMember.ts";
+import { universePassBenefitFromCode } from "../lib/universePass.ts";
+
+test("separates signed-out, Supporter and Collector VIP access", () => {
+  assert.deepEqual(evaluateVipAccess({ authenticated: false, accountActive: false, passActive: false }), { allowed: false, reason: "signed-out" });
+  assert.deepEqual(evaluateVipAccess({ authenticated: true, accountActive: true, passActive: false }), { allowed: false, reason: "pass-required" });
+
+  const supporter = buildVipMemberProfile(universePassBenefitFromCode("LW-PASS-SUPPORTER"));
+  const collector = buildVipMemberProfile(universePassBenefitFromCode("LW-PASS-COLLECTOR"));
+  assert.equal(supporter.collectorDossiers, false);
+  assert.equal(supporter.artworkDiscountPercent, 10);
+  assert.equal(collector.collectorDossiers, true);
+  assert.equal(collector.artworkDiscountPercent, 20);
+  assert.match(collector.accessLabel, /dossier estesi/i);
+});
 
 test("defines the approved spoiler-safe VIP expansion reveal", () => {
   assert.equal(VIP_EXPANSION.title, "Il Rogo delle Dieci Porte");
@@ -51,6 +66,9 @@ test("organizes the VIP archive into explicit editorial areas", () => {
   assert.equal(VIP_AREAS.find((area) => area.id === "games")?.available, true);
   assert.equal(VIP_AREAS.find((area) => area.id === "art")?.available, true);
   assert.equal(VIP_AREAS.find((area) => area.id === "atelier")?.available, true);
+  assert.equal(VIP_AREAS.every((area) => area.update.length > 0), true);
+  assert.equal(VIP_EDITORIAL_STATUS.lastUpdated, "21 agosto 2026");
+  assert.equal(VIP_EDITORIAL_STATUS.nextDrop, "In preparazione");
 });
 
 test("builds the Atelier as protected narrative processes rather than an anonymous gallery", () => {

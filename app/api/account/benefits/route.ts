@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { catalogArtworks } from "@/lib/artCatalog";
 import { automaticArtworkDeliveryReady } from "@/lib/automaticArtworkDelivery";
 import { ensureBenefitEngineTables, expireBenefits, grantPermanentCollectorCredits } from "@/lib/benefitEngine";
@@ -12,7 +14,6 @@ type RuntimeEnv = { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket };
 async function context() {
   const user = await getLoreWiseUser();
   if (!user?.email) return { error: Response.json({ error: "Accedi al tuo LoreWise ID." }, { status: 401 }) };
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   const database = runtime.DB;
   if (!database) return { error: Response.json({ error: "Centro vantaggi non disponibile." }, { status: 503 }) };

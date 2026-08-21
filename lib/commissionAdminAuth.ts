@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { headers } from "next/headers";
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
@@ -27,7 +29,6 @@ export async function getCommissionAdmin(): Promise<CommissionAdmin | null> {
   const { data, error } = await client.auth.getUser();
   if (error || !data.user?.email) return null;
 
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   if (!runtime.DB) return null;
 

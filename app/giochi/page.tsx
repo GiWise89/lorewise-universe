@@ -43,6 +43,7 @@ export default function GamesPage() {
           <a href="#diario"><span>02</span>Diario</a>
           <a href="#accesso"><span>03</span>Accesso</a>
           <a href="#community"><span>04</span>Community</a>
+          <Link className="studio-games-index-download" href="/download-app"><span>05</span><strong>Scarica l'app</strong><b aria-hidden="true">&#8594;</b></Link>
         </div>
       </nav>
 
@@ -120,6 +121,13 @@ export default function GamesPage() {
           <strong>Profilo LoreWise Universe</strong>
           <ul><li>Recensioni legate a un account</li><li>Feedback sulle versioni provate</li><li>Segnalazioni e moderazione</li><li>Vantaggi dell’abbonamento futuro</li></ul>
         </aside>
+      </section>
+
+      <section className="studio-app-download-callout" aria-labelledby="studio-app-download-title">
+        <div className="shell">
+          <div><p className="eyebrow">LoreWise per Android</p><h2 id="studio-app-download-title"><span>L'universo</span><br />in una sola app.</h2></div>
+          <div><p>Versione, requisiti, stato del collaudo e file ufficiale saranno raccolti in una pagina dedicata.</p><Link href="/download-app">Apri il centro download <span aria-hidden="true">→</span></Link></div>
+        </div>
       </section>
 
       <section className="studio-games-next" aria-labelledby="studio-next-title">

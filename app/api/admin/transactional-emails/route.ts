@@ -1,10 +1,11 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
 import { backfillTransactionalEmailOutbox, deliverTransactionalEmail, ensureTransactionalEmailTable } from "@/lib/transactionalEmail";
 
 type RuntimeEnv = { DB?: D1Database; RESEND_API_KEY?: string; LOREWISE_EMAIL_SENDER_NAME?: string; LOREWISE_EMAIL_SENDER_ADDRESS?: string; LOREWISE_EMAIL_REPLY_TO?: string };
 
 async function runtimeEnv() {
-  const { env } = await import("cloudflare:workers");
   return env as unknown as RuntimeEnv;
 }
 

@@ -1,20 +1,18 @@
 import { requireVipAccess } from "@/lib/vipAccess";
-import { VIP_AREAS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP } from "@/lib/vipZone";
+import { VIP_AREAS, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP } from "@/lib/vipZone";
 import { VIP_ART_DROP, VIP_ARTWORKS } from "@/data/vip-artworks";
 import { VIP_ATELIER } from "@/data/vip-atelier";
 import { VIP_DOWNLOAD_LIBRARY } from "@/data/vip-downloads";
+import { buildVipMemberProfile } from "@/lib/vipMember";
 
 export async function GET() {
   try {
     const access = await requireVipAccess();
     if ("error" in access) return access.error;
     return Response.json({
-      member: {
-        plan: access.pass.name,
-        badge: access.pass.communityBadge,
-        artworkDiscountPercent: access.pass.artworkDiscountPercent,
-      },
+      member: buildVipMemberProfile(access.pass),
       areas: VIP_AREAS,
+      editorial: VIP_EDITORIAL_STATUS,
       expansion: VIP_EXPANSION,
       fuoriTrama: VIP_FUORI_TRAMA_DROP,
       art: { ...VIP_ART_DROP, artworks: VIP_ARTWORKS },

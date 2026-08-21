@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { resolveCommercialProduct, type CommercialProductType } from "@/lib/commercialCatalog";
 import { automaticArtworkDeliveryReady } from "@/lib/automaticArtworkDelivery";
 import { ensureCommerceTables } from "@/lib/commerceServer";
@@ -13,7 +15,6 @@ function enabled(value: string | undefined) {
 }
 
 async function runtimeEnv() {
-  const { env } = await import("cloudflare:workers");
   return env as unknown as RuntimeEnv;
 }
 

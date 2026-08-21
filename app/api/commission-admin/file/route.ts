@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { requireCommissionAdminApi } from "@/lib/commissionAdminAuth";
 
 type RuntimeEnv = { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket };
@@ -5,7 +7,6 @@ type RuntimeEnv = { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket };
 export async function GET(request: Request) {
   const auth = await requireCommissionAdminApi();
   if (auth.response) return auth.response;
-  const { env } = await import("cloudflare:workers");
   const runtime = env as unknown as RuntimeEnv;
   if (!runtime.DB || !runtime.COMMISSION_UPLOADS) return new Response("Archivio non disponibile.", { status: 503 });
 

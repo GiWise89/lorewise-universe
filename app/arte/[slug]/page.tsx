@@ -169,7 +169,7 @@ export default async function ArtworkPage({ params }: { params: Promise<{ slug: 
         </div>
       </article>
 
-      <ArtworkCommunity artworkCode={artwork.code} artworkTitle={artwork.title} />
+      <ArtworkCommunity artworkCode={artwork.code} artworkTitle={artwork.title ?? artwork.code} />
 
       {relatedArtworks.length > 0 ? (
         <section className="shell artwork-related-wide" aria-labelledby="artwork-related-title">

@@ -1,3 +1,5 @@
+import { env } from "@/lib/netlifyRuntime";
+
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import type { CommercialProduct } from "@/lib/commercialCatalog";
 import { createStripeCheckoutSession, getStripeConfiguration, type StripeRuntimeEnv } from "@/lib/stripe";
@@ -23,7 +25,6 @@ export async function POST(request: Request) {
     const referenceCode = typeof body?.referenceCode === "string" ? body.referenceCode.trim().toUpperCase() : "";
     if (!referencePattern.test(referenceCode)) return Response.json({ error: "Codice richiesta non valido." }, { status: 400 });
 
-    const { env } = await import("cloudflare:workers");
     const runtime = env as unknown as RuntimeEnv;
     const stripe = getStripeConfiguration(runtime);
     if (!runtime.DB || !stripe.configured) return Response.json({ error: stripe.blockers[0] || "Pagamento protetto non configurato." }, { status: 503 });

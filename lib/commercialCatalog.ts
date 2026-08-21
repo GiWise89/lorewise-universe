@@ -50,7 +50,7 @@ export type CommercialProduct = {
 
 export function resolveArtworkProduct(code: string): CommercialProduct | null {
   const artwork = catalogArtworks.find((item) => item.code === code);
-  if (artwork?.access === "commercial-original" && artwork.priceTier) {
+  if (artwork?.access === "commercial-original" && artwork.priceTier && artwork.title) {
     return {
       code: artwork.code,
       slug: artwork.slug,

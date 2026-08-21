@@ -31,7 +31,7 @@ export type GameAndroidOffer = {
 
 export type GameReleaseUpdate = {
   version: string;
-  languages: string[];
+  languages?: string[];
   date: string;
   title: string;
   summary: string;
@@ -70,6 +70,7 @@ export type GameProjectRecord = {
   statusTone: "available" | "development";
   kind: string;
   version: string;
+  languages: string[];
   platforms: string[];
   access: string;
   price: string;
