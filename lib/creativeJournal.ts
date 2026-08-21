@@ -117,6 +117,44 @@ export const originalStories: CreativeJournalEntry[] = [
 
 export const reinterpretationStories: CreativeJournalEntry[] = [
   {
+    id: "michael-jackson-thriller",
+    title: "Michael Jackson · Thriller",
+    shortTitle: "Thriller",
+    kind: "reinterpretazione",
+    label: "Thriller · reinterpretazione personale non ufficiale",
+    summary: "Quattro passaggi di lavorazione raccontano la trasformazione del volto, dal primo tratto alla versione horror completa a colori.",
+    story: [
+      "Il set conserva una sequenza reale della lavorazione. Il volto nasce da poche linee, poi acquista espressione attraverso gli occhi, il sorriso e la massa dei capelli.",
+      "Nella versione completa il ritratto si divide in due identità: da una parte il volto riconoscibile e la giacca rossa, dall'altra la trasformazione mostruosa ispirata all'immaginario di Thriller.",
+    ],
+    process: [
+      "Costruzione del profilo e dei primi tratti del volto.",
+      "Definizione di occhi, sorriso e capelli.",
+      "Completamento delle linee e della trasformazione horror.",
+      "Colorazione finale e separazione tra lato umano e lato mostruoso.",
+    ],
+    facts: [
+      { label: "Soggetto", value: "Michael Jackson" },
+      { label: "Opera di riferimento", value: "Thriller" },
+      { label: "Tecnica", value: "Disegno digitale, linea e colore" },
+      { label: "Stato", value: "Opera completa in archivio" },
+    ],
+    tags: ["Michael Jackson", "Thriller", "horror", "fan art", "colore"],
+    processImages: [
+      wip("lw-wip-011-a-preview.webp", "Prima fase protetta della reinterpretazione di Michael Jackson ispirata a Thriller", 816, 1305),
+      wip("lw-wip-011-b-preview.webp", "Seconda fase protetta della reinterpretazione di Michael Jackson ispirata a Thriller", 816, 1305),
+      wip("lw-wip-011-c-preview.webp", "Terza fase protetta della reinterpretazione di Michael Jackson ispirata a Thriller", 816, 1305),
+      wip("lw-wip-011-d-preview.webp", "Inchiostrazione protetta della reinterpretazione di Michael Jackson ispirata a Thriller", 816, 1305),
+    ],
+    image: {
+      src: "/creative-journal/previews/lw-wip-011-complete-preview.webp",
+      alt: "Risultato completo protetto della reinterpretazione di Michael Jackson ispirata a Thriller",
+      width: 1057,
+      height: 1500,
+    },
+    status: "completo",
+  },
+  {
     id: "laezel-guerriera-astrale",
     title: "Lae’zel · Guerriera Astrale",
     shortTitle: "Lae’zel",

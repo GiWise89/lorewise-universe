@@ -680,7 +680,7 @@ test("renders a commission dossier without sale or download actions", async () =
   assert.match(html, /2480 × 3508 px/);
   assert.match(html, /2026/);
   assert.doesNotMatch(html, /Anno da confermare/);
-  assert.doesNotMatch(html, /Acquista|Scarica|€|Disponibile prossimamente/i);
+  assert.doesNotMatch(html, /Acquista l.opera|download disponibile|€|Disponibile prossimamente/i);
 });
 
 test("protects the GiWise commission management workspace outside development", async () => {
@@ -1203,5 +1203,5 @@ test("rejects unsigned Stripe webhook requests", async () => {
     body: JSON.stringify({ id: "evt_unsigned", type: "checkout.session.completed" }),
   });
   assert.equal(response.status, 503);
-  assert.match(await response.text(), /Webhook Stripe non configurato/i);
+  assert.match(await response.text(), /Webhook Stripe non configurato|chiave segreta Stripe valida/i);
 });

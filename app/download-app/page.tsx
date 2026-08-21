@@ -5,7 +5,7 @@ import { appReleaseStatusLabels, lorewiseAndroidRelease } from "@/lib/appRelease
 
 export const metadata: Metadata = {
   title: "Scarica l'app LoreWise Universe",
-  description: "Pagina ufficiale per scaricare e verificare l'APK Android di LoreWise Universe.",
+  description: "Pagina ufficiale per scaricare e verificare la beta APK Android di LoreWise Universe.",
 };
 
 const release = lorewiseAndroidRelease;
@@ -16,9 +16,9 @@ export default function DownloadAppPage() {
       <section className="app-download-hero" aria-labelledby="app-download-title">
         <div className="shell app-download-hero-inner">
           <div className="app-download-copy">
-            <p className="eyebrow">Applicazione ufficiale GiWise Studio</p>
+            <p className="eyebrow">Applicazione Android GiWise Studio</p>
             <h1 id="app-download-title">LoreWise<br />sempre con te.</h1>
-            <p>Esplora progetti, opere, dossier e contenuti riservati da un unico accesso. L'APK ufficiale sara pubblicato qui soltanto dopo il collaudo completo.</p>
+            <p>Esplora progetti, opere, dossier e contenuti riservati da un unico accesso. La beta Android include le sezioni e i servizi LoreWise disponibili sul dominio ufficiale. Richiede una connessione internet.</p>
             <a href="#versione-android">Controlla la versione Android <span aria-hidden="true">↓</span></a>
           </div>
           <div className="app-download-identity" aria-label="Identita visiva di LoreWise Universe per Android">
@@ -31,9 +31,9 @@ export default function DownloadAppPage() {
       <section className="app-download-release" id="versione-android" aria-labelledby="android-release-title">
         <div className="shell app-download-release-grid">
           <header>
-            <p className="eyebrow">Android · Canale ufficiale</p>
+            <p className="eyebrow">Android · Beta ufficiale</p>
             <h2 id="android-release-title">APK<br />LoreWise Universe</h2>
-            <p>Il file non viene reso pubblico finche apertura, accesso e aggiornamento non superano la verifica su dispositivo.</p>
+            <p>Il pacchetto ha superato compilazione, lint, controllo della firma e verifica di integrita. Il collaudo su dispositivo fisico resta parte del programma beta.</p>
           </header>
           <div className="app-download-release-data">
             <dl>
@@ -46,7 +46,7 @@ export default function DownloadAppPage() {
               <span>Stato distribuzione</span>
               <strong>{appReleaseStatusLabels[release.status]}</strong>
               {release.downloadHref ? <a href={release.downloadHref} download>Scarica APK <span aria-hidden="true">↓</span></a> : <span className="app-download-disabled" aria-disabled="true">APK in verifica</span>}
-              <small>Nessuna build difettosa verra proposta per il download.</small>
+              <small>Release firmata per installazione diretta. Non e una build Play Store.</small>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ export default function DownloadAppPage() {
         <div className="shell">
           <header className="app-download-install-heading">
             <div><p className="eyebrow">Installazione Android</p><h2>Dal download al primo avvio.</h2></div>
-            <p>L'app viene distribuita come APK ufficiale LoreWise. Le diciture possono cambiare leggermente in base alla marca del dispositivo e alla versione di Android.</p>
+            <p>La beta viene distribuita come APK LoreWise firmato per installazione diretta. Le diciture possono cambiare leggermente in base alla marca del dispositivo e alla versione di Android.</p>
           </header>
           <ol className="app-install-steps">
             <li><span>01</span><div><strong>Scarica da questa pagina</strong><p>Usa soltanto il pulsante ufficiale e attendi che il download sia completo.</p></div></li>
@@ -76,8 +76,8 @@ export default function DownloadAppPage() {
             <li><span>04</span><div><strong>Installa e ripristina la protezione</strong><p>Torna al file, scegli Installa e, al termine, disattiva nuovamente il permesso per le app sconosciute.</p></div></li>
           </ol>
           <div className="app-download-security-note">
-            <div><p className="eyebrow">Autenticità verificabile</p><h3>L'APK ufficiale viene controllato prima della pubblicazione.</h3></div>
-            <div><p>Nessun software può essere garantito sicuro al 100% in senso assoluto. La release LoreWise viene però pubblicata solo dopo firma, verifica del pacchetto e controllo antimalware. Hash SHA-256, dimensione e data permetteranno di confrontare il file scaricato con l'originale ufficiale.</p><p>Non installare copie ricevute via chat, email o siti esterni. Se Play Protect segnala una minaccia concreta, interrompi l'installazione e contatta l'assistenza.</p></div>
+            <div><p className="eyebrow">Autenticità verificabile</p><h3>La beta APK viene controllata prima della pubblicazione.</h3></div>
+            <div><p>Nessun software può essere garantito sicuro al 100% in senso assoluto. La release LoreWise viene però pubblicata solo dopo firma, verifica del pacchetto e controllo di integrita. Hash SHA-256, dimensione e data permetteranno di confrontare il file scaricato con l'originale ufficiale.</p><p>Non installare copie ricevute via chat, email o siti esterni. Se Play Protect segnala una minaccia concreta, interrompi l'installazione e contatta l'assistenza.</p></div>
           </div>
         </div>
       </section>
