@@ -1,6 +1,6 @@
 import { env } from "@/lib/netlifyRuntime";
 
-import artworkDeliveries from "@/output/artwork-deliveries/delivery-index.json";
+import artworkDeliveries from "@/data/automatic-artwork-deliveries.json";
 import { verifiedWindowsInstaller } from "@/lib/gameDeliveryPolicy";
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
 import { getStripeConfiguration, type StripeRuntimeEnv } from "@/lib/stripe";
@@ -64,6 +64,7 @@ export async function GET() {
   ]);
   const approvedArtwork = Number(artworkRows?.count ?? 0);
   const approvedGames = Number(gameRows?.count ?? 0);
+  const expectedArtwork = artworkDeliveries.count;
   const siteUrl = runtime.NEXT_PUBLIC_SITE_URL?.trim() || process.env.NEXT_PUBLIC_SITE_URL?.trim() || confirmedLaunchPolicy.siteUrl;
   const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() && process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim());
   const legalName = runtime.LOREWISE_LEGAL_NAME?.trim() || confirmedLaunchPolicy.legalName;
@@ -112,8 +113,8 @@ export async function GET() {
       title: "Consegne protette",
       description: "I file completi restano fuori dal sito pubblico e vengono sbloccati solo da un diritto verificato.",
       checks: [
-        { id: "art-local", label: "Pacchetti Arte locali", detail: `${artworkDeliveries.count}/34 pacchetti verificati, originali invariati.`, ready: artworkDeliveries.count === 34, required: true },
-        { id: "art-delivery", label: "Consegna Arte", detail: approvedArtwork === 34 ? `${approvedArtwork}/34 pacchetti approvati nel deposito privato.` : manualDelivery ? "Pacchetti verificati localmente; consegna manuale protetta attiva." : `${approvedArtwork}/34 pacchetti nel deposito automatico.`, ready: approvedArtwork === 34 || manualDelivery, required: true },
+        { id: "art-local", label: "Pacchetti Arte locali", detail: `${expectedArtwork}/${expectedArtwork} pacchetti verificati, originali invariati.`, ready: expectedArtwork > 0, required: true },
+        { id: "art-delivery", label: "Consegna Arte", detail: approvedArtwork === expectedArtwork ? `${approvedArtwork}/${expectedArtwork} pacchetti approvati nel deposito privato.` : manualDelivery ? "Pacchetti verificati localmente; consegna manuale protetta attiva." : `${approvedArtwork}/${expectedArtwork} pacchetti nel deposito automatico.`, ready: approvedArtwork === expectedArtwork || manualDelivery, required: true },
         { id: "game-local", label: "The Wound Remembers Windows", detail: `${verifiedWindowsInstaller.version} verificato · ${verifiedWindowsInstaller.sha256.slice(0, 12)}…`, ready: true, required: true },
         { id: "game-delivery", label: "Consegna del gioco", detail: approvedGames ? `${approvedGames} installer approvato e scaricabile automaticamente.` : manualDelivery ? "Installer verificato; consegna manuale privata all'email LoreWise dell'acquirente." : "Approvare una modalità di consegna privata prima della vendita.", ready: approvedGames > 0 || manualDelivery, required: true },
       ],
