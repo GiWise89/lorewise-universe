@@ -27,7 +27,7 @@ const requiredTables = [
   "customers", "commission_requests", "commission_request_files", "orders", "order_items", "subscriptions", "subscription_invoices",
   "entitlements", "commission_payments", "payment_events", "order_support_requests", "artwork_delivery_files", "game_delivery_files",
   "game_ratings",
-  "benefit_ledger", "benefit_events", "member_benefit_claims", "codex_bookmarks", "studio_poll_votes", "transactional_emails",
+  "benefit_ledger", "benefit_events", "member_benefit_claims", "codex_bookmarks", "codex_character_suggestions", "studio_poll_votes", "transactional_emails",
   "manual_deliveries",
 ];
 const tables = new Set(database.prepare("SELECT name FROM sqlite_master WHERE type = 'table'").all().map((row) => row.name));
@@ -47,7 +47,7 @@ for (const column of ["event_key", "recipient_email", "template", "status", "att
 
 const indexes = new Set(database.prepare("SELECT name FROM sqlite_master WHERE type = 'index'").all().map((row) => row.name));
 for (const index of ["subscriptions_order_id_unique", "orders_stripe_refund_id_unique", "entitlements_customer_resource_unique",
-  "benefit_ledger_customer_idx", "member_benefit_claim_unique", "codex_bookmarks_customer_idx", "studio_poll_votes_poll_idx", "transactional_emails_status_idx",
+  "benefit_ledger_customer_idx", "member_benefit_claim_unique", "codex_bookmarks_customer_idx", "codex_character_suggestions_customer_idx", "studio_poll_votes_poll_idx", "transactional_emails_status_idx",
   "manual_deliveries_order_id_unique", "manual_deliveries_status_idx", "manual_deliveries_customer_idx"]) {
   assert.ok(indexes.has(index), `Indice finale mancante: ${index}`);
 }

@@ -3,13 +3,14 @@ import { env } from "@/lib/netlifyRuntime";
 import { ensureArtCommunityTables } from "@/lib/artCommunityServer";
 import { automaticArtworkDeliveryReady, getAutomaticArtworkDelivery } from "@/lib/automaticArtworkDelivery";
 import { ensureCommerceTables } from "@/lib/commerceServer";
+import { localAccountProfile, netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
-import { getLoreWiseUser } from "@/lib/supabase/server";
-import { ensureCommissionBenefitColumns, getActiveUniversePass } from "@/lib/universePass";
+import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
+import { ensureCommissionBenefitColumns, getActiveUniversePass, isPermanentCollectorEmail, universePassBenefitFromCode } from "@/lib/universePass";
 import { ensureSupportTicketTables } from "@/lib/supportTickets";
 import { getStripeConfiguration, type StripeRuntimeEnv } from "@/lib/stripe";
 
-type RuntimeEnv = StripeRuntimeEnv & { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket; LOREWISE_MANUAL_DELIVERY_APPROVED?: string };
+type RuntimeEnv = StripeRuntimeEnv & { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket; LOREWISE_MANUAL_DELIVERY_APPROVED?: string; LOREWISE_ADMIN_EMAILS?: string };
 
 type OrderRow = {
   reference_code: string; order_type: string; status: string; currency: string; total_cents: number;
@@ -33,6 +34,40 @@ export async function GET() {
     const user = await getLoreWiseUser();
     if (!user?.email) return Response.json({ error: "Sessione non valida." }, { status: 401 });
     const runtime = env as unknown as RuntimeEnv;
+    if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
+      const profile = localAccountProfile(user, runtime);
+      const collector = isPermanentCollectorEmail(user.email);
+      const benefits = universePassBenefitFromCode(collector ? "LW-PASS-COLLECTOR" : null);
+      const stripe = getStripeConfiguration(runtime);
+      return Response.json({
+        identity: {
+          email: profile.email,
+          displayName: profile.displayName,
+          role: profile.role,
+          status: profile.status,
+          memberSince: profile.createdAt,
+        },
+        commerce: { testMode: stripe.testMode, mode: stripe.mode, manualDelivery: false },
+        summary: { orders: 0, libraryItems: 0, commissions: 0, communityInteractions: 0 },
+        orders: [],
+        library: [],
+        subscription: collector ? {
+          planCode: "LW-PASS-COLLECTOR",
+          status: "active",
+          currentPeriodEnd: null,
+          cancelAtPeriodEnd: false,
+          createdAt: user.created_at,
+          complimentary: true,
+          expiresSoon: false,
+        } : null,
+        benefits,
+        subscriptionInvoices: [],
+        commissions: [],
+        supportTickets: [],
+        community: { likes: 0, comments: 0, openReports: 0 },
+        localPreview: true,
+      }, { headers: { "Cache-Control": "private, no-store" } });
+    }
     const database = runtime.DB;
     if (!database) return Response.json({ error: "Archivio personale non disponibile." }, { status: 503 });
     await syncLoreWiseCustomer(user);
@@ -50,7 +85,8 @@ export async function GET() {
     const [orders, entitlements, subscription, subscriptionInvoices, commissions, supportTickets, community, openReports] = await Promise.all([
       database.prepare(`SELECT orders.reference_code, orders.order_type, orders.status, orders.currency,
         orders.total_cents, orders.paid_at, orders.created_at, orders.stripe_checkout_session_id,
-        COUNT(order_items.id) AS item_count, GROUP_CONCAT(order_items.title, ' · ') AS item_titles,
+        COUNT(order_items.id) AS item_count,
+        STRING_AGG(order_items.title, ' · ' ORDER BY order_items.created_at) AS item_titles,
         MAX(order_items.product_code) AS item_product_code
         FROM orders LEFT JOIN order_items ON order_items.order_id = orders.id
         WHERE orders.customer_id = ? GROUP BY orders.id ORDER BY orders.created_at DESC LIMIT 12`)
@@ -148,7 +184,8 @@ export async function GET() {
       supportTickets: supportTickets.results.map((ticket) => ({ referenceCode: ticket.reference_code, category: ticket.category, subject: ticket.subject, status: ticket.status, priority: ticket.priority, adminNotes: ticket.admin_notes, createdAt: ticket.created_at, updatedAt: ticket.updated_at })),
       community: { likes: Number(community?.likes ?? 0), comments: Number(community?.comments ?? 0), openReports: Number(openReports?.total ?? 0) },
     }, { headers: { "Cache-Control": "private, no-store" } });
-  } catch {
+  } catch (error) {
+    console.error("[account/dashboard] Impossibile caricare l'Area personale.", error);
     return Response.json({ error: "Non è stato possibile caricare l’Area personale." }, { status: 503 });
   }
 }

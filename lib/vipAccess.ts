@@ -1,8 +1,9 @@
 import { env } from "@/lib/netlifyRuntime";
 
 import { ensureCommerceTables } from "@/lib/commerceServer";
+import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
-import { getLoreWiseUser } from "@/lib/supabase/server";
+import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 import { getActiveUniversePass, isPermanentCollectorEmail, universePassBenefitFromCode } from "@/lib/universePass";
 import { evaluateVipAccess } from "@/lib/vipMember";
 
@@ -15,6 +16,16 @@ export async function requireVipAccess(options: { prepareCommerce?: boolean } = 
   }
 
   const runtime = env as unknown as VipRuntimeEnv;
+  const permanentOwnerPass = isPermanentCollectorEmail(user.email)
+    ? universePassBenefitFromCode("LW-PASS-COLLECTOR")
+    : null;
+
+  // Local previews do not have the Netlify database. Keep the permanent
+  // Collector grant only for the authenticated owner on recognized local hosts.
+  if (permanentOwnerPass && !netlifyDatabaseIsConfigured() && await isLocalLoreWiseRequest()) {
+    return { user, pass: permanentOwnerPass, runtime } as const;
+  }
+
   if (!runtime.DB) {
     return { error: Response.json({ error: "La verifica del Pass non è disponibile in questo momento.", reason: "unavailable" }, { status: 503, headers: { "Cache-Control": "private, no-store" } }) } as const;
   }
@@ -29,8 +40,8 @@ export async function requireVipAccess(options: { prepareCommerce?: boolean } = 
     return { error: Response.json({ error: "Questo profilo LoreWise non è abilitato.", reason: "disabled" }, { status: 403, headers: { "Cache-Control": "private, no-store" } }) } as const;
   }
 
-  const pass = isPermanentCollectorEmail(user.email)
-    ? universePassBenefitFromCode("LW-PASS-COLLECTOR")
+  const pass = permanentOwnerPass
+    ? permanentOwnerPass
     : await getActiveUniversePass(runtime.DB, user.id);
   if (!evaluateVipAccess({ authenticated: true, accountActive: true, passActive: pass.active }).allowed) {
     return { error: Response.json({ error: "Questa sezione è riservata a un Universe Pass attivo.", reason: "pass-required" }, { status: 403, headers: { "Cache-Control": "private, no-store" } }) } as const;

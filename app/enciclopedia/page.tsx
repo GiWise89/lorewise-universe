@@ -5,6 +5,7 @@ import { CodexIndex } from "@/components/CodexIndex";
 import { codexCategories, codexEntries } from "@/lib/codex";
 import { createCodexIndexEntries } from "@/lib/codexIndex";
 import { UniverseGuide } from "@/components/UniverseGuide";
+import { CodexSuggestionForm } from "@/components/CodexSuggestionForm";
 
 export const metadata: Metadata = {
   title: "LoreWise Codex",
@@ -57,6 +58,7 @@ export default function EncyclopediaPage() {
     </section>
 
     <div id="indice-codex" className="shell"><CodexIndex entries={documentedIndexEntries} eyebrow="Universi documentati" title="Personaggi e opere esterne." /></div>
+    <div className="shell"><CodexSuggestionForm /></div>
     <UniverseGuide current="LoreWise Codex" items={[
       { href: "/enciclopedia/originali-giwise", label: "Originali GiWise", description: "Il canone creato e custodito da GiWise Studio." },
       { href: "/giochi", label: "Giochi e app", description: "I mondi interattivi e il loro stato reale." },

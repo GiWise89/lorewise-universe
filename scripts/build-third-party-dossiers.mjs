@@ -15,6 +15,13 @@ const discoveryById = new Map(discovery.map((record) => [record.id, record]));
 
 const verified = (value, sourceIds) => ({ value, status: "verified", sourceIds });
 const fact = (label, value) => ({ label, ...value });
+const lowerFirst = (value) => value ? `${value.charAt(0).toLocaleLowerCase("it")}${value.slice(1)}` : "";
+const detailedRole = (profile) => {
+  const parts = [`${profile.role}.`];
+  if (profile.method && profile.method !== profile.role) parts.push(`Agisce soprattutto attraverso ${lowerFirst(profile.method)}.`);
+  if (profile.motivation && profile.motivation !== profile.role && profile.motivation !== profile.method) parts.push(`Il suo obiettivo ricorrente è ${lowerFirst(profile.motivation)}.`);
+  return parts.join(" ");
+};
 
 const pokemonMetadata = [
   { id: "bulbasaur", number: "001", type: "Erba · Veleno", species: "Pokémon Seme", evolution: "Bulbasaur → Ivysaur → Venusaur", origin: "Regione di Kanto", trait: "Il seme sul dorso cresce insieme al corpo assorbendo luce e nutrimento.", appearance: "Quadrupede verde-azzurro con macchie scure e un grande bulbo vegetale sul dorso.", limitation: "Il benessere e la crescita del bulbo sono legati alla luce e all’energia accumulate.", first: "Pokémon Rosso e Verde", year: "1996" },
@@ -241,14 +248,13 @@ function buildDossier(profile) {
     identity: [
       fact("Nome", verified(record.name, sourceIds)),
       fact("Nome originale", verified(profile.originalName || record.name, sourceIds)),
-      fact("Pronuncia", verified(profile.pronunciation || record.name, sourceIds)),
       fact("Specie o natura", verified(profile.species, sourceIds)),
       fact("Genere e pronomi", verified(profile.gender, sourceIds)),
       fact("Data di nascita", verified(profile.birth || "Non stabilita nella continuità selezionata", sourceIds)),
       fact("Età", verified(profile.age || "Variabile o non stabilita nella continuità selezionata", sourceIds)),
       fact("Luogo d’origine", verified(profile.origin, sourceIds)),
       fact("Provenienza", verified(record.franchise, sourceIds)),
-      fact("Occupazione o ruolo", verified(profile.role, sourceIds)),
+      fact("Occupazione o ruolo", verified(detailedRole(profile), sourceIds)),
     ],
     narrative: [
       fact("Universo", verified(record.franchise, sourceIds)),

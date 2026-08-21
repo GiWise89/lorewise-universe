@@ -2,12 +2,16 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies, headers } from "next/headers";
 import { getSupabasePublicConfig } from "@/lib/supabase/config";
 
-async function isLocalRequest() {
+export async function isLocalLoreWiseRequest() {
   try {
     const requestHeaders = await headers();
     const rawHost = (requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "").toLowerCase();
     const host = rawHost.startsWith("[") ? rawHost.slice(0, rawHost.indexOf("]") + 1) : rawHost.split(":")[0];
-    return host === "localhost" || host === "127.0.0.1" || host === "[::1]";
+    const configuredHosts = (process.env.LOREWISE_LOCAL_PREVIEW_HOSTS ?? "")
+      .split(",")
+      .map((configuredHost) => configuredHost.trim().toLowerCase())
+      .filter(Boolean);
+    return host === "localhost" || host === "127.0.0.1" || host === "[::1]" || configuredHosts.includes(host);
   } catch {
     return false;
   }
@@ -41,7 +45,7 @@ export async function getLoreWiseUser() {
     // Il recupero locale sottostante gestisce un provider temporaneamente irraggiungibile.
   }
 
-  if (await isLocalRequest()) {
+  if (await isLocalLoreWiseRequest()) {
     try {
       const { data } = await client.auth.getSession();
       return data.session?.user ?? null;

@@ -1,10 +1,16 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { getCreativeJournalEntry } from "../lib/creativeJournal.ts";
 
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
 const workerPromise = import(workerUrl.href);
+test("uses PostgreSQL-compatible aggregation in the personal dashboard", async () => {
+  const source = await readFile(new URL("../app/api/account/dashboard/route.ts", import.meta.url), "utf8");
+  assert.match(source, /STRING_AGG\(order_items\.title/);
+  assert.doesNotMatch(source, /GROUP_CONCAT/i);
+});
 
 async function render(pathname = "/", init = {}) {
   const { default: worker } = await workerPromise;
@@ -70,6 +76,7 @@ test("renders the GiWise creative journal with originals and clearly separated r
   assert.match(html, /Reinterpretazioni/);
   assert.match(html, /Qualcosa di me/);
   assert.match(html, /Mondi in costruzione/);
+  assert.doesNotMatch(html, /Scorri per vedere tutto/);
   assert.doesNotMatch(html, /La storia del personaggio|La chiamavano Terza/);
   assert.match(html, /href="\/dove-nascono-i-mondi\/scappa-finche-puoi"/);
 });
@@ -644,6 +651,10 @@ test("renders the complete protected commission portfolio", async () => {
   assert.match(html, /Ritratto Completo/);
   assert.match(html, /lw-com-003-preview\.webp/);
   assert.match(html, /Opera Narrativa/);
+  assert.match(html, /3 giorni lavorativi/);
+  assert.match(html, /5 giorni lavorativi/);
+  assert.match(html, /8 giorni lavorativi/);
+  assert.doesNotMatch(html, /7–10 giorni lavorativi|10–15 giorni lavorativi|15–25 giorni lavorativi/);
   assert.match(html, /49 €/);
   assert.match(html, /79 €/);
   assert.match(html, /119 €/);
@@ -1066,7 +1077,7 @@ test("keeps the verified Windows game archive private and the installer unavaila
   assert.match(html, /La build desktop corretta è verificata/i);
   assert.match(html, /1\.0\.2/);
   assert.match(html, /85830385096300EDC17FCD79A8210A212848F081E044160FE6E33CF31240D810/);
-  assert.match(html, /nessun rilevamento/i);
+  assert.match(html, /Scansione Microsoft Defender da completare/i);
   assert.doesNotMatch(html, /1587DA3C2ACD614166D7F5DFD5D0B323E40D2AC9F73846010D9508332D3AABD6/);
   const api = await render("/api/game-deliveries/admin", { headers: { accept: "application/json" } });
   assert.equal(api.status, 401);
@@ -1204,4 +1215,25 @@ test("rejects unsigned Stripe webhook requests", async () => {
   });
   assert.equal(response.status, 503);
   assert.match(await response.text(), /Webhook Stripe non configurato|chiave segreta Stripe valida/i);
+});
+
+test("renders the VIP Codex proposal area and protects its API", async () => {
+  const page = await render("/enciclopedia");
+  assert.equal(page.status, 200);
+  const html = await page.text();
+  assert.match(html, /CodexSuggestionForm|Verifica del Pass in corso/i);
+
+  const api = await render("/api/codex-suggestions", { headers: { accept: "application/json" } });
+  assert.equal(api.status, 401);
+  assert.match(await api.text(), /LoreWise ID/i);
+});
+
+test("omits undocumented pronunciation and keeps detailed generated roles", async () => {
+  const dossiers = JSON.parse(await readFile(new URL("../data/codex/third-party-dossiers.generated.json", import.meta.url), "utf8"));
+  assert.equal(dossiers.length, 444);
+  for (const dossier of dossiers) {
+    const occupation = dossier.identity.find((fact) => fact.label === "Occupazione o ruolo")?.value;
+    assert.equal(dossier.identity.some((fact) => fact.label === "Pronuncia"), false, `Pronuncia inattesa: ${dossier.slug}`);
+    assert.match(occupation, /Agisce soprattutto attraverso/i, `Ruolo non approfondito: ${dossier.slug}`);
+  }
 });

@@ -102,7 +102,8 @@ export function SiteHeader() {
       <nav id="mobile-navigation" className={menuOpen ? "mobile-navigation is-open" : "mobile-navigation"} aria-label="Navigazione mobile" hidden={!menuOpen}>
         <ul><li><Link className={isCurrentRoute(pathname, "/cerca") ? "is-active" : undefined} aria-current={isCurrentRoute(pathname, "/cerca") ? "page" : undefined} href="/cerca" onClick={() => setMenuOpen(false)}><Image src="/brand/lorewise-universe-logo-concept-c.webp" alt="" width={1536} height={1024} unoptimized /><span>Cerca</span></Link></li>{navigation.map((item) => {
           const isActive = isCurrentRoute(pathname, item.href);
-          return <li key={item.href}><Link className={isActive ? "is-active" : undefined} aria-current={isActive ? "page" : undefined} href={item.href} onClick={() => setMenuOpen(false)}><Image src={navIcons[item.href]} alt="" width={1224} height={1285} unoptimized /><span>{item.label}</span></Link></li>;
+          const isFeatured = item.href === "/dove-nascono-i-mondi";
+          return <li className={isFeatured ? "mobile-navigation-featured" : undefined} key={item.href}><Link className={isActive ? "is-active" : undefined} aria-current={isActive ? "page" : undefined} href={item.href} onClick={() => setMenuOpen(false)}><Image src={navIcons[item.href]} alt="" width={1224} height={1285} unoptimized /><span>{item.label}</span></Link></li>;
         })}</ul>
       </nav>
     </header>

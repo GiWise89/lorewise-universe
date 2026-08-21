@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { saveLocalCodexBookmark } from "@/lib/localCodexBookmarks";
 
 export function CodexBookmarkButton({ slug }: { slug: string }) {
   const [collection, setCollection] = useState("Preferiti");
@@ -16,10 +17,21 @@ export function CodexBookmarkButton({ slug }: { slug: string }) {
         body: JSON.stringify({ action: "bookmark", slug, collection }),
       });
       const payload = await response.json() as { error?: string };
-      if (!response.ok) throw new Error(payload.error || "Salvataggio non disponibile.");
+      if (!response.ok) {
+        if (response.status === 401 || response.status === 503) {
+          saveLocalCodexBookmark(slug, collection);
+          setMessage("Salvato su questo dispositivo. Accedi al LoreWise ID per sincronizzarlo.");
+          return;
+        }
+        throw new Error(payload.error || "Salvataggio non disponibile.");
+      }
+      saveLocalCodexBookmark(slug, collection);
       setMessage("Salvato nel tuo Codex");
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Salvataggio non disponibile.");
+      saveLocalCodexBookmark(slug, collection);
+      setMessage(error instanceof Error
+        ? `Salvato su questo dispositivo. Sincronizzazione non riuscita: ${error.message}`
+        : "Salvato su questo dispositivo.");
     } finally { setBusy(false); }
   }
 

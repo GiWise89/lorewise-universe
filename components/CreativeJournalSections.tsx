@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 import { useId, useState } from "react";
-import { HorizontalScrollHint } from "@/components/HorizontalScrollHint";
 
 export type JournalSection = { id: string; label: string; eyebrow?: string; content: ReactNode };
 
@@ -15,7 +14,6 @@ export function CreativeJournalSections({ sections, label, variant = "dark" }: {
 
   return (
     <div className={`journal-switch journal-switch-${variant}`}>
-      <HorizontalScrollHint className="journal-scroll-hint" />
       <div className="journal-switch-tabs" role="tablist" aria-label={label}>
         {sections.map((section, index) => (
           <button

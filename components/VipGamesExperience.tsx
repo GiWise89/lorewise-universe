@@ -8,6 +8,7 @@ import { VipArtExperience } from "@/components/VipArtExperience";
 import type { VIP_ATELIER } from "@/data/vip-atelier";
 import type { VIP_DOWNLOAD_LIBRARY } from "@/data/vip-downloads";
 import { VipAtelierExperience } from "@/components/VipAtelierExperience";
+import { showVipMediaFallback } from "@/lib/vipMediaClient";
 
 type VipPayload = {
   member: { plan: string; badge: string | null; artworkDiscountPercent: number; collectorDossiers: boolean; accessLabel: string };
@@ -187,7 +188,7 @@ export function VipGamesExperience() {
           <div className="vip-download-grid">
             {collection.items.map((item, itemIndex) => <article key={item.code}>
               <figure>
-                <img src={`/api/vip-media?asset=${item.image}`} alt={`${item.title}, sfondo desktop LoreWise VIP`} loading="lazy" decoding="async" />
+                <img src={`/api/vip-media?asset=${item.image}`} alt={`${item.title}, sfondo desktop LoreWise VIP`} loading="lazy" decoding="async" onError={showVipMediaFallback} />
                 <figcaption><span>{String(itemIndex + 1).padStart(2, "0")}</span><strong>Anteprima protetta</strong></figcaption>
               </figure>
               <div>
@@ -230,7 +231,7 @@ export function VipGamesExperience() {
 
     {activeGame === "the-wound-remembers" ? <div id="vip-panel-twr" role="tabpanel">
     <section className="vip-expansion-hero" id="the-wound-remembers" aria-labelledby="vip-expansion-title">
-      <img src={`/api/vip-media?asset=${expansion.keyArt}`} alt={`Key art di ${expansion.game}: ${expansion.title}`} decoding="async" fetchPriority="high" />
+      <img src={`/api/vip-media?asset=${expansion.keyArt}`} alt={`Key art di ${expansion.game}: ${expansion.title}`} decoding="async" fetchPriority="high" onError={showVipMediaFallback} />
       <div className="vip-hero-shade" aria-hidden="true" />
       <div className="shell vip-expansion-hero-copy">
         <p className="eyebrow">VIP Zone · Anteprima Games</p>
@@ -289,7 +290,7 @@ export function VipGamesExperience() {
     <section className="vip-character-files shell" aria-label="Personaggi annunciati">
       {expansion.characters.map((character, index) => <article className={`vip-character vip-character-${index === 0 ? "vharokh" : "velisara"}`} id={index === 0 ? "vharokh" : "velisara"} key={character.code}>
         <div className="vip-character-figure">
-          <img src={`/api/vip-media?asset=${character.image}`} alt={`${character.name}, ${character.title}`} loading="lazy" decoding="async" />
+          <img src={`/api/vip-media?asset=${character.image}`} alt={`${character.name}, ${character.title}`} loading="lazy" decoding="async" onError={showVipMediaFallback} />
         </div>
         <div className="vip-character-copy">
           <p className="eyebrow">Dossier {String(index + 1).padStart(2, "0")} · {character.code}</p>
@@ -350,7 +351,7 @@ export function VipGamesExperience() {
         <div className="vip-singer-roster" aria-label="Prima selezione dei cantanti">
           {fuoriTrama.roster.map((character, index) => <article key={character.name}>
             <figure>
-              <img src={`/api/vip-media?asset=${character.image}`} alt={`${character.name}, personaggio previsto per Fuori Trama`} loading="lazy" decoding="async" />
+              <img src={`/api/vip-media?asset=${character.image}`} alt={`${character.name}, personaggio previsto per Fuori Trama`} loading="lazy" decoding="async" onError={showVipMediaFallback} />
               <figcaption><span>{String(index + 1).padStart(2, "0")}</span><small>{character.origin}</small></figcaption>
             </figure>
             <h3>{character.name}</h3>

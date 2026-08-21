@@ -1,6 +1,6 @@
 "use client";
 
-import { Children, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { Children, type KeyboardEvent, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 
 type ChapterDefinition = { id: string; title: string };
@@ -71,20 +71,38 @@ export function CodexChapterTabs({ chapters, children }: { chapters: ChapterDefi
     });
   };
 
+  const handleChapterKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let nextIndex = index;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = (index + 1) % chapters.length;
+    else if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = (index - 1 + chapters.length) % chapters.length;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = chapters.length - 1;
+    else return;
+
+    event.preventDefault();
+    const nextChapter = chapters[nextIndex];
+    if (!nextChapter) return;
+    selectChapter(nextChapter.id);
+    document.getElementById(`codex-tab-${nextChapter.id}`)?.focus();
+  };
+
   return <div className="codex-dossier-tabs" ref={dossierRef}>
     <div className="codex-spoiler-control" role="group" aria-label="Preferenza spoiler del LoreWise Codex">
       <span><small>Lettura del dossier</small><strong>{spoilerPreference === "protected" ? "Spoiler protetti" : "Cronologie aperte"}</strong></span>
       <button type="button" aria-pressed={spoilerPreference === "protected"} onClick={() => updateSpoilerPreference("protected")}>Proteggi</button>
       <button type="button" aria-pressed={spoilerPreference === "open"} onClick={() => updateSpoilerPreference("open")}>Mostra</button>
     </div>
-    <nav className="codex-chapter-index" aria-label="Capitoli della scheda">
-      {chapters.map((chapter, index) => <button type="button" className={activeId === chapter.id ? "is-active" : ""} aria-pressed={activeId === chapter.id} onClick={() => selectChapter(chapter.id)} key={chapter.id}>
+    <nav className="codex-chapter-index" aria-label="Capitoli della scheda" role="tablist">
+      {chapters.map((chapter, index) => <button id={`codex-tab-${chapter.id}`} type="button" role="tab" className={activeId === chapter.id ? "is-active" : ""} aria-selected={activeId === chapter.id} aria-controls={`codex-panel-${chapter.id}`} tabIndex={activeId === chapter.id ? 0 : -1} onClick={() => selectChapter(chapter.id)} onKeyDown={(event) => handleChapterKeyDown(event, index)} key={chapter.id}>
         <Image src="/codex/ornaments/chapter-button-plate-v1.webp" alt="" fill sizes="190px" style={{ objectFit: "fill" }} unoptimized />
         <span>{String(index + 1).padStart(2, "0")}</span><strong>{chapter.title}</strong>
       </button>)}
     </nav>
     <div className="codex-chapter-panels" ref={panelsRef}>
-      {panels.map((panel, index) => <div className="codex-chapter-panel" hidden={index !== activeIndex} key={chapters[index]?.id ?? index}>{panel}</div>)}
+      {panels.map((panel, index) => {
+        const chapter = chapters[index];
+        return <div id={chapter ? `codex-panel-${chapter.id}` : undefined} className="codex-chapter-panel" role="tabpanel" aria-labelledby={chapter ? `codex-tab-${chapter.id}` : undefined} tabIndex={0} hidden={index !== activeIndex} key={chapter?.id ?? index}>{panel}</div>;
+      })}
     </div>
     <nav className="codex-chapter-paging" aria-label="Navigazione tra i capitoli">
       <button type="button" disabled={activeIndex === 0} onClick={() => selectChapter(chapters[activeIndex - 1].id)}>← Capitolo precedente</button>

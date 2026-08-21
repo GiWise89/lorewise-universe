@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { VIP_ATELIER } from "@/data/vip-atelier";
+import { showVipMediaFallback } from "@/lib/vipMediaClient";
 
 type AtelierPayload = typeof VIP_ATELIER;
 type AtelierSection = "processes" | "notebook" | "studies";
@@ -29,7 +30,7 @@ export function VipAtelierExperience({ atelier }: { atelier: AtelierPayload }) {
   return (
     <section className="vip-atelier" id="atelier">
       <header className="vip-atelier-hero">
-        <img src={mediaUrl(heroMediaId)} alt="" aria-hidden="true" width="1600" height="1200" decoding="async" fetchPriority="high" />
+        <img src={mediaUrl(heroMediaId)} alt="" aria-hidden="true" width="1600" height="1200" decoding="async" fetchPriority="high" onError={showVipMediaFallback} />
         <div className="vip-atelier-hero-shade" />
         <div className="shell">
           <p className="eyebrow">{atelier.eyebrow}</p>
@@ -75,7 +76,7 @@ export function VipAtelierExperience({ atelier }: { atelier: AtelierPayload }) {
 
               <div className="vip-atelier-stage">
                 <figure>
-                  <img src={mediaUrl(phase.mediaId)} alt={phase.title} width="1600" height="1200" decoding="async" />
+                  <img src={mediaUrl(phase.mediaId)} alt={phase.title} width="1600" height="1200" decoding="async" onError={showVipMediaFallback} />
                   <figcaption>{phaseProgress}</figcaption>
                 </figure>
                 <div className="vip-atelier-stage-story">
@@ -110,7 +111,7 @@ export function VipAtelierExperience({ atelier }: { atelier: AtelierPayload }) {
                 <div className="vip-atelier-note-media">
                   {entry.mediaIds.map((mediaId, index) => (
                     <figure key={mediaId}>
-                      <img src={mediaUrl(mediaId)} alt={`${entry.title}${entry.mediaIds.length > 1 ? `, passaggio ${index + 1}` : ""}`} width="1200" height="1500" loading="lazy" decoding="async" />
+                      <img src={mediaUrl(mediaId)} alt={`${entry.title}${entry.mediaIds.length > 1 ? `, passaggio ${index + 1}` : ""}`} width="1200" height="1500" loading="lazy" decoding="async" onError={showVipMediaFallback} />
                       {entry.mediaIds.length > 1 ? <figcaption>{index === 0 ? "Prima linea" : "Forma compiuta"}</figcaption> : null}
                     </figure>
                   ))}
@@ -133,7 +134,7 @@ export function VipAtelierExperience({ atelier }: { atelier: AtelierPayload }) {
             </header>
             {atelier.studies.map((study, index) => (
               <article key={study.id} className={index % 2 ? "is-reversed" : ""}>
-                <figure><img src={mediaUrl(study.mediaId)} alt={study.title} width="1200" height="1500" loading="lazy" decoding="async" /></figure>
+                <figure><img src={mediaUrl(study.mediaId)} alt={study.title} width="1200" height="1500" loading="lazy" decoding="async" onError={showVipMediaFallback} /></figure>
                 <div>
                   <span>{study.index}</span>
                   <h3>{study.title}</h3>

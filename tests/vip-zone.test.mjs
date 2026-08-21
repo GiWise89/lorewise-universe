@@ -1,11 +1,56 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { Miniflare } from "miniflare";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 import { getVipDownload, getVipMedia, VIP_AREAS, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP, VIP_MEDIA } from "../lib/vipZone.ts";
 import { VIP_ARTWORKS, VIP_ART_DROP } from "../data/vip-artworks.ts";
 import { VIP_ATELIER, VIP_ATELIER_MEDIA_PRIVATE } from "../data/vip-atelier.ts";
 import { VIP_DOWNLOAD_LIBRARY } from "../data/vip-downloads.ts";
 import { buildVipMemberProfile, evaluateVipAccess } from "../lib/vipMember.ts";
 import { universePassBenefitFromCode } from "../lib/universePass.ts";
+
+test("keeps VIP media streams valid when imported blob size metadata is missing", async () => {
+  const source = await readFile(new URL("../app/api/vip-media/route.ts", import.meta.url), "utf8");
+  assert.match(source, /object\.size > 0/);
+  assert.doesNotMatch(source, /"Content-Length": String\(object\.size\)/);
+  assert.match(source, /LOREWISE_LOCAL_VIP_MEDIA_URL/);
+});
+
+test("reads every protected VIP image from the persisted local R2 archive", async () => {
+  const miniflare = new Miniflare({
+    resourcePersistencePath: fileURLToPath(new URL("../.wrangler/state/v3", import.meta.url)),
+    workers: [{
+      config: {
+        name: "lorewise-vip-test",
+        type: "worker",
+        compatibilityDate: "2026-08-21",
+        manifest: {
+          mainModule: "index.js",
+          modules: { "index.js": { type: "esm", contents: "export default { async fetch() { return new Response('VIP test'); } }" } },
+        },
+        env: { COMMISSION_UPLOADS: { type: "r2", name: "site-creator-r2" } },
+      },
+    }],
+  });
+  try {
+    const bucket = await miniflare.getR2Bucket("COMMISSION_UPLOADS");
+    const missing = [];
+    for (const media of Object.values(VIP_MEDIA)) {
+      const object = await bucket.head(media.objectKey);
+      if (!object || object.size <= 0) missing.push(media.objectKey);
+    }
+    assert.deepEqual(missing, []);
+  } finally {
+    await miniflare.dispose();
+  }
+});
+
+test("keeps mobile VIP badges and journal labels inside their controls", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /\.vip-area-nav button b,\.vip-area-nav \.is-locked b \{ position:static;/);
+  assert.match(css, /\.journal-switch-tabs \{ top:56px; overflow:visible; grid-template-columns:repeat\(2,minmax\(0,1fr\)\); \}/);
+});
 
 test("separates signed-out, Supporter and Collector VIP access", () => {
   assert.deepEqual(evaluateVipAccess({ authenticated: false, accountActive: false, passActive: false }), { allowed: false, reason: "signed-out" });
@@ -18,6 +63,18 @@ test("separates signed-out, Supporter and Collector VIP access", () => {
   assert.equal(collector.collectorDossiers, true);
   assert.equal(collector.artworkDiscountPercent, 20);
   assert.match(collector.accessLabel, /dossier estesi/i);
+});
+
+test("keeps the authenticated owner Collector grant available in local previews without Netlify DB", async () => {
+  const source = await readFile(new URL("../lib/vipAccess.ts", import.meta.url), "utf8");
+  const localGrant = source.indexOf("permanentOwnerPass && !netlifyDatabaseIsConfigured() && await isLocalLoreWiseRequest()");
+  const databaseSync = source.indexOf("await syncLoreWiseCustomer(user)");
+
+  assert.notEqual(localGrant, -1);
+  assert.notEqual(databaseSync, -1);
+  assert.ok(localGrant < databaseSync);
+  assert.match(source, /isPermanentCollectorEmail\(user\.email\)/);
+  assert.match(source, /universePassBenefitFromCode\("LW-PASS-COLLECTOR"\)/);
 });
 
 test("defines the approved spoiler-safe VIP expansion reveal", () => {

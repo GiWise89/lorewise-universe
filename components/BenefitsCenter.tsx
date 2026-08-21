@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
+import { readLocalCodexBookmarks, removeLocalCodexBookmark } from "@/lib/localCodexBookmarks";
 
 type Benefits = {
   pass: { active: boolean; name: string; code: string | null; currentPeriodEnd: string | null; communityBadge: string | null };
@@ -35,11 +36,23 @@ export function BenefitsCenter() {
 
   useEffect(() => {
     let active = true;
-    void fetch("/api/account/benefits", { headers: { accept: "application/json" } }).then(async (response) => {
-      const payload = await response.json() as Benefits & { error?: string };
+    const load = async () => {
+      const response = await fetch("/api/account/benefits", { headers: { accept: "application/json" } });
+      let payload = await response.json() as Benefits & { error?: string };
       if (!response.ok) throw new Error(payload.error || "Vantaggi non disponibili.");
+      const remoteSlugs = new Set(payload.bookmarks.map((bookmark) => bookmark.slug));
+      for (const bookmark of readLocalCodexBookmarks()) {
+        if (remoteSlugs.has(bookmark.slug)) continue;
+        const sync = await fetch("/api/account/benefits", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", accept: "application/json" },
+          body: JSON.stringify({ action: "bookmark", slug: bookmark.slug, collection: bookmark.collection }),
+        });
+        if (sync.ok) payload = await sync.json() as Benefits;
+      }
       if (active) { setData(payload); setArtworkCode(payload.redeemableArtworks[0]?.code ?? ""); setMessage(""); }
-    }).catch((error: Error) => active && setMessage(error.message));
+    };
+    void load().catch((error: Error) => active && setMessage(error.message));
     return () => { active = false; };
   }, []);
 
@@ -50,6 +63,7 @@ export function BenefitsCenter() {
       const response = await fetch("/api/account/benefits", { method: "POST", headers: { "Content-Type": "application/json", accept: "application/json" }, body: JSON.stringify(payload) });
       const body = await response.json() as Benefits & { error?: string };
       if (!response.ok) throw new Error(body.error || "Operazione non completata.");
+      if (payload.action === "remove_bookmark" && typeof payload.slug === "string") removeLocalCodexBookmark(payload.slug);
       setData(body);
       setMessage("Vantaggio aggiornato sul tuo LoreWise ID.");
     } catch (error) {

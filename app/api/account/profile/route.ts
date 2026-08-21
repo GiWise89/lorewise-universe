@@ -2,10 +2,11 @@ import { env } from "@/lib/netlifyRuntime";
 
 import { ACCOUNT_PROFILE_LIMITS } from "@/lib/accountPolicy";
 import { ensureAccountDeletionRequestsTable } from "@/lib/accountDeletion";
+import { localAccountProfile, netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
-import { getLoreWiseUser } from "@/lib/supabase/server";
+import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 
-type RuntimeEnv = { DB?: D1Database };
+type RuntimeEnv = { DB?: D1Database; LOREWISE_ADMIN_EMAILS?: string };
 
 type CustomerProfileRow = {
   email: string;
@@ -63,6 +64,13 @@ async function readProfile(database: D1Database, userId: string) {
 
 export async function GET() {
   try {
+    const user = await getLoreWiseUser();
+    if (!user?.email) return Response.json({ error: "Sessione non valida." }, { status: 401 });
+    if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
+      return Response.json({ profile: localAccountProfile(user, env as unknown as RuntimeEnv), localPreview: true }, {
+        headers: { "Cache-Control": "private, no-store" },
+      });
+    }
     const authenticated = await authenticatedCustomer();
     if (authenticated.error) return authenticated.error;
     const row = await readProfile(authenticated.database, authenticated.user.id);
@@ -75,6 +83,39 @@ export async function GET() {
 
 export async function PATCH(request: Request) {
   try {
+    const localUser = await getLoreWiseUser();
+    if (!localUser?.email) return Response.json({ error: "Sessione non valida." }, { status: 401 });
+    if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
+      const body = await request.json() as Record<string, unknown>;
+      const currentProfile = localAccountProfile(localUser, env as unknown as RuntimeEnv);
+      const displayName = typeof body.displayName === "string" ? body.displayName.trim() : currentProfile.displayName;
+      if (displayName.length > ACCOUNT_PROFILE_LIMITS.displayName) {
+        return Response.json({ error: `Il nome pubblico non puo superare ${ACCOUNT_PROFILE_LIMITS.displayName} caratteri.` }, { status: 400 });
+      }
+      const communityEmails = typeof body.communityEmails === "boolean" ? body.communityEmails : currentProfile.communityEmails;
+      const studioUpdatesEmails = typeof body.studioUpdatesEmails === "boolean" ? body.studioUpdatesEmails : currentProfile.studioUpdatesEmails;
+      const codexSpoilerPreference = typeof body.codexSpoilerPreference === "string" ? body.codexSpoilerPreference : currentProfile.codexSpoilerPreference;
+      if (!["protected", "open"].includes(codexSpoilerPreference)) {
+        return Response.json({ error: "Preferenza spoiler non valida." }, { status: 400 });
+      }
+      const client = await createLoreWiseServerClient();
+      if (!client) return Response.json({ error: "Servizio account non disponibile." }, { status: 503 });
+      const { data, error } = await client.auth.updateUser({
+        data: {
+          ...localUser.user_metadata,
+          full_name: displayName || null,
+          community_emails: communityEmails,
+          studio_updates_emails: studioUpdatesEmails,
+          codex_spoiler_preference: codexSpoilerPreference,
+        },
+      });
+      if (error || !data.user) return Response.json({ error: "Non e stato possibile salvare le preferenze." }, { status: 503 });
+      return Response.json({
+        profile: localAccountProfile(data.user, env as unknown as RuntimeEnv),
+        message: "Profilo e preferenze aggiornati.",
+        localPreview: true,
+      }, { headers: { "Cache-Control": "private, no-store" } });
+    }
     const authenticated = await authenticatedCustomer();
     if (authenticated.error) return authenticated.error;
     const body = await request.json() as Record<string, unknown>;

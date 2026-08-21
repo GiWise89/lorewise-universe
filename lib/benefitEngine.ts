@@ -29,6 +29,12 @@ export async function ensureBenefitEngineTables(database: D1Database) {
       PRIMARY KEY(customer_id, entry_slug),
       FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
     )`,
+    `CREATE TABLE IF NOT EXISTS codex_character_suggestions (
+      id TEXT PRIMARY KEY NOT NULL, customer_id TEXT NOT NULL, requested_name TEXT NOT NULL,
+      universe TEXT NOT NULL, reason TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'submitted',
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+    )`,
     `CREATE TABLE IF NOT EXISTS studio_poll_votes (
       customer_id TEXT NOT NULL, poll_code TEXT NOT NULL, option_code TEXT NOT NULL,
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -41,6 +47,7 @@ export async function ensureBenefitEngineTables(database: D1Database) {
     "CREATE UNIQUE INDEX IF NOT EXISTS member_benefit_claim_unique ON member_benefit_claims(customer_id, benefit_code, resource_code)",
     "CREATE INDEX IF NOT EXISTS member_benefit_claim_customer_idx ON member_benefit_claims(customer_id, status)",
     "CREATE INDEX IF NOT EXISTS codex_bookmarks_customer_idx ON codex_bookmarks(customer_id, collection_name)",
+    "CREATE INDEX IF NOT EXISTS codex_character_suggestions_customer_idx ON codex_character_suggestions(customer_id, status, created_at)",
     "CREATE INDEX IF NOT EXISTS studio_poll_votes_poll_idx ON studio_poll_votes(poll_code, option_code)",
   ];
   for (const statement of statements) await database.prepare(statement).run();

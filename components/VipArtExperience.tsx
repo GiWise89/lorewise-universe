@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { ArtworkPurchaseButton } from "@/components/ArtworkPurchaseButton";
 import type { VIP_ARTWORKS, VIP_ART_DROP, VipArtworkMode } from "@/data/vip-artworks";
+import { showVipMediaFallback } from "@/lib/vipMediaClient";
 
 type VipArtPayload = typeof VIP_ART_DROP & { artworks: typeof VIP_ARTWORKS };
 
@@ -25,7 +26,7 @@ export function VipArtExperience({ art, discountPercent }: { art: VipArtPayload;
 
   return <section className="vip-art" id="art" aria-labelledby="vip-art-title">
     <header className="vip-art-hero">
-      {featured ? <img src={`/api/vip-media?asset=${featured.mediaId}`} alt="Anteprima protetta dell'opera VIP del mese" width="1600" height="1200" decoding="async" fetchPriority="high" /> : null}
+      {featured ? <img src={`/api/vip-media?asset=${featured.mediaId}`} alt="Anteprima protetta dell'opera VIP del mese" width="1600" height="1200" decoding="async" fetchPriority="high" onError={showVipMediaFallback} /> : null}
       <div className="vip-art-hero-shade" aria-hidden="true" />
       <div className="shell">
         <p className="eyebrow">LoreWise VIP · Drop arte 01</p>
@@ -60,7 +61,7 @@ export function VipArtExperience({ art, discountPercent }: { art: VipArtPayload;
           const vipPrice = basePrice ? Math.round(basePrice * (100 - discountPercent) / 100) : undefined;
           return <article className={`vip-art-card is-${artwork.format}`} key={artwork.id}>
             <button className="vip-art-preview" type="button" onClick={() => setSelectedId(artwork.id)} aria-label={`Ingrandisci ${artwork.title}`}>
-              <img src={`/api/vip-media?asset=${artwork.mediaId}`} alt={`${artwork.title}, anteprima protetta`} width={artwork.format === "landscape" ? 1600 : 1200} height={artwork.format === "landscape" ? 1000 : 1500} loading="lazy" decoding="async" />
+              <img src={`/api/vip-media?asset=${artwork.mediaId}`} alt={`${artwork.title}, anteprima protetta`} width={artwork.format === "landscape" ? 1600 : 1200} height={artwork.format === "landscape" ? 1000 : 1500} loading="lazy" decoding="async" onError={showVipMediaFallback} />
               <span>Apri dettaglio</span>
             </button>
             <div className="vip-art-card-copy">
@@ -86,7 +87,7 @@ export function VipArtExperience({ art, discountPercent }: { art: VipArtPayload;
     {selected ? <div className="vip-art-lightbox" role="dialog" aria-modal="true" aria-label={`Dettaglio di ${selected.title}`} onClick={() => setSelectedId(null)}>
       <button type="button" onClick={() => setSelectedId(null)} aria-label="Chiudi dettaglio">×</button>
       <figure onClick={(event) => event.stopPropagation()}>
-        <img src={`/api/vip-media?asset=${selected.mediaId}`} alt={`${selected.title}, dettaglio protetto`} decoding="async" />
+        <img src={`/api/vip-media?asset=${selected.mediaId}`} alt={`${selected.title}, dettaglio protetto`} decoding="async" onError={showVipMediaFallback} />
         <p className="vip-art-lightbox-lore">{selected.lore}</p>
         <figcaption><strong>{selected.title}</strong><span>{selected.code} · Anteprima protetta</span></figcaption>
       </figure>

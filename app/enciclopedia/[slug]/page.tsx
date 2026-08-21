@@ -61,7 +61,8 @@ function ChapterHeader({ number, eyebrow, title }: { number: string; eyebrow: st
 }
 
 function FactList({ facts }: { facts: CodexFact[] }) {
-  return <dl className="codex-facts">{facts.map((fact) => <div className={`is-${fact.status}`} key={fact.label}>
+  const visibleFacts = facts.filter((fact) => fact.label !== "Pronuncia");
+  return <dl className="codex-facts">{visibleFacts.map((fact) => <div className={`is-${fact.status}`} key={fact.label}>
     <dt>{fact.label}</dt><dd>{fact.value}<SourceMarks sourceIds={fact.sourceIds} /></dd>
   </div>)}</dl>;
 }

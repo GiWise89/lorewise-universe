@@ -51,14 +51,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Coco",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -634,14 +626,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Prisma",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -1223,14 +1207,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Maria",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -1806,14 +1782,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Grinz",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -2394,14 +2362,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Siddhar",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -2976,14 +2936,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vesper",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -3564,14 +3516,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Martire",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -4146,14 +4090,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Lacrimosa",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -4735,14 +4671,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Veyrr",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -5318,14 +5246,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Exoria",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -5906,14 +5826,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Eclisse",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -6488,14 +6400,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vespera",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -7076,14 +6980,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Null",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -7658,14 +7554,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Doloria",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -8246,14 +8134,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cineris",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -8828,14 +8708,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Nyx",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -9416,14 +9288,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Mucor",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -9998,14 +9862,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Runa",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -10586,14 +10442,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Ossario",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -11168,14 +11016,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vharak",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -11756,14 +11596,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Sad Skull",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -12328,14 +12160,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Candela · Ultima Luce",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -12906,14 +12730,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Depressione · Peso del Vuoto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -13478,14 +13294,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Tom il Pomodoro",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -14056,14 +13864,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Paralisi del Sonno",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -14628,14 +14428,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bad Life",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -15206,14 +14998,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bad Trip II",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Entità o viandante originale del Nexus",
         "status": "editorial",
@@ -15778,14 +15562,6 @@
         "status": "verified",
         "sourceIds": [
           "fuori-trama-character"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Samata",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -16354,14 +16130,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Nhevara",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -16979,14 +16747,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Kharvoss",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -17615,14 +17375,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Elyra",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Viandante",
         "status": "verified",
@@ -18241,14 +17993,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Mordek",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Viandante",
         "status": "verified",
@@ -18856,14 +18600,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Danzatrice del Rogo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -19492,14 +19228,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Occhio del Braciere",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Demone",
         "status": "verified",
@@ -20121,14 +19849,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Mastino Febbrile",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -20757,14 +20477,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Tizzone Orfano",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Demone",
         "status": "verified",
@@ -21386,14 +21098,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Larva del Patto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -22021,14 +21725,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Carnefice Scarlatto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Demone",
         "status": "verified",
@@ -22650,14 +22346,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Votaria delle Ceneri",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -23285,14 +22973,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bruciasangue",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Demone",
         "status": "verified",
@@ -23914,14 +23594,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Custode della Coppa",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -24549,14 +24221,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Divoratore del Rogo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Abominio",
         "status": "verified",
@@ -25178,14 +24842,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Arconte della Ferita",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -25813,14 +25469,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Scheletro del Dazio",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Non Morto",
         "status": "verified",
@@ -26442,14 +26090,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Mietitore Muto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -27077,14 +26717,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bestia Calcarea",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Bestia",
         "status": "verified",
@@ -27709,14 +27341,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vedova del Sudario",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Spirito",
         "status": "verified",
@@ -28338,14 +27962,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Pellegrino Cavo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -28974,14 +28590,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Divoratore d’Urne",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Abominio",
         "status": "verified",
@@ -29603,14 +29211,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Guardiano dello Scudo Vuoto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -30238,14 +29838,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Ossamasso",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Non Morto",
         "status": "verified",
@@ -30867,14 +30459,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Sudario Urlante",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -31502,14 +31086,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Fante Cinereo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Non Morto",
         "status": "verified",
@@ -32134,14 +31710,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Rottaspada",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Non Morto",
         "status": "verified",
@@ -32763,14 +32331,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Serpe Sepolcrale",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -33399,14 +32959,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cantora Scorticata",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Demone",
         "status": "verified",
@@ -34028,14 +33580,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Flagello Ansima",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -34663,14 +34207,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Diacono del Vuoto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Occultista",
         "status": "verified",
@@ -35292,14 +34828,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Pipistrello Sutura",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -35928,14 +35456,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vespro Carnivoro",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Demone",
         "status": "verified",
@@ -36560,14 +36080,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cavalcarespiro",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Non Morto",
         "status": "verified",
@@ -37189,14 +36701,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Sussurro Alato",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -37825,14 +37329,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cantore Rovescio",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Occultista",
         "status": "verified",
@@ -38454,14 +37950,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cerimoniere Cieco",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -39089,14 +38577,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Anguilla Oracolo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Bestia Astrale",
         "status": "verified",
@@ -39718,14 +39198,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Predone Senzaeco",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -40354,14 +39826,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Occhio Vesperale",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Aberrazione",
         "status": "verified",
@@ -40984,14 +40448,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Nodo Oculare",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -41620,14 +41076,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Famiglio del Varco",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Demone",
         "status": "verified",
@@ -42250,14 +41698,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Monaca Dissolta",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -42885,14 +42325,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Spettro Ritorto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Spettro",
         "status": "verified",
@@ -43517,14 +42949,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Danzatrice della Lama",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Assassino",
         "status": "verified",
@@ -44146,14 +43570,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bocca d’Abisso",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -44782,14 +44198,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Idolo Micelico",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Abominio",
         "status": "verified",
@@ -45412,14 +44820,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Prelata Notturna",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -46047,14 +45447,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Veggente Sutura",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Occultista",
         "status": "verified",
@@ -46676,14 +46068,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Colosso di Scoria",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -47311,14 +46695,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Carnefice Ribattuto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Costrutto",
         "status": "verified",
@@ -47940,14 +47316,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Pugno del Crogiolo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -48576,14 +47944,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Segugio Chiodato",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Bestia Ferrata",
         "status": "verified",
@@ -49206,14 +48566,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Archibugiere di Scorie",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -49841,14 +49193,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vescovo di Lamina",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Forgiato",
         "status": "verified",
@@ -50470,14 +49814,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Forgiato della Rovina",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -51105,14 +50441,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Maglio Vivente",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Abominio Ferrato",
         "status": "verified",
@@ -51734,14 +51062,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Ombra Falciata",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -52369,14 +51689,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Duellante Impuro",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Forgiato",
         "status": "verified",
@@ -52998,14 +52310,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bombarda Cava",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -53633,14 +52937,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Occhio Calibro",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Costrutto",
         "status": "verified",
@@ -54262,14 +53558,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Boia Saldato",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -54897,14 +54185,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Golem di Ruggine",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Costrutto",
         "status": "verified",
@@ -55526,14 +54806,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bestia Rivettata",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -56162,14 +55434,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Randagio di Cenere",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Reietto",
         "status": "verified",
@@ -56791,14 +56055,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Custode Senzavolto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -57426,14 +56682,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Sciacallo del Varco",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Bestia",
         "status": "verified",
@@ -58055,14 +57303,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Mendicante d’Ossa",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -58690,14 +57930,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cacciatrice del Buio",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Predatore",
         "status": "verified",
@@ -59319,14 +58551,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Testimone Cucito",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -59954,14 +59178,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cornuto della Soglia",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Demone",
         "status": "verified",
@@ -60583,14 +59799,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Angelo Senz’Altare",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -61218,14 +60426,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Divoratore di Strade",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Abominio",
         "status": "verified",
@@ -61847,14 +61047,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Re dei Rinnegati",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -62482,14 +61674,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Golem degli Ossari",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Creatura della Nemesi · Costrutto d’Ossa",
         "status": "verified",
@@ -63111,14 +62295,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Drago di Rottaspada",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -63746,14 +62922,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Fame di Vakun",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Creatura della Nemesi · Vakun",
         "status": "verified",
@@ -64375,14 +63543,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bocca Raschiata",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -65010,14 +64170,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Falena di Orveth",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Creatura della Nemesi · Insetto Runico",
         "status": "verified",
@@ -65639,14 +64791,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Salmo Scorticato",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -66274,14 +65418,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Draconide Afonico",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Creatura della Nemesi · Afonico",
         "status": "verified",
@@ -66906,14 +66042,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cantore della Terza Nota",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Creatura della Nemesi · Syr Vhal",
         "status": "verified",
@@ -67535,14 +66663,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Grifone del Vespro",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -68171,14 +67291,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Predatore Iridescente",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Bestia Piumata",
         "status": "verified",
@@ -68801,14 +67913,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Predicante Sciacalla",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -69437,14 +68541,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Conte Lupino",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Nobile Lupino",
         "status": "verified",
@@ -70067,14 +69163,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Volpe Ematica",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -70703,14 +69791,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Berserker Volpino",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Guerriero Volpino",
         "status": "verified",
@@ -71333,14 +70413,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bambola Felina",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -71969,14 +71041,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Colosso Alato",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Leone Alato",
         "status": "verified",
@@ -72599,14 +71663,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vedova Maculata",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -73235,14 +72291,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Araldo Volpino",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Araldo Volpino",
         "status": "verified",
@@ -73865,14 +72913,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Becchino Maculato",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -74501,14 +73541,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Regina Coda-Anellata",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Sovrana Ritornante",
         "status": "verified",
@@ -75131,14 +74163,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Portatore Coda-Anellata",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -75767,14 +74791,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Matriarca Volpina",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Volpe Ritornante",
         "status": "verified",
@@ -76397,14 +75413,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Untore Scimmiesco",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -77033,14 +76041,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Abate Volpino",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Occultista Volpino",
         "status": "verified",
@@ -77663,14 +76663,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Predatrice Coda-Rosa",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -78299,14 +77291,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Divoratore Mustelide",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Mustelide Sepolcrale",
         "status": "verified",
@@ -78929,14 +77913,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Guardiana Maculata",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -79565,14 +78541,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Gufo Sepolcrale",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Rapace Sacro",
         "status": "verified",
@@ -80195,14 +79163,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cantora Coda-Rosa",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -80831,14 +79791,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Arcidiacono Maculato",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Occultista Felino",
         "status": "verified",
@@ -81461,14 +80413,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Monaco Senza Timbro",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -82097,14 +81041,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vescova Bianca",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Lupa Liturgica",
         "status": "verified",
@@ -82727,14 +81663,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Campanaro Maculato",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -83363,14 +82291,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Custode delle Costole",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Guardiano Felino",
         "status": "verified",
@@ -83993,14 +82913,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Danzatore Maculato",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -84629,14 +83541,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Fenice della Controvoce",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Fenice Sonora",
         "status": "verified",
@@ -85259,14 +84163,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cantora del Crescendo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -85895,14 +84791,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Serafino dell’Ultima Nota",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Angelo Inverso",
         "status": "verified",
@@ -86525,14 +85413,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Gufo di Scoria",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -87161,14 +86041,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Aquila della Crosta",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Rapace Ferrato",
         "status": "verified",
@@ -87791,14 +86663,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Mastino del Contraccolpo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -88427,14 +87291,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Duellante Ribattuto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Guerriero Ferrato",
         "status": "verified",
@@ -89057,14 +87913,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Sciacalla Sovraccarica",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -89693,14 +88541,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Titano Sovraccarico",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Colosso Ferrato",
         "status": "verified",
@@ -90323,14 +89163,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cerbero Magnetico",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -90959,14 +89791,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Grifone delle Catene",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Grifone Ferrato",
         "status": "verified",
@@ -91589,14 +90413,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Lupo dei Rivetti",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -92225,14 +91041,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Guardiano della Fonderia",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Guardiano Ferrato",
         "status": "verified",
@@ -92855,14 +91663,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Sciacallo dell’Eclisse",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -93491,14 +92291,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Grifone della Soglia",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Grifone del Varco",
         "status": "verified",
@@ -94121,14 +92913,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Lupo delle Ferite",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -94757,14 +93541,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Predatore Cremisi",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Bestia Antica",
         "status": "verified",
@@ -95387,14 +94163,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Grifone di Cenere",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -96023,14 +94791,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Volpe delle Memorie",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Volpe del Varco",
         "status": "verified",
@@ -96653,14 +95413,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Lupo dei Passaggi",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -97289,14 +96041,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Pellegrino delle Tre Porte",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Errante",
         "status": "verified",
@@ -97919,14 +96663,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Segugio del Varco",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -98555,14 +97291,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Custode Cinquantunesimo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Guardiano del Varco",
         "status": "verified",
@@ -99185,14 +97913,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cantore dell’Emorragia",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -99820,14 +98540,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vedova del Terzo Battito",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Demone",
         "status": "verified",
@@ -100449,14 +99161,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Alfiere della Piaga",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -101084,14 +99788,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Sacerdote della Vena",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Occultista",
         "status": "verified",
@@ -101713,14 +100409,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Nhevara",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -102350,14 +101038,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Portaossa Neonato",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Costrutto",
         "status": "verified",
@@ -102979,14 +101659,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Becchino delle Ore",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -103614,14 +102286,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Regina del Sudario",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Sovrana",
         "status": "verified",
@@ -104246,14 +102910,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Carogna della Seconda Vita",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Abominio",
         "status": "verified",
@@ -104875,14 +103531,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Kharvoss",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -105512,14 +104160,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Eco che Precede",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Aberrazione",
         "status": "verified",
@@ -106141,14 +104781,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Monaco della Nota Vuota",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -106776,14 +105408,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Sirena del Respiro Inverso",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Spettro",
         "status": "verified",
@@ -107408,14 +106032,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Araldo della Frase Finale",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Demone",
         "status": "verified",
@@ -108037,14 +106653,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Elyra",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -108674,14 +107282,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Scarabeo Ribattuto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Costrutto",
         "status": "verified",
@@ -109303,14 +107903,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Fabbro del Nervo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -109938,14 +108530,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Centurione di Scoria",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Costrutto",
         "status": "verified",
@@ -110570,14 +109154,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Golem della Settima Incudine",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Colosso",
         "status": "verified",
@@ -111199,14 +109775,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Mordek",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -111836,14 +110404,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Accordatore di Cicatrici",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Errante",
         "status": "verified",
@@ -112465,14 +111025,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Custode del Ritmo Morto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -113100,14 +111652,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bestia del Controtempo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Aberrazione",
         "status": "verified",
@@ -113732,14 +112276,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Testimone del Quarto Battito",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Oracolo",
         "status": "verified",
@@ -114361,14 +112897,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Supplice del Sole Nero",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -114997,14 +113525,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Custode dell’Ultima Fossa",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Ritornante",
         "status": "verified",
@@ -115627,14 +114147,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Gerarca del Vangelo Infranto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -116263,14 +114775,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Trifauce dell’Ultimo Cancello",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Bestia del Patto",
         "status": "verified",
@@ -116893,14 +115397,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Carogna dell’Ambra Verde",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -117529,14 +116025,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Grazia dell’Alba Infranta",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Fata Reliquiaria",
         "status": "verified",
@@ -118159,14 +116647,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vedova del Rintocco Muto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -118795,14 +117275,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Araldo della Pira Ridente",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Incendiario",
         "status": "verified",
@@ -119425,14 +117897,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Pellegrino della Luce Estinta",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -120061,14 +118525,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Grinfiamara",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -120691,14 +119147,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Ghignofiamma",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -121327,14 +119775,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Nidiserpe",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -121957,14 +120397,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vespera",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -122593,14 +121025,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Sangravia",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -123223,14 +121647,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Velomorta",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -123859,14 +122275,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Morbifer",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -124489,14 +122897,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Filombra",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -125125,14 +123525,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Nerovelo",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -125755,14 +124147,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Gramora",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -126391,14 +124775,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Ossarca",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -127021,14 +125397,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Fangomorto",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -127657,14 +126025,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cineria",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -128287,14 +126647,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Jolly Nero",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -128923,14 +127275,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Corvombra",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -129553,14 +127897,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Astramante",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -130189,14 +128525,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Serafide",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -130819,14 +129147,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Lunarca",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -131455,14 +129775,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Eclissario",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -132085,14 +130397,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Gerarca",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -132721,14 +131025,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Ridimorte",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -133351,14 +131647,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Malocorno",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -133987,14 +132275,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Vitralia",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -134617,14 +132897,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Cranarca",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -135253,14 +133525,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Mortifex",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -135883,14 +134147,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Troncarca",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -136519,14 +134775,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Kheradon",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -137149,14 +135397,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Runamasso",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
@@ -137785,14 +136025,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Velenottero",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -138418,14 +136650,6 @@
         ]
       },
       {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Bambombra",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
-        ]
-      },
-      {
         "label": "Natura",
         "value": "Evoluzione · Creatura Fusa",
         "status": "verified",
@@ -139048,14 +137272,6 @@
         "status": "verified",
         "sourceIds": [
           "twr-card"
-        ]
-      },
-      {
-        "label": "Pronuncia",
-        "value": "Pronuncia italiana regolare: Fossario",
-        "status": "editorial",
-        "sourceIds": [
-          "codex-authorial"
         ]
       },
       {
