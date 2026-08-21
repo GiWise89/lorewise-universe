@@ -30,6 +30,30 @@ async function sha256(bytes: ArrayBuffer) {
   return Array.from(new Uint8Array(digest), (value) => value.toString(16).padStart(2, "0")).join("").toUpperCase();
 }
 
+async function registerExistingGame(runtime: RuntimeEnv) {
+  const file = await runtime.COMMISSION_UPLOADS!.head(verifiedWindowsInstaller.objectKey);
+  const hash = file?.customMetadata?.sha256?.toUpperCase() ?? "";
+  if (!file || file.size !== verifiedWindowsInstaller.size || hash !== verifiedWindowsInstaller.sha256)
+    return Response.json({ error: "Installer privato non corrispondente." }, { status: 409 });
+  if (!runtime.DB) return Response.json({ error: "Registro non disponibile." }, { status: 503 });
+  await ensureCommerceTables(runtime.DB);
+  await runtime.DB.prepare(`INSERT INTO game_delivery_files
+    (id,product_code,game_code,platform,version,object_key,filename,content_type,size,sha256,
+     signature_status,scan_status,install_test_status,update_test_status,status,approved_by,approved_at,created_at,updated_at)
+    VALUES (?,?,?,?,?,?,?,?,?,?,'unsigned_disclosed','passed','passed','deferred_first_release','approved',
+     NULL,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)
+    ON CONFLICT(product_code) DO UPDATE SET version=excluded.version,object_key=excluded.object_key,
+     filename=excluded.filename,content_type=excluded.content_type,size=excluded.size,sha256=excluded.sha256,
+     signature_status=excluded.signature_status,scan_status=excluded.scan_status,
+     install_test_status=excluded.install_test_status,update_test_status=excluded.update_test_status,
+     status=excluded.status,approved_by=NULL,approved_at=CURRENT_TIMESTAMP,updated_at=CURRENT_TIMESTAMP`)
+    .bind(crypto.randomUUID(),verifiedWindowsInstaller.productCode,verifiedWindowsInstaller.gameCode,
+      verifiedWindowsInstaller.platform,verifiedWindowsInstaller.version,verifiedWindowsInstaller.objectKey,
+      verifiedWindowsInstaller.filename,verifiedWindowsInstaller.contentType,verifiedWindowsInstaller.size,
+      verifiedWindowsInstaller.sha256.toLowerCase()).run();
+  return Response.json({ code: verifiedWindowsInstaller.productCode, ready: true, deliveryMode: "automatic" });
+}
+
 export async function PUT(request: Request) {
   const runtime = await authorized(request);
   if (!runtime) return unavailable();
@@ -108,6 +132,8 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null) as {
     action?: string; uploadId?: string; parts?: Array<{ partNumber: number; etag: string }>; size?: number; sha256?: string;
   } | null;
+
+  if (body?.action === "register-existing-game") return registerExistingGame(runtime);
 
   if (body?.action === "create-game") {
     if (body.size !== verifiedWindowsInstaller.size || body.sha256?.toUpperCase() !== verifiedWindowsInstaller.sha256) {
