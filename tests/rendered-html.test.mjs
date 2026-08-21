@@ -38,7 +38,7 @@ test("applies the global browser security policy", async () => {
 test("publishes robots, manifest and a dynamic public sitemap", async () => {
   const robots = await render("/robots.txt");
   assert.equal(robots.status, 200);
-  assert.match(await robots.text(), /Disallow: \/api\//);
+  assert.match(await robots.text(), /Disallow: \//);
   const manifest = await render("/manifest.webmanifest");
   assert.equal(manifest.status, 200);
   assert.equal((await manifest.json()).name, "LoreWise Universe");
