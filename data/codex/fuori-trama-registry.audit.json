@@ -1,0 +1,564 @@
+{
+  "generatedAt": "2026-08-18T23:51:01.298Z",
+  "sourceRegistry": "C:\\Users\\Luigi\\Documents\\proggetti GiWise Studio\\LoreWise App\\lorewise-v1-starter\\fuori-trama-next\\src\\data\\characters.json",
+  "totalCharacters": 667,
+  "exportedCharacters": 667,
+  "uniqueIds": 667,
+  "uniqueSourceImages": 667,
+  "missing": [],
+  "invalidDimensions": [],
+  "duplicateNames": [
+    {
+      "name": "Penny",
+      "ids": [
+        "penny",
+        "penny-human-extra"
+      ]
+    },
+    {
+      "name": "Maria",
+      "ids": [
+        "maria-silent-hill",
+        "maria-cantora-nera"
+      ]
+    },
+    {
+      "name": "Vespera",
+      "ids": [
+        "suor-vespera",
+        "giwise-twr-mano-del-braciere"
+      ]
+    }
+  ],
+  "franchises": [
+    {
+      "name": "The Wound Remembers",
+      "count": 195
+    },
+    {
+      "name": "LoreWise Originals",
+      "count": 28
+    },
+    {
+      "name": "Carte Extra · Fan Art",
+      "count": 19
+    },
+    {
+      "name": "Animal Crossing",
+      "count": 13
+    },
+    {
+      "name": "Pokémon",
+      "count": 12
+    },
+    {
+      "name": "GiWise Fan Art",
+      "count": 10
+    },
+    {
+      "name": "Naruto",
+      "count": 10
+    },
+    {
+      "name": "Sonic the Hedgehog",
+      "count": 10
+    },
+    {
+      "name": "South Park",
+      "count": 10
+    },
+    {
+      "name": "Dragon Ball",
+      "count": 9
+    },
+    {
+      "name": "Street Fighter",
+      "count": 9
+    },
+    {
+      "name": "Tekken",
+      "count": 9
+    },
+    {
+      "name": "Harry Potter",
+      "count": 8
+    },
+    {
+      "name": "I Simpson",
+      "count": 8
+    },
+    {
+      "name": "Looney Tunes",
+      "count": 8
+    },
+    {
+      "name": "Mighty Morphin Power Rangers",
+      "count": 8
+    },
+    {
+      "name": "Mortal Kombat",
+      "count": 8
+    },
+    {
+      "name": "Winx Club",
+      "count": 8
+    },
+    {
+      "name": "American Dad!",
+      "count": 7
+    },
+    {
+      "name": "Creator italiani",
+      "count": 7
+    },
+    {
+      "name": "Futurama",
+      "count": 7
+    },
+    {
+      "name": "Ghostbusters",
+      "count": 7
+    },
+    {
+      "name": "I Griffin",
+      "count": 7
+    },
+    {
+      "name": "Lo straordinario mondo di Gumball",
+      "count": 7
+    },
+    {
+      "name": "Shrek",
+      "count": 7
+    },
+    {
+      "name": "Silent Hill",
+      "count": 7
+    },
+    {
+      "name": "The Big Bang Theory",
+      "count": 7
+    },
+    {
+      "name": "The Flintstones",
+      "count": 7
+    },
+    {
+      "name": "Baldur’s Gate 3",
+      "count": 6
+    },
+    {
+      "name": "Cucina & Intrattenimento",
+      "count": 6
+    },
+    {
+      "name": "Inazuma Eleven",
+      "count": 6
+    },
+    {
+      "name": "Leone il cane fifone",
+      "count": 6
+    },
+    {
+      "name": "Minecraft",
+      "count": 6
+    },
+    {
+      "name": "Adventure Time",
+      "count": 5
+    },
+    {
+      "name": "Attack on Titan",
+      "count": 5
+    },
+    {
+      "name": "Dinosauri",
+      "count": 5
+    },
+    {
+      "name": "Doraemon",
+      "count": 5
+    },
+    {
+      "name": "Due fantagenitori",
+      "count": 5
+    },
+    {
+      "name": "Lupin the 3rd",
+      "count": 5
+    },
+    {
+      "name": "Mucca e Pollo",
+      "count": 5
+    },
+    {
+      "name": "Resident Evil",
+      "count": 5
+    },
+    {
+      "name": "Scooby-Doo",
+      "count": 5
+    },
+    {
+      "name": "SpongeBob",
+      "count": 5
+    },
+    {
+      "name": "Super Mario Bros.",
+      "count": 5
+    },
+    {
+      "name": "Tartarughe Ninja",
+      "count": 5
+    },
+    {
+      "name": "Crash Bandicoot",
+      "count": 4
+    },
+    {
+      "name": "Il laboratorio di Dexter",
+      "count": 4
+    },
+    {
+      "name": "Marvel",
+      "count": 4
+    },
+    {
+      "name": "One Piece",
+      "count": 4
+    },
+    {
+      "name": "DC Comics",
+      "count": 3
+    },
+    {
+      "name": "Grand Theft Auto V",
+      "count": 3
+    },
+    {
+      "name": "Le Superchicche",
+      "count": 3
+    },
+    {
+      "name": "Le tenebrose avventure di Billy e Mandy",
+      "count": 3
+    },
+    {
+      "name": "Popeye",
+      "count": 3
+    },
+    {
+      "name": "Pulp Fiction",
+      "count": 3
+    },
+    {
+      "name": "Bud Spencer & Terence Hill",
+      "count": 2
+    },
+    {
+      "name": "Commedia italiana",
+      "count": 2
+    },
+    {
+      "name": "Donkey Kong",
+      "count": 2
+    },
+    {
+      "name": "Dylan Dog",
+      "count": 2
+    },
+    {
+      "name": "Family Guy",
+      "count": 2
+    },
+    {
+      "name": "Hollow Knight",
+      "count": 2
+    },
+    {
+      "name": "Holly e Benji",
+      "count": 2
+    },
+    {
+      "name": "Men in Black",
+      "count": 2
+    },
+    {
+      "name": "Mila e Shiro",
+      "count": 2
+    },
+    {
+      "name": "Rick and Morty",
+      "count": 2
+    },
+    {
+      "name": "Stanlio e Ollio",
+      "count": 2
+    },
+    {
+      "name": "Super Mario",
+      "count": 2
+    },
+    {
+      "name": "The Simpsons",
+      "count": 2
+    },
+    {
+      "name": "Tom & Jerry",
+      "count": 2
+    },
+    {
+      "name": "A Nightmare on Elm Street",
+      "count": 1
+    },
+    {
+      "name": "Ace Ventura",
+      "count": 1
+    },
+    {
+      "name": "Aldo, Giovanni e Giacomo",
+      "count": 1
+    },
+    {
+      "name": "Assassin's Creed",
+      "count": 1
+    },
+    {
+      "name": "Betty Boop",
+      "count": 1
+    },
+    {
+      "name": "Bianco, rosso e Verdone",
+      "count": 1
+    },
+    {
+      "name": "BoJack Horseman",
+      "count": 1
+    },
+    {
+      "name": "Breaking Bad",
+      "count": 1
+    },
+    {
+      "name": "Child’s Play",
+      "count": 1
+    },
+    {
+      "name": "Cinema classico",
+      "count": 1
+    },
+    {
+      "name": "Cinema e arti marziali",
+      "count": 1
+    },
+    {
+      "name": "CoopTV",
+      "count": 1
+    },
+    {
+      "name": "DC Comics / Batman",
+      "count": 1
+    },
+    {
+      "name": "Detective Conan",
+      "count": 1
+    },
+    {
+      "name": "Diablo",
+      "count": 1
+    },
+    {
+      "name": "Diabolik",
+      "count": 1
+    },
+    {
+      "name": "Dr. House - Medical Division",
+      "count": 1
+    },
+    {
+      "name": "Dracula",
+      "count": 1
+    },
+    {
+      "name": "Edward mani di forbice",
+      "count": 1
+    },
+    {
+      "name": "Fallout",
+      "count": 1
+    },
+    {
+      "name": "Fantozzi",
+      "count": 1
+    },
+    {
+      "name": "Frankenstein",
+      "count": 1
+    },
+    {
+      "name": "Friday the 13th",
+      "count": 1
+    },
+    {
+      "name": "God of War",
+      "count": 1
+    },
+    {
+      "name": "Grisù il draghetto",
+      "count": 1
+    },
+    {
+      "name": "Halloween",
+      "count": 1
+    },
+    {
+      "name": "Hokuto no Ken",
+      "count": 1
+    },
+    {
+      "name": "I Robinson",
+      "count": 1
+    },
+    {
+      "name": "I Soprano",
+      "count": 1
+    },
+    {
+      "name": "Il padrino",
+      "count": 1
+    },
+    {
+      "name": "IT — Miniserie TV",
+      "count": 1
+    },
+    {
+      "name": "IT / IT Chapter Two / Welcome to Derry",
+      "count": 1
+    },
+    {
+      "name": "Johnny Bravo",
+      "count": 1
+    },
+    {
+      "name": "Joker",
+      "count": 1
+    },
+    {
+      "name": "L'Uomo Tigre",
+      "count": 1
+    },
+    {
+      "name": "Mai dire...",
+      "count": 1
+    },
+    {
+      "name": "Max Payne",
+      "count": 1
+    },
+    {
+      "name": "MediEvil",
+      "count": 1
+    },
+    {
+      "name": "Metal Gear",
+      "count": 1
+    },
+    {
+      "name": "Mr. Bean",
+      "count": 1
+    },
+    {
+      "name": "Occultismo occidentale",
+      "count": 1
+    },
+    {
+      "name": "Oddworld",
+      "count": 1
+    },
+    {
+      "name": "One-Punch Man",
+      "count": 1
+    },
+    {
+      "name": "Peaky Blinders",
+      "count": 1
+    },
+    {
+      "name": "Pingu",
+      "count": 1
+    },
+    {
+      "name": "Red Dead Redemption",
+      "count": 1
+    },
+    {
+      "name": "Sailor Moon",
+      "count": 1
+    },
+    {
+      "name": "Saw",
+      "count": 1
+    },
+    {
+      "name": "Scarface",
+      "count": 1
+    },
+    {
+      "name": "Scream",
+      "count": 1
+    },
+    {
+      "name": "Shameless US",
+      "count": 1
+    },
+    {
+      "name": "Solo Leveling",
+      "count": 1
+    },
+    {
+      "name": "Spyro the Dragon",
+      "count": 1
+    },
+    {
+      "name": "Terrifier",
+      "count": 1
+    },
+    {
+      "name": "The Conjuring Universe",
+      "count": 1
+    },
+    {
+      "name": "The Dark Knight",
+      "count": 1
+    },
+    {
+      "name": "The Legend of Zelda",
+      "count": 1
+    },
+    {
+      "name": "The Office",
+      "count": 1
+    },
+    {
+      "name": "The Ring",
+      "count": 1
+    },
+    {
+      "name": "The Texas Chain Saw Massacre",
+      "count": 1
+    },
+    {
+      "name": "The Witcher",
+      "count": 1
+    },
+    {
+      "name": "Tomb Raider",
+      "count": 1
+    },
+    {
+      "name": "Tradizione cristiana",
+      "count": 1
+    }
+  ],
+  "byteIdenticalCopies": 667
+}

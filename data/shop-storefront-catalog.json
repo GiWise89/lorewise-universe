@@ -1,0 +1,1046 @@
+{
+  "verifiedOn": "2026-08-19",
+  "source": "https://giwiseshop.it/",
+  "productCount": 103,
+  "excludedPublicProducts": [
+    {
+      "name": "Mousepad Animal Crossing Creepy - Art",
+      "price": "€ 25.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/mousepad-animal-crossing-creepy---art-59872/",
+      "reason": "Immagine locale non presente"
+    }
+  ],
+  "products": [
+    {
+      "id": "GS-001",
+      "name": "T-Shirt Laboratorio Vol.2",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-laboratorio-vol-2-59872/",
+      "sourceFile": "DeeDeetshirt.png",
+      "image": "/shop/catalog/t-shirt-laboratorio-vol-2-1.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-002",
+      "name": "T-shirt Nerd Life: Evolution Gaming",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/-t-shirt-nerd-life-59872/",
+      "sourceFile": "nerd life tshirt.png",
+      "image": "/shop/catalog/t-shirt-nerd-life-evolution-gaming-2.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-003",
+      "name": "T-Shirt & Felpa Leone il Cane Fifone",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt---felpa-leone-il-cane-fifone-59872/",
+      "sourceFile": "Leone cane fifone tshirt.png",
+      "image": "/shop/catalog/t-shirt-felpa-leone-il-cane-fifone-3.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-004",
+      "name": "T-Shirt & Felpa Itachi Uchiha",
+      "price": "€ 22.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt---felpa-itachi-uchiha-59872/",
+      "sourceFile": "itachi red.png",
+      "image": "/shop/catalog/t-shirt-felpa-itachi-uchiha-4.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-005",
+      "name": "Noyz Urban Zombie Side",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/urban-zombie-side-59872/",
+      "sourceFile": "noyz t  shirt.png",
+      "image": "/shop/catalog/noyz-urban-zombie-side-5.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-006",
+      "name": "-Shirt Cartoon Anni 90 Streetwear",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/ed-edd-eddy-t-shirt-59872/",
+      "sourceFile": "ed edd eddy t shirt.png",
+      "image": "/shop/catalog/shirt-cartoon-anni-90-streetwear-6.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-007",
+      "name": "T-Shirt Cartoon Anni 90 -ED-  vol1",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90--ed---vol1-59872/",
+      "sourceFile": "ed T-Shirt.png",
+      "image": "/shop/catalog/t-shirt-cartoon-anni-90-ed-vol1-7.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-008",
+      "name": "T-Shirt Cartoon Anni 90 -EDD- vol2",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90--edd--vol2-59872/",
+      "sourceFile": "edd T-Shirt.png",
+      "image": "/shop/catalog/t-shirt-cartoon-anni-90-edd-vol2-8.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-009",
+      "name": "T-Shirt Cartoon Anni 90 -EDDY- vol3",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90--eddy--vol3-59872/",
+      "sourceFile": "eddy  T-Shirt.png",
+      "image": "/shop/catalog/t-shirt-cartoon-anni-90-eddy-vol3-9.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-010",
+      "name": "T-Shirt Laboratorio vol.1",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-laboratorio-vol-1-59872/",
+      "sourceFile": "Dexter t shirt.png",
+      "image": "/shop/catalog/t-shirt-laboratorio-vol-1-10.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-011",
+      "name": "T-shirt & Felpa Gothic Nun - Dark Art",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt---felpa-gothic-nun---dark-art-59872-53/",
+      "sourceFile": "Gotich Nun t-shirt.png",
+      "image": "/shop/catalog/t-shirt-felpa-gothic-nun-dark-art-11.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-012",
+      "name": "T-shirt Banana Finger Art",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-banana-finger-art-59872/",
+      "sourceFile": "Ban-DITO.png",
+      "image": "/shop/catalog/t-shirt-banana-finger-art-12.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-013",
+      "name": "T-Shirt Unicorno",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-unicorno-59872/",
+      "sourceFile": "unicorno t-shirt.png",
+      "image": "/shop/catalog/t-shirt-unicorno-13.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-014",
+      "name": "Maglietta Teschio Ribelle",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/maglietta-teschio-ribelle-59872/",
+      "sourceFile": "Bartskull.png",
+      "image": "/shop/catalog/maglietta-teschio-ribelle-14.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-015",
+      "name": "T-Shirt Teschio Dark Farfalle",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-teschio-dark-farfalle-59872/",
+      "sourceFile": "Lisa Skull tshirt.png",
+      "image": "/shop/catalog/t-shirt-teschio-dark-farfalle-15.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-016",
+      "name": "Maglietta Dark Clown Ribelle",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/maglietta-dark-clown-ribelle-59872/",
+      "sourceFile": "Krusty tshirt.png",
+      "image": "/shop/catalog/maglietta-dark-clown-ribelle-16.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-017",
+      "name": "T-Shirt Game Over Retro Gaming",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-game-over-retro-gaming-59872/",
+      "sourceFile": "tshirt console.png",
+      "image": "/shop/catalog/t-shirt-game-over-retro-gaming-17.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-018",
+      "name": "Maglietta Retro Gaming Oscura",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/maglietta-retro-gaming-oscura-59872/",
+      "sourceFile": "Mario Aura tshirt.png",
+      "image": "/shop/catalog/maglietta-retro-gaming-oscura-18.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-019",
+      "name": "T-Shirt Crossover Anime Divertente",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-crossover-anime-divertente-59872/",
+      "sourceFile": "Patrik Bou tshirt.png",
+      "image": "/shop/catalog/t-shirt-crossover-anime-divertente-19.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-020",
+      "name": "T-Shirt Parodia Cartoni Cool",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-parodia-cartoni-cool-59872/",
+      "sourceFile": "Wb tshirt.png",
+      "image": "/shop/catalog/t-shirt-parodia-cartoni-cool-20.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-021",
+      "name": "IT-Shirt IM STONED  EDIZIONE N1",
+      "price": "€ 22.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-im-stoned--edizione-n1-59872/",
+      "sourceFile": "asciughino t-shirt.png",
+      "image": "/shop/catalog/it-shirt-im-stoned-edizione-n1-21.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-022",
+      "name": "The Thorned Redeemer - Original Art GiWise",
+      "price": "€ 22.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/thorned-redeemer-tshirt-giwise/",
+      "sourceFile": "creepy jesusu.png",
+      "image": "/shop/catalog/the-thorned-redeemer-original-art-giwise-22.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-023",
+      "name": "Horror Crossing #01 - The Stitched Bunny",
+      "price": "€ 21.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-coco-creepy-59872/",
+      "sourceFile": "Coco Creepy.png",
+      "image": "/shop/catalog/horror-crossing-01-the-stitched-bunny-23.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-024",
+      "name": "Horror Crossing #02 - The Cursed Mummy",
+      "price": "€ 21.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/horror-crossing-02-cursed-mummy/",
+      "sourceFile": "thsirt Fekice.png",
+      "image": "/shop/catalog/horror-crossing-02-the-cursed-mummy-24.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-025",
+      "name": "Horror Crossing #03 - The Butcher Pig",
+      "price": "€ 21.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/horror-crossing-03-butcher-pig/",
+      "sourceFile": "Broncio Creepy.png",
+      "image": "/shop/catalog/horror-crossing-03-the-butcher-pig-25.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-026",
+      "name": "T-Shirt \"Sacred Horror\" - GiWise Art Exclusive",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-amen---giwise-edition--59872/",
+      "sourceFile": "scared maria.png",
+      "image": "/shop/catalog/t-shirt-sacred-horror-giwise-art-exclusive-26.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-027",
+      "name": "T-Shirt Crow of Solitude - Itachi Akatsuki Edition",
+      "price": "€ 22.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-crow-of-solitude---itachi-akatsuki-edition/",
+      "sourceFile": "tshirt itachi profile.png",
+      "image": "/shop/catalog/t-shirt-crow-of-solitude-itachi-akatsuki-edition-27.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-028",
+      "name": "T-Shirt - Ghostemane Inspired Edition",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/ghost-dark-tee/",
+      "sourceFile": "t shirt ghostmane.png",
+      "image": "/shop/catalog/t-shirt-ghostemane-inspired-edition-28.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-029",
+      "name": "T-Shirt Sakura Street Vibes - Anime Techwear Editi",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-sakura-street-vibes---anime-techwear-editi/",
+      "sourceFile": "sakura t-shirt.png",
+      "image": "/shop/catalog/t-shirt-sakura-street-vibes-anime-techwear-editi-29.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-030",
+      "name": "T-Shirt Nook Mafia - Boss Edition",
+      "price": "€ 22.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-nook-mafia---boss-edition-59872/",
+      "sourceFile": "Nook Mafia t-shirt.png",
+      "image": "/shop/catalog/t-shirt-nook-mafia-boss-edition-30.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-031",
+      "name": "The Holy Smoke - Original Art.",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/holy-smoke-tshirt-giwise/",
+      "sourceFile": "prete smoke t shirt.png",
+      "image": "/shop/catalog/the-holy-smoke-original-art-31.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-032",
+      "name": "T-Shirt Bazinga - Fan Collection",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-bazinga---fan-collection-59872/",
+      "sourceFile": "sheldon t-shirt.png",
+      "image": "/shop/catalog/t-shirt-bazinga-fan-collection-32.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-033",
+      "name": "T-shirt Plank: Il Migliore Amico",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-plank--il-migliore-amico-59872/",
+      "sourceFile": "tavoletta tshirt.png",
+      "image": "/shop/catalog/t-shirt-plank-il-migliore-amico-33.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-034",
+      "name": "T-shirt Mucca, Pollo e il Rosso",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-mucca--pollo-e-il-rosso-59872/",
+      "sourceFile": "tshirt mucca e pollo.png",
+      "image": "/shop/catalog/t-shirt-mucca-pollo-e-il-rosso-34.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-035",
+      "name": "T-shirt Billy, Mandy e Tenebra",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-billy--mandy-e-tenebra-59872/",
+      "sourceFile": "Billy e Mandi t shirt.png",
+      "image": "/shop/catalog/t-shirt-billy-mandy-e-tenebra-35.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-036",
+      "name": "T-shirt Johnny Bravo: Flex Mode",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-johnny-bravo--flex-mode-59872/",
+      "sourceFile": "tshirt jhonny.png",
+      "image": "/shop/catalog/t-shirt-johnny-bravo-flex-mode-36.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-037",
+      "name": "T-shirt Pennywise: Time to Float (Vol. 1)",
+      "price": "€ 21.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-pennywise--time-to-float--vol--1--59872/",
+      "sourceFile": "rick morti (pennywise).png",
+      "image": "/shop/catalog/t-shirt-pennywise-time-to-float-vol-1-37.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-038",
+      "name": "T-Shirt o Felpa  Fantozzi - GiWise Edition -",
+      "price": "€ 22.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/felpa-fantozzi---giwise-edition---59872/",
+      "sourceFile": "t shirt fantozzi.png",
+      "image": "/shop/catalog/t-shirt-o-felpa-fantozzi-giwise-edition-38.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-039",
+      "name": "T-shirt The Mask: Heart Eyes Madness",
+      "price": "€ 20.00",
+      "category": "Abbigliamento",
+      "href": "https://giwiseshop.it/t-shirt-the-mask--heart-eyes-madness-59872/",
+      "sourceFile": "the mask t shirt.png",
+      "image": "/shop/catalog/t-shirt-the-mask-heart-eyes-madness-39.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-040",
+      "name": "T-Shirt Cartoon Anni 90 -EDDY- vol3 Oversize",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90--eddy--vol3-oversize-59872/",
+      "sourceFile": "eddy  T-Shirt oversize.png",
+      "image": "/shop/catalog/t-shirt-cartoon-anni-90-eddy-vol3-oversize-40.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-041",
+      "name": "T-Shirt Oversize Cartoni Cool",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-oversize-cartoni-cool-59872/",
+      "sourceFile": "Wb tshirt oversize.png",
+      "image": "/shop/catalog/t-shirt-oversize-cartoni-cool-41.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-042",
+      "name": "T-Shirt Oversize Parodia Nerd",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-oversize-parodia-nerd-59872/",
+      "sourceFile": "Patrik Bou tshirt oversize.png",
+      "image": "/shop/catalog/t-shirt-oversize-parodia-nerd-42.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-043",
+      "name": "T-Shirt Oversize Retro Gaming",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-oversize-retro-gaming-59872-19/",
+      "sourceFile": "Mario Aura tshirt oversize.png",
+      "image": "/shop/catalog/t-shirt-oversize-retro-gaming-43.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-044",
+      "name": "T-Shirt Oversize Retro Gaming",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-oversize-retro-gaming-59872/",
+      "sourceFile": "tshirt console oversize.png",
+      "image": "/shop/catalog/t-shirt-oversize-retro-gaming-44.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-045",
+      "name": "T-Shirt Oversize Teschio Clown",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-oversize-teschio-clown-59872/",
+      "sourceFile": "Krusty tshirt oversize.png",
+      "image": "/shop/catalog/t-shirt-oversize-teschio-clown-45.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-046",
+      "name": "T-Shirt Oversize Teschio Dark Oversize",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-oversize-teschio-dark-oversize-59872/",
+      "sourceFile": "Lisa Skull tshirt oversize.png",
+      "image": "/shop/catalog/t-shirt-oversize-teschio-dark-oversize-46.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-047",
+      "name": "Maglietta Oversize Graffitaro",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/maglietta-oversize-graffitaro-59872/",
+      "sourceFile": "Bartskull taglia oversize.png",
+      "image": "/shop/catalog/maglietta-oversize-graffitaro-47.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-048",
+      "name": "T-Shirt Oversize Unicorno Divertente  Maglia Larga",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-oversize-unicorno-divertente--maglia-larga/",
+      "sourceFile": "unicorno t-shirt Oversize.png",
+      "image": "/shop/catalog/t-shirt-oversize-unicorno-divertente-maglia-larga-48.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-049",
+      "name": "Oversize Banana Finger T-shirt",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/-59872-50/",
+      "sourceFile": "Ban-DITO Oversize.png",
+      "image": "/shop/catalog/oversize-banana-finger-t-shirt-49.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-050",
+      "name": "T-Shirt Laboratorio Vol.2 OverSize",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-laboratorio-vol-2-oversize--59872/",
+      "sourceFile": "DeeDeetshirt oversize.png",
+      "image": "/shop/catalog/t-shirt-laboratorio-vol-2-oversize-50.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-051",
+      "name": "T-Shirt Laboratorio Vol.1 OverSize",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-laboratorio-vol-1-oversize--59872/",
+      "sourceFile": "Dexter t shirt pversize.png",
+      "image": "/shop/catalog/t-shirt-laboratorio-vol-1-oversize-51.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-052",
+      "name": "T-Shirt o Felpa Billy & Mandy Oversize",
+      "price": "€ 21.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-o-felpa-billy---mandy-oversize-59872/",
+      "sourceFile": "Billy e Mandi t shirt oversize.png",
+      "image": "/shop/catalog/t-shirt-o-felpa-billy-mandy-oversize-52.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-053",
+      "name": "T-Shirt Cartoon Anni 90 -EDD- vol2 Oversize",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90--edd--vol2-oversize-59872/",
+      "sourceFile": "edd T-Shirt oversize.png",
+      "image": "/shop/catalog/t-shirt-cartoon-anni-90-edd-vol2-oversize-53.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-054",
+      "name": "T-Shirt Cartoon Anni 90 Blu Streetwear - Ed-  Over",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90-blu-streetwear---ed---over/",
+      "sourceFile": "ed T-Shirt oversize.png",
+      "image": "/shop/catalog/t-shirt-cartoon-anni-90-blu-streetwear-ed-over-54.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-055",
+      "name": "T-Shirt Cartoon Anni 90 Streetwear Oversize",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90-streetwear-oversize-59872/",
+      "sourceFile": "ed edd eddy t shirt oversize.png",
+      "image": "/shop/catalog/t-shirt-cartoon-anni-90-streetwear-oversize-55.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-056",
+      "name": "Noyz Urban Zombie Side - Oversize",
+      "price": "€ 22.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/noyz-urban-zombie-side---oversize-59872/",
+      "sourceFile": "Noyz t shirt oversize.png",
+      "image": "/shop/catalog/noyz-urban-zombie-side-oversize-56.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-057",
+      "name": "T-Shirt & Felpa Itachi Uchiha Oversize",
+      "price": "€ 24.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt---felpa-itachi-uchiha-oversize-59872/",
+      "sourceFile": "itachi red oversize.png",
+      "image": "/shop/catalog/t-shirt-felpa-itachi-uchiha-oversize-57.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-058",
+      "name": "T-Shirt & Felpa Leone Cane Fifone Oversize",
+      "price": "€ 21.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt---felpa-leone-cane-fifone-oversize-59872/",
+      "sourceFile": "Leone cane fifone tshirt oversize.png",
+      "image": "/shop/catalog/t-shirt-felpa-leone-cane-fifone-oversize-58.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-059",
+      "name": "T-shirt & Felpa Gothic Nun - Dark Art Oversize",
+      "price": "€ 21.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt---felpa-gothic-nun---dark-art-59872/",
+      "sourceFile": "Gotich Nun t-shirt oversize.png",
+      "image": "/shop/catalog/t-shirt-felpa-gothic-nun-dark-art-oversize-59.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-060",
+      "name": "T-Shirt & Felpa The Mask Oversize",
+      "price": "€ 21.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt---felpa-the-mask-oversize-59872/",
+      "sourceFile": "the mask t shirt oversize.png",
+      "image": "/shop/catalog/t-shirt-felpa-the-mask-oversize-60.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-061",
+      "name": "T-Shirt & Felpa Johnny Bravo Oversize",
+      "price": "€ 21.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt---felpa-johnny-bravo-oversize-59872/",
+      "sourceFile": "tshirt jhonny oversize.png",
+      "image": "/shop/catalog/t-shirt-felpa-johnny-bravo-oversize-61.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-062",
+      "name": "T-Shirt o Felpa Mucca e Pollo & Il Rosso Oversize",
+      "price": "€ 21.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-o-felpa-mucca-e-pollo---il-rosso-oversize-/",
+      "sourceFile": "tshirt mucca e pollo oversize.png",
+      "image": "/shop/catalog/t-shirt-o-felpa-mucca-e-pollo-il-rosso-oversize-62.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-063",
+      "name": "T-Shirt o Felpa Plank Oversize",
+      "price": "€ 21.00",
+      "category": "Oversize",
+      "href": "https://giwiseshop.it/t-shirt-o-felpa-amedeo-plank-oversize-59872/",
+      "sourceFile": "tavoletta t shirt oversize.png",
+      "image": "/shop/catalog/t-shirt-o-felpa-plank-oversize-63.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-064",
+      "name": "Tappetino Mouse: The Mask - Hypno Madness",
+      "price": "€ 25.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/tappetino-mouse--the-mask---hypno-madness-59872/",
+      "sourceFile": "MousePad XL the Mask.png",
+      "image": "/shop/catalog/tappetino-mouse-the-mask-hypno-madness-64.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-065",
+      "name": "Borraccia Termica Cartoni Anni 90",
+      "price": "€ 23.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/borraccia-termica-cartoni-anni-90-59872/",
+      "sourceFile": "boraccia Cartoon.png",
+      "image": "/shop/catalog/borraccia-termica-cartoni-anni-90-65.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-066",
+      "name": "Tazza Unicorno Esaurito",
+      "price": "€ 16.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/tazza-unicorno-esaurito---59872/",
+      "sourceFile": "tazza unicorno.png",
+      "image": "/shop/catalog/tazza-unicorno-esaurito-66.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-067",
+      "name": "Agenda Squall & Rinoa - FFVIII Fan Art",
+      "price": "€ 20.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/agenda-squall---rinoa---ffviii-fan-art-59872/",
+      "sourceFile": "Agendina final fantasy.png",
+      "image": "/shop/catalog/agenda-squall-rinoa-ffviii-fan-art-67.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-069",
+      "name": "Cover Pain Rinne-Sharingan - iPhone 13-16",
+      "price": "€ 18.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/cover-pain-rinne-sharingan---iphone-13-16-59872/",
+      "sourceFile": "Cover iphone pain.png",
+      "image": "/shop/catalog/cover-pain-rinne-sharingan-iphone-13-16-69.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-070",
+      "name": "Portachiavi Pain Akatsuki - Double Side",
+      "price": "€ 13.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/portachiavi-pain-akatsuki---double-side-59872/",
+      "sourceFile": "portachiavi pain.png",
+      "image": "/shop/catalog/portachiavi-pain-akatsuki-double-side-70.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-071",
+      "name": "Portachiavi Itachi Uchiha - Double Side",
+      "price": "€ 13.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/portachiavi-itachi-uchiha---double-side-59872/",
+      "sourceFile": "portachiavi itachi.png",
+      "image": "/shop/catalog/portachiavi-itachi-uchiha-double-side-71.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-072",
+      "name": "Borraccia Termica Radioactive - Cyber",
+      "price": "€ 23.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/borraccia-termica-radioactive---cyber-59872/",
+      "sourceFile": "borraccia radioattiva.png",
+      "image": "/shop/catalog/borraccia-termica-radioactive-cyber-72.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-073",
+      "name": "Mousepad Leone il Cane Fifone - Retro",
+      "price": "€ 14.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/mousepad-leone-il-cane-fifone---retro-59872/",
+      "sourceFile": "mousepad leone cane fifione.png",
+      "image": "/shop/catalog/mousepad-leone-il-cane-fifone-retro-73.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-074",
+      "name": "Cover Creeper Minecraft - iPhone 13 al 16",
+      "price": "€ 18.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/cover-creeper-minecraft---iphone-13-al-16-59872/",
+      "sourceFile": "cover minecraft Creeper.png",
+      "image": "/shop/catalog/cover-creeper-minecraft-iphone-13-al-16-74.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-075",
+      "name": "Cover Animal Crossing - iPhone 13 al 16 Pro Max",
+      "price": "€ 18.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/cover-animal-crossing---iphone-13-al-16-pro-max-59/",
+      "sourceFile": "cover animal crossing (black).png",
+      "image": "/shop/catalog/cover-animal-crossing-iphone-13-al-16-pro-max-75.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-076",
+      "name": "Tazza Cartoon Retro Mash-up - GiWise",
+      "price": "€ 16.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/tazza-cartoon-retro-mash-up---giwise-59872/",
+      "sourceFile": "Tazza Cartoon Retro.png",
+      "image": "/shop/catalog/tazza-cartoon-retro-mash-up-giwise-76.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-077",
+      "name": "Tazza The Mask - Sfumeggiante!",
+      "price": "€ 21.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/tazza-the-mask---sfumeggiante--59872/",
+      "sourceFile": "Tazza The Mask.png",
+      "image": "/shop/catalog/tazza-the-mask-sfumeggiante-77.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-078",
+      "name": "Cover Animal Crossing - iPhone 13 al 16 Pro Max  (",
+      "price": "€ 18.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/cover-animal-crossing---iphone-13-al-16-pro-max---/",
+      "sourceFile": "cover animal crossing (verde).png",
+      "image": "/shop/catalog/cover-animal-crossing-iphone-13-al-16-pro-max-78.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-079",
+      "name": "Cover Animal Crossing - iPhone 13 al 16 Pro Max (v",
+      "price": "€ 18.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/cover-animal-crossing---iphone-13-al-16-pro-max--v/",
+      "sourceFile": "cover animal crossing (bianca).png",
+      "image": "/shop/catalog/cover-animal-crossing-iphone-13-al-16-pro-max-v-79.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-080",
+      "name": "Magnete Tom Nook Gangsta",
+      "price": "€ 10.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/magnete-nook/",
+      "sourceFile": "magnete tom Nook.png",
+      "image": "/shop/catalog/magnete-tom-nook-gangsta-80.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-081",
+      "name": "Cover iPhone Naruto & Hinata: Eternal Bond",
+      "price": "€ 18.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/cover-iphone-naruto---hinata--eternal-bond-59872/",
+      "sourceFile": "cover naruto hinata.png",
+      "image": "/shop/catalog/cover-iphone-naruto-hinata-eternal-bond-81.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-082",
+      "name": "Cuscino Sheldon: Bazinga!",
+      "price": "€ 22.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/cuscino-sheldon--bazinga--59872/",
+      "sourceFile": "cuscino sheldon.png",
+      "image": "/shop/catalog/cuscino-sheldon-bazinga-82.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-083",
+      "name": "Cappellino Trucker Salmo: Red Hell",
+      "price": "€ 19.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/cappellino-trucker-salmo--red-hell-59872/",
+      "sourceFile": "cappello Salmo.png",
+      "image": "/shop/catalog/cappellino-trucker-salmo-red-hell-83.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-084",
+      "name": "Portachiavi Plank: Il Compagno Tascabile",
+      "price": "€ 11.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/portachiavi-plank--il-compagno-tascabile-59872/",
+      "sourceFile": "portachiavi Tavoletta.png",
+      "image": "/shop/catalog/portachiavi-plank-il-compagno-tascabile-84.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-085",
+      "name": "Tappetino Mouse XL: Hellvisback Edition",
+      "price": "€ 25.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/tappetino-mouse-xl--hellvisback-edition-59872/",
+      "sourceFile": "MousePad XL Salmo.png",
+      "image": "/shop/catalog/tappetino-mouse-xl-hellvisback-edition-85.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-086",
+      "name": "Tappetino Mouse XL: GiWise Cartoon Reunion",
+      "price": "€ 25.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/tappetino-mouse-xl--giwise-cartoon-reunion-59872/",
+      "sourceFile": "tappetino xl horror Cartoon Retro.png",
+      "image": "/shop/catalog/tappetino-mouse-xl-giwise-cartoon-reunion-86.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-087",
+      "name": "Agenda Betty Boop: Pop Art Journal",
+      "price": "€ 20.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/agenda-betty-boop--pop-art-journal-59872/",
+      "sourceFile": "Agendina Betty Boop.png",
+      "image": "/shop/catalog/agenda-betty-boop-pop-art-journal-87.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-088",
+      "name": "Cappellino Trucker South Park: The Squad",
+      "price": "€ 19.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/cappellino-trucker-south-park--the-squad-59872/",
+      "sourceFile": "capello south park.png",
+      "image": "/shop/catalog/cappellino-trucker-south-park-the-squad-88.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-089",
+      "name": "Tappetino Mouse: GiWise Cartoon Reunion",
+      "price": "€ 14.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/tappetino-mouse--giwise-cartoon-reunion-59872/",
+      "sourceFile": "mousepad standard cartoon retro.png",
+      "image": "/shop/catalog/tappetino-mouse-giwise-cartoon-reunion-89.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-090",
+      "name": "Cuscino Personalizzabile - Idea Regalo - LEGGI DES",
+      "price": "€ 40.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/cuscino-personalizzabile---idea-regalo---leggi-des/",
+      "sourceFile": "cuscino cuore personalizzato.png",
+      "image": "/shop/catalog/cuscino-personalizzabile-idea-regalo-leggi-des-90.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-091",
+      "name": "Portachiavi Horror Ghostface - GiWise Edition",
+      "price": "€ 11.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/portachiavi-horror-ghostface---giwise-edition-5987/",
+      "sourceFile": "portachiavi scream.png",
+      "image": "/shop/catalog/portachiavi-horror-ghostface-giwise-edition-91.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-092",
+      "name": "Pochette Be Yourself",
+      "price": "€ 23.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/pochette-be-yourself-59872/",
+      "sourceFile": "pochette Sakura.png",
+      "image": "/shop/catalog/pochette-be-yourself-92.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-093",
+      "name": "Mousepad Gaming 420 Vibes - Street Art Edition",
+      "price": "€ 14.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/mousepad-gaming-420-vibes---street-art-edition-598/",
+      "sourceFile": "mousepad snopdog.png",
+      "image": "/shop/catalog/mousepad-gaming-420-vibes-street-art-edition-93.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-094",
+      "name": "Mouse Pad Gaming Dodo",
+      "price": "€ 14.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/mousepad-dodo/",
+      "sourceFile": "MousePad Dodo.png",
+      "image": "/shop/catalog/mouse-pad-gaming-dodo-94.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-095",
+      "name": "MousePad GiWise Gaming",
+      "price": "€ 14.00",
+      "category": "Setup e gadget",
+      "href": "https://giwiseshop.it/mousepad-giwise-gaming-59872/",
+      "sourceFile": "MousePad GiWise Gaming.png",
+      "image": "/shop/catalog/mousepad-giwise-gaming-95.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-096",
+      "name": "Quadro Pennywise Nightmare Grin - GiWise Art Editi",
+      "price": "€ 45.00",
+      "category": "Collezioni Art",
+      "href": "https://giwiseshop.it/quadro-pennywise-nightmare-grin---giwise-art-editi/",
+      "sourceFile": "quadro pennywise Welcome.png",
+      "image": "/shop/catalog/quadro-pennywise-nightmare-grin-giwise-art-editi-96.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-097",
+      "name": "Quadro Art the Clown Terrifier Edition",
+      "price": "€ 45.00",
+      "category": "Collezioni Art",
+      "href": "https://giwiseshop.it/quadro-art-the-clown-terrifier-edition-59872/",
+      "sourceFile": "Quadro Art the Clown.png",
+      "image": "/shop/catalog/quadro-art-the-clown-terrifier-edition-97.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-098",
+      "name": "Quadro Echoes of Childhood - GiWise Art Edition",
+      "price": "€ 40.00",
+      "category": "Collezioni Art",
+      "href": "https://giwiseshop.it/quadro-echoes-of-childhood---giwise-art-edition-59/",
+      "sourceFile": "Quadro Echoes of Childhood.png",
+      "image": "/shop/catalog/quadro-echoes-of-childhood-giwise-art-edition-98.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-099",
+      "name": "Quadro The Gaze of Madness - GiWise Horror Art",
+      "price": "€ 45.00",
+      "category": "Collezioni Art",
+      "href": "https://giwiseshop.it/quadro-the-gaze-of-madness---giwise-horror-art-598/",
+      "sourceFile": "quadro Gaze of madness.png",
+      "image": "/shop/catalog/quadro-the-gaze-of-madness-giwise-horror-art-99.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-100",
+      "name": "Quadro Holy Smoke - Limited Edition",
+      "price": "€ 45.00",
+      "category": "Collezioni Art",
+      "href": "https://giwiseshop.it/quadro-holy-smoke---limited-edition-59872/",
+      "sourceFile": "quadro holy smoke.png",
+      "image": "/shop/catalog/quadro-holy-smoke-limited-edition-100.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-101",
+      "name": "Quadro Legame Eterno",
+      "price": "€ 40.00",
+      "category": "Collezioni Art",
+      "href": "https://giwiseshop.it/quadro-legame-eterno-59872/",
+      "sourceFile": "quadro naruto.png",
+      "image": "/shop/catalog/quadro-legame-eterno-101.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-102",
+      "name": "Trittico Canvas Gothic Dark Art - 3 pezzi",
+      "price": "€ 120.90",
+      "category": "Collezioni Art",
+      "href": "https://giwiseshop.it/trittico-canvas-gothic-dark-art---3-pezzi-59872/",
+      "sourceFile": "trittico canvas.png",
+      "image": "/shop/catalog/trittico-canvas-gothic-dark-art-3-pezzi-102.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-103",
+      "name": "Quadro Dark Art Suffering - Inchiostro",
+      "price": "€ 45.00",
+      "category": "Collezioni Art",
+      "href": "https://giwiseshop.it/quadro-dark-art-suffering---inchiostro-59872/",
+      "sourceFile": "Quadro Bianco e nero dark.png",
+      "image": "/shop/catalog/quadro-dark-art-suffering-inchiostro-103.webp",
+      "verifiedOn": "2026-08-19"
+    },
+    {
+      "id": "GS-104",
+      "name": "Quadro Anime Gaara Stile Art",
+      "price": "€ 45.00",
+      "category": "Collezioni Art",
+      "href": "https://giwiseshop.it/quadro-anime-gaara-stile-art-59872/",
+      "sourceFile": "Quadro Gaara.png",
+      "image": "/shop/catalog/quadro-anime-gaara-stile-art-104.webp",
+      "verifiedOn": "2026-08-19"
+    }
+  ]
+}

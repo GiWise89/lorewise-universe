@@ -1,0 +1,210 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { Fragment, useMemo, useState } from "react";
+import type { ArtworkAccess, CatalogArtwork } from "@/lib/artCatalog";
+import { artworkGenreLabels } from "@/lib/artworkTaxonomy";
+
+type ArtCatalogProps = {
+  artworks: CatalogArtwork[];
+};
+
+type SortMode = "archive" | "newest" | "oldest" | "price-asc" | "price-desc";
+
+const adultCover = "/brand/art-portals/adult-cover-v2.webp";
+const originalSeal = "/brand/art-portals/originals-seal-card-v1.webp";
+const fanartSeal = "/brand/art-portals/fanart-seal-card-v1.webp";
+const pageSize = 6;
+const curatedChapters = [
+  ["Capitolo I", "Origini e metamorfosi"],
+  ["Capitolo II", "Icone, incubi e memoria"],
+  ["Capitolo III", "Riti e visioni"],
+  ["Capitolo IV", "Volti oltre il reale"],
+  ["Capitolo V", "Nuove presenze"],
+] as const;
+
+export function ArtCatalog({ artworks }: ArtCatalogProps) {
+  const [query, setQuery] = useState("");
+  const [year, setYear] = useState("all");
+  const [genre, setGenre] = useState("all");
+  const [availability, setAvailability] = useState("all");
+  const [priceTier, setPriceTier] = useState("all");
+  const [sortMode, setSortMode] = useState<SortMode>("archive");
+  const [visibleCount, setVisibleCount] = useState(pageSize);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [revealedAdultArtworks, setRevealedAdultArtworks] = useState<string[]>([]);
+  const purchasableCount = artworks.filter((artwork) => artwork.access === "commercial-original").length;
+  const exhibitionCount = artworks.filter((artwork) => artwork.access === "exhibition-only").length;
+
+  const filteredArtworks = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase("it");
+    const matches = artworks.filter((artwork) => {
+      const matchesQuery = !normalizedQuery
+        || artwork.title?.toLocaleLowerCase("it").includes(normalizedQuery)
+        || artwork.code.toLocaleLowerCase("it").includes(normalizedQuery);
+      return matchesQuery
+        && (year === "all" || artwork.year === year)
+        && (genre === "all" || artwork.genre === genre)
+        && (availability === "all" || artwork.access === availability)
+        && (priceTier === "all" || artwork.priceTier === priceTier);
+    });
+
+    return [...matches].sort((left, right) => {
+      if (sortMode === "newest" || sortMode === "oldest") {
+        const direction = sortMode === "newest" ? -1 : 1;
+        return direction * (`${left.year}-${left.code}`.localeCompare(`${right.year}-${right.code}`, "it"));
+      }
+      if (sortMode === "price-asc" || sortMode === "price-desc") {
+        const prices = { essential: 8.9, detailed: 12.9, premium: 17.9 };
+        const noPrice = sortMode === "price-asc" ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY;
+        const leftPrice = left.priceTier ? prices[left.priceTier] : noPrice;
+        const rightPrice = right.priceTier ? prices[right.priceTier] : noPrice;
+        return sortMode === "price-asc" ? leftPrice - rightPrice : rightPrice - leftPrice;
+      }
+      return left.code.localeCompare(right.code, "it");
+    });
+  }, [artworks, availability, genre, priceTier, query, sortMode, year]);
+
+  const visibleArtworks = filteredArtworks.slice(0, visibleCount);
+  const isCuratedOrder = !query && year === "all" && genre === "all" && availability === "all" && priceTier === "all" && sortMode === "archive";
+
+  function updateFilter(update: () => void) {
+    update();
+    setVisibleCount(pageSize);
+  }
+
+  function resetFilters() {
+    setQuery("");
+    setYear("all");
+    setGenre("all");
+    setAvailability("all");
+    setPriceTier("all");
+    setSortMode("archive");
+    setVisibleCount(pageSize);
+  }
+
+  function selectEntrance(access: ArtworkAccess) {
+    setAvailability(access);
+    setYear("all");
+    setGenre("all");
+    setPriceTier("all");
+    setVisibleCount(pageSize);
+    document.getElementById("art-index")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function selectQuickView(nextYear: string, nextAvailability: string) {
+    updateFilter(() => {
+      setYear(nextYear);
+      setAvailability(nextAvailability);
+    });
+  }
+
+  function revealAdultArtwork(code: string) {
+    setRevealedAdultArtworks((current) => current.includes(code) ? current : [...current, code]);
+  }
+
+  function chapterFor(index: number) {
+    const chapterIndex = Math.floor(index / pageSize);
+    if (isCuratedOrder) return curatedChapters[chapterIndex] ?? ["Archivio", "Selezione d’autore"];
+    return [`Selezione ${String(chapterIndex + 1).padStart(2, "0")}`, "Percorso filtrato"] as const;
+  }
+
+  return (
+    <>
+      <section className="art-entrances shell" aria-labelledby="art-entrances-title">
+        <div className="art-entrances-heading">
+          <p className="eyebrow">Due percorsi distinti</p>
+          <h2 id="art-entrances-title">Scegli da quale ala della collezione entrare.</h2>
+        </div>
+        <div className="art-entrance-grid">
+          <button type="button" onClick={() => selectEntrance("commercial-original")}>
+            <Image src="/brand/art-portals/originals-emblem-v1.webp" alt="Emblema illustrato delle opere originali GiWise" width={1280} height={1280} unoptimized />
+            <span><small>{purchasableCount} opere acquistabili</small><strong>Originali GiWise</strong><em>Ideazione, disegno ed esecuzione dell’autore. Disponibili singolarmente o tramite crediti.</em><b>Entra nella collezione →</b></span>
+          </button>
+          <button type="button" onClick={() => selectEntrance("exhibition-only")}>
+            <Image src="/brand/art-portals/fanart-emblem-v1.webp" alt="Emblema illustrato della raccolta fan art" width={1280} height={1280} unoptimized />
+            <span><small>{exhibitionCount} opere senza download</small><strong>Archivio in esposizione</strong><em>Fan art e originali custoditi online come anteprime protette, senza vendita né download.</em><b>Visita l’esposizione →</b></span>
+          </button>
+        </div>
+      </section>
+
+      <section className="art-catalog-tools shell" id="art-index" aria-labelledby="art-filters-title">
+        <div className="art-filter-heading">
+          <div>
+            <p className="eyebrow">Indice della collezione</p>
+            <h2 id="art-filters-title">Esplora l’archivio.</h2>
+          </div>
+          <p className="catalog-result-count" aria-live="polite"><strong>{filteredArtworks.length}</strong> {filteredArtworks.length === 1 ? "opera" : "opere"}</p>
+        </div>
+
+        <nav className="art-index-nav" aria-label="Viste rapide dell’archivio">
+          <button type="button" aria-pressed={year === "all" && availability === "all"} onClick={() => selectQuickView("all", "all")}>Tutte</button>
+          <button type="button" aria-pressed={availability === "commercial-original"} onClick={() => selectQuickView("all", "commercial-original")}>Originali</button>
+          <button type="button" aria-pressed={availability === "exhibition-only"} onClick={() => selectQuickView("all", "exhibition-only")}>Esposizione</button>
+          <button type="button" aria-pressed={year === "2025" && availability === "all"} onClick={() => selectQuickView("2025", "all")}>2025</button>
+          <button type="button" aria-pressed={year === "2026" && availability === "all"} onClick={() => selectQuickView("2026", "all")}>2026</button>
+          <button type="button" aria-expanded={searchOpen} onClick={() => setSearchOpen((current) => !current)}>Cerca</button>
+          <details>
+            <summary>Genere</summary>
+            <label><span>Seleziona genere</span><select value={genre} onChange={(event) => updateFilter(() => setGenre(event.target.value))}><option value="all">Tutti i generi</option>{artworkGenreLabels.map((label) => <option value={label} key={label}>{label}</option>)}</select></label>
+          </details>
+          <details>
+            <summary>Fascia</summary>
+            <label><span>Fascia di prezzo</span><select value={priceTier} onChange={(event) => updateFilter(() => setPriceTier(event.target.value))}><option value="all">Tutte le fasce</option><option value="essential">Fascia Essenziale · 8,90 €</option><option value="detailed">Fascia Dettagliata · 12,90 €</option><option value="premium">Fascia Premium · 17,90 €</option></select></label>
+          </details>
+          <details>
+            <summary>Ordina</summary>
+            <label><span>Ordina le opere</span><select value={sortMode} onChange={(event) => updateFilter(() => setSortMode(event.target.value as SortMode))}><option value="archive">Codice archivio</option><option value="newest">Più recenti</option><option value="oldest">Più vecchie</option><option value="price-asc">Prezzo crescente</option><option value="price-desc">Prezzo decrescente</option></select></label>
+          </details>
+        </nav>
+
+        <div className="art-index-search" hidden={!searchOpen}>
+          <label htmlFor="artwork-search">Titolo o codice</label>
+          <input id="artwork-search" value={query} onChange={(event) => updateFilter(() => setQuery(event.target.value))} placeholder="Cerca un titolo o LW-ART-014" />
+        </div>
+        {!isCuratedOrder ? <button className="art-index-reset" type="button" onClick={resetFilters}>Ripristina l’intero archivio</button> : null}
+      </section>
+
+      {filteredArtworks.length > 0 ? (
+        <>
+          <section className="uniform-art-gallery shell" aria-label="Opere dell’archivio protetto">
+            {visibleArtworks.map((artwork, index) => {
+              const adultRevealed = !artwork.sensitive || revealedAdultArtworks.includes(artwork.code);
+              const chapter = chapterFor(index);
+              return (
+                <Fragment key={artwork.code}>
+                  {index % pageSize === 0 ? <header className="art-gallery-chapter"><small>{chapter[0]}</small><h2>{chapter[1]}</h2><span>{String(index + 1).padStart(2, "0")}—{String(Math.min(index + pageSize, filteredArtworks.length)).padStart(2, "0")}</span></header> : null}
+                  <article className={`draft-artwork artwork-${artwork.access} artwork-${artwork.orientation}`}>
+                    {adultRevealed ? (
+                      <Link className="draft-artwork-image" href={`/arte/${artwork.slug}`} aria-label={`Apri la scheda dell’opera ${artwork.code}`}>
+                        <Image src={artwork.image} alt={`Anteprima protetta dell’opera ${artwork.code}, ${artwork.title}`} width={artwork.orientation === "landscape" ? 1600 : 1131} height={artwork.orientation === "landscape" ? 900 : 1600} sizes="(max-width: 640px) 92vw, (max-width: 980px) 45vw, 30vw" loading="lazy" unoptimized />
+                      </Link>
+                    ) : (
+                      <div className="draft-artwork-image adult-thumbnail-gate">
+                        <Image src={adultCover} alt="Sigillo illustrato per contenuti riservati agli adulti" width={1086} height={1448} sizes="(max-width: 700px) 92vw, 48vw" loading="lazy" unoptimized />
+                        <div><strong>Opera sigillata · 18+</strong><span>{artwork.contentWarning}</span><button type="button" onClick={() => revealAdultArtwork(artwork.code)}>Conferma 18+ · Mostra l’opera</button></div>
+                      </div>
+                    )}
+                    <div className="draft-artwork-copy">
+                      <div className="artwork-card-identity">
+                        <Image src={artwork.kindLabel === "Arte originale" ? originalSeal : fanartSeal} alt="" width={96} height={96} loading="lazy" unoptimized />
+                        <small>{artwork.code}</small>
+                      </div>
+                      <h3><Link href={`/arte/${artwork.slug}`}>{artwork.title}</Link></h3>
+                      <p className="artwork-taxonomy">{artwork.year} · {artwork.genre}</p>
+                      <p className="artwork-card-status">{artwork.priceLabel ? `${artwork.priceLabel} · Licenza personale` : "Solo esposizione · Nessun download"}</p>
+                    </div>
+                  </article>
+                </Fragment>
+              );
+            })}
+          </section>
+          {visibleCount < filteredArtworks.length ? <div className="art-load-more shell"><p>Visualizzate {visibleArtworks.length} di {filteredArtworks.length} opere</p><button type="button" onClick={() => setVisibleCount((current) => current + pageSize)}>Apri il capitolo successivo</button></div> : null}
+        </>
+      ) : (
+        <section className="art-empty-results shell" aria-live="polite"><p className="eyebrow">Nessuna corrispondenza</p><h2>Questo percorso non contiene ancora opere.</h2><p>Prova una combinazione diversa oppure torna all’intero archivio.</p><button type="button" onClick={resetFilters}>Mostra tutte le opere</button></section>
+      )}
+    </>
+  );
+}

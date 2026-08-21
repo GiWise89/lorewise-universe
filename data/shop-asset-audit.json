@@ -1,0 +1,1770 @@
+{
+  "verifiedOn": "2026-08-19",
+  "sourceFolder": "C:/Users/Luigi/Documents/Lorewise Archivio/GiWise Shop Merce",
+  "entries": [
+    {
+      "file": "Agendina Betty Boop.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/agenda-betty-boop--pop-art-journal-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562498/ntbook/1.png",
+          "name": "Agenda Betty Boop: Pop Art Journal",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Agendina final fantasy.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/agenda-squall---rinoa---ffviii-fan-art-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563422/ntbook/1.png",
+          "name": "Agenda Squall & Rinoa - FFVIII Fan Art",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "asciughino Felpa.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-im-stoned--edizione-n1-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561472/maglietta-unisex/1.png",
+          "name": "IT-Shirt IM STONED  EDIZIONE N1",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "asciughino t-shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-im-stoned--edizione-n1-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561472/maglietta-unisex/1.png",
+          "name": "IT-Shirt IM STONED  EDIZIONE N1",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Ban-DITO Oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/-59872-50/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00565081/t-shirt-unisex-large/1.png",
+          "name": "Oversize Banana Finger T-shirt",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Ban-DITO.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-banana-finger-art-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00565077/maglietta-unisex/1.png",
+          "name": "T-shirt Banana Finger Art",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Bartskull taglia oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/maglietta-oversize-graffitaro-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00565785/t-shirt-unisex-large/1.png",
+          "name": "Maglietta Oversize Graffitaro",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Bartskull.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/maglietta-teschio-ribelle-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00565779/maglietta-unisex/1.png",
+          "name": "Maglietta Teschio Ribelle",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Billy e Mandi felpa oversize.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-o-felpa-billy---mandy-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562961/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt o Felpa Billy & Mandy Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "Billy e Mandi felpa.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-billy--mandy-e-tenebra-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561979/maglietta-unisex/1.png",
+          "name": "T-shirt Billy, Mandy e Tenebra",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "Billy e Mandi t shirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-o-felpa-billy---mandy-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562961/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt o Felpa Billy & Mandy Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Billy e Mandi t shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-billy--mandy-e-tenebra-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561979/maglietta-unisex/1.png",
+          "name": "T-shirt Billy, Mandy e Tenebra",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "boraccia Cartoon.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/borraccia-termica-cartoni-anni-90-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00565589/drink-bottle/1.png",
+          "name": "Borraccia Termica Cartoni Anni 90",
+          "price": "€ 23.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "borraccia radioattiva.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/borraccia-termica-radioactive---cyber-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563364/drink-bottle/1.png",
+          "name": "Borraccia Termica Radioactive - Cyber",
+          "price": "€ 23.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Broncio Creepy oversize.png",
+      "verification": "unmatched",
+      "products": [],
+      "exactAssets": 0,
+      "status": "not-public"
+    },
+    {
+      "file": "Broncio Creepy.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/horror-crossing-03-butcher-pig/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00556733/maglietta-unisex/1.png",
+          "name": "Horror Crossing #03 - The Butcher Pig",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "capello south park.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/cappellino-trucker-south-park--the-squad-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562497/hats-trucker/1.png",
+          "name": "Cappellino Trucker South Park: The Squad",
+          "price": "€ 19.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "cappello Salmo.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/cappellino-trucker-salmo--red-hell-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562633/hats-trucker/1.png",
+          "name": "Cappellino Trucker Salmo: Red Hell",
+          "price": "€ 19.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Coco Creepy.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-coco-creepy-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00556738/maglietta-unisex/1.png",
+          "name": "Horror Crossing #01 - The Stitched Bunny",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "cover animal crossing (bianca).png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/cover-animal-crossing---iphone-13-al-16-pro-max--v/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562890/cip14gf/1.png",
+          "name": "Cover Animal Crossing - iPhone 13 al 16 Pro Max (v",
+          "price": "€ 18.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "cover animal crossing (black).png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/cover-animal-crossing---iphone-13-al-16-pro-max-59/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563270/cip14gf/1.png",
+          "name": "Cover Animal Crossing - iPhone 13 al 16 Pro Max",
+          "price": "€ 18.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "cover animal crossing (verde).png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/cover-animal-crossing---iphone-13-al-16-pro-max---/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562895/cip14gf/1.png",
+          "name": "Cover Animal Crossing - iPhone 13 al 16 Pro Max  (",
+          "price": "€ 18.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Cover iphone pain.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/cover-pain-rinne-sharingan---iphone-13-16-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563375/cip14gf/1.png",
+          "name": "Cover Pain Rinne-Sharingan - iPhone 13-16",
+          "price": "€ 18.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "cover minecraft Creeper.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/cover-creeper-minecraft---iphone-13-al-16-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563272/cip14gf/1.png",
+          "name": "Cover Creeper Minecraft - iPhone 13 al 16",
+          "price": "€ 18.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "cover naruto hinata.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/cover-iphone-naruto---hinata--eternal-bond-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562637/cip14gf/1.png",
+          "name": "Cover iPhone Naruto & Hinata: Eternal Bond",
+          "price": "€ 18.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "creepy jesusu felpa.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/thorned-redeemer-tshirt-giwise/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00541658/maglietta-unisex/1.png",
+          "name": "The Thorned Redeemer - Original Art GiWise",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "creepy jesusu.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/thorned-redeemer-tshirt-giwise/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00541658/maglietta-unisex/1.png",
+          "name": "The Thorned Redeemer - Original Art GiWise",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "cuscino cuore personalizzato.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/cuscino-personalizzabile---idea-regalo---leggi-des/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561531/ao-heart-pillow/1.png",
+          "name": "Cuscino Personalizzabile - Idea Regalo - LEGGI DES",
+          "price": "€ 40.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "cuscino sheldon.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/cuscino-sheldon--bazinga--59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562636/cuscino-40x40/1.png",
+          "name": "Cuscino Sheldon: Bazinga!",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "DeeDeetshirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-laboratorio-vol-2-oversize--59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00564088/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Laboratorio Vol.2 OverSize",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "DeeDeetshirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-laboratorio-vol-2-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00564079/t-shirt-donna/1.png",
+          "name": "T-Shirt Laboratorio Vol.2",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Dexter t shirt pversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-laboratorio-vol-1-oversize--59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00564085/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Laboratorio Vol.1 OverSize",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Dexter t shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-laboratorio-vol-1-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00564074/maglietta-unisex/1.png",
+          "name": "T-Shirt Laboratorio vol.1",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "ed edd eddy t shirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90-streetwear-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563922/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Cartoon Anni 90 Streetwear Oversize",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "ed edd eddy t shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/ed-edd-eddy-t-shirt-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563886/maglietta-unisex/1.png",
+          "name": "-Shirt Cartoon Anni 90 Streetwear",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "ed T-Shirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90-blu-streetwear---ed---over/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563945/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Cartoon Anni 90 Blu Streetwear - Ed-  Over",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "ed T-Shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90--ed---vol1-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563941/maglietta-unisex/1.png",
+          "name": "T-Shirt Cartoon Anni 90 -ED-  vol1",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "edd T-Shirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90--edd--vol2-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00564029/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Cartoon Anni 90 -EDD- vol2 Oversize",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "edd T-Shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90--edd--vol2-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00564028/maglietta-unisex/1.png",
+          "name": "T-Shirt Cartoon Anni 90 -EDD- vol2",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "eddy  T-Shirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90--eddy--vol3-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00564033/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Cartoon Anni 90 -EDDY- vol3 Oversize",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "eddy  T-Shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-cartoon-anni-90--eddy--vol3-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00564030/maglietta-unisex/1.png",
+          "name": "T-Shirt Cartoon Anni 90 -EDDY- vol3",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "felpa fantozzi1.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/felpa-fantozzi---giwise-edition---59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00542376/maglietta-unisex/1.png",
+          "name": "T-Shirt o Felpa  Fantozzi - GiWise Edition -",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "felpa itachi profile.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-crow-of-solitude---itachi-akatsuki-edition/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561345/maglietta-unisex/1.png",
+          "name": "T-Shirt Crow of Solitude - Itachi Akatsuki Edition",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "felpa Jhonny oversize.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-johnny-bravo-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562966/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt & Felpa Johnny Bravo Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "felpa Jhonny.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-johnny-bravo--flex-mode-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562487/maglietta-unisex/1.png",
+          "name": "T-shirt Johnny Bravo: Flex Mode",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "Felpa LEone oversize.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-leone-cane-fifone-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563298/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt & Felpa Leone Cane Fifone Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "Felpa LEone.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-leone-il-cane-fifone-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563297/maglietta-unisex/1.png",
+          "name": "T-Shirt & Felpa Leone il Cane Fifone",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "Felpa mucca e pollo oversize.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-o-felpa-mucca-e-pollo---il-rosso-oversize-/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562963/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt o Felpa Mucca e Pollo & Il Rosso Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "Felpa mucca e pollo.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-mucca--pollo-e-il-rosso-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561608/maglietta-unisex/1.png",
+          "name": "T-shirt Mucca, Pollo e il Rosso",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "felpa tavoletta oversize.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-o-felpa-amedeo-plank-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562962/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt o Felpa Plank Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "Gotich Nun felpa oversize.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-gothic-nun---dark-art-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562981/t-shirt-unisex-large/1.png",
+          "name": "T-shirt & Felpa Gothic Nun - Dark Art Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "Gotich Nun felpa.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-gothic-nun---dark-art-59872-53/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562982/maglietta-unisex/1.png",
+          "name": "T-shirt & Felpa Gothic Nun - Dark Art",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "Gotich Nun t-shirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-gothic-nun---dark-art-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562981/t-shirt-unisex-large/1.png",
+          "name": "T-shirt & Felpa Gothic Nun - Dark Art Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Gotich Nun t-shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-gothic-nun---dark-art-59872-53/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562982/maglietta-unisex/1.png",
+          "name": "T-shirt & Felpa Gothic Nun - Dark Art",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "guida alle taglie felpe.png",
+      "verification": "unmatched",
+      "products": [],
+      "exactAssets": 0,
+      "status": "reference-only"
+    },
+    {
+      "file": "guida alle taglie.png",
+      "verification": "exact-product-detail",
+      "products": [],
+      "exactAssets": 2,
+      "status": "reference-only"
+    },
+    {
+      "file": "itachi red felpa oversize.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-itachi-uchiha-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563408/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt & Felpa Itachi Uchiha Oversize",
+          "price": "€ 24.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "itachi red felpa.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-itachi-uchiha-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563410/maglietta-unisex/1.png",
+          "name": "T-Shirt & Felpa Itachi Uchiha",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "itachi red oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-itachi-uchiha-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563408/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt & Felpa Itachi Uchiha Oversize",
+          "price": "€ 24.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "itachi red.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-itachi-uchiha-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563410/maglietta-unisex/1.png",
+          "name": "T-Shirt & Felpa Itachi Uchiha",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Krusty tshirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-oversize-teschio-clown-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00566495/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Oversize Teschio Clown",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Krusty tshirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/maglietta-dark-clown-ribelle-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00566493/maglietta-unisex/1.png",
+          "name": "Maglietta Dark Clown Ribelle",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Leone cane fifone tshirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-leone-cane-fifone-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563298/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt & Felpa Leone Cane Fifone Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Leone cane fifone tshirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-leone-il-cane-fifone-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563297/maglietta-unisex/1.png",
+          "name": "T-Shirt & Felpa Leone il Cane Fifone",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Lisa Skull tshirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-oversize-teschio-dark-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00566492/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Oversize Teschio Dark Oversize",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Lisa Skull tshirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-teschio-dark-farfalle-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00566490/maglietta-unisex/1.png",
+          "name": "T-Shirt Teschio Dark Farfalle",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "magnete tom Nook.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/magnete-nook/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00545627/magnet-sqr/1.png",
+          "name": "Magnete Tom Nook Gangsta",
+          "price": "€ 10.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Mario Aura tshirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-oversize-retro-gaming-59872-19/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00566965/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Oversize Retro Gaming",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Mario Aura tshirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/maglietta-retro-gaming-oscura-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00566957/maglietta-unisex/1.png",
+          "name": "Maglietta Retro Gaming Oscura",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Mouae Xl Dark Fantasy.png",
+      "verification": "unmatched",
+      "products": [],
+      "exactAssets": 0,
+      "status": "not-public"
+    },
+    {
+      "file": "MousePad Dodo.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/mousepad-dodo/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00540431/m23x19-rettangolare/1.png",
+          "name": "Mouse Pad Gaming Dodo",
+          "price": "€ 14.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "MousePad GiWise Gaming.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/mousepad-giwise-gaming-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00540257/m23x19-rettangolare/1.png",
+          "name": "MousePad GiWise Gaming",
+          "price": "€ 14.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "mousepad leone cane fifione.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/mousepad-leone-il-cane-fifone---retro-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563302/m23x19-rettangolare/1.png",
+          "name": "Mousepad Leone il Cane Fifone - Retro",
+          "price": "€ 14.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "mousepad snopdog.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/mousepad-gaming-420-vibes---street-art-edition-598/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561334/m23x19-rettangolare/1.png",
+          "name": "Mousepad Gaming 420 Vibes - Street Art Edition",
+          "price": "€ 14.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "mousepad standard cartoon retro.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/tappetino-mouse--giwise-cartoon-reunion-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562492/m23x19-rettangolare/1.png",
+          "name": "Tappetino Mouse: GiWise Cartoon Reunion",
+          "price": "€ 14.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "MousePad XL Salmo.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/tappetino-mouse-xl--hellvisback-edition-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562518/mousepad-35x60/1.png",
+          "name": "Tappetino Mouse XL: Hellvisback Edition",
+          "price": "€ 25.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "MousePad XL the Mask.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/tappetino-mouse--the-mask---hypno-madness-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562758/mousepad-35x60/1.png",
+          "name": "Tappetino Mouse: The Mask - Hypno Madness",
+          "price": "€ 25.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "nerd life tshirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/-t-shirt-nerd-life-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00540639/maglietta-unisex/1.png",
+          "name": "T-shirt Nerd Life: Evolution Gaming",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Nook Mafia Felpa.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-nook-mafia---boss-edition-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561448/maglietta-unisex/1.png",
+          "name": "T-Shirt Nook Mafia - Boss Edition",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "Nook Mafia t-shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-nook-mafia---boss-edition-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561448/maglietta-unisex/1.png",
+          "name": "T-Shirt Nook Mafia - Boss Edition",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "noyz t  shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/urban-zombie-side-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563810/maglietta-unisex/1.png",
+          "name": "Noyz Urban Zombie Side",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Noyz t shirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/noyz-urban-zombie-side---oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563811/t-shirt-unisex-large/1.png",
+          "name": "Noyz Urban Zombie Side - Oversize",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Patrik Bou tshirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-oversize-parodia-nerd-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00567966/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Oversize Parodia Nerd",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Patrik Bou tshirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-crossover-anime-divertente-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00567964/maglietta-unisex/1.png",
+          "name": "T-Shirt Crossover Anime Divertente",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "pochette Sakura.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/pochette-be-yourself-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00546234/ao-pouch/1.png",
+          "name": "Pochette Be Yourself",
+          "price": "€ 23.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "portachiavi itachi.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/portachiavi-itachi-uchiha---double-side-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563368/kchain-sq/1.png",
+          "name": "Portachiavi Itachi Uchiha - Double Side",
+          "price": "€ 13.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "portachiavi pain.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/portachiavi-pain-akatsuki---double-side-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563372/kchain-sq/1.png",
+          "name": "Portachiavi Pain Akatsuki - Double Side",
+          "price": "€ 13.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "portachiavi scream.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/portachiavi-horror-ghostface---giwise-edition-5987/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561527/kchain-sq/1.png",
+          "name": "Portachiavi Horror Ghostface - GiWise Edition",
+          "price": "€ 11.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "portachiavi Tavoletta.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/portachiavi-plank--il-compagno-tascabile-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562631/kchain-sq/1.png",
+          "name": "Portachiavi Plank: Il Compagno Tascabile",
+          "price": "€ 11.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "prete smoke t shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/holy-smoke-tshirt-giwise/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00541655/maglietta-unisex/1.png",
+          "name": "The Holy Smoke - Original Art.",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Quadro Art the Clown.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/quadro-art-the-clown-terrifier-edition-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561412/frame-30x45/1.png",
+          "name": "Quadro Art the Clown Terrifier Edition",
+          "price": "€ 45.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Quadro Bianco e nero dark.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/quadro-dark-art-suffering---inchiostro-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563264/frame-30x45/1.png",
+          "name": "Quadro Dark Art Suffering - Inchiostro",
+          "price": "€ 45.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Quadro Echoes of Childhood.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/quadro-echoes-of-childhood---giwise-art-edition-59/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561414/frame-30x45/1.png",
+          "name": "Quadro Echoes of Childhood - GiWise Art Edition",
+          "price": "€ 40.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Quadro Gaara.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/quadro-anime-gaara-stile-art-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00564195/frame-30x45/1.png",
+          "name": "Quadro Anime Gaara Stile Art",
+          "price": "€ 45.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "quadro Gaze of madness.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/quadro-the-gaze-of-madness---giwise-horror-art-598/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561465/frame-30x45/1.png",
+          "name": "Quadro The Gaze of Madness - GiWise Horror Art",
+          "price": "€ 45.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "quadro holy smoke.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/quadro-holy-smoke---limited-edition-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561559/frame-30x45/1.png",
+          "name": "Quadro Holy Smoke - Limited Edition",
+          "price": "€ 45.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "quadro naruto.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/quadro-legame-eterno-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561563/frame-30x45/1.png",
+          "name": "Quadro Legame Eterno",
+          "price": "€ 40.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "quadro pennywise Welcome.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/quadro-pennywise-nightmare-grin---giwise-art-editi/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561410/frame-30x45/1.png",
+          "name": "Quadro Pennywise Nightmare Grin - GiWise Art Editi",
+          "price": "€ 45.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "rick morti (pennywise).png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-pennywise--time-to-float--vol--1--59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562635/maglietta-unisex/1.png",
+          "name": "T-shirt Pennywise: Time to Float (Vol. 1)",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "sakura t-shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-sakura-street-vibes---anime-techwear-editi/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561438/maglietta-unisex/1.png",
+          "name": "T-Shirt Sakura Street Vibes - Anime Techwear Editi",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "scared maria.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-amen---giwise-edition--59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00541653/maglietta-unisex/1.png",
+          "name": "T-Shirt \"Sacred Horror\" - GiWise Art Exclusive",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "sheldon t-shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-bazinga---fan-collection-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561530/maglietta-unisex/1.png",
+          "name": "T-Shirt Bazinga - Fan Collection",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "t shirt fantozzi.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/felpa-fantozzi---giwise-edition---59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00542376/maglietta-unisex/1.png",
+          "name": "T-Shirt o Felpa  Fantozzi - GiWise Edition -",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "t shirt ghostmane.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/ghost-dark-tee/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00550299/maglietta-unisex/1.png",
+          "name": "T-Shirt - Ghostemane Inspired Edition",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tappetino xl horror Cartoon Retro.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/tappetino-mouse-xl--giwise-cartoon-reunion-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562515/mousepad-35x60/1.png",
+          "name": "Tappetino Mouse XL: GiWise Cartoon Reunion",
+          "price": "€ 25.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tavoletta felpa.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-plank--il-migliore-amico-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561578/maglietta-unisex/1.png",
+          "name": "T-shirt Plank: Il Migliore Amico",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "tavoletta t shirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-o-felpa-amedeo-plank-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562962/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt o Felpa Plank Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tavoletta tshirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-plank--il-migliore-amico-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561578/maglietta-unisex/1.png",
+          "name": "T-shirt Plank: Il Migliore Amico",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Tazza Cartoon Retro.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/tazza-cartoon-retro-mash-up---giwise-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562980/mug-twotone/2.png",
+          "name": "Tazza Cartoon Retro Mash-up - GiWise",
+          "price": "€ 16.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Tazza The Mask.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/tazza-the-mask---sfumeggiante--59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562978/tazza-fluo/1.png",
+          "name": "Tazza The Mask - Sfumeggiante!",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tazza unicorno.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/tazza-unicorno-esaurito---59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00565583/mug-twotone/1.png",
+          "name": "Tazza Unicorno Esaurito",
+          "price": "€ 16.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "the mask felpa oversize.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-the-mask-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562975/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt & Felpa The Mask Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "the mask felpa.png",
+      "verification": "unmatched",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-the-mask--heart-eyes-madness-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562756/maglietta-unisex/1.png",
+          "name": "T-shirt The Mask: Heart Eyes Madness",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 0,
+      "status": "variant-verified"
+    },
+    {
+      "file": "the mask t shirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-the-mask-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562975/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt & Felpa The Mask Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "the mask t shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-the-mask--heart-eyes-madness-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562756/maglietta-unisex/1.png",
+          "name": "T-shirt The Mask: Heart Eyes Madness",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "thsirt Fekice.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/horror-crossing-02-cursed-mummy/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00556737/maglietta-unisex/1.png",
+          "name": "Horror Crossing #02 - The Cursed Mummy",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "trittico canvas.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/trittico-canvas-gothic-dark-art---3-pezzi-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00563012/canvas-3-pannelli-telaio/1.png",
+          "name": "Trittico Canvas Gothic Dark Art - 3 pezzi",
+          "price": "€ 120.90"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tshirt console oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-oversize-retro-gaming-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00566651/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Oversize Retro Gaming",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tshirt console.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-game-over-retro-gaming-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00566650/maglietta-unisex/1.png",
+          "name": "T-Shirt Game Over Retro Gaming",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tshirt itachi profile.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-crow-of-solitude---itachi-akatsuki-edition/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561345/maglietta-unisex/1.png",
+          "name": "T-Shirt Crow of Solitude - Itachi Akatsuki Edition",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tshirt jhonny oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt---felpa-johnny-bravo-oversize-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562966/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt & Felpa Johnny Bravo Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tshirt jhonny.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-johnny-bravo--flex-mode-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562487/maglietta-unisex/1.png",
+          "name": "T-shirt Johnny Bravo: Flex Mode",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tshirt mucca e pollo oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-o-felpa-mucca-e-pollo---il-rosso-oversize-/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00562963/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt o Felpa Mucca e Pollo & Il Rosso Oversize",
+          "price": "€ 21.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "tshirt mucca e pollo.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-mucca--pollo-e-il-rosso-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00561608/maglietta-unisex/1.png",
+          "name": "T-shirt Mucca, Pollo e il Rosso",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 2,
+      "status": "exact-verified"
+    },
+    {
+      "file": "unicorno t-shirt Oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-oversize-unicorno-divertente--maglia-larga/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00565578/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Oversize Unicorno Divertente  Maglia Larga",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "unicorno t-shirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-unicorno-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00565573/maglietta-unisex/1.png",
+          "name": "T-Shirt Unicorno",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Wb tshirt oversize.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-oversize-cartoni-cool-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00569185/t-shirt-unisex-large/1.png",
+          "name": "T-Shirt Oversize Cartoni Cool",
+          "price": "€ 22.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    },
+    {
+      "file": "Wb tshirt.png",
+      "verification": "exact-collection",
+      "products": [
+        {
+          "href": "https://giwiseshop.it/t-shirt-parodia-cartoni-cool-59872/",
+          "image": "https://d29gv5mnjp8nf8.cloudfront.net/data/campaign/00569182/maglietta-unisex/1.png",
+          "name": "T-Shirt Parodia Cartoni Cool",
+          "price": "€ 20.00"
+        }
+      ],
+      "exactAssets": 1,
+      "status": "exact-verified"
+    }
+  ]
+}

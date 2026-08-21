@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="it">
+  <body style="margin:0;padding:0;background:#f5edf1;color:#172a5b;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="width:100%;background:#f5edf1;">
+      <tr><td align="center" style="padding:32px 16px;">
+        <table role="presentation" width="620" cellspacing="0" cellpadding="0" style="width:100%;max-width:620px;background:#fffaf1;border-top:6px solid #df2475;border-bottom:6px solid #7c35ff;">
+          <tr><td style="padding:34px 40px 12px;text-align:center;">
+            <p style="margin:0;color:#7c35ff;font-size:13px;font-weight:800;letter-spacing:3px;text-transform:uppercase;">LoreWise Universe</p>
+            <p style="margin:10px 0 0;color:#8a4e72;font-size:13px;letter-spacing:1px;">LoreWise ID · accesso protetto</p>
+          </td></tr>
+          <tr><td style="padding:18px 40px 36px;">
+            <h1 style="margin:0 0 18px;color:#172a5b;font-family:Georgia,'Times New Roman',serif;font-size:38px;line-height:1.08;text-align:center;">Conferma il tuo ingresso nell’universo.</h1>
+            <p style="margin:0 0 24px;color:#55384d;font-size:17px;line-height:1.65;text-align:center;">Hai creato un LoreWise ID con l’indirizzo <strong>{{ .Email }}</strong>. Conferma l’email per completare la registrazione e accedere al tuo profilo.</p>
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td align="center" style="padding:6px 0 26px;">
+              <a href="{{ .RedirectTo }}&amp;token_hash={{ .TokenHash }}&amp;type=email" style="display:inline-block;background:#df2475;color:#ffffff;text-decoration:none;font-size:16px;font-weight:800;line-height:1;padding:17px 28px;border-bottom:4px solid #a71457;">Conferma il mio LoreWise ID</a>
+            </td></tr></table>
+            <div style="background:#33203f;padding:20px 22px;color:#fff8dc;">
+              <p style="margin:0 0 7px;font-size:14px;font-weight:800;letter-spacing:.5px;">NON HAI CREATO TU QUESTO PROFILO?</p>
+              <p style="margin:0;font-size:14px;line-height:1.55;">Ignora questa email. Nessun account sarà confermato senza usare il pulsante qui sopra.</p>
+            </div>
+            <p style="margin:24px 0 0;color:#795f70;font-size:12px;line-height:1.55;text-align:center;">Messaggio automatico di sicurezza inviato da LoreWise Universe.<br>Non inoltrare questa email o il suo collegamento.</p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>

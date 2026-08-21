@@ -1,0 +1,11 @@
+{
+  "productCode": "GS-GAME-001-WIN",
+  "gameCode": "GS-GAME-001",
+  "platform": "windows-x64",
+  "version": "1.0.2",
+  "filename": "The-Wound-Remembers-Setup-1.0.2.exe",
+  "size": 379498399,
+  "sha256": "85830385096300EDC17FCD79A8210A212848F081E044160FE6E33CF31240D810",
+  "contentType": "application/vnd.microsoft.portable-executable",
+  "objectKey": "game-deliveries/gs-game-001/windows-x64/The-Wound-Remembers-Setup-1.0.2-8583038509.exe"
+}

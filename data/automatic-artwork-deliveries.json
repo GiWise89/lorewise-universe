@@ -1,0 +1,438 @@
+{
+  "schemaVersion": 1,
+  "count": 48,
+  "deliveries": [
+    {
+      "code": "LW-ART-002",
+      "filename": "LW-ART-002-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 8574185,
+      "sha256": "a2f592a78d8dbc23e567a21e48d6a17a06103dd86d8a8c4eb578824e9345595b",
+      "objectKey": "art-deliveries/automatic/lw-art-002/LW-ART-002-pacchetto-premium.zip",
+      "localPackage": "LW-ART-002/LW-ART-002-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-003",
+      "filename": "LW-ART-003-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 6986305,
+      "sha256": "b9520ec5cea7447b98ba59c5c15cebe7ea958a596ef84f58788d17744fd66eff",
+      "objectKey": "art-deliveries/automatic/lw-art-003/LW-ART-003-pacchetto-premium.zip",
+      "localPackage": "LW-ART-003/LW-ART-003-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-004",
+      "filename": "LW-ART-004-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 6383025,
+      "sha256": "f20c79ae41407a1137f6ba777bd0552f85174c50ea2988b3259f6a6879676c2b",
+      "objectKey": "art-deliveries/automatic/lw-art-004/LW-ART-004-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-004/LW-ART-004-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-005",
+      "filename": "LW-ART-005-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 8611319,
+      "sha256": "d43c3c5ebaa89f9531297467d15be0d8a85fdb5aec039f3398a039cf993109e1",
+      "objectKey": "art-deliveries/automatic/lw-art-005/LW-ART-005-pacchetto-premium.zip",
+      "localPackage": "LW-ART-005/LW-ART-005-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-006",
+      "filename": "LW-ART-006-pacchetto-essenziale.zip",
+      "contentType": "application/zip",
+      "size": 1419680,
+      "sha256": "bb5f2ffe24e66a8cb2deb741767a563c4e03c240e7b7107b314e5e1cad3327b4",
+      "objectKey": "art-deliveries/automatic/lw-art-006/LW-ART-006-pacchetto-essenziale.zip",
+      "localPackage": "LW-ART-006/LW-ART-006-pacchetto-essenziale.zip"
+    },
+    {
+      "code": "LW-ART-013",
+      "filename": "LW-ART-013-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 9420676,
+      "sha256": "646ff8efa4b67a745a7db98f8eb1aa0b7e76d0b2df37cded315e3df143ad0696",
+      "objectKey": "art-deliveries/automatic/lw-art-013/LW-ART-013-pacchetto-premium.zip",
+      "localPackage": "LW-ART-013/LW-ART-013-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-016",
+      "filename": "LW-ART-016-pacchetto-essenziale.zip",
+      "contentType": "application/zip",
+      "size": 5732077,
+      "sha256": "5f31690c80c2221a8da30fe35b2eb29fa91092230ca2a2f698a511e489a03d15",
+      "objectKey": "art-deliveries/automatic/lw-art-016/LW-ART-016-pacchetto-essenziale.zip",
+      "localPackage": "LW-ART-016/LW-ART-016-pacchetto-essenziale.zip"
+    },
+    {
+      "code": "LW-ART-017",
+      "filename": "LW-ART-017-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 10908086,
+      "sha256": "7f6ba90fdcfcc5908aaf446c4a587bd642b0d15b4df9a033b4b67b525698e802",
+      "objectKey": "art-deliveries/automatic/lw-art-017/LW-ART-017-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-017/LW-ART-017-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-020",
+      "filename": "LW-ART-020-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 4692400,
+      "sha256": "86164038e2d73614adafad65f6043b830b8cd70b8649c53f69961051bb89b7ce",
+      "objectKey": "art-deliveries/automatic/lw-art-020/LW-ART-020-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-020/LW-ART-020-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-024",
+      "filename": "LW-ART-024-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 11168364,
+      "sha256": "d6d16c2fe9f84e058fa23c152cb04f30f67fbc55c3f9ecf6ebaa08b55e1119b8",
+      "objectKey": "art-deliveries/automatic/lw-art-024/LW-ART-024-pacchetto-premium.zip",
+      "localPackage": "LW-ART-024/LW-ART-024-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-028",
+      "filename": "LW-ART-028-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 12043609,
+      "sha256": "60ab1729c68c021bd97318cd31ef6c7c66bcbc7357109002fc81bc01aa6b8419",
+      "objectKey": "art-deliveries/automatic/lw-art-028/LW-ART-028-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-028/LW-ART-028-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-030",
+      "filename": "LW-ART-030-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 4590029,
+      "sha256": "ca2556ae887a60c94a2eb4759c562f518a93a84d7d333cd236ae366a530cc1b9",
+      "objectKey": "art-deliveries/automatic/lw-art-030/LW-ART-030-pacchetto-premium.zip",
+      "localPackage": "LW-ART-030/LW-ART-030-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-033",
+      "filename": "LW-ART-033-pacchetto-essenziale.zip",
+      "contentType": "application/zip",
+      "size": 5075598,
+      "sha256": "632355a253a2aa334efa4ba1ae9b6d3bcb683119e99f4d9abed98bfd4360113b",
+      "objectKey": "art-deliveries/automatic/lw-art-033/LW-ART-033-pacchetto-essenziale.zip",
+      "localPackage": "LW-ART-033/LW-ART-033-pacchetto-essenziale.zip"
+    },
+    {
+      "code": "LW-ART-035",
+      "filename": "LW-ART-035-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 3826003,
+      "sha256": "9d99b32164d16fcaa1545cfe232e5ff4cd6efdf00f839584361451ee5126e4e0",
+      "objectKey": "art-deliveries/automatic/lw-art-035/LW-ART-035-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-035/LW-ART-035-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-036",
+      "filename": "LW-ART-036-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 6530570,
+      "sha256": "2da129e98abcc8d7445cb7e756a8ccd8d8c535f98838a5243c226ade947ea39e",
+      "objectKey": "art-deliveries/automatic/lw-art-036/LW-ART-036-pacchetto-premium.zip",
+      "localPackage": "LW-ART-036/LW-ART-036-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-037",
+      "filename": "LW-ART-037-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 5761400,
+      "sha256": "a73523ff6aa8106cf681893f39f4497b5ada5c4cf766896270901755a63b5164",
+      "objectKey": "art-deliveries/automatic/lw-art-037/LW-ART-037-pacchetto-premium.zip",
+      "localPackage": "LW-ART-037/LW-ART-037-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-039",
+      "filename": "LW-ART-039-pacchetto-essenziale.zip",
+      "contentType": "application/zip",
+      "size": 12093064,
+      "sha256": "f0affc808f57b61a80536620bb1e7bec0fa658958ba5927c004d5ab7f84a0b76",
+      "objectKey": "art-deliveries/automatic/lw-art-039/LW-ART-039-pacchetto-essenziale.zip",
+      "localPackage": "LW-ART-039/LW-ART-039-pacchetto-essenziale.zip"
+    },
+    {
+      "code": "LW-ART-041",
+      "filename": "LW-ART-041-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 6162704,
+      "sha256": "bc7e61cf8ac77c618742f582499ebab0db37ec7de8cb98953b600c5fd579c6b7",
+      "objectKey": "art-deliveries/automatic/lw-art-041/LW-ART-041-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-041/LW-ART-041-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-046",
+      "filename": "LW-ART-046-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 4768194,
+      "sha256": "7fdbe774109cf3c269c26951824103b429e93ba1057dec0c8cfe1b15a2513932",
+      "objectKey": "art-deliveries/automatic/lw-art-046/LW-ART-046-pacchetto-premium.zip",
+      "localPackage": "LW-ART-046/LW-ART-046-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-048",
+      "filename": "LW-ART-048-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 4035872,
+      "sha256": "b9d2727b8be78052394edbd05d608fc6587b776744d01a2aae4eff66a26686e6",
+      "objectKey": "art-deliveries/automatic/lw-art-048/LW-ART-048-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-048/LW-ART-048-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-049",
+      "filename": "LW-ART-049-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 8784857,
+      "sha256": "0a3124ca660446882d78a666264a936de82e3ecca714d601c1691fab60aa85e0",
+      "objectKey": "art-deliveries/automatic/lw-art-049/LW-ART-049-pacchetto-premium.zip",
+      "localPackage": "LW-ART-049/LW-ART-049-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-050",
+      "filename": "LW-ART-050-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 5196168,
+      "sha256": "291b6df529afa4534785ecdedb4d948a815c567d29342dad41b64144a66c44df",
+      "objectKey": "art-deliveries/automatic/lw-art-050/LW-ART-050-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-050/LW-ART-050-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-051",
+      "filename": "LW-ART-051-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 2677067,
+      "sha256": "9e007d41816633bccd0a10e62f9085c68a94fb4a22a82d53d5bf09f590aebe74",
+      "objectKey": "art-deliveries/automatic/lw-art-051/LW-ART-051-pacchetto-premium.zip",
+      "localPackage": "LW-ART-051/LW-ART-051-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-052",
+      "filename": "LW-ART-052-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 8849142,
+      "sha256": "787582b1375589f526c6da3df04db42e06aa23d7f84927c1b39dcad9f11b6e87",
+      "objectKey": "art-deliveries/automatic/lw-art-052/LW-ART-052-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-052/LW-ART-052-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-053",
+      "filename": "LW-ART-053-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 7252395,
+      "sha256": "42f2ebe7028fc5fe84ac1ecefdaad8b332c14956e31cc522fcedb7e96c20562c",
+      "objectKey": "art-deliveries/automatic/lw-art-053/LW-ART-053-pacchetto-premium.zip",
+      "localPackage": "LW-ART-053/LW-ART-053-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-054",
+      "filename": "LW-ART-054-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 6411390,
+      "sha256": "5ec36c3bcc8756ce0958c930401de5da581353549cc70f07024db0f8882961c9",
+      "objectKey": "art-deliveries/automatic/lw-art-054/LW-ART-054-pacchetto-premium.zip",
+      "localPackage": "LW-ART-054/LW-ART-054-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-055",
+      "filename": "LW-ART-055-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 7910452,
+      "sha256": "1bd787528cdbb8814707851dda6cdca134f089c8b150580127273c603512e448",
+      "objectKey": "art-deliveries/automatic/lw-art-055/LW-ART-055-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-055/LW-ART-055-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-056",
+      "filename": "LW-ART-056-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 5636725,
+      "sha256": "725e1b32fdeb285a6da09b37e0aed085708ea06c3204a885143d698803a3e642",
+      "objectKey": "art-deliveries/automatic/lw-art-056/LW-ART-056-pacchetto-premium.zip",
+      "localPackage": "LW-ART-056/LW-ART-056-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-057",
+      "filename": "LW-ART-057-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 4750343,
+      "sha256": "f611923dfc8068f43fb630129a4f532d40538e19d5290fac375ead7f255fe66f",
+      "objectKey": "art-deliveries/automatic/lw-art-057/LW-ART-057-pacchetto-premium.zip",
+      "localPackage": "LW-ART-057/LW-ART-057-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-058",
+      "filename": "LW-ART-058-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 4122698,
+      "sha256": "3be851f4d6022b69005d8cf0a9e8aa43e6ad8aa5ccc2ad4fb2e9463df081d1a2",
+      "objectKey": "art-deliveries/automatic/lw-art-058/LW-ART-058-pacchetto-premium.zip",
+      "localPackage": "LW-ART-058/LW-ART-058-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-059",
+      "filename": "LW-ART-059-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 2628436,
+      "sha256": "92ee77a71e99705623a35671f6ec7811ac70a14356e4bf5b3987d158780f6eab",
+      "objectKey": "art-deliveries/automatic/lw-art-059/LW-ART-059-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-059/LW-ART-059-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-060",
+      "filename": "LW-ART-060-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 3498674,
+      "sha256": "e4970447fcf547d1ec7d80a2517f11a48270e6145113f30b03805bb72a1652b1",
+      "objectKey": "art-deliveries/automatic/lw-art-060/LW-ART-060-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-060/LW-ART-060-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-061",
+      "filename": "LW-ART-061-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 4985828,
+      "sha256": "5453bc65862cc86c0a034afdd63e55de0e99aa88bd6816e51d75dd850936d6bb",
+      "objectKey": "art-deliveries/automatic/lw-art-061/LW-ART-061-pacchetto-premium.zip",
+      "localPackage": "LW-ART-061/LW-ART-061-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-063",
+      "filename": "LW-ART-063-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 2421823,
+      "sha256": "45a118d6d2e72f157560e10995c1dae47cdf4deb2d09ec84023e627ad17e5f34",
+      "objectKey": "art-deliveries/automatic/lw-art-063/LW-ART-063-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-063/LW-ART-063-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-064",
+      "filename": "LW-ART-064-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 14930457,
+      "sha256": "9536bfcdec8e07d603a602f0f651c507ad7b98148089deb83c9538f8657b04c2",
+      "objectKey": "art-deliveries/automatic/lw-art-064/LW-ART-064-pacchetto-premium.zip",
+      "localPackage": "LW-ART-064/LW-ART-064-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-ART-065",
+      "filename": "LW-ART-065-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 8793428,
+      "sha256": "b59c98d3ac79b0cdc82f7d8043ca08aecedb2caa944c0be5182f2ea057f2d373",
+      "objectKey": "art-deliveries/automatic/lw-art-065/LW-ART-065-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-065/LW-ART-065-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-067",
+      "filename": "LW-ART-067-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 9196210,
+      "sha256": "bab99b000331927621a723b36965696850029054f65a9a05a10cc8b00c80d02a",
+      "objectKey": "art-deliveries/automatic/lw-art-067/LW-ART-067-pacchetto-dettagliata.zip",
+      "localPackage": "LW-ART-067/LW-ART-067-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-VIP-ART-001",
+      "filename": "LW-VIP-ART-001-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 6554920,
+      "sha256": "5fc6dcaa1fc3299df62b8645c3269bceaaf38ebe85bf56122d8cd10e94d3812e",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-001/LW-VIP-ART-001-pacchetto-dettagliata.zip",
+      "localPackage": "LW-VIP-ART-001/LW-VIP-ART-001-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-VIP-ART-002",
+      "filename": "LW-VIP-ART-002-pacchetto-essenziale.zip",
+      "contentType": "application/zip",
+      "size": 3675705,
+      "sha256": "07fd44406da388fb2b807c2a7eecc7906d65016b95088f6881b8cb7bd8bbb526",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-002/LW-VIP-ART-002-pacchetto-essenziale.zip",
+      "localPackage": "LW-VIP-ART-002/LW-VIP-ART-002-pacchetto-essenziale.zip"
+    },
+    {
+      "code": "LW-VIP-ART-003",
+      "filename": "LW-VIP-ART-003-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 29674248,
+      "sha256": "7fb5f6c863e507a4ff8de2248ff9656c0fe31dcd5cff196f649d009e63ffafc9",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-003/LW-VIP-ART-003-pacchetto-premium.zip",
+      "localPackage": "LW-VIP-ART-003/LW-VIP-ART-003-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-VIP-ART-004",
+      "filename": "LW-VIP-ART-004-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 19092219,
+      "sha256": "7fd2f55747bfd35473901d8c70291626677e7e8b483e44c00e288ae7102233db",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-004/LW-VIP-ART-004-pacchetto-premium.zip",
+      "localPackage": "LW-VIP-ART-004/LW-VIP-ART-004-pacchetto-premium.zip"
+    },
+    {
+      "code": "LW-VIP-ART-005",
+      "filename": "LW-VIP-ART-005-pacchetto-essenziale.zip",
+      "contentType": "application/zip",
+      "size": 2426211,
+      "sha256": "850d5c2ca4138c11d2a2aa2fdf29fb02a2e2864921972f7b52766acfc31b20c7",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-005/LW-VIP-ART-005-pacchetto-essenziale.zip",
+      "localPackage": "LW-VIP-ART-005/LW-VIP-ART-005-pacchetto-essenziale.zip"
+    },
+    {
+      "code": "LW-VIP-ART-006",
+      "filename": "LW-VIP-ART-006-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 7322934,
+      "sha256": "1378480cd0fe093dcceac2d1244afc1ffadc345edac28a4ebe8e345c1e8b2a7a",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-006/LW-VIP-ART-006-pacchetto-dettagliata.zip",
+      "localPackage": "LW-VIP-ART-006/LW-VIP-ART-006-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-VIP-ART-007",
+      "filename": "LW-VIP-ART-007-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 1952664,
+      "sha256": "ea600579eca01d8a829d1a94403f53a9f69eff9b4f610c436a4a75f6c767e36c",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-007/LW-VIP-ART-007-pacchetto-dettagliata.zip",
+      "localPackage": "LW-VIP-ART-007/LW-VIP-ART-007-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-VIP-ART-008",
+      "filename": "LW-VIP-ART-008-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 3888878,
+      "sha256": "29abe4e45cd98fc101c3f3bc232ee7cb01bfd443f12798b4d3bdf6ca323f4394",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-008/LW-VIP-ART-008-pacchetto-dettagliata.zip",
+      "localPackage": "LW-VIP-ART-008/LW-VIP-ART-008-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-VIP-ART-009",
+      "filename": "LW-VIP-ART-009-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 3907985,
+      "sha256": "68e424373f2de975da18fd219db64f7015f23a2178077b0179c90ba0366d601e",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-009/LW-VIP-ART-009-pacchetto-dettagliata.zip",
+      "localPackage": "LW-VIP-ART-009/LW-VIP-ART-009-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-VIP-ART-010",
+      "filename": "LW-VIP-ART-010-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 10063930,
+      "sha256": "c9aaf5bf1de83a592763ab0c669244e2f222cb334d6916c32fc32df0bbc280a6",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-010/LW-VIP-ART-010-pacchetto-dettagliata.zip",
+      "localPackage": "LW-VIP-ART-010/LW-VIP-ART-010-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-VIP-ART-011",
+      "filename": "LW-VIP-ART-011-pacchetto-dettagliata.zip",
+      "contentType": "application/zip",
+      "size": 8864222,
+      "sha256": "8716deef5da030de0300bf401b15c568905e674951f5ee57788603da80395951",
+      "objectKey": "art-deliveries/automatic/lw-vip-art-011/LW-VIP-ART-011-pacchetto-dettagliata.zip",
+      "localPackage": "LW-VIP-ART-011/LW-VIP-ART-011-pacchetto-dettagliata.zip"
+    }
+  ]
+}
