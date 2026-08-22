@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteAnalyticsTracker } from "@/components/SiteAnalyticsTracker";
 import { ProfileCompletionGate } from "@/components/ProfileCompletionGate";
-import "./globals.css";
+import "./site.css";
 
 const display = Fraunces({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600", "700"] });
 const body = Manrope({ variable: "--font-body", subsets: ["latin"] });

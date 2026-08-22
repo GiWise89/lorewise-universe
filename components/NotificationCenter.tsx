@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import styles from "./NotificationCenter.module.css";
 
 type Item = { id: string; scope: "personal" | "admin"; type: string; title: string; message: string; targetUrl: string; createdAt: string; readAt: string | null };
 
@@ -54,12 +55,24 @@ export function NotificationCenter() {
     finally { setBusy(false); }
   }
 
-  return <main className="notifications-page">
-    <section className="shell notifications-hero"><p className="eyebrow">Il tuo LoreWise ID</p><h1>Notifiche</h1><p>Risposte, reazioni e comunicazioni importanti raccolte in un solo posto.</p><strong>{unread}<span>da leggere</span></strong></section>
-    <section className="shell notifications-panel" aria-labelledby="notification-list-title">
-      <header><div><p className="eyebrow">Aggiornamenti personali</p><h2 id="notification-list-title">La tua attività recente</h2></div><div><button type="button" disabled={busy || unread === 0} onClick={() => void update("read_all")}>Segna tutte come lette</button><button type="button" disabled={busy || !items.some((item) => item.readAt)} onClick={() => void update("dismiss_read")}>Rimuovi quelle lette</button></div></header>
-      {message ? <p className="notifications-message" role="status">{message}</p> : null}
-      {items.length ? <ol>{items.map((item) => <li key={`${item.scope}:${item.id}`} className={item.readAt ? "is-read" : "is-unread"}><span className="notification-symbol" aria-hidden="true">{item.type === "comment_like" ? "♥" : item.type === "reply" ? "↩" : "◆"}</span><div><small>{item.scope === "admin" ? "Amministrazione" : "Community"} · {date(item.createdAt)}</small><strong>{item.title}</strong><p>{item.message}</p></div><div><Link href={item.targetUrl} onClick={() => { if (!item.readAt) void update("read", item); }}>Apri</Link>{!item.readAt ? <button type="button" disabled={busy} onClick={() => void update("read", item)}>Segna letta</button> : null}<button type="button" disabled={busy} onClick={() => void update("dismiss", item)}>Rimuovi</button></div></li>)}</ol> : !message ? <p className="notifications-empty">Non ci sono notifiche da mostrare.</p> : null}
+  return <main className={styles.page}>
+    <section className={`shell ${styles.hero}`}>
+      <p className="eyebrow">Il tuo LoreWise ID</p>
+      <h1>Notifiche</h1>
+      <p>Risposte, reazioni e comunicazioni importanti raccolte in un solo posto.</p>
+      <strong>{unread}<span>da leggere</span></strong>
+    </section>
+    <section className={`shell ${styles.panel}`} aria-labelledby="notification-list-title">
+      <header>
+        <div><p className="eyebrow">Aggiornamenti personali</p><h2 id="notification-list-title">La tua attività recente</h2></div>
+        <div><button type="button" disabled={busy || unread === 0} onClick={() => void update("read_all")}>Segna tutte come lette</button><button type="button" disabled={busy || !items.some((item) => item.readAt)} onClick={() => void update("dismiss_read")}>Rimuovi quelle lette</button></div>
+      </header>
+      {message ? <p className={styles.message} role="status">{message}</p> : null}
+      {items.length ? <ol>{items.map((item) => <li key={`${item.scope}:${item.id}`} className={item.readAt ? styles.read : styles.unread}>
+        <span className={styles.symbol} aria-hidden="true">{item.type === "comment_like" ? "♥" : item.type === "reply" ? "↩" : "◆"}</span>
+        <div><small>{item.scope === "admin" ? "Amministrazione" : "Community"} · {date(item.createdAt)}</small><strong>{item.title}</strong><p>{item.message}</p></div>
+        <div className={styles.actions}><Link href={item.targetUrl} onClick={() => { if (!item.readAt) void update("read", item); }}>Apri</Link>{!item.readAt ? <button type="button" disabled={busy} onClick={() => void update("read", item)}>Segna letta</button> : null}<button type="button" disabled={busy} onClick={() => void update("dismiss", item)}>Rimuovi</button></div>
+      </li>)}</ol> : !message ? <p className={styles.empty}>Non ci sono notifiche da mostrare.</p> : null}
     </section>
   </main>;
 }

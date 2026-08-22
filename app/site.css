@@ -1,0 +1,10 @@
+/*
+ * Punto di ingresso stabile per gli stili del sito.
+ * Il wrapper assegna un nuovo asset al foglio globale e impedisce che un deploy
+ * riutilizzi una versione precedente della coda CSS.
+ */
+@import "./globals.css";
+
+:root {
+  --lorewise-style-revision: 20260823;
+}

@@ -3145,10 +3145,10 @@ body { background: var(--white); }
 .account-signin-actions input { width: 100%; border: 0; border-bottom: 2px solid rgba(23,37,84,.25); border-radius: 0; padding: 14px 2px; background: transparent; color: #172554; font: 750 1rem var(--font-body), sans-serif; }
 .account-signin-actions input:focus { outline: 2px solid #7c3aed; outline-offset: 5px; }
 .account-password-field { position:relative; display:grid; min-width:0; }
-.account-password-field > input { padding-right:54px; }
-.account-signin-actions form .account-password-field > button { position:absolute; top:50%; right:2px; display:grid; place-items:center; width:44px; min-height:38px; margin:0; padding:0; transform:translateY(-50%); border:0; border-left:1px solid rgba(23,37,84,.12); border-radius:0; background:transparent; color:#4c1d57; box-shadow:none; }
-.account-signin-actions form .account-password-field > button:hover,.account-signin-actions form .account-password-field > button:focus-visible { color:#db2777; border-left-color:#db2777; background:rgba(219,39,119,.06); outline:2px solid transparent; }
-.account-password-field > button svg { width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.account-password-field > input { min-height:50px; padding-right:58px; }
+.account-signin-actions form .account-password-field > button { position:absolute; top:50%; right:6px; display:grid; place-items:center; width:40px; height:40px; min-height:40px; margin:0; padding:0; transform:translateY(-50%); border:1px solid rgba(76,29,87,.18); border-radius:50%; background:rgba(255,255,255,.82); color:#4c1d57; box-shadow:0 6px 16px rgba(30,20,54,.08); }
+.account-signin-actions form .account-password-field > button:hover,.account-signin-actions form .account-password-field > button:focus-visible,.account-signin-actions form .account-password-field > button[aria-pressed="true"] { color:#fff; border-color:#db2777; background:#db2777; outline:2px solid transparent; box-shadow:0 7px 18px rgba(219,39,119,.24); }
+.account-password-field > button svg { display:block; width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; pointer-events:none; }
 .account-remember-access { display:grid!important; grid-template-columns:22px minmax(0,1fr); gap:11px; align-items:start; margin-top:8px; color:#32123e!important; letter-spacing:0!important; text-transform:none!important; cursor:pointer; }
 .account-remember-access > input { width:18px!important; height:18px; margin-top:2px; padding:0; accent-color:#db2777; }
 .account-remember-access strong,.account-remember-access small { display:block; }.account-remember-access strong { font-size:.8rem; }.account-remember-access small { margin-top:3px; color:#71687a; font-size:.68rem; font-weight:600; line-height:1.45; }
