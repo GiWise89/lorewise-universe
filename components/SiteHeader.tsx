@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navigation } from "@/lib/content";
 
 const navIcons: Record<string, string> = {
@@ -25,7 +25,8 @@ function isCurrentRoute(pathname: string, href: string) {
 export function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [adminNotifications, setAdminNotifications] = useState<number | null>(null);
+  const [unreadNotifications, setUnreadNotifications] = useState<number | null>(null);
+  const notificationRefreshQueued = useRef(false);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -43,23 +44,25 @@ export function SiteHeader() {
     let pending = false;
     let controller: AbortController | null = null;
     async function refreshNotifications() {
-      if (pending) return;
+      if (pending) { notificationRefreshQueued.current = true; return; }
       pending = true;
+      notificationRefreshQueued.current = false;
       controller = new AbortController();
       const timeout = window.setTimeout(() => controller?.abort(), 4_000);
       try {
-        const response = await fetch("/api/admin/notifications", { headers: { accept: "application/json" }, cache: "no-store", signal: controller.signal });
+        const response = await fetch("/api/notifications", { headers: { accept: "application/json" }, cache: "no-store", signal: controller.signal });
         if (!response.ok) {
-          if (active) setAdminNotifications(null);
+          if (active) setUnreadNotifications(null);
           return;
         }
-        const body = await response.json() as { notifications?: Array<{ read_at?: string | null }> };
-        if (active) setAdminNotifications(body.notifications?.filter((item) => !item.read_at).length ?? 0);
+        const body = await response.json() as { unreadCount?: number };
+        if (active) setUnreadNotifications(body.unreadCount ?? 0);
       } catch {
-        if (active) setAdminNotifications(null);
+        if (active) setUnreadNotifications(null);
       } finally {
         window.clearTimeout(timeout);
         pending = false;
+        if (active && notificationRefreshQueued.current) void refreshNotifications();
       }
     }
     void refreshNotifications();
@@ -96,10 +99,10 @@ export function SiteHeader() {
         <Link className={isCurrentRoute(pathname, "/cerca") ? "header-search is-active" : "header-search"} href="/cerca" aria-label="Cerca in LoreWise Universe" title="Cerca nell’universo">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg>
         </Link>
-        <a className={adminNotifications ? "header-admin-alert has-unread" : "header-admin-alert"} href="/admin#admin-notifications" onClick={(event) => { if (pathname !== "/admin") return; const target = document.getElementById("admin-notifications"); if (!target) return; event.preventDefault(); window.history.replaceState(null, "", "/admin#admin-notifications"); window.scrollTo({ top: Math.max(0, target.offsetTop - 100), behavior: "smooth" }); }} aria-label={adminNotifications ? `${adminNotifications} notifiche amministrative da leggere. Apri il Centro notifiche.` : "Apri il Centro notifiche amministrative."} title="Centro notifiche">
+        <Link className={unreadNotifications ? "header-admin-alert has-unread" : "header-admin-alert"} href="/notifiche" aria-label={unreadNotifications ? `${unreadNotifications} notifiche da leggere. Apri il Centro notifiche.` : "Apri il Centro notifiche."} title="Centro notifiche">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" /></svg>
-          {adminNotifications ? <span>{adminNotifications > 99 ? "99+" : adminNotifications}</span> : null}
-        </a>
+          {unreadNotifications ? <span>{unreadNotifications > 99 ? "99+" : unreadNotifications}</span> : null}
+        </Link>
         <Link className={isCurrentRoute(pathname, "/contatti") ? "header-contact is-active" : "header-contact"} aria-current={isCurrentRoute(pathname, "/contatti") ? "page" : undefined} href="/contatti">
           <Image src="/brand/icons/social-assistenza-concept-v1.webp" alt="" width={1224} height={1285} unoptimized />
           <span>Parliamone</span>

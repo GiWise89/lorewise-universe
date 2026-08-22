@@ -71,6 +71,11 @@ export const customers = sqliteTable("customers", {
   id: text("id").primaryKey(),
   email: text("email").notNull().unique(),
   displayName: text("display_name"),
+  username: text("username").unique(),
+  bio: text("bio"),
+  avatarObjectKey: text("avatar_object_key"),
+  avatarContentType: text("avatar_content_type"),
+  profileVisibility: text("profile_visibility").notNull().default("public"),
   role: text("role").notNull().default("member"),
   locale: text("locale").notNull().default("it-IT"),
   communityEmails: integer("community_emails", { mode: "boolean" }).notNull().default(false),
@@ -327,6 +332,7 @@ export const artworkComments = sqliteTable("artwork_comments", {
   id: text("id").primaryKey(),
   userId: text("user_id").notNull().references(() => customers.id, { onDelete: "cascade" }),
   artworkCode: text("artwork_code").notNull(),
+  parentCommentId: text("parent_comment_id"),
   body: text("body").notNull(),
   status: text("status").notNull().default("visible"),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
@@ -336,6 +342,49 @@ export const artworkComments = sqliteTable("artwork_comments", {
   index("artwork_comments_user_idx").on(table.userId),
   index("artwork_comments_status_idx").on(table.status),
 ]);
+
+export const artworkCommentLikes = sqliteTable("artwork_comment_likes", {
+  userId: text("user_id").notNull().references(() => customers.id, { onDelete: "cascade" }),
+  commentId: text("comment_id").notNull().references(() => artworkComments.id, { onDelete: "cascade" }),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, (table) => [
+  primaryKey({ columns: [table.userId, table.commentId] }),
+  index("artwork_comment_likes_comment_idx").on(table.commentId),
+]);
+
+export const userNotifications = sqliteTable("user_notifications", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => customers.id, { onDelete: "cascade" }),
+  actorUserId: text("actor_user_id").references(() => customers.id, { onDelete: "set null" }),
+  type: text("type").notNull(),
+  artworkCode: text("artwork_code"),
+  commentId: text("comment_id"),
+  title: text("title").notNull(),
+  message: text("message").notNull(),
+  targetUrl: text("target_url").notNull(),
+  groupKey: text("group_key"),
+  readAt: text("read_at"),
+  dismissedAt: text("dismissed_at"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, (table) => [
+  index("user_notifications_inbox_idx").on(table.userId, table.dismissedAt, table.readAt, table.createdAt),
+  uniqueIndex("user_notifications_group_unique").on(table.userId, table.groupKey),
+]);
+
+export const adminNotifications = sqliteTable("admin_notifications", {
+  id: text("id").primaryKey(),
+  category: text("category").notNull(),
+  severity: text("severity").notNull().default("info"),
+  title: text("title").notNull(),
+  message: text("message").notNull(),
+  referenceCode: text("reference_code"),
+  targetUrl: text("target_url").notNull(),
+  sourceCreatedAt: text("source_created_at").notNull(),
+  readAt: text("read_at"),
+  dismissedAt: text("dismissed_at"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, (table) => [index("admin_notifications_unread_idx").on(table.readAt, table.sourceCreatedAt)]);
 
 export const artworkCommentReports = sqliteTable("artwork_comment_reports", {
   id: text("id").primaryKey(),

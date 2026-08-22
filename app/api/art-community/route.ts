@@ -1,198 +1,147 @@
 import { env } from "@/lib/netlifyRuntime";
-
 import { ART_COMMENT_LIMITS, ART_REPORT_REASONS } from "@/lib/artCommunity";
 import { ensureArtCommunityTables } from "@/lib/artCommunityServer";
 import { catalogArtworks } from "@/lib/artCatalog";
-import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
-import { createLoreWiseServerClient } from "@/lib/supabase/server";
 import { ensureCommerceTables } from "@/lib/commerceServer";
+import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
+import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
+import { createUserNotification } from "@/lib/userNotifications";
+import { profileCompletion } from "@/lib/profileCompletion";
+import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
+import { localArtCommunityPayload, updateLocalArtCommunity } from "@/lib/localArtCommunity";
 
-type RuntimeEnv = { DB?: D1Database };
-type CommentRow = {
-  id: string;
-  user_id: string;
-  body: string;
-  display_name: string | null;
-  created_at: string;
-  updated_at: string;
-  membership_badge: string | null;
-};
+type RuntimeEnv = { DB?: D1Database; LOREWISE_ADMIN_EMAILS?: string };
+type Viewer = { id: string; canParticipate: boolean };
+type CommentRow = { id: string; user_id: string; parent_comment_id: string | null; body: string; display_name: string | null; username: string | null; avatar_object_key: string | null; profile_visibility: string; created_at: string; updated_at: string; membership_badge: string | null; like_count: number; viewer_liked: number };
 
-async function runtimeDatabase() {
-  return (env as unknown as RuntimeEnv).DB;
+function selectedArtwork(request: Request) {
+  const code = (new URL(request.url).searchParams.get("artwork") ?? "").toUpperCase();
+  return catalogArtworks.find((artwork) => artwork.code === code) ?? null;
 }
 
-async function currentUser() {
-  const client = await createLoreWiseServerClient();
-  if (!client) return null;
-  const { data, error } = await client.auth.getUser();
-  return error ? null : data.user;
+function publicAuthor(row: CommentRow) {
+  const publicProfile = row.profile_visibility === "public" && Boolean(row.username);
+  return { name: row.display_name?.trim() || row.username || "Membro LoreWise", username: publicProfile ? row.username : null, avatarUrl: publicProfile && row.avatar_object_key ? `/api/profile-avatar/${encodeURIComponent(row.username!)}` : null };
 }
 
-function artworkCodeFrom(request: Request) {
-  const normalized = (new URL(request.url).searchParams.get("artwork") ?? "").toUpperCase();
-  return catalogArtworks.some((artwork) => artwork.code === normalized) ? normalized : null;
+async function payload(database: D1Database, artworkCode: string, viewer?: Viewer) {
+  const likes = await database.prepare("SELECT COUNT(*) AS total FROM artwork_likes WHERE artwork_code = ?").bind(artworkCode).first<{ total: number }>();
+  const rows = await database.prepare(`SELECT c.id, c.user_id, c.parent_comment_id, c.body, c.created_at, c.updated_at,
+      u.display_name, u.username, u.avatar_object_key, u.profile_visibility,
+      (SELECT CASE s.plan_code WHEN 'LW-PASS-COLLECTOR' THEN 'Collector' WHEN 'LW-PASS-SUPPORTER' THEN 'Supporter' END FROM subscriptions s WHERE s.customer_id = c.user_id AND s.status IN ('active','trialing') AND (s.current_period_end IS NULL OR datetime(s.current_period_end) > CURRENT_TIMESTAMP) ORDER BY s.created_at DESC LIMIT 1) membership_badge,
+      (SELECT COUNT(*) FROM artwork_comment_likes l WHERE l.comment_id = c.id) like_count,
+      (SELECT COUNT(*) FROM artwork_comment_likes l WHERE l.comment_id = c.id AND l.user_id = ?) viewer_liked
+    FROM artwork_comments c JOIN customers u ON u.id = c.user_id
+    WHERE c.artwork_code = ? AND c.status = 'visible' ORDER BY c.created_at ASC LIMIT 120`).bind(viewer?.id ?? "", artworkCode).all<CommentRow>();
+  type Serialized = { id: string; name: string; username: string | null; avatarUrl: string | null; body: string; createdAt: string; edited: boolean; ownedByViewer: boolean; membershipBadge: string | null; likeCount: number; viewerLiked: boolean; replies: Serialized[] };
+  const serialize = (row: CommentRow): Serialized => ({ id: row.id, ...publicAuthor(row), body: row.body, createdAt: row.created_at, edited: row.updated_at !== row.created_at, ownedByViewer: row.user_id === viewer?.id, membershipBadge: row.membership_badge, likeCount: Number(row.like_count), viewerLiked: Boolean(row.viewer_liked), replies: [] });
+  const comments = rows.results.filter((row) => !row.parent_comment_id).map(serialize);
+  const byId = new Map(comments.map((comment) => [comment.id, comment]));
+  for (const row of rows.results.filter((item) => item.parent_comment_id)) byId.get(row.parent_comment_id!)?.replies.push(serialize(row));
+  const viewerLiked = viewer?.id ? Boolean(await database.prepare("SELECT 1 FROM artwork_likes WHERE artwork_code = ? AND user_id = ?").bind(artworkCode, viewer.id).first()) : false;
+  return { authenticated: Boolean(viewer), canParticipate: Boolean(viewer?.canParticipate), likeCount: Number(likes?.total ?? 0), viewerLiked, comments: comments.reverse() };
 }
 
-type CommunityViewer = { id: string; canParticipate: boolean };
-
-async function communityPayload(database: D1Database, artworkCode: string, viewer?: CommunityViewer) {
-  const likes = await database.prepare("SELECT COUNT(*) AS total FROM artwork_likes WHERE artwork_code = ?")
-    .bind(artworkCode).first<{ total: number }>();
-  const comments = await database.prepare(`SELECT artwork_comments.id, artwork_comments.user_id, artwork_comments.body,
-      artwork_comments.created_at, artwork_comments.updated_at, customers.display_name,
-      (SELECT CASE subscriptions.plan_code WHEN 'LW-PASS-COLLECTOR' THEN 'Collector' WHEN 'LW-PASS-SUPPORTER' THEN 'Supporter' END
-       FROM subscriptions WHERE subscriptions.customer_id = artwork_comments.user_id
-       AND subscriptions.status IN ('active', 'trialing')
-       AND (subscriptions.current_period_end IS NULL OR datetime(subscriptions.current_period_end) > CURRENT_TIMESTAMP)
-       ORDER BY subscriptions.created_at DESC LIMIT 1) AS membership_badge
-    FROM artwork_comments JOIN customers ON customers.id = artwork_comments.user_id
-    WHERE artwork_comments.artwork_code = ? AND artwork_comments.status = 'visible'
-    ORDER BY artwork_comments.created_at DESC LIMIT 40`).bind(artworkCode).all<CommentRow>();
-  const viewerLiked = viewer?.id
-    ? Boolean(await database.prepare("SELECT 1 AS found FROM artwork_likes WHERE artwork_code = ? AND user_id = ?").bind(artworkCode, viewer.id).first())
-    : false;
-  return {
-    authenticated: Boolean(viewer?.id),
-    canParticipate: Boolean(viewer?.canParticipate),
-    likeCount: Number(likes?.total ?? 0),
-    viewerLiked,
-    comments: comments.results.map((comment) => ({
-      id: comment.id,
-      author: comment.display_name?.trim() || "Membro LoreWise",
-      membershipBadge: comment.membership_badge,
-      body: comment.body,
-      createdAt: comment.created_at,
-      edited: comment.updated_at !== comment.created_at,
-      ownedByViewer: comment.user_id === viewer?.id,
-    })),
-  };
+async function viewerFor(database: D1Database) {
+  const user = await getLoreWiseUser();
+  if (!user) return { user: null, viewer: undefined };
+  await syncLoreWiseCustomer(user);
+  const customer = await database.prepare("SELECT status, display_name, username, bio FROM customers WHERE id = ?").bind(user.id).first<{ status: string; display_name: string | null; username: string | null; bio: string | null }>();
+  const complete = customer ? profileCompletion({ displayName: customer.display_name, username: customer.username }).profileComplete : false;
+  return { user, viewer: { id: user.id, canParticipate: customer?.status === "active" && complete } };
 }
 
 export async function GET(request: Request) {
-  const artworkCode = artworkCodeFrom(request);
-  if (!artworkCode) return Response.json({ error: "Opera non trovata." }, { status: 404 });
-  const database = await runtimeDatabase();
-  if (!database) return Response.json({ error: "Community non disponibile." }, { status: 503 });
-  try {
-    await ensureArtCommunityTables(database);
-    await ensureCommerceTables(database);
-    const user = await currentUser();
-    let viewer: CommunityViewer | undefined;
-    if (user) {
-      await syncLoreWiseCustomer(user);
-      const customer = await database.prepare("SELECT status FROM customers WHERE id = ?").bind(user.id).first<{ status: string }>();
-      viewer = { id: user.id, canParticipate: customer?.status === "active" };
-    }
-    return Response.json(await communityPayload(database, artworkCode, viewer), { headers: { "Cache-Control": "private, no-store" } });
-  } catch {
-    return Response.json({ error: "Non è stato possibile caricare le reazioni." }, { status: 503 });
+  const artwork = selectedArtwork(request);
+  if (!artwork) return Response.json({ error: "Opera non trovata." }, { status: 404 });
+  if (!netlifyDatabaseIsConfigured() && await isLocalLoreWiseRequest()) {
+    const user = await getLoreWiseUser();
+    return Response.json(localArtCommunityPayload(artwork.code, user, env as unknown as RuntimeEnv), { headers: { "Cache-Control": "private, no-store" } });
   }
+  const database = (env as unknown as RuntimeEnv).DB;
+  if (!database) return Response.json({ error: "Community non disponibile." }, { status: 503 });
+  try { await ensureCommerceTables(database); await ensureArtCommunityTables(database); const { viewer } = await viewerFor(database); return Response.json(await payload(database, artwork.code, viewer), { headers: { "Cache-Control": "private, no-store" } }); }
+  catch { return Response.json({ error: "Non è stato possibile caricare la Community." }, { status: 503 }); }
 }
 
 export async function POST(request: Request) {
-  const artworkCode = artworkCodeFrom(request);
-  if (!artworkCode) return Response.json({ error: "Opera non trovata." }, { status: 404 });
-  const user = await currentUser();
-  if (!user) return Response.json({ error: "Accedi al tuo LoreWise ID per partecipare." }, { status: 401 });
-  const database = await runtimeDatabase();
-  if (!database) return Response.json({ error: "Community non disponibile." }, { status: 503 });
-
-  let body: Record<string, unknown>;
-  try {
-    body = await request.json() as Record<string, unknown>;
-  } catch {
-    return Response.json({ error: "Richiesta non valida." }, { status: 400 });
+  const origin = request.headers.get("origin");
+  if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
+  const artwork = selectedArtwork(request);
+  if (!artwork) return Response.json({ error: "Opera non trovata." }, { status: 404 });
+  const body = await request.json().catch(() => null) as Record<string, unknown> | null;
+  if (!body) return Response.json({ error: "Richiesta non valida." }, { status: 400 });
+  if (!netlifyDatabaseIsConfigured() && await isLocalLoreWiseRequest()) {
+    const user = await getLoreWiseUser();
+    const result = updateLocalArtCommunity(artwork.code, user, env as unknown as RuntimeEnv, body);
+    return Response.json(result.body, { status: result.status, headers: { "Cache-Control": "private, no-store" } });
   }
-  const action = typeof body.action === "string" ? body.action : "";
-
+  const database = (env as unknown as RuntimeEnv).DB;
+  if (!database) return Response.json({ error: "Community non disponibile." }, { status: 503 });
   try {
-    await syncLoreWiseCustomer(user);
-    await ensureArtCommunityTables(database);
     await ensureCommerceTables(database);
-    const participation = await database.prepare("SELECT status FROM customers WHERE id = ?").bind(user.id).first<{ status: string }>();
-    if (participation?.status === "blocked") {
-      return Response.json({ error: "Questo profilo non può partecipare alla Community. Contatta l’assistenza se ritieni che si tratti di un errore." }, { status: 403 });
-    }
-    if (participation?.status === "deletion_requested") {
-      return Response.json({ error: "Le interazioni sono sospese mentre la richiesta di cancellazione è attiva. Annulla la richiesta dal profilo per partecipare di nuovo." }, { status: 403 });
-    }
-    if (participation?.status !== "active") {
-      return Response.json({ error: "Questo profilo non è abilitato a partecipare alla Community." }, { status: 403 });
-    }
-
-    const viewer = { id: user.id, canParticipate: true };
-
+    await ensureArtCommunityTables(database);
+    const { user, viewer } = await viewerFor(database);
+    if (!user) return Response.json({ error: "Accedi al tuo LoreWise ID per partecipare." }, { status: 401 });
+    if (!viewer?.canParticipate) return Response.json({ error: "Questo profilo non può partecipare alla Community." }, { status: 403 });
+    const action = typeof body.action === "string" ? body.action : "";
     if (action === "toggle_like") {
-      const existing = await database.prepare("SELECT 1 AS found FROM artwork_likes WHERE artwork_code = ? AND user_id = ?")
-        .bind(artworkCode, user.id).first();
-      if (existing) await database.prepare("DELETE FROM artwork_likes WHERE artwork_code = ? AND user_id = ?").bind(artworkCode, user.id).run();
-      else await database.prepare("INSERT INTO artwork_likes (user_id, artwork_code) VALUES (?, ?)").bind(user.id, artworkCode).run();
-      return Response.json(await communityPayload(database, artworkCode, viewer), { headers: { "Cache-Control": "private, no-store" } });
+      const exists = await database.prepare("SELECT 1 FROM artwork_likes WHERE artwork_code = ? AND user_id = ?").bind(artwork.code, user.id).first();
+      if (exists) await database.prepare("DELETE FROM artwork_likes WHERE artwork_code = ? AND user_id = ?").bind(artwork.code, user.id).run();
+      else await database.prepare("INSERT INTO artwork_likes(user_id, artwork_code) VALUES(?, ?)").bind(user.id, artwork.code).run();
+      return Response.json(await payload(database, artwork.code, viewer));
     }
-
     if (action === "comment") {
-      const commentBody = typeof body.comment === "string" ? body.comment.trim() : "";
-      if (commentBody.length < ART_COMMENT_LIMITS.minimum || commentBody.length > ART_COMMENT_LIMITS.maximum) {
-        return Response.json({ error: `Il commento deve contenere da ${ART_COMMENT_LIMITS.minimum} a ${ART_COMMENT_LIMITS.maximum} caratteri.` }, { status: 400 });
+      const text = typeof body.comment === "string" ? body.comment.trim() : "";
+      if (text.length < ART_COMMENT_LIMITS.minimum || text.length > ART_COMMENT_LIMITS.maximum) return Response.json({ error: `Il commento deve contenere da ${ART_COMMENT_LIMITS.minimum} a ${ART_COMMENT_LIMITS.maximum} caratteri.` }, { status: 400 });
+      const recent = await database.prepare("SELECT 1 FROM artwork_comments WHERE user_id = ? AND created_at > datetime('now', ?) LIMIT 1").bind(user.id, `-${ART_COMMENT_LIMITS.cooldownSeconds} seconds`).first();
+      if (recent) return Response.json({ error: `Attendi ${ART_COMMENT_LIMITS.cooldownSeconds} secondi prima di pubblicare ancora.` }, { status: 429 });
+      const parentId = typeof body.parentCommentId === "string" ? body.parentCommentId : null;
+      let recipient: string | null = null;
+      if (parentId) {
+        const parent = await database.prepare("SELECT user_id, parent_comment_id FROM artwork_comments WHERE id = ? AND artwork_code = ? AND status = 'visible'").bind(parentId, artwork.code).first<{ user_id: string; parent_comment_id: string | null }>();
+        if (!parent || parent.parent_comment_id) return Response.json({ error: "Puoi rispondere soltanto al commento principale." }, { status: 400 });
+        recipient = parent.user_id;
       }
-      const recent = await database.prepare(`SELECT 1 AS found FROM artwork_comments WHERE user_id = ?
-        AND created_at > datetime('now', ?) LIMIT 1`).bind(user.id, `-${ART_COMMENT_LIMITS.cooldownSeconds} seconds`).first();
-      if (recent) return Response.json({ error: `Attendi ${ART_COMMENT_LIMITS.cooldownSeconds} secondi prima di pubblicare un altro commento.` }, { status: 429 });
-      await database.prepare("INSERT INTO artwork_comments (id, user_id, artwork_code, body) VALUES (?, ?, ?, ?)")
-        .bind(crypto.randomUUID(), user.id, artworkCode, commentBody).run();
-      return Response.json(await communityPayload(database, artworkCode, viewer), { status: 201, headers: { "Cache-Control": "private, no-store" } });
+      const id = crypto.randomUUID();
+      await database.prepare("INSERT INTO artwork_comments(id,user_id,artwork_code,parent_comment_id,body) VALUES(?,?,?,?,?)").bind(id, user.id, artwork.code, parentId, text).run();
+      if (recipient) await createUserNotification(database, { userId: recipient, actorUserId: user.id, type: "reply", artworkCode: artwork.code, commentId: id, title: "Nuova risposta al tuo commento", message: `${artwork.title || "Un'opera"}: qualcuno ha risposto alla conversazione.`, targetUrl: `/arte/${artwork.slug}#community-${artwork.code}`, groupKey: `reply:${id}` });
+      return Response.json(await payload(database, artwork.code, viewer), { status: 201 });
     }
-
     const commentId = typeof body.commentId === "string" ? body.commentId : "";
     if (!/^[0-9a-f-]{36}$/i.test(commentId)) return Response.json({ error: "Commento non valido." }, { status: 400 });
-
-    if (action === "edit_comment") {
-      const commentBody = typeof body.comment === "string" ? body.comment.trim() : "";
-      if (commentBody.length < ART_COMMENT_LIMITS.minimum || commentBody.length > ART_COMMENT_LIMITS.maximum) {
-        return Response.json({ error: `Il commento deve contenere da ${ART_COMMENT_LIMITS.minimum} a ${ART_COMMENT_LIMITS.maximum} caratteri.` }, { status: 400 });
+    const target = await database.prepare("SELECT user_id FROM artwork_comments WHERE id = ? AND artwork_code = ? AND status = 'visible'").bind(commentId, artwork.code).first<{ user_id: string }>();
+    if (!target) return Response.json({ error: "Commento non disponibile." }, { status: 404 });
+    if (action === "toggle_comment_like") {
+      const exists = await database.prepare("SELECT 1 FROM artwork_comment_likes WHERE user_id = ? AND comment_id = ?").bind(user.id, commentId).first();
+      if (exists) await database.prepare("DELETE FROM artwork_comment_likes WHERE user_id = ? AND comment_id = ?").bind(user.id, commentId).run();
+      else {
+        await database.prepare("INSERT INTO artwork_comment_likes(user_id,comment_id) VALUES(?,?)").bind(user.id, commentId).run();
+        await createUserNotification(database, { userId: target.user_id, actorUserId: user.id, type: "comment_like", artworkCode: artwork.code, commentId, title: "Il tuo commento è piaciuto", message: `Una nuova reazione su ${artwork.title || "un'opera"}.`, targetUrl: `/arte/${artwork.slug}#community-${artwork.code}`, groupKey: `comment-like:${commentId}` });
       }
-      const result = await database.prepare(`UPDATE artwork_comments SET body = ?, updated_at = CURRENT_TIMESTAMP
-        WHERE id = ? AND artwork_code = ? AND user_id = ? AND status = 'visible'`)
-        .bind(commentBody, commentId, artworkCode, user.id).run();
+      return Response.json(await payload(database, artwork.code, viewer));
+    }
+    if (action === "edit_comment") {
+      const text = typeof body.comment === "string" ? body.comment.trim() : "";
+      if (text.length < ART_COMMENT_LIMITS.minimum || text.length > ART_COMMENT_LIMITS.maximum) return Response.json({ error: "Lunghezza del commento non valida." }, { status: 400 });
+      const result = await database.prepare("UPDATE artwork_comments SET body=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND user_id=? AND status='visible'").bind(text, commentId, user.id).run();
       if (!result.meta.changes) return Response.json({ error: "Non puoi modificare questo commento." }, { status: 403 });
-      return Response.json(await communityPayload(database, artworkCode, viewer), { headers: { "Cache-Control": "private, no-store" } });
+      return Response.json(await payload(database, artwork.code, viewer));
     }
-
     if (action === "delete_comment") {
-      const result = await database.prepare(`UPDATE artwork_comments SET status = 'deleted', body = '', updated_at = CURRENT_TIMESTAMP
-        WHERE id = ? AND artwork_code = ? AND user_id = ? AND status = 'visible'`).bind(commentId, artworkCode, user.id).run();
+      const result = await database.prepare("UPDATE artwork_comments SET status='deleted',body='',updated_at=CURRENT_TIMESTAMP WHERE id=? AND user_id=? AND status='visible'").bind(commentId, user.id).run();
       if (!result.meta.changes) return Response.json({ error: "Non puoi eliminare questo commento." }, { status: 403 });
-      return Response.json(await communityPayload(database, artworkCode, viewer), { headers: { "Cache-Control": "private, no-store" } });
+      return Response.json(await payload(database, artwork.code, viewer));
     }
-
     if (action === "report_comment") {
       const reason = typeof body.reason === "string" ? body.reason : "";
-      if (!(ART_REPORT_REASONS as readonly string[]).includes(reason)) return Response.json({ error: "Motivo della segnalazione non valido." }, { status: 400 });
-      const target = await database.prepare("SELECT user_id FROM artwork_comments WHERE id = ? AND artwork_code = ? AND status = 'visible'")
-        .bind(commentId, artworkCode).first<{ user_id: string }>();
-      if (!target) return Response.json({ error: "Commento non disponibile." }, { status: 404 });
-      if (target.user_id === user.id) return Response.json({ error: "Puoi modificare o eliminare direttamente il tuo commento." }, { status: 400 });
-      try {
-        await database.prepare("INSERT INTO artwork_comment_reports (id, comment_id, reporter_user_id, reason) VALUES (?, ?, ?, ?)")
-          .bind(crypto.randomUUID(), commentId, user.id, reason).run();
-      } catch {
-        const existingReport = await database.prepare("SELECT status FROM artwork_comment_reports WHERE comment_id = ? AND reporter_user_id = ?")
-          .bind(commentId, user.id).first<{ status: string }>();
-        if (existingReport?.status === "open") {
-          return Response.json({ error: "Hai già segnalato questo commento." }, { status: 409 });
-        }
-        const reopened = await database.prepare(`UPDATE artwork_comment_reports
-          SET reason = ?, status = 'open', created_at = CURRENT_TIMESTAMP
-          WHERE comment_id = ? AND reporter_user_id = ? AND status <> 'open'`)
-          .bind(reason, commentId, user.id).run();
-        if (!reopened.meta.changes) return Response.json({ error: "Segnalazione non completata." }, { status: 409 });
-      }
-      return Response.json({ message: "Segnalazione ricevuta. Il commento verrà controllato." });
+      if (!(ART_REPORT_REASONS as readonly string[]).includes(reason) || target.user_id === user.id) return Response.json({ error: "Segnalazione non valida." }, { status: 400 });
+      const previous = await database.prepare("SELECT id, status FROM artwork_comment_reports WHERE comment_id = ? AND reporter_user_id = ?").bind(commentId, user.id).first<{ id: string; status: string }>();
+      if (previous?.status === "open") return Response.json({ error: "Hai già segnalato questo commento." }, { status: 409 });
+      if (previous) await database.prepare("UPDATE artwork_comment_reports SET reason = ?, status = 'open', created_at = CURRENT_TIMESTAMP, resolved_at = NULL, resolved_by = NULL WHERE id = ?").bind(reason, previous.id).run();
+      else await database.prepare("INSERT INTO artwork_comment_reports(id,comment_id,reporter_user_id,reason) VALUES(?,?,?,?)").bind(crypto.randomUUID(), commentId, user.id, reason).run();
+      return Response.json({ message: "Segnalazione ricevuta." });
     }
-
     return Response.json({ error: "Azione non valida." }, { status: 400 });
-  } catch {
-    return Response.json({ error: "Operazione non completata. Riprova più tardi." }, { status: 503 });
-  }
+  } catch { return Response.json({ error: "Operazione non completata. Riprova più tardi." }, { status: 503 }); }
 }

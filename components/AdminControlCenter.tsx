@@ -147,6 +147,22 @@ export function AdminControlCenter() {
     }
   }
 
+  async function dismissNotification(id?: string) {
+    setBusy(true);
+    try {
+      const response = await fetch("/api/admin/notifications", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", accept: "application/json" },
+        body: JSON.stringify(id ? { action: "dismiss", id } : { action: "dismiss_read" }),
+      });
+      const body = await readApiResponse<{ message?: string }>(response);
+      if (!response.ok) throw new Error(body.error || "Notifica non rimossa.");
+      await loadOverview();
+      window.dispatchEvent(new Event("lorewise:notifications-updated"));
+    } catch (error) { setMessage(error instanceof Error ? error.message : "Notifica non rimossa."); }
+    finally { setBusy(false); }
+  }
+
   async function openNotification(event: MouseEvent<HTMLAnchorElement>, id: string, targetUrl: string) {
     event.preventDefault();
     setBusy(true);
@@ -208,8 +224,8 @@ export function AdminControlCenter() {
 
     <section id="admin-notifications" className="admin-notification-center" aria-labelledby="admin-notifications-title">
       <header><div><p className="eyebrow">Centro notifiche</p><h2 id="admin-notifications-title">Non devi scoprirlo per caso.</h2><p>Nuove iscrizioni, acquisti, preventivi, rimborsi, assistenza e controlli urgenti confluiscono qui automaticamente.</p></div><strong>{overview.summary.unreadNotifications}<span>da leggere</span></strong></header>
-      <div className="admin-notification-toolbar"><div><label>Tipo<select value={notificationCategory} onChange={(event) => setNotificationCategory(event.target.value)}><option value="all">Tutti</option>{Object.entries(notificationLabels).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label><label>Priorità<select value={notificationSeverity} onChange={(event) => setNotificationSeverity(event.target.value)}><option value="all">Tutte</option><option value="critical">Critica</option><option value="high">Alta</option><option value="medium">Media</option><option value="info">Informativa</option></select></label></div><div><button type="button" disabled={busy} onClick={() => void loadOverview().catch((error: Error) => setMessage(error.message))}>Aggiorna</button><button type="button" disabled={busy || !overview.summary.unreadNotifications} onClick={() => void readNotification()}>Segna tutte come lette</button></div></div>
-      {visibleNotifications.length ? <ol>{visibleNotifications.map((item) => <li key={item.id} className={`${item.readAt ? "is-read" : "is-unread"} severity-${item.severity}`}><span className="admin-notification-signal" aria-hidden="true" /><div><small>{notificationLabels[item.category] || item.category} · {date(item.createdAt)}</small><strong>{item.title}</strong><p>{item.message}</p>{item.referenceCode ? <code>{item.referenceCode}</code> : null}</div><div><Link href={item.targetUrl} onClick={(event) => item.readAt ? undefined : void openNotification(event, item.id, item.targetUrl)}>Apri gestione →</Link>{!item.readAt ? <button type="button" disabled={busy} onClick={() => void readNotification(item.id)}>Segna letta</button> : <span>Letta</span>}</div></li>)}</ol> : <p className="admin-notification-empty">Nessuna notifica corrisponde ai filtri selezionati.</p>}
+      <div className="admin-notification-toolbar"><div><label>Tipo<select value={notificationCategory} onChange={(event) => setNotificationCategory(event.target.value)}><option value="all">Tutti</option>{Object.entries(notificationLabels).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label><label>Priorità<select value={notificationSeverity} onChange={(event) => setNotificationSeverity(event.target.value)}><option value="all">Tutte</option><option value="critical">Critica</option><option value="high">Alta</option><option value="medium">Media</option><option value="info">Informativa</option></select></label></div><div><button type="button" disabled={busy} onClick={() => void loadOverview().catch((error: Error) => setMessage(error.message))}>Aggiorna</button><button type="button" disabled={busy || !overview.summary.unreadNotifications} onClick={() => void readNotification()}>Segna tutte come lette</button><button type="button" disabled={busy || !visibleNotifications.some((item) => item.readAt)} onClick={() => void dismissNotification()}>Rimuovi quelle lette</button></div></div>
+      {visibleNotifications.length ? <ol>{visibleNotifications.map((item) => <li key={item.id} className={`${item.readAt ? "is-read" : "is-unread"} severity-${item.severity}`}><span className="admin-notification-signal" aria-hidden="true" /><div><small>{notificationLabels[item.category] || item.category} · {date(item.createdAt)}</small><strong>{item.title}</strong><p>{item.message}</p>{item.referenceCode ? <code>{item.referenceCode}</code> : null}</div><div><Link href={item.targetUrl} onClick={(event) => item.readAt ? undefined : void openNotification(event, item.id, item.targetUrl)}>Apri gestione →</Link>{!item.readAt ? <button type="button" disabled={busy} onClick={() => void readNotification(item.id)}>Segna letta</button> : <span>Letta</span>}<button type="button" disabled={busy} onClick={() => void dismissNotification(item.id)}>Rimuovi</button></div></li>)}</ol> : <p className="admin-notification-empty">Nessuna notifica corrisponde ai filtri selezionati.</p>}
     </section>
 
     <section className="admin-module-grid" aria-labelledby="admin-modules-title"><header><p className="eyebrow">Aree di gestione</p><h2 id="admin-modules-title">Un solo centro, undici archivi.</h2></header><div>{modules.map((module) => <Link className={`admin-module tone-${module.tone}`} href={module.href} key={module.code}><span>{module.code}</span><Image src={module.icon} alt="" width={1224} height={1285} unoptimized /><div><strong>{module.title}</strong><p>{module.description}</p><b>Apri la gestione →</b></div></Link>)}</div></section>

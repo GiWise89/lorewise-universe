@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Sagoma viola">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#32123e"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+  <rect width="512" height="512" rx="256" fill="url(#bg)"/>
+  <circle cx="256" cy="190" r="92" fill="#f8e9ff"/>
+  <path d="M84 466c14-115 78-177 172-177s158 62 172 177" fill="#f8e9ff"/>
+  <path d="M171 181c8-73 44-112 93-112 54 0 92 45 92 116-34-16-58-40-73-71-26 42-62 69-112 81z" fill="#171127"/>
+</svg>

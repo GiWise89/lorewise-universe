@@ -1,6 +1,7 @@
 import type { User } from "@supabase/supabase-js";
 
 import { ACCOUNT_PRIVACY_VERSION, LOREWISE_OWNER_EMAIL } from "@/lib/accountPolicy";
+import { localProfileAvatarForUser, updateLocalProfileAvatarUsername } from "@/lib/localProfileAvatar";
 
 type RuntimeEnv = { LOREWISE_ADMIN_EMAILS?: string };
 
@@ -32,9 +33,17 @@ export function localAccountProfile(user: User, runtime: RuntimeEnv = {}) {
     ? ACCOUNT_PRIVACY_VERSION
     : null;
 
+  const username = metadataString(user, "username");
+  updateLocalProfileAvatarUsername(user.id, username);
+  const avatar = localProfileAvatarForUser(user.id);
+
   return {
     email: user.email ?? "",
     displayName,
+    username,
+    bio: metadataString(user, "bio"),
+    profileVisibility: metadataString(user, "profile_visibility") === "private" ? "private" : "public",
+    avatarUrl: avatar && username ? `/api/profile-avatar/${encodeURIComponent(username)}?v=${encodeURIComponent(avatar.updatedAt)}` : null,
     role: localAccountRole(user, runtime),
     locale: metadataString(user, "locale") || "it-IT",
     communityEmails: user.user_metadata?.community_emails === true,

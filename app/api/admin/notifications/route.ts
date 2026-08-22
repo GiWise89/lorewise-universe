@@ -6,7 +6,7 @@ export async function GET() {
   if ("response" in auth) return auth.response;
   await syncAdminNotifications(auth.database);
   const result = await auth.database.prepare(`SELECT id, category, severity, title, message, reference_code,
-    target_url, source_created_at, read_at FROM admin_notifications
+    target_url, source_created_at, read_at FROM admin_notifications WHERE dismissed_at IS NULL
     ORDER BY CASE severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,
     source_created_at DESC LIMIT 100`).all<Record<string, string | null>>();
   return Response.json({ notifications: result.results }, { headers: { "Cache-Control": "private, no-store" } });
@@ -24,7 +24,12 @@ export async function PATCH(request: Request) {
     await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP) WHERE id = ?")
       .bind(body.id).run();
   } else if (body?.action === "read_all") {
-    await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP) WHERE read_at IS NULL").run();
+    await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP) WHERE read_at IS NULL AND dismissed_at IS NULL").run();
+  } else if (body?.action === "dismiss" && typeof body.id === "string" && body.id.length <= 160) {
+    await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP), dismissed_at = COALESCE(dismissed_at, CURRENT_TIMESTAMP) WHERE id = ?")
+      .bind(body.id).run();
+  } else if (body?.action === "dismiss_read") {
+    await auth.database.prepare("UPDATE admin_notifications SET dismissed_at = COALESCE(dismissed_at, CURRENT_TIMESTAMP) WHERE read_at IS NOT NULL").run();
   } else {
     return Response.json({ error: "Azione non valida." }, { status: 400 });
   }

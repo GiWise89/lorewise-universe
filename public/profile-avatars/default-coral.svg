@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Sagoma corallo">
+  <defs><linearGradient id="bg" x1=".1" y1="0" x2=".9" y2="1"><stop stop-color="#ff8a64"/><stop offset="1" stop-color="#db2777"/></linearGradient></defs>
+  <rect width="512" height="512" rx="256" fill="url(#bg)"/>
+  <circle cx="256" cy="188" r="91" fill="#fff4df"/>
+  <path d="M78 468c17-116 81-178 178-178s161 62 178 178" fill="#fff4df"/>
+  <path d="M166 174c5-70 40-108 92-108 55 0 94 43 94 111-46-2-87-19-120-51-18 23-40 40-66 51z" fill="#4c1d57"/>
+</svg>

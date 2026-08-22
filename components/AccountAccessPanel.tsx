@@ -18,9 +18,15 @@ function authErrorMessage(error: { code?: string; message: string; status?: numb
 
 export function AccountAccessPanel({ configured, userEmail }: { configured: boolean; userEmail?: string }) {
   const [mode, setMode] = useState<AuthMode>("login");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => {
+    if (typeof window === "undefined") return "";
+    return window.localStorage.getItem("lorewise-remembered-email") || "";
+  });
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [rememberAccess, setRememberAccess] = useState(true);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [minimumAgeConfirmed, setMinimumAgeConfirmed] = useState(false);
   const [communityEmails, setCommunityEmails] = useState(false);
@@ -32,6 +38,8 @@ export function AccountAccessPanel({ configured, userEmail }: { configured: bool
     setMode(nextMode);
     setPassword("");
     setConfirmPassword("");
+    setShowPassword(false);
+    setShowConfirmPassword(false);
     setPrivacyAccepted(false);
     setMinimumAgeConfirmed(false);
     setCommunityEmails(false);
@@ -56,7 +64,7 @@ export function AccountAccessPanel({ configured, userEmail }: { configured: bool
         const response = await fetch("/api/account/session", {
           method: "POST",
           headers: { accept: "application/json", "content-type": "application/json" },
-          body: JSON.stringify({ email: targetEmail, password }),
+          body: JSON.stringify({ email: targetEmail, password, remember: rememberAccess }),
         });
         if (!response.ok) {
           const payload = await response.json().catch(() => null) as { error?: string } | null;
@@ -83,6 +91,8 @@ export function AccountAccessPanel({ configured, userEmail }: { configured: bool
         }
       }
 
+      if (rememberAccess) window.localStorage.setItem("lorewise-remembered-email", targetEmail);
+      else window.localStorage.removeItem("lorewise-remembered-email");
       setBusy(false);
       window.location.assign("/account?accesso=sessione-attiva");
       return;
@@ -147,8 +157,9 @@ export function AccountAccessPanel({ configured, userEmail }: { configured: bool
       <form onSubmit={(event) => void submitCredentials(event)}>
         <label htmlFor="account-email">La tua email</label>
         <input id="account-email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required disabled={busy} placeholder="nome@esempio.it" />
-        {mode !== "recover" ? <><label htmlFor="account-password">Password</label><input id="account-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={mode === "login" ? "current-password" : "new-password"} minLength={8} required disabled={busy} placeholder="Almeno 8 caratteri" /></> : null}
-        {mode === "register" ? <><label htmlFor="account-password-confirm">Conferma password</label><input id="account-password-confirm" type="password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} autoComplete="new-password" minLength={8} required disabled={busy} placeholder="Ripeti la password" /></> : null}
+        {mode !== "recover" ? <><label htmlFor="account-password">Password</label><div className="account-password-field"><input id="account-password" type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={mode === "login" ? "current-password" : "new-password"} minLength={8} required disabled={busy} placeholder="Almeno 8 caratteri" /><button type="button" aria-label={showPassword ? "Nascondi password" : "Mostra password"} aria-pressed={showPassword} onClick={() => setShowPassword((visible) => !visible)} disabled={busy}><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.6"/>{showPassword ? <path d="M4 4l16 16"/> : null}</svg></button></div></> : null}
+        {mode === "register" ? <><label htmlFor="account-password-confirm">Conferma password</label><div className="account-password-field"><input id="account-password-confirm" type={showConfirmPassword ? "text" : "password"} value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} autoComplete="new-password" minLength={8} required disabled={busy} placeholder="Ripeti la password" /><button type="button" aria-label={showConfirmPassword ? "Nascondi conferma password" : "Mostra conferma password"} aria-pressed={showConfirmPassword} onClick={() => setShowConfirmPassword((visible) => !visible)} disabled={busy}><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6S2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.6"/>{showConfirmPassword ? <path d="M4 4l16 16"/> : null}</svg></button></div></> : null}
+        {mode === "login" ? <label className="account-remember-access"><input type="checkbox" checked={rememberAccess} onChange={(event) => setRememberAccess(event.target.checked)} disabled={busy} /><span><strong>Ricordami su questo dispositivo</strong><small>Mantiene attiva la sessione e ricorda soltanto l’email. La password resta protetta dal browser.</small></span></label> : null}
         {mode === "register" ? <fieldset className="account-registration-consents"><legend>Privacy e comunicazioni</legend>
           <label><input type="checkbox" checked={minimumAgeConfirmed} onChange={(event) => setMinimumAgeConfirmed(event.target.checked)} required disabled={busy} /><span><strong>Confermo di avere almeno {ACCOUNT_MINIMUM_AGE} anni</strong><small>Necessario per creare LoreWise ID. I contenuti contrassegnati 18+ restano comunque riservati esclusivamente agli adulti.</small></span></label>
           <label><input type="checkbox" checked={privacyAccepted} onChange={(event) => setPrivacyAccepted(event.target.checked)} required disabled={busy} /><span><strong>Accetto l’informativa account</strong><small>Necessaria per creare e gestire il profilo. <Link href="/privacy" target="_blank">Leggi la bozza locale</Link>.</small></span></label>

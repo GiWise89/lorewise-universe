@@ -39,11 +39,11 @@ export async function GET() {
     has("artwork_delivery_files") ? count(auth.database, "artwork_delivery_files", " WHERE status != 'approved'") : 0,
     has("game_delivery_files") ? count(auth.database, "game_delivery_files", " WHERE status != 'approved'") : 0,
     count(auth.database, "transactional_emails", " WHERE status IN ('queued', 'failed')"),
-    count(auth.database, "admin_notifications", " WHERE read_at IS NULL"),
+    count(auth.database, "admin_notifications", " WHERE read_at IS NULL AND dismissed_at IS NULL"),
     getSiteAnalyticsSummary(auth.database),
   ]);
   const notifications = await auth.database.prepare(`SELECT id, category, severity, title, message, reference_code,
-    target_url, source_created_at, read_at FROM admin_notifications
+    target_url, source_created_at, read_at FROM admin_notifications WHERE dismissed_at IS NULL
     ORDER BY CASE severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,
     source_created_at DESC LIMIT 12`).all<Record<string, unknown>>();
   const audit = await auth.database.prepare(`SELECT admin_audit_events.action, admin_audit_events.note,

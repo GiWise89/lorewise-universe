@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient } from "@/lib/supabase/server";
 
@@ -30,11 +31,16 @@ export async function POST(request: Request) {
   }
   const email = typeof body.email === "string" ? body.email.trim() : "";
   const password = typeof body.password === "string" ? body.password : "";
+  const remember = body.remember !== false;
   if (!/^\S+@\S+\.\S+$/.test(email) || password.length < 8 || password.length > 1024) {
     return NextResponse.json({ error: "Inserisci email e password valide." }, { status: 400 });
   }
 
-  const client = await createLoreWiseServerClient();
+  const cookieStore = await cookies();
+  cookieStore.set("lorewise-session-mode", remember ? "persistent" : "session", remember
+    ? { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: 60 * 60 * 24 * 400 }
+    : { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/" });
+  const client = await createLoreWiseServerClient({ sessionOnly: !remember });
   if (!client) return NextResponse.json({ error: "Il servizio di accesso non è configurato." }, { status: 503 });
   const { data, error } = await client.auth.signInWithPassword({ email, password });
   if (error || !data.user || !data.session) return loginError(error ?? { message: "Sessione non creata." });
@@ -52,5 +58,7 @@ export async function DELETE(request: Request) {
   const client = await createLoreWiseServerClient();
   if (!client) return NextResponse.json({ error: "Il servizio di accesso non è configurato." }, { status: 503 });
   await client.auth.signOut();
+  const cookieStore = await cookies();
+  cookieStore.delete("lorewise-session-mode");
   return new NextResponse(null, { status: 204, headers: { "Cache-Control": "no-store" } });
 }

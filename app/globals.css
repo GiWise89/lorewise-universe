@@ -2430,13 +2430,14 @@ body { background: var(--white); }
 .art-entrances { padding-bottom: 130px; }
 .art-entrances-heading { max-width: 980px; margin-bottom: 58px; }
 .art-entrance-grid { gap: clamp(50px, 8vw, 125px); }
-.art-entrance-grid button { grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); align-items: center; }
+.art-entrance-grid button { grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); align-items: center; }
 .art-entrance-grid button + button { padding-top: 86px; }
 .art-entrance-grid button > img { filter: drop-shadow(0 24px 28px rgba(88, 28, 68, .18)); }
 .art-entrance-grid span { align-content: center; }
 .art-entrance-grid span,
 .art-entrance-grid strong,
 .art-entrance-grid em { min-width: 0; max-width: 100%; overflow-wrap: normal; word-break: normal; hyphens: none; }
+.art-entrance-grid strong { font-size: clamp(1.6rem, 2.65vw, 3rem); line-height: .96; text-wrap: balance; }
 .art-entrance-grid b { width: fit-content; margin-top: 9px; padding-bottom: 5px; border-bottom: 2px solid #db2777; color: #6d28d9; font-size: .78rem; letter-spacing: .025em; }
 
 .art-catalog-tools { position: relative; scroll-margin-top: 100px; margin-bottom: 92px; padding: 38px 0 28px; border: 0; border-block: 1px solid rgba(76, 29, 87, .24); background: transparent; box-shadow: none; }
@@ -3143,6 +3144,14 @@ body { background: var(--white); }
 .account-signin-actions label { color: #7c3aed; font-size: .69rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
 .account-signin-actions input { width: 100%; border: 0; border-bottom: 2px solid rgba(23,37,84,.25); border-radius: 0; padding: 14px 2px; background: transparent; color: #172554; font: 750 1rem var(--font-body), sans-serif; }
 .account-signin-actions input:focus { outline: 2px solid #7c3aed; outline-offset: 5px; }
+.account-password-field { position:relative; display:grid; min-width:0; }
+.account-password-field > input { padding-right:54px; }
+.account-signin-actions form .account-password-field > button { position:absolute; top:50%; right:2px; display:grid; place-items:center; width:44px; min-height:38px; margin:0; padding:0; transform:translateY(-50%); border:0; border-left:1px solid rgba(23,37,84,.12); border-radius:0; background:transparent; color:#4c1d57; box-shadow:none; }
+.account-signin-actions form .account-password-field > button:hover,.account-signin-actions form .account-password-field > button:focus-visible { color:#db2777; border-left-color:#db2777; background:rgba(219,39,119,.06); outline:2px solid transparent; }
+.account-password-field > button svg { width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.account-remember-access { display:grid!important; grid-template-columns:22px minmax(0,1fr); gap:11px; align-items:start; margin-top:8px; color:#32123e!important; letter-spacing:0!important; text-transform:none!important; cursor:pointer; }
+.account-remember-access > input { width:18px!important; height:18px; margin-top:2px; padding:0; accent-color:#db2777; }
+.account-remember-access strong,.account-remember-access small { display:block; }.account-remember-access strong { font-size:.8rem; }.account-remember-access small { margin-top:3px; color:#71687a; font-size:.68rem; font-weight:600; line-height:1.45; }
 .account-signin-actions button, .account-session button { min-height: 50px; border: 0; padding: 14px 20px; background: #7c3aed; color: white; font-size: .8rem; font-weight: 900; cursor: pointer; }
 .account-signin-actions form button { margin-top: 14px; background: #db2777; }
 .account-signin-actions > span { display: block; margin: 14px 0; color: #7b7081; font-size: .7rem; font-weight: 850; text-align: center; text-transform: uppercase; }
@@ -3166,17 +3175,19 @@ body { background: var(--white); }
 .account-session { position: relative; z-index: 2; display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; margin-top: -42px; padding: 25px 30px; background: #32123e; color: white; box-shadow: 0 25px 60px rgba(23,37,84,.22); }
 .account-session span { color: #f4c65d; font-size: .69rem; font-weight: 900; text-transform: uppercase; }
 .account-session strong { color: #fff4d2; }
-.account-profile { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(32px,5vw,70px); margin: 70px 0 115px; padding: clamp(38px,5vw,70px); border-top: 5px solid #7c3aed; background: #fff5ea url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center / cover; box-shadow: 0 28px 70px rgba(23,37,84,.16); }
+.account-profile { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,1fr); gap: clamp(28px,4vw,48px); margin: 70px 0 115px; padding: clamp(38px,5vw,70px); border-top: 5px solid #7c3aed; background: #fff5ea url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center / cover; box-shadow: 0 28px 70px rgba(23,37,84,.16); }
 .account-profile > header, .account-profile form { min-width: 0; }
-.account-profile header h2 { max-width: 9ch; margin: 10px 0 24px; color: #172554; font: 700 clamp(2.7rem,4vw,4rem)/.94 var(--font-lore-display), serif; letter-spacing: 0; }
-.account-profile header > p:last-child { color: #5f657a; line-height: 1.75; }
+.account-profile > header { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr); column-gap:clamp(35px,6vw,90px); align-items:end; padding-bottom:clamp(24px,3vw,38px); border-bottom:1px solid rgba(23,37,84,.16); }
+.account-profile > header .eyebrow { grid-column:1; align-self:end; }
+.account-profile header h2 { grid-column:1; max-width:15ch; margin:10px 0 0; color:#172554; font:700 clamp(2.7rem,4vw,4rem)/.94 var(--font-lore-display),serif; letter-spacing:0; }
+.account-profile header > p:last-child { grid-column:2; grid-row:1 / span 2; max-width:48ch; margin:0; color:#5f657a; line-height:1.75; }
 .account-profile form { display: grid; align-content: start; gap: 12px; }
 .account-profile-identity { display: grid; gap: 6px; margin-bottom: 20px; padding: 0 0 22px 68px; border-bottom: 1px solid rgba(23,37,84,.2); background: url("/brand/lorewise-universe-logo-concept-c.webp") left top / 54px 44px no-repeat; }
-.account-profile-identity span, .account-profile form > label, .account-profile fieldset legend { color: #7c3aed; font-size: .68rem; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
+.account-profile-identity span, .account-profile-field > label, .account-profile fieldset legend { color: #7c3aed; font-size: .68rem; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
 .account-profile-identity strong { color: #172554; font-size: 1.05rem; }
 .account-profile-identity small { color: #71687a; }
-.account-profile form > input { width: 100%; border: 0; border-bottom: 2px solid rgba(23,37,84,.25); padding: 14px 2px; background: transparent; color: #172554; font: 750 1rem var(--font-body), sans-serif; }
-.account-profile form > input:focus { outline: 2px solid #7c3aed; outline-offset: 5px; }
+.account-profile-field > input { width:100%; border:0; border-bottom:2px solid rgba(23,37,84,.25); padding:14px 2px; background:transparent; color:#172554; font:750 1rem var(--font-body),sans-serif; }
+.account-profile-field > input:focus { outline:2px solid #7c3aed; outline-offset:5px; }
 .account-profile fieldset { display: grid; gap: 0; margin: 24px 0 10px; padding: 0; border: 0; border-top: 1px solid rgba(23,37,84,.18); }
 .account-profile fieldset legend { padding: 18px 0 6px; }
 .account-profile fieldset label { display: grid; grid-template-columns: 22px 1fr; gap: 12px; padding: 12px 0; }
@@ -3188,7 +3199,7 @@ body { background: var(--white); }
 .account-profile-actions button { min-height: 50px; border: 0; padding: 14px 24px; background: #db2777; color: white; font-weight: 900; cursor: pointer; }
 .account-profile-actions button:disabled { cursor: not-allowed; opacity: .6; }
 .account-profile-actions a { color: #4c1d57; font-size: .78rem; font-weight: 850; text-decoration: underline; text-underline-offset: 4px; }
-.account-profile-message { grid-column: 2; margin: 0; color: #4c1d57; font-size: .82rem; font-weight: 800; }
+.account-profile-message { grid-column:1; margin:0; color:#4c1d57; font-size:.82rem; font-weight:800; }
 .account-deletion { grid-column: 1 / -1; margin-top: 28px; padding-top: 35px; border-top: 1px solid rgba(127,29,29,.25); }
 .account-deletion h3 { margin: 8px 0 16px; color: #7f1d1d; font: 700 clamp(2rem,3.5vw,3.5rem)/.95 var(--font-lore-display), serif; }
 .account-deletion > form { max-width: 760px; gap: 14px; }
@@ -8003,6 +8014,213 @@ body { background: var(--white); }
   .game-guide-blocks > section { grid-template-columns:38px minmax(0,1fr); gap:12px; }
   .game-guide-sources { padding-inline:20px; }
   .game-guide-sources > div { flex-direction:column; align-items:stretch; }
+}
+
+/* Interazioni compatte sotto le opere dell'archivio. */
+.artwork-card-social {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  width:100%;
+  min-height:56px;
+  margin-top:14px;
+  padding:5px;
+  border:1px solid rgba(225,178,74,.58);
+  background:linear-gradient(135deg,#171127 0%,#2d1638 55%,#151127 100%);
+  box-shadow:0 12px 26px rgba(25,14,38,.18);
+}
+.artwork-card-social button {
+  min-width:0;
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  border:0;
+  padding:9px 10px;
+  border-radius:2px;
+  background:transparent;
+  color:#fff3d1;
+  font:850 clamp(.68rem,1vw,.8rem)/1 var(--font-body),sans-serif;
+  white-space:nowrap;
+  cursor:pointer;
+}
+.artwork-card-social button + button { border-left:1px solid rgba(246,206,99,.28); }
+.artwork-card-social button:hover,.artwork-card-social button:focus-visible { background:rgba(246,206,99,.1); color:#f6ce63; }
+.artwork-card-social button.is-liked { color:#ffd76d; background:rgba(219,39,119,.18); }
+.artwork-card-social button > span { color:#f7a9c5; font-size:1.2em; }
+.artwork-card-social button > strong { min-width:24px; height:24px; display:grid; place-items:center; border-radius:50%; background:rgba(246,206,99,.13); color:#f6ce63; font-size:.78em; }
+.artwork-card-social button:disabled { cursor:wait; opacity:.62; }
+
+.artwork-card-comments-backdrop {
+  position:fixed;
+  inset:0;
+  z-index:1200;
+  display:grid;
+  place-items:center;
+  padding:18px;
+  background:
+    radial-gradient(circle at 50% 30%,rgba(128,68,151,.22),transparent 38%),
+    rgba(9,5,16,.84);
+  backdrop-filter:blur(10px);
+}
+.artwork-card-comments-panel {
+  position:relative;
+  width:min(560px,100%);
+  max-height:min(760px,calc(100dvh - 36px));
+  overflow:auto;
+  padding:clamp(25px,4vw,42px);
+  color:#172554;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.2),transparent 36%),
+    #fff7ef url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center/cover;
+  border:1px solid rgba(225,178,74,.7);
+  border-top:6px solid #db2777;
+  box-shadow:0 36px 100px rgba(0,0,0,.56),inset 0 0 0 6px rgba(255,255,255,.28);
+}
+.artwork-card-comments-panel::before { content:""; position:absolute; top:11px; right:72px; left:22px; height:1px; background:linear-gradient(90deg,rgba(225,178,74,.12),rgba(225,178,74,.85),rgba(225,178,74,.12)); }
+.artwork-card-comments-panel > header { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; padding:10px 0 20px; border-bottom:1px solid rgba(23,37,84,.16); }
+.artwork-card-comments-panel > header div { display:grid; gap:3px; min-width:0; }
+.artwork-card-comments-panel > header span { color:#9f1239; font:600 .82rem/1.2 var(--font-lore-display),serif; font-style:italic; letter-spacing:.04em; }
+.artwork-card-comments-panel > header small { color:#db2777; font-size:.62rem; font-weight:900; letter-spacing:.15em; }
+.artwork-card-comments-panel > header h3 { margin:4px 0 0; color:#172554; font:700 clamp(2rem,5vw,3.2rem)/.92 var(--font-lore-display),serif; text-wrap:balance; }
+.artwork-card-comments-panel > header button { flex:0 0 44px; width:44px; height:44px; border:1px solid rgba(225,178,74,.62); border-radius:50%; background:rgba(255,255,255,.84); color:#32123e; font-size:1.55rem; cursor:pointer; box-shadow:0 8px 20px rgba(23,37,84,.08); }
+.artwork-card-comments-summary { display:flex; align-items:center; gap:4px; padding:16px 0; color:#686172; font-size:.72rem; letter-spacing:.02em; }.artwork-card-comments-summary::before { content:"✦"; margin-right:6px; color:#c8922d; }.artwork-card-comments-summary strong { color:#172554; }
+.artwork-card-comments-panel ol { display:grid; gap:11px; margin:0 0 20px; padding:0; list-style:none; }
+.artwork-card-comment-thread { display:grid; gap:0; min-width:0; }
+.artwork-card-comment-entry { display:grid; grid-template-columns:52px minmax(0,1fr); gap:13px; padding:16px; background:rgba(255,255,255,.76); border:1px solid rgba(23,37,84,.11); border-left:3px solid #d3a23c; box-shadow:0 8px 20px rgba(23,37,84,.05); }
+.artwork-card-comment-avatar { width:52px; height:52px; overflow:hidden; border:2px solid #fff; border-radius:50%; background:linear-gradient(135deg,#7c3aed,#db2777); box-shadow:0 4px 12px rgba(50,18,62,.18); }
+.artwork-card-comment-avatar img { display:block; width:100%; height:100%; object-fit:cover; }.artwork-card-comment-avatar > span { width:100%; height:100%; display:grid; place-items:center; color:#fff; font:800 1.1rem var(--font-lore-display),serif; }
+.artwork-card-comment-copy { min-width:0; }.artwork-card-comment-author { display:flex; align-items:baseline; flex-wrap:wrap; gap:7px; }.artwork-card-comment-author strong { color:#32123e; font:700 1.04rem/1.15 var(--font-lore-display),serif; }.artwork-card-comment-author small { color:#7c3aed; font-size:.7rem; font-weight:850; }.artwork-card-comment-copy p { margin:7px 0 0; color:#555b70; font-size:.8rem; line-height:1.55; }
+.artwork-card-comment-reply { min-height:0!important; margin:9px 0 0!important; padding:0 0 3px!important; border:0!important; border-bottom:1px solid currentColor!important; background:transparent!important; color:#8b236c!important; font:700 .72rem/1.2 var(--font-lore-display),serif!important; box-shadow:none!important; }
+.artwork-card-comment-replies { gap:7px!important; margin:0 0 0 34px!important; padding:8px 0 0!important; border-left:1px solid rgba(200,146,45,.35); }
+.artwork-card-comment-entry.is-reply { grid-template-columns:44px minmax(0,1fr); margin-left:10px; padding:12px; border-left-color:#7c3aed; background:rgba(245,237,255,.75); box-shadow:none; }.artwork-card-comment-entry.is-reply .artwork-card-comment-avatar { width:44px; height:44px; }
+.artwork-card-comments-panel .artwork-card-reply-form { margin:8px 0 0 34px; padding:16px; border-left:3px solid #7c3aed; }
+.artwork-card-comments-empty { margin:0 0 20px; padding:22px; border:1px dashed rgba(200,146,45,.5); background:rgba(255,255,255,.4); color:#5f657a; font-family:var(--font-lore-display),serif; font-style:italic; text-align:center; }
+.artwork-card-comments-panel form { display:grid; gap:10px; padding:20px; border:1px solid rgba(225,178,74,.48); background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(250,238,245,.66)); }
+.artwork-card-comments-panel form label { color:#9f1239; font:700 .98rem/1.2 var(--font-lore-display),serif; letter-spacing:.03em; }
+.artwork-card-comments-panel form textarea { min-height:112px; resize:vertical; padding:15px; border:1px solid rgba(23,37,84,.18); border-bottom:3px solid #7c3aed; background:rgba(255,255,255,.86); color:#172554; font:600 .84rem/1.55 var(--font-body),sans-serif; outline:none; }.artwork-card-comments-panel form textarea:focus { border-bottom-color:#db2777; box-shadow:0 8px 20px rgba(124,58,237,.1); }
+.artwork-card-comments-panel form > div { display:flex; align-items:center; justify-content:space-between; gap:14px; }.artwork-card-comments-panel form button,.artwork-card-comments-access a { min-height:44px; display:inline-flex; align-items:center; justify-content:center; border:0; padding:11px 19px; background:linear-gradient(135deg,#8b236c,#db2777); color:white; font-size:.72rem; font-weight:900; letter-spacing:.03em; cursor:pointer; box-shadow:0 8px 18px rgba(159,18,57,.18); }
+.artwork-card-comments-access { padding:18px; background:rgba(124,58,237,.08); }.artwork-card-comments-access p { margin:0 0 12px; color:#4c1d57; line-height:1.55; }
+.artwork-card-comments-message { margin:13px 0 0; color:#9f1239; font-size:.76rem; font-weight:800; }
+.artwork-card-comments-full { display:inline-flex; margin-top:18px; color:#4c1d57; font-size:.72rem; font-weight:900; text-decoration:underline; text-underline-offset:4px; }
+
+.account-profile-required { padding:18px 22px; border-left:5px solid #db2777; background:rgba(219,39,119,.08); }
+.account-profile-required strong { color:#9f1239; }.account-profile-required p { margin:5px 0 0; color:#5f657a; line-height:1.55; }
+
+.profile-completion-gate { position:fixed; inset:0; z-index:1400; display:grid; place-items:center; padding:20px; background:rgba(12,7,20,.88); backdrop-filter:blur(10px); }
+.profile-completion-gate > section { width:min(650px,100%); padding:clamp(30px,6vw,65px); background:#fff7ef url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center/cover; border-top:6px solid #db2777; box-shadow:0 36px 100px rgba(0,0,0,.5); }
+.profile-completion-gate h2 { margin:10px 0 20px; color:#172554; font:700 clamp(2.4rem,8vw,4.7rem)/.9 var(--font-display),serif; }
+.profile-completion-gate p { color:#5f657a; line-height:1.65; }.profile-completion-gate .profile-completion-missing { color:#9f1239; font-weight:850; }
+.profile-completion-gate a { min-height:50px; display:inline-flex; align-items:center; justify-content:center; margin-top:12px; padding:13px 20px; background:#db2777; color:white; font-size:.78rem; font-weight:900; }
+
+@media (max-width:560px) {
+  .artwork-card-social { margin-top:12px; }
+  .artwork-card-social button { gap:5px; padding-inline:5px; font-size:clamp(.62rem,3.1vw,.74rem); }
+  .artwork-card-comments-backdrop {
+    display:block;
+    width:100%;
+    height:100vh;
+    height:100dvh;
+    padding:0;
+    overflow:hidden;
+  }
+  .artwork-card-comments-panel {
+    position:absolute;
+    right:0;
+    bottom:0;
+    left:0;
+    width:100%;
+    max-width:none;
+    max-height:calc(100vh - 52px);
+    max-height:calc(100dvh - 52px);
+    margin:0;
+    overflow-x:hidden;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    padding:22px 18px calc(22px + env(safe-area-inset-bottom));
+    border-radius:20px 20px 0 0;
+  }
+  .artwork-card-comment-entry { grid-template-columns:48px minmax(0,1fr); padding:13px; }.artwork-card-comment-avatar { width:48px; height:48px; }.artwork-card-comment-replies,.artwork-card-comments-panel .artwork-card-reply-form { margin-left:12px!important; }.artwork-card-comment-entry.is-reply { grid-template-columns:40px minmax(0,1fr); margin-left:6px; }.artwork-card-comment-entry.is-reply .artwork-card-comment-avatar { width:40px; height:40px; }
+  .account-profile-required { padding:15px 16px; }
+}
+
+/* Community, profili e notifiche personali */
+.account-profile-editor { display:grid; grid-template-columns:minmax(270px,310px) minmax(0,1fr); gap:clamp(32px,4.5vw,64px); min-width:0; align-items:start; }
+.account-profile .account-avatar-form { width:100%; min-width:0; box-sizing:border-box; display:grid; align-content:start; gap:16px; align-self:start; overflow:hidden; padding:22px; border:1px solid rgba(23,37,84,.16); border-top:4px solid #7c3aed; background:linear-gradient(155deg,rgba(255,255,255,.94),rgba(246,239,255,.78)); text-align:left; box-shadow:0 20px 45px rgba(23,37,84,.1); }
+.account-profile .account-avatar-preview { position:relative; display:grid; place-items:center; min-width:0; padding:24px 18px 34px; overflow:hidden; background:linear-gradient(145deg,#171127,#382044); }
+.account-avatar-image-frame { position:relative; width:168px; height:168px; overflow:hidden; border:6px solid white; border-radius:50%; background:#2b1836; box-shadow:0 14px 34px rgba(0,0,0,.3); }
+.account-avatar-image-frame > img { object-fit:cover; transition:transform .16s ease,object-position .16s ease; }
+.account-profile .account-avatar-preview > span { position:absolute; inset:auto 12px 11px; color:#f6ce63; font-size:.6rem; font-weight:900; letter-spacing:.12em; text-align:center; text-transform:uppercase; }
+.account-avatar-image-frame .account-avatar-fallback { width:100%; height:100%; display:grid; place-items:center; border:0; border-radius:0; background:linear-gradient(135deg,#7c3aed,#db2777); color:white; font:800 4rem var(--font-lore-display),serif; box-shadow:none; }
+.account-avatar-copy small { color:#7c3aed; font-size:.62rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }.account-avatar-copy h3 { margin:5px 0 7px; color:#172554; font:700 1.75rem/.95 var(--font-lore-display),serif; }.account-avatar-copy p { margin:0; color:#646a7b; font-size:.74rem; line-height:1.55; }
+.account-avatar-defaults { display:grid; gap:11px; min-width:0; padding:14px; border:1px solid rgba(23,37,84,.13); background:rgba(255,255,255,.62); }
+.account-avatar-defaults > div:first-child { display:flex; justify-content:space-between; gap:10px; align-items:baseline; }.account-avatar-defaults > div:first-child strong { color:#172554; font-size:.7rem; }.account-avatar-defaults > div:first-child small { color:#71687a; font-size:.58rem; }
+.account-avatar-defaults > div:last-child { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+.account-avatar-defaults button { display:grid; place-items:center; min-width:0; aspect-ratio:1; overflow:hidden; border:2px solid transparent; border-radius:50%; padding:3px; background:#f2eafb; cursor:pointer; transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease; }
+.account-avatar-defaults button:hover,.account-avatar-defaults button:focus-visible { transform:translateY(-2px); border-color:#7c3aed; outline:none; }.account-avatar-defaults button.is-selected { border-color:#db2777; box-shadow:0 0 0 3px rgba(219,39,119,.16); }
+.account-avatar-defaults img { display:block; width:100%; height:auto; border-radius:50%; }
+.account-avatar-divider { display:flex; align-items:center; gap:10px; color:#8b8190; font-size:.56rem; font-weight:850; letter-spacing:.06em; text-align:center; text-transform:uppercase; }.account-avatar-divider::before,.account-avatar-divider::after { content:""; flex:1; height:1px; background:rgba(23,37,84,.15); }.account-avatar-divider span { flex:0 0 auto; }
+.account-avatar-input { position:absolute!important; width:1px!important; height:1px!important; overflow:hidden!important; clip:rect(0 0 0 0)!important; white-space:nowrap!important; }
+.account-profile .account-avatar-picker { min-width:0; width:100%; box-sizing:border-box; display:grid; grid-template-columns:1fr; gap:5px; margin:0; padding:14px 15px; overflow:hidden; border:1px dashed rgba(124,58,237,.52); background:rgba(124,58,237,.06); text-align:center; cursor:pointer; }.account-profile .account-avatar-picker strong { display:block; color:#4c1d57; font-size:.76rem; letter-spacing:.03em; text-transform:none; }.account-profile .account-avatar-picker span { display:block; min-width:0; max-width:100%; overflow:hidden; color:#71687a; font-size:.66rem; font-weight:650; letter-spacing:0; line-height:1.35; text-overflow:ellipsis; text-transform:none; white-space:nowrap; }.account-profile .account-avatar-picker:hover,.account-profile .account-avatar-picker:focus-within { border-color:#db2777; background:rgba(219,39,119,.07); }
+.account-avatar-format { color:#71687a; font-size:.62rem; text-align:center; }
+.account-profile .account-avatar-adjustments { display:grid; gap:11px; min-width:0; margin:0; padding:15px; border:1px solid rgba(23,37,84,.13); background:rgba(255,255,255,.62); }
+.account-profile .account-avatar-adjustments legend { width:auto; margin:0; padding:0 7px; color:#7c3aed; font-size:.62rem; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+.account-profile .account-avatar-adjustments label { display:grid; grid-template-columns:76px minmax(0,1fr); gap:10px; align-items:center; margin:0; padding:0; border:0; color:#4c1d57; font-size:.64rem; font-weight:850; letter-spacing:0; text-transform:none; }
+.account-profile .account-avatar-adjustments input[type="range"] { width:100%; min-width:0; margin:0; accent-color:#db2777; }
+.account-avatar-actions { display:grid; gap:8px; }.account-avatar-actions > button { width:100%; min-height:46px; border:0; padding:11px 14px; background:#172554; color:white; font-weight:900; cursor:pointer; }.account-avatar-actions > button:disabled { cursor:not-allowed; opacity:.48; }.account-avatar-actions > .account-avatar-remove { background:transparent; color:#9f1239; border:1px solid rgba(159,18,57,.28); }
+.account-profile-settings { display:grid; align-content:start; gap:22px; }
+.account-profile-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 34px; }
+.account-profile-field { display:grid; align-content:start; gap:8px; min-width:0; }
+.account-profile-field-wide { grid-column:1 / -1; }
+.account-profile-field > textarea { width:100%; min-height:112px; resize:vertical; border:1px solid rgba(23,37,84,.2); padding:14px; background:rgba(255,255,255,.68); color:#172554; font:650 .88rem/1.65 var(--font-body),sans-serif; }
+.account-profile-preferences { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 38px; }
+.account-profile-preferences fieldset { margin-top:4px; }
+.account-profile-preferences .account-codex-preference { grid-column:1 / -1; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:38px; }
+.account-profile-preferences .account-codex-preference legend { grid-column:1 / -1; }
+.account-profile-help { color:#71687a; font-size:.68rem; line-height:1.5; }
+.account-deletion form > input { width:100%; border:0; border-bottom:2px solid rgba(127,29,29,.4); padding:14px 2px; background:transparent; color:#172554; font:750 1rem var(--font-body),sans-serif; }
+.account-deletion form > input:focus { outline:2px solid #991b1b; outline-offset:5px; }
+
+.public-profile-page { min-height:75vh; display:grid; place-items:center; padding:clamp(70px,9vw,140px) 20px; background:#25102f url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center/cover; }
+.public-profile-card { width:min(940px,100%); display:grid; grid-template-columns:240px minmax(0,1fr); gap:clamp(32px,6vw,78px); align-items:center; padding:clamp(34px,6vw,75px); background:#fff7ef; box-shadow:0 35px 90px rgba(0,0,0,.35); }
+.public-profile-card > img,.public-profile-fallback { width:240px; height:240px; border-radius:50%; object-fit:cover; }
+.public-profile-fallback { display:grid; place-items:center; background:linear-gradient(135deg,#7c3aed,#db2777); color:white; font:800 6rem var(--font-lore-display),serif; }
+.public-profile-card h1 { margin:8px 0 4px; color:#172554; font:700 clamp(3rem,6vw,6rem)/.9 var(--font-lore-display),serif; overflow-wrap:anywhere; }
+.public-profile-card strong { color:#7c3aed; }.public-profile-card div > p:not(.eyebrow) { color:#555a6d; line-height:1.75; white-space:pre-wrap; }.public-profile-card small { color:#777083; }
+
+.art-community-heading { grid-template-columns:130px minmax(0,1fr) auto; }
+.art-community-heading > img { width:125px; height:125px; }
+.art-community-stats { display:flex; gap:24px; align-items:center; }
+.art-community-stats span { display:grid; color:#d9c9db; font-size:.68rem; font-weight:900; text-transform:uppercase; }
+.art-community-stats strong { color:#f6ce63; font:700 2.4rem var(--font-lore-display),serif; }
+.art-community-social-bar { display:grid; grid-template-columns:1fr 1fr; border-block:1px solid rgba(255,244,212,.22); }
+.art-community-social-bar button,.art-community-social-bar a { min-height:58px; border:0; padding:12px; background:transparent; color:#fff3d1; font-weight:900; text-align:center; cursor:pointer; }
+.art-community-social-bar > :first-child { border-right:1px solid rgba(255,244,212,.22); }.art-community-social-bar .is-liked { color:#fb7185; }
+.art-community-body { grid-template-columns:minmax(0,1fr) minmax(300px,.58fr); }
+.community-comment { display:grid; grid-template-columns:56px minmax(0,1fr); gap:14px 18px; }
+.community-author { grid-column:1 / -1; display:flex; gap:12px; align-items:center; }
+.community-author > img,.community-avatar-fallback { flex:0 0 auto; width:64px; height:64px; border-radius:50%; object-fit:cover; }
+.community-avatar-fallback { display:grid; place-items:center; background:#db2777; color:white; font-weight:900; }
+.community-author > a,.community-author > span:last-child { display:grid; gap:4px; color:#fff3d1; font:700 1.05rem/1.15 var(--font-lore-display),serif; }.community-author small { color:#d8a9ed; font:800 .76rem/1.2 var(--font-body),sans-serif; }
+.community-comment-content { grid-column:2; min-width:0; padding:16px 18px; border-radius:0 18px 18px 18px; background:rgba(255,255,255,.09); }
+.community-comment-content > p { margin:10px 0 0; color:#f4edf3; line-height:1.7; white-space:pre-wrap; overflow-wrap:anywhere; }
+.community-comment-meta { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }.community-comment-meta time,.community-comment-meta small { color:#bcaebf; font-size:.62rem; }
+.community-comment-actions { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:12px; }
+.community-comment-actions > button,.community-comment-actions > span,.community-comment-actions summary { border:0; background:transparent; color:#d8a9ed; font-size:.68rem; font-weight:900; cursor:pointer; }.community-comment-actions .is-liked { color:#fb7185; }
+.community-comment-actions details { position:relative; }.community-comment-actions details form { position:absolute; z-index:5; top:28px; right:0; width:min(320px,78vw); display:grid; gap:10px; padding:18px; background:#fff7ef; box-shadow:0 18px 45px rgba(0,0,0,.35); }
+.community-replies { grid-column:2; margin-top:10px!important; }.community-replies .community-comment { padding-left:14px; border-top:0; }
+.community-reply-compose { display:grid; gap:9px; margin-top:16px; }.community-reply-compose textarea { min-height:92px; resize:vertical; padding:12px; border:1px solid rgba(255,244,212,.3); background:rgba(0,0,0,.15); color:white; }.community-reply-compose > div { display:flex; justify-content:space-between; align-items:center; gap:12px; }.community-reply-compose button { min-height:40px; border:0; padding:10px 14px; background:#db2777; color:white; font-weight:900; }
+
+.notifications-page { min-height:78vh; padding:clamp(70px,8vw,120px) 0; background:#fff7ef url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center/cover; color:#172554; }
+.notifications-hero { position:relative; padding-bottom:45px; border-bottom:4px solid #db2777; }.notifications-hero h1 { margin:8px 0 16px; font:700 clamp(4rem,9vw,9rem)/.82 var(--font-lore-display),serif; }.notifications-hero > p:last-of-type { max-width:700px; color:#5f657a; line-height:1.7; }.notifications-hero > strong { position:absolute; right:0; bottom:42px; display:grid; color:#db2777; font:700 4rem var(--font-lore-display),serif; text-align:right; }.notifications-hero > strong span { color:#6d6376; font:900 .62rem var(--font-body),sans-serif; text-transform:uppercase; }
+.notifications-panel { padding-top:45px; }.notifications-panel > header { display:flex; justify-content:space-between; gap:25px; align-items:end; }.notifications-panel h2 { margin:6px 0 0; font:700 clamp(2.2rem,4vw,4rem)/.95 var(--font-lore-display),serif; }.notifications-panel > header > div:last-child { display:flex; flex-wrap:wrap; gap:10px; }.notifications-panel button,.notifications-panel a { min-height:42px; display:inline-flex; align-items:center; justify-content:center; border:1px solid rgba(23,37,84,.2); padding:9px 13px; background:transparent; color:#4c1d57; font-size:.67rem; font-weight:900; cursor:pointer; }.notifications-panel button:disabled { opacity:.45; cursor:not-allowed; }
+.notifications-panel ol { display:grid; gap:10px; margin:35px 0 0; padding:0; list-style:none; }.notifications-panel li { display:grid; grid-template-columns:48px minmax(0,1fr) auto; gap:18px; align-items:center; padding:22px; border:1px solid rgba(23,37,84,.13); background:rgba(255,255,255,.7); }.notifications-panel li.is-read { opacity:.7; }.notification-symbol { width:44px; height:44px; display:grid; place-items:center; border-radius:50%; background:#32123e; color:#f6ce63; font-size:1.3rem; }.notifications-panel li small { color:#7c3aed; font-size:.62rem; font-weight:900; text-transform:uppercase; }.notifications-panel li strong { display:block; margin:5px 0; color:#172554; font-size:1rem; }.notifications-panel li p { margin:0; color:#5f657a; line-height:1.55; }.notifications-panel li > div:last-child { display:grid; gap:7px; min-width:110px; }.notifications-message,.notifications-empty { margin-top:30px; color:#5f657a; }
+
+@media (max-width:800px) {
+  .account-profile > header { grid-template-columns:1fr; gap:16px; }.account-profile > header .eyebrow,.account-profile header h2,.account-profile header > p:last-child { grid-column:1; grid-row:auto; }.account-profile-editor,.public-profile-card { grid-template-columns:1fr; }.account-profile .account-avatar-form { width:min(100%,430px); max-width:430px; justify-self:center; padding:18px; }.account-avatar-image-frame,.public-profile-card > img,.public-profile-fallback { width:148px; height:148px; margin-inline:auto; }.account-profile-fields,.account-profile-preferences,.account-profile-preferences .account-codex-preference { grid-template-columns:1fr; }.account-profile-field-wide,.account-profile-preferences .account-codex-preference,.account-profile-preferences .account-codex-preference legend { grid-column:1; }.public-profile-card { text-align:center; }
+  .art-community-heading { grid-template-columns:70px minmax(0,1fr); }.art-community-heading > img { width:68px; height:68px; }.art-community-heading > div { grid-column:2; }.art-community-heading > .art-community-stats { grid-column:1 / -1; justify-content:space-around; width:100%; }.art-community-social-bar { width:100%; }.art-community-body { grid-template-columns:1fr; }.community-comment { grid-template-columns:52px minmax(0,1fr); }.community-author > img,.community-avatar-fallback { width:52px; height:52px; }.community-comment-content { padding:14px; }.community-replies { grid-column:1 / -1; padding-left:18px!important; }.community-comment-actions details form { left:0; right:auto; }
+  .notifications-hero > strong { position:static; margin-top:22px; text-align:left; }.notifications-panel > header { align-items:flex-start; flex-direction:column; }.notifications-panel li { grid-template-columns:42px minmax(0,1fr); padding:16px; }.notifications-panel li > div:last-child { grid-column:2; display:flex; flex-wrap:wrap; min-width:0; }
 }
 
 /* Quaderno BG3: override finale dopo gli stili storici della guida. */

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Fragment, useMemo, useState } from "react";
 import type { ArtworkAccess, CatalogArtwork } from "@/lib/artCatalog";
 import { artworkGenreLabels } from "@/lib/artworkTaxonomy";
+import { ArtworkCardSocial } from "@/components/ArtworkCardSocial";
 
 type ArtCatalogProps = {
   artworks: CatalogArtwork[];
@@ -186,6 +187,7 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
                         <div><strong>Opera sigillata · 18+</strong><span>{artwork.contentWarning}</span><button type="button" onClick={() => revealAdultArtwork(artwork.code)}>Conferma 18+ · Mostra l’opera</button></div>
                       </div>
                     )}
+                    <ArtworkCardSocial artworkCode={artwork.code} artworkTitle={artwork.title ?? artwork.code} artworkSlug={artwork.slug} />
                     <div className="draft-artwork-copy">
                       <div className="artwork-card-identity">
                         <Image src={artwork.kindLabel === "Arte originale" ? originalSeal : fanartSeal} alt="" width={96} height={96} loading="lazy" unoptimized />

@@ -9,8 +9,13 @@ export async function ensureAdminNotificationsTable(database: D1Database) {
     target_url TEXT NOT NULL,
     source_created_at TEXT NOT NULL,
     read_at TEXT,
+    dismissed_at TEXT,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
   )`).run();
+  const columns = await database.prepare("PRAGMA table_info(admin_notifications)").all<{ name: string }>();
+  if (!columns.results.some((column) => column.name === "dismissed_at")) {
+    await database.prepare("ALTER TABLE admin_notifications ADD COLUMN dismissed_at TEXT").run();
+  }
   await database.prepare("CREATE INDEX IF NOT EXISTS admin_notifications_unread_idx ON admin_notifications(read_at, source_created_at)").run();
 }
 

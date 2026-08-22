@@ -1,16 +1,22 @@
 import { env } from "@/lib/netlifyRuntime";
 
 import { ACCOUNT_PROFILE_LIMITS } from "@/lib/accountPolicy";
+import { avatarUrl, normalizeUsername, usernameError } from "@/lib/publicProfile";
 import { ensureAccountDeletionRequestsTable } from "@/lib/accountDeletion";
 import { localAccountProfile, netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
+import { profileCompletion } from "@/lib/profileCompletion";
 
 type RuntimeEnv = { DB?: D1Database; LOREWISE_ADMIN_EMAILS?: string };
 
 type CustomerProfileRow = {
   email: string;
   display_name: string | null;
+  username: string | null;
+  bio: string | null;
+  avatar_object_key: string | null;
+  profile_visibility: string;
   role: string;
   locale: string;
   community_emails: number;
@@ -35,9 +41,14 @@ async function authenticatedCustomer() {
 }
 
 function publicProfile(row: CustomerProfileRow) {
+  const completion = profileCompletion({ displayName: row.display_name, username: row.username });
   return {
     email: row.email,
     displayName: row.display_name ?? "",
+    username: row.username ?? "",
+    bio: row.bio ?? "",
+    profileVisibility: row.profile_visibility === "private" ? "private" : "public",
+    avatarUrl: avatarUrl(row.username, Boolean(row.avatar_object_key)),
     role: row.role,
     locale: row.locale,
     communityEmails: Boolean(row.community_emails),
@@ -49,11 +60,13 @@ function publicProfile(row: CustomerProfileRow) {
     updatedAt: row.updated_at,
     status: row.status,
     deletionRequestedAt: row.deletion_requested_at,
+    ...completion,
   };
 }
 
 async function readProfile(database: D1Database, userId: string) {
-  return database.prepare(`SELECT customers.email, customers.display_name, customers.role, customers.locale,
+  return database.prepare(`SELECT customers.email, customers.display_name, customers.username, customers.bio,
+    customers.avatar_object_key, customers.profile_visibility, customers.role, customers.locale,
     customers.community_emails, customers.studio_updates_emails, customers.codex_spoiler_preference, customers.privacy_version,
     customers.privacy_accepted_at, customers.created_at, customers.updated_at, customers.status,
     (SELECT requested_at FROM account_deletion_requests WHERE customer_id = customers.id AND status = 'pending'
@@ -67,7 +80,8 @@ export async function GET() {
     const user = await getLoreWiseUser();
     if (!user?.email) return Response.json({ error: "Sessione non valida." }, { status: 401 });
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
-      return Response.json({ profile: localAccountProfile(user, env as unknown as RuntimeEnv), localPreview: true }, {
+      const profile = localAccountProfile(user, env as unknown as RuntimeEnv);
+      return Response.json({ profile: { ...profile, ...profileCompletion(profile) }, localPreview: true }, {
         headers: { "Cache-Control": "private, no-store" },
       });
     }
@@ -83,6 +97,8 @@ export async function GET() {
 
 export async function PATCH(request: Request) {
   try {
+    const origin = request.headers.get("origin");
+    if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
     const localUser = await getLoreWiseUser();
     if (!localUser?.email) return Response.json({ error: "Sessione non valida." }, { status: 401 });
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
@@ -92,6 +108,14 @@ export async function PATCH(request: Request) {
       if (displayName.length > ACCOUNT_PROFILE_LIMITS.displayName) {
         return Response.json({ error: `Il nome pubblico non puo superare ${ACCOUNT_PROFILE_LIMITS.displayName} caratteri.` }, { status: 400 });
       }
+      const username = typeof body.username === "string" ? normalizeUsername(body.username) : currentProfile.username;
+      if (username) {
+        const invalidUsername = usernameError(username, { allowGiwiseForAdmin: currentProfile.role === "admin" });
+        if (invalidUsername) return Response.json({ error: invalidUsername }, { status: 400 });
+      }
+      const bio = typeof body.bio === "string" ? body.bio.trim() : currentProfile.bio;
+      if (bio.length > ACCOUNT_PROFILE_LIMITS.bio) return Response.json({ error: `La biografia non può superare ${ACCOUNT_PROFILE_LIMITS.bio} caratteri.` }, { status: 400 });
+      const profileVisibility = body.profileVisibility === "private" ? "private" : "public";
       const communityEmails = typeof body.communityEmails === "boolean" ? body.communityEmails : currentProfile.communityEmails;
       const studioUpdatesEmails = typeof body.studioUpdatesEmails === "boolean" ? body.studioUpdatesEmails : currentProfile.studioUpdatesEmails;
       const codexSpoilerPreference = typeof body.codexSpoilerPreference === "string" ? body.codexSpoilerPreference : currentProfile.codexSpoilerPreference;
@@ -104,14 +128,18 @@ export async function PATCH(request: Request) {
         data: {
           ...localUser.user_metadata,
           full_name: displayName || null,
+          username: username || null,
+          bio: bio || null,
+          profile_visibility: profileVisibility,
           community_emails: communityEmails,
           studio_updates_emails: studioUpdatesEmails,
           codex_spoiler_preference: codexSpoilerPreference,
         },
       });
       if (error || !data.user) return Response.json({ error: "Non e stato possibile salvare le preferenze." }, { status: 503 });
+      const profile = localAccountProfile(data.user, env as unknown as RuntimeEnv);
       return Response.json({
-        profile: localAccountProfile(data.user, env as unknown as RuntimeEnv),
+        profile: { ...profile, ...profileCompletion(profile) },
         message: "Profilo e preferenze aggiornati.",
         localPreview: true,
       }, { headers: { "Cache-Control": "private, no-store" } });
@@ -125,15 +153,26 @@ export async function PATCH(request: Request) {
     if (displayName.length > ACCOUNT_PROFILE_LIMITS.displayName) {
       return Response.json({ error: `Il nome pubblico non può superare ${ACCOUNT_PROFILE_LIMITS.displayName} caratteri.` }, { status: 400 });
     }
+    const username = typeof body.username === "string" ? normalizeUsername(body.username) : (currentProfile.username ?? "");
+    if (username) {
+      const invalidUsername = usernameError(username, { allowGiwiseForAdmin: currentProfile.role === "admin" });
+      if (invalidUsername) return Response.json({ error: invalidUsername }, { status: 400 });
+      const conflict = await authenticated.database.prepare("SELECT id FROM customers WHERE username = ? AND id <> ? LIMIT 1")
+        .bind(username, authenticated.user.id).first();
+      if (conflict) return Response.json({ error: "Questo nickname è già utilizzato." }, { status: 409 });
+    }
+    const bio = typeof body.bio === "string" ? body.bio.trim() : (currentProfile.bio ?? "");
+    if (bio.length > ACCOUNT_PROFILE_LIMITS.bio) return Response.json({ error: `La biografia non può superare ${ACCOUNT_PROFILE_LIMITS.bio} caratteri.` }, { status: 400 });
+    const profileVisibility = body.profileVisibility === "private" ? "private" : "public";
     const communityEmails = typeof body.communityEmails === "boolean" ? body.communityEmails : Boolean(currentProfile.community_emails);
     const studioUpdatesEmails = typeof body.studioUpdatesEmails === "boolean" ? body.studioUpdatesEmails : Boolean(currentProfile.studio_updates_emails);
     const codexSpoilerPreference = typeof body.codexSpoilerPreference === "string" ? body.codexSpoilerPreference : currentProfile.codex_spoiler_preference;
     if (!['protected', 'open'].includes(codexSpoilerPreference)) return Response.json({ error: "Preferenza spoiler non valida." }, { status: 400 });
     const current = await authenticated.database.prepare("SELECT status FROM customers WHERE id = ?").bind(authenticated.user.id).first<{ status: string }>();
     if (current?.status === "deletion_requested") return Response.json({ error: "Annulla prima la richiesta di cancellazione per modificare il profilo." }, { status: 409 });
-    await authenticated.database.prepare(`UPDATE customers SET display_name = ?, community_emails = ?,
+    await authenticated.database.prepare(`UPDATE customers SET display_name = ?, username = ?, bio = ?, profile_visibility = ?, community_emails = ?,
       studio_updates_emails = ?, codex_spoiler_preference = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`)
-      .bind(displayName || null, communityEmails ? 1 : 0, studioUpdatesEmails ? 1 : 0, codexSpoilerPreference, authenticated.user.id)
+      .bind(displayName || null, username || null, bio || null, profileVisibility, communityEmails ? 1 : 0, studioUpdatesEmails ? 1 : 0, codexSpoilerPreference, authenticated.user.id)
       .run();
     const row = await readProfile(authenticated.database, authenticated.user.id);
     return Response.json({ profile: publicProfile(row!), message: "Profilo e preferenze aggiornati." }, { headers: { "Cache-Control": "private, no-store" } });

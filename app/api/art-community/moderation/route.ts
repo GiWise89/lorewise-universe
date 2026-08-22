@@ -3,6 +3,7 @@ import { env } from "@/lib/netlifyRuntime";
 import { ensureArtCommunityTables } from "@/lib/artCommunityServer";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient } from "@/lib/supabase/server";
+import { createUserNotification } from "@/lib/userNotifications";
 
 type RuntimeEnv = { DB?: D1Database };
 type Moderator = { id: string; email: string; role: "admin" | "moderator" };
@@ -135,6 +136,8 @@ export async function GET() {
 
 export async function PATCH(request: Request) {
   try {
+    const origin = request.headers.get("origin");
+    if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
     const authenticated = await requireModerator();
     if (authenticated.error) return authenticated.error;
     const body = await request.json() as Record<string, unknown>;
@@ -158,6 +161,7 @@ export async function PATCH(request: Request) {
       await authenticated.database.prepare(`INSERT INTO community_moderation_events
         (id, moderator_user_id, action, comment_id, target_user_id, note) VALUES (?, ?, ?, ?, ?, ?)`)
         .bind(crypto.randomUUID(), authenticated.moderator.id, action, null, targetUserId, note || null).run();
+      await createUserNotification(authenticated.database, { userId: targetUserId, actorUserId: authenticated.moderator.id, type: "moderation", title: "Profilo Community riattivato", message: note || "Il tuo profilo può partecipare nuovamente alla Community LoreWise.", targetUrl: "/account", groupKey: `moderation:account:${targetUserId}` });
       return Response.json({ ...(await moderationPayload(authenticated.database, authenticated.moderator)), message: "Account sbloccato e azione registrata." }, { headers: { "Cache-Control": "private, no-store" } });
     }
 
@@ -192,6 +196,15 @@ export async function PATCH(request: Request) {
     await authenticated.database.prepare(`INSERT INTO community_moderation_events
       (id, moderator_user_id, action, comment_id, target_user_id, note) VALUES (?, ?, ?, ?, ?, ?)`)
       .bind(crypto.randomUUID(), authenticated.moderator.id, action, commentId, target.user_id, note || null).run();
+    const moderationMessages: Record<string, { title: string; message: string }> = {
+      hide_comment: { title: "Commento nascosto dalla moderazione", message: "Il commento è stato nascosto durante una verifica." },
+      restore_comment: { title: "Commento ripristinato", message: "La moderazione ha ripristinato il commento nella conversazione." },
+      delete_comment: { title: "Commento rimosso", message: "Il commento è stato rimosso dalla Community LoreWise." },
+      dismiss_reports: { title: "Segnalazione archiviata", message: "La verifica sul commento è stata conclusa senza rimozione." },
+      block_author: { title: "Profilo Community sospeso", message: "Il profilo è stato sospeso dalle interazioni della Community." },
+    };
+    const moderationCopy = moderationMessages[action];
+    if (moderationCopy) await createUserNotification(authenticated.database, { userId: target.user_id, actorUserId: authenticated.moderator.id, type: "moderation", commentId, title: moderationCopy.title, message: note || moderationCopy.message, targetUrl: "/account", groupKey: `moderation:${action}:${commentId}` });
     return Response.json({ ...(await moderationPayload(authenticated.database, authenticated.moderator)), message: "Azione registrata nell’archivio di moderazione." }, { headers: { "Cache-Control": "private, no-store" } });
   } catch {
     return Response.json({ error: "Azione di moderazione non completata." }, { status: 503 });

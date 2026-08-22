@@ -30,6 +30,7 @@ const requiredTables = [
   "benefit_ledger", "benefit_events", "member_benefit_claims", "codex_bookmarks", "codex_character_suggestions", "studio_poll_votes", "transactional_emails",
   "manual_deliveries",
   "site_page_views",
+  "artwork_likes", "artwork_comments", "artwork_comment_reports", "artwork_comment_likes", "user_notifications", "admin_notifications",
 ];
 const tables = new Set(database.prepare("SELECT name FROM sqlite_master WHERE type = 'table'").all().map((row) => row.name));
 for (const table of requiredTables) assert.ok(tables.has(table), `Tabella finale mancante: ${table}`);
@@ -44,13 +45,17 @@ for (const column of ["order_id", "stripe_subscription_id", "cancel_at_period_en
 for (const column of ["quote_cents", "deposit_cents", "quote_terms_accepted_at"]) assert.ok(columns("commission_requests").has(column), `commission_requests.${column} mancante`);
 for (const column of ["rating", "game_version", "comment_id"]) assert.ok(columns("game_ratings").has(column), `game_ratings.${column} mancante`);
 assert.ok(columns("customers").has("codex_spoiler_preference"), "customers.codex_spoiler_preference mancante");
+for (const column of ["username", "bio", "avatar_object_key", "avatar_content_type", "profile_visibility"]) assert.ok(columns("customers").has(column), `customers.${column} mancante`);
+assert.ok(columns("artwork_comments").has("parent_comment_id"), "artwork_comments.parent_comment_id mancante");
+assert.ok(columns("admin_notifications").has("dismissed_at"), "admin_notifications.dismissed_at mancante");
 for (const column of ["event_key", "recipient_email", "template", "status", "attempts", "provider_message_id"]) assert.ok(columns("transactional_emails").has(column), `transactional_emails.${column} mancante`);
 
 const indexes = new Set(database.prepare("SELECT name FROM sqlite_master WHERE type = 'index'").all().map((row) => row.name));
 for (const index of ["subscriptions_order_id_unique", "orders_stripe_refund_id_unique", "entitlements_customer_resource_unique",
   "benefit_ledger_customer_idx", "member_benefit_claim_unique", "codex_bookmarks_customer_idx", "codex_character_suggestions_customer_idx", "studio_poll_votes_poll_idx", "transactional_emails_status_idx",
   "manual_deliveries_order_id_unique", "manual_deliveries_status_idx", "manual_deliveries_customer_idx",
-  "site_page_views_created_idx", "site_page_views_path_idx", "site_page_views_session_idx"]) {
+  "site_page_views_created_idx", "site_page_views_path_idx", "site_page_views_session_idx",
+  "customers_username_unique", "artwork_comment_likes_comment_idx", "user_notifications_inbox_idx", "user_notifications_group_unique", "admin_notifications_unread_idx"]) {
   assert.ok(indexes.has(index), `Indice finale mancante: ${index}`);
 }
 

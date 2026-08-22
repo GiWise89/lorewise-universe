@@ -22,16 +22,23 @@ export async function isLocalLoreWiseRequest() {
   }
 }
 
-export async function createLoreWiseServerClient() {
+export async function createLoreWiseServerClient(options?: { sessionOnly?: boolean }) {
   const config = getSupabasePublicConfig();
   if (!config) return null;
   const cookieStore = await cookies();
+  const sessionOnly = options?.sessionOnly ?? cookieStore.get("lorewise-session-mode")?.value === "session";
   return createServerClient(config.url, config.publishableKey, {
     cookies: {
       getAll: () => cookieStore.getAll(),
       setAll(cookiesToSet) {
         try {
-          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+          cookiesToSet.forEach(({ name, value, options: cookieOptions }) => {
+            if (!sessionOnly) return cookieStore.set(name, value, cookieOptions);
+            const sessionCookieOptions = { ...cookieOptions };
+            delete sessionCookieOptions.maxAge;
+            delete sessionCookieOptions.expires;
+            cookieStore.set(name, value, sessionCookieOptions);
+          });
         } catch {
           // I Server Component non possono sempre aggiornare cookie; proxy.ts gestirà il rinnovo.
         }

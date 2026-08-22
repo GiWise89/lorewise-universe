@@ -40,6 +40,12 @@ export async function ensureLoreWiseCustomersTable(database: D1Database) {
   if (!names.has("codex_spoiler_preference")) await database.prepare("ALTER TABLE customers ADD COLUMN codex_spoiler_preference TEXT NOT NULL DEFAULT 'protected'").run();
   if (!names.has("privacy_version")) await database.prepare("ALTER TABLE customers ADD COLUMN privacy_version TEXT").run();
   if (!names.has("privacy_accepted_at")) await database.prepare("ALTER TABLE customers ADD COLUMN privacy_accepted_at TEXT").run();
+  if (!names.has("username")) await database.prepare("ALTER TABLE customers ADD COLUMN username TEXT").run();
+  if (!names.has("bio")) await database.prepare("ALTER TABLE customers ADD COLUMN bio TEXT").run();
+  if (!names.has("avatar_object_key")) await database.prepare("ALTER TABLE customers ADD COLUMN avatar_object_key TEXT").run();
+  if (!names.has("avatar_content_type")) await database.prepare("ALTER TABLE customers ADD COLUMN avatar_content_type TEXT").run();
+  if (!names.has("profile_visibility")) await database.prepare("ALTER TABLE customers ADD COLUMN profile_visibility TEXT NOT NULL DEFAULT 'public'").run();
+  await database.prepare("CREATE UNIQUE INDEX IF NOT EXISTS customers_username_unique ON customers(username)").run();
   if (!names.has("registration_notified_at")) {
     await database.prepare("ALTER TABLE customers ADD COLUMN registration_notified_at TEXT").run();
     await database.prepare("UPDATE customers SET registration_notified_at = created_at WHERE registration_notified_at IS NULL").run();
