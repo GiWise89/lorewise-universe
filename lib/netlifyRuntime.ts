@@ -31,6 +31,22 @@ function replaceQuestionPlaceholders(sql: string) {
 }
 
 function translateSqliteSql(source: string) {
+  const sqliteTableLookup = source.trim().match(/^SELECT\s+1\s+AS\s+found\s+FROM\s+sqlite_master\s+WHERE\s+type\s*=\s*'table'\s+AND\s+name\s*=\s*\?\s+LIMIT\s+1$/i);
+  if (sqliteTableLookup) {
+    return {
+      sql: "SELECT 1 AS found FROM information_schema.tables WHERE table_schema = 'public' AND table_name = $1 LIMIT 1",
+      ignoredBindings: false,
+    };
+  }
+
+  const sqliteTableList = source.trim().match(/^SELECT\s+name\s+FROM\s+sqlite_master\s+WHERE\s+type\s*=\s*'table'$/i);
+  if (sqliteTableList) {
+    return {
+      sql: "SELECT table_name AS name FROM information_schema.tables WHERE table_schema = 'public'",
+      ignoredBindings: true,
+    };
+  }
+
   const pragma = source.trim().match(/^PRAGMA\s+table_info\(([^)]+)\)$/i);
   if (pragma) {
     const table = pragma[1].replace(/["'`]/g, "");

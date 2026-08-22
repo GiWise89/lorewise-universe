@@ -18,28 +18,36 @@ export async function GET(request: Request) {
       return Response.json({ error: "Archivio immagini VIP non disponibile." }, { status: 503, headers: { "Cache-Control": "private, no-store" } });
     }
 
-    let object: Awaited<ReturnType<R2Bucket["get"]>> = null;
+    let bytes: ArrayBuffer | null = null;
+    let contentType = media.contentType;
     if (access.runtime.COMMISSION_UPLOADS) {
       try {
-        object = await access.runtime.COMMISSION_UPLOADS.get(media.objectKey);
+        const object = await access.runtime.COMMISSION_UPLOADS.get(media.objectKey);
+        if (object) {
+          bytes = await object.arrayBuffer();
+          contentType = object.httpMetadata?.contentType ?? media.contentType;
+        }
       } catch (reason) {
         if (process.env.NETLIFY === "true" || !localMediaUrl) throw reason;
       }
     }
-    if (!object && process.env.NETLIFY !== "true" && localMediaUrl) {
+    if (!bytes && process.env.NETLIFY !== "true" && localMediaUrl) {
       const localResponse = await fetch(`${localMediaUrl}?key=${encodeURIComponent(media.objectKey)}`, { cache: "no-store" });
-      if (localResponse.ok && localResponse.body) {
-        object = {
-          body: localResponse.body,
-          size: Number(localResponse.headers.get("content-length") || 0),
-          httpMetadata: { contentType: localResponse.headers.get("content-type") ?? media.contentType },
-        } as Awaited<ReturnType<R2Bucket["get"]>>;
+      if (localResponse.ok) {
+        bytes = await localResponse.arrayBuffer();
+        contentType = localResponse.headers.get("content-type") ?? media.contentType;
       }
     }
-    if (!object) return Response.json({ error: "Immagine VIP non ancora archiviata." }, { status: 404, headers: { "Cache-Control": "private, no-store" } });
+    if (!bytes) return Response.json({ error: "Immagine VIP non ancora archiviata." }, { status: 404, headers: { "Cache-Control": "private, no-store" } });
+
+    // Le anteprime VIP sono file ridotti. Materializzarle qui evita che alcuni
+    // runtime Netlify chiudano lo stream prima che il browser lo consumi.
+    if (!bytes.byteLength) {
+      return Response.json({ error: "Immagine VIP archiviata ma vuota." }, { status: 503, headers: { "Cache-Control": "private, no-store" } });
+    }
 
     const headers = new Headers({
-      "Content-Type": object.httpMetadata?.contentType ?? media.contentType,
+      "Content-Type": contentType,
       "Cache-Control": wantsDownload ? "private, no-store" : "private, max-age=3600, stale-while-revalidate=300",
       "Content-Disposition": wantsDownload && "downloadName" in media
         ? `attachment; filename="${media.downloadName}"`
@@ -47,17 +55,13 @@ export async function GET(request: Request) {
       "X-Content-Type-Options": "nosniff",
       "X-Robots-Tag": "noindex, noimageindex, noarchive",
     });
-    // Netlify Blobs can stream objects imported before LoreWise started saving
-    // supplemental size metadata. A false Content-Length: 0 makes browsers
-    // discard that valid stream, so only advertise a length when it is known.
-    if (Number.isFinite(object.size) && object.size > 0) {
-      headers.set("Content-Length", String(object.size));
-    }
+    headers.set("Content-Length", String(bytes.byteLength));
 
-    return new Response(object.body, {
+    return new Response(bytes, {
       headers,
     });
-  } catch {
+  } catch (reason) {
+    console.error("VIP media delivery failed", reason);
     return Response.json({ error: "Non è stato possibile autorizzare l’immagine VIP." }, { status: 503, headers: { "Cache-Control": "private, no-store" } });
   }
 }

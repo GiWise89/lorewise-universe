@@ -11,7 +11,12 @@ export async function isLocalLoreWiseRequest() {
       .split(",")
       .map((configuredHost) => configuredHost.trim().toLowerCase())
       .filter(Boolean);
-    return host === "localhost" || host === "127.0.0.1" || host === "[::1]" || configuredHosts.includes(host);
+    const privateLanHost = process.env.NODE_ENV !== "production" && (
+      /^192\.168\.\d{1,3}\.\d{1,3}$/.test(host)
+      || /^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(host)
+      || /^172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}$/.test(host)
+    );
+    return host === "localhost" || host === "127.0.0.1" || host === "[::1]" || configuredHosts.includes(host) || privateLanHost;
   } catch {
     return false;
   }

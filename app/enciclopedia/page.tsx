@@ -57,8 +57,8 @@ export default function EncyclopediaPage() {
       <ol>{codexCategories.map((category, index) => <li key={category}><Link href={category === "Universi originali GiWise Studio" ? "/enciclopedia/originali-giwise" : `/enciclopedia?categoria=${encodeURIComponent(category)}#indice-codex`}><span>{String(index + 1).padStart(2, "0")}</span><strong>{category}</strong>{category === "Universi originali GiWise Studio" && <b>Archivio separato</b>}</Link></li>)}</ol>
     </section>
 
+    <div id="proposte-codex-vip" className="shell"><CodexSuggestionForm /></div>
     <div id="indice-codex" className="shell"><CodexIndex entries={documentedIndexEntries} eyebrow="Universi documentati" title="Personaggi e opere esterne." /></div>
-    <div className="shell"><CodexSuggestionForm /></div>
     <UniverseGuide current="LoreWise Codex" items={[
       { href: "/enciclopedia/originali-giwise", label: "Originali GiWise", description: "Il canone creato e custodito da GiWise Studio." },
       { href: "/giochi", label: "Giochi e app", description: "I mondi interattivi e il loro stato reale." },

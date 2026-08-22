@@ -10,11 +10,42 @@ import { VIP_DOWNLOAD_LIBRARY } from "../data/vip-downloads.ts";
 import { buildVipMemberProfile, evaluateVipAccess } from "../lib/vipMember.ts";
 import { universePassBenefitFromCode } from "../lib/universePass.ts";
 
-test("keeps VIP media streams valid when imported blob size metadata is missing", async () => {
+test("materializes protected VIP media before returning it to the browser", async () => {
   const source = await readFile(new URL("../app/api/vip-media/route.ts", import.meta.url), "utf8");
-  assert.match(source, /object\.size > 0/);
-  assert.doesNotMatch(source, /"Content-Length": String\(object\.size\)/);
+  assert.match(source, /bytes = await object\.arrayBuffer\(\)/);
+  assert.match(source, /bytes = await localResponse\.arrayBuffer\(\)/);
+  assert.match(source, /bytes\.byteLength/);
+  assert.match(source, /new Response\(bytes/);
   assert.match(source, /LOREWISE_LOCAL_VIP_MEDIA_URL/);
+  assert.doesNotMatch(source, /object = \{\s*body: localResponse\.body/s);
+});
+
+test("never disguises a missing VIP preview as the VIP product logo", async () => {
+  const source = await readFile(new URL("../lib/vipMediaClient.ts", import.meta.url), "utf8");
+  assert.match(source, /TRANSPARENT_PIXEL/);
+  assert.doesNotMatch(source, /lorewise-vip-official-v1\.webp/);
+});
+
+test("translates SQLite table discovery before querying Netlify Postgres", async () => {
+  const source = await readFile(new URL("../lib/netlifyRuntime.ts", import.meta.url), "utf8");
+  assert.match(source, /FROM\\s\+sqlite_master/);
+  assert.match(source, /information_schema\.tables/);
+  assert.match(source, /SELECT table_name AS name FROM information_schema\.tables/);
+});
+
+test("keeps art entrance titles inside their responsive columns", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /\.art-entrance-grid button \{[^}]*width: 100%;[^}]*min-width: 0;/s);
+  assert.match(css, /\.art-entrance-grid strong[^}]*overflow-wrap: normal;[^}]*word-break: normal;[^}]*hyphens: none;/s);
+  assert.doesNotMatch(css, /\.art-entrance-grid strong[^}]*overflow-wrap: anywhere;/s);
+  assert.match(css, /grid-template-columns: minmax\(120px, 240px\) minmax\(0, 1fr\)/);
+});
+
+test("never splits diary and Codex portal titles inside a word", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /\.diary-entry-card-copy h3[^}]*overflow-wrap:normal;[^}]*word-break:normal;[^}]*hyphens:none;/s);
+  assert.match(css, /\.codex-library-portals \.codex-library-copy strong[^}]*overflow-wrap: normal;[^}]*word-break: normal;[^}]*hyphens: none;/s);
+  assert.match(css, /@media \(max-width:\s*1180px\)[\s\S]*?\.codex-library-portals > \.codex-library-routes \{ grid-template-columns: 1fr;/);
 });
 
 test("reads every protected VIP image from the persisted local R2 archive", async () => {

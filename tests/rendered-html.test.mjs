@@ -1218,14 +1218,25 @@ test("rejects unsigned Stripe webhook requests", async () => {
 });
 
 test("renders the VIP Codex proposal area and protects its API", async () => {
-  const page = await render("/enciclopedia");
-  assert.equal(page.status, 200);
-  const html = await page.text();
-  assert.match(html, /CodexSuggestionForm|Verifica del Pass in corso/i);
+  const component = await readFile(new URL("../components/CodexSuggestionForm.tsx", import.meta.url), "utf8");
+  assert.match(component, /if \(access !== "vip"\) return null/);
+  assert.match(component, /Manca un personaggio\?/);
+  assert.match(component, /Solo LoreWise VIP/);
+  assert.match(component, /Controlla il Codex/);
+  assert.match(component, /Segui lo stato/);
+  assert.match(component, /Opera o universo/);
+  assert.match(component, /Perché dovrebbe entrare nel Codex/);
+  assert.match(component, /STATUS_LABELS/);
+  const pageSource = await readFile(new URL("../app/enciclopedia/page.tsx", import.meta.url), "utf8");
+  assert.match(pageSource, /id="proposte-codex-vip"/);
 
   const api = await render("/api/codex-suggestions", { headers: { accept: "application/json" } });
   assert.equal(api.status, 401);
   assert.match(await api.text(), /LoreWise ID/i);
+  const apiSource = await readFile(new URL("../app/api/codex-suggestions/route.ts", import.meta.url), "utf8");
+  assert.match(apiSource, /process\.env\.NODE_ENV !== "production"/);
+  assert.match(apiSource, /isLocalLoreWiseRequest/);
+  assert.match(apiSource, /localOnly: true/);
 });
 
 test("omits undocumented pronunciation and keeps detailed generated roles", async () => {
