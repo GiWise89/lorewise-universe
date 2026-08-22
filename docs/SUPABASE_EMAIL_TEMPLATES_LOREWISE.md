@@ -34,7 +34,7 @@ L’editor del pannello deve sostituire integralmente il contenuto precedente. U
 ## Vincoli di sicurezza
 
 - Il recupero password usa `{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=recovery` e non `{{ .ConfirmationURL }}`. In questo modo il collegamento apre la conferma protetta LoreWise prima di consumare il codice.
-- La conferma registrazione usa il callback già gestito dall’app: `{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email`.
+- La conferma registrazione costruisce sempre il callback dal `Site URL` pubblico: `{{ .SiteURL }}/auth/callback?next=%2Faccount&token_hash={{ .TokenHash }}&type=email`. In questo modo un `RedirectTo` locale, assente o non autorizzato non può produrre un collegamento non cliccabile.
 - Il tracciamento dei collegamenti del provider email deve restare disattivato.
 - Nessun modello contiene password, codici segreti o dati commerciali.
 

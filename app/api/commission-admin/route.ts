@@ -3,6 +3,7 @@ import { env } from "@/lib/netlifyRuntime";
 import { requireCommissionAdminApi } from "@/lib/commissionAdminAuth";
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { calculateCommissionBenefit, ensureCommissionBenefitColumns, getActiveUniversePass, universePassBenefitFromCode } from "@/lib/universePass";
+import { commissionDiscountForSubmission } from "@/lib/commissionPromotion";
 import { queueAndAttemptTransactionalEmail } from "@/lib/transactionalEmail";
 
 type RuntimeEnv = {
@@ -198,11 +199,11 @@ export async function PATCH(request: Request) {
   }
 
   const existing = await runtime.DB.prepare(`SELECT id, customer_id, reference_code, name, email, package_name, status, quote_base_cents, quote_discount_cents,
-    quote_cents, deposit_cents, membership_plan_code, membership_discount_percent, benefit_snapshot_at, quote_terms_accepted_at
+    quote_cents, deposit_cents, membership_plan_code, membership_discount_percent, benefit_snapshot_at, quote_terms_accepted_at, created_at
     FROM commission_requests WHERE id = ?`).bind(id).first<{
       id: string; customer_id: string | null; reference_code: string; name: string; email: string; package_name: string; status: string; quote_base_cents: number | null;
       quote_discount_cents: number | null; quote_cents: number | null; deposit_cents: number | null; membership_plan_code: string | null;
-      membership_discount_percent: number; benefit_snapshot_at: string | null; quote_terms_accepted_at: string | null;
+      membership_discount_percent: number; benefit_snapshot_at: string | null; quote_terms_accepted_at: string | null; created_at: string;
     }>();
   if (!existing) return Response.json({ error: "Richiesta non trovata." }, { status: 404 });
   const pricingLocked = Boolean(existing.quote_terms_accepted_at) || ["accepted", "in_progress", "awaiting_balance", "balance_paid", "completed"].includes(existing.status);
@@ -210,15 +211,20 @@ export async function PATCH(request: Request) {
     return Response.json({ error: "Prezzo, sconto e acconto restano bloccati dopo l’accettazione del preventivo." }, { status: 409 });
   }
   const currentPass = await getActiveUniversePass(runtime.DB, existing.customer_id);
+  const currentDiscountPercent = commissionDiscountForSubmission({
+    planCode: currentPass.code,
+    ordinaryDiscountPercent: currentPass.commissionDiscountPercent,
+    submittedAt: existing.created_at,
+  });
   const preserveSnapshot = quoteBaseCents !== null && quoteBaseCents === existing.quote_base_cents && Boolean(existing.benefit_snapshot_at);
   const pricing = quoteBaseCents === null ? null : preserveSnapshot ? {
     baseCents: quoteBaseCents,
     discountPercent: existing.membership_discount_percent ?? 0,
     discountCents: existing.quote_discount_cents ?? 0,
     finalCents: existing.quote_cents ?? quoteBaseCents,
-  } : calculateCommissionBenefit(quoteBaseCents, currentPass.commissionDiscountPercent);
+  } : calculateCommissionBenefit(quoteBaseCents, currentDiscountPercent);
   const membershipPlanCode = preserveSnapshot ? existing.membership_plan_code : currentPass.code;
-  const membershipDiscountPercent = preserveSnapshot ? existing.membership_discount_percent : currentPass.commissionDiscountPercent;
+  const membershipDiscountPercent = preserveSnapshot ? existing.membership_discount_percent : currentDiscountPercent;
   if (depositCents !== null && (pricing === null || depositCents > pricing.finalCents)) {
     return Response.json({ error: "L’acconto non può superare il totale finale dopo lo sconto Universe Pass." }, { status: 400 });
   }

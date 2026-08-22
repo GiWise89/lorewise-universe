@@ -1,0 +1,1131 @@
+{
+  "id": "acnh-complete-guide-01",
+  "slug": "animal-crossing-new-horizons",
+  "code": "LW-ATLAS-ACNH-001",
+  "theme": "animal-crossing",
+  "game": "Animal Crossing: New Horizons",
+  "title": "Il taccuino dell'isola",
+  "subtitle": "Una guida completa e concreta, dai primi sette giorni al museo e alle isole da cinque stelle.",
+  "description": "Sedici quaderni da tenere aperti mentre giochi: progressione, Stelline, rape, progettazione, personalizzazione, DLC, creature marine e 42 confronti completi per le opere del museo.",
+  "versionLabel": "Edizione 3.0 · guida 2026",
+  "updatedAt": "22 agosto 2026",
+  "vipFrom": "2026-08-22T00:00:00+02:00",
+  "publicAt": "2026-08-24T00:00:00+02:00",
+  "cover": {
+    "src": "/atlas/animal-crossing-new-horizons/official/01-primi-giorni.jpg",
+    "alt": "Falò e tende sulla spiaggia durante i primi giorni dell'isola",
+    "caption": "Il campo iniziale e i primi passi sull'isola · immagine ufficiale Nintendo."
+  },
+  "storeUrl": "https://www.nintendo.com/it-it/Giochi/Giochi-per-Nintendo-Switch/Animal-Crossing-New-Horizons-1438623.html",
+  "storeLabel": "Scopri il gioco su Nintendo",
+  "sections": [
+    {
+      "id": "progression",
+      "label": "Inizio e crescita",
+      "summary": "Primi giorni, Stelline, rape e valutazione dell'isola.",
+      "icon": {
+        "src": "/atlas/animal-crossing-new-horizons/section-icons/progression-v1.png",
+        "alt": "Tenda e casa su una piccola isola",
+        "caption": "Inizio e crescita"
+      },
+      "chapterIds": [
+        "i-primi-sette-giorni",
+        "economia-e-progressione",
+        "borsa-delle-rape",
+        "da-tre-a-cinque-stelle"
+      ]
+    },
+    {
+      "id": "creativity",
+      "label": "Isola e creatività",
+      "summary": "Design, personalizzazione, strumenti e pattern.",
+      "icon": {
+        "src": "/atlas/animal-crossing-new-horizons/section-icons/creativity-v1.png",
+        "alt": "Tavolo creativo con mappa, colori e fiore",
+        "caption": "Isola e creatività"
+      },
+      "chapterIds": [
+        "design-terraforming-e-spawn",
+        "personalizzazione-degli-oggetti",
+        "strumenti-d-oro",
+        "pattern-e-modelli-personalizzati"
+      ]
+    },
+    {
+      "id": "homes",
+      "label": "Case e servizi",
+      "summary": "Progettazione delle case, DLC e servizi dell'isola.",
+      "icon": {
+        "src": "/atlas/animal-crossing-new-horizons/section-icons/homes-v1.png",
+        "alt": "Casa e piccola struttura per gli ospiti su un'isola",
+        "caption": "Case e servizi"
+      },
+      "chapterIds": [
+        "happy-home-paradise",
+        "modificare-le-case-degli-abitanti",
+        "hotel-sul-molo-e-oggetti-console"
+      ]
+    },
+    {
+      "id": "collections",
+      "label": "Online e collezioni",
+      "summary": "Visite online, creature marine e opere del museo.",
+      "icon": {
+        "src": "/atlas/animal-crossing-new-horizons/section-icons/collections-v1.png",
+        "alt": "Cartoline di isole collegate e collezione marina",
+        "caption": "Online e collezioni"
+      },
+      "chapterIds": [
+        "nintendo-switch-online",
+        "creature-marine-elenco-140",
+        "opere-del-museo"
+      ]
+    },
+    {
+      "id": "community",
+      "label": "Community e verifica",
+      "summary": "Spazi condivisi e controllo finale dei progressi.",
+      "icon": {
+        "src": "/atlas/animal-crossing-new-horizons/section-icons/community-v1.png",
+        "alt": "Bacheca dell'isola con mappa e lista completata",
+        "caption": "Community e verifica"
+      },
+      "chapterIds": [
+        "spazi-community-della-categoria",
+        "checklist-finale"
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "id": "i-primi-sette-giorni",
+      "number": "01",
+      "label": "I Primi Sette Giorni",
+      "title": "I Primi Sette Giorni",
+      "introduction": "Un quaderno pratico dedicato a i primi sette giorni.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/01-primi-giorni.jpg",
+          "alt": "Falò e tende sulla spiaggia durante i primi giorni dell'isola",
+          "caption": "Il campo iniziale e i primi passi sull'isola · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Taccuino operativo",
+          "title": "Giorni 1–2: museo, materiali e Miglia di Nook",
+          "text": "Procedura e controlli da seguire durante la partita.",
+          "steps": [
+            "Dona almeno 5 creature a Tom Nook per sbloccare Blatero e avviare il Museo.",
+            "Raccogli 30 pepite di ferro per la Bottega di Nook.",
+            "Quando colpisci una roccia, non mangiare frutta: altrimenti la distruggerai.",
+            "Scava due buche dietro il personaggio prima di colpire la roccia: eviterai il rinculo e potrai ottenere fino a 8 materiali.",
+            "Completa più obiettivi Miglia di Nook possibile."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Giorni 3–5: Bottega e nuovi abitanti",
+          "text": "Procedura e controlli da seguire durante la partita.",
+          "steps": [
+            "Costruisci la Bottega di Nook.",
+            "Posiziona i lotti per le nuove case.",
+            "Pianta fiori e alberi e sistema mobili all’esterno: serviranno per la valutazione dell’isola.",
+            "Punta ad almeno 8 abitanti il prima possibile."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Giorni 6–7: Municipio, Fuffi e tre stelle",
+          "text": "Dopo lo sblocco del Municipio parla con Fuffi e lavora per raggiungere 3 stelle. Gli elementi principali sono:",
+          "steps": [
+            "almeno 8 abitanti;",
+            "decorazioni esterne;",
+            "recinzioni;",
+            "fiori ben distribuiti, evitando di sovraffollare l’isola."
+          ],
+          "tips": [
+            "Dopo le 3 stelle arriva il concerto di K.K. e si sblocca Progetto Isola+, cioè il terraforming."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "economia-e-progressione",
+      "number": "02",
+      "label": "Economia e Progressione",
+      "title": "Economia E Progressione",
+      "introduction": "Un quaderno pratico dedicato a economia e progressione.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/02-economia-servizi.jpg",
+          "alt": "Tom Nook illustra i servizi e l'ampliamento della casa",
+          "caption": "Servizi, casa e progressione economica · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Taccuino operativo",
+          "title": "Alberi delle Stelline",
+          "text": "Procedura e controlli da seguire durante la partita.",
+          "steps": [
+            "Interra normalmente 10.000 Stelline nel punto luminoso.",
+            "Superare questa cifra non aumenta in modo affidabile il rendimento medio.",
+            "Organizza gli alberi in una zona dedicata per raccoglierli rapidamente."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Isole misteriose e tarantole/scorpioni",
+          "text": "Il metodo descritto nel server è pensato per le ore notturne, nei mesi corretti e preferibilmente su un’isola piatta, come l’Isola Bamboo:",
+          "steps": [
+            "taglia gli alberi;",
+            "rimuovi i ceppi;",
+            "rompi le rocce;",
+            "strappa i fiori;",
+            "spaventa gli insetti comuni;",
+            "continua a liberare gli slot di apparizione finché non compaiono tarantole o scorpioni."
+          ],
+          "tips": [
+            "Se compaiono continuamente insetti non desiderati, controlla stagione, ora e tipo di isola. Il sistema ha un limite di creature presenti contemporaneamente: liberare gli spawn comuni crea nuove possibilità, ma non garantisce una creatura rara."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Pesci rari",
+          "text": "Procedura e controlli da seguire durante la partita.",
+          "steps": [
+            "Controlla luogo, orario, stagione e meteo.",
+            "Spaventa le ombre non interessanti e continua il giro dell’isola.",
+            "Le esche generano immediatamente una nuova ombra, ma non garantiscono un pesce raro.",
+            "Il molo è necessario per specie come tonno e marlin blu.",
+            "Ombra grande non significa automaticamente pesce raro; un’ombra con pinna indica la famiglia degli squali, ma non una specie precisa."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "borsa-delle-rape",
+      "number": "03",
+      "label": "Borsa Delle Rape",
+      "title": "Borsa Delle Rape",
+      "introduction": "Un quaderno pratico dedicato a borsa delle rape.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/03-mercato-rape.jpg",
+          "alt": "Brunella propone al giocatore l'acquisto delle rape",
+          "caption": "Il mercato delle rape comincia da Brunella · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Taccuino operativo",
+          "title": "Acquisto e conservazione",
+          "text": "Procedura e controlli da seguire durante la partita.",
+          "steps": [
+            "Brunella vende rape soltanto la domenica, dalle 5:00 alle 12:00.",
+            "Il prezzo è variabile, normalmente intorno a 90–110 Stelline; sotto 100 è generalmente un acquisto favorevole.",
+            "Le rape non si possono depositare: vanno lasciate a terra in casa o in una zona esterna protetta.",
+            "Marciscono la domenica successiva.",
+            "Il time travel all’indietro può farle marcire immediatamente."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Vendita",
+          "text": "Procedura e controlli da seguire durante la partita.",
+          "steps": [
+            "Marco e Mirco comprano le rape dal lunedì al sabato.",
+            "Il prezzo cambia due volte al giorno: al mattino e dopo le 12:00.",
+            "Controlla e annota entrambe le quotazioni ogni giorno."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Pattern settimanali",
+          "text": "Strategia: segna il prezzo d’acquisto, controlla mattina e pomeriggio, riconosci il pattern e non aspettare troppo per inseguire un guadagno incerto. Puoi anche vendere sull’isola di un altro giocatore tramite Codice Dodo; è buona educazione lasciare una mancia o un regalo.",
+          "steps": [
+            "Decrescente: il prezzo continua a scendere; vendi presto per limitare le perdite.",
+            "Oscillante: alterna rialzi e ribassi senza un grande picco; monitora ogni fascia oraria.",
+            "Piccolo picco: dopo prezzi bassi arriva un rialzo limitato per una o due fasce.",
+            "Grande picco: dopo un calo iniziale si susseguono aumenti importanti, spesso tra mercoledì e venerdì; può superare 400 Stelline."
+          ],
+          "tips": [
+            "Le rape marce possono essere usate per attirare formiche e completare il museo. Non investire tutte le Stelline se non vuoi rischiare l’intero capitale."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "da-tre-a-cinque-stelle",
+      "number": "04",
+      "label": "Da Tre A Cinque Stelle",
+      "title": "Da Tre A Cinque Stelle",
+      "introduction": "La valutazione di Fuffi si basa principalmente su due componenti nascoste: Sviluppo e Scenografia/Natura. Si aggiorna subito: modifica l’isola e ricontrolla immediatamente al Municipio.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/04-cinque-stelle-giardinaggio.jpg",
+          "alt": "Giocatore che cura un'aiuola fiorita sull'isola",
+          "caption": "Fiori, ordine e cura aiutano la valutazione dell'isola · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Da Tre A Cinque Stelle",
+          "text": "La valutazione di Fuffi si basa principalmente su due componenti nascoste: Sviluppo e Scenografia/Natura. Si aggiorna subito: modifica l’isola e ricontrolla immediatamente al Municipio."
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Sviluppo",
+          "text": "Procedura e controlli da seguire durante la partita.",
+          "steps": [
+            "Porta l’isola a 10 abitanti.",
+            "Usa recinzioni per creare orti, parchi, aiuole, piazzette e giardini.",
+            "Costruisci ponti e rampe; il limite indicato nella guida è 10 ponti e 10 rampe.",
+            "Posiziona mobili all’aperto invece di lasciarli a terra.",
+            "Crea più aree complete: panchine, illuminazione, cestini e decorazioni.",
+            "Ragiona per quartieri — spiaggia, mercato, parco, area zen, campeggio — invece di accumulare tutto vicino alla piazza."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Scenografia e natura",
+          "text": "Procedura e controlli da seguire durante la partita.",
+          "steps": [
+            "Distribuisci alberi, cespugli, fiori e arredi fai-da-te in tutta l’isola.",
+            "Troppi alberi possono far giudicare l’isola eccessivamente rigogliosa.",
+            "I fiori aiutano maggiormente se sono distribuiti in più zone.",
+            "Evita di concentrare decine di oggetti uguali nello stesso punto.",
+            "Mini-schema per quartiere: 3–6 fiori, 2–4 alberi o cespugli e 1–3 grandi oggetti DIY."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Penalità più comuni",
+          "text": "Regola d’oro: usa Posiziona, non Lascia a terra.",
+          "steps": [
+            "Ingombro: in una griglia 8×8, 45 o più caselle occupate possono far classificare la zona come ingombra.",
+            "Disordine: più di 15 oggetti non-mobili lasciati a terra possono bloccare le 5 stelle. Rami e conchiglie naturali non vengono trattati allo stesso modo.",
+            "Erbacce: mantenerle sotto controllo evita di perdere il bonus legato alla pulizia."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Piano rapido",
+          "text": "Procedura e controlli da seguire durante la partita.",
+          "steps": [
+            "Chiedi a Fuffi la valutazione e annota il suggerimento.",
+            "Raccogli gli oggetti lasciati a terra e pulisci le zone caotiche.",
+            "Raggiungi 10 abitanti.",
+            "Crea 3–5 aree recintate con una funzione precisa.",
+            "Distribuisci 5–8 punti decorati completi sull’isola.",
+            "Se Fuffi segnala troppa vegetazione, sfoltisci gli alberi e redistribuisci i fiori.",
+            "Ricontrolla la valutazione dopo ogni gruppo di modifiche."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design-terraforming-e-spawn",
+      "number": "05",
+      "label": "Design, Terraforming e Spawn",
+      "title": "Design, Terraforming E Spawn",
+      "introduction": "Prima di terraformare:",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/05-island-designer.jpg",
+          "alt": "Percorsi, fiume e ponte modificati con gli strumenti di progettazione",
+          "caption": "Percorsi e terraformazione con l'App Designer Isola · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Design, Terraforming E Spawn",
+          "text": "Prima di terraformare: Errori frequenti: ricominciare senza un piano, spostare edifici casualmente, usare troppe luci, creare zone prive di funzione e distribuire le case senza una logica.",
+          "steps": [
+            "scegli un tema: naturale, urbano, fantasy, zen o altro;",
+            "disegna una mappa di massima;",
+            "dividi l’isola in macro-zone residenziali, commerciali, naturali, fotografiche o dedicate agli eventi;",
+            "usa scogliere di secondo livello per punti panoramici;",
+            "preferisci fiumi curvi e percorsi organici;",
+            "crea profondità visiva con oggetti piccoli davanti, recinzioni nel mezzo e alberi dietro;",
+            "lascia spazi vuoti: un’isola leggibile non deve essere completamente riempita."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Giardino di rocce",
+          "text": "Le rocce richiedono aree 3×3 libere e non compaiono su pattern personalizzati. Per concentrarle:",
+          "steps": [
+            "copri le possibili aree di spawn con pattern o ostacoli;",
+            "lascia libere soltanto le caselle desiderate;",
+            "attendi la ricomparsa giornaliera delle rocce."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Percorsi degli abitanti",
+          "text": "Gli abitanti tendono a seguire sentieri e a evitare aree troppo congestionate. Percorsi chiari e passaggi liberi fanno apparire l’isola più viva."
+        }
+      ]
+    },
+    {
+      "id": "personalizzazione-degli-oggetti",
+      "number": "06",
+      "label": "Personalizzazione Degli Oggetti",
+      "title": "Personalizzazione Degli Oggetti",
+      "introduction": "Personalizzare significa cambiare colore, variante, materiale o motivo di un oggetto. La funzione standard si sblocca con il corso di Tom Nook.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/06-decorazione-personalizzazione.jpg",
+          "alt": "Modalità arredamento con mobili e ambienti personalizzati",
+          "caption": "Disporre e personalizzare gli ambienti con precisione · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Personalizzazione Degli Oggetti",
+          "text": "Personalizzare significa cambiare colore, variante, materiale o motivo di un oggetto. La funzione standard si sblocca con il corso di Tom Nook."
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Banco da lavoro",
+          "text": "Se l’opzione non appare, l’oggetto non è compatibile, non hai kit oppure non hai ancora sbloccato la funzione.",
+          "steps": [
+            "Tieni l’oggetto e i Kit di personalizzazione nell’inventario.",
+            "Usa il banco da lavoro.",
+            "Scegli Personalizza.",
+            "Seleziona colore, materiale o motivo."
+          ],
+          "tips": [
+            "I kit si acquistano alla Bottega di Nook a 600 Stelline l’uno e si accumulano fino a 50 per slot. Gli oggetti piccoli richiedono spesso 1–2 kit, quelli grandi di più. È utile conservarne uno stack da 20–30."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Merino e Alpaca a Fiorilio",
+          "text": "Con il mercato di Fiorilio puoi usare il servizio di Merino, indicativamente dalle 5:00 alle 00:00. Può:",
+          "steps": [
+            "modificare oggetti già compatibili con i kit;",
+            "cambiare varianti non disponibili al banco;",
+            "personalizzare oggetti delle Miglia di Nook."
+          ],
+          "tips": [
+            "Per gli oggetti normalmente personalizzabili, la guida del server indica la formula: 700 × numero di kit + 300 Stelline. Per esempio, un oggetto da 3 kit costa 2.400 Stelline.",
+            "Usa il banco per DIY e modifiche economiche; usa Merino per varianti speciali, oggetti Miglia di Nook e mobili non modificabili normalmente."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "strumenti-d-oro",
+      "number": "07",
+      "label": "Strumenti D’oro",
+      "title": "Strumenti D’oro",
+      "introduction": "Gli strumenti d’oro durano più a lungo ma non sono indistruttibili. In genere richiedono la ricetta, lo strumento normale e una pepita d’oro.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/07-strumenti-oro.jpg",
+          "alt": "Giocatore circondato dagli strumenti d'oro e da pepite d'oro",
+          "caption": "Gli strumenti d'oro di Animal Crossing: New Horizons, mostrati direttamente nel gioco."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Strumenti D’oro",
+          "text": "Gli strumenti d’oro durano più a lungo ma non sono indistruttibili. In genere richiedono la ricetta, lo strumento normale e una pepita d’oro. Le pepite d’oro sono drop rari ottenibili colpendo le rocce.",
+          "steps": [
+            "Ascia d’oro: rompi 100 asce.",
+            "Canna da pesca d’oro: completa la sezione Pesci del Critterpedia.",
+            "Rete d’oro: completa la sezione Insetti del Critterpedia.",
+            "Pala d’oro: aiuta Gulliver 30 volte.",
+            "Fionda d’oro: fai scoppiare 300 palloncini; comparirà un palloncino dorato con la ricetta.",
+            "Annaffiatoio d’oro: raggiungi 5 stelle. Serve anche per ottenere rose dorate innaffiando rose nere."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pattern-e-modelli-personalizzati",
+      "number": "08",
+      "label": "Pattern e Modelli Personalizzati",
+      "title": "Pattern E Modelli Personalizzati",
+      "introduction": "I Modelli e Modelli Pro sono design pixel art 32×32 utilizzabili come sentieri, pavimenti, decorazioni, quadri, vestiti e accessori.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/08-modelli-personalizzati.jpg",
+          "alt": "Abiti creati con diversi modelli personalizzati",
+          "caption": "Modelli personalizzati applicati agli abiti · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Pattern E Modelli Personalizzati",
+          "text": "I Modelli e Modelli Pro sono design pixel art 32×32 utilizzabili come sentieri, pavimenti, decorazioni, quadri, vestiti e accessori."
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Creare un modello",
+          "text": "L’upgrade Modelli Pro, acquistabile con Miglia di Nook, permette di creare capi e accessori più complessi.",
+          "steps": [
+            "Apri il Nook Phone con ZL.",
+            "Entra in I miei modelli.",
+            "Scegli uno slot libero e premi Modifica.",
+            "Disegna con matita, riempimento, forme, specchio, timbri e palette.",
+            "Salva e scegli se esporlo, indossarlo o posizionarlo a terra."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Scaricare dal Portale di Ago & Filo",
+          "text": "Servono la Sartoria completa, una connessione Internet e Nintendo Switch Online:",
+          "steps": [
+            "codice MA-…: apre la raccolta di un creatore;",
+            "codice MO-…: apre un singolo design."
+          ],
+          "tips": [
+            "Puoi usare il portale nel retro della Sartoria oppure, dopo l’upgrade, direttamente dal Nook Phone."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Importare QR con NookLink",
+          "text": "I QR sono utili per design di New Leaf, Happy Home Designer o strumenti esterni e non equivalgono ai codici MA/MO.",
+          "steps": [
+            "Apri l’app Nintendo Switch Online sul telefono.",
+            "Entra in Animal Crossing: New Horizons → Modelli.",
+            "Scansiona il QR.",
+            "Nel gioco apri I miei modelli e usa + per scaricarlo."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "happy-home-paradise",
+      "number": "09",
+      "label": "Happy Home Paradise",
+      "title": "Happy Home Paradise",
+      "introduction": "Il DLC introduce l’arcipelago delle case vacanze, dove lavori come designer e vieni pagato in Poki.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/09-happy-home-paradise.png",
+          "alt": "Casimira e Gilberti presentano richieste di case vacanza in Happy Home Paradise",
+          "caption": "Clienti, desideri e progettazione in Happy Home Paradise · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Happy Home Paradise",
+          "text": "Il DLC introduce l’arcipelago delle case vacanze, dove lavori come designer e vieni pagato in Poki."
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Inizio",
+          "text": "Procedura e controlli da seguire durante la partita.",
+          "steps": [
+            "Completa il tutorial del gioco base e costruisci i Servizi Residenti.",
+            "Segui il workshop di personalizzazione di Tom Nook.",
+            "Dopo l’attivazione del DLC ricevi la chiamata che ti porta all’aeroporto e all’arcipelago.",
+            "Per ogni cliente scegli la location, inserisci i 2–3 mobili richiesti e completa liberamente il progetto.",
+            "Più lavori realizzi, più mobili sblocchi nel catalogo del DLC."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Tecniche avanzate",
+          "text": "Progredendo si sbloccano:",
+          "steps": [
+            "muri divisori;",
+            "pilastri e banconi;",
+            "lucidatura ed effetti visivi;",
+            "illuminazione colorata e suoni ambientali;",
+            "modifica delle dimensioni delle stanze fino a 10×10;",
+            "app Network delle Case Vacanze per rivedere e condividere i progetti; la condivisione richiede Nintendo Switch Online."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Strutture pubbliche",
+          "text": "Regalando i Cioccolatini di Casimira a un abitante della tua isola, puoi portarlo nell’arcipelago e progettargli una casa vacanze. Più avanti puoi invitare personaggi con Amiibo e creare case condivise per due coinquilini.",
+          "steps": [
+            "Scuola: permette di assegnare un insegnante e ottenere contenuti dai professori.",
+            "Caffè e ristorante: al ristorante lo chef può consegnare una ricetta di cucina giornaliera.",
+            "Ospedale: comprende sala d’attesa e ambulatorio e può fornire oggetti a tema medico.",
+            "Negozio di abbigliamento: consente di scegliere lo stile degli articoli esposti."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Portare i vantaggi sulla propria isola",
+          "text": "Dopo circa 30 case e l’evento finale, parla con Tom Nook per rimodellare le case degli abitanti. Il catalogo del DLC permette inoltre di ordinare più facilmente mobili e varianti usando Poki."
+        }
+      ]
+    },
+    {
+      "id": "modificare-le-case-degli-abitanti",
+      "number": "10",
+      "label": "Modificare Le Case Degli Abitanti",
+      "title": "Modificare Le Case Degli Abitanti",
+      "introduction": "Requisiti indicati nella guida:",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/10-case-abitanti.jpg",
+          "alt": "Interno arredato della casa di un abitante",
+          "caption": "Ogni abitante merita uno spazio riconoscibile · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Modificare Le Case Degli Abitanti",
+          "text": "Requisiti indicati nella guida: Procedura: Puoi cambiare mobili, pavimenti, carta da parati, illuminazione e disposizione. Non puoi modificare la dimensione della stanza; alcuni oggetti caratteristici possono essere vincolati e puoi usare soltanto ciò che hai sbloccato nel catalogo. La casa può essere modificata nuovamente in futuro.",
+          "steps": [
+            "DLC Happy Home Paradise;",
+            "Servizi Residenti costruiti;",
+            "carriera avviata nell’arcipelago;",
+            "circa 30 case vacanze progettate e progressione finale completata.",
+            "torna sull’isola principale;",
+            "parla con Tom Nook ai Servizi Residenti;",
+            "scegli Parliamo delle case;",
+            "scegli Rimodella la casa di un residente;",
+            "seleziona l’abitante e paga 9.000 Stelline."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hotel-sul-molo-e-oggetti-console",
+      "number": "11",
+      "label": "Hotel Sul Molo e Oggetti Console",
+      "title": "Hotel Sul Molo E Oggetti Console",
+      "introduction": "Questa parte riporta le indicazioni presenti nella guida del server per l’Hotel/Resort introdotto con la versione 3.0.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/11-hotel.png",
+          "alt": "Illustrazione promozionale ufficiale dell'hotel sul molo",
+          "caption": "L'hotel sul molo · immagine promozionale ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Hotel Sul Molo E Oggetti Console",
+          "text": "Questa parte riporta le indicazioni presenti nella guida del server per l’Hotel/Resort introdotto con la versione 3.0."
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Sblocco dell’Hotel",
+          "text": "L’Hotel propone camere a tema, fotografia, crafting e una progressione basata sui Buoni Hotel. La prima stanza ha un’impostazione marittima; in seguito compaiono temi come giapponese, moderno, ranch e sognante. La guida indica fino a due camere al giorno e una Stanza VIP come traguardo avanzato.",
+          "steps": [
+            "isola a 3 stelle;",
+            "primo concerto di K.K. completato;",
+            "Servizi Residenti attivi;",
+            "incontro di presentazione con Remo al molo."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Buoni e negozio souvenir",
+          "text": "Puoi anche allestire manichini nella hall e organizzare le aree di passaggio per limitare congestione e rallentamenti dovuti ai visitatori.",
+          "steps": [
+            "200 Buoni Hotel per camera completata;",
+            "fino a 400 al giorno completando due camere;",
+            "ulteriori buoni tramite richieste e consegne DIY;",
+            "i buoni si spendono nel negozio souvenir, il cui assortimento cambia."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Console Nintendo giocabili",
+          "text": "Secondo la guida del server, il negozio si amplia dopo 4 camere, 8 camere e la prima Stanza VIP. Dopo la VIP inizierebbe una progressione a punti, con circa 400 punti necessari per completare la selezione. Le azioni indicate sono richieste DIY e una stanza arredata al giorno.",
+          "steps": [
+            "Famicom → Clu Clu Land;",
+            "Famicom Disk System → Ice Hockey;",
+            "NES → Ice Climber;",
+            "Game Boy → Dr. Mario;",
+            "Super Famicom → Panel de Pon;",
+            "Super NES NTSC/PAL → F-Zero."
+          ],
+          "tips": [
+            "Console e giochi elencati:",
+            "La guida segnala che i minigiochi richiedono Nintendo Switch Online; senza abbonamento le console rimangono decorative. Costi indicativi riportati: circa 500 Buoni per le console e 200 per altri oggetti Nintendo."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nintendo-switch-online",
+      "number": "12",
+      "label": "Nintendo Switch Online",
+      "title": "Nintendo Switch Online",
+      "introduction": "L’abbonamento online permette di:",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/12-online.jpg",
+          "alt": "Diversi giocatori riuniti sulla stessa isola",
+          "caption": "Visitare e giocare insieme online · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Nintendo Switch Online",
+          "text": "L’abbonamento online permette di: Il pacchetto aggiuntivo di Nintendo Switch Online comprende l’accesso a Happy Home Paradise finché l’abbonamento idoneo resta attivo.",
+          "steps": [
+            "visitare e invitare giocatori tramite aeroporto e Codice Dodo;",
+            "scambiare oggetti, ricette e frutti;",
+            "vendere rape su altre isole;",
+            "ottenere mele, pere, pesche, ciliegie, arance e cocchi;",
+            "vendere i frutti non nativi a 500 Stelline;",
+            "partecipare a eventi e giochi con gli amici;",
+            "scaricare e condividere pattern;",
+            "visitare isole nei sogni senza modificarle;",
+            "usare le funzioni di backup e recupero dell’isola;",
+            "catalogare oggetti più rapidamente."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "creature-marine-elenco-140",
+      "number": "13",
+      "label": "Creature Marine — Elenco 1–40",
+      "title": "Creature Marine — Elenco 1–40",
+      "introduction": "Formato: nome — ombra; orario; mesi nell’emisfero nord; valore.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/13-creature-marine.jpg",
+          "alt": "Giocatore in muta che mostra una stella marina appena raccolta",
+          "caption": "Immersioni e raccolta delle creature marine · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Creature Marine — Elenco 1–40",
+          "text": "Formato: nome — ombra; orario; mesi nell’emisfero nord; valore.",
+          "steps": [
+            "Alga Wakame — grande; tutto il giorno; ott–lug; 600.",
+            "Riccio di mare — piccola; tutto il giorno; mag–set; 1.700.",
+            "Ostrica Pinctada — media; tutto il giorno; tutto l’anno; 2.800.",
+            "Lumaca turbante — piccola; tutto il giorno; mar–mag; 1.000.",
+            "Polpo ombrello — piccola; tutto il giorno; mar–mag; 6.000.",
+            "Granchio della neve — grande; tutto il giorno; nov–apr; 6.000.",
+            "Gamberetto boreale — piccola; 16:00–9:00; set–feb; 1.400.",
+            "Granchio ferro di cavallo — media; 21:00–4:00; lug–set; 2.500.",
+            "Vite di mare — media; tutto il giorno; giu–set; 900.",
+            "Riccio matita — media; 16:00–9:00; mag–set; 2.000.",
+            "Cozza — media; tutto il giorno; giu–dic; 1.500.",
+            "Abalone — grande; 16:00–9:00; giu–gen; 2.000.",
+            "Calamaro vampiro — grande; 16:00–9:00; mag–ago; 10.000.",
+            "Granchio gigante — grande; tutto il giorno; nov–mar; 8.000.",
+            "Gambero mantide — media; 16:00–9:00; tutto l’anno; 2.500.",
+            "Ananas di mare — piccola; tutto il giorno; apr–ago; 1.500.",
+            "Cetriolo di mare — grande; tutto il giorno; nov–apr; 500.",
+            "Anemone di mare — grande; tutto il giorno; tutto l’anno; 500.",
+            "Ostrica — media; tutto il giorno; set–feb; 1.100.",
+            "Tridacna gigante — grande; tutto il giorno; mag–set; 15.000.",
+            "Calamaro lucciola — piccola; 21:00–4:00; mar–giu; 1.400.",
+            "Dente di cane — piccola; tutto il giorno; tutto l’anno; 600.",
+            "Aragosta mediterranea — media; 21:00–4:00; ott–dic; 5.000.",
+            "Anguilla di giardino — media; 4:00–21:00; mag–ott; 1.100.",
+            "Porcellino di mare — media; 21:00–9:00; nov–feb; 10.000.",
+            "Medusa Aurelia — media; tutto il giorno; lug–set; 600.",
+            "Capasanta — media; tutto il giorno; tutto l’anno; 1.200.",
+            "Nautilus — media; 16:00–9:00; mar–giu e set–nov; 1.800.",
+            "Granchio gazami — media; tutto il giorno; giu–nov; 2.200.",
+            "Granchio gigante del Giappone — grande; tutto il giorno; mar–apr; 12.000.",
+            "Astice — grande; tutto il giorno; dic–gen e apr–giu; 4.500.",
+            "Verme piatto — piccola; 16:00–9:00; ago–set; 700.",
+            "Stella marina — media; tutto il giorno; tutto l’anno; 500.",
+            "Nudibranchi — piccola; tutto il giorno; tutto l’anno; 600.",
+            "Buccino — media; tutto il giorno; tutto l’anno; 1.000.",
+            "Polpo — media; tutto il giorno; tutto l’anno; 1.200.",
+            "Granciporro — grande; tutto il giorno; nov–mag; 1.900.",
+            "Gambero black tiger — media; 16:00–9:00; giu–set; 3.000.",
+            "Isopode gigante — grande; 9:00–16:00 e 21:00–4:00; lug–ott; 12.000.",
+            "Cestello di Venere — grande; tutto il giorno; ott–feb; 5.000."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Creature più difficili indicate nella guida",
+          "text": "Per le creature veloci, nuota lentamente senza premere ripetutamente A, avvicinati e accelera soltanto quando sei vicino all’ombra.",
+          "steps": [
+            "Isopode gigante: molto veloce e imprevedibile; 12.000.",
+            "Granchio gigante del Giappone: grande e difficile da inseguire; 12.000.",
+            "Astice/aragosta: veloce; conviene avvicinarsi lentamente; 4.500.",
+            "Granchio gigante: invernale e non comune; 8.000.",
+            "Granchio ferro di cavallo: notturno e stagionale; 2.500."
+          ]
+        },
+        {
+          "label": "Taccuino operativo",
+          "title": "Capasanta e Pasqualo",
+          "text": "La Capasanta si trova in mare con la muta e vale 1.200 Stelline. La prima cattura giornaliera può far comparire Pasqualo, se hai spazio nell’inventario. In cambio della capasanta può dare ricette della serie Sirena, abiti Sirena o una perla. Pasqualo appare una sola volta al giorno; se rifiuti lo scambio non ricevi la ricompensa."
+        }
+      ]
+    },
+    {
+      "id": "opere-del-museo",
+      "number": "14",
+      "label": "Opere del museo",
+      "title": "Riconoscere originali e falsi",
+      "introduction": "Quarantadue tavole complete da consultare prima di comprare da Volpolo: ogni confronto resta intero, leggibile e separato dagli appunti.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "12–18 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/14-museo-blatero.jpg",
+          "alt": "Blatero accoglie il giocatore all'interno del museo",
+          "caption": "Blatero e le collezioni del museo · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Metodo di controllo",
+          "title": "Confronta prima di spendere",
+          "text": "Apri la tavola dell'opera, osserva volto, mani, accessori, colori e dettagli aggiunti. Se il particolare non coincide con l'originale, non acquistare: Blatero non accetta i falsi.",
+          "steps": [
+            "Apri una tavola alla volta.",
+            "Ingrandisci senza tagliare l'immagine.",
+            "Controlla il dettaglio indicato nel confronto.",
+            "Compra solo quando la versione corrisponde all'originale."
+          ]
+        }
+      ],
+      "artworkGallery": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-01.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 1",
+          "caption": "Tavola 01 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-02.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 2",
+          "caption": "Tavola 02 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-03.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 3",
+          "caption": "Tavola 03 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-04.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 4",
+          "caption": "Tavola 04 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-05.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 5",
+          "caption": "Tavola 05 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-06.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 6",
+          "caption": "Tavola 06 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-07.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 7",
+          "caption": "Tavola 07 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-08.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 8",
+          "caption": "Tavola 08 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-09.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 9",
+          "caption": "Tavola 09 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-10.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 10",
+          "caption": "Tavola 10 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-11.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 11",
+          "caption": "Tavola 11 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-12.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 12",
+          "caption": "Tavola 12 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-13.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 13",
+          "caption": "Tavola 13 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-14.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 14",
+          "caption": "Tavola 14 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-15.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 15",
+          "caption": "Tavola 15 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-16.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 16",
+          "caption": "Tavola 16 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-17.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 17",
+          "caption": "Tavola 17 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-18.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 18",
+          "caption": "Tavola 18 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-19.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 19",
+          "caption": "Tavola 19 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-20.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 20",
+          "caption": "Tavola 20 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-21.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 21",
+          "caption": "Tavola 21 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-22.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 22",
+          "caption": "Tavola 22 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-23.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 23",
+          "caption": "Tavola 23 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-24.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 24",
+          "caption": "Tavola 24 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-25.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 25",
+          "caption": "Tavola 25 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-26.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 26",
+          "caption": "Tavola 26 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-27.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 27",
+          "caption": "Tavola 27 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-28.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 28",
+          "caption": "Tavola 28 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-29.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 29",
+          "caption": "Tavola 29 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-30.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 30",
+          "caption": "Tavola 30 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-31.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 31",
+          "caption": "Tavola 31 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-32.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 32",
+          "caption": "Tavola 32 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-33.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 33",
+          "caption": "Tavola 33 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-34.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 34",
+          "caption": "Tavola 34 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-35.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 35",
+          "caption": "Tavola 35 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-36.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 36",
+          "caption": "Tavola 36 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-37.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 37",
+          "caption": "Tavola 37 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-38.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 38",
+          "caption": "Tavola 38 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-39.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 39",
+          "caption": "Tavola 39 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-40.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 40",
+          "caption": "Tavola 40 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-41.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 41",
+          "caption": "Tavola 41 · originale e falso a confronto"
+        },
+        {
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-42.jpg",
+          "alt": "Confronto completo tra opera autentica e falso, tavola 42",
+          "caption": "Tavola 42 · originale e falso a confronto"
+        }
+      ]
+    },
+    {
+      "id": "spazi-community-della-categoria",
+      "number": "15",
+      "label": "Spazi Community Della Categoria",
+      "title": "Spazi Community Della Categoria",
+      "introduction": "La categoria comprende anche questi canali. Al momento dell’inventario non contenevano una guida testuale da integrare, ma restano parte della struttura:",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/15-community-giocatori.jpg",
+          "alt": "Un gruppo di giocatori riunito sulla costa dell'isola al tramonto",
+          "caption": "Incontrarsi, visitare altre isole e condividere l'esperienza con la community · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Spazi Community Della Categoria",
+          "text": "La categoria comprende anche questi canali. Al momento dell’inventario non contenevano una guida testuale da integrare, ma restano parte della struttura:",
+          "steps": [
+            "#codici-amico: scambio di codici amico;",
+            "#gaming: conversazioni e sessioni di gioco;",
+            "#showcase-isole: presentazione delle isole;",
+            "#scambio-oggetti: scambi tra giocatori;",
+            "#guida-fiori-e-ibridi: spazio dedicato a fiori e genetica degli ibridi;",
+            "#guida-insetti-e-pesci: spazio dedicato a insetti e pesci;",
+            "#eventi-stagionali: calendario e discussioni sugli eventi;",
+            "#opere-museo: opere autentiche e false e completamento del museo;",
+            "#terraforming: idee e assistenza sul Progetto Isola+;",
+            "#villager: discussioni sugli abitanti;",
+            "#letto-di-sonia: sogni e codici sogno;",
+            "#compleanni-villagers: compleanni degli abitanti;",
+            "#debiti-tom-nook: mutui e progressione della casa;",
+            "#regali-abitanti: regali e amicizia con gli abitanti."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "checklist-finale",
+      "number": "16",
+      "label": "Checklist Finale",
+      "title": "Checklist Finale",
+      "introduction": "Regola generale: pianifica prima di riempire, controlla i requisiti di stagione e orario e usa gli spazi dedicati del server per mantenere informazioni e richieste facili da trovare.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "4–6 min",
+      "images": [
+        {
+          "src": "/atlas/animal-crossing-new-horizons/official/16-checklist-miglia.jpg",
+          "alt": "App Miglia di Nook con obiettivi e progressi completati",
+          "caption": "Obiettivi e progressi da controllare prima di proseguire · immagine ufficiale Nintendo."
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Appunti essenziali",
+          "title": "Checklist Finale",
+          "text": "Regola generale: pianifica prima di riempire, controlla i requisiti di stagione e orario e usa gli spazi dedicati del server per mantenere informazioni e richieste facili da trovare.",
+          "steps": [
+            "Museo e Bottega avviati.",
+            "Servizi Residenti e Fuffi sbloccati.",
+            "Almeno 8 abitanti per puntare alle 3 stelle; 10 per il percorso verso le 5.",
+            "Oggetti posizionati, non lasciati a terra.",
+            "Quartieri decorati e natura distribuita.",
+            "Quotazioni delle rape controllate due volte al giorno.",
+            "Critterpedia completata progressivamente.",
+            "Pattern e funzioni online attivati se possiedi Nintendo Switch Online.",
+            "Happy Home Paradise portato fino all’evento finale per rimodellare le case degli abitanti.",
+            "Guide specifiche e spazi community usati per dubbi, scambi e organizzazione."
+          ]
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Nintendo · Animal Crossing: New Horizons",
+      "href": "https://www.nintendo.com/it-it/Giochi/Giochi-per-Nintendo-Switch/Animal-Crossing-New-Horizons-1438623.html"
+    },
+    {
+      "label": "Nintendo · Happy Home Paradise",
+      "href": "https://www.nintendo.com/it-it/Contenuti-scaricabili/Animal-Crossing-New-Horizons-Happy-Home-Paradise-2079216.html"
+    },
+    {
+      "label": "Nintendo · aggiornamenti e supporto",
+      "href": "https://www.nintendo.com/it-it/Assistenza/Nintendo-Switch/Aggiornamenti-dei-software/Animal-Crossing-New-Horizons/Animal-Crossing-New-Horizons-aggiornamenti-dei-software-1749516.html"
+    }
+  ]
+}

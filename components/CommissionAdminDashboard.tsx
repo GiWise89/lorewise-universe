@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { commissionDiscountForSubmission, isCommissionOpeningPromotionActive } from "@/lib/commissionPromotion";
 
 type RequestFile = { id: string; originalName: string; contentType: string; size: number };
 type CommissionRequest = {
@@ -121,8 +122,13 @@ export function CommissionAdminDashboard() {
   }, [data?.requests, sortOrder]);
   const statusCounts = useMemo(() => Object.fromEntries(statusOptions.map(([status]) => [status, data?.requests.filter((item) => item.status === status).length ?? 0])), [data?.requests]);
   const remainingSlots = data ? Math.max(0, data.launchSlots.total - data.launchSlots.reserved) : 10;
-  const quoteDiscountPercent = selected?.benefitSnapshotAt ? selected.membershipDiscountPercent : selected?.activeMembership.commissionDiscountPercent ?? 0;
-  const quoteBenefitName = selected?.benefitSnapshotAt
+  const quoteDiscountPercent = selected?.benefitSnapshotAt ? selected.membershipDiscountPercent : selected ? commissionDiscountForSubmission({
+    planCode: selected.activeMembership.code,
+    ordinaryDiscountPercent: selected.activeMembership.commissionDiscountPercent,
+    submittedAt: selected.createdAt,
+  }) : 0;
+  const quoteBenefitName = selected && isCommissionOpeningPromotionActive(selected.createdAt) ? "Promozione apertura"
+    : selected?.benefitSnapshotAt
     ? selected.membershipPlanCode === "LW-PASS-COLLECTOR" ? "Collector" : selected.membershipPlanCode === "LW-PASS-SUPPORTER" ? "Supporter" : "Visitatore"
     : selected?.activeMembership.name ?? "Visitatore";
   const quotePreview = selected?.quoteBaseCents == null ? null : {
@@ -201,7 +207,7 @@ export function CommissionAdminDashboard() {
   }
 
   const emailSubject = selected ? encodeURIComponent(`GiWise Studio · ${selected.referenceCode}`) : "";
-  const quoteText = selected?.quoteCents != null ? `Il preventivo finale è di ${(selected.quoteCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}${selected.membershipDiscountPercent ? `, con lo sconto Universe Pass del ${selected.membershipDiscountPercent}% già applicato` : ""}.` : "";
+  const quoteText = selected?.quoteCents != null ? `Il preventivo finale è di ${(selected.quoteCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}${selected.membershipDiscountPercent ? `, con lo sconto ${isCommissionOpeningPromotionActive(selected.createdAt) ? "della promozione di apertura" : "Universe Pass"} del ${selected.membershipDiscountPercent}% già applicato` : ""}.` : "";
   const emailBody = selected ? encodeURIComponent(`Ciao ${selected.name},\n\nti contatto in merito alla tua richiesta ${selected.referenceCode}.\n${quoteText}\n\nGiWise Studio`) : "";
 
   return (

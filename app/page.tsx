@@ -37,8 +37,12 @@ export default function Home() {
         </div>
       </section>
 
-      <aside className="studio-ribbon" aria-label="Novità LoreWise Universe">
-        <span>Ora nell’universo</span><strong>Tre giochi, un Codex in crescita e Arte originale</strong><Link href="/giochi">Scopri le novità →</Link>
+      <aside className="studio-ribbon" aria-label="Cronache del Nexus">
+        <Link className="studio-ribbon-link" href="/cronache-del-nexus" aria-label="Apri tutte le novità nelle Cronache del Nexus">
+          <span className="studio-ribbon-badge"><i aria-hidden="true" /> Novità nell’universo</span>
+          <strong className="studio-ribbon-title">Cronache del Nexus</strong>
+          <span className="studio-ribbon-action">Apri le novità <b aria-hidden="true">→</b></span>
+        </Link>
       </aside>
 
       <section className="home-story art-story shell" aria-labelledby="art-story-title">
@@ -48,7 +52,7 @@ export default function Home() {
           <Image src="/artworks/previews/lw-art-018-preview.jpg" alt="Anteprima protetta LW-ART-018" width={1131} height={1600} unoptimized />
         </div>
         <div className="story-copy">
-          <p className="eyebrow">Opere originali</p>
+          <p className="eyebrow">Opere Originali in Vendita</p>
           <h2 id="art-story-title">La vetrina non nasconde l’autore.</h2>
           <p>L’archivio protetto riunisce opere originali acquistabili, edizioni riservate agli abbonati e lavori espositivi senza download. Ogni scheda dichiara con chiarezza disponibilità, licenza e modalità di accesso.</p>
           <div className="story-actions"><Link href="/arte">Entra nella galleria <span aria-hidden="true">→</span></Link><Link href="/abbonamento">Scopri Supporter e Collector <span aria-hidden="true">→</span></Link><Link href="/commissioni">Richiedi un’opera su misura <span aria-hidden="true">→</span></Link></div>

@@ -1,6 +1,19 @@
 import { sql } from "drizzle-orm";
 import { index, integer, primaryKey, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 
+export const sitePageViews = sqliteTable("site_page_views", {
+  id: text("id").primaryKey(),
+  siteHost: text("site_host").notNull(),
+  path: text("path").notNull(),
+  sessionHash: text("session_hash").notNull(),
+  referrerHost: text("referrer_host"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, (table) => [
+  index("site_page_views_created_idx").on(table.createdAt),
+  index("site_page_views_path_idx").on(table.path, table.createdAt),
+  index("site_page_views_session_idx").on(table.sessionHash, table.createdAt),
+]);
+
 export const commissionRequests = sqliteTable("commission_requests", {
   id: text("id").primaryKey(),
   referenceCode: text("reference_code").notNull().unique(),
@@ -413,6 +426,19 @@ export const codexBookmarks = sqliteTable("codex_bookmarks", {
 }, (table) => [
   primaryKey({ columns: [table.customerId, table.entrySlug] }),
   index("codex_bookmarks_customer_idx").on(table.customerId, table.collectionName),
+]);
+
+export const codexCharacterSuggestions = sqliteTable("codex_character_suggestions", {
+  id: text("id").primaryKey(),
+  customerId: text("customer_id").notNull().references(() => customers.id, { onDelete: "cascade" }),
+  requestedName: text("requested_name").notNull(),
+  universe: text("universe").notNull(),
+  reason: text("reason").notNull(),
+  status: text("status").notNull().default("submitted"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, (table) => [
+  index("codex_character_suggestions_customer_idx").on(table.customerId, table.status, table.createdAt),
 ]);
 
 export const studioPollVotes = sqliteTable("studio_poll_votes", {

@@ -48,7 +48,7 @@ export default async function CreativeJournalEntryPage({ params }: { params: Pro
           { id: `${entry.id}-racconto`, label: "Il progetto", eyebrow: "01", content: (
         <section className="journal-detail-story" aria-labelledby="story-title">
           <div className="shell journal-detail-story-grid">
-            <div><p className="journal-kicker">01 · Il progetto</p><h2 id="story-title">Cosa racconta questa pagina</h2></div>
+            <div><p className="journal-kicker">01 · Il progetto</p><h2 id="story-title">Dietro il progetto</h2></div>
             <div className="journal-detail-prose">{entry.story.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
           </div>
         </section>

@@ -9,6 +9,8 @@ import type { VIP_ATELIER } from "@/data/vip-atelier";
 import type { VIP_DOWNLOAD_LIBRARY } from "@/data/vip-downloads";
 import { VipAtelierExperience } from "@/components/VipAtelierExperience";
 import { showVipMediaFallback } from "@/lib/vipMediaClient";
+import { GameGuideExperience } from "@/components/GameGuideExperience";
+import type { GameGuide } from "@/lib/gameGuides";
 
 type VipPayload = {
   member: { plan: string; badge: string | null; artworkDiscountPercent: number; collectorDossiers: boolean; accessLabel: string };
@@ -19,10 +21,11 @@ type VipPayload = {
   art: typeof VIP_ART_DROP & { artworks: typeof VIP_ARTWORKS };
   atelier: typeof VIP_ATELIER;
   downloads: typeof VIP_DOWNLOAD_LIBRARY;
+  weeklyGuide: GameGuide | null;
 };
 
 type ActiveGame = "the-wound-remembers" | "fuori-trama";
-type ActiveArea = "games" | "art" | "atelier" | "downloads";
+type ActiveArea = "guides" | "games" | "art" | "atelier" | "downloads";
 type SingerVotePayload = {
   ranking: Array<{ id: string; name: string; votes: number; position: number }>;
   viewerChoice: string | null;
@@ -32,7 +35,7 @@ type SingerVotePayload = {
 export function VipGamesExperience() {
   const [payload, setPayload] = useState<VipPayload | null>(null);
   const [error, setError] = useState<{ message: string; reason: string } | null>(null);
-  const [activeArea, setActiveArea] = useState<ActiveArea>("games");
+  const [activeArea, setActiveArea] = useState<ActiveArea>("guides");
   const [activeGame, setActiveGame] = useState<ActiveGame>("the-wound-remembers");
   const [candidate, setCandidate] = useState("");
   const [singerVote, setSingerVote] = useState<SingerVotePayload>({ ranking: [], viewerChoice: null });
@@ -91,7 +94,7 @@ export function VipGamesExperience() {
   }
 
   function openArea(areaId: string) {
-    setActiveArea(areaId === "art" || areaId === "atelier" || areaId === "downloads" ? areaId : "games");
+    setActiveArea(areaId === "guides" || areaId === "art" || areaId === "atelier" || areaId === "downloads" ? areaId : "games");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -153,6 +156,17 @@ export function VipGamesExperience() {
         </div>)}
       </div>
     </nav>
+
+    {activeArea === "guides" ? <section className="vip-weekly-guide" id="guides" aria-labelledby="vip-weekly-guide-title">
+      <div className="shell">
+        {payload.weeklyGuide ? <GameGuideExperience guide={payload.weeklyGuide} context="vip" /> : <div className="vip-weekly-guide-empty">
+          <p className="eyebrow">Guide della settimana</p>
+          <h1 id="vip-weekly-guide-title">La prossima guida sta entrando nel Nexus.</h1>
+          <p>L’ultima guida è già passata nell’area pubblica Giochi. La nuova anteprima VIP verrà annunciata qui.</p>
+          <Link href="/giochi/guide">Consulta le guide pubbliche <span aria-hidden="true">→</span></Link>
+        </div>}
+      </div>
+    </section> : null}
 
     {activeArea === "art" ? <VipArtExperience art={payload.art} discountPercent={member.artworkDiscountPercent} /> : null}
     {activeArea === "atelier" ? <VipAtelierExperience atelier={payload.atelier} /> : null}

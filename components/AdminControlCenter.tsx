@@ -1,12 +1,19 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, MouseEvent, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 type Overview = {
   identity: { email: string };
   summary: { users: number; activeUsers: number; subscriptions: number; pendingOrders: number; support: number; commissions: number; reports: number; deliveries: number; pendingEmails: number; unreadNotifications: number };
+  analytics: {
+    configuredHost: string;
+    totals: { today: number; last7Days: number; last30Days: number; allTime: number; sessions30Days: number };
+    daily: Array<{ day: string; views: number; sessions: number }>;
+    topPages: Array<{ path: string; views: number; sessions: number }>;
+    referrers: Array<{ host: string; views: number }>;
+  };
   notifications: Array<{ id: string; category: string; severity: string; title: string; message: string; referenceCode: string | null; targetUrl: string; createdAt: string; readAt: string | null }>;
   recentActions: Array<{ action: string; note: string | null; createdAt: string; adminEmail: string | null; targetEmail: string | null }>;
 };
@@ -27,6 +34,7 @@ const modules = [
   { code: "08", title: "Pubblicazione", description: "Configurazione, pagamenti di prova, archivi e barriere di lancio.", href: "/gestione-lancio", icon: "/brand/lorewise-universe-logo-concept-c.webp", tone: "gold" },
   { code: "09", title: "Ricevute e notifiche", description: "Coda email, consegne Resend, errori e reinvii senza duplicazioni.", href: "/gestione-email", icon: "/brand/icons/social-assistenza-concept-v1.webp", tone: "pink" },
   { code: "10", title: "Centro assistenza", description: "Ticket collegati agli utenti, priorità, stato e risposte tracciate.", href: "/gestione-assistenza", icon: "/brand/icons/social-assistenza-concept-v1.webp", tone: "cyan" },
+  { code: "11", title: "Visite del sito", description: "Visualizzazioni, sessioni anonime, pagine più consultate e provenienza del traffico pubblico.", href: "#admin-analytics", icon: "/brand/lorewise-universe-logo-concept-c.webp", tone: "violet" },
 ];
 
 const actionLabels: Record<string, string> = { set_role: "Ruolo modificato", set_status: "Stato account modificato", grant_art_credit: "Credito Arte assegnato" };
@@ -131,6 +139,7 @@ export function AdminControlCenter() {
       const body = await readApiResponse<{ message?: string }>(response);
       if (!response.ok) throw new Error(body.error || "Notifica non aggiornata.");
       await loadOverview();
+      window.dispatchEvent(new Event("lorewise:notifications-updated"));
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Notifica non aggiornata.");
     } finally {
@@ -138,9 +147,31 @@ export function AdminControlCenter() {
     }
   }
 
+  async function openNotification(event: MouseEvent<HTMLAnchorElement>, id: string, targetUrl: string) {
+    event.preventDefault();
+    setBusy(true);
+    try {
+      const response = await fetch("/api/admin/notifications", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", accept: "application/json" },
+        body: JSON.stringify({ action: "read", id }),
+        keepalive: true,
+      });
+      const body = await readApiResponse<{ message?: string }>(response);
+      if (!response.ok) throw new Error(body.error || "Notifica non aggiornata.");
+      window.dispatchEvent(new Event("lorewise:notifications-updated"));
+      window.location.assign(targetUrl);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Notifica non aggiornata.");
+      setBusy(false);
+    }
+  }
+
   function searchUsers(event: FormEvent) { event.preventDefault(); setMessage("Ricerca nel registro…"); void loadUsers(search, status).then(() => setMessage("")).catch((error: Error) => setMessage(error.message)); }
   const selected = users.find((user) => user.id === selectedId) ?? null;
   const visibleNotifications = overview?.notifications.filter((item) => (notificationCategory === "all" || item.category === notificationCategory) && (notificationSeverity === "all" || item.severity === notificationSeverity)) ?? [];
+  const analyticsPeak = Math.max(1, ...(overview?.analytics.daily.map((entry) => entry.views) ?? [0]));
+  const number = new Intl.NumberFormat("it-IT");
 
   if (!overview) return <section className="admin-center-state"><Image src="/brand/lorewise-universe-logo-concept-c.webp" alt="" width={1536} height={1024} unoptimized /><strong>Centro Admin LoreWise</strong><p>{message}</p><Link href="/account">Torna all’account</Link></section>;
 
@@ -158,13 +189,30 @@ export function AdminControlCenter() {
       </div>
     </section>
 
+    <section id="admin-analytics" className="admin-analytics" aria-labelledby="admin-analytics-title">
+      <header><div><p className="eyebrow">Statistiche del dominio pubblico</p><h2 id="admin-analytics-title">Quanto viene esplorato LoreWise.</h2><p>Rilevazione proprietaria attiva soltanto su <strong>{overview.analytics.configuredHost}</strong>. Non vengono salvati IP, email, cookie pubblicitari o cronologia personale.</p></div><span>Ultimo aggiornamento<strong>adesso</strong></span></header>
+      <div className="admin-analytics-totals">
+        <article><small>Oggi</small><strong>{number.format(overview.analytics.totals.today)}</strong><span>visualizzazioni</span></article>
+        <article><small>Ultimi 7 giorni</small><strong>{number.format(overview.analytics.totals.last7Days)}</strong><span>visualizzazioni</span></article>
+        <article><small>Ultimi 30 giorni</small><strong>{number.format(overview.analytics.totals.last30Days)}</strong><span>visualizzazioni</span></article>
+        <article><small>Sessioni tecniche · 30 giorni</small><strong>{number.format(overview.analytics.totals.sessions30Days)}</strong><span>non equivalgono a persone uniche</span></article>
+        <article><small>Da inizio raccolta</small><strong>{number.format(overview.analytics.totals.allTime)}</strong><span>visualizzazioni</span></article>
+      </div>
+      <div className="admin-analytics-layout">
+        <article className="admin-analytics-chart"><header><strong>Andamento degli ultimi 14 giorni</strong><small>Visite alle pagine pubbliche</small></header>{overview.analytics.daily.length ? <ol>{overview.analytics.daily.map((entry) => <li key={entry.day}><span>{new Intl.DateTimeFormat("it-IT", { day: "2-digit", month: "short" }).format(new Date(`${entry.day}T12:00:00Z`))}</span><div><i style={{ height: `${Math.max(6, Math.round(entry.views / analyticsPeak * 100))}%` }} /></div><strong>{number.format(entry.views)}</strong></li>)}</ol> : <p>La raccolta inizierà dopo la pubblicazione sul dominio online.</p>}</article>
+        <article className="admin-analytics-ranking"><header><strong>Pagine più viste</strong><small>Ultimi 30 giorni</small></header>{overview.analytics.topPages.length ? <ol>{overview.analytics.topPages.map((entry) => <li key={entry.path}><code>{entry.path}</code><span>{number.format(entry.views)} visite</span><small>{number.format(entry.sessions)} sessioni</small></li>)}</ol> : <p>Nessuna visita pubblica ancora registrata.</p>}</article>
+        <article className="admin-analytics-referrers"><header><strong>Provenienza</strong><small>Solo dominio referente, mai URL completi</small></header>{overview.analytics.referrers.length ? <ol>{overview.analytics.referrers.map((entry) => <li key={entry.host}><span>{entry.host}</span><strong>{number.format(entry.views)}</strong></li>)}</ol> : <p>Nessuna provenienza ancora registrata.</p>}</article>
+      </div>
+      <p className="admin-analytics-note">Una “visualizzazione” corrisponde all’apertura di una pagina pubblica. Le sessioni sono identificatori casuali temporanei, rigenerati al nuovo caricamento e trasformati in hash giornalieri: servono a leggere l’andamento, non a profilare i visitatori.</p>
+    </section>
+
     <section id="admin-notifications" className="admin-notification-center" aria-labelledby="admin-notifications-title">
       <header><div><p className="eyebrow">Centro notifiche</p><h2 id="admin-notifications-title">Non devi scoprirlo per caso.</h2><p>Nuove iscrizioni, acquisti, preventivi, rimborsi, assistenza e controlli urgenti confluiscono qui automaticamente.</p></div><strong>{overview.summary.unreadNotifications}<span>da leggere</span></strong></header>
       <div className="admin-notification-toolbar"><div><label>Tipo<select value={notificationCategory} onChange={(event) => setNotificationCategory(event.target.value)}><option value="all">Tutti</option>{Object.entries(notificationLabels).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label><label>Priorità<select value={notificationSeverity} onChange={(event) => setNotificationSeverity(event.target.value)}><option value="all">Tutte</option><option value="critical">Critica</option><option value="high">Alta</option><option value="medium">Media</option><option value="info">Informativa</option></select></label></div><div><button type="button" disabled={busy} onClick={() => void loadOverview().catch((error: Error) => setMessage(error.message))}>Aggiorna</button><button type="button" disabled={busy || !overview.summary.unreadNotifications} onClick={() => void readNotification()}>Segna tutte come lette</button></div></div>
-      {visibleNotifications.length ? <ol>{visibleNotifications.map((item) => <li key={item.id} className={`${item.readAt ? "is-read" : "is-unread"} severity-${item.severity}`}><span className="admin-notification-signal" aria-hidden="true" /><div><small>{notificationLabels[item.category] || item.category} · {date(item.createdAt)}</small><strong>{item.title}</strong><p>{item.message}</p>{item.referenceCode ? <code>{item.referenceCode}</code> : null}</div><div><Link href={item.targetUrl}>Apri gestione →</Link>{!item.readAt ? <button type="button" disabled={busy} onClick={() => void readNotification(item.id)}>Segna letta</button> : <span>Letta</span>}</div></li>)}</ol> : <p className="admin-notification-empty">Nessuna notifica corrisponde ai filtri selezionati.</p>}
+      {visibleNotifications.length ? <ol>{visibleNotifications.map((item) => <li key={item.id} className={`${item.readAt ? "is-read" : "is-unread"} severity-${item.severity}`}><span className="admin-notification-signal" aria-hidden="true" /><div><small>{notificationLabels[item.category] || item.category} · {date(item.createdAt)}</small><strong>{item.title}</strong><p>{item.message}</p>{item.referenceCode ? <code>{item.referenceCode}</code> : null}</div><div><Link href={item.targetUrl} onClick={(event) => item.readAt ? undefined : void openNotification(event, item.id, item.targetUrl)}>Apri gestione →</Link>{!item.readAt ? <button type="button" disabled={busy} onClick={() => void readNotification(item.id)}>Segna letta</button> : <span>Letta</span>}</div></li>)}</ol> : <p className="admin-notification-empty">Nessuna notifica corrisponde ai filtri selezionati.</p>}
     </section>
 
-    <section className="admin-module-grid" aria-labelledby="admin-modules-title"><header><p className="eyebrow">Aree di gestione</p><h2 id="admin-modules-title">Un solo centro, nove archivi.</h2></header><div>{modules.map((module) => <Link className={`admin-module tone-${module.tone}`} href={module.href} key={module.code}><span>{module.code}</span><Image src={module.icon} alt="" width={1224} height={1285} unoptimized /><div><strong>{module.title}</strong><p>{module.description}</p><b>Apri la gestione →</b></div></Link>)}</div></section>
+    <section className="admin-module-grid" aria-labelledby="admin-modules-title"><header><p className="eyebrow">Aree di gestione</p><h2 id="admin-modules-title">Un solo centro, undici archivi.</h2></header><div>{modules.map((module) => <Link className={`admin-module tone-${module.tone}`} href={module.href} key={module.code}><span>{module.code}</span><Image src={module.icon} alt="" width={1224} height={1285} unoptimized /><div><strong>{module.title}</strong><p>{module.description}</p><b>Apri la gestione →</b></div></Link>)}</div></section>
 
     <section id="admin-users" className="admin-users" aria-labelledby="admin-users-title">
       <header><div><p className="eyebrow">LoreWise ID</p><h2 id="admin-users-title">Gestione utenti.</h2><p>Ruoli, stato, piano, crediti e diritti vengono letti dallo stesso profilo. Ogni modifica amministrativa resta nel registro attività.</p></div><strong>{users.length}<span>profili visualizzati</span></strong></header>

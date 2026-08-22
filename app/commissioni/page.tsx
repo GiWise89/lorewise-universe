@@ -6,6 +6,7 @@ import { CommissionRequestForm } from "@/components/CommissionRequestForm";
 import { CommissionAvailability } from "@/components/CommissionAvailability";
 import { UniverseGuide } from "@/components/UniverseGuide";
 import { commissionContentRules } from "@/lib/commissionTerms";
+import { commissionOpeningPromotion, isCommissionOpeningPromotionActive } from "@/lib/commissionPromotion";
 import { getLoreWiseUser } from "@/lib/supabase/server";
 import {
   carolineProject,
@@ -53,10 +54,10 @@ const pricingPackages = [
     price: "119 €",
     image: commissionWorks[30].image,
     alt: "Campione del Caos, esempio protetto di trasformazione narrativa fantasy completa",
-    description: "Trasformazione fantasy o horror, scena articolata e due revisioni incluse.",
+    description: "Trasformazione fantasy o horror, scena articolata e tre revisioni incluse.",
     timing: "8 giorni lavorativi",
     idealFor: "Una scena fantasy o horror con atmosfera e racconto.",
-    includes: ["Scena articolata", "Trasformazione narrativa", "2 revisioni", "JPG e PNG finali"],
+    includes: ["Scena articolata", "Trasformazione narrativa", "3 revisioni", "JPG e PNG finali"],
   },
 ] as const;
 
@@ -65,13 +66,17 @@ export default async function CommissionsPage({ searchParams }: { searchParams?:
   const query = await searchParams;
   const initialPackage = typeof query?.package === "string" ? query.package : "";
   const initialReference = typeof query?.reference === "string" ? query.reference : "";
+  const promotionActive = isCommissionOpeningPromotionActive();
   return (
     <main className="commission-page">
       <section className="commission-hero" aria-labelledby="commission-title">
         <div className="shell commission-hero-grid">
           <div className="commission-hero-copy">
             <p className="eyebrow">GiWise Studio · Ritratti su richiesta</p>
-            <h1 id="commission-title">La tua storia,<br />in un’immagine.</h1>
+            <h1 id="commission-title">
+              <span>La tua storia,</span>
+              <span>in un’immagine.</span>
+            </h1>
             <p>Ritratti personali, coppie, animali e trasformazioni fantasy costruiti attorno al soggetto. Qui non trovi prodotti da rivendere: trovi lavori realmente eseguiti su commissione.</p>
             <div className="button-row">
               <Link className="button button-primary" href="#richiesta">Raccontami la tua idea</Link>
@@ -109,11 +114,24 @@ export default async function CommissionsPage({ searchParams }: { searchParams?:
             <p>I prezzi sono di partenza: il preventivo definitivo viene confermato prima di iniziare e dipende dalla complessità reale della richiesta.</p>
           </header>
           <CommissionAvailability />
+          {promotionActive ? <aside className="commission-promotion-banner" aria-label="Promozione commissioni attiva">
+            <div>
+              <small>{commissionOpeningPromotion.shortLabel}</small>
+              <strong>Più vantaggi per chi entra ora nel Nexus.</strong>
+              <p>{commissionOpeningPromotion.deadlineLabel}. Lo sconto viene calcolato sul preventivo finale e resta acquisito anche se il lavoro termina dopo la scadenza.</p>
+            </div>
+            <dl>
+              <div><dt>Visitatori</dt><dd>−{commissionOpeningPromotion.rates.visitor}%</dd></div>
+              <div><dt>Supporter</dt><dd>−{commissionOpeningPromotion.rates.supporter}%</dd></div>
+              <div><dt>Collector</dt><dd>−{commissionOpeningPromotion.rates.collector}%</dd></div>
+            </dl>
+          </aside> : null}
           <div className="commission-price-grid">
             {pricingPackages.map((item) => (
               <article key={item.name}>
                 <Image src={item.image} alt={item.alt} width={1131} height={1600} unoptimized />
                 <div>
+                  {promotionActive ? <span className="commission-card-promo">Fino al 20% di sconto sul preventivo</span> : null}
                   <small>A partire da</small>
                   <strong>{item.price}</strong>
                   <h3>{item.name}</h3>
@@ -229,7 +247,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams?:
         <div>
           <details><summary>La richiesta mi obbliga ad acquistare?</summary><p>No. GiWise Studio valuta il progetto e prepara un preventivo. Il lavoro inizia soltanto dopo l’accettazione e l’acconto concordato.</p></details>
           <details><summary>Quali immagini posso allegare?</summary><p>Fino a tre fotografie o riferimenti JPG, PNG o WebP, massimo 8 MB ciascuno. Devono essere immagini che hai il diritto di condividere per questa finalità.</p></details>
-          <details><summary>Quante revisioni sono incluse?</summary><p>Una nel Ritratto Essenziale e due nei pacchetti Completo e Narrativo. Le modifiche strutturali successive alla bozza approvata vengono valutate separatamente.</p></details>
+          <details><summary>Quante revisioni sono incluse?</summary><p>Una nel Ritratto Essenziale, due nel Ritratto Completo e tre nell’Opera Narrativa. Le modifiche strutturali successive alla bozza approvata vengono valutate separatamente.</p></details>
           <details><summary>Posso richiedere una fan art?</summary><p>Sì, per uso personale e nel rispetto dei soggetti originali. Non vengono riprodotte o vendute copie dei lavori già realizzati per altri clienti.</p></details>
           <details><summary>Il mio ritratto verrà pubblicato?</summary><p>Solo se concedi l’autorizzazione facoltativa. Senza consenso, immagini e opera non entreranno nel portfolio pubblico.</p></details>
           <details><summary>Come vengono trattate le immagini di minori?</summary><p>La richiesta deve provenire da un genitore o tutore autorizzato. Le immagini non vengono pubblicate automaticamente e richiedono un consenso separato per il portfolio.</p></details>

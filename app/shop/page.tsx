@@ -97,7 +97,7 @@ export default function ShopPage() {
       <section className="giwise-shop-fulfilment" aria-labelledby="shop-fulfilment-title">
         <div className="shell giwise-shop-fulfilment-inner">
           <Image src="/brand/icons/shop-concept-v1.webp" alt="" width={1224} height={1285} unoptimized />
-          <div><p className="eyebrow">Acquisto protetto sul negozio esterno</p><h2 id="shop-fulfilment-title">LoreWise presenta. Hoplix produce e consegna.</h2><p>I prodotti vengono stampati su ordinazione. Varianti, pagamento, costi di spedizione e tracking restano gestiti dalle schede GiWiseShop.it e dalle condizioni Hoplix.</p></div>
+          <div><p className="eyebrow">Acquisto protetto sul negozio esterno</p><h2 id="shop-fulfilment-title">LoreWise presenta. Hoplix produce&nbsp;e consegna.</h2><p>I prodotti vengono stampati su ordinazione. Varianti, pagamento, costi di spedizione e tracking restano gestiti dalle schede GiWiseShop.it e dalle condizioni Hoplix.</p></div>
           <ol><li><span>01</span><strong>Scegli</strong><small>Apri il prodotto e seleziona le varianti disponibili.</small></li><li><span>02</span><strong>Ordina</strong><small>Completa pagamento e indirizzo direttamente su Hoplix.</small></li><li><span>03</span><strong>Segui</strong><small>Usa email e numero d’ordine per controllare la consegna.</small></li></ol>
         </div>
       </section>

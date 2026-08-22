@@ -63,10 +63,17 @@ export function SiteHeader() {
       }
     }
     void refreshNotifications();
+    const refreshAfterRead = () => void refreshNotifications();
+    window.addEventListener("lorewise:notifications-updated", refreshAfterRead);
     const refresh = window.setInterval(() => {
       if (document.visibilityState === "visible") void refreshNotifications();
     }, 45_000);
-    return () => { active = false; controller?.abort(); window.clearInterval(refresh); };
+    return () => {
+      active = false;
+      controller?.abort();
+      window.removeEventListener("lorewise:notifications-updated", refreshAfterRead);
+      window.clearInterval(refresh);
+    };
   }, [pathname]);
 
   return (

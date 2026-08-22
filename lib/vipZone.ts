@@ -4,6 +4,14 @@ import { VIP_WALLPAPERS_PRIVATE } from "../data/vip-downloads.ts";
 
 export const VIP_AREAS = [
   {
+    id: "guides",
+    label: "Guida della settimana",
+    description: "Guide complete in anteprima prima del passaggio pubblico",
+    status: "1 guida",
+    update: "Ogni lunedì",
+    available: true,
+  },
+  {
     id: "games",
     label: "Giochi",
     description: "Anteprime, dossier e diari di sviluppo",

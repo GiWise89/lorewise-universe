@@ -235,7 +235,7 @@ export const studioSketches: CreativeJournalEntry[] = [
     kind: "reinterpretazione",
     label: "Dragon Ball · reinterpretazione personale non ufficiale",
     summary: "Una figura immobile e dominante, costruita attraverso il trono, la coda e grandi masse nere.",
-    story: ["Questa pagina conserva una reinterpretazione legata a Dragon Ball. Il personaggio esatto verrà indicato soltanto dopo aver recuperato l’appunto originale, evitando di attribuire alla bozza un nome non confermato."],
+    story: ["Una reinterpretazione legata a Dragon Ball. Non ricordo con certezza quale personaggio avessi scelto: preferisco lasciare aperto questo dettaglio finché non ritroverò l’appunto originale."],
     process: ["Costruzione della posa.", "Equilibrio tra figura e trono.", "Definizione della coda e dei neri."],
     facts: [{ label: "Universo", value: "Dragon Ball" }, { label: "Strumento", value: "Tavoletta grafica" }, { label: "Identificazione", value: "Da confermare" }],
     tags: ["Dragon Ball", "anime", "fan art"],

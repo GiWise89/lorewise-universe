@@ -3,6 +3,7 @@ import { Cinzel_Decorative, Fraunces, Manrope } from "next/font/google";
 import { headers } from "next/headers";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteAnalyticsTracker } from "@/components/SiteAnalyticsTracker";
 import "./globals.css";
 
 const display = Fraunces({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600", "700"] });
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="it">
       <body className={`${display.variable} ${body.variable} ${loreDisplay.variable}`}>
         <a className="skip-link" href="#contenuto">Vai al contenuto</a>
+        <SiteAnalyticsTracker />
         <SiteHeader />
         <div id="contenuto">{children}</div>
         <SiteFooter />

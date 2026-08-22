@@ -23,7 +23,13 @@ const gradient = (size, dark = true) => Buffer.from(`
 `);
 
 async function contained(file, size) {
-  return sharp(file).resize(size, size, { fit: "contain" }).png().toBuffer();
+  return sharp(file)
+    .resize(size, size, {
+      fit: "contain",
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    })
+    .png()
+    .toBuffer();
 }
 
 const foreground = await contained(markPath, 650);

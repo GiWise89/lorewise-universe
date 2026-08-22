@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { getCreativeJournalEntry } from "../lib/creativeJournal.ts";
+import { isLoreWisePublicHost, isTrackablePublicPath } from "../lib/siteAnalytics.ts";
 
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
@@ -19,6 +20,15 @@ async function render(pathname = "/", init = {}) {
   return worker.fetch(new Request(`http://localhost${pathname}`, { ...init, headers }), { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } }, { waitUntil() {}, passThroughOnException() {} });
 }
 
+test("keeps headings on whole words across the public site", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const unsafeHeadingRules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+    .filter(([, selector, declarations]) => /\bh[1-6]\b/i.test(selector)
+      && (/overflow-wrap\s*:\s*anywhere/i.test(declarations) || /word-break\s*:\s*break-(?:word|all)/i.test(declarations)))
+    .map(([, selector]) => selector.trim());
+  assert.deepEqual(unsafeHeadingRules, []);
+});
+
 test("renders LoreWise Universe with its structured portals", async () => {
   const response = await render();
   assert.equal(response.status, 200);
@@ -28,7 +38,22 @@ test("renders LoreWise Universe with its structured portals", async () => {
   assert.match(html, /GiWise Studio/);
   assert.match(html, /Enciclopedia/);
   assert.match(html, /Commissioni/);
+  assert.match(html, /Apri tutte le novità nelle Cronache del Nexus/);
+  assert.match(html, /Novità nell.universo/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
+});
+
+test("places Animal Crossing inside the game atlas instead of the VIP news panel", async () => {
+  const response = await render("/cronache-del-nexus");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Atlante dei Giochi[\s\S]*Prima guida dell[^<]*Atlante[\s\S]*Animal Crossing: New Horizons/);
+  assert.match(html, /Guida completa disponibile ora[^<]*anteprima LoreWise VIP/);
+  assert.match(html, /Il Taccuino completo è già aperto nell.area LoreWise VIP/);
+  assert.match(html, /Entra in LoreWise VIP/);
+  assert.match(html, /Scopri il gioco su Nintendo/);
+  assert.doesNotMatch(html, /Guida della settimana[\s\S]{0,220}Animal Crossing/);
+  assert.doesNotMatch(html, /Prima guida dell[^<]*Atlante[\s\S]{0,180}Baldur/);
 });
 
 test("applies the global browser security policy", async () => {
@@ -305,7 +330,7 @@ test("renders the protected art catalog without deriving public titles from file
   assert.match(html, /Anime e manga/);
   assert.match(html, /Contenuti per adulti/);
   assert.match(html, /Fascia di prezzo/);
-  assert.match(html, /Originali GiWise/);
+  assert.match(html, /Opere Originali in Vendita/);
   assert.match(html, /Fan art e originali custoditi online/);
   assert.match(html, /originals-emblem-v1\.webp/);
   assert.match(html, /fanart-emblem-v1\.webp/);
@@ -658,6 +683,8 @@ test("renders the complete protected commission portfolio", async () => {
   assert.match(html, /49 €/);
   assert.match(html, /79 €/);
   assert.match(html, /119 €/);
+  assert.match(html, /Trasformazione fantasy o horror, scena articolata e tre revisioni incluse/);
+  assert.match(html, />3 revisioni</);
   assert.doesNotMatch(html, /59 €|89 €|129 €/);
   assert.match(html, /Acconto del 50%/);
   assert.match(html, /preventivo/i);
@@ -665,6 +692,10 @@ test("renders the complete protected commission portfolio", async () => {
   assert.match(html, /LoreWise ID richiesto/);
   assert.match(html, /sconto corretto/i);
   assert.match(html, /applicato al totale/i);
+  assert.match(html, /Promo apertura attiva/i);
+  assert.match(html, /Richieste inviate entro il 30 settembre 2026/i);
+  assert.match(html, /Visitatori/);
+  assert.match(html, /tre nell’Opera Narrativa/i);
   assert.match(html, /Mostra altri lavori/);
   assert.match(html, /Scegli questo percorso/);
   assert.match(html, /Non vengono accettate richieste di nudo, pornografia o contenuti sessualmente espliciti/);
@@ -1215,6 +1246,31 @@ test("rejects unsigned Stripe webhook requests", async () => {
   });
   assert.equal(response.status, 503);
   assert.match(await response.text(), /Webhook Stripe non configurato|chiave segreta Stripe valida/i);
+});
+
+test("tracks anonymous page views only on the public LoreWise domain", async () => {
+  assert.equal(isLoreWisePublicHost("lorewisenexus.it"), true);
+  assert.equal(isLoreWisePublicHost("www.lorewisenexus.it:443"), true);
+  assert.equal(isLoreWisePublicHost("localhost:3001"), false);
+  assert.equal(isTrackablePublicPath("/arte"), true);
+  assert.equal(isTrackablePublicPath("/admin"), false);
+  assert.equal(isTrackablePublicPath("/account/ordini/prova"), false);
+  assert.equal(isTrackablePublicPath("/gestione-email"), false);
+
+  const localResponse = await render("/api/analytics/view", {
+    method: "POST",
+    headers: { "content-type": "application/json", accept: "application/json" },
+    body: JSON.stringify({ path: "/arte", sessionId: "00000000-0000-4000-8000-000000000000" }),
+  });
+  assert.equal(localResponse.status, 200);
+  assert.deepEqual(await localResponse.json(), { tracked: false, reason: "non-production-host" });
+
+  const privatePathResponse = await render("/api/analytics/view", {
+    method: "POST",
+    headers: { "content-type": "application/json", accept: "application/json", host: "lorewisenexus.it", origin: "https://lorewisenexus.it" },
+    body: JSON.stringify({ path: "/admin", sessionId: "00000000-0000-4000-8000-000000000000" }),
+  });
+  assert.equal(privatePathResponse.status, 400);
 });
 
 test("renders the VIP Codex proposal area and protects its API", async () => {

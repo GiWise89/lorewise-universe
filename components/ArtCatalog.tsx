@@ -120,7 +120,7 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
         <div className="art-entrance-grid">
           <button type="button" onClick={() => selectEntrance("commercial-original")}>
             <Image src="/brand/art-portals/originals-emblem-v1.webp" alt="Emblema illustrato delle opere originali GiWise" width={1280} height={1280} unoptimized />
-            <span><small>{purchasableCount} opere acquistabili</small><strong>Originali GiWise</strong><em>Ideazione, disegno ed esecuzione dell’autore. Disponibili singolarmente o tramite crediti.</em><b>Entra nella collezione →</b></span>
+            <span><small>{purchasableCount} opere acquistabili</small><strong>Opere Originali in Vendita</strong><em>Ideazione, disegno ed esecuzione dell’autore. Disponibili singolarmente o tramite crediti.</em><b>Entra nella collezione →</b></span>
           </button>
           <button type="button" onClick={() => selectEntrance("exhibition-only")}>
             <Image src="/brand/art-portals/fanart-emblem-v1.webp" alt="Emblema illustrato della raccolta fan art" width={1280} height={1280} unoptimized />
@@ -140,7 +140,7 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
 
         <nav className="art-index-nav" aria-label="Viste rapide dell’archivio">
           <button type="button" aria-pressed={year === "all" && availability === "all"} onClick={() => selectQuickView("all", "all")}>Tutte</button>
-          <button type="button" aria-pressed={availability === "commercial-original"} onClick={() => selectQuickView("all", "commercial-original")}>Originali</button>
+          <button type="button" aria-pressed={availability === "commercial-original"} onClick={() => selectQuickView("all", "commercial-original")}>Originali in vendita</button>
           <button type="button" aria-pressed={availability === "exhibition-only"} onClick={() => selectQuickView("all", "exhibition-only")}>Esposizione</button>
           <button type="button" aria-pressed={year === "2025" && availability === "all"} onClick={() => selectQuickView("2025", "all")}>2025</button>
           <button type="button" aria-pressed={year === "2026" && availability === "all"} onClick={() => selectQuickView("2026", "all")}>2026</button>

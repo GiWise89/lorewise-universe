@@ -5,6 +5,7 @@ import { ensureBenefitEngineTables } from "@/lib/benefitEngine";
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
 import { ensureTransactionalEmailTable } from "@/lib/transactionalEmail";
 import { ensureSupportTicketTables } from "@/lib/supportTickets";
+import { getSiteAnalyticsSummary } from "@/lib/siteAnalytics";
 
 async function existingTables(database: D1Database) {
   const result = await database.prepare("SELECT name FROM sqlite_master WHERE type = 'table'").all<{ name: string }>();
@@ -27,7 +28,7 @@ export async function GET() {
   await syncAdminNotifications(auth.database);
   const tables = await existingTables(auth.database);
   const has = (name: string) => tables.has(name);
-  const [users, activeUsers, subscriptions, pendingOrders, support, commissions, reports, deliveriesArt, deliveriesGame, pendingEmails, unreadNotifications] = await Promise.all([
+  const [users, activeUsers, subscriptions, pendingOrders, support, commissions, reports, deliveriesArt, deliveriesGame, pendingEmails, unreadNotifications, analytics] = await Promise.all([
     count(auth.database, "customers"),
     count(auth.database, "customers", " WHERE status = 'active'"),
     count(auth.database, "subscriptions", " WHERE status IN ('active', 'trialing')"),
@@ -39,6 +40,7 @@ export async function GET() {
     has("game_delivery_files") ? count(auth.database, "game_delivery_files", " WHERE status != 'approved'") : 0,
     count(auth.database, "transactional_emails", " WHERE status IN ('queued', 'failed')"),
     count(auth.database, "admin_notifications", " WHERE read_at IS NULL"),
+    getSiteAnalyticsSummary(auth.database),
   ]);
   const notifications = await auth.database.prepare(`SELECT id, category, severity, title, message, reference_code,
     target_url, source_created_at, read_at FROM admin_notifications
@@ -52,6 +54,7 @@ export async function GET() {
     ORDER BY admin_audit_events.created_at DESC LIMIT 12`).all<Record<string, unknown>>();
   return Response.json({
     identity: { email: auth.adminEmail },
+    analytics,
     summary: { users, activeUsers, subscriptions, pendingOrders, support, commissions, reports, deliveries: deliveriesArt + deliveriesGame, pendingEmails, unreadNotifications },
     notifications: notifications.results.map((row) => ({ id: row.id, category: row.category, severity: row.severity,
       title: row.title, message: row.message, referenceCode: row.reference_code, targetUrl: row.target_url,

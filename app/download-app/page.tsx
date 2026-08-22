@@ -17,6 +17,7 @@ export default function DownloadAppPage() {
         <div className="shell app-download-hero-inner">
           <div className="app-download-copy">
             <p className="eyebrow">Applicazione Android GiWise Studio</p>
+            <span className="app-download-coming-soon">COMING SOON</span>
             <h1 id="app-download-title">LoreWise<br />sempre con te.</h1>
             <p>Esplora progetti, opere, dossier e contenuti riservati da un unico accesso. La beta Android include le sezioni e i servizi LoreWise disponibili sul dominio ufficiale. Richiede una connessione internet.</p>
             <a href="#versione-android">Controlla la versione Android <span aria-hidden="true">↓</span></a>

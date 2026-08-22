@@ -4,6 +4,7 @@ import { VIP_ART_DROP, VIP_ARTWORKS } from "@/data/vip-artworks";
 import { VIP_ATELIER } from "@/data/vip-atelier";
 import { VIP_DOWNLOAD_LIBRARY } from "@/data/vip-downloads";
 import { buildVipMemberProfile } from "@/lib/vipMember";
+import { getVipWeeklyGuide } from "@/lib/gameGuides";
 
 export async function GET() {
   try {
@@ -18,6 +19,7 @@ export async function GET() {
       art: { ...VIP_ART_DROP, artworks: VIP_ARTWORKS },
       atelier: VIP_ATELIER,
       downloads: VIP_DOWNLOAD_LIBRARY,
+      weeklyGuide: getVipWeeklyGuide(),
     }, { headers: { "Cache-Control": "private, no-store" } });
   } catch {
     return Response.json({ error: "Non è stato possibile aprire la VIP Zone.", reason: "unavailable" }, { status: 503, headers: { "Cache-Control": "private, no-store" } });

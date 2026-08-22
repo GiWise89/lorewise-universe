@@ -44,8 +44,23 @@ export default function GamesPage() {
           <a href="#accesso"><span>03</span>Accesso</a>
           <a href="#community"><span>04</span>Community</a>
           <Link className="studio-games-index-download" href="/download-app"><span>05</span><strong>Scarica l’app</strong><b aria-hidden="true">&#8594;</b></Link>
+          <Link href="/giochi/guide"><span>06</span>Guide</Link>
         </div>
       </nav>
+
+      <section className="studio-guides-callout" aria-labelledby="studio-guides-callout-title">
+        <div className="shell">
+          <div>
+            <p className="eyebrow">Atlante dei Giochi</p>
+            <h2 id="studio-guides-callout-title">Una nuova guida<br />ogni lunedì.</h2>
+          </div>
+          <div>
+            <strong>Prima nell’area VIP. Poi disponibile qui per tutti.</strong>
+            <p>La guida della settimana arriva in anteprima per gli abbonati e, il lunedì successivo, passa automaticamente nella raccolta pubblica di Giochi.</p>
+            <Link href="/giochi/guide">Apri le guide <span aria-hidden="true">→</span></Link>
+          </div>
+        </div>
+      </section>
 
       <section className="shell studio-real-projects" id="progetti" aria-labelledby="real-projects-title">
         <header><div><p className="eyebrow">Catalogo GiWise Studio</p><h2 id="real-projects-title">Scegli il tuo mondo.</h2></div><p>Ogni copertina presenta il vero universo del gioco, il logo originale e lo stato attuale del progetto.</p></header>
