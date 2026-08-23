@@ -7,9 +7,26 @@ import { createCodexIndexEntries } from "@/lib/codexIndex";
 import { UniverseGuide } from "@/components/UniverseGuide";
 import { CodexSuggestionForm } from "@/components/CodexSuggestionForm";
 
+const codexTitle = "LoreWise Codex | Enciclopedia di personaggi, universi e lore";
+const codexDescription = "Esplora il LoreWise Codex: dossier su personaggi e universi con biografie, relazioni, continuità e fonti, più l’archivio originale GiWise Studio.";
+
 export const metadata: Metadata = {
-  title: "LoreWise Codex",
-  description: "Enciclopedia dei personaggi e degli universi di LoreWise Universe.",
+  title: codexTitle,
+  description: codexDescription,
+  alternates: { canonical: "/enciclopedia" },
+  openGraph: {
+    title: codexTitle,
+    description: codexDescription,
+    type: "website",
+    url: "/enciclopedia",
+    siteName: "LoreWise Universe",
+    locale: "it_IT",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: codexTitle,
+    description: codexDescription,
+  },
 };
 
 export default function EncyclopediaPage() {
