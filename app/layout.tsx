@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteAnalyticsTracker } from "@/components/SiteAnalyticsTracker";
 import { ProfileCompletionGate } from "@/components/ProfileCompletionGate";
+import { SiteJsonLd } from "@/components/SeoJsonLd";
 import "./site.css";
 
 const display = Fraunces({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600", "700"] });
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="it">
       <body className={`${display.variable} ${body.variable} ${loreDisplay.variable}`}>
+        <SiteJsonLd />
         <a className="skip-link" href="#contenuto">Vai al contenuto</a>
         <SiteAnalyticsTracker />
         <ProfileCompletionGate />
