@@ -7,7 +7,7 @@ const noIndexHeaders = [
   "/notifiche/:path*",
   "/auth/:path*",
   "/admin/:path*",
-  "/gestione-:path*",
+  "/gestione-:section/:path*",
   "/commissioni/stato",
 ].map((source) => ({
   source,
