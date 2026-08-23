@@ -7,10 +7,10 @@ import { shopProductDetails } from "@/lib/shop-product-details";
 const siteOrigin = "https://lorewisenexus.it";
 
 const staticPaths = [
-  "", "/arte", "/abbonamento", "/commissioni", "/commissioni/condizioni", "/commissioni/stato",
-  "/giochi", "/assistenza-giochi", "/condizioni-vendita-giochi", "/enciclopedia",
+  "", "/arte", "/abbonamento", "/commissioni", "/commissioni/condizioni",
+  "/giochi", "/giochi/guide", "/download-app", "/assistenza-giochi", "/condizioni-vendita-giochi", "/enciclopedia",
   "/enciclopedia/originali-giwise", "/shop", "/shop/catalogo", "/licenza-arte", "/licenza-gioco",
-  "/privacy", "/contatti", "/cerca", "/dove-nascono-i-mondi", "/cronache-del-nexus",
+  "/privacy", "/contatti", "/dove-nascono-i-mondi", "/cronache-del-nexus",
 ];
 
 function escapeXml(value: string) {
