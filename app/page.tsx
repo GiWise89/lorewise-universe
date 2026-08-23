@@ -4,6 +4,15 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
+  openGraph: {
+    title: "LoreWise Universe | Codex, giochi, arte e mondi da esplorare",
+    description: "LoreWise Universe di GiWise Studio: esplora il LoreWise Codex, giochi indie, arte originale e il dietro le quinte dei mondi creativi.",
+    type: "website",
+    url: "/",
+    siteName: "LoreWise Universe",
+    locale: "it_IT",
+    images: [{ url: "/og.webp", width: 1736, height: 909, alt: "LoreWise Universe, l’universo creativo di GiWise Studio" }],
+  },
 };
 
 const portals = [
