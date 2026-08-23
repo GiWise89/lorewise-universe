@@ -29,7 +29,6 @@ export const metadata: Metadata = {
   applicationName: "LoreWise Universe",
   creator: "GiWise Studio",
   publisher: "GiWise Studio",
-  alternates: { canonical: "/" },
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [{ url: "/brand/admin-control-favicon-v1.webp", type: "image/webp", sizes: "1254x1254" }],
