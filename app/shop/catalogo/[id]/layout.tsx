@@ -55,7 +55,6 @@ export default async function ShopProductLayout({ children, params }: Readonly<{
           price,
           priceCurrency: "EUR",
           url: product.externalHref,
-          seller: { "@id": `${SITE_URL}/#organization` },
         } } : {}),
       }} />
     </> : null}
