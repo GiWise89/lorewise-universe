@@ -47,7 +47,6 @@ export default async function CodexEntryLayout({ children, params }: Readonly<{ 
       <BreadcrumbJsonLd items={[
         { name: "LoreWise Universe", path: "/" },
         { name: "LoreWise Codex", path: "/enciclopedia" },
-        { name: entry.catalog.universe, path: "/enciclopedia" },
         { name: entry.displayTitle, path: `/enciclopedia/${entry.slug}` },
       ]} />
       <JsonLd data={{
@@ -61,7 +60,6 @@ export default async function CodexEntryLayout({ children, params }: Readonly<{ 
         inLanguage: "it-IT",
         author: { "@type": "Organization", "@id": `${SITE_URL}/#organization`, name: "GiWise Studio" },
         publisher: { "@id": `${SITE_URL}/#organization` },
-        dateModified: entry.editorial.lastReviewed,
         about: {
           "@type": "Thing",
           name: entry.displayTitle,
