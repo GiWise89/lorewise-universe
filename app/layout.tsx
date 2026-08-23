@@ -40,7 +40,6 @@ export const metadata: Metadata = {
     title,
     description,
     type: "website",
-    url: "/",
     siteName: "LoreWise Universe",
     locale: "it_IT",
     images: [{ url: "/og.webp", width: 1736, height: 909, alt: "LoreWise Universe, l’universo creativo di GiWise Studio" }],
