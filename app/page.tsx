@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const portals = [
   { key: "arte", title: "Arte in vetrina", note: "Opere originali protette da filigrana", href: "/arte", image: "/brand/icons/arte-concept-v1.webp", width: 1224, height: 1285 },
