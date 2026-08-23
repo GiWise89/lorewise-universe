@@ -6,7 +6,11 @@ import { codexThumbnailSrc, createCodexIndexEntries } from "@/lib/codexIndex";
 import { gameProjects } from "@/lib/gameCatalog";
 import { shopStorefrontProducts } from "@/lib/shop-storefront";
 
-export const metadata: Metadata = { title: "Cerca", description: "Ricerca unificata tra Arte, LoreWise Codex, giochi, shop e servizi GiWise Studio." };
+export const metadata: Metadata = {
+  title: "Cerca",
+  description: "Ricerca unificata tra Arte, LoreWise Codex, giochi, shop e servizi GiWise Studio.",
+  robots: { index: false, follow: false, noarchive: true },
+};
 
 export default function SearchPage() {
   const codex = createCodexIndexEntries(codexEntries);
