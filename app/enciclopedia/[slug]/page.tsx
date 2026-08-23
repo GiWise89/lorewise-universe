@@ -67,6 +67,26 @@ function FactList({ facts }: { facts: CodexFact[] }) {
   </div>)}</dl>;
 }
 
+function normalizedFactValue(value: string) {
+  return value.toLocaleLowerCase("it").replace(/[\s.,;:·—–-]+/g, " ").trim();
+}
+
+function withoutRepeatedFacts(facts: CodexFact[], valuesAlreadyShown: Set<string> = new Set()) {
+  const seen = new Set(valuesAlreadyShown);
+  return facts.filter((fact) => {
+    if (fact.label === "Pronuncia") return false;
+    const value = normalizedFactValue(fact.value);
+    if (!value || seen.has(value)) return false;
+    seen.add(value);
+    return true;
+  });
+}
+
+function FactGroup({ title, description, facts }: { title: string; description: string; facts: CodexFact[] }) {
+  if (!facts.length) return null;
+  return <section className="codex-fact-group"><header><h3>{title}</h3><p>{description}</p></header><FactList facts={facts} /></section>;
+}
+
 function VerifiedText({ data }: { data: SourcedValue }) {
   return <p>{data.value}<SourceMarks sourceIds={data.sourceIds} /></p>;
 }
@@ -97,6 +117,20 @@ export default async function CharacterPage({ params }: { params: Promise<{ slug
   const linkedRelations = entry.relationships.filter((relation, index, relations) => relation.linkedSlug
     && codexEntryBySlug(relation.linkedSlug)
     && relations.findIndex((candidate) => candidate.linkedSlug === relation.linkedSlug) === index);
+  const identityOperationalLabels = /occupazione|ruolo|profilo registrato/i;
+  const identityCore = withoutRepeatedFacts(entry.identity.filter((fact) => !identityOperationalLabels.test(fact.label)));
+  const identityValues = new Set(identityCore.map((fact) => normalizedFactValue(fact.value)));
+  const identityOperational = withoutRepeatedFacts(entry.identity.filter((fact) => identityOperationalLabels.test(fact.label)), identityValues);
+  const allIdentityValues = new Set([...identityValues, ...identityOperational.map((fact) => normalizedFactValue(fact.value))]);
+  const narrativeContextLabels = /universo|opera d.origine|categoria|formato|continuità|creatore|studio/i;
+  const narrativeWithoutEquivalentUniverse = entry.narrative.filter((fact) => {
+    if (!/^universo$/i.test(fact.label)) return true;
+    const work = entry.narrative.find((candidate) => /opera d.origine/i.test(candidate.label));
+    return !work || normalizedFactValue(work.value) !== normalizedFactValue(fact.value);
+  });
+  const narrativeContext = withoutRepeatedFacts(narrativeWithoutEquivalentUniverse.filter((fact) => narrativeContextLabels.test(fact.label)), new Set(allIdentityValues));
+  const narrativeShownValues = new Set([...allIdentityValues, ...narrativeContext.map((fact) => normalizedFactValue(fact.value))]);
+  const narrativeFunction = withoutRepeatedFacts(narrativeWithoutEquivalentUniverse.filter((fact) => !narrativeContextLabels.test(fact.label)), narrativeShownValues);
 
   return <main className="codex-character-page">
     <header className="codex-character-masthead"><div className="shell"><Link className="back-link" href="/enciclopedia">← Torna al LoreWise Codex</Link></div></header>
@@ -126,8 +160,8 @@ export default async function CharacterPage({ params }: { params: Promise<{ slug
       </article>
       <div className="codex-character-dossier">
         <CodexChapterTabs chapters={dossierChapters}>
-        <section id="identita" className="codex-chapter"><ChapterHeader number="01" eyebrow="Identità" title={`Chi è ${entry.name}.`} /><div className="codex-chapter-reading"><FactList facts={entry.identity} /></div></section>
-        <section id="appartenenza" className="codex-chapter"><ChapterHeader number="02" eyebrow="Appartenenza narrativa" title="Opera, universo e canone." /><div className="codex-chapter-reading"><FactList facts={entry.narrative} /></div></section>
+        <section id="identita" className="codex-chapter"><ChapterHeader number="01" eyebrow="Identità" title={`Profilo verificato di ${entry.name}.`} /><div className="codex-chapter-reading codex-opening-chapter"><FactGroup title="Dati distintivi" description="Nomi, natura e provenienza documentati senza ripetere il riepilogo introduttivo." facts={identityCore} /><FactGroup title="Ruolo e profilo operativo" description="La funzione concreta del personaggio e gli eventuali dati registrati nel progetto." facts={identityOperational} /></div></section>
+        <section id="appartenenza" className="codex-chapter"><ChapterHeader number="02" eyebrow="Canone e contesto" title="Dove agisce e perché conta." /><div className="codex-chapter-reading codex-opening-chapter"><FactGroup title="Cornice dell’opera" description="Opera, formato, continuità e responsabilità creativa della versione descritta nel dossier." facts={narrativeContext} /><FactGroup title="Funzione nella storia e nel gioco" description="Informazioni specifiche sul contributo narrativo o ludico, senza duplicare identità e affiliazioni già indicate." facts={narrativeFunction} /></div></section>
 
         <section id="biografia" className="codex-chapter"><ChapterHeader number="03" eyebrow="Presentazione e biografia" title="Origine, viaggio e trasformazioni." />
           <div className="codex-chapter-reading"><div className="codex-spoiler-free"><strong>Sintesi senza spoiler</strong><VerifiedText data={{ ...entry.biography.spoilerFree, value: conciseText(entry.biography.spoilerFree.value, 650) }} /></div>
@@ -154,7 +188,7 @@ export default async function CharacterPage({ params }: { params: Promise<{ slug
         </section>
 
         <section id="fonti" className="codex-chapter codex-editorial"><ChapterHeader number="08" eyebrow="Fonti e controllo editoriale" title="Come è stata costruita la scheda." />
-          <div className="codex-chapter-reading"><div className="codex-editorial-meta"><p><strong>Revisione</strong>{entry.editorial.lastReviewed}</p><p><strong>Responsabile</strong>{entry.editorial.editor}</p><p><strong>Avvisi</strong>{entry.editorial.contentWarnings.join(" · ")}</p></div>
+          <div className="codex-chapter-reading"><div className="codex-editorial-meta"><p><strong>Revisione</strong>{entry.editorial.lastReviewed}</p><p><strong>Responsabile</strong>{entry.editorial.editor}</p>{entry.editorial.researchScope && <p><strong>Perimetro verificato</strong>{entry.editorial.researchScope}</p>}{entry.editorial.sourcePolicy && <p><strong>Metodo delle fonti</strong>{entry.editorial.sourcePolicy}</p>}{entry.editorial.contentWarnings.length > 0 && <p><strong>Avvisi</strong>{entry.editorial.contentWarnings.join(" · ")}</p>}</div>
             <ol className="codex-sources">{entry.editorial.sources.map((source, index) => <li id={`source-${source.id}`} key={source.id}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{source.title}</strong><small>{source.kind} · <SourceLocation location={source.location} /></small><p>{source.note}</p></div></li>)}</ol>
             {entry.editorial.missingFields.length > 0 && <div className="codex-missing"><strong>Campi ancora da decidere insieme</strong><ul>{entry.editorial.missingFields.map((field) => <li key={field}>{field}</li>)}</ul></div>}
           </div>

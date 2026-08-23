@@ -46,8 +46,8 @@ export async function recordSitePageView(database: D1Database, input: { host: st
   const sessionHash = await dailySessionHash(input.sessionId);
   await database.prepare(`INSERT INTO site_page_views (id, site_host, path, session_hash, referrer_host)
     VALUES (?, ?, ?, ?, ?)`).bind(crypto.randomUUID(), input.host, input.path, sessionHash, input.referrerHost || null).run();
-  // Conservazione tecnica limitata: nessun evento analitico oltre circa tredici mesi.
-  if (Math.random() < 0.01) await database.prepare("DELETE FROM site_page_views WHERE datetime(created_at) < datetime('now', '-400 days')").run();
+  // Minimizzazione: gli eventi analitici dettagliati non superano i 90 giorni.
+  if (Math.random() < 0.01) await database.prepare("DELETE FROM site_page_views WHERE datetime(created_at) < datetime('now', '-90 days')").run();
 }
 
 export async function getSiteAnalyticsSummary(database: D1Database): Promise<SiteAnalyticsSummary> {

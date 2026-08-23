@@ -36,7 +36,7 @@ export type CatalogArtwork = {
 
 const commercialOriginalNumbers = new Set([
   2, 3, 4, 5, 6, 13, 16, 17, 20, 24, 28, 30, 33, 35, 36, 37, 39, 41, 46,
-  48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 63, 64, 65, 67, 71,
+  48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 63, 64, 65, 67, 71, 79,
 ]);
 const fanArtNumbers = new Set([
   1, 7, 8, 9, 10, 11, 12, 14, 15, 18, 19, 21, 22, 23, 25, 26, 27, 29, 31, 32,
@@ -53,6 +53,7 @@ const nativeResolutionOverrides: Record<number, string> = {
   74: "1480 × 2100 px",
   75: "1127 × 1600 px",
   77: "1131 × 1599 px",
+  79: "2480 × 3508 px",
 };
 
 const approvedArtworkDetails: Record<number, {
@@ -143,7 +144,7 @@ const pricing: Record<ArtworkPriceTier, { label: string; price: string; membersh
   premium: { label: "Fascia Premium", price: "17,90 €", membership: "Collector · Supporter + 5 €" },
 };
 
-export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 78 }, (_, index) => {
+export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 79 }, (_, index) => {
   const artworkNumber = index + 1;
   const number = String(artworkNumber).padStart(3, "0");
   const isCommercialOriginal = commercialOriginalNumbers.has(artworkNumber);

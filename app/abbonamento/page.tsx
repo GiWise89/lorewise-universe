@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { HorizontalScrollHint } from "@/components/HorizontalScrollHint";
+import { HashTargetFocus } from "@/components/HashTargetFocus";
 import { MembershipPurchaseButton } from "@/components/MembershipPurchaseButton";
 
 export const metadata: Metadata = {
@@ -32,9 +33,12 @@ const faq = [
   ["Il badge dà privilegi nella Community?", "No. Indica soltanto Supporter o Collector: non assegna poteri di moderazione e non rende un giudizio più autorevole degli altri."],
 ];
 
-export default function MembershipPage() {
+export default async function MembershipPage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
+  const query = await searchParams;
+  const focusPlans = query?.focus === "piani";
   return (
     <main className="pass-page">
+      <HashTargetFocus targetId="piani" active={focusPlans} />
       <section className="pass-hero" aria-labelledby="pass-title">
         <div className="pass-hero-shade" />
         <div className="shell pass-hero-layout">
@@ -99,7 +103,7 @@ export default function MembershipPage() {
         <div className="pass-center-preview" aria-label="Anteprima del Centro I miei vantaggi"><div className="pass-center-top"><span>LoreWise ID verificato</span><b>Collector · attivo</b></div><div className="pass-center-metrics"><article><small>Crediti Arte</small><strong>2</strong><span>Disponibili</span></article><article><small>Sconto automatico</small><strong>10%</strong><span>Applicato dal server</span></article><article><small>Opportunità</small><strong>3</strong><span>Aperte ora</span></article></div><div className="pass-center-history"><span>Ultima attività</span><b>Credito mensile assegnato</b><small>Registrato nello storico dell’account</small></div></div>
       </section>
 
-      <section className="pass-pricing" id="piani" aria-labelledby="plans-title"><div className="shell">
+      <section className="pass-pricing" id="piani" data-anchor-focus="true" tabIndex={-1} aria-labelledby="plans-title"><div className="shell">
         <div className="pass-section-heading"><div><p className="pass-eyebrow">Scegli il tuo livello</p><h2 id="plans-title">Due modi di entrare più a fondo.</h2></div><p>Puoi continuare a visitare gratuitamente LoreWise. Il Pass serve a sostenere, collezionare e partecipare di più.</p></div>
         <div className="pass-visitor"><div><span>Visitatore</span><strong>Gratuito</strong></div><p>Cataloghi pubblici, anteprime protette, diario pubblico e contenuti gratuiti restano accessibili senza abbonamento.</p></div>
         <div className="pass-plan-grid">{plans.map((plan) => <article key={plan.name} className={plan.featured ? "pass-plan-card pass-plan-featured" : "pass-plan-card"}>{plan.featured ? <span className="pass-plan-label">Più completo</span> : null}<p>{plan.kicker}</p><h3>{plan.name}</h3><div className="pass-plan-price">{plan.price}</div><div className="pass-plan-highlights"><span>{plan.art}</span><span>{plan.discount}</span></div><ul>{plan.benefits.map((benefit) => <li key={benefit}>{benefit}</li>)}</ul><MembershipPurchaseButton productCode={plan.code} priceLabel={plan.price} /></article>)}</div>

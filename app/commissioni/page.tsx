@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CommissionPortfolio } from "@/components/CommissionPortfolio";
 import { CommissionRequestForm } from "@/components/CommissionRequestForm";
 import { CommissionAvailability } from "@/components/CommissionAvailability";
+import { HashTargetFocus } from "@/components/HashTargetFocus";
 import { UniverseGuide } from "@/components/UniverseGuide";
 import { commissionContentRules } from "@/lib/commissionTerms";
 import { commissionOpeningPromotion, isCommissionOpeningPromotionActive } from "@/lib/commissionPromotion";
@@ -61,14 +62,70 @@ const pricingPackages = [
   },
 ] as const;
 
+function CommissionPricingCards({ promotionActive }: { promotionActive: boolean }) {
+  return <div className="commission-price-grid">
+    {pricingPackages.map((item) => (
+      <article key={item.name}>
+        <Image src={item.image} alt={item.alt} width={1131} height={1600} unoptimized />
+        <div>
+          {promotionActive ? <span className="commission-card-promo">Fino al 20% di sconto sul preventivo</span> : null}
+          <small>A partire da</small>
+          <strong>{item.price}</strong>
+          <h3>{item.name}</h3>
+          <p>{item.description}</p>
+          <em>{item.idealFor}</em>
+          <ul>{item.includes.map((entry) => <li key={entry}>{entry}</li>)}</ul>
+          <span>{item.timing}</span>
+          <Link href={`/commissioni?package=${encodeURIComponent(item.name)}#richiesta`}>Scegli questo percorso →</Link>
+        </div>
+      </article>
+    ))}
+  </div>;
+}
+
+function CommissionPromotionFocus() {
+  return <main className="commission-page commission-promotion-focus-page">
+    <section className="commission-pricing" aria-labelledby="commission-promotion-focus-title">
+      <div className="shell">
+        <Link className="commission-promotion-focus-back" href="/">← Torna a LoreWise Universe</Link>
+        <header className="commission-section-heading commission-promotion-focus-heading">
+          <div><p className="eyebrow">Promozione commissioni · accesso diretto</p><h1 id="commission-promotion-focus-title">Gli sconti sono qui.</h1></div>
+          <p>Questa versione leggera mostra subito disponibilità, promozione e offerte senza caricare prima l’intero portfolio.</p>
+        </header>
+        <CommissionAvailability />
+        <aside className="commission-promotion-banner" id="promozione-apertura" data-anchor-focus="true" tabIndex={-1} aria-label="Promozione commissioni attiva">
+          <div>
+            <small>{commissionOpeningPromotion.shortLabel}</small>
+            <strong>Più vantaggi per chi entra ora nel Nexus.</strong>
+            <p>{commissionOpeningPromotion.deadlineLabel}. Lo sconto viene calcolato sul preventivo finale e resta acquisito anche se il lavoro termina dopo la scadenza.</p>
+          </div>
+          <dl>
+            <div><dt>Visitatori</dt><dd>−{commissionOpeningPromotion.rates.visitor}%</dd></div>
+            <div><dt>Supporter</dt><dd>−{commissionOpeningPromotion.rates.supporter}%</dd></div>
+            <div><dt>Collector</dt><dd>−{commissionOpeningPromotion.rates.collector}%</dd></div>
+          </dl>
+        </aside>
+        <CommissionPricingCards promotionActive />
+        <nav className="commission-promotion-focus-actions" aria-label="Continua nelle Commissioni">
+          <Link href="/commissioni#richiesta">Racconta la tua idea <span aria-hidden="true">→</span></Link>
+          <Link href="/commissioni">Apri il portfolio completo <span aria-hidden="true">→</span></Link>
+        </nav>
+      </div>
+    </section>
+  </main>;
+}
+
 export default async function CommissionsPage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
-  const user = await getLoreWiseUser();
   const query = await searchParams;
   const initialPackage = typeof query?.package === "string" ? query.package : "";
   const initialReference = typeof query?.reference === "string" ? query.reference : "";
+  const focusPromotion = query?.focus === "promozione-apertura";
   const promotionActive = isCommissionOpeningPromotionActive();
+  if (focusPromotion && promotionActive) return <CommissionPromotionFocus />;
+  const user = await getLoreWiseUser();
   return (
     <main className="commission-page">
+      {promotionActive ? <HashTargetFocus targetId="promozione-apertura" active={focusPromotion} /> : null}
       <section className="commission-hero" aria-labelledby="commission-title">
         <div className="shell commission-hero-grid">
           <div className="commission-hero-copy">
@@ -114,7 +171,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams?:
             <p>I prezzi sono di partenza: il preventivo definitivo viene confermato prima di iniziare e dipende dalla complessità reale della richiesta.</p>
           </header>
           <CommissionAvailability />
-          {promotionActive ? <aside className="commission-promotion-banner" aria-label="Promozione commissioni attiva">
+          {promotionActive ? <aside className="commission-promotion-banner" id="promozione-apertura" data-anchor-focus="true" tabIndex={-1} aria-label="Promozione commissioni attiva">
             <div>
               <small>{commissionOpeningPromotion.shortLabel}</small>
               <strong>Più vantaggi per chi entra ora nel Nexus.</strong>
@@ -126,24 +183,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams?:
               <div><dt>Collector</dt><dd>−{commissionOpeningPromotion.rates.collector}%</dd></div>
             </dl>
           </aside> : null}
-          <div className="commission-price-grid">
-            {pricingPackages.map((item) => (
-              <article key={item.name}>
-                <Image src={item.image} alt={item.alt} width={1131} height={1600} unoptimized />
-                <div>
-                  {promotionActive ? <span className="commission-card-promo">Fino al 20% di sconto sul preventivo</span> : null}
-                  <small>A partire da</small>
-                  <strong>{item.price}</strong>
-                  <h3>{item.name}</h3>
-                  <p>{item.description}</p>
-                  <em>{item.idealFor}</em>
-                  <ul>{item.includes.map((entry) => <li key={entry}>{entry}</li>)}</ul>
-                  <span>{item.timing}</span>
-                  <Link href={`/commissioni?package=${encodeURIComponent(item.name)}#richiesta`}>Scegli questo percorso →</Link>
-                </div>
-              </article>
-            ))}
-          </div>
+          <CommissionPricingCards promotionActive={promotionActive} />
 
           <div className="commission-pricing-details">
             <section aria-labelledby="commission-extras-title">

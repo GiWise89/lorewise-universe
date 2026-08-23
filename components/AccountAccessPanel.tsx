@@ -51,7 +51,7 @@ export function AccountAccessPanel({ configured, userEmail }: { configured: bool
     event.preventDefault();
     const targetEmail = email.trim();
     if (mode === "register" && password !== confirmPassword) return setMessage("Le due password non coincidono.");
-    if (mode === "register" && !privacyAccepted) return setMessage("Per creare il profilo devi leggere e accettare l’informativa account.");
+    if (mode === "register" && !privacyAccepted) return setMessage("Per creare il profilo devi confermare di aver letto l’informativa privacy.");
     if (mode === "register" && !minimumAgeConfirmed) return setMessage(`Per creare LoreWise ID devi confermare di avere almeno ${ACCOUNT_MINIMUM_AGE} anni.`);
     if (mode !== "recover" && password.length < 8) return setMessage("La password deve contenere almeno 8 caratteri.");
 
@@ -162,7 +162,7 @@ export function AccountAccessPanel({ configured, userEmail }: { configured: bool
         {mode === "login" ? <label className="account-remember-access"><input type="checkbox" checked={rememberAccess} onChange={(event) => setRememberAccess(event.target.checked)} disabled={busy} /><span><strong>Ricordami su questo dispositivo</strong><small>Mantiene attiva la sessione e ricorda soltanto l’email. La password resta protetta dal browser.</small></span></label> : null}
         {mode === "register" ? <fieldset className="account-registration-consents"><legend>Privacy e comunicazioni</legend>
           <label><input type="checkbox" checked={minimumAgeConfirmed} onChange={(event) => setMinimumAgeConfirmed(event.target.checked)} required disabled={busy} /><span><strong>Confermo di avere almeno {ACCOUNT_MINIMUM_AGE} anni</strong><small>Necessario per creare LoreWise ID. I contenuti contrassegnati 18+ restano comunque riservati esclusivamente agli adulti.</small></span></label>
-          <label><input type="checkbox" checked={privacyAccepted} onChange={(event) => setPrivacyAccepted(event.target.checked)} required disabled={busy} /><span><strong>Accetto l’informativa account</strong><small>Necessaria per creare e gestire il profilo. <Link href="/privacy" target="_blank">Leggi la bozza locale</Link>.</small></span></label>
+          <label><input type="checkbox" checked={privacyAccepted} onChange={(event) => setPrivacyAccepted(event.target.checked)} required disabled={busy} /><span><strong>Confermo di aver letto l’informativa privacy</strong><small>Descrive il trattamento necessario per creare e gestire il profilo. <Link href="/privacy" target="_blank">Apri l’informativa</Link>.</small></span></label>
           <label><input type="checkbox" checked={communityEmails} onChange={(event) => setCommunityEmails(event.target.checked)} disabled={busy} /><span><strong>Aggiornamenti dalla Community</strong><small>Facoltativi. Potrai disattivarli in qualsiasi momento.</small></span></label>
           <label><input type="checkbox" checked={studioUpdatesEmails} onChange={(event) => setStudioUpdatesEmails(event.target.checked)} disabled={busy} /><span><strong>Novità di GiWise Studio</strong><small>Facoltative e separate dalla creazione dell’account.</small></span></label>
         </fieldset> : null}

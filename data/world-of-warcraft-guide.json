@@ -1,0 +1,233 @@
+{
+  "id": "world-of-warcraft-living-guide-01",
+  "slug": "world-of-warcraft",
+  "code": "LW-ATLAS-WOW-001",
+  "game": "World of Warcraft",
+  "title": "Il compendio vivo di Azeroth",
+  "subtitle": "Una guida permanente per iniziare, tornare e scegliere cosa fare senza perdersi nell’enormità di WoW.",
+  "description": "Sedici capitoli operativi dedicati a World of Warcraft moderno: versioni, personaggio, classi, talenti, interfaccia, progressione, equipaggiamento, professioni, dungeon, raid, Mitiche+, PvP, Delve, Housing e routine mensile. È la prima Guida Viva LoreWise: le fonti Blizzard vengono ricontrollate ogni mese, le novità generano una notifica e nessuna modifica viene pubblicata senza approvazione.",
+  "versionLabel": "Midnight · Curse of Ula’tek · Stagione 2",
+  "updatedAt": "23 agosto 2026",
+  "vipFrom": "2026-09-14T00:00:00+02:00",
+  "publicAt": "2026-09-21T00:00:00+02:00",
+  "theme": "world-of-warcraft",
+  "cover": {
+    "src": "/atlas/world-of-warcraft/official/cover-midnight.webp",
+    "alt": "Panorama ufficiale di World of Warcraft Midnight avvolto dalla luce e dal Vuoto",
+    "caption": "Midnight · Stagione 2 · verifica editoriale del 23 agosto 2026"
+  },
+  "storeUrl": "https://worldofwarcraft.blizzard.com/en-us/midnight",
+  "storeLabel": "Apri il sito ufficiale di Midnight",
+  "livingGuide": {
+    "enabled": true,
+    "announcement": "La prima Guida Viva del progetto LoreWise",
+    "cadence": "monthly",
+    "lastCheckedAt": "2026-08-23",
+    "nextCheckAt": "2026-09-23T09:00:00+02:00",
+    "notificationTarget": "/notifiche",
+    "approvalRequired": true,
+    "monitoredSourceUrls": [
+      "https://worldofwarcraft.blizzard.com/en-us/news/",
+      "https://worldofwarcraft.blizzard.com/en-us/midnight",
+      "https://worldofwarcraft.blizzard.com/en-us/news/24295090"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "choose-version", "number": "01", "label": "Edizione e ritorno", "estimatedRead": "12–16 min", "spoiler": "No spoiler",
+      "title": "Capire quale World of Warcraft stai aprendo",
+      "introduction": "Retail, Classic e le relative varianti condividono il nome ma non progressione, regole o comunità. La prima scelta corretta evita di cercare funzioni che appartengono a un’altra versione.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/01-returning-orientation.webp", "alt": "Personaggio Pandaren consulta libri e appunti nella guida ufficiale per chi torna in World of Warcraft", "caption": "Prima di scegliere Retail o Classic, ricostruisci il contesto del tuo account e del percorso che vuoi riprendere." }],
+      "blocks": [
+        { "label": "Versioni", "title": "Retail o Classic?", "text": "Retail è il gioco moderno e ospita Midnight, Housing, Warband, Delve e sistemi correnti. Classic ricrea epoche precedenti con regole e progressioni separate.", "table": { "columns": ["Percorso", "Sceglilo se", "Attenzione"], "rows": [["World of Warcraft", "Vuoi contenuti, interfaccia e stagioni moderne", "La guida tratta principalmente questo percorso"], ["Classic", "Vuoi una specifica epoca storica", "Server, gruppi e sistemi possono essere più vincolati"], ["Hardcore o stagionale", "Cerchi regole speciali", "La morte o la chiusura della stagione possono cambiare il valore del personaggio"]] } },
+        { "label": "Ritorno", "title": "Usa l’esperienza di recupero prima di cancellare tutto", "text": "Blizzard offre un percorso guidato per riprendere comandi, equipaggiamento e obiettivi senza affrontare contemporaneamente ogni vecchia missione.", "steps": ["Dalla selezione personaggi scegli l’esperienza di recupero se proposta.", "Lascia che il gioco nasconda temporaneamente le vecchie missioni.", "Prova abilità e movimento nell’area guidata.", "Accetta l’equipaggiamento di riallineamento.", "Apri la Guida alle Avventure con Maiusc+J per decidere il passo successivo."] },
+        { "label": "Installazione", "title": "Controlla client, account e regione", "text": "Battle.net può mostrare più account, regioni e versioni. Verifica tutto prima di installare o acquistare tempo di gioco.", "mistakes": ["Installare Classic pensando che sia Retail.", "Entrare nella regione sbagliata e non trovare amici o personaggi.", "Usare un potenziamento prima di aver provato la classe.", "Confondere espansione acquistata e abbonamento necessario."], "warning": "Midnight e i servizi del gioco moderno richiedono account Battle.net, connessione e tempo di gioco o abbonamento attivo." }
+      ]
+    },
+    {
+      "id": "realm-faction-race", "number": "02", "label": "Reame e identità", "estimatedRead": "11–15 min", "spoiler": "No spoiler",
+      "title": "Scegliere dove e con chi vivere Azeroth",
+      "introduction": "Reame, fazione e razza contano ancora, ma nel gioco moderno molte barriere sociali sono state ridotte. La decisione migliore parte dalle persone con cui vuoi giocare.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/02-silvermoon.webp", "alt": "Veduta ufficiale della rinnovata Silvermoon City", "caption": "Una capitale è un punto di orientamento: servizi, portali e comunità prima della prossima missione." }],
+      "blocks": [
+        { "label": "Reame", "title": "Segui gli amici, poi valuta popolazione e lingua", "text": "Nel Retail molte attività sono inter-reame, ma gilda, economia e presenza della comunità rendono ancora importante la scelta iniziale.", "steps": ["Chiedi il nome esatto del reame agli amici.", "Controlla regione e lingua.", "Evita reami indicati come pieni se vuoi code minori.", "Scegli un reame con attività compatibile con i tuoi orari.", "Crea un personaggio di prova prima di trasferire servizi a pagamento."] },
+        { "label": "Fazione", "title": "Orda e Alleanza non definiscono più ogni gruppo", "text": "Molte attività organizzate permettono gruppi tra fazioni, ma città, missioni e identità narrative restano differenti.", "table": { "columns": ["Domanda", "Scelta pratica", "Perché"], "rows": [["Giochi con amici?", "Segui la loro fazione se possibile", "Riduce attriti in attività e luoghi sociali"], ["Giochi da solo?", "Scegli estetica e storia", "Il contenuto moderno offre molte connessioni trasversali"], ["Vuoi fare roleplay?", "Controlla comunità e reame", "Il contesto sociale pesa più del bonus razziale"]] } },
+        { "label": "Razza", "title": "Scegli ciò che vuoi guardare per centinaia di ore", "text": "Le abilità razziali esistono, ma per iniziare contano soprattutto animazioni, armature, fantasia e classi disponibili.", "tips": ["Prova movimento e animazioni nella creazione.", "Controlla che la razza possa usare la classe desiderata.", "Non inseguire un vantaggio numerico destinato a cambiare.", "Le razze alleate richiedono spesso uno sblocco narrativo."] }
+      ]
+    },
+    {
+      "id": "classes-specializations", "number": "03", "label": "Classi e ruoli", "estimatedRead": "18–23 min", "spoiler": "No spoiler",
+      "title": "Scegliere una classe dal turno che vuoi giocare",
+      "introduction": "La classe stabilisce strumenti e fantasia; la specializzazione definisce ruolo e ritmo. Parti da distanza, responsabilità e complessità desiderata.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/03-devourer.webp", "alt": "Demon Hunter Devourer ufficiale mentre usa energia del Vuoto", "caption": "Una specializzazione può cambiare distanza, risorsa e responsabilità della stessa classe." }],
+      "blocks": [
+        { "label": "Ruoli", "title": "Tank, healer o damage dealer", "text": "Il tank guida e controlla i nemici; l’healer protegge il gruppo; il damage dealer elimina priorità e gestisce meccaniche.", "table": { "columns": ["Ruolo", "Responsabilità", "Buona prima prova"], "rows": [["Tank", "Percorso, posizione e sopravvivenza", "Dungeon normali con una classe robusta"], ["Healer", "Salute, dispel e prevenzione", "Contenuto aperto e dungeon facili"], ["DPS", "Danno, interruzioni e bersagli", "Specializzazione con rotazione leggibile"]] } },
+        { "label": "Distanza", "title": "Mischia o distanza cambia la lettura del campo", "text": "La mischia segue posizione e area del boss; la distanza vede meglio il campo ma deve spesso muoversi durante il lancio.", "scenarios": [{ "problem": "Perdo il bersaglio nel caos", "answer": "Prova un ranged con incantesimi immediati o migliora nameplate e contrasto." }, { "problem": "Non amo tempi di lancio", "answer": "Prova melee, Hunter o una specializzazione più mobile." }, { "problem": "Voglio cambiare ruolo", "answer": "Scegli una classe ibrida con due o tre ruoli disponibili." }] },
+        { "label": "Prima scelta", "title": "Non usare subito il boost", "text": "Dieci livelli giocati insegnano più di una barra piena di abilità sconosciute.", "steps": ["Crea due o tre personaggi di prova.", "Completa il tutorial iniziale.", "Prova una specializzazione alla volta.", "Controlla mobilità, difese e interruzione.", "Usa il potenziamento soltanto quando riconosci già la tua rotazione di base."] }
+      ]
+    },
+    {
+      "id": "talents-rotation", "number": "04", "label": "Talenti e rotazione", "estimatedRead": "17–22 min", "spoiler": "No spoiler",
+      "title": "Costruire una rotazione che rimane leggibile",
+      "introduction": "Talenti di classe, specializzazione, Hero e Apex ampliano il personaggio. Una build è utile soltanto se sai riconoscere perché ogni tasto è presente.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/04-rotation-cooldowns.webp", "alt": "Interfaccia ufficiale di World of Warcraft con abilità e tempi di recupero evidenziati", "caption": "Una rotazione diventa leggibile quando risorsa, priorità e cooldown restano visibili nello stesso sguardo." }],
+      "blocks": [
+        { "label": "Priorità", "title": "WoW usa spesso priorità, non sequenze infinite", "text": "Molte specializzazioni controllano risorsa, cooldown, effetti attivi e numero di bersagli invece di ripetere una sola combinazione.", "steps": ["Individua il generatore principale.", "Individua la capacità che spende la risorsa.", "Segna un cooldown offensivo e uno difensivo.", "Aggiungi interruzione e movimento.", "Solo dopo inserisci proc e situazioni a più bersagli."] },
+        { "label": "Talenti", "title": "Salva configurazioni per attività diverse", "text": "Una build da mondo aperto non deve coincidere con raid o Mitiche+. Usa nomi chiari e modifica pochi nodi alla volta.", "tips": ["Salva una configurazione generale.", "Crea varianti Solo, Dungeon e Raid.", "Leggi il tooltip dopo ogni aggiornamento.", "Non importare una build senza controllare abilità nuove.", "Mantieni un tasto difensivo anche se riduce il danno teorico."] },
+        { "label": "Allenamento", "title": "La prova dei tre minuti", "text": "Un manichino chiarisce buchi di risorsa, tasti irraggiungibili e cooldown dimenticati.", "scenarios": [{ "problem": "Resto senza nulla da premere", "answer": "Controlla generatori, tempi di recupero e se stai spendendo troppo presto." }, { "problem": "Ho troppi tasti", "answer": "Raggruppa per funzione e rimuovi dalla barra abilità passive o duplicate." }, { "problem": "Il danno crolla muovendomi", "answer": "Identifica strumenti istantanei e pianifica il movimento prima della meccanica." }] }
+      ]
+    },
+    {
+      "id": "interface-accessibility", "number": "05", "label": "Interfaccia e comandi", "estimatedRead": "14–18 min", "spoiler": "No spoiler",
+      "title": "Vedere prima di reagire",
+      "introduction": "Un’interfaccia efficace mostra salute, risorse, bersagli, pericoli e cooldown senza coprire il mondo. Midnight integra ulteriori strumenti nel client base.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/05-interface-hud.webp", "alt": "Modalità modifica dell’interfaccia ufficiale con HUD, riquadri e misuratore di danni", "caption": "Sposta e ridimensiona le informazioni essenziali finché il campo di battaglia rimane visibile e leggibile." }],
+      "blocks": [
+        { "label": "Barre", "title": "Organizza per funzione, non per ordine di apprendimento", "text": "Tasti simili devono occupare posizioni simili su ogni personaggio.", "steps": ["Metti la rotazione vicino ai tasti di movimento.", "Allinea difese e cure personali.", "Dedica una zona a interruzione e controllo.", "Separa cooldown lunghi e oggetti.", "Blocca le barre dopo la prova."] },
+        { "label": "Leggibilità", "title": "Nameplate, avvisi e misuratori base", "text": "Il client moderno offre nameplate migliorati, avvisi dei boss e strumenti di analisi integrati; attivali gradualmente.", "tips": ["Aumenta scala e contrasto prima di aggiungere addon.", "Mostra il bersaglio attuale con chiarezza.", "Limita avvisi sonori a eventi importanti.", "Controlla daltonismo e dimensione dei testi.", "Usa il misuratore per capire, non per colpevolizzare." ] },
+        { "label": "Addon", "title": "Aggiungi soltanto ciò che risolve un problema", "text": "Ogni addon aumenta manutenzione e possibilità di conflitto dopo una patch.", "warning": "Prima di una grande patch salva la cartella di configurazione e verifica gli aggiornamenti. Se l’interfaccia si rompe, disattiva gli addon a gruppi invece di cancellare tutto.", "mistakes": ["Installare un pacchetto completo senza conoscerlo.", "Copiare profili con risoluzione diversa.", "Nascondere informazioni base dietro effetti decorativi.", "Aggiornare addon durante un gruppo senza poter tornare indietro."] }
+      ]
+    },
+    {
+      "id": "leveling-campaign", "number": "06", "label": "Livellamento e campagna", "estimatedRead": "15–20 min", "spoiler": "Spoiler leggeri",
+      "title": "Arrivare a Midnight senza inseguire vent’anni di missioni",
+      "introduction": "Il nuovo percorso porta i principianti attraverso Dragonflight e offre un recupero accelerato di The War Within. Midnight conduce dal livello 80 al nuovo limite di 90.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/06-eversong.webp", "alt": "Boschi ufficiali di Eversong sotto il cielo di Midnight", "caption": "Segui un filo principale e lascia che le deviazioni restino scelte, non debiti." }],
+      "blocks": [
+        { "label": "Percorso", "title": "Una campagna principale, poche deviazioni", "text": "La missione di campagna usa un simbolo distinto. Seguirla mantiene zone, dungeon e sistemi in un ordine comprensibile.", "steps": ["Accetta la campagna indicata dal gioco.", "Completa le missioni locali soltanto se ti interessano.", "Torna in città quando sblocchi servizi.", "Apri Journeys per verificare progressi centrali.", "Non svuotare il registro accettando tutto ciò che incontri."] },
+        { "label": "Secondo personaggio", "title": "La Warband riduce le ripetizioni", "text": "Molti progressi e collezioni sono condivisi. Prima di rifare una catena, controlla ciò che è già stato sbloccato dall’account.", "tips": ["Completa la campagna almeno una volta con calma.", "Controlla reputazioni e progressi condivisi.", "Scegli percorsi alternativi per gli alt.", "Invia materiali tramite la banca della Warband."] },
+        { "label": "Blocco", "title": "Quando non sai dove proseguire", "text": "Non cercare subito una soluzione completa: verifica prima registro, mappa e Guida alle Avventure.", "scenarios": [{ "problem": "Non vedo la missione seguente", "answer": "Controlla livello, capitolo precedente e filtri della mappa." }, { "problem": "Sono finito in una vecchia espansione", "answer": "Torna alla capitale e usa i portali o il percorso consigliato dalla Guida." }, { "problem": "Il dungeon è bloccato", "answer": "In Midnight alcuni dungeon si aprono con la storia; al livello 90 diventano disponibili anche senza quella missione." }] }
+      ]
+    },
+    {
+      "id": "world-warband-travel", "number": "07", "label": "Mondo, viaggio e Warband", "estimatedRead": "13–18 min", "spoiler": "No spoiler",
+      "title": "Costruire una mappa mentale di Azeroth",
+      "introduction": "Continenti, portali, pietre del ritorno e rotte possono confondere più dei nemici. Organizza una rete di punti sicuri e usa la Warband come archivio comune.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/07-dragon-travel.webp", "alt": "Avventuriero in volo su un drago sopra il mondo di World of Warcraft", "caption": "Ogni nuova zona diventa leggibile quando conosci punto di volo, capitale e via di ritorno." }],
+      "blocks": [
+        { "label": "Orientamento", "title": "Tre punti per ogni zona", "text": "Individua hub, via di uscita e collegamento alla capitale prima di inseguire icone.", "steps": ["Sblocca il punto di volo.", "Segna locanda e pietra del ritorno.", "Trova portale o trasporto principale.", "Identifica riparazioni e venditori.", "Solo dopo esplora gli obiettivi periferici."] },
+        { "label": "Warband", "title": "Un account, molti personaggi", "text": "Banca e progressi condivisi trasformano gli alt in una squadra invece che in inventari isolati.", "tips": ["Crea schede della banca per materiali e consumabili.", "Controlla se un oggetto è vincolato alla Warband.", "Evita di accumulare doppioni senza destinazione.", "Usa un personaggio come riferimento, non come unico magazzino."] },
+        { "label": "Esplorazione", "title": "La routine di una zona nuova", "text": "Eventi, tesori e attività mondiali devono restare opportunità, non una lista obbligatoria.", "table": { "columns": ["Tempo disponibile", "Priorità", "Uscita"], "rows": [["15 minuti", "Volo, missione centrale, ricompensa immediata", "Torna all’hub"], ["45 minuti", "Catena locale e un evento", "Svuota borse e aggiorna Journeys"], ["Sessione lunga", "Esplorazione, Delve o gruppo", "Controlla Vault e obiettivo settimanale"]] } }
+      ]
+    },
+    {
+      "id": "gear-progression", "number": "08", "label": "Equipaggiamento", "estimatedRead": "17–22 min", "spoiler": "No spoiler",
+      "title": "Leggere un oggetto oltre il numero grande",
+      "introduction": "Livello oggetto, statistiche, bonus, set e percorso di potenziamento descrivono il valore reale. Non spendere valuta finché non sai quanto a lungo userai il pezzo.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/08-equipment-interface.webp", "alt": "Interfaccia ufficiale dell’equipaggiamento con personaggio, slot e oggetti confrontabili", "caption": "Leggi lo slot nel suo insieme: livello, statistiche, bonus e aspetto non raccontano la stessa cosa." }],
+      "blocks": [
+        { "label": "Confronto", "title": "Ordine di lettura di un nuovo oggetto", "text": "Il livello oggetto è un buon primo filtro, non una sentenza.", "steps": ["Controlla tipo di armatura e arma.", "Confronta livello oggetto.", "Leggi caratteristica primaria e secondarie.", "Verifica bonus di set o effetto speciale.", "Controlla percorso e costo di potenziamento.", "Equipaggia e prova prima di vendere il precedente."] },
+        { "label": "Ricompense", "title": "Il Great Vault premia attività diverse", "text": "La Cassaforte settimanale amplia le opzioni in base alle attività completate. Più scelte non significa dover riempire ogni riga.", "tips": ["Scegli una riga coerente con ciò che ti diverte.", "Migliora la qualità prima della quantità.", "Confronta set e slot difficili da ottenere.", "Non scegliere in fretta prima di controllare le altre ricompense settimanali."] },
+        { "label": "Valute", "title": "Potenziamenti senza rimpianti", "text": "Valute e limiti stagionali cambiano. Investi prima in pezzi solidi e controlla sempre il costo successivo.", "scenarios": [{ "problem": "Il pezzo ha livello maggiore ma statistiche peggiori", "answer": "Provalo o usa una simulazione affidabile; per iniziare privilegia il guadagno netto e la coerenza della caratteristica primaria." }, { "problem": "Non so cosa potenziare", "answer": "Scegli arma, set o slot che sostituirai meno facilmente." }, { "problem": "La stagione è appena cambiata", "answer": "Conserva risorse finché non comprendi i nuovi percorsi e limiti." }] }
+      ]
+    },
+    {
+      "id": "professions-economy", "number": "09", "label": "Professioni ed economia", "estimatedRead": "18–24 min", "spoiler": "No spoiler",
+      "title": "Trasformare raccolta e creazione in un progetto sostenibile",
+      "introduction": "Le professioni servono a creare equipaggiamento, consumabili, decorazioni e identità economica. La Casa d’Aste misura domanda e tempo, non soltanto il prezzo minimo.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/09-professions-interface.webp", "alt": "Interfaccia ufficiale delle specializzazioni di Forgiatura con rami e punti professione", "caption": "Investi i punti professione soltanto dopo aver scelto cosa produrre e per quale mercato." }],
+      "blocks": [
+        { "label": "Scelta", "title": "Raccolta, produzione o servizio", "text": "Due professioni di raccolta finanziano l’inizio; una coppia produzione-raccolta crea autonomia; due produzioni richiedono capitale e mercato.", "table": { "columns": ["Obiettivo", "Combinazione", "Rischio"], "rows": [["Oro semplice", "Due raccolte", "Dipende dai prezzi delle materie"], ["Creare per sé", "Produzione più raccolta collegata", "Progressione più lenta"], ["Mercato avanzato", "Due produzioni", "Richiede capitale e conoscenza degli ordini"]] } },
+        { "label": "Metodo", "title": "Registra costo, tempo e margine", "text": "Un prezzo di vendita non è profitto se ignori materiali, commissioni e tempo.", "steps": ["Calcola il costo dei materiali.", "Controlla quantità realmente vendute.", "Sottrai deposito e commissione.", "Valuta il tempo di raccolta.", "Produci un lotto piccolo.", "Aggiorna il prezzo senza inseguire ogni ribasso."] },
+        { "label": "Ordini", "title": "Leggi bene qualità e materiali", "text": "Gli ordini di creazione collegano cliente e artigiano, ma requisiti e materiali devono essere espliciti.", "mistakes": ["Accettare un ordine senza qualità raggiungibile.", "Comprare materiali costosi per una commissione minima.", "Spendere conoscenza professionale senza un percorso.", "Confondere oggetti cosmetici e potenziamenti stagionali."], "warning": "Le economie cambiano dopo patch, reset e nuove ricette: la sezione viene ricontrollata mensilmente senza promettere prezzi fissi." }
+      ]
+    },
+    {
+      "id": "dungeons", "number": "10", "label": "Dungeon", "estimatedRead": "17–22 min", "spoiler": "Spoiler leggeri",
+      "title": "Entrare in gruppo sapendo cosa osservare",
+      "introduction": "Un dungeon è una sequenza di gruppi, percorsi e boss. Imparare interruzioni e segnali visivi vale più di memorizzare ogni numero.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/10-dungeons-raids.webp", "alt": "Gruppo ufficiale affronta una creatura in un dungeon di Midnight", "caption": "Il gruppo sopravvive quando ognuno riconosce il pericolo prima che diventi danno." }],
+      "blocks": [
+        { "label": "Ingresso", "title": "La checklist prima della coda", "text": "Controlli semplici riducono abbandoni e confusione.", "steps": ["Ripara l’equipaggiamento.", "Libera spazio nelle borse.", "Leggi ruolo e abilità chiave.", "Metti interruzione e difensivi in posizione accessibile.", "Conferma la difficoltà scelta.", "Avvisa se è la prima volta."] },
+        { "label": "Combattimento", "title": "Priorità: meccanica, vita, danno", "text": "Un attacco interrotto o una zona evitata spesso vale più di qualche secondo di danno extra.", "tips": ["Segui il tank senza superarlo.", "Interrompi l’incantesimo pericoloso, non il primo disponibile.", "Spostati dalle aree senza attraversare il gruppo.", "Usa difensivi prima del grande danno.", "Riallineati dopo ogni gruppo."] },
+        { "label": "Ruoli", "title": "Diagnosi rapida del wipe", "text": "Cerca una causa verificabile invece di assegnare colpe.", "scenarios": [{ "problem": "Il tank muore subito", "answer": "Controlla percorso, mitigazione, cure disponibili e quantità di nemici raccolti." }, { "problem": "Il gruppo subisce danno continuo", "answer": "Verifica cast non interrotti, dispel e aree persistenti." }, { "problem": "Il boss non scende", "answer": "Controlla bersagli secondari, finestre vulnerabili e meccaniche obbligatorie." }] }
+      ]
+    },
+    {
+      "id": "raids", "number": "11", "label": "Raid", "estimatedRead": "18–24 min", "spoiler": "Spoiler protetti",
+      "title": "Dal racconto al coordinamento di squadra",
+      "introduction": "Story Mode, Ricerca delle Incursioni e difficoltà organizzate permettono rapporti diversi con il raid. Scegli il livello che corrisponde al tuo obiettivo.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/11-raid-voidspire.webp", "alt": "Ingresso ufficiale del raid Voidspire circondato dall’energia del Vuoto", "caption": "Prima dell’ingresso assegna ruoli e responsabilità: nel raid la preparazione appartiene a tutto il gruppo." }],
+      "blocks": [
+        { "label": "Accessi", "title": "Non esiste un solo modo di vedere il raid", "text": "Story Mode privilegia la conclusione narrativa; LFR introduce meccaniche in gruppi automatici; Normale e oltre richiedono coordinamento crescente.", "table": { "columns": ["Modalità", "Obiettivo", "Preparazione"], "rows": [["Story Mode", "Seguire la storia", "Prerequisiti di campagna quando richiesti"], ["LFR", "Primo contatto e ricompense accessibili", "Equipaggiamento minimo e attenzione"], ["Normale/Eroico", "Progressione organizzata", "Gruppo, orari, consumabili e strategia"], ["Mitico", "Sfida coordinata massima", "Roster stabile e analisi dettagliata"]] } },
+        { "label": "Preparazione", "title": "Il foglio personale del boss", "text": "Per ogni incontro annota una responsabilità, una meccanica letale e il momento del tuo difensivo.", "steps": ["Guarda una panoramica breve.", "Individua posizione iniziale.", "Segna ciò che riguarda il tuo ruolo.", "Associa un segnale visivo alla reazione.", "Prepara consumabili e riparazioni.", "Dopo il tentativo correggi una sola causa."] },
+        { "label": "Spoiler", "title": "Proteggi la storia senza entrare impreparato", "text": "Le istruzioni operative possono evitare nomi e conseguenze narrative. Apri i dettagli soltanto quando vuoi conoscere la scena.", "spoilerDetails": { "summary": "Come leggere una strategia completa", "text": "Separare fase, abilità e posizione dalla trama permette di prepararsi senza anticipare rivelazioni. Se una guida esterna usa filmati o titoli narrativi, limita la lettura ai timestamp delle meccaniche necessarie." } }
+      ]
+    },
+    {
+      "id": "delves-prey-world", "number": "12", "label": "Delve e mondo", "estimatedRead": "16–21 min", "spoiler": "Spoiler leggeri",
+      "title": "Progressione flessibile fuori dai grandi gruppi",
+      "introduction": "Delve, Prey, eventi e Journeys offrono obiettivi leggibili anche con poco tempo. La difficoltà deve crescere insieme a strumenti e conoscenza.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/12-prey.webp", "alt": "Cacciatore ufficiale affronta una potente Prey nel mondo di Midnight", "caption": "Una caccia è leggibile quando sai cosa può interrompere il tuo piano." }],
+      "blocks": [
+        { "label": "Delve", "title": "Aumenta il livello una soglia alla volta", "text": "Le Delve premiano esplorazione e combattimento in gruppi piccoli o in solitaria.", "steps": ["Completa una difficoltà confortevole.", "Controlla modificatori e obiettivo.", "Porta cure, interruzione e mobilità.", "Esplora senza separarti dal supporto.", "Aumenta livello solo dopo una chiusura pulita."] },
+        { "label": "Prey", "title": "La preda può reagire mentre la insegui", "text": "Il sistema Prey trasforma il mondo in una caccia dinamica. Leggi il bersaglio e conserva risorse per l’imboscata.", "tips": ["Accetta una caccia compatibile con il tempo disponibile.", "Controlla percorso e vie di fuga.", "Non spendere tutti i cooldown sui nemici minori.", "Raggruppati se la difficoltà supera la tua preparazione."] },
+        { "label": "Journeys", "title": "Un cruscotto per decidere, non un’altra lista", "text": "Journeys riunisce reputazioni, Delve, Prey e accesso alla Cassaforte. Usalo per scegliere un obiettivo concreto.", "scenarios": [{ "problem": "Ho soltanto venti minuti", "answer": "Scegli una singola attività mondiale o un avanzamento breve di Journey." }, { "problem": "Non so cosa migliora il personaggio", "answer": "Confronta ricompense e riga della Cassaforte prima di partire." }, { "problem": "Mi sento obbligato a fare tutto", "answer": "Scegli un traguardo settimanale e considera il resto facoltativo." }] }
+      ]
+    },
+    {
+      "id": "mythic-plus", "number": "13", "label": "Mitiche+", "estimatedRead": "20–26 min", "spoiler": "No spoiler",
+      "title": "Imparare il percorso prima di inseguire la chiave",
+      "introduction": "La Stagione 2 cambia rotazione, ricompense e pressione. Una chiave è un esercizio di percorso, priorità e uso coordinato dei cooldown.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/13-mythic-plus-combat.webp", "alt": "Gruppo in combattimento contro un branco con bersaglio prioritario contrassegnato", "caption": "In Mitica+ tempo, percorso e bersaglio prioritario fanno parte della stessa decisione." }],
+      "blocks": [
+        { "label": "Ingresso", "title": "Dal Mitico base alla chiave", "text": "Impara boss e gruppi senza timer prima di aggiungere affissi e percorso ottimizzato.", "steps": ["Completa il dungeon in difficoltà inferiore.", "Riconosci cast da interrompere.", "Memorizza due meccaniche per boss.", "Prova un Mitico base.", "Entra in una chiave bassa.", "Aumenta soltanto quando il gruppo chiude con controllo."] },
+        { "label": "Percorso", "title": "Percentuale, tempo e risorse", "text": "Il tank propone il percorso, ma tutti devono sapere quando usare interruzioni, controllo e resurrezioni.", "tips": ["Condividi il percorso prima della partenza.", "Segna i gruppi pericolosi.", "Alterna cooldown offensivi e difensivi.", "Conserva resurrezioni da combattimento.", "Dopo una morte valuta se recuperare o saltare."] },
+        { "label": "Stagione viva", "title": "Non congelare numeri e classifiche", "text": "Dungeon, tuning, ricompense e strategie possono cambiare durante la stagione.", "warning": "Questa guida non pubblica una tier list permanente. Il controllo mensile segnala patch e cambiamenti ufficiali; ogni revisione richiede approvazione prima di sostituire il testo.", "mistakes": ["Copiare un percorso di una stagione precedente.", "Valutare il gruppo soltanto dal punteggio.", "Ignorare aggiornamenti agli affissi.", "Cambiare build senza provarla fuori dal timer."] }
+      ]
+    },
+    {
+      "id": "pvp", "number": "14", "label": "PvP", "estimatedRead": "17–22 min", "spoiler": "No spoiler",
+      "title": "Entrare nel PvP imparando obiettivi e controllo",
+      "introduction": "Training Grounds, campi di battaglia e arene richiedono priorità diverse dal PvE. Sopravvivere, comunicare e giocare l’obiettivo viene prima del danno totale.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/14-pvp-objectives.webp", "alt": "Campo PvP ufficiale con giocatori, fortificazioni e un obiettivo d’assedio", "caption": "Nel PvP non basta vincere lo scontro: posizione, rotazione e controllo dell’obiettivo decidono la partita." }],
+      "blocks": [
+        { "label": "Allenamento", "title": "Inizia dai Training Grounds", "text": "Midnight introduce campi contro avversari controllati dal gioco per apprendere mappe e ruoli senza la pressione iniziale del PvP completo.", "steps": ["Scegli una specializzazione che conosci.", "Metti in barra controllo e rimozione effetti.", "Segui l’obiettivo della mappa.", "Prova a sopravvivere prima di inseguire eliminazioni.", "Rivedi un errore alla fine di ogni partita."] },
+        { "label": "Campi", "title": "La mappa decide la vittoria", "text": "Bandiere, basi e carrelli richiedono presenza e rotazioni. Un combattimento lontano dall’obiettivo può essere una sconfitta anche se viene vinto.", "tips": ["Leggi obiettivo prima dell’apertura.", "Comunica nemici in arrivo.", "Difendi finché arriva il cambio.", "Non abbandonare una base per inseguire.", "Usa cavalcatura e terreno per ruotare."] },
+        { "label": "Duello", "title": "Controllo, difensivi e finestre", "text": "In arena impara prima a riconoscere cooldown avversari e momenti di pericolo.", "scenarios": [{ "problem": "Muoio senza reagire", "answer": "Rivedi il primo controllo subito e prepara rimozione o difensivo prima del burst." }, { "problem": "Inseguo e perdo il healer", "answer": "Mantieni linea di vista con gli alleati e non attraversare ostacoli senza comunicarlo." }, { "problem": "Faccio danno ma non chiudo", "answer": "Coordina controllo e cooldown nello stesso intervallo invece di usarli isolatamente." }] }
+      ]
+    },
+    {
+      "id": "housing-collections-community", "number": "15", "label": "Casa, collezioni e comunità", "estimatedRead": "16–21 min", "spoiler": "No spoiler",
+      "title": "Dare una casa alle avventure che continui ad accumulare",
+      "introduction": "Housing è condiviso dalla Warband e si collega a quartieri, decorazioni, professioni e attività mensili. Cavalcature, aspetti, mascotte e gilda danno continuità oltre l’equipaggiamento stagionale.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/15-housing.webp", "alt": "Casa ufficiale di World of Warcraft Housing in un quartiere illuminato", "caption": "Una casa non chiude l’avventura: conserva ciò che hai scelto di ricordare." }],
+      "blocks": [
+        { "label": "Housing", "title": "Casa, quartiere e Warband", "text": "Non sono previste lotterie, costi proibitivi o manutenzione obbligatoria. La casa e la collezione decorativa sono condivise tra i personaggi della Warband.", "steps": ["Scegli quartiere pubblico, privato o di gilda.", "Rivendica il lotto.", "Costruisci una stanza funzionale.", "Salva la disposizione prima di grandi modifiche.", "Aggiungi decorazioni ottenute giocando o creando.", "Visita le case degli amici anche tra fazioni."] },
+        { "label": "Endeavors", "title": "Un progetto mensile del quartiere", "text": "Le attività collettive sbloccano ricompense e decorazioni. Contribuisci senza trasformare il quartiere in un secondo lavoro.", "tips": ["Controlla il tema mensile.", "Scegli compiti collegati alle tue attività normali.", "Coordina materiali e professioni.", "Usa i coupon per una priorità decorativa.", "Fotografa o salva il layout prima di cambiarlo."] },
+        { "label": "Comunità", "title": "La gilda giusta vale più di una classifica", "text": "Cerca orari, tono e obiettivi compatibili. Una comunità stabile rende sostenibili raid, PvP, economia e Housing.", "table": { "columns": ["Domanda", "Segnale sano", "Segnale da chiarire"], "rows": [["Quando giocate?", "Calendario esplicito", "Richiesta di presenza continua"], ["Come gestite errori?", "Revisione concreta e rispettosa", "Colpa pubblica senza spiegazione"], ["Qual è l’obiettivo?", "Progressione dichiarata", "Aspettative diverse per membri diversi"]] } }
+      ]
+    },
+    {
+      "id": "living-routine", "number": "16", "label": "Routine e Guida Viva", "estimatedRead": "15–20 min", "spoiler": "No spoiler",
+      "title": "Decidere cosa fare oggi e cosa aggiornare domani",
+      "introduction": "World of Warcraft cambia con hotfix, patch e stagioni. La guida chiude con una routine sostenibile e con il protocollo che impedisce alle informazioni variabili di invecchiare in silenzio.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/16-endeavors.webp", "alt": "Quartiere ufficiale impegnato in un Endeavor mensile", "caption": "Una guida viva osserva il cambiamento, lo segnala e aspetta una decisione prima di riscrivere il percorso." }],
+      "blocks": [
+        { "label": "Settimana", "title": "La routine in cinque domande", "text": "Non serve completare ogni sistema: scegli una direzione e una ricompensa coerente.", "steps": ["Quale personaggio voglio usare?", "Quale attività mi diverte oggi?", "Quale progresso appare in Journeys?", "Quale riga della Cassaforte voglio aprire?", "Cosa posso lasciare volontariamente alla settimana seguente?"] },
+        { "label": "Controllo mensile", "title": "Come funziona la prima Guida Viva LoreWise", "text": "Il 23 di ogni mese vengono ricontrollate le fonti ufficiali Blizzard monitorate. Se non emergono cambiamenti la guida resta invariata; se emergono novità viene creata una notifica nel Centro notifiche/Admin.", "table": { "columns": ["Fase", "Automatica", "Decisione umana"], "rows": [["Controllo fonti", "Sì, una volta al mese", "Nessuna"], ["Rilevazione novità", "Sì, con confronto della versione", "Valutare la rilevanza"], ["Notifica", "Sì, soltanto se cambia qualcosa", "Aprire o rimandare"], ["Aggiornamento testo", "No", "Richiede approvazione"], ["Pubblicazione", "No", "Avviene dopo verifica finale"]] } },
+        { "label": "Versione", "title": "Cosa controllare prima di fidarti di un consiglio", "text": "Ogni sezione variabile deve dichiarare espansione, stagione e data di verifica.", "scenarios": [{ "problem": "È uscita una patch", "answer": "Attendi la notifica mensile oppure avvia un controllo straordinario prima di cambiare build o percorso." }, { "problem": "Una fonte contraddice la guida", "answer": "Segnala la sezione: l’aggiornamento resta in bozza finché non viene approvato." }, { "problem": "La novità riguarda soltanto una classe", "answer": "Aggiorna il modulo della classe senza riscrivere i capitoli stabili." }, { "problem": "Non risultano novità", "answer": "La data di controllo avanza, il contenuto resta identico e non viene generata una notifica inutile." }], "warning": "Stato verificato: Midnight · Curse of Ula’tek · Stagione 2. Ultimo controllo editoriale: 23 agosto 2026." }
+      ]
+    }
+  ],
+  "sections": [
+    { "id": "begin", "label": "Entra in Azeroth", "summary": "Versione, reame, fazione e personaggio senza scelte irreversibili affrettate.", "icon": { "src": "/atlas/world-of-warcraft/official/01-returning-player.webp", "alt": "Ritorno degli avventurieri", "caption": "Prima orientati, poi parti." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "0% 0%" }, "chapterIds": ["choose-version", "realm-faction-race"] },
+    { "id": "master", "label": "Domina il personaggio", "summary": "Classi, specializzazioni, talenti e interfaccia costruiti un livello alla volta.", "icon": { "src": "/atlas/world-of-warcraft/official/03-devourer.webp", "alt": "Combattente di Midnight", "caption": "Ogni tasto deve avere una ragione." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "50% 0%" }, "chapterIds": ["classes-specializations", "talents-rotation", "interface-accessibility"] },
+    { "id": "explore", "label": "Attraversa i mondi", "summary": "Campagna, viaggio, Warband e progressione senza trasformare la mappa in un debito.", "icon": { "src": "/atlas/world-of-warcraft/official/07-harandar.webp", "alt": "Paesaggio di Harandar", "caption": "Hub, percorso e ritorno." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "100% 0%" }, "chapterIds": ["leveling-campaign", "world-warband-travel", "gear-progression"] },
+    { "id": "craft", "label": "Costruisci il tuo posto", "summary": "Professioni, economia, Housing e collezioni come sistemi destinati a durare.", "icon": { "src": "/atlas/world-of-warcraft/official/09-decoration.webp", "alt": "Interno decorato di Housing", "caption": "Crea, conserva e condividi." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "0% 100%" }, "chapterIds": ["professions-economy", "housing-collections-community"] },
+    { "id": "group", "label": "Affronta la sfida", "summary": "Dungeon, raid, Delve, Mitiche+ e PvP letti attraverso ruolo e obiettivo.", "icon": { "src": "/atlas/world-of-warcraft/official/10-dungeons-raids.webp", "alt": "Gruppo in combattimento", "caption": "Meccanica prima del numero." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "50% 100%" }, "chapterIds": ["dungeons", "raids", "delves-prey-world", "mythic-plus", "pvp"] },
+    { "id": "living", "label": "Mantieni viva la guida", "summary": "Routine sostenibile, data di verifica e aggiornamenti approvati senza riscritture cieche.", "icon": { "src": "/atlas/world-of-warcraft/official/16-endeavors.webp", "alt": "Attività mensile del quartiere", "caption": "Controllare, notificare, decidere." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "100% 100%" }, "chapterIds": ["living-routine"] }
+  ],
+  "sources": [
+    { "label": "Blizzard · World of Warcraft Midnight", "href": "https://worldofwarcraft.blizzard.com/en-us/midnight" },
+    { "label": "Blizzard · Midnight ora disponibile", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24264417" },
+    { "label": "Blizzard · guida per giocatori di ritorno", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24263354" },
+    { "label": "Blizzard · Curse of Ula’tek e preparazione Stagione 2", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24295090" },
+    { "label": "Blizzard · panoramica informazioni Midnight", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24229031" },
+    { "label": "Blizzard · Housing in Midnight", "href": "https://worldofwarcraft.blizzard.com/en-gb/news/24244457" },
+    { "label": "Blizzard · futuro di Housing", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24244406" },
+    { "label": "Blizzard · aggiornamenti e tuning delle classi", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24243864" },
+    { "label": "Blizzard · archivio notizie e hotfix", "href": "https://worldofwarcraft.blizzard.com/en-us/news/" },
+    { "label": "Blizzard · panoramica ufficiale delle classi", "href": "https://worldofwarcraft.blizzard.com/en-us/game/classes" }
+  ]
+}

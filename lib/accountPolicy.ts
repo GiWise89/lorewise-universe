@@ -1,4 +1,4 @@
-export const ACCOUNT_PRIVACY_VERSION = "LW-PRIVACY-ACCOUNT-DRAFT-2026-08-18";
+export const ACCOUNT_PRIVACY_VERSION = "LW-PRIVACY-2026-08-24";
 export const LOREWISE_OWNER_EMAIL = "lorewise.archive@gmail.com";
 export const ACCOUNT_MINIMUM_AGE = 16;
 

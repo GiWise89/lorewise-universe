@@ -8,8 +8,8 @@ const outputRoot = path.join(root, "output", "artwork-deliveries");
 const publicIndex = JSON.parse(await readFile(path.join(outputRoot, "delivery-index.json"), "utf8"));
 const vipIndex = JSON.parse(await readFile(path.join(outputRoot, "vip-delivery-index.json"), "utf8"));
 const indexedDeliveries = [...(publicIndex.deliveries ?? []), ...(vipIndex.deliveries ?? [])];
-if (indexedDeliveries.length !== 49) {
-  throw new Error(`Il catalogo automatico richiede 49 pacchetti verificati; trovati ${indexedDeliveries.length}.`);
+if (indexedDeliveries.length !== 50) {
+  throw new Error(`Il catalogo automatico richiede 50 pacchetti verificati; trovati ${indexedDeliveries.length}.`);
 }
 
 const deliveries = [];

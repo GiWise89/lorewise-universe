@@ -2,14 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { NexusChroniclesFeed } from "@/components/NexusChroniclesFeed";
-import { nexusChronicles } from "@/lib/nexusChronicles";
+import { getNexusChronicles } from "@/lib/nexusChronicles";
 
 export const metadata: Metadata = {
   title: "Cronache del Nexus",
   description: "Opere, giochi, dossier e nuovi frammenti del LoreWise Universe.",
 };
 
-export default function NexusChroniclesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function NexusChroniclesPage({ searchParams }: { searchParams: Promise<{ anteprima?: string }> }) {
+  const params = await searchParams;
+  const localCalendarPreview = process.env.NODE_ENV !== "production" && params.anteprima === "tutte";
+  const editorialDate = localCalendarPreview ? new Date("2026-09-07T12:00:00+02:00") : new Date();
+  const nexusChronicles = getNexusChronicles(editorialDate);
+  const currentChronicle = nexusChronicles[0];
   return <main className="nexus-chronicles-page">
     <section className="nexus-chronicles-hero" aria-labelledby="nexus-chronicles-title">
       <div className="shell nexus-chronicles-hero-inner">
@@ -19,7 +26,7 @@ export default function NexusChroniclesPage() {
           <h1 id="nexus-chronicles-title">Cronache del Nexus</h1>
           <p>Opere, giochi, dossier e nuovi frammenti dell’universo. Ogni cronaca racconta un cambiamento reale, mostra ciò che possiamo anticipare e protegge le sorprese che devono ancora arrivare.</p>
         </div>
-        <aside><span>Edizione corrente</span><strong>Prima trasmissione</strong><small>{nexusChronicles.length} cronaca pubblicata</small></aside>
+        <aside><span>Edizione corrente</span><strong>{currentChronicle?.issue ?? "In preparazione"}</strong><small>{nexusChronicles.length} {nexusChronicles.length === 1 ? "cronaca pubblicata" : "cronache pubblicate"}</small></aside>
       </div>
     </section>
 

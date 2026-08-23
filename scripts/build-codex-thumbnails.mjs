@@ -5,7 +5,11 @@ import sharp from "sharp";
 const root = process.cwd();
 const sourceRoot = path.join(root, "assets", "codex-character-originals");
 const outputRoot = path.join(root, "public", "codex", "thumbnails");
+const profilePath = path.join(root, ".tmp", "codex-thumbnail-profile.txt");
+const renderProfile = "340x450-webp-q78-a88-e6-v2";
 const supported = new Set([".png", ".jpg", ".jpeg", ".webp"]);
+const previousProfile = await fs.readFile(profilePath, "utf8").catch(() => "");
+const forceRebuild = previousProfile !== renderProfile;
 
 async function collect(directory) {
   const entries = await fs.readdir(directory, { withFileTypes: true });
@@ -26,11 +30,11 @@ async function convert(source) {
     fs.stat(source),
     fs.stat(output).catch(() => null),
   ]);
-  if (outputStat && outputStat.size > 0 && outputStat.mtimeMs >= sourceStat.mtimeMs) return false;
+  if (!forceRebuild && outputStat && outputStat.size > 0 && outputStat.mtimeMs >= sourceStat.mtimeMs) return false;
   await sharp(source, { failOn: "warning" })
     .rotate()
-    .resize({ width: 360, height: 480, fit: "inside", withoutEnlargement: true })
-    .webp({ quality: 82, alphaQuality: 90, effort: 5 })
+    .resize({ width: 340, height: 450, fit: "inside", withoutEnlargement: true })
+    .webp({ quality: 78, alphaQuality: 88, effort: 6 })
     .toFile(output);
   return true;
 }
@@ -38,11 +42,13 @@ async function convert(source) {
 const files = await collect(sourceRoot);
 let converted = 0;
 const queue = [...files];
-const workers = Array.from({ length: Math.min(8, files.length) }, async () => {
+const workers = Array.from({ length: Math.min(2, files.length) }, async () => {
   while (queue.length) {
     const source = queue.shift();
     if (source && await convert(source)) converted += 1;
   }
 });
 await Promise.all(workers);
+await fs.mkdir(path.dirname(profilePath), { recursive: true });
+await fs.writeFile(profilePath, renderProfile, "utf8");
 console.log(`Anteprime Codex pronte: ${files.length} file, ${converted} rigenerati, senza ritagli.`);

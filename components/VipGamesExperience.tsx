@@ -32,11 +32,15 @@ type SingerVotePayload = {
   error?: string;
 };
 
-export function VipGamesExperience() {
+export function VipGamesExperience({ initialArea = "guides", initialGame = "the-wound-remembers", guidePreview = "" }: {
+  initialArea?: ActiveArea;
+  initialGame?: ActiveGame;
+  guidePreview?: string;
+}) {
   const [payload, setPayload] = useState<VipPayload | null>(null);
   const [error, setError] = useState<{ message: string; reason: string } | null>(null);
-  const [activeArea, setActiveArea] = useState<ActiveArea>("guides");
-  const [activeGame, setActiveGame] = useState<ActiveGame>("the-wound-remembers");
+  const [activeArea, setActiveArea] = useState<ActiveArea>(initialArea);
+  const [activeGame, setActiveGame] = useState<ActiveGame>(initialGame);
   const [candidate, setCandidate] = useState("");
   const [singerVote, setSingerVote] = useState<SingerVotePayload>({ ranking: [], viewerChoice: null });
   const [voteMessage, setVoteMessage] = useState("");
@@ -44,7 +48,8 @@ export function VipGamesExperience() {
 
   useEffect(() => {
     const controller = new AbortController();
-    fetch("/api/vip-zone", { cache: "no-store", headers: { accept: "application/json" }, signal: controller.signal })
+    const vipApiUrl = guidePreview ? `/api/vip-zone?guida=${encodeURIComponent(guidePreview)}` : "/api/vip-zone";
+    fetch(vipApiUrl, { cache: "no-store", headers: { accept: "application/json" }, signal: controller.signal })
       .then(async (response) => {
         const body = await response.json() as VipPayload & { error?: string; reason?: string };
         if (!response.ok) throw new Error(`${body.reason ?? "unavailable"}\n${body.error ?? "Accesso non disponibile."}`);
@@ -56,7 +61,7 @@ export function VipGamesExperience() {
         setError({ reason: code, message: parts.join(" ") });
       });
     return () => controller.abort();
-  }, []);
+  }, [guidePreview]);
 
   useEffect(() => {
     if (activeArea !== "games" || activeGame !== "fuori-trama") return;
@@ -69,6 +74,15 @@ export function VipGamesExperience() {
       .catch(() => undefined);
     return () => controller.abort();
   }, [activeArea, activeGame]);
+
+  useEffect(() => {
+    if (!payload || !window.location.hash) return;
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(targetId)?.scrollIntoView({ block: "start" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [payload, activeArea, activeGame]);
 
   async function submitSingerVote(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -113,7 +127,10 @@ export function VipGamesExperience() {
   }
 
   if (!payload) {
-    return <section className="vip-loading shell" aria-live="polite">
+    const loadingTargetId = activeArea === "games"
+      ? activeGame === "fuori-trama" ? "vip-panel-fuori-trama" : "dossier-rogo"
+      : activeArea;
+    return <section className="vip-loading shell" id={loadingTargetId} aria-live="polite">
       <span aria-hidden="true" />
       <p>Verifica del Pass in corso…</p>
     </section>;

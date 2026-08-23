@@ -12,6 +12,39 @@ const dossiers = [...originals, ...thirdParty];
 const failures = [];
 const dossierBySlug = new Map();
 
+function normalizedFactValue(value) {
+  return String(value).toLocaleLowerCase("it").replace(/[\s.,;:·—–-]+/g, " ").trim();
+}
+
+function withoutRepeatedFacts(facts, valuesAlreadyShown = new Set()) {
+  const seen = new Set(valuesAlreadyShown);
+  return facts.filter((fact) => {
+    if (fact.label === "Pronuncia") return false;
+    const value = normalizedFactValue(fact.value);
+    if (!value || seen.has(value)) return false;
+    seen.add(value);
+    return true;
+  });
+}
+
+function openingChapterGroups(dossier) {
+  const identityOperationalLabels = /occupazione|ruolo|profilo registrato/i;
+  const identityCore = withoutRepeatedFacts(dossier.identity.filter((fact) => !identityOperationalLabels.test(fact.label)));
+  const identityValues = new Set(identityCore.map((fact) => normalizedFactValue(fact.value)));
+  const identityOperational = withoutRepeatedFacts(dossier.identity.filter((fact) => identityOperationalLabels.test(fact.label)), identityValues);
+  const allIdentityValues = new Set([...identityValues, ...identityOperational.map((fact) => normalizedFactValue(fact.value))]);
+  const narrativeContextLabels = /universo|opera d.origine|categoria|formato|continuità|creatore|studio/i;
+  const narrativeWithoutEquivalentUniverse = dossier.narrative.filter((fact) => {
+    if (!/^universo$/i.test(fact.label)) return true;
+    const work = dossier.narrative.find((candidate) => /opera d.origine/i.test(candidate.label));
+    return !work || normalizedFactValue(work.value) !== normalizedFactValue(fact.value);
+  });
+  const narrativeContext = withoutRepeatedFacts(narrativeWithoutEquivalentUniverse.filter((fact) => narrativeContextLabels.test(fact.label)), new Set(allIdentityValues));
+  const narrativeShownValues = new Set([...allIdentityValues, ...narrativeContext.map((fact) => normalizedFactValue(fact.value))]);
+  const narrativeFunction = withoutRepeatedFacts(narrativeWithoutEquivalentUniverse.filter((fact) => !narrativeContextLabels.test(fact.label)), narrativeShownValues);
+  return { identityCore, identityOperational, narrativeContext, narrativeFunction };
+}
+
 function publicStrings(value, key = "") {
   if (key === "src") return [];
   if (typeof value === "string") return [value];
@@ -23,6 +56,18 @@ function publicStrings(value, key = "") {
 for (const dossier of dossiers) {
   if (dossierBySlug.has(dossier.slug)) failures.push(`${dossier.slug}: dossier duplicato`);
   dossierBySlug.set(dossier.slug, dossier);
+  const groups = openingChapterGroups(dossier);
+  for (const [group, facts] of Object.entries(groups)) if (!facts.length) failures.push(`${dossier.slug}: gruppo iniziale ${group} vuoto dopo la rimozione delle ripetizioni`);
+  const displayedValues = [...groups.identityCore, ...groups.identityOperational, ...groups.narrativeContext, ...groups.narrativeFunction].map((fact) => normalizedFactValue(fact.value));
+  if (new Set(displayedValues).size !== displayedValues.length) failures.push(`${dossier.slug}: valore ripetuto nei primi due capitoli`);
+  const declaredSources = new Set((dossier.editorial?.sources || []).map((source) => source.id));
+  const inspectSourceIds = (value) => {
+    if (Array.isArray(value)) { value.forEach(inspectSourceIds); return; }
+    if (!value || typeof value !== "object") return;
+    if (Array.isArray(value.sourceIds)) for (const sourceId of value.sourceIds) if (!declaredSources.has(sourceId)) failures.push(`${dossier.slug}: fonte ${sourceId} usata ma non dichiarata`);
+    for (const child of Object.values(value)) inspectSourceIds(child);
+  };
+  inspectSourceIds(dossier);
 }
 
 for (const dossier of thirdParty) {
@@ -65,4 +110,4 @@ if (failures.length) {
   console.error(`Audit Codex fallito (${failures.length} problemi):\n${failures.slice(0, 100).join("\n")}`);
   process.exit(1);
 }
-console.log(`Audit Codex superato: ${registry.length}/${registry.length} schede, ${registry.length}/${registry.length} immagini associate e byte-identiche, otto sezioni complete per ogni dossier.`);
+console.log(`Audit Codex superato: ${registry.length}/${registry.length} schede, ${registry.length}/${registry.length} immagini associate e byte-identiche, otto sezioni complete e nessun valore ripetuto nei primi due capitoli.`);

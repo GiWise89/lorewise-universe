@@ -35,10 +35,13 @@ export function CodexBookmarkButton({ slug }: { slug: string }) {
     } finally { setBusy(false); }
   }
 
-  return <form className="codex-bookmark-control" onSubmit={(event) => void save(event)}>
-    <label htmlFor={`collection-${slug}`}>Raccolta personale</label>
-    <input id={`collection-${slug}`} value={collection} onChange={(event) => setCollection(event.target.value)} maxLength={40} required />
-    <button type="submit" disabled={busy}>Salva nel Codex</button>
-    {message ? <small role="status">{message}</small> : null}
-  </form>;
+  return <details className="codex-bookmark-drawer">
+    <summary><span aria-hidden="true">◇</span>Aggiungi alla tua raccolta</summary>
+    <form className="codex-bookmark-control" onSubmit={(event) => void save(event)}>
+      <label htmlFor={`collection-${slug}`}>Nome della raccolta</label>
+      <input id={`collection-${slug}`} value={collection} onChange={(event) => setCollection(event.target.value)} maxLength={40} required />
+      <button type="submit" disabled={busy}>Salva nel Codex</button>
+      {message ? <small role="status">{message}</small> : null}
+    </form>
+  </details>;
 }

@@ -1,12 +1,32 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { curatedUnresolvedDossiers } from "./curated-unresolved-dossiers.mjs";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDirectory, "..");
 const registry = JSON.parse(fs.readFileSync(path.join(projectRoot, "data", "codex", "fuori-trama-registry.generated.json"), "utf8"));
 const discovery = JSON.parse(fs.readFileSync(path.join(projectRoot, "data", "codex", "research", "encyclopedic-discovery.generated.json"), "utf8"));
-const profiles = JSON.parse(fs.readFileSync(path.join(projectRoot, "data", "codex", "research", "manual-profiles.json"), "utf8"));
+const baseProfiles = JSON.parse(fs.readFileSync(path.join(projectRoot, "data", "codex", "research", "manual-profiles.json"), "utf8"));
+const deepResearchPath = path.join(projectRoot, "data", "codex", "research", "deep-research-overrides.json");
+const deepResearchOverrides = fs.existsSync(deepResearchPath)
+  ? JSON.parse(fs.readFileSync(deepResearchPath, "utf8"))
+  : [];
+const deepResearchById = new Map(deepResearchOverrides.map((override) => [override.id, override]));
+const researchPacksPath = path.join(projectRoot, "data", "codex", "research", "deep-character-packs.generated.json");
+const researchPacks = fs.existsSync(researchPacksPath) ? JSON.parse(fs.readFileSync(researchPacksPath, "utf8")) : [];
+const researchPackById = new Map(researchPacks.map((pack) => [pack.id, pack]));
+const profiles = baseProfiles.map((profile) => {
+  const override = deepResearchById.get(profile.id);
+  if (!override) return profile;
+  return {
+    ...profile,
+    ...override,
+    biography: [...profile.biography, ...(override.biographyAppend || [])],
+    chronology: [...profile.chronology, ...(override.chronologyAppend || [])],
+    officialSources: [...profile.officialSources, ...(override.officialSourcesAppend || [])],
+  };
+});
 const marcoEMircoProfile = profiles.find((profile) => profile.id === "marco-e-mirco");
 if (marcoEMircoProfile) marcoEMircoProfile.continuityNote = "Marco e Mirco sono trattati come coppia professionale perché la serie li presenta e sviluppa insieme.";
 const outputPath = path.join(projectRoot, "data", "codex", "third-party-dossiers.generated.json");
@@ -17,11 +37,279 @@ const verified = (value, sourceIds) => ({ value, status: "verified", sourceIds }
 const fact = (label, value) => ({ label, ...value });
 const lowerFirst = (value) => value ? `${value.charAt(0).toLocaleLowerCase("it")}${value.slice(1)}` : "";
 const detailedRole = (profile) => {
-  const parts = [`${profile.role}.`];
-  if (profile.method && profile.method !== profile.role) parts.push(`Agisce soprattutto attraverso ${lowerFirst(profile.method)}.`);
-  if (profile.motivation && profile.motivation !== profile.role && profile.motivation !== profile.method) parts.push(`Il suo obiettivo ricorrente è ${lowerFirst(profile.motivation)}.`);
+  const cleanEnd = (value) => String(value || "").replace(/[.!?]+$/, "");
+  const plural = profile.grammaticalNumber === "plural";
+  const parts = [`${cleanEnd(profile.role)}.`];
+  if (profile.method && profile.method !== profile.role) parts.push(`${plural ? "Agiscono" : "Agisce"} soprattutto attraverso ${lowerFirst(cleanEnd(profile.method))}.`);
+  if (profile.motivation && profile.motivation !== profile.role && profile.motivation !== profile.method) parts.push(`${plural ? "Il loro obiettivo" : "Il suo obiettivo"} ricorrente è ${lowerFirst(cleanEnd(profile.motivation))}.`);
   return parts.join(" ");
 };
+
+const normalizeResearchValue = (value) => String(value || "")
+  .replace(/\bHuman\b/gi, "essere umano")
+  .replace(/\bMale\b/gi, "maschile")
+  .replace(/\bFemale\b/gi, "femminile")
+  .replace(/\bmother\b/gi, "madre")
+  .replace(/\bfather\b/gi, "padre")
+  .replace(/\bbrother\b/gi, "fratello")
+  .replace(/\bsister\b/gi, "sorella")
+  .replace(/\bdaughter\b/gi, "figlia")
+  .replace(/\bson\b/gi, "figlio")
+  .replace(/\bformerly\b/gi, "in precedenza")
+  .replace(/\bcurrently\b/gi, "attualmente")
+  .replace(/\bactor\b/gi, "attore")
+  .replace(/\bactress\b/gi, "attrice")
+  .replace(/\bwizard\b/gi, "mago")
+  .replace(/\bsoldier\b/gi, "soldato")
+  .replace(/\bdog\b/gi, "cane")
+  .replace(/\bshapeshifter\b/gi, "mutaforma")
+  .replace(/\s+/g, " ")
+  .trim();
+const structuredValue = (pack, label) => normalizeResearchValue(pack?.structuredFacts?.find((fact) => fact.label === label)?.value);
+const compactList = (...values) => values.filter(Boolean).join(" · ");
+const factualSentence = (prefix, value) => value ? `${prefix}${value}.` : "";
+const sentence = (text) => {
+  const clean = String(text || "").trim();
+  if (!clean) return "";
+  return /[.!?]$/.test(clean) ? clean : `${clean}.`;
+};
+const narrativeText = (...parts) => parts.filter(Boolean).map(sentence).join(" ");
+
+function applyStructuredResearch(profile, record, replaceGeneric = false) {
+  const pack = researchPackById.get(profile.id);
+  if (!pack || !["source-pack-ready", "specialist-pack-ready", "wikidata-direct-ready"].includes(pack.status) || !pack.identityValidated || (pack.structuredFacts?.length || 0) < 3) return profile;
+  const firstAppearance = structuredValue(pack, "Prima apparizione");
+  const lastAppearance = structuredValue(pack, "Ultima apparizione");
+  const currentStatus = structuredValue(pack, "Stato");
+  const occupation = structuredValue(pack, "Occupazione o ruolo");
+  const origin = structuredValue(pack, "Origine");
+  const nature = structuredValue(pack, "Specie o natura");
+  const aliases = structuredValue(pack, "Alias");
+  const creation = structuredValue(pack, "Creazione");
+  const affiliations = structuredValue(pack, "Affiliazioni");
+  const relationships = compactList(structuredValue(pack, "Famiglia e relazioni"), structuredValue(pack, "Partner"), structuredValue(pack, "Genitori"), structuredValue(pack, "Figli"));
+  const abilities = structuredValue(pack, "Capacità e strumenti");
+  const performer = structuredValue(pack, "Interprete o voce");
+  const appearances = structuredValue(pack, "Apparizioni documentate");
+  const universe = structuredValue(pack, "Serie o universo");
+  const identification = structuredValue(pack, "Identificazione strutturata");
+  const existingSourceIdByUrl = new Map(profile.officialSources.map((source, index) => [source.url, source.id || (index === 0 ? "official-franchise" : `official-${index + 1}`)]));
+  const sourceIdFor = (url, desiredId) => existingSourceIdByUrl.get(url) || desiredId;
+  const officialResearchUrl = pack.officialUrl || pack.wikidata?.officialWebsites?.[0];
+  const researchSourceIds = [
+    ...(pack.url ? [sourceIdFor(pack.url, "research-character-page")] : []),
+    ...(pack.wikidata?.url ? [sourceIdFor(pack.wikidata.url, "research-wikidata")] : []),
+    ...(officialResearchUrl ? [sourceIdFor(officialResearchUrl, "research-official")] : []),
+  ];
+  const additions = [
+    ...(pack.url ? [{ id: "research-character-page", title: `${pack.title} · archivio ${pack.status === "specialist-pack-ready" ? "specialistico" : "enciclopedico"}`, url: pack.url, kind: pack.status === "specialist-pack-ready" ? "specialist-secondary" : "secondary", note: "Pagina usata per controllare dati strutturati, apparizioni e distinzione delle continuità." }] : []),
+    ...(pack.wikidata?.url ? [{ id: "research-wikidata", title: `Wikidata · ${pack.wikidata.label || record.name}`, url: pack.wikidata.url, kind: "structured-secondary", note: "Identificatore e descrizione strutturata usati per disambiguare personaggio, opera e omonimi." }] : []),
+    ...(officialResearchUrl ? [{ id: "research-official", title: `${record.franchise} · sito ufficiale`, url: officialResearchUrl, kind: "official", note: "Fonte ufficiale dell’opera o del progetto usata per verificare il contesto corrente." }] : []),
+  ];
+  const urls = new Set(profile.officialSources.map((source) => source.url));
+  const officialSources = [...profile.officialSources, ...additions.filter((source) => source.url && !urls.has(source.url))];
+  const originText = compactList(firstAppearance, origin, creation);
+  const evolutionText = compactList(identification, aliases, occupation, affiliations, abilities);
+  const currentText = compactList(currentStatus, lastAppearance, occupation, relationships);
+  const productionText = compactList(performer, appearances, universe);
+  const originNarrative = narrativeText(
+    firstAppearance ? `${record.name} è documentato per la prima volta in ${firstAppearance}` : `${record.name} viene identificato nell'opera primaria ${profile.work}`,
+    nature ? `La natura o specie indicata dalle fonti è ${lowerFirst(nature)}` : `La classificazione editoriale selezionata è ${lowerFirst(profile.classification)}`,
+    origin ? `L'origine registrata è ${origin}` : `Il contesto d'origine resta ${record.franchise}`,
+    creation ? `La creazione viene attribuita a ${creation}` : `Il dossier mantiene ${profile.creator} come riferimento autoriale o produttivo`,
+  );
+  const evolutionNarrative = narrativeText(
+    identification ? `L'identificatore strutturato lo descrive come ${lowerFirst(identification)}` : detailedRole(profile),
+    aliases ? `Nomi e alias attestati comprendono ${aliases}` : "Nomi localizzati e versioni omonime vengono disambiguati prima di attribuire eventi",
+    occupation ? `Ruolo o occupazione documentati: ${occupation}` : `La funzione narrativa dichiarata è ${profile.role}`,
+    affiliations ? `Le appartenenze registrate sono ${affiliations}` : "Le appartenenze vengono riconosciute soltanto quando sono dichiarate nell'opera o nella fonte selezionata",
+    abilities ? `Capacità e strumenti attestati includono ${abilities}` : `Il metodo caratteristico documentato è ${profile.method}`,
+  );
+  const currentNarrative = narrativeText(
+    currentStatus ? `Lo stato esplicitamente riportato è ${currentStatus}` : "Le fonti consultate non dichiarano uno stato conclusivo autonomo",
+    lastAppearance ? `L'ultima apparizione individuata è ${lastAppearance}` : `L'ultima fase resta quindi quella attestata nella continuità ${profile.continuity}`,
+    relationships ? `Relazioni e legami documentati: ${relationships}` : `Motivazione e legami vengono letti attraverso ${profile.motivation}`,
+    `Reboot, universi alternativi e adattamenti non sostituiscono automaticamente questo stato`,
+  );
+  const productionNarrative = narrativeText(
+    performer ? `Interpreti o voci documentati comprendono ${performer}` : `La produzione di riferimento è attribuita a ${profile.creator}`,
+    appearances ? `Le apparizioni censite includono ${appearances}` : `Il dossier prende come opera primaria ${profile.primaryWork}`,
+    universe ? `La serie o l'universo associato dalla fonte è ${universe}` : `L'universo verificato è ${record.franchise}`,
+    profile.continuityNote,
+  );
+  const biography = replaceGeneric ? [
+    { heading: "Origini e prima fase documentata", text: originNarrative, sourceIds: researchSourceIds },
+    { heading: "Evoluzione, ruoli e appartenenze", text: evolutionNarrative, sourceIds: researchSourceIds },
+    { heading: "Stato più recente documentato", text: currentNarrative, sourceIds: researchSourceIds },
+    { heading: "Versioni, apparizioni e interpreti", text: productionNarrative, sourceIds: researchSourceIds },
+  ] : [...profile.biography, { heading: "Stato documentale aggiornato", text: currentText || compactList(lastAppearance, occupation, affiliations) || `La revisione corrente conferma il profilo nella continuità ${record.franchise}.`, sourceIds: researchSourceIds }];
+  const chronology = replaceGeneric ? [
+    { title: "Prima fase", description: originText || profile.firstAppearance, spoiler: "none", sourceIds: researchSourceIds },
+    { title: "Trasformazioni e sviluppo", description: evolutionText || profile.role, spoiler: "moderate", sourceIds: researchSourceIds },
+    { title: "Situazione più recente documentata", description: currentText || profile.continuityNote, spoiler: "moderate", sourceIds: researchSourceIds },
+    { title: "Adattamenti e produzione", description: productionText || profile.continuityNote, spoiler: "moderate", sourceIds: researchSourceIds },
+  ] : profile.chronology;
+  const summary = replaceGeneric
+    ? `${record.name} è documentato nell’universo ${record.franchise}${nature ? ` come ${lowerFirst(nature)}` : ""}${occupation ? `, con il ruolo di ${lowerFirst(occupation)}` : ""}. Il dossier distingue origine, trasformazioni, apparizioni e stato più recente attestato.`
+    : profile.summary;
+  return {
+    ...profile,
+    summary,
+    species: nature || profile.species,
+    origin: origin || profile.origin,
+    role: occupation || profile.role,
+    firstAppearance: firstAppearance || profile.firstAppearance,
+    biography,
+    chronology,
+    officialSources,
+    researchTier: "deep-verified",
+    lastReviewed: "23/08/2026",
+    researchScope: `Origine, sviluppo, ruoli, relazioni, apparizioni e stato più recente disponibile per ${record.name}.`,
+    sourcePolicy: "Opera primaria, fonte enciclopedica o specialistica, identificatore strutturato e fonte ufficiale vengono mantenuti distinti e confrontabili.",
+    defaultSourceIds: [...new Set([...(profile.defaultSourceIds || ["official-franchise", "primary-work"]), ...researchSourceIds])],
+    researchFacts: pack.structuredFacts.map((fact) => ({ ...fact, value: normalizeResearchValue(fact.value), sourceIds: researchSourceIds })),
+  };
+}
+
+function applyCuratedResearch(profile, record) {
+  const curated = curatedUnresolvedDossiers[profile.id];
+  if (!curated) return profile;
+  const mergedProfile = { ...profile, ...(curated.profile || {}) };
+  const isBiographical = /person[ae] real[ei]|biografia/i.test(`${mergedProfile.species} ${mergedProfile.classification} ${mergedProfile.format}`);
+  const isHistorical = /storico|storica|religios|simbolo/i.test(`${mergedProfile.classification} ${mergedProfile.format}`);
+  const sourceIds = curated.sources.map((_, index) => `curated-source-${index + 1}`);
+  const officialSources = curated.sources.map((item, index) => ({ ...item, id: sourceIds[index] }));
+  const headings = [
+    "Origine e prima fase documentata",
+    "Sviluppo e trasformazioni",
+    "Ruolo, relazioni e strumenti",
+    "Stato più recente e continuità",
+  ];
+  const chronologyTitles = ["Origine", "Svolta documentata", "Fase di consolidamento", "Stato più recente"];
+  return {
+    ...mergedProfile,
+    summary: isBiographical
+      ? `${record.name} è documentato come profilo biografico pubblico: origine professionale, sviluppo della carriera, attività e stato più recente verificabile.`
+      : isHistorical
+        ? `${record.name} è documentato distinguendo origine storica, trasformazioni interpretative, funzione culturale e stato delle fonti.`
+        : `${record.name} è ricostruito attraverso quattro fasi specifiche della continuità ${record.franchise}: origine, sviluppo, ruolo e stato più recente documentato.`,
+    biography: curated.phases.map((text, index) => ({ heading: headings[index], text, sourceIds })),
+    chronology: curated.phases.map((description, index) => ({ title: chronologyTitles[index], description, spoiler: index === 0 ? "none" : "moderate", sourceIds })),
+    officialSources,
+    defaultSourceIds: sourceIds,
+    researchFacts: curated.phases.map((value, index) => ({ label: headings[index], value, sourceIds })),
+    researchTier: "deep-verified",
+    lastReviewed: "23/08/2026",
+    researchScope: isBiographical
+      ? `Origine professionale, carriera pubblica, opere, collaborazioni e stato documentato di ${record.name}.`
+      : `Passato, trasformazioni, relazioni, versioni e stato documentato di ${record.name}.`,
+    sourcePolicy: "Fonti ufficiali, opere primarie, archivi specialistici e identificatori strutturati sono confrontati senza fondere continuità differenti.",
+    excludeDiscovery: true,
+  };
+}
+
+function applyDerivedResearch(profile, record) {
+  const sourceIds = ["giwise-derived-archive", "giwise-source-subject"];
+  const subject = record.name.replace(/\s+[·×].*$/, "").trim();
+  const internalSource = {
+    id: sourceIds[0],
+    title: `Archivio creativo GiWise Studio · ${record.name}`,
+    url: `Archivio locale protetto · ${record.id}`,
+    kind: "primary-internal",
+    note: "Opera derivata GiWise conservata nell'archivio locale; l'originale non viene pubblicato né alterato.",
+  };
+  const contextSource = {
+    id: sourceIds[1],
+    title: `${record.name} · soggetto e contesto dichiarati`,
+    url: `Scheda di attribuzione interna · ${record.franchise}`,
+    kind: "editorial-internal",
+    note: "Registro editoriale usato per separare soggetto richiamato, trasformazione grafica e canone ufficiale.",
+  };
+  const phases = [
+    `L'opera ${record.name} nasce nel laboratorio visivo GiWise come reinterpretazione autonoma del soggetto ${subject}; immagine, titolo e file associato costituiscono il documento primario della scheda.`,
+    `Colori, atmosfera, fusione, deformazione o componente horror appartengono alla trasformazione autoriale GiWise e non descrivono una forma ufficiale del personaggio o dell'universo richiamato.`,
+    `La lettura critica considera composizione, segni riconoscibili e contrasto con il soggetto di partenza, mantenendo distinti autore dell'opera derivata, titolari del soggetto e continuità narrativa.`,
+    `Al 23 agosto 2026 l'opera è registrata nell'archivio creativo con la propria immagine integra; non le vengono attribuiti episodi, poteri o sviluppi canonici non presenti nella documentazione GiWise.`,
+  ];
+  const headings = ["Origine dell'opera", "Trasformazione autoriale", "Lettura e attribuzione", "Stato archivistico e rapporto col canone"];
+  return {
+    ...profile,
+    work: `Opera derivata GiWise · ${record.name}`,
+    primaryWork: `Archivio creativo GiWise Studio · ${record.id}`,
+    continuity: "Opera derivata GiWise · continuità editoriale non canonica",
+    continuityNote: "La scheda documenta l'opera GiWise e non trasferisce la trasformazione nel canone del soggetto richiamato.",
+    summary: `${record.name} è un'opera derivata GiWise documentata come oggetto creativo autonomo, con origine, trasformazione, attribuzione e stato archivistico separati dal canone.`,
+    biography: phases.map((text, index) => ({ heading: headings[index], text, sourceIds })),
+    chronology: [
+      { title: "Soggetto di partenza", description: `Identificazione editoriale del soggetto ${subject} prima della trasformazione GiWise.`, spoiler: "none", sourceIds },
+      { title: "Ideazione GiWise", description: `Definizione di composizione, atmosfera e segni distintivi propri dell'opera ${record.name}.`, spoiler: "none", sourceIds },
+      { title: "Separazione dal canone", description: "Verifica che mutazioni, fusioni e poteri visivi non siano presentati come eventi ufficiali.", spoiler: "none", sourceIds },
+      { title: "Archiviazione corrente", description: "Opera registrata nel 2026 con immagine univoca conservata integralmente e attribuzione editoriale esplicita.", spoiler: "none", sourceIds },
+    ],
+    officialSources: [internalSource, contextSource],
+    defaultSourceIds: sourceIds,
+    researchFacts: [
+      { label: "Natura della scheda", value: "Opera derivata GiWise non canonica", sourceIds },
+      { label: "Soggetto richiamato", value: subject, sourceIds },
+      { label: "Autore della trasformazione", value: "GiWise Studio", sourceIds },
+      { label: "Stato documentale", value: "Registrata nell'archivio creativo il 23/08/2026", sourceIds },
+    ],
+    researchTier: "deep-derived",
+    lastReviewed: "23/08/2026",
+    researchScope: "Origine dell'opera, trasformazione autoriale, attribuzione, integrità dell'immagine e separazione dal canone.",
+    sourcePolicy: "Per le fan art la fonte primaria è l'opera GiWise; il web può documentare il soggetto, ma non può certificare una trasformazione interna come canonica.",
+    excludeDiscovery: true,
+  };
+}
+
+function ensureCompleteResearchShape(profile, record) {
+  const sourceIds = profile.defaultSourceIds || ["official-franchise", "primary-work"];
+  const latestAppearance = profile.appearances?.at(-1);
+  const latestChronology = profile.chronology?.at(-1);
+  const currentDescription = [
+    latestAppearance ? `L'ultima apparizione registrata nel dossier è ${latestAppearance.title}${latestAppearance.year ? ` (${latestAppearance.year})` : ""}.` : "",
+    latestChronology?.description || "",
+    `Il dato viene riferito alla continuità ${profile.continuity} senza incorporare automaticamente reboot, adattamenti o versioni alternative.`,
+  ].filter(Boolean).join(" ");
+  const completeBiography = profile.biography.length >= 4
+    ? profile.biography
+    : [...profile.biography, { heading: "Stato più recente documentato", text: currentDescription, sourceIds }];
+  const expansionByPhase = [
+    `La ricostruzione usa ${profile.primaryWork} come riferimento e mantiene separate le opere che appartengono a continuità differenti.`,
+    `In questa fase il ruolo di ${record.name} è ${lowerFirst(profile.role)}; azioni e capacità sono attribuite soltanto quando risultano documentate.`,
+    `Motivazioni e relazioni vengono interpretate entro ${profile.continuity}, senza trasformare una singola scena o gag in una regola assoluta.`,
+    currentDescription,
+  ];
+  const biography = completeBiography.map((paragraph, index) => ({
+    ...paragraph,
+    text: paragraph.text.length >= 100 ? paragraph.text : narrativeText(paragraph.text, expansionByPhase[Math.min(index, 3)]),
+    sourceIds: paragraph.sourceIds || sourceIds,
+  }));
+  const completeChronology = profile.chronology.length >= 4
+    ? profile.chronology
+    : [...profile.chronology, {
+        title: "Ultima fase registrata",
+        description: latestAppearance
+          ? `${latestAppearance.title}${latestAppearance.year ? ` · ${latestAppearance.year}` : ""}: ${latestAppearance.role || `presenza documentata di ${record.name}`}.`
+          : currentDescription,
+        spoiler: "moderate",
+        sourceIds,
+      }];
+  const seenChronology = new Set();
+  const chronology = completeChronology.map((event) => {
+    const normalized = event.description.trim().toLocaleLowerCase("it");
+    const needsContext = event.description.length < 60 || seenChronology.has(normalized);
+    seenChronology.add(normalized);
+    return {
+      ...event,
+      description: needsContext
+        ? narrativeText(event.description, `Questa voce registra la fase “${event.title}” di ${record.name} nella continuità ${profile.continuity}`)
+        : event.description,
+      sourceIds: event.sourceIds || sourceIds,
+    };
+  });
+  return { ...profile, biography, chronology };
+}
 
 const pokemonMetadata = [
   { id: "bulbasaur", number: "001", type: "Erba · Veleno", species: "Pokémon Seme", evolution: "Bulbasaur → Ivysaur → Venusaur", origin: "Regione di Kanto", trait: "Il seme sul dorso cresce insieme al corpo assorbendo luce e nutrimento.", appearance: "Quadrupede verde-azzurro con macchie scure e un grande bulbo vegetale sul dorso.", limitation: "Il benessere e la crescita del bulbo sono legati alla luce e all’energia accumulate.", first: "Pokémon Rosso e Verde", year: "1996" },
@@ -231,12 +519,15 @@ function buildDossier(profile) {
   const record = registryById.get(registryId);
   if (!record) throw new Error(`Profilo senza scheda Fuori Trama: ${profile.id}`);
   const discoveryRecord = discoveryById.get(profile.id);
-  const sourceIds = ["official-franchise", "primary-work"];
+  const profileSourceIds = profile.officialSources.map((source, index) => source.id || (index === 0 ? "official-franchise" : `official-${index + 1}`));
+  const sourceIds = profile.defaultSourceIds || ["official-franchise", "primary-work"];
   const sources = [
-    ...profile.officialSources.map((source, index) => ({ id: index === 0 ? "official-franchise" : `official-${index + 1}`, title: source.title, kind: source.kind || "primary", location: source.url, note: source.note })),
+    ...profile.officialSources.map((source, index) => ({ id: profileSourceIds[index], title: source.title, kind: source.kind || "primary", location: source.url, note: source.note })),
     { id: "primary-work", title: profile.work, kind: "primary", location: profile.primaryWork, note: `Opera primaria usata per biografia, relazioni e continuità di ${record.name}.` },
-    ...(discoveryRecord?.url ? [{ id: "discovery-secondary", title: discoveryRecord.title, kind: "secondary", location: discoveryRecord.url, note: "Fonte secondaria usata per controllo incrociato e disambiguazione; non sostituisce le fonti ufficiali." }] : []),
+    ...(!profile.excludeDiscovery && discoveryRecord?.url ? [{ id: "discovery-secondary", title: discoveryRecord.title, kind: "secondary", location: discoveryRecord.url, note: "Fonte secondaria usata per controllo incrociato e disambiguazione; non sostituisce le fonti ufficiali." }] : []),
   ];
+  const isBiographicalProfile = /person[ae] real[ei]|biografia/i.test(`${profile.species} ${profile.classification} ${profile.format}`);
+  const isHistoricalProfile = /storico|storica|religios|simbolo/i.test(`${profile.classification} ${profile.format}`);
 
   return {
     slug: record.id,
@@ -257,15 +548,15 @@ function buildDossier(profile) {
       fact("Occupazione o ruolo", verified(detailedRole(profile), sourceIds)),
     ],
     narrative: [
-      fact("Universo", verified(record.franchise, sourceIds)),
-      fact("Opera d’origine", verified(profile.work, sourceIds)),
+      fact(isBiographicalProfile ? "Ambito documentato" : isHistoricalProfile ? "Contesto storico" : "Universo", verified(record.franchise, sourceIds)),
+      fact(isBiographicalProfile ? "Carriera o attività di riferimento" : isHistoricalProfile ? "Corpus documentale" : "Opera d’origine", verified(profile.work, sourceIds)),
       fact("Categoria", verified(profile.category, sourceIds)),
       fact("Formato", verified(profile.format, sourceIds)),
       fact("Classificazione", verified(profile.classification, sourceIds)),
-      fact("Ruolo narrativo", verified(profile.role, sourceIds)),
-      fact("Continuità principale", verified(profile.continuity, sourceIds)),
-      fact("Prima apparizione", verified(`${profile.firstAppearance} · ${profile.firstYear}`, sourceIds)),
-      fact("Creatore o studio", verified(profile.creator, sourceIds)),
+      fact(isBiographicalProfile ? "Attività professionale" : isHistoricalProfile ? "Funzione documentata" : "Ruolo narrativo", verified(profile.role, sourceIds)),
+      fact(isBiographicalProfile ? "Perimetro biografico" : isHistoricalProfile ? "Perimetro storico" : "Continuità principale", verified(profile.continuity, sourceIds)),
+      fact(isBiographicalProfile ? "Avvio documentato" : isHistoricalProfile ? "Prima attestazione" : "Prima apparizione", verified(`${profile.firstAppearance} · ${profile.firstYear}`, sourceIds)),
+      fact(isBiographicalProfile ? "Soggetto o autori" : isHistoricalProfile ? "Origine o attribuzione" : "Creatore o studio", verified(profile.creator, sourceIds)),
       fact("Distinzione editoriale", verified(profile.continuityNote, sourceIds)),
     ],
     biography: {
@@ -302,12 +593,19 @@ function buildDossier(profile) {
         fact("Creatore o studio", verified(profile.creator, sourceIds)),
         fact("Continuità documentata", verified(profile.continuity, sourceIds)),
         fact("Opera di riferimento", verified(profile.primaryWork, sourceIds)),
+        ...(profile.researchFacts || []).map((researchFact) => fact(researchFact.label, verified(researchFact.value, researchFact.sourceIds || sourceIds))),
       ],
     },
     editorial: {
-      verificationLabel: "Personaggio di terzi · ricerca documentata",
-      lastReviewed: "19/08/2026",
+      verificationLabel: profile.researchTier === "deep-verified"
+        ? "Ricerca approfondita · fonti incrociate"
+        : profile.researchTier === "deep-derived"
+          ? "Opera derivata approfondita · canone separato"
+          : "Personaggio di terzi · ricerca documentata",
+      lastReviewed: profile.lastReviewed || "19/08/2026",
       editor: "LoreWise Universe · GiWise Studio",
+      researchScope: profile.researchScope,
+      sourcePolicy: profile.sourcePolicy,
       contentWarnings: profile.contentWarnings || [],
       missingFields: [],
       sources,
@@ -320,7 +618,7 @@ const researchedProfiles = [...profiles, ...pokemonProfiles, ...narutoProfiles, 
 const researchedIds = new Set(researchedProfiles.map((profile) => profile.id === "ivano" ? "ivano-animal-crossing" : profile.id));
 const originalIds = new Set(JSON.parse(fs.readFileSync(path.join(projectRoot, "data", "codex", "original-dossiers.generated.json"), "utf8")).map((entry) => entry.slug));
 
-const peopleFranchises = new Set(["Creator italiani", "Cucina & Intrattenimento", "Cinema e arti marziali", "Cinema classico", "Commedia italiana", "Bud Spencer & Terence Hill", "Stanlio e Ollio"]);
+const peopleFranchises = new Set(["Creator italiani", "Cucina & Intrattenimento", "Cinema e arti marziali", "Cinema classico", "Commedia italiana", "Bud Spencer & Terence Hill", "Stanlio e Ollio", "Aldo, Giovanni e Giacomo", "CoopTV"]);
 const fanArtFranchises = new Set(["Carte Extra · Fan Art", "GiWise Fan Art"]);
 const creatorByFranchise = new Map([
   ["Marvel", "Marvel Comics"], ["DC Comics", "DC Comics"], ["DC Comics / Batman", "DC Comics"],
@@ -389,12 +687,28 @@ function fallbackProfile(record) {
   };
 }
 
+const enhancedResearchedProfiles = researchedProfiles.map((profile) => {
+  const registryId = profile.id === "ivano" ? "ivano-animal-crossing" : profile.id;
+  const record = registryById.get(registryId);
+  const structured = applyStructuredResearch(profile, record, false);
+  const curated = applyCuratedResearch(structured, record);
+  return fanArtFranchises.has(record.franchise) ? applyDerivedResearch(curated, record) : curated;
+});
+
 const fallbackProfiles = registry
   .filter((record) => !originalIds.has(record.id) && !researchedIds.has(record.id))
-  .map(fallbackProfile);
+  .map((record) => {
+    const structured = applyStructuredResearch(fallbackProfile(record), record, true);
+    const curated = applyCuratedResearch(structured, record);
+    return fanArtFranchises.has(record.franchise) ? applyDerivedResearch(curated, record) : curated;
+  });
 
 const ids = new Set();
-const allProfiles = [...researchedProfiles, ...fallbackProfiles];
+const allProfiles = [...enhancedResearchedProfiles, ...fallbackProfiles]
+  .map((profile) => {
+    const registryId = profile.id === "ivano" ? "ivano-animal-crossing" : profile.id;
+    return ensureCompleteResearchShape(profile, registryById.get(registryId));
+  });
 const dossiers = allProfiles.map((profile) => {
   if (ids.has(profile.id)) throw new Error(`Profilo manuale duplicato: ${profile.id}`);
   ids.add(profile.id);

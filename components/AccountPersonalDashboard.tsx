@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BenefitsCenter } from "@/components/BenefitsCenter";
+import { AccountProfilePanel } from "@/components/AccountProfilePanel";
 import { HorizontalScrollHint } from "@/components/HorizontalScrollHint";
 
 type Dashboard = {
@@ -19,6 +20,28 @@ type Dashboard = {
   supportTickets: Array<{ referenceCode: string; category: string; subject: string; status: string; priority: string; adminNotes: string | null; createdAt: string; updatedAt: string }>;
   community: { likes: number; comments: number; openReports: number };
 };
+
+type AccountView = "overview" | "benefits" | "library" | "commissions" | "orders" | "community" | "profile";
+
+const accountViews: Array<{ id: AccountView; label: string }> = [
+  { id: "overview", label: "Panoramica" },
+  { id: "benefits", label: "Vantaggi" },
+  { id: "library", label: "Libreria" },
+  { id: "commissions", label: "Commissioni" },
+  { id: "orders", label: "Ordini" },
+  { id: "community", label: "Community" },
+  { id: "profile", label: "Profilo" },
+];
+
+function readAccountView(): AccountView {
+  const requestedView = window.location.hash.replace(/^#(?:account-)?/, "") as AccountView;
+  return accountViews.some((view) => view.id === requestedView) ? requestedView : "overview";
+}
+
+function subscribeToAccountView(onStoreChange: () => void) {
+  window.addEventListener("hashchange", onStoreChange);
+  return () => window.removeEventListener("hashchange", onStoreChange);
+}
 
 const statusLabels: Record<string, string> = {
   active: "Attivo", revoked: "Revocato", paid: "Pagato", failed: "Non riuscito", past_due: "Pagamento scaduto", pending: "In attesa", incomplete: "Da completare", canceled: "Annullato", refund_pending: "Rimborso in corso", refunded: "Rimborsato", disputed: "Contestato",
@@ -77,6 +100,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
   const [subscriptionMessage, setSubscriptionMessage] = useState("");
   const [subscriptionBusy, setSubscriptionBusy] = useState(false);
   const [showPurchaseGuide, setShowPurchaseGuide] = useState(Boolean(successfulSessionId));
+  const activeView = useSyncExternalStore(subscribeToAccountView, readAccountView, () => "overview");
 
   useEffect(() => {
     let active = true;
@@ -153,6 +177,12 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
     window.history.replaceState({}, "", "/account");
   }
 
+  function openView(view: AccountView) {
+    window.history.replaceState({}, "", `/account#account-${view}`);
+    window.dispatchEvent(new HashChangeEvent("hashchange"));
+    window.requestAnimationFrame(() => document.querySelector(".personal-dashboard-nav")?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  }
+
   return <section className="personal-dashboard" aria-labelledby="personal-dashboard-title">
     {showPurchaseGuide ? <div className="purchase-success-backdrop" role="presentation">
       <section className="purchase-success-dialog" role="dialog" aria-modal="true" aria-labelledby="purchase-success-title" aria-describedby="purchase-success-description">
@@ -177,7 +207,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
             <li><b>03</b><span><strong>Ritrovalo quando vuoi</strong>Account → Libreria → Arte e licenze.</span></li>
           </ol>}
           <div className="purchase-success-actions">
-            {successfulSubscription ? <a href="#account-benefits" onClick={closePurchaseGuide}>Apri i miei vantaggi</a> : successfulCommission ? <a href="#account-commissions" onClick={closePurchaseGuide}>Apri la commissione</a> : purchasedAutomaticReady && purchasedItem && purchasedRemaining !== 0 ? <a className="purchase-success-download" href={purchasedDownloadUrl}>{purchasedIsArtwork ? "Scarica il pacchetto" : "Scarica il gioco"}<span>{purchasedRemaining === null ? "Accesso attivo" : purchasedRemaining === 1 ? "1 download disponibile" : `${purchasedRemaining} download disponibili`}</span></a> : <a href="#account-orders" onClick={closePurchaseGuide}>Segui la consegna</a>}
+            {successfulSubscription ? <button type="button" onClick={() => { closePurchaseGuide(); openView("benefits"); }}>Apri i miei vantaggi</button> : successfulCommission ? <button type="button" onClick={() => { closePurchaseGuide(); openView("commissions"); }}>Apri la commissione</button> : purchasedAutomaticReady && purchasedItem && purchasedRemaining !== 0 ? <a className="purchase-success-download" href={purchasedDownloadUrl}>{purchasedIsArtwork ? "Scarica il pacchetto" : "Scarica il gioco"}<span>{purchasedRemaining === null ? "Accesso attivo" : purchasedRemaining === 1 ? "1 download disponibile" : `${purchasedRemaining} download disponibili`}</span></a> : <button type="button" onClick={() => { closePurchaseGuide(); openView("orders"); }}>Segui la consegna</button>}
             {purchasedIsArtwork && purchasedItem?.certificateAvailable ? <a className="purchase-success-certificate" href={`/api/artwork-certificate?code=${encodeURIComponent(purchasedItem.resourceCode)}`}>Scarica il certificato <span>PDF nominativo</span></a> : null}
           </div>
           <small className="purchase-success-note">{successfulSubscription ? "Il Pass resta gestibile dall’Area personale; l’annullamento del rinnovo non cancella le opere già riscattate." : successfulCommission ? "La ricevuta dell’ordine non sostituisce il preventivo e le condizioni già accettate." : "Il certificato non consuma download. Il pacchetto acquistato sì."}</small>
@@ -191,56 +221,63 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
 
     <nav className="personal-dashboard-nav" aria-label="Sezioni dell’Area personale">
       <HorizontalScrollHint className="personal-dashboard-scroll-hint" />
-      <a href="#account-tasks">Da fare</a><a href="#account-overview">Panoramica</a><a href="#account-benefits">Vantaggi</a><a href="#account-library">Libreria</a><a href="#account-commissions">Commissioni</a><a href="#account-orders">Ordini</a><a href="#account-community">Community</a><a href="#account-profile">Profilo</a>
+      {accountViews.map((view) => <button key={view.id} type="button" aria-pressed={activeView === view.id} onClick={() => openView(view.id)}>{view.label}</button>)}
+      {canModerate ? <Link className="personal-dashboard-admin-switch" href={data.identity.role === "admin" ? "/admin" : "/gestione-community"}>{data.identity.role === "admin" ? "Admin" : "Moderazione"}<span aria-hidden="true">↗</span></Link> : null}
     </nav>
 
-    <section id="account-tasks" className="account-task-center" aria-labelledby="account-task-title"><header><div><p className="eyebrow">La tua prossima azione</p><h3 id="account-task-title">Da fare ora.</h3></div><strong>{accountTasks.length}<span>attività</span></strong></header>{accountTasks.length ? <ol>{accountTasks.map((task, index) => <li className={`tone-${task.tone}`} key={`${task.href}-${index}`}><span aria-hidden="true" /><div><strong>{task.title}</strong><p>{task.detail}</p></div><a href={task.href}>{task.action} →</a></li>)}</ol> : <div className="account-task-empty"><strong>Tutto sotto controllo.</strong><p>Non ci sono pagamenti, richieste o consegne che richiedono una tua azione.</p><Link href="/cerca">Esplora LoreWise</Link></div>}</section>
+    <section id="account-overview" className="account-workspace-panel" aria-label="Panoramica account" hidden={activeView !== "overview"}>
+      <section id="account-tasks" className="account-task-center" aria-labelledby="account-task-title"><header><div><p className="eyebrow">La tua prossima azione</p><h3 id="account-task-title">Da fare ora.</h3></div><strong>{accountTasks.length}<span>attività</span></strong></header>{accountTasks.length ? <ol>{accountTasks.map((task, index) => <li className={`tone-${task.tone}`} key={`${task.href}-${index}`}><span aria-hidden="true" /><div><strong>{task.title}</strong><p>{task.detail}</p></div>{task.href === "#account-library" || task.href === "#account-benefits" ? <button type="button" onClick={() => openView(task.href === "#account-library" ? "library" : "benefits")}>{task.action} →</button> : <a href={task.href}>{task.action} →</a>}</li>)}</ol> : <div className="account-task-empty"><strong>Tutto sotto controllo.</strong><p>Non ci sono pagamenti, richieste o consegne che richiedono una tua azione.</p><Link href="/cerca">Esplora LoreWise</Link></div>}</section>
 
-    {canModerate ? <div className="personal-admin-entry"><Image src="/brand/icons/social-assistenza-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Ruolo {data.identity.role === "admin" ? "amministratore" : "moderatore"}</p><strong>{data.community.openReports ? `${data.community.openReports} segnalazioni da valutare` : "Centro operativo disponibile"}</strong></div><div className="personal-admin-actions"><Link href={data.identity.role === "admin" ? "/admin" : "/gestione-community"}>{data.identity.role === "admin" ? "Apri il Centro Admin" : "Apri la moderazione"}</Link></div></div> : null}
+      {canModerate ? <div className="personal-admin-entry"><Image src="/brand/icons/social-assistenza-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Ruolo {data.identity.role === "admin" ? "amministratore" : "moderatore"}</p><strong>{data.community.openReports ? `${data.community.openReports} segnalazioni da valutare` : "Centro operativo disponibile"}</strong></div><div className="personal-admin-actions"><Link href={data.identity.role === "admin" ? "/admin" : "/gestione-community"}>{data.identity.role === "admin" ? "Apri il Centro Admin" : "Apri la moderazione"}</Link></div></div> : null}
 
-    <ol id="account-overview" className="personal-dashboard-numbers" aria-label="Riepilogo personale">
-      <li><span>01</span><strong>{data.summary.orders}</strong><small>Ordini registrati</small></li>
-      <li><span>02</span><strong>{data.summary.libraryItems}</strong><small>Contenuti in libreria</small></li>
-      <li><span>03</span><strong>{data.summary.commissions}</strong><small>Commissioni collegate</small></li>
-      <li><span>04</span><strong>{data.summary.communityInteractions}</strong><small>Interazioni Community</small></li>
-    </ol>
+      <ol className="personal-dashboard-numbers" aria-label="Riepilogo personale">
+        <li><span>01</span><strong>{data.summary.orders}</strong><small>Ordini registrati</small></li>
+        <li><span>02</span><strong>{data.summary.libraryItems}</strong><small>Contenuti in libreria</small></li>
+        <li><span>03</span><strong>{data.summary.commissions}</strong><small>Commissioni collegate</small></li>
+        <li><span>04</span><strong>{data.summary.communityInteractions}</strong><small>Interazioni Community</small></li>
+      </ol>
+    </section>
 
-    <div className="personal-dashboard-chapters">
+    <div className="account-workspace-panel personal-dashboard-chapters" hidden={activeView !== "benefits"}>
       <BenefitsCenter />
-      <article id="account-orders" className="personal-chapter personal-orders">
+      <article className="personal-chapter personal-pass">
+        <header><Image src="/brand/lorewise-universe-logo-concept-c.webp" alt="" width={1536} height={1024} unoptimized /><div><p className="eyebrow">Universe Pass</p><h3>Il tuo accesso.</h3></div></header>
+        {data.subscription ? <div className="personal-active-pass"><strong>Universe Pass {data.benefits.name !== "Visitatore" ? data.benefits.name : data.subscription.planCode.replace("LW-PASS-", "")}</strong><span>{data.subscription.complimentary ? "Collector permanente" : statusLabels[data.subscription.status] ?? data.subscription.status}</span><p>{data.subscription.complimentary ? "Accesso proprietario senza scadenza e senza rinnovo." : data.subscription.currentPeriodEnd ? "Periodo corrente fino al " + dateLabel(data.subscription.currentPeriodEnd) + "." : "Periodo non ancora definito."}</p>{data.benefits.active ? <dl className="personal-pass-benefits"><div><dt>Commissioni</dt><dd>Sconto automatico {data.benefits.commissionDiscountPercent}%</dd></div><div><dt>Arte</dt><dd>{data.benefits.artworkCreditsPerMonth} {data.benefits.artworkCreditsPerMonth === 1 ? "credito mensile" : "crediti mensili"} · massimo {data.benefits.artworkCreditCap}</dd></div></dl> : <small>I vantaggi sono sospesi finché il piano non risulta attivo e pagato.</small>}{!data.subscription.complimentary && data.subscription.cancelAtPeriodEnd ? <small>Il rinnovo risulta disattivato.</small> : null}{!data.subscription.complimentary && ["active", "trialing", "past_due"].includes(data.subscription.status) ? <button type="button" disabled={subscriptionBusy} onClick={() => void updateSubscription(!data.subscription?.cancelAtPeriodEnd)}>{data.subscription.cancelAtPeriodEnd ? "Riattiva rinnovo" + renewalSuffix : "Disattiva il rinnovo" + renewalSuffix}</button> : null}{subscriptionMessage ? <p role="status">{subscriptionMessage}</p> : null}{data.subscriptionInvoices.length ? <ol className="personal-pass-invoices">{data.subscriptionInvoices.map((invoice) => <li key={invoice.invoiceId}><div><b>{money(invoice.amountPaidCents, invoice.currency)}</b><small>{invoice.periodStart && invoice.periodEnd ? dateLabel(invoice.periodStart) + " – " + dateLabel(invoice.periodEnd) : dateLabel(invoice.paidAt)}</small></div><span>{statusLabels[invoice.status] ?? invoice.status}</span></li>)}</ol> : data.subscription.complimentary ? <small>Nessun pagamento richiesto per questo accesso.</small> : <small>Nessun pagamento di rinnovo registrato.</small>}</div> : <div className="personal-empty"><strong>Nessun abbonamento attivo.</strong><p>{data.commerce.testMode ? "I piani Supporter e Collector sono disponibili nel collaudo Stripe test." : "Scegli Supporter o Collector e gestisci rinnovo e vantaggi dal tuo LoreWise ID."}</p><Link href="/abbonamento">Consulta i piani</Link></div>}
+      </article>
+    </div>
+
+    <div id="account-orders" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "orders"}>
+      <article className="personal-chapter personal-orders">
         <header><Image src="/brand/icons/shop-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Ordini e ricevute</p><h3>I tuoi acquisti.</h3></div></header>
         {data.orders.length ? <ol>{data.orders.map((order) => <li key={order.referenceCode}><div><strong>{order.itemTitles || order.type}</strong><small>{order.referenceCode} · {dateLabel(order.createdAt)}</small></div><span>{statusLabels[order.status] ?? order.status}</span><b>{money(order.totalCents, order.currency)}</b><Link className="personal-order-detail" href={`/account/ordini/${encodeURIComponent(order.referenceCode)}`}>Apri riepilogo</Link></li>)}</ol> : <div className="personal-empty"><strong>Nessun ordine registrato.</strong><p>Gli acquisti compariranno qui soltanto dopo la conferma reale del pagamento.</p><div><Link href="/arte">Esplora l’Arte</Link><Link href="/giochi">Scopri Giochi e App</Link></div></div>}
       </article>
 
-      <article className="personal-chapter personal-pass">
-        <header><Image src="/brand/lorewise-universe-logo-concept-c.webp" alt="" width={1536} height={1024} unoptimized /><div><p className="eyebrow">Universe Pass</p><h3>Il tuo accesso.</h3></div></header>
-        {data.subscription ? <div className="personal-active-pass">
-          <strong>Universe Pass {data.benefits.name !== "Visitatore" ? data.benefits.name : data.subscription.planCode.replace("LW-PASS-", "")}</strong>
-          <span>{data.subscription.complimentary ? "Collector permanente" : statusLabels[data.subscription.status] ?? data.subscription.status}</span>
-          <p>{data.subscription.complimentary ? "Accesso proprietario senza scadenza e senza rinnovo." : data.subscription.currentPeriodEnd ? "Periodo corrente fino al " + dateLabel(data.subscription.currentPeriodEnd) + "." : "Periodo non ancora definito."}</p>
-          {data.benefits.active ? <dl className="personal-pass-benefits"><div><dt>Commissioni</dt><dd>Sconto automatico {data.benefits.commissionDiscountPercent}%</dd></div><div><dt>Arte</dt><dd>{data.benefits.artworkCreditsPerMonth} {data.benefits.artworkCreditsPerMonth === 1 ? "credito mensile" : "crediti mensili"} · massimo {data.benefits.artworkCreditCap}</dd></div></dl> : <small>I vantaggi sono sospesi finché il piano non risulta attivo e pagato.</small>}
-          {!data.subscription.complimentary && data.subscription.cancelAtPeriodEnd ? <small>Il rinnovo risulta disattivato.</small> : null}
-          {!data.subscription.complimentary && ["active", "trialing", "past_due"].includes(data.subscription.status) ? <button type="button" disabled={subscriptionBusy} onClick={() => void updateSubscription(!data.subscription?.cancelAtPeriodEnd)}>{data.subscription.cancelAtPeriodEnd ? "Riattiva rinnovo" + renewalSuffix : "Disattiva il rinnovo" + renewalSuffix}</button> : null}
-          {subscriptionMessage ? <p role="status">{subscriptionMessage}</p> : null}
-          {data.subscriptionInvoices.length ? <ol className="personal-pass-invoices">{data.subscriptionInvoices.map((invoice) => <li key={invoice.invoiceId}><div><b>{money(invoice.amountPaidCents, invoice.currency)}</b><small>{invoice.periodStart && invoice.periodEnd ? dateLabel(invoice.periodStart) + " – " + dateLabel(invoice.periodEnd) : dateLabel(invoice.paidAt)}</small></div><span>{statusLabels[invoice.status] ?? invoice.status}</span></li>)}</ol> : data.subscription.complimentary ? <small>Nessun pagamento richiesto per questo accesso.</small> : <small>Nessun pagamento di rinnovo registrato.</small>}
-        </div> : <div className="personal-empty"><strong>Nessun abbonamento attivo.</strong><p>{data.commerce.testMode ? "I piani Supporter e Collector sono disponibili nel collaudo Stripe test." : "Scegli Supporter o Collector e gestisci rinnovo e vantaggi dal tuo LoreWise ID."}</p><Link href="/abbonamento">Consulta i piani</Link></div>}
-      </article>
+    </div>
 
-      <article id="account-library" className="personal-chapter personal-library">
+    <div id="account-library" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "library"}>
+      <article className="personal-chapter personal-library">
         <header><Image src="/brand/icons/arte-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Arte, giochi e licenze</p><h3>La tua libreria.</h3></div></header>
         {data.library.length ? <div className="personal-library-columns"><section><h4>Arte e licenze</h4>{artworkItems.length ? <ul>{artworkItems.map((item) => <ArtworkLibraryEntry key={`${item.resourceType}-${item.resourceCode}`} item={item} />)}</ul> : <p>Nessuna opera posseduta.</p>}</section><section><h4>Giochi e applicazioni</h4>{gameItems.length ? <ul>{gameItems.map((item) => <GameLibraryEntry key={`${item.resourceType}-${item.resourceCode}`} item={item} />)}</ul> : <p>Nessun gioco acquistato.</p>}</section></div> : <div className="personal-empty"><strong>La libreria è ancora vuota.</strong><p>Download e file appariranno esclusivamente dopo l’assegnazione di una licenza o di un diritto verificato.</p></div>}
       </article>
 
-      <article id="account-commissions" className="personal-chapter personal-commissions">
+    </div>
+
+    <div id="account-commissions" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "commissions"}>
+      <article className="personal-chapter personal-commissions">
         <header><Image src="/brand/icons/commissioni-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Lavori su richiesta</p><h3>Le tue commissioni.</h3></div></header>
         {data.commissions.length ? <ol>{data.commissions.map((commission) => <li key={commission.referenceCode}><div><strong>{commission.packageName}</strong><small>{commission.referenceCode} · {commission.category}</small>{commission.membershipDiscountPercent ? <small>{commission.membershipPlanCode ?? "Promozione apertura"} · sconto {commission.membershipDiscountPercent}%: −{money(commission.quoteDiscountCents)}</small> : null}</div><span>{statusLabels[commission.status] ?? commission.status}</span><b>{money(commission.quoteCents)}</b></li>)}</ol> : <div className="personal-empty"><strong>Nessuna commissione collegata.</strong><p>Le nuove richieste vengono collegate direttamente al LoreWise ID e ricevono automaticamente i vantaggi del piano attivo.</p><Link href="/commissioni">Richiedi un progetto</Link></div>}
       </article>
 
-      <article id="account-community" className="personal-chapter personal-community-account">
+    </div>
+
+    <div id="account-community" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "community"}>
+      <article className="personal-chapter personal-community-account">
         <header><Image src="/brand/icons/social-assistenza-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Reazioni dalla Community</p><h3>La tua voce.</h3></div></header>
         <div className="personal-community-counts"><div><strong>{data.community.likes}</strong><span>Like lasciati</span></div><div><strong>{data.community.comments}</strong><span>Commenti pubblicati</span></div></div>
         <p>Puoi gestire commenti e recensioni direttamente dalla scheda dell’opera o del gioco interessato.</p><div className="personal-admin-actions"><Link href="/arte">Vai alla collezione Arte</Link><Link href="/giochi">Vai ai giochi</Link></div>
       </article>
     </div>
+
+    <div className="account-workspace-panel account-profile-panel" hidden={activeView !== "profile"}><AccountProfilePanel /></div>
   </section>;
 }

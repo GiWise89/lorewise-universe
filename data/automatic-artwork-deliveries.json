@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "count": 49,
+  "count": 50,
   "deliveries": [
     {
       "code": "LW-ART-002",
@@ -343,6 +343,15 @@
       "sha256": "59bdcc864892c479673f11643873f23bbe2b4f61f717fedbc39702c822f2e195",
       "objectKey": "art-deliveries/automatic/lw-art-071/LW-ART-071-pacchetto-dettagliata.zip",
       "localPackage": "LW-ART-071/LW-ART-071-pacchetto-dettagliata.zip"
+    },
+    {
+      "code": "LW-ART-079",
+      "filename": "LW-ART-079-pacchetto-premium.zip",
+      "contentType": "application/zip",
+      "size": 17111750,
+      "sha256": "4975713f1ba24180fd240ed4a4d8b3de9b84cbc693952b7283d6fa2c8520ba28",
+      "objectKey": "art-deliveries/automatic/lw-art-079/LW-ART-079-pacchetto-premium.zip",
+      "localPackage": "LW-ART-079/LW-ART-079-pacchetto-premium.zip"
     },
     {
       "code": "LW-VIP-ART-001",

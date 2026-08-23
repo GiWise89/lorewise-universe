@@ -1,0 +1,204 @@
+[
+  {
+    "id": "tom-nook",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Dal negozio dei primi capitoli a Nook's Homes, Nook Inc. e Centro Servizi; stato della serie verificato fino alla versione 3.0.3 di New Horizons.",
+    "sourcePolicy": "Opera primaria, pagine Nintendo correnti, cronologia ufficiale degli aggiornamenti e ricostruzione specialistica confrontate fra loro.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-current", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"Nel New Horizons attualmente supportato Tom Nook resta a capo di Nook Inc. e del Centro Servizi: coordina lo sviluppo dell'isola, i finanziamenti immobiliari e il Progetto K. Gli aggiornamenti 3.0–3.0.3 hanno ampliato il gioco e introdotto nuovi servizi, senza annunciare una sostituzione del suo ruolo istituzionale.","sourceIds":["nintendo-current","nintendo-update","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"Al 29 aprile 2026 il gioco è alla versione 3.0.3; il ruolo documentato di Tom Nook rimane quello di responsabile di Nook Inc. e del Centro Servizi.","spoiler":"none","sourceIds":["nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Stato commerciale e contenutistico corrente del gioco di riferimento."},
+      {"id":"nintendo-update","title":"Nintendo · aggiornamento 3.0 e Switch 2 Edition","url":"https://www.nintendo.com/us/whatsnew/animal-crossing-new-horizons-sails-ashore-with-a-nintendo-switch-2-edition-and-free-content-update-jan-15/","kind":"official-update","note":"Novità ufficiali introdotte nel gennaio 2026 e contesto attuale dell'isola."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Versione 3.0.3 e data di pubblicazione usate per fissare il limite temporale della revisione."},
+      {"id":"specialist-history","title":"Nookipedia · Tom Nook","url":"https://nookipedia.com/wiki/Tom_Nook","kind":"specialist-secondary","note":"Confronto analitico delle funzioni del personaggio nei diversi capitoli della serie."}
+    ]
+  },
+  {
+    "id": "fuffi-isabelle",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Debutto in New Leaf, incarichi amministrativi, crossover separati e funzione corrente nel Centro Servizi di New Horizons 3.0.3.",
+    "sourcePolicy": "Profilo e aggiornamenti Nintendo confrontati con una cronologia specialistica delle apparizioni; crossover distinti dalla continuità principale.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-profile", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"Fuffi continua a gestire annunci, valutazione dell'isola, inno, bandiera, ordinanze e mediazione sui residenti dal Centro Servizi ampliato. La versione 3.0.3 non documenta un nuovo incarico narrativo individuale: il suo presente canonico resta quello amministrativo introdotto in New Horizons e ampliato dalla versione 2.0.","sourceIds":["nintendo-profile","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"La revisione 2026 conferma Fuffi nel Centro Servizi; le apparizioni in Smash e Mario Kart restano crossover e non modificano questa biografia.","spoiler":"none","sourceIds":["nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-profile","title":"Play Nintendo · Isabelle","url":"https://play.nintendo.com/themes/friends/isabelle/","kind":"official-profile","note":"Identità, caratterizzazione e ruolo ufficiale di Fuffi."},
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Contesto del capitolo corrente della serie."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Limite temporale verificato alla versione 3.0.3."},
+      {"id":"specialist-history","title":"Nookipedia · Isabelle","url":"https://nookipedia.com/wiki/Isabelle","kind":"specialist-secondary","note":"Confronto delle funzioni in New Leaf, derivati, crossover e New Horizons."}
+    ]
+  },
+  {
+    "id": "marco-e-mirco",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Apprendistato, passaggio alla gestione autonoma e attività corrente di Nook's Cranny in New Horizons 3.0.3.",
+    "sourcePolicy": "Profilo ufficiale Nintendo, gioco primario, registro aggiornamenti e cronologia specialistica confrontati; contraddizioni minori indicate senza scegliere arbitrariamente.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-profile", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"Nell'isola attuale Marco e Mirco sono passati dall'assistenza nella tenda del Centro Servizi alla gestione quotidiana di Nook's Cranny. Comprano oggetti, vendono merci e offerte del giorno e rappresentano ormai l'autonomia commerciale raggiunta dopo l'apprendistato con Tom Nook.","sourceIds":["nintendo-profile","nintendo-current","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"Al limite temporale della revisione restano i gestori di Nook's Cranny; nessun aggiornamento ufficiale ne ha sostituito la funzione.","spoiler":"none","sourceIds":["nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-profile","title":"Play Nintendo · Timmy & Tommy","url":"https://play.nintendo.com/themes/friends/timmy-tommy/","kind":"official-profile","note":"Profilo ufficiale della coppia, negozio e apprendistato con Tom Nook."},
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Contesto corrente del gioco in cui gestiscono Nook's Cranny."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Stato verificato alla versione 3.0.3."},
+      {"id":"specialist-history","title":"Nookipedia · Timmy and Tommy","url":"https://nookipedia.com/wiki/Timmy_and_Tommy","kind":"specialist-secondary","note":"Evoluzione completa da assistenti a proprietari e nota sulle fonti discordanti riguardo al gemello maggiore."}
+    ]
+  },
+  {
+    "id": "tortimer",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Sindaco nei giochi classici, pensionamento in New Leaf e funzione corrente collegata al deposito sull'isola di Fiorilio.",
+    "sourcePolicy": "Manuali e pagine Nintendo per il contesto di gioco, cronologia specialistica per confrontare incarichi non equivalenti tra capitoli.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-manual", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"Tortimer non è tornato alla carica di sindaco. In New Horizons la sua funzione corrente è circoscritta all'isola di Fiorilio, dove consente di trasferire oggetti fra inventario domestico e deposito: un ruolo di servizio coerente con il pensionamento avviato in New Leaf.","sourceIds":["nintendo-manual","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"La funzione documentata più recente resta il servizio di deposito a Fiorilio; il passato da sindaco viene trattato come fase conclusa, non come incarico attuale.","spoiler":"none","sourceIds":["nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-manual","title":"Nintendo · manuale New Leaf Welcome amiibo","url":"https://csassets.nintendo.com/noaext/image/private/t_KA_PDF/manual-3DS-Animal_Crossing_New_Leaf_Welcome_amiibo_full","kind":"official-manual","note":"Contesto ufficiale dell'isola e delle funzioni introdotte nel periodo successivo al pensionamento."},
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Capitolo corrente della serie."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Limite temporale alla versione 3.0.3."},
+      {"id":"specialist-history","title":"Nookipedia · Tortimer","url":"https://nookipedia.com/wiki/Tortimer","kind":"specialist-secondary","note":"Confronto del ruolo civico, turistico e di deposito attraverso i capitoli."}
+    ]
+  },
+  {
+    "id": "alpaca-e-merino",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Ricicla e Ricrea, specializzazioni individuali, Wedding Season e servizio corrente di personalizzazione a Fiorilio.",
+    "sourcePolicy": "Le due biografie vengono confrontate separatamente e poi ricomposte nella scheda di coppia; funzioni di Reese e Cyrus non vengono confuse.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-current", "nintendo-version", "specialist-reese", "specialist-cyrus"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"In New Horizons Alpaca e Merino conservano compiti distinti: la coppia celebra la Wedding Season, mentre a Fiorilio Merino amplia stabilmente le possibilità di personalizzazione e Alpaca assiste il servizio. Non gestiscono più l'economia dell'usato nella stessa forma di New Leaf.","sourceIds":["nintendo-current","nintendo-version","specialist-reese","specialist-cyrus"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"La loro presenza corrente unisce evento matrimoniale e personalizzazione a Fiorilio; Ricicla e Ricrea resta la fase storica di New Leaf.","spoiler":"none","sourceIds":["nintendo-version","specialist-reese","specialist-cyrus"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Contesto corrente del gioco e dei servizi dell'isola."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Stato verificato alla versione 3.0.3."},
+      {"id":"specialist-reese","title":"Nookipedia · Reese","url":"https://nookipedia.com/wiki/Reese","kind":"specialist-secondary","note":"Ruoli commerciali ed eventi di Alpaca nei diversi giochi."},
+      {"id":"specialist-cyrus","title":"Nookipedia · Cyrus","url":"https://nookipedia.com/wiki/Cyrus","kind":"specialist-secondary","note":"Progressione del laboratorio e servizio di personalizzazione di Merino."}
+    ]
+  },
+  {
+    "id": "agostina-e-filomena",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Origine dell'atelier, responsabilità familiari, riavvicinamento con Label e attività corrente di Ago e Filo.",
+    "sourcePolicy": "Mabel e Sable sono controllate su profili separati; dialoghi e funzioni di gioco vengono distinti dalle inferenze sul loro rapporto.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-current", "nintendo-version", "specialist-mabel", "specialist-sable"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"In New Horizons Agostina visita inizialmente l'isola come venditrice e rende possibile l'apertura di Ago e Filo; Filomena continua a cucire e, dopo visite ripetute, condivide motivi tessili utilizzabili nelle personalizzazioni. Il rapporto con Label è ormai collaborativo, pur mantenendo separati negozio e visite da stilista.","sourceIds":["nintendo-current","nintendo-version","specialist-mabel","specialist-sable"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"Ago e Filo resta l'attività stabile dell'isola: Agostina cura il pubblico, Filomena produzione e motivi; la storia familiare non viene azzerata dal nuovo contesto.","spoiler":"none","sourceIds":["nintendo-version","specialist-mabel","specialist-sable"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Capitolo corrente nel quale l'atelier diventa servizio permanente dell'isola."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Limite temporale verificato alla versione 3.0.3."},
+      {"id":"specialist-mabel","title":"Nookipedia · Mabel","url":"https://nookipedia.com/wiki/Mabel","kind":"specialist-secondary","note":"Percorso commerciale di Agostina e storia dell'atelier."},
+      {"id":"specialist-sable","title":"Nookipedia · Sable","url":"https://nookipedia.com/wiki/Sable","kind":"specialist-secondary","note":"Background familiare, fiducia progressiva e attività tessile di Filomena."}
+    ]
+  },
+  {
+    "id": "saharah-animal-crossing",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Evoluzione dei servizi di tappeti, pareti e pavimenti dai primi giochi al commercio itinerante e cooperativo di New Horizons.",
+    "sourcePolicy": "Meccaniche di vendita confrontate fra gioco corrente, aggiornamenti Nintendo e cronologia specialistica; localizzazioni di genere segnalate senza uniformarle.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-current", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"In New Horizons Sahara vende tappeti di misure diverse e rivestimenti misteriosi durante le visite itineranti; con il mercato cooperativo di Fiorilio dispone anche di una postazione stabile. Le funzioni di consegna e baratto dei capitoli precedenti restano tappe storiche, non servizi attuali.","sourceIds":["nintendo-current","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"La fase corrente combina commercio itinerante e presenza a Fiorilio; la scheda mantiene distinte le differenti localizzazioni del personaggio.","spoiler":"none","sourceIds":["nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Contesto corrente del commercio e della personalizzazione dell'isola."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Limite temporale alla versione 3.0.3."},
+      {"id":"specialist-history","title":"Nookipedia · Saharah","url":"https://nookipedia.com/wiki/Saharah","kind":"specialist-secondary","note":"Confronto dei servizi e delle differenze di localizzazione attraverso l'intera serie."}
+    ]
+  },
+  {
+    "id": "blatero-animal-crossing",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Fondazione e ampliamento del museo, discipline curate, rapporto con Celeste e funzione corrente in New Horizons.",
+    "sourcePolicy": "Materiale Nintendo e cronologia specialistica confrontati; informazioni del museo separate dalle battute caratteriali e dall'entomofobia.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-current", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"Blatero resta il curatore del museo dell'isola: valuta e accetta pesci, insetti, fossili, opere d'arte e creature marine, offrendo spiegazioni su richiesta. L'arrivo della Piccionaia nel museo amplia il luogo ma non trasferisce a Bartolo le responsabilità scientifiche di Blatero.","sourceIds":["nintendo-current","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"Il museo completo e la Piccionaia definiscono il suo contesto corrente; Blatero conserva curatela, identificazione e divulgazione.","spoiler":"none","sourceIds":["nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Contesto corrente del museo dell'isola."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Versione corrente usata per delimitare la revisione."},
+      {"id":"specialist-history","title":"Nookipedia · Blathers","url":"https://nookipedia.com/wiki/Blathers","kind":"specialist-secondary","note":"Storia del museo, caratterizzazione e funzioni nei diversi capitoli."}
+    ]
+  },
+  {
+    "id": "celeste-animal-crossing",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Dall'osservatorio museale alle visite astronomiche, ricette stellari e narrazioni zodiacali di New Horizons.",
+    "sourcePolicy": "Funzioni astronomiche confrontate fra capitoli e fonti diverse; conoscenza scientifica e ricompense ludiche non vengono confuse con poteri soprannaturali.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-current", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"Celeste non dirige più un osservatorio fisso: in New Horizons visita l'isola di notte, soprattutto in relazione al cielo e alle stelle cadenti, consegna progetti fai-da-te astronomici e racconta miti legati agli oggetti zodiacali. Il suo ruolo corrente è quindi itinerante e divulgativo.","sourceIds":["nintendo-current","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"La revisione conferma il passaggio definitivo, nel gioco corrente, dall'osservatorio stabile alle visite notturne con progetti celesti.","spoiler":"none","sourceIds":["nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Contesto corrente delle attività notturne dell'isola."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Limite temporale verificato alla versione 3.0.3."},
+      {"id":"specialist-history","title":"Nookipedia · Celeste","url":"https://nookipedia.com/wiki/Celeste","kind":"specialist-secondary","note":"Confronto fra osservatorio, museo e visite astronomiche nei diversi giochi."}
+    ]
+  },
+  {
+    "id": "kk-slider-animal-crossing",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Concerti settimanali, evoluzione dei luoghi d'esibizione, identità DJ e funzione corrente come traguardo dell'isola.",
+    "sourcePolicy": "Profilo ufficiale, materiali Nintendo e repertorio specialistico confrontati; attività musicali della serie separate dalle apparizioni crossover.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-current", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"In New Horizons K.K. Slider resta il musicista dei concerti in piazza. La prima esibizione conclude il Progetto K e sblocca una nuova fase di progettazione dell'isola; in seguito torna secondo calendario, accetta richieste e consegna registrazioni, mantenendo la filosofia di un rapporto diretto con il pubblico.","sourceIds":["nintendo-current","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"Il concerto in piazza e il repertorio ampliato restano la sua funzione corrente; DJ K.K. appartiene a contesti specifici e non sostituisce l'identità principale.","spoiler":"moderate","sourceIds":["nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Contesto corrente dei concerti e dello sviluppo dell'isola."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Limite temporale alla versione 3.0.3."},
+      {"id":"specialist-history","title":"Nookipedia · K.K. Slider","url":"https://nookipedia.com/wiki/K.K._Slider","kind":"specialist-secondary","note":"Storia dei concerti, dei luoghi, del repertorio e dell'identità DJ."}
+    ]
+  },
+  {
+    "id": "spirideo-animal-crossing",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Missioni notturne dei giochi classici, lampada e amiibo, ritorno ai frammenti spirituali e interazioni correnti della Switch 2 Edition.",
+    "sourcePolicy": "Manuale Nintendo, registro aggiornamenti e cronologia specialistica confrontati; premi e condizioni vengono attribuiti al capitolo corretto.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-manual", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"In New Horizons Spirideo compare nelle ore notturne, si spaventa e disperde cinque frammenti che il giocatore recupera con il retino, scegliendo poi fra una ricompensa nuova o costosa. Nella Switch 2 Edition il megafono può innescare una reazione specifica: è un'aggiunta d'interazione, non un nuovo arco narrativo.","sourceIds":["nintendo-update","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"Switch 2 Edition e versione 3.0.3","description":"Il megafono aggiunge una modalità di richiamo, mentre missione, carattere timoroso e ricompense restano quelli della fase New Horizons.","spoiler":"none","sourceIds":["nintendo-update","nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-manual","title":"Nintendo · manuale New Leaf Welcome amiibo","url":"https://csassets.nintendo.com/noaext/image/private/t_KA_PDF/manual-3DS-Animal_Crossing_New_Leaf_Welcome_amiibo_full","kind":"official-manual","note":"Funzione della lampada e uso amiibo nella fase New Leaf."},
+      {"id":"nintendo-update","title":"Nintendo · aggiornamento 3.0 e Switch 2 Edition","url":"https://www.nintendo.com/us/whatsnew/animal-crossing-new-horizons-sails-ashore-with-a-nintendo-switch-2-edition-and-free-content-update-jan-15/","kind":"official-update","note":"Introduzione ufficiale del megafono nella Switch 2 Edition."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Limite temporale alla versione 3.0.3."},
+      {"id":"specialist-history","title":"Nookipedia · Wisp","url":"https://nookipedia.com/wiki/Wisp","kind":"specialist-secondary","note":"Cronologia delle missioni, ricompense, lampada e interazione col megafono."}
+    ]
+  },
+  {
+    "id": "castorino-animal-crossing",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Debutto in New Horizons, compravendita specializzata, tornei di pesca, commissioni dei modelli e rapporto professionale con Ivano.",
+    "sourcePolicy": "Meccaniche di C.J. controllate sul gioco corrente e su una fonte specialistica; legami familiari e professionali distinti dalle supposizioni dei fan.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-current", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"Castorino resta il referente della pesca in New Horizons: visita l'isola, propone una sfida preliminare, acquista pesci a prezzo maggiorato e organizza i tornei stagionali. Per i modelli raccoglie tre esemplari identici e affida la realizzazione a Ivano; la scheda attribuisce quindi correttamente mediazione e scultura a persone diverse.","sourceIds":["nintendo-current","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"Tornei, acquisto specializzato e commissioni restano le sue funzioni correnti; non è una nuova versione di Castore, ma il suo successore con identità propria.","spoiler":"none","sourceIds":["nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Gioco corrente in cui Castorino debutta e opera."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Stato verificato alla versione 3.0.3."},
+      {"id":"specialist-history","title":"Nookipedia · C.J.","url":"https://nookipedia.com/wiki/C.J.","kind":"specialist-secondary","note":"Dettaglio di visite, tornei, prezzi, commissioni e relazione con Flick."}
+    ]
+  },
+  {
+    "id": "ivano",
+    "researchTier": "deep-verified",
+    "lastReviewed": "23/08/2026",
+    "researchScope": "Debutto in New Horizons, Insettomania, compravendita, scultura di modelli e collaborazione corrente con Castorino.",
+    "sourcePolicy": "Ruolo artistico e meccaniche economiche confrontati fra gioco corrente, aggiornamenti Nintendo e fonte specialistica; predecessore e figlio non vengono confusi.",
+    "defaultSourceIds": ["official-franchise", "primary-work", "nintendo-current", "nintendo-version", "specialist-history"],
+    "biographyAppend": [{"heading":"Stato attuale verificato · 2026","text":"Ivano resta artista e referente degli insetti in New Horizons: compra esemplari a prezzo maggiorato, conduce l'Insettomania e realizza modelli da tre esemplari identici. Crea anche i modelli di pesce commissionati tramite Castorino; il suo rapporto con gli insetti è estetico e conservativo, distinto dall'approccio alimentare del padre Gustavo.","sourceIds":["nintendo-current","nintendo-version","specialist-history"]}],
+    "chronologyAppend": [{"title":"New Horizons 3.0.3 · stato corrente","description":"Attività artistica, Insettomania e collaborazione con Castorino restano il nucleo corrente del personaggio.","spoiler":"none","sourceIds":["nintendo-version","specialist-history"]}],
+    "officialSourcesAppend": [
+      {"id":"nintendo-current","title":"Animal Crossing: New Horizons · pagina Nintendo corrente","url":"https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/","kind":"official-current","note":"Gioco corrente in cui Ivano debutta e opera."},
+      {"id":"nintendo-version","title":"Nintendo Support · cronologia versioni New Horizons","url":"https://en-americas-support.nintendo.com/app/answers/detail/a_id/49112/~/how-to-update-animal-crossing%3A-new-horizons","kind":"official-update-log","note":"Stato verificato alla versione 3.0.3."},
+      {"id":"specialist-history","title":"Nookipedia · Flick","url":"https://nookipedia.com/wiki/Flick","kind":"specialist-secondary","note":"Dettaglio verificabile su acquisti, modelli, tornei, padre e collaborazione con C.J."}
+    ]
+  }
+]

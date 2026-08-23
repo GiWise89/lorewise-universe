@@ -76,5 +76,6 @@
   { "code": "LW-ART-075", "file": "Nuove Cronache/mrylin Mor.jpeg" },
   { "code": "LW-ART-076", "file": "Nuove Cronache/Rock Lee1.png" },
   { "code": "LW-ART-077", "file": "Nuove Cronache/se mi lasci ti cancello.jpeg" },
-  { "code": "LW-ART-078", "file": "Nuove Cronache/Sheldon Cooper1.png" }
+  { "code": "LW-ART-078", "file": "Nuove Cronache/Sheldon Cooper1.png" },
+  { "code": "LW-ART-079", "file": "bozze progetti/cyborg/cyborg1.png", "root": "project" }
 ]

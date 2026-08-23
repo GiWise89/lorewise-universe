@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { AccountAccessPanel } from "@/components/AccountAccessPanel";
 import { AccountPersonalDashboard } from "@/components/AccountPersonalDashboard";
-import { AccountProfilePanel } from "@/components/AccountProfilePanel";
 import { getSupabasePublicConfig } from "@/lib/supabase/config";
 import { getLoreWiseUser } from "@/lib/supabase/server";
 
@@ -60,7 +59,7 @@ export default async function AccountPage({ searchParams }: { searchParams?: Pro
 
     <div className="shell">{accessNotice ? <p className="account-access-notice" role="status">{accessNotice}</p> : null}<AccountAccessPanel configured={configured} userEmail={user?.email} /></div>
 
-    {user ? <><div className="shell"><AccountPersonalDashboard successfulSessionId={paymentStatus === "riuscito" ? checkoutSessionId : ""} /></div><div className="shell"><AccountProfilePanel /></div></> : null}
+    {user ? <div className="shell"><AccountPersonalDashboard successfulSessionId={paymentStatus === "riuscito" ? checkoutSessionId : ""} /></div> : null}
 
     {!user ? <><section className="account-principle shell" aria-labelledby="account-principle-title"><span>Un’identità</span><div><p className="eyebrow">Una sola relazione con GiWise Studio</p><h2 id="account-principle-title">Non cinque account diversi.</h2><p>Ogni pagamento produrrà un ordine LoreWise. Sarà il tipo di acquisto a determinare cosa compare nell’area personale: un file artistico, una commissione, un vantaggio mensile oppure un videogioco.</p></div></section>
 

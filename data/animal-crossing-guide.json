@@ -12,7 +12,7 @@
   "vipFrom": "2026-08-22T00:00:00+02:00",
   "publicAt": "2026-08-24T00:00:00+02:00",
   "cover": {
-    "src": "/atlas/animal-crossing-new-horizons/official/01-primi-giorni.jpg",
+    "src": "/atlas/animal-crossing-new-horizons/official/01-primi-giorni.webp",
     "alt": "Falò e tende sulla spiaggia durante i primi giorni dell'isola",
     "caption": "Il campo iniziale e i primi passi sull'isola · immagine ufficiale Nintendo."
   },
@@ -24,7 +24,7 @@
       "label": "Inizio e crescita",
       "summary": "Primi giorni, Stelline, rape e valutazione dell'isola.",
       "icon": {
-        "src": "/atlas/animal-crossing-new-horizons/section-icons/progression-v1.png",
+        "src": "/atlas/animal-crossing-new-horizons/section-icons/progression-v1.webp",
         "alt": "Tenda e casa su una piccola isola",
         "caption": "Inizio e crescita"
       },
@@ -40,7 +40,7 @@
       "label": "Isola e creatività",
       "summary": "Design, personalizzazione, strumenti e pattern.",
       "icon": {
-        "src": "/atlas/animal-crossing-new-horizons/section-icons/creativity-v1.png",
+        "src": "/atlas/animal-crossing-new-horizons/section-icons/creativity-v1.webp",
         "alt": "Tavolo creativo con mappa, colori e fiore",
         "caption": "Isola e creatività"
       },
@@ -56,7 +56,7 @@
       "label": "Case e servizi",
       "summary": "Progettazione delle case, DLC e servizi dell'isola.",
       "icon": {
-        "src": "/atlas/animal-crossing-new-horizons/section-icons/homes-v1.png",
+        "src": "/atlas/animal-crossing-new-horizons/section-icons/homes-v1.webp",
         "alt": "Casa e piccola struttura per gli ospiti su un'isola",
         "caption": "Case e servizi"
       },
@@ -71,7 +71,7 @@
       "label": "Online e collezioni",
       "summary": "Visite online, creature marine e opere del museo.",
       "icon": {
-        "src": "/atlas/animal-crossing-new-horizons/section-icons/collections-v1.png",
+        "src": "/atlas/animal-crossing-new-horizons/section-icons/collections-v1.webp",
         "alt": "Cartoline di isole collegate e collezione marina",
         "caption": "Online e collezioni"
       },
@@ -86,7 +86,7 @@
       "label": "Community e verifica",
       "summary": "Spazi condivisi e controllo finale dei progressi.",
       "icon": {
-        "src": "/atlas/animal-crossing-new-horizons/section-icons/community-v1.png",
+        "src": "/atlas/animal-crossing-new-horizons/section-icons/community-v1.webp",
         "alt": "Bacheca dell'isola con mappa e lista completata",
         "caption": "Community e verifica"
       },
@@ -107,7 +107,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/01-primi-giorni.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/01-primi-giorni.webp",
           "alt": "Falò e tende sulla spiaggia durante i primi giorni dell'isola",
           "caption": "Il campo iniziale e i primi passi sull'isola · immagine ufficiale Nintendo."
         }
@@ -162,7 +162,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/02-economia-servizi.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/02-economia-servizi.webp",
           "alt": "Tom Nook illustra i servizi e l'ampliamento della casa",
           "caption": "Servizi, casa e progressione economica · immagine ufficiale Nintendo."
         }
@@ -218,7 +218,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/03-mercato-rape.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/03-mercato-rape.webp",
           "alt": "Brunella propone al giocatore l'acquisto delle rape",
           "caption": "Il mercato delle rape comincia da Brunella · immagine ufficiale Nintendo."
         }
@@ -272,7 +272,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/04-cinque-stelle-giardinaggio.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/04-cinque-stelle-giardinaggio.webp",
           "alt": "Giocatore che cura un'aiuola fiorita sull'isola",
           "caption": "Fiori, ordine e cura aiutano la valutazione dell'isola · immagine ufficiale Nintendo."
         }
@@ -344,7 +344,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/05-island-designer.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/05-island-designer.webp",
           "alt": "Percorsi, fiume e ponte modificati con gli strumenti di progettazione",
           "caption": "Percorsi e terraformazione con l'App Designer Isola · immagine ufficiale Nintendo."
         }
@@ -391,7 +391,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/06-decorazione-personalizzazione.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/06-decorazione-personalizzazione.webp",
           "alt": "Modalità arredamento con mobili e ambienti personalizzati",
           "caption": "Disporre e personalizzare gli ambienti con precisione · immagine ufficiale Nintendo."
         }
@@ -442,7 +442,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/07-strumenti-oro.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/07-strumenti-oro.webp",
           "alt": "Giocatore circondato dagli strumenti d'oro e da pepite d'oro",
           "caption": "Gli strumenti d'oro di Animal Crossing: New Horizons, mostrati direttamente nel gioco."
         }
@@ -473,7 +473,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/08-modelli-personalizzati.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/08-modelli-personalizzati.webp",
           "alt": "Abiti creati con diversi modelli personalizzati",
           "caption": "Modelli personalizzati applicati agli abiti · immagine ufficiale Nintendo."
         }
@@ -531,7 +531,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/09-happy-home-paradise.png",
+          "src": "/atlas/animal-crossing-new-horizons/official/09-happy-home-paradise.webp",
           "alt": "Casimira e Gilberti presentano richieste di case vacanza in Happy Home Paradise",
           "caption": "Clienti, desideri e progettazione in Happy Home Paradise · immagine ufficiale Nintendo."
         }
@@ -595,7 +595,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/10-case-abitanti.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/10-case-abitanti.webp",
           "alt": "Interno arredato della casa di un abitante",
           "caption": "Ogni abitante merita uno spazio riconoscibile · immagine ufficiale Nintendo."
         }
@@ -629,7 +629,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/11-hotel.png",
+          "src": "/atlas/animal-crossing-new-horizons/official/11-hotel.webp",
           "alt": "Illustrazione promozionale ufficiale dell'hotel sul molo",
           "caption": "L'hotel sul molo · immagine promozionale ufficiale Nintendo."
         }
@@ -691,7 +691,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/12-online.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/12-online.webp",
           "alt": "Diversi giocatori riuniti sulla stessa isola",
           "caption": "Visitare e giocare insieme online · immagine ufficiale Nintendo."
         }
@@ -726,7 +726,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/13-creature-marine.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/13-creature-marine.webp",
           "alt": "Giocatore in muta che mostra una stella marina appena raccolta",
           "caption": "Immersioni e raccolta delle creature marine · immagine ufficiale Nintendo."
         }
@@ -808,7 +808,7 @@
       "estimatedRead": "12–18 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/14-museo-blatero.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/14-museo-blatero.webp",
           "alt": "Blatero accoglie il giocatore all'interno del museo",
           "caption": "Blatero e le collezioni del museo · immagine ufficiale Nintendo."
         }
@@ -828,212 +828,212 @@
       ],
       "artworkGallery": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-01.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-01.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 1",
           "caption": "Tavola 01 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-02.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-02.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 2",
           "caption": "Tavola 02 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-03.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-03.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 3",
           "caption": "Tavola 03 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-04.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-04.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 4",
           "caption": "Tavola 04 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-05.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-05.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 5",
           "caption": "Tavola 05 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-06.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-06.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 6",
           "caption": "Tavola 06 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-07.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-07.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 7",
           "caption": "Tavola 07 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-08.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-08.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 8",
           "caption": "Tavola 08 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-09.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-09.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 9",
           "caption": "Tavola 09 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-10.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-10.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 10",
           "caption": "Tavola 10 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-11.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-11.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 11",
           "caption": "Tavola 11 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-12.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-12.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 12",
           "caption": "Tavola 12 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-13.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-13.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 13",
           "caption": "Tavola 13 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-14.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-14.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 14",
           "caption": "Tavola 14 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-15.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-15.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 15",
           "caption": "Tavola 15 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-16.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-16.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 16",
           "caption": "Tavola 16 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-17.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-17.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 17",
           "caption": "Tavola 17 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-18.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-18.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 18",
           "caption": "Tavola 18 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-19.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-19.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 19",
           "caption": "Tavola 19 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-20.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-20.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 20",
           "caption": "Tavola 20 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-21.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-21.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 21",
           "caption": "Tavola 21 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-22.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-22.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 22",
           "caption": "Tavola 22 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-23.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-23.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 23",
           "caption": "Tavola 23 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-24.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-24.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 24",
           "caption": "Tavola 24 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-25.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-25.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 25",
           "caption": "Tavola 25 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-26.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-26.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 26",
           "caption": "Tavola 26 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-27.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-27.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 27",
           "caption": "Tavola 27 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-28.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-28.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 28",
           "caption": "Tavola 28 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-29.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-29.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 29",
           "caption": "Tavola 29 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-30.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-30.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 30",
           "caption": "Tavola 30 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-31.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-31.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 31",
           "caption": "Tavola 31 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-32.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-32.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 32",
           "caption": "Tavola 32 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-33.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-33.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 33",
           "caption": "Tavola 33 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-34.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-34.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 34",
           "caption": "Tavola 34 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-35.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-35.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 35",
           "caption": "Tavola 35 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-36.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-36.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 36",
           "caption": "Tavola 36 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-37.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-37.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 37",
           "caption": "Tavola 37 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-38.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-38.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 38",
           "caption": "Tavola 38 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-39.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-39.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 39",
           "caption": "Tavola 39 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-40.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-40.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 40",
           "caption": "Tavola 40 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-41.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-41.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 41",
           "caption": "Tavola 41 · originale e falso a confronto"
         },
         {
-          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-42.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/artworks/artwork-42.webp",
           "alt": "Confronto completo tra opera autentica e falso, tavola 42",
           "caption": "Tavola 42 · originale e falso a confronto"
         }
@@ -1049,7 +1049,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/15-community-giocatori.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/15-community-giocatori.webp",
           "alt": "Un gruppo di giocatori riunito sulla costa dell'isola al tramonto",
           "caption": "Incontrarsi, visitare altre isole e condividere l'esperienza con la community · immagine ufficiale Nintendo."
         }
@@ -1088,7 +1088,7 @@
       "estimatedRead": "4–6 min",
       "images": [
         {
-          "src": "/atlas/animal-crossing-new-horizons/official/16-checklist-miglia.jpg",
+          "src": "/atlas/animal-crossing-new-horizons/official/16-checklist-miglia.webp",
           "alt": "App Miglia di Nook con obiettivi e progressi completati",
           "caption": "Obiettivi e progressi da controllare prima di proseguire · immagine ufficiale Nintendo."
         }

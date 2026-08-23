@@ -395,4 +395,9 @@ export const artworkEditorialCopy: Record<number, ArtworkEditorialCopy> = {
     year: "2026",
     description: "Il saluto vulcaniano, gli atomi e la luce da laboratorio raccolgono in un’unica immagine il suo modo di stare al mondo: razionale, preciso e sempre un passo fuori dalla normalità.",
   },
+  79: {
+    title: "Protocollo Ambra",
+    year: "2026",
+    description: "Un cyborg incappucciato emerge da un ambiente industriale segnato dal pericolo. La maschera scheletrica e gli innesti meccanici trasformano il corpo in una presenza costruita per sopravvivere, mentre l’arancio di sicurezza diventa il suo unico segnale riconoscibile.",
+  },
 };

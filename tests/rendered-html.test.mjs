@@ -38,22 +38,116 @@ test("renders LoreWise Universe with its structured portals", async () => {
   assert.match(html, /GiWise Studio/);
   assert.match(html, /Enciclopedia/);
   assert.match(html, /Commissioni/);
-  assert.match(html, /Apri tutte le novità nelle Cronache del Nexus/);
-  assert.match(html, /Novità nell.universo/);
+  assert.match(html, /Sconti attualmente disponibili/);
+  assert.match(html, /Promo apertura attiva|Sconti Universe Pass/);
+  assert.match(html, /Visitatori/);
+  assert.match(html, /Supporter/);
+  assert.match(html, /Collector/);
+  assert.match(html, /\/commissioni\?focus=promozione-apertura/);
+  assert.match(html, /data-focus-navigation="true"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
-test("places Animal Crossing inside the game atlas instead of the VIP news panel", async () => {
+test("keeps the six home entrances separated from their artwork", async () => {
+  const response = await render();
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /home-portal-gallery/);
+  assert.equal((html.match(/class="portal-copy"/g) ?? []).length, 6);
+  assert.match(html, /Scegli il tuo ingresso/);
+  assert.match(html, /Arte[\s\S]*Giochi[\s\S]*Mondi[\s\S]*Commissioni[\s\S]*LoreWise VIP[\s\S]*GiWise Shop/);
+  assert.match(html, /portal-mondi/);
+  assert.match(html, /href="\/mondi"/);
+  assert.doesNotMatch(html, /portal-(?:enciclopedia|social|diario)/);
+});
+
+test("opens Mondi as one narrative gateway to its four structured areas", async () => {
+  const response = await render("/mondi");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Quattro correnti/);
+  assert.match(html, /href="\/community"/);
+  assert.match(html, /Community &amp; Social/);
+  assert.equal((html.match(/class="worlds-route worlds-route-/g) ?? []).length, 4);
+  assert.match(html, /href="\/cronache-del-nexus"/);
+  assert.match(html, /href="\/dove-nascono-i-mondi"/);
+  assert.match(html, /href="\/enciclopedia"/);
+  assert.match(html, /Nexus[\s\S]*Dove nascono i mondi[\s\S]*LoreWise Codex[\s\S]*Community &amp; Social/);
+});
+
+test("opens LoreWise VIP as one premium gateway to Area VIP and Universe Pass", async () => {
+  const response = await render("/vip");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Il privilegio/);
+  assert.equal((html.match(/class="vip-threshold vip-threshold-/g) ?? []).length, 2);
+  assert.match(html, /href="\/vip-zone"/);
+  assert.match(html, /href="\/abbonamento"/);
+  assert.match(html, /Area VIP[\s\S]*Universe Pass/);
+});
+
+test("enforces the project text integrity contract", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /Contratto globale di integrità del testo/);
+  assert.match(css, /main\s+:where\(h1,h2,h3,h4,h5,h6\)[\s\S]{0,300}white-space:normal!important/);
+  assert.match(css, /\.portal-copy[\s\S]{0,220}z-index:2[\s\S]{0,160}overflow:visible/);
+  assert.match(css, /Contratto finale del flusso testuale[\s\S]{0,440}overflow-wrap:normal!important;[\s\S]{0,90}word-break:normal!important;/);
+  assert.match(css, /@media \(max-width:700px\)[\s\S]{0,300}main :where\(a,button,label,strong,small\)[\s\S]{0,240}white-space:normal!important;/);
+});
+
+test("uses a scenic desktop constellation and a safe responsive grid", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /Desktop scenografico: costellazione orbitale/);
+  assert.match(css, /@media \(min-width:1281px\)[\s\S]*?\.home-portal-gallery\s*\{[\s\S]*?position:absolute/);
+  assert.match(css, /@media \(max-width:700px\)[\s\S]*?grid-template-columns:repeat\(auto-fit,minmax\(min\(100%,160px\),1fr\)\)/);
+});
+
+test("uses the luminous universe without translucent portal panels", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /url\("\/backgrounds\/lorewise-luminous-universe-v1\.webp"\)/);
+  assert.match(css, /\.universe-map\s*\{[\s\S]{0,700}background-size:cover,100% 100%/);
+  assert.match(
+    css,
+    /\.home-portal-gallery \.illustrated-portal,[\s\S]{0,280}background:none!important;[\s\S]{0,100}box-shadow:none!important;/,
+  );
+  assert.match(
+    css,
+    /\.home-portal-gallery \.portal-artwork,[\s\S]{0,180}background:none!important;[\s\S]{0,100}box-shadow:none!important;/,
+  );
+});
+
+test("animates every home emblem with accessible levitation and particles", async () => {
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /@keyframes portal-icon-levitation/);
+  assert.match(css, /@keyframes portal-particle-drift/);
+  assert.match(css, /\.home-portal-gallery \.illustrated-portal:nth-child\(6\)/);
+  assert.match(css, /prefers-reduced-motion:reduce[\s\S]{0,260}portal-artwork::after \{ animation:none!important;/);
+});
+
+test("groups every destination into the approved responsive navigation", async () => {
+  const response = await render();
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Navigazione principale/);
+  assert.match(html, />Mondi<[\s\S]*Novità dal Nexus[\s\S]*Dove nascono i mondi[\s\S]*LoreWise Codex/);
+  assert.match(html, /mobile-navigation-primary[\s\S]*>Home<[\s\S]*>Arte<[\s\S]*>Giochi<[\s\S]*>Mondi<[\s\S]*>Commissioni<[\s\S]*>LoreWise VIP<[\s\S]*>GiWise Shop<[\s\S]*>Account</);
+  assert.match(html, /Percorsi interni[\s\S]*Novit[àa] dal Nexus[\s\S]*Dove nascono i mondi[\s\S]*LoreWise Codex[\s\S]*Community &amp; Social[\s\S]*Area VIP[\s\S]*Universe Pass[\s\S]*Contatti/);
+  assert.match(html, /href="\/arte"/);
+  assert.match(html, /href="\/commissioni"/);
+  assert.match(html, /href="\/shop"/);
+  assert.match(html, /href="\/contatti"/);
+});
+
+test("renders the automatic weekly guide inside the game Atlas panel", async () => {
   const response = await render("/cronache-del-nexus");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Atlante dei Giochi[\s\S]*Prima guida dell[^<]*Atlante[\s\S]*Animal Crossing: New Horizons/);
-  assert.match(html, /Guida completa disponibile ora[^<]*anteprima LoreWise VIP/);
-  assert.match(html, /Il Taccuino completo è già aperto nell.area LoreWise VIP/);
-  assert.match(html, /Entra in LoreWise VIP/);
-  assert.match(html, /Scopri il gioco su Nintendo/);
-  assert.doesNotMatch(html, /Guida della settimana[\s\S]{0,220}Animal Crossing/);
-  assert.doesNotMatch(html, /Prima guida dell[^<]*Atlante[\s\S]{0,180}Baldur/);
+  assert.match(html, /Atlante dei Giochi[\s\S]*Aggiornamento automatico del lunedì[\s\S]*La guida della settimana/);
+  assert.match(html, /ora in LoreWise VIP/);
+  assert.match(html, /La prossima guida sarà/);
+  assert.match(html, /Passaggio automatico nell[^<]*Atlante pubblico/);
+  assert.match(html, /Apri la guida VIP/);
+  assert.match(html, /Collegamento alla pagina ufficiale del gioco/);
 });
 
 test("applies the global browser security policy", async () => {
@@ -80,6 +174,8 @@ test("publishes robots, manifest and a dynamic public sitemap", async () => {
   assert.match(xml, /\/enciclopedia\//);
   assert.match(xml, /\/cerca/);
   assert.match(xml, /\/dove-nascono-i-mondi/);
+  assert.match(xml, /\/mondi/);
+  assert.match(xml, /\/vip/);
   assert.doesNotMatch(xml, /\/gestione-ordini/);
 });
 
@@ -90,6 +186,10 @@ test("renders the GiWise creative journal with originals and clearly separated r
   assert.match(html, /Dove nascono i mondi/);
   assert.match(html, /Scappa finch/);
   assert.match(html, /La Custode delle Due Lune/);
+  assert.match(html, /Protocollo Ambra/);
+  assert.match(html, /href="\/dove-nascono-i-mondi\/protocollo-ambra-cyborg"/);
+  assert.match(html, /lw-art-079-preview\.jpg/);
+  assert.match(html, /lw-wip-079-3-preview\.webp/);
   assert.match(html, /Ritratto vampiresco/);
   assert.match(html, /reinterpretazione personale non ufficiale/);
   assert.match(html, /lw-art-041-preview\.jpg/);
@@ -104,6 +204,22 @@ test("renders the GiWise creative journal with originals and clearly separated r
   assert.doesNotMatch(html, /Scorri per vedere tutto/);
   assert.doesNotMatch(html, /La storia del personaggio|La chiamavano Terza/);
   assert.match(html, /href="\/dove-nascono-i-mondi\/scappa-finche-puoi"/);
+});
+
+test("gives Protocollo Ambra its own documented creative sequence", async () => {
+  const response = await render("/dove-nascono-i-mondi/protocollo-ambra-cyborg");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Nasce la maschera/);
+  assert.match(html, /Corpo e struttura/);
+  assert.match(html, /Protocollo colore/);
+  assert.match(html, /Tavola finale/);
+  assert.match(html, /lw-wip-079-1-preview\.webp/);
+  assert.match(html, /lw-art-079-preview\.jpg/);
+  assert.doesNotMatch(html, />Il progetto</);
+  assert.doesNotMatch(html, />Lavorazione</);
+  assert.doesNotMatch(html, />Immagini</);
+  assert.doesNotMatch(html, />Collegamenti</);
 });
 
 test("keeps the newest artwork lore truthful and links verified finals to the journal", async () => {
@@ -184,24 +300,33 @@ test("renders a detailed encyclopedia entry", async () => {
   assert.doesNotMatch(html, /Lyra Vesper/);
 });
 
-test("renders the documented Codex archive without mixing GiWise originals", async () => {
+test("renders one intuitive Codex index while keeping origins explicitly switchable", async () => {
   const response = await render("/enciclopedia");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.ok(Buffer.byteLength(html) < 700_000, "L'indice non deve serializzare i dossier completi nel browser");
-  assert.match(html, /442[\s\S]{0,80}dossier completi/);
+  assert.ok(Buffer.byteLength(html) < 1_000_000, "L'indice non deve serializzare i dossier completi nel browser");
+  assert.match(html, /665[\s\S]{0,80}dossier/);
+  assert.match(html, /Da dove vuoi iniziare\?/);
+  assert.match(html, /Come consultare il LoreWise Codex/);
+  assert.match(html, /Scelta facoltativa/);
+  assert.match(html, /Lascia “Esplora tutto” per una ricerca completa/);
+  assert.match(html, /Esplora tutto/);
   assert.match(html, /Originali GiWise/);
+  assert.match(html, /Universi documentati/);
   assert.match(html, /Pennywise, il Clown Danzante/);
   assert.doesNotMatch(html, /href="\/enciclopedia\/pennywise-(?:modern|1990)"/);
-  assert.doesNotMatch(html, /Nhevara, Madreferita/);
-  assert.doesNotMatch(html, /Elyra, Voce Negata/);
+  assert.match(html, /Nhevara, Madreferita/);
+  assert.match(html, /Elyra, Voce Negata/);
   assert.match(html, /Tutte le categorie/);
   assert.match(html, /Tutti gli universi/);
   assert.match(html, /Stato editoriale/);
   assert.match(html, /Tutti gli stati/);
   assert.match(html, /codex-archive-convergences-scene-v1\.webp/);
   assert.match(html, /lorewise-codex-emblem-v1\.webp/);
-  assert.match(html, /Azzera ricerca e filtri/);
+  assert.match(html, /Filtri avanzati/);
+  assert.match(html, /Azzera tutto/);
+  assert.match(html, /Pagine dei risultati/);
+  assert.doesNotMatch(html, /Mostra altri dossier/);
 });
 
 test("renders the separate GiWise Originals archive", async () => {
@@ -226,7 +351,7 @@ test("renders a fully researched Animal Crossing dossier with its exact associat
   assert.match(html, /Animal Crossing: New Horizons/);
   assert.match(html, /codex\/display\/fuori-trama\/tom-nook\.webp/);
   assert.match(html, /Il dossier segue il ruolo ricorrente di Tom Nook nei videogiochi principali/);
-  assert.doesNotMatch(html, /Fuori Trama|Nexus|Crossover LoreWise|Forza\s+\d|Destrezza\s+\d|Intelligenza\s+\d|Carisma\s+\d|Ruolo tattico|Modulo GiWise Studio/);
+  assert.doesNotMatch(html, /Fuori Trama|Crossover LoreWise|Forza\s+\d|Destrezza\s+\d|Intelligenza\s+\d|Carisma\s+\d|Ruolo tattico|Modulo GiWise Studio/);
   assert.doesNotMatch(html, /Da documentare|Campi ancora da decidere insieme/);
 });
 
@@ -236,7 +361,7 @@ test("renders Eric Cartman as an encyclopedic character without internal game da
   const html = await response.text();
   assert.match(html, /Eric Cartman/);
   assert.match(html, /South Park/);
-  assert.doesNotMatch(html, /Fuori Trama|Nexus|Forza\s+\d|Destrezza\s+\d|Intelligenza\s+\d|Carisma\s+\d|Ruolo tattico|Modulo GiWise Studio|Dossier originale · autenticità GiWise Studio/);
+  assert.doesNotMatch(html, /Fuori Trama|Forza\s+\d|Destrezza\s+\d|Intelligenza\s+\d|Carisma\s+\d|Ruolo tattico|Modulo GiWise Studio|Dossier originale · autenticità GiWise Studio/);
 });
 
 test("merges Penny's alternate associated image into one public dossier", async () => {
@@ -295,7 +420,7 @@ test("renders Pennywise from documented sources and only Fuori Trama character-s
   assert.match(html, /continuità dei film di Andy Muschietti/);
   assert.match(html, /Il personaggio attraverso gli adattamenti/);
   assert.match(html, /miniserie televisiva del 1990, interpretato da Tim Curry/);
-  assert.doesNotMatch(html, /Fuori Trama|Nexus|Forza|Destrezza|Carisma|Ruolo tattico/);
+  assert.doesNotMatch(html, /Fuori Trama|Forza|Destrezza|Carisma|Ruolo tattico/);
   assert.match(html, /codex\/display\/pennywise-modern\.webp/);
   assert.match(html, /codex\/display\/pennywise-1990\.webp/);
   assert.doesNotMatch(html, /pennywise-standee|pennywise-fuori-trama-prologue|codex-authorial/);
@@ -479,10 +604,10 @@ test("renders a protected, structured artwork detail page", async () => {
   assert.match(html, /Acquisto protetto[\s\S]*17,90/);
   assert.match(html, /Verifica del pagamento protetto in corso/);
   assert.match(html, /dossier-divider-display-v1\.webp/);
-  assert.match(html, /Reazioni dalla community/);
-  assert.match(html, /L’opera continua negli occhi di chi guarda/);
-  assert.match(html, /Accedi per lasciare un apprezzamento/);
-  assert.match(html, /nessun commento dimostrativo|senza contenuti dimostrativi/i);
+  assert.match(html, /Community LoreWise/);
+  assert.match(html, /L’opera continua nella conversazione/);
+  assert.match(html, /Accedi per mettere Mi piace/);
+  assert.match(html, /Caricamento della conversazione/);
   assert.doesNotMatch(html, /Art The Clown II2|GiWise Restored|LolaGang/);
 });
 
@@ -631,6 +756,7 @@ test("renders the membership proposal with transparent Stripe checkout", async (
   assert.match(html, /Dossier originali estesi per Collector/i);
   assert.match(html, /Pagamento trasparente/i);
   assert.match(html, /Stripe opera in prova oppure/i);
+  assert.match(html, /id="piani" data-anchor-focus="true" tabindex="-1"/);
 });
 
 test("renders art packages, personal license and protected delivery as a local draft", async () => {
@@ -693,6 +819,7 @@ test("renders the complete protected commission portfolio", async () => {
   assert.match(html, /sconto corretto/i);
   assert.match(html, /applicato al totale/i);
   assert.match(html, /Promo apertura attiva/i);
+  assert.match(html, /id="promozione-apertura" data-anchor-focus="true" tabindex="-1"/);
   assert.match(html, /Richieste inviate entro il 30 settembre 2026/i);
   assert.match(html, /Visitatori/);
   assert.match(html, /tre nell’Opera Narrativa/i);
@@ -707,6 +834,19 @@ test("renders the complete protected commission portfolio", async () => {
   assert.match(html, /Il mio ritratto verrà pubblicato/);
   assert.doesNotMatch(html, /Invio in preparazione/);
   assert.doesNotMatch(html, /Acquista l’opera|download disponibile/i);
+});
+
+test("opens the promotion focus without loading the complete commission portfolio", async () => {
+  const response = await render("/commissioni?focus=promozione-apertura");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Gli sconti sono qui/);
+  assert.match(html, /Questa versione leggera mostra subito disponibilità/);
+  assert.match(html, /id="promozione-apertura"/);
+  assert.match(html, /Ritratto Essenziale/);
+  assert.match(html, /Ritratto Completo/);
+  assert.match(html, /Opera Narrativa/);
+  assert.doesNotMatch(html, /commission-archive|Trentasette richieste, sei percorsi creativi/);
 });
 
 test("renders a commission dossier without sale or download actions", async () => {
@@ -953,18 +1093,23 @@ test("rejects unsafe or incomplete password recovery requests before contacting 
   assert.match(await shortPasswordResponse.text(), /almeno 8 caratteri/i);
 });
 
-test("renders the local account privacy draft with separate optional communications", async () => {
+test("renders the complete privacy, cookie and local-storage notice", async () => {
   const response = await render("/privacy");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /I tuoi dati non sono una moneta/);
-  assert.match(html, /bozza locale dell’informativa account/i);
+  assert.match(html, /Titolare e contatti/);
+  assert.match(html, /Cookie e memoria locale/);
+  assert.match(html, /Statistiche proprietarie/);
   assert.match(html, /Comunicazioni facoltative/);
-  assert.match(html, /inizialmente disattivate/i);
-  assert.match(html, /Supabase gestisce autenticazione e sessioni/);
-  assert.match(html, /Da completare prima della pubblicazione/);
-  assert.match(html, /richiesta può essere avviata.+annullata dal profilo/i);
-  assert.doesNotMatch(html, /pagamenti.+sono attivi/i);
+  assert.match(html, /inizialmente disattivat[ae]/i);
+  assert.match(html, /Supabase[\s\S]*Autenticazione, account e sessioni/);
+  assert.match(html, /massimo 90 giorni/);
+  assert.match(html, /lorewise-session-mode/);
+  assert.match(html, /sb-[\s\S]*-auth-token/);
+  assert.match(html, /Garante per la protezione dei dati personali/);
+  assert.match(html, /non viene mostrato un banner di consenso/i);
+  assert.doesNotMatch(html, /bozza locale/i);
 });
 
 test("keeps the Community moderation workspace private", async () => {
@@ -1275,7 +1420,8 @@ test("tracks anonymous page views only on the public LoreWise domain", async () 
 
 test("renders the VIP Codex proposal area and protects its API", async () => {
   const component = await readFile(new URL("../components/CodexSuggestionForm.tsx", import.meta.url), "utf8");
-  assert.match(component, /if \(access !== "vip"\) return null/);
+  assert.match(component, /if \(access === "locked"\)/);
+  assert.match(component, /Serve un LoreWise Pass attivo/);
   assert.match(component, /Manca un personaggio\?/);
   assert.match(component, /Solo LoreWise VIP/);
   assert.match(component, /Controlla il Codex/);
@@ -1284,7 +1430,11 @@ test("renders the VIP Codex proposal area and protects its API", async () => {
   assert.match(component, /Perché dovrebbe entrare nel Codex/);
   assert.match(component, /STATUS_LABELS/);
   const pageSource = await readFile(new URL("../app/enciclopedia/page.tsx", import.meta.url), "utf8");
-  assert.match(pageSource, /id="proposte-codex-vip"/);
+  assert.match(pageSource, /href="\/enciclopedia\/proposte-vip"/);
+  assert.doesNotMatch(pageSource, /codex-editorial-drawer/);
+  const proposalPage = await render("/enciclopedia/proposte-vip");
+  assert.equal(proposalPage.status, 200);
+  assert.match(await proposalPage.text(), /Proposte VIP/);
 
   const api = await render("/api/codex-suggestions", { headers: { accept: "application/json" } });
   assert.equal(api.status, 401);
@@ -1301,6 +1451,22 @@ test("omits undocumented pronunciation and keeps detailed generated roles", asyn
   for (const dossier of dossiers) {
     const occupation = dossier.identity.find((fact) => fact.label === "Occupazione o ruolo")?.value;
     assert.equal(dossier.identity.some((fact) => fact.label === "Pronuncia"), false, `Pronuncia inattesa: ${dossier.slug}`);
-    assert.match(occupation, /Agisce soprattutto attraverso/i, `Ruolo non approfondito: ${dossier.slug}`);
+    assert.match(occupation, /Agisc(?:e|ono) soprattutto attraverso/i, `Ruolo non approfondito: ${dossier.slug}`);
+  }
+});
+
+test("never classifies real people or historical subjects as fictional characters", async () => {
+  const dossiers = JSON.parse(await readFile(new URL("../data/codex/third-party-dossiers.generated.json", import.meta.url), "utf8"));
+  const expected = new Map([
+    ["aldo-giovanni-giacomo", /tre persone reali/i],
+    ["dino-cooptv", /persona reale/i],
+    ["gesu-cristo", /figura storica e religiosa/i],
+    ["baphomet", /simbolo storico e occultistico/i],
+  ]);
+  for (const [slug, classificationPattern] of expected) {
+    const dossier = dossiers.find((entry) => entry.slug === slug);
+    const classification = dossier?.narrative.find((fact) => fact.label === "Classificazione")?.value || "";
+    assert.match(classification, classificationPattern, `Classificazione errata: ${slug}`);
+    assert.doesNotMatch(classification, /personaggio di finzione/i, `Soggetto reale o storico indicato come finzione: ${slug}`);
   }
 });

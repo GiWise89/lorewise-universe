@@ -100,8 +100,10 @@ export function CodexSuggestionForm() {
     }
   }
 
-  // Il modulo non viene mostrato a visitatori e membri senza un Pass VIP attivo.
-  if (access !== "vip") return null;
+  if (access === "loading") return <section className="codex-suggestion codex-suggestion-loading" aria-live="polite">Verifica dell’accesso VIP…</section>;
+  if (access === "locked") return <section className="codex-suggestion codex-suggestion-locked">
+    <div><p className="eyebrow">Accesso riservato</p><h2>Serve un LoreWise Pass attivo.</h2><p>Le proposte editoriali e il loro storico personale sono disponibili ai membri VIP idonei.</p><a href="/vip">Scopri LoreWise VIP →</a></div>
+  </section>;
 
   return <section className="codex-suggestion" aria-labelledby="codex-suggestion-title">
     <header className="codex-suggestion-intro">

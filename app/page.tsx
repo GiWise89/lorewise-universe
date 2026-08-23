@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { CurrentDiscountRibbon } from "@/components/CurrentDiscountRibbon";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -16,18 +17,17 @@ export const metadata: Metadata = {
 };
 
 const portals = [
-  { key: "arte", title: "Arte in vetrina", note: "Opere originali protette da filigrana", href: "/arte", image: "/brand/icons/arte-concept-v1.webp", width: 1224, height: 1285 },
-  { key: "commissioni", title: "Commissioni", note: "Un disegno creato per la tua idea", href: "/commissioni", image: "/brand/icons/commissioni-concept-v1.webp", width: 1536, height: 1024 },
-  { key: "giochi", title: "Giochi e app", note: "Anteprime e diari di GiWise Studio", href: "/giochi", image: "/brand/icons/giochi-concept-v1.webp", width: 1536, height: 1024 },
-  { key: "enciclopedia", title: "Enciclopedia", note: "Personaggi, opere e mondi collegati", href: "/enciclopedia", image: "/brand/icons/enciclopedia-concept-v1.webp", width: 1352, height: 1163 },
-  { key: "shop", title: "GiWise Shop", note: "Merch, accessori e collezioni ufficiali", href: "/shop", image: "/brand/icons/shop-concept-v1.webp", width: 1173, height: 1341 },
-  { key: "social", title: "Social e assistenza", note: "Contatti, richieste e canali ufficiali", href: "/contatti", image: "/brand/icons/social-assistenza-concept-v1.webp", width: 1536, height: 1024 },
-  { key: "diario", title: "Dove nascono i mondi", note: "Bozze, passioni e dietro le quinte", href: "/dove-nascono-i-mondi", image: "/brand/icons/dove-nascono-i-mondi-concept-v1.webp", width: 1024, height: 1024 },
-  { key: "vip", title: "LoreWise VIP", note: "Anteprime e contenuti riservati al Pass", href: "/vip-zone", image: "/brand/icons/lorewise-vip-official-v1.webp", width: 1024, height: 1024 },
+  { key: "arte", title: "Arte", note: "Opere originali e collezioni protette", href: "/arte", image: "/brand/home-portals/arte.webp" },
+  { key: "giochi", title: "Giochi", note: "Progetti GiWise Studio e Atlante dei Giochi", href: "/giochi", image: "/brand/home-portals/giochi.webp" },
+  { key: "mondi", title: "Mondi", note: "Novità, diario creativo e LoreWise Codex", href: "/mondi", image: "/brand/home-portals/mondi.webp" },
+  { key: "commissioni", title: "Commissioni", note: "Un’opera costruita intorno alla tua idea", href: "/commissioni", image: "/brand/home-portals/commissioni.webp" },
+  { key: "vip", title: "LoreWise VIP", note: "Vantaggi, eventi e Universe Pass", href: "/vip", image: "/brand/home-portals/vip.webp" },
+  { key: "shop", title: "GiWise Shop", note: "Merchandising e collezioni ufficiali", href: "/shop", image: "/brand/home-portals/shop.webp" },
 ];
 
 export default function Home() {
-  const closingPortals = ["shop", "commissioni", "social"].map((key) => portals.find((portal) => portal.key === key)!);
+  const closingPortals = ["shop", "commissioni"].map((key) => portals.find((portal) => portal.key === key)!);
+  const servicePortal = { key: "social", title: "Social e assistenza", note: "Contatti, richieste e canali ufficiali", href: "/contatti" };
 
   return (
     <main className="universe-home">
@@ -42,22 +42,18 @@ export default function Home() {
             <Image src="/brand/lorewise-universe-logo-concept-c.webp" alt="LoreWise Universe, by GiWise Studio" width={1536} height={1024} priority unoptimized />
             <h1>Scegli il tuo ingresso</h1>
           </div>
-          {portals.map((portal) => (
-            <Link className={`illustrated-portal portal-${portal.key}`} href={portal.href} key={portal.key}>
-              <Image src={portal.image} alt="" width={portal.width} height={portal.height} unoptimized />
-              <span><strong>{portal.title}</strong><small>{portal.note}</small></span>
-            </Link>
-          ))}
+          <nav className="home-portal-gallery" aria-label="Sei aree principali di LoreWise Universe">
+            {portals.map((portal, index) => (
+              <Link className={`illustrated-portal portal-${portal.key}`} href={portal.href} key={portal.key}>
+                <span className="portal-artwork"><Image src={portal.image} alt="" width={420} height={420} sizes="(max-width: 700px) 45vw, (max-width: 1100px) 28vw, 15vw" unoptimized /></span>
+                <span className="portal-copy"><small>{String(index + 1).padStart(2, "0")}</small><strong>{portal.title}</strong><span>{portal.note}</span></span>
+              </Link>
+            ))}
+          </nav>
         </div>
       </section>
 
-      <aside className="studio-ribbon" aria-label="Cronache del Nexus">
-        <Link className="studio-ribbon-link" href="/cronache-del-nexus" aria-label="Apri tutte le novità nelle Cronache del Nexus">
-          <span className="studio-ribbon-badge"><i aria-hidden="true" /> Novità nell’universo</span>
-          <strong className="studio-ribbon-title">Cronache del Nexus</strong>
-          <span className="studio-ribbon-action">Apri le novità <b aria-hidden="true">→</b></span>
-        </Link>
-      </aside>
+      <CurrentDiscountRibbon />
 
       <section className="home-story art-story shell" aria-labelledby="art-story-title">
         <div className="home-art-preview" aria-label="Tre opere protette in fase di catalogazione">
@@ -134,7 +130,7 @@ export default function Home() {
         <div className="shell home-finale-inner">
           <Image className="finale-seal" src="/brand/lorewise-wax-seal-v1.webp" alt="Sigillo LoreWise Universe" width={1536} height={1536} unoptimized />
           <div className="finale-copy"><p className="eyebrow">Il tuo posto nell’universo</p><h2 id="finale-title">Colleziona. Immagina. Chiedi. Condividi.</h2><p>GiWise Shop, commissioni e assistenza sono le porte dirette tra le creazioni e chi le sceglie.</p>
-            <nav className="finale-routes" aria-label="Servizi LoreWise Universe">{closingPortals.map((portal) => <Link href={portal.href} key={portal.key}><strong>{portal.title}</strong><small>{portal.note}</small><span aria-hidden="true">→</span></Link>)}</nav>
+            <nav className="finale-routes" aria-label="Servizi LoreWise Universe">{[...closingPortals, servicePortal].map((portal) => <Link href={portal.href} key={portal.key}><strong>{portal.title}</strong><small>{portal.note}</small><span aria-hidden="true">→</span></Link>)}</nav>
           </div>
         </div>
       </section>

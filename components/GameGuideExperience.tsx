@@ -10,7 +10,7 @@ type GameGuideExperienceProps = {
 };
 
 export function GameGuideExperience({ guide, context }: GameGuideExperienceProps) {
-  const fallbackSection = {
+  const fallbackSection: NonNullable<GameGuide["sections"]>[number] = {
     id: "all",
     label: "Guida completa",
     summary: "Tutti i capitoli della guida.",
@@ -34,13 +34,13 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
   return <article className={`game-guide-experience is-${context} theme-${guide.theme ?? "baldurs-gate"}`}>
     <header className="game-guide-hero">
       <figure>
-        <Image src={guide.cover.src} alt={guide.cover.alt} width={1920} height={1080} priority unoptimized />
+        <Image src={guide.cover.src} alt={guide.cover.alt} width={1920} height={1080} sizes="(max-width: 900px) 100vw, 55vw" priority unoptimized />
         <figcaption>{guide.cover.caption}</figcaption>
       </figure>
       <div>
         <p className="eyebrow">{context === "vip" ? "Guida della settimana · accesso anticipato" : "Atlante dei Giochi · guida pubblica"}</p>
         <span>{guide.code} · {guide.versionLabel}</span>
-        <h1>{guide.title}</h1>
+        {context === "public" ? <h2 className="game-guide-title">{guide.title}</h2> : <h1 className="game-guide-title">{guide.title}</h1>}
         <strong>{guide.subtitle}</strong>
         <p>{guide.description}</p>
         <dl>
@@ -48,9 +48,24 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
           <div><dt>Aggiornata</dt><dd>{guide.updatedAt}</dd></div>
           <div><dt>Spoiler</dt><dd>Separati e segnalati</dd></div>
         </dl>
-        <a href={guide.storeUrl} target="_blank" rel="noreferrer">{guide.storeLabel} <span aria-hidden="true">↗</span></a>
+        <a href={guide.storeUrl} target="_blank" rel="noopener noreferrer">{guide.storeLabel} <span aria-hidden="true">↗</span></a>
       </div>
     </header>
+
+    {guide.livingGuide ? <aside className="game-guide-living-status" aria-label="Stato della Guida Viva">
+      <div className="game-guide-living-status-mark" aria-hidden="true"><span>LIVE</span></div>
+      <div>
+        <p>{guide.livingGuide.announcement}</p>
+        <h2>Una guida che resta al passo con Azeroth.</h2>
+        <span>Ogni mese vengono controllate le fonti ufficiali. Se emerge una novitÃ  ricevi una notifica; la guida cambia soltanto dopo la tua approvazione.</span>
+      </div>
+      <dl>
+        <div><dt>Frequenza</dt><dd>Controllo mensile</dd></div>
+        <div><dt>Prossimo controllo</dt><dd>{new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Rome" }).format(new Date(guide.livingGuide.nextCheckAt))}</dd></div>
+        <div><dt>Pubblicazione</dt><dd>Solo dopo approvazione</dd></div>
+      </dl>
+      <a href={guide.livingGuide.notificationTarget}>Apri il Centro notifiche <span aria-hidden="true">â†’</span></a>
+    </aside> : null}
 
     <section className="game-guide-reader" aria-labelledby={`${guide.id}-chapter-title`}>
       <div className="game-guide-switch-heading">
@@ -71,7 +86,7 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
             }}
             key={section.id}
           >
-            <Image src={section.icon.src} alt="" width={220} height={220} loading="lazy" unoptimized />
+            {section.iconSprite ? <span className="game-guide-section-icon" aria-hidden="true" style={{ backgroundImage: `url(${section.iconSprite.src})`, backgroundPosition: section.iconSprite.position }} /> : <Image src={section.icon.src} alt="" width={220} height={220} loading="lazy" unoptimized />}
             <span><strong>{section.label}</strong><small>{section.summary}</small></span>
           </button>)}
         </nav>
@@ -90,6 +105,30 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
       </nav>
       <div className="game-guide-mobile-hint is-chapters" aria-hidden="true"><span>←</span> Scorri per scegliere un capitolo <span>→</span></div>
 
+      {guide.theme === "baldurs-gate" ? <div className="bg3-corruption-rift" aria-hidden="true">
+        <span className="bg3-corruption-rift-icon" />
+        <span className="bg3-corruption-rift-pulse" />
+      </div> : null}
+      {guide.theme === "minecraft" ? <div className="minecraft-chunk-horizon" aria-hidden="true">
+        <span className="minecraft-chunk-block is-grass" />
+        <span className="minecraft-chunk-block is-stone" />
+        <span className="minecraft-chunk-block is-ore" />
+        <span className="minecraft-chunk-block is-redstone" />
+        <span className="minecraft-chunk-light" />
+      </div> : null}
+      {guide.theme === "skyrim" ? <div className="skyrim-word-wall" aria-hidden="true">
+        <span className="skyrim-word-wall-snow" />
+        <span className="skyrim-word-wall-rune is-left">ᚦ</span>
+        <span className="skyrim-word-wall-rune is-center">ᛞ</span>
+        <span className="skyrim-word-wall-rune is-right">ᚱ</span>
+        <span className="skyrim-word-wall-flame" />
+      </div> : null}
+      {guide.theme === "world-of-warcraft" ? <div className="wow-arcane-threshold" aria-hidden="true">
+        <span className="wow-arcane-threshold-orbit is-outer" />
+        <span className="wow-arcane-threshold-orbit is-inner" />
+        <span className="wow-arcane-threshold-core" />
+      </div> : null}
+
       <section className="game-guide-chapter" role="tabpanel" id={`${guide.id}-${activeChapter.id}-panel`} aria-labelledby={`${guide.id}-chapter-title`}>
         <header>
           <p>{activeChapter.number} · {activeChapter.label}</p>
@@ -100,7 +139,7 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
 
         <div className={`game-guide-gallery is-${activeChapter.id}`}>
           {activeChapter.images.map((image, index) => <figure className={index === 0 ? "is-primary" : undefined} key={`${activeChapter.id}-${image.src}`}>
-            <div><Image src={image.src} alt={image.alt} width={1920} height={1080} loading="lazy" unoptimized /></div>
+            <div><Image src={image.src} alt={image.alt} width={1920} height={1080} sizes="(max-width: 900px) 100vw, 86vw" loading="lazy" decoding="async" unoptimized /></div>
             <figcaption>{image.caption}</figcaption>
           </figure>)}
         </div>
@@ -113,7 +152,7 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
           <p className="game-guide-artwork-hint"><span aria-hidden="true">←</span> Usa i tasti per sfogliare le 42 tavole complete <span aria-hidden="true">→</span></p>
           <div className="game-guide-artwork-grid">
             {visibleArtworks.map((image) => <figure key={image.src}>
-              <Image src={image.src} alt={image.alt} width={1280} height={1080} loading="lazy" unoptimized />
+              <Image src={image.src} alt={image.alt} width={1280} height={1080} sizes="(max-width: 700px) 92vw, (max-width: 1100px) 45vw, 30vw" loading="lazy" decoding="async" unoptimized />
               <figcaption>{image.caption}</figcaption>
             </figure>)}
           </div>
@@ -144,7 +183,7 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
     <footer className="game-guide-sources">
       <strong>Fonti e aggiornamenti</strong>
       <p>La guida distingue i consigli editoriali LoreWise dalle informazioni ufficiali sul gioco.</p>
-      <div>{guide.sources.map((source) => <a href={source.href} target="_blank" rel="noreferrer" key={source.href}>{source.label} <span aria-hidden="true">↗</span></a>)}</div>
+      <div>{guide.sources.map((source) => <a href={source.href} target="_blank" rel="noopener noreferrer" key={source.href}>{source.label} <span aria-hidden="true">↗</span></a>)}</div>
     </footer>
   </article>;
 }

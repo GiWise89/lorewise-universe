@@ -22,6 +22,7 @@ function StoryLink({ id, children = "Sfoglia la pagina" }: { id: string; childre
 }
 
 export default function CreativeJournalPage() {
+  const cyborg = getCreativeJournalEntry("protocollo-ambra-cyborg")!;
   const custode = getCreativeJournalEntry("custode-delle-due-lune")!;
   const scappa = getCreativeJournalEntry("scappa-finche-puoi")!;
   const vampire = getCreativeJournalEntry("ritratto-vampiresco")!;
@@ -62,8 +63,24 @@ export default function CreativeJournalPage() {
         { id: "originali", label: "Creazioni originali", eyebrow: "01", content: (
       <section id="originali" className="diary-chapter" aria-labelledby="originals-title">
         <header className="shell diary-chapter-title">
-          <span>Capitolo 01</span><h2 id="originals-title">Creazioni originali</h2><p>Tre lavori nati da idee personali, raccontati attraverso immagini e informazioni confermate.</p>
+          <span>Capitolo 01</span><h2 id="originals-title">Creazioni originali</h2><p>Quattro lavori nati da idee personali, raccontati attraverso immagini e informazioni confermate.</p>
         </header>
+
+        <article className="diary-spread shell diary-spread-cyborg" aria-labelledby="cyborg-title">
+          <div className="diary-page-sheet diary-page-left">
+            <span className="diary-page-number">01</span>
+            <CreativeJournalPhoto image={cyborg.processImages[2]} caption="Il percorso reale · tavoletta, schermo e figura completa" />
+            <p className="diary-margin-note">Sei passaggi documentano il progetto senza mostrare né distribuire i file originali.</p>
+          </div>
+          <div className="diary-page-sheet diary-page-right">
+            <span className="diary-page-number">02</span>
+            <p className="diary-hand">Personaggio originale · fantascienza distopica</p>
+            <h3 id="cyborg-title">{cyborg.title}</h3>
+            <p>{cyborg.summary}</p>
+            {cyborg.image ? <CreativeJournalPhoto image={cyborg.image} caption="Tavola completa · anteprima protetta" /> : null}
+            <StoryLink id={cyborg.id}>Apri tutte le fasi</StoryLink>
+          </div>
+        </article>
 
         <article className="diary-spread shell diary-spread-custode" aria-labelledby="custode-title">
           <div className="diary-page-sheet diary-page-left">

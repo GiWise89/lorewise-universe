@@ -1,0 +1,218 @@
+{
+  "id": "skyrim-complete-guide-01",
+  "slug": "the-elder-scrolls-v-skyrim",
+  "code": "LW-ATLAS-SKY-001",
+  "game": "The Elder Scrolls V: Skyrim",
+  "title": "Il codice del Sangue di Drago",
+  "subtitle": "Dalla prima fuga alle terre di Solstheim, costruendo un'avventura che rimane davvero tua.",
+  "description": "Sedici capitoli pratici per Skyrim Special e Anniversary Edition: edizioni, salvataggi, personaggio, combattimento, furtività, magia, esplorazione, economia, mestieri, seguaci, draghi, fazioni, Hearthfire, Dawnguard, Dragonborn, Sopravvivenza e Creations. La guida evita build obbligatorie e protegge le decisioni narrative.",
+  "versionLabel": "Special/Anniversary Edition · aggiornamento 20 agosto 2026",
+  "updatedAt": "23 agosto 2026",
+  "vipFrom": "2026-09-07T00:00:00+02:00",
+  "publicAt": "2026-09-14T00:00:00+02:00",
+  "theme": "skyrim",
+  "cover": {
+    "src": "/atlas/skyrim/official/cover-anniversary.webp",
+    "alt": "Copertina ufficiale di The Elder Scrolls V Skyrim Anniversary Edition",
+    "caption": "Skyrim Anniversary Edition · un decennio di avventure in un solo viaggio"
+  },
+  "storeUrl": "https://store.steampowered.com/app/489830/The_Elder_Scrolls_V_Skyrim_Special_Edition/",
+  "storeLabel": "Scopri Skyrim su Steam",
+  "chapters": [
+    {
+      "id": "editions-saves", "number": "01", "label": "Edizioni e salvataggi", "estimatedRead": "10–13 min", "spoiler": "No spoiler",
+      "title": "Scegliere l'edizione senza compromettere il proprio mondo",
+      "introduction": "Prima di creare il personaggio conviene distinguere gioco base, Special Edition, Anniversary Upgrade e Creations. La scelta più importante non è la piattaforma: è sapere quali contenuti appartengono al salvataggio.",
+      "images": [{ "src": "/atlas/skyrim/official/14-creations-menu.webp", "alt": "Schermata ufficiale Bethesda Game Studios Creations", "caption": "Creations amplia il gioco, ma ogni mondo deve conservare una configurazione riconoscibile." }],
+      "blocks": [
+        { "label": "Edizioni", "title": "Special o Anniversary?", "text": "Special Edition include il gioco rimasterizzato e Dawnguard, Hearthfire e Dragonborn. Anniversary Edition aggiunge il pacchetto di contenuti Creation Club pubblicato per il decennale.", "table": { "columns": ["Versione", "Comprende", "Per chi è adatta"], "rows": [["Special Edition", "Gioco base e tre espansioni ufficiali", "Prima partita essenziale"], ["Anniversary Edition", "Special Edition più il pacchetto Creation Club", "Vuoi Survival, pesca, case, equipaggiamenti e missioni aggiuntive"], ["Anniversary Upgrade", "Solo contenuti Anniversary", "Possiedi già Special Edition"]] } },
+        { "label": "Salvataggi", "title": "Crea tre punti di ritorno", "text": "Autosave e quicksave aiutano nel breve periodo, ma non sostituiscono i salvataggi manuali.", "steps": ["Crea un salvataggio pulito appena terminata l'introduzione.", "Crea un salvataggio prima di scegliere fazioni o installare Creations.", "Mantieni almeno tre manuali alternati e assegna loro un momento riconoscibile.", "Non sovrascrivere l'unico salvataggio dopo un cambio importante del load order."] },
+        { "label": "Impostazioni", "title": "Configura prima di giudicare la difficoltà", "text": "Sensibilità, visuale, luminosità, sottotitoli e difficoltà cambiano la leggibilità dell'avventura.", "tips": ["Attiva sottotitoli generali e dialoghi per non perdere indicazioni ambientali.", "Riduci la difficoltà quando stai ancora imparando blocco, cure e gestione della stamina.", "Su PC e console verifica lo spazio disponibile prima di aggiungere Creations."], "warning": "Non aggiungere un grande pacchetto di mod a una partita già avanzata senza leggere dipendenze, compatibilità e istruzioni di installazione." }
+      ]
+    },
+    {
+      "id": "first-hours", "number": "02", "label": "Prime ore", "estimatedRead": "11–14 min", "spoiler": "No spoiler",
+      "title": "Dalla fuga al primo vero campo base",
+      "introduction": "Le prime ore servono a imparare, non a completare tutto. Una città di riferimento, un letto, qualche cura e spazio nell'inventario valgono più di un livello guadagnato in fretta.",
+      "images": [{ "src": "/atlas/skyrim/official/08-character.webp", "alt": "Avventuriero entra in un villaggio di Skyrim", "caption": "Il primo villaggio è un luogo dove vendere, riposare e capire come vive il mondo." }],
+      "blocks": [
+        { "label": "Sequenza sicura", "title": "Le prime due ore in otto mosse", "text": "Segui un ritmo semplice e lascia che le deviazioni restino una scelta.", "steps": ["Completa la fuga e prova arma, arco, magia e furtività.", "Raccogli soltanto oggetti con un buon rapporto valore-peso.", "Visita il primo insediamento e parla con mercante e fabbro.", "Cucina o compra alcune cure e conserva le pozioni migliori.", "Raggiungi Whiterun seguendo la strada principale.", "Attiva una Pietra Guardiana adatta allo stile che vuoi provare.", "Compra o trova un incantesimo di cura utilizzabile.", "Crea un salvataggio manuale prima della prima grande missione."] },
+        { "label": "Equipaggiamento", "title": "Il kit che evita i ritorni inutili", "text": "Porta un'arma principale, una risposta a distanza, cure, torce e pochi strumenti di valore.", "table": { "columns": ["Bisogno", "Soluzione iniziale", "Controllo"], "rows": [["Danno", "Arma con cui colpisci con regolarità", "Stamina e velocità"], ["Distanza", "Arco oppure magia", "Munizioni o Magicka"], ["Sopravvivenza", "Cure, cibo, armatura", "Peso e resistenze"], ["Esplorazione", "Torcia e grimaldelli", "Spazio libero"]] } },
+        { "label": "Errori iniziali", "title": "Non trasformare la libertà in confusione", "text": "Skyrim permette di andare ovunque, ma non obbliga a seguire ogni indicatore.", "mistakes": ["Accettare decine di missioni e inseguire soltanto la freccia più vicina.", "Raccogliere armature pesanti solo perché valgono oro.", "Spendere tutti i punti abilità prima di capire quali azioni usi davvero.", "Affrontare giganti, sacerdoti drago o rovine profonde senza una via di fuga."] }
+      ]
+    },
+    {
+      "id": "character-growth", "number": "03", "label": "Personaggio", "estimatedRead": "13–16 min", "spoiler": "No spoiler",
+      "title": "Costruire il personaggio attraverso ciò che fai",
+      "introduction": "In Skyrim le abilità crescono usandole. Non serve scegliere una classe: serve decidere quali problemi vuoi risolvere con salute, Magicka, stamina e vantaggi.",
+      "images": [{ "src": "/atlas/skyrim/official/03-nordic-ruins.webp", "alt": "Foresta autunnale attraversata da un sentiero in Skyrim", "caption": "Ogni sentiero allena una parte diversa del personaggio: il tuo stile emerge durante il viaggio." }],
+      "blocks": [
+        { "label": "Identità", "title": "Scegli un nucleo di tre abilità", "text": "Una capacità offensiva, una difensiva e una di supporto creano una base leggibile; le altre possono crescere senza diventare subito prioritarie.", "scenarios": [{ "problem": "Guerriero", "answer": "Una mano o Due mani, Blocco o Armatura, Forgiatura o Recupero." }, { "problem": "Ladro", "answer": "Tiro con l'arco o Una mano, Furtività, Alchimia o Illusione." }, { "problem": "Mago", "answer": "Distruzione o Evocazione, Alterazione o Recupero, Incantamento." }, { "problem": "Ibrido", "answer": "Un'abilità per infliggere danno, una per sopravvivere e una che collega le due." }] },
+        { "label": "Attributi", "title": "Salute, Magicka o stamina?", "text": "La scelta all'aumento di livello deve correggere il limite che senti durante il gioco.", "tips": ["Scegli Salute se muori prima di poter reagire.", "Scegli Magicka se il tuo incantesimo principale interrompe continuamente il ritmo.", "Scegli stamina se usi attacchi potenti, arco, trasporto o sprint.", "Un personaggio ibrido ha bisogno di una priorità, non di tre valori identici per principio."] },
+        { "label": "Vantaggi", "title": "Spendi punti sulle azioni già affidabili", "text": "Un livello abilità sblocca l'accesso al perk, ma il punto è prezioso.", "steps": ["Individua l'azione che usi in ogni scontro.", "Compra prima i bonus che la rendono più economica o affidabile.", "Aggiungi una risposta difensiva.", "Rimanda i rami situazionali finché non hai incontrato davvero quel problema."], "warning": "Far salire abilità che non sostengono il combattimento aumenta il livello generale e può rendere i nemici più impegnativi prima che il personaggio sia pronto." }
+      ]
+    },
+    {
+      "id": "melee-defense", "number": "04", "label": "Mischia e difesa", "estimatedRead": "12–15 min", "spoiler": "No spoiler",
+      "title": "Vincere lo scontro prima di esaurire la stamina",
+      "introduction": "La mischia non è una gara a chi preme più velocemente. Distanza, parata, movimento laterale, attacchi potenti e priorità dei bersagli decidono il risultato.",
+      "images": [{ "src": "/atlas/skyrim/official/04-magic.webp", "alt": "Guerriero in armatura daedrica affronta un nemico", "caption": "Armatura e danno non sostituiscono posizione, resistenze e controllo della stamina." }],
+      "blocks": [
+        { "label": "Ritmo", "title": "Il ciclo di un combattimento leggibile", "text": "Osserva, difendi, crea un'apertura e colpisci: ripetere questo ciclo è più sicuro di consumare subito tutta la stamina.", "steps": ["Lascia che il nemico riveli il primo attacco.", "Para o esci dalla traiettoria senza arretrare alla cieca.", "Colpisci durante il recupero dell'avversario.", "Conserva stamina per una parata, un colpo potente o la fuga.", "Usa porte e corridoi per impedire l'accerchiamento."] },
+        { "label": "Difesa", "title": "Armatura, blocco e resistenze risolvono problemi diversi", "text": "L'armatura riduce il danno fisico; magia, fuoco, gelo, elettricità, veleno e malattie richiedono risposte specifiche.", "table": { "columns": ["Minaccia", "Prima risposta", "Seconda risposta"], "rows": [["Armi", "Armatura e blocco", "Posizionamento"], ["Magia", "Resistenza magica o elementale", "Copertura e pressione"], ["Veleno", "Cura veleno", "Eliminare rapidamente la fonte"], ["Drago", "Resistenza all'elemento", "Terreno che interrompe il soffio"]] } },
+        { "label": "Diagnosi", "title": "Se perdi sempre nello stesso modo", "text": "Correggi la causa, non soltanto il numero della difficoltà.", "scenarios": [{ "problem": "Muori in pochi colpi", "answer": "Aumenta Salute, migliora armatura, usa pozioni e non affrontare il gruppo al centro." }, { "problem": "Non raggiungi arcieri e maghi", "answer": "Usa copertura, sprint breve, urli o una risposta a distanza." }, { "problem": "Resti senza stamina", "answer": "Riduci attacchi potenti consecutivi e porta cibo o pozioni di stamina." }, { "problem": "Il seguace cade spesso", "answer": "Evita colpi ad area e cambia l'angolo del combattimento." }] }
+      ]
+    },
+    {
+      "id": "stealth-archery", "number": "05", "label": "Furtività e arco", "estimatedRead": "11–14 min", "spoiler": "No spoiler",
+      "title": "Restare invisibili senza dipendere da un solo colpo",
+      "introduction": "L'arciere furtivo è potente perché controlla l'inizio dello scontro. Una buona guida deve insegnare anche cosa fare quando la freccia non chiude il combattimento.",
+      "images": [{ "src": "/atlas/skyrim/official/07-dungeon.webp", "alt": "Sentiero boschivo adatto a un approccio furtivo", "caption": "Ombra, distanza e vie laterali trasformano il terreno in una risorsa." }],
+      "blocks": [
+        { "label": "Avvicinamento", "title": "Leggi luce, rumore e linea visiva", "text": "La furtività dipende dalla distanza, dall'illuminazione, dal movimento e da ciò che il nemico può vedere.", "steps": ["Osserva il numero dei bersagli prima di scoccare.", "Spegni o evita fonti di luce quando possibile.", "Muoviti lentamente e usa le coperture solide.", "Scegli un bersaglio isolato.", "Prepara già la via di ritirata."] },
+        { "label": "Arco", "title": "La seconda freccia conta più della prima", "text": "Dopo l'impatto spostati: il nemico cercherà la posizione da cui è arrivato il colpo.", "tips": ["Tendi l'arco soltanto quando hai una finestra reale.", "Veleni e frecce speciali sono risorse per bersagli difficili, non per ogni lupo.", "Porta un'arma o un incantesimo per la corta distanza.", "Un seguace pesante può compromettere un ingresso furtivo: ordinagli di attendere quando serve."] },
+        { "label": "Allarme", "title": "Piano B quando vieni scoperto", "text": "Non restare accovacciato davanti a un nemico che ti ha già localizzato.", "steps": ["Interrompi la linea visiva dietro un angolo.", "Cambia altezza o stanza.", "Usa controllo, evocazioni o un grido per guadagnare tempo.", "Riprendi distanza oppure passa all'arma secondaria."], "mistakes": ["Scagliare frecce da una posizione senza uscita.", "Inseguire il bonus furtivo mentre i nemici sono già in mischia.", "Ignorare il peso e la velocità del proprio equipaggiamento."] }
+      ]
+    },
+    {
+      "id": "magic", "number": "06", "label": "Magia", "estimatedRead": "13–17 min", "spoiler": "No spoiler",
+      "title": "Usare la magia come sistema, non come singolo incantesimo",
+      "introduction": "Distruzione infligge danno, ma Recupero, Alterazione, Illusione, Evocazione e Incantamento rendono il mago capace di controllare ritmo, difesa e risorse.",
+      "images": [{ "src": "/atlas/skyrim/official/13-rare-curios.webp", "alt": "Ingredienti magici e minerali rari disposti su un tavolo", "caption": "La potenza arcana nasce anche dalla preparazione: ingredienti, resistenze e costi." }],
+      "blocks": [
+        { "label": "Scuole", "title": "Assegna a ogni scuola un lavoro", "text": "Non occorre svilupparle tutte: scegli una fonte di danno e una scuola che risolva la tua fragilità.", "table": { "columns": ["Scuola", "Funzione", "Quando aiuta"], "rows": [["Distruzione", "Danno elementale", "Debolezze e distanza"], ["Recupero", "Cure e protezione", "Sopravvivenza"], ["Alterazione", "Armatura magica e utilità", "Mago senza armatura"], ["Evocazione", "Alleati e armi evocate", "Dividere l'attenzione"], ["Illusione", "Calma, paura, furia, silenzio", "Controllare gruppi"]] } },
+        { "label": "Risorse", "title": "Riduci il costo prima di aumentare il caos", "text": "Magicka totale, rigenerazione e riduzione del costo hanno effetti diversi.", "steps": ["Scegli due incantesimi affidabili nei preferiti.", "Apri con protezione, evocazione o controllo.", "Alterna l'elemento in base alla resistenza del bersaglio.", "Conserva Magicka sufficiente per cura o fuga.", "Usa bastoni e pergamene come riserva, non come oggetti da dimenticare."] },
+        { "label": "Elementi", "title": "Fuoco, gelo ed elettricità non sono cosmetici", "text": "Il fuoco sostiene il danno, il gelo interferisce con stamina e movimento, l'elettricità colpisce la Magicka.", "scenarios": [{ "problem": "Guerriero veloce", "answer": "Gelo, ostacoli e un'evocazione riducono la pressione." }, { "problem": "Mago", "answer": "Elettricità, resistenza magica e copertura." }, { "problem": "Non morto", "answer": "Fuoco e strumenti di Recupero sono spesso più leggibili." }, { "problem": "Spazio stretto", "answer": "Evita effetti ad area che colpiscono seguaci e civili." }] }
+      ]
+    },
+    {
+      "id": "exploration", "number": "07", "label": "Esplorazione", "estimatedRead": "12–15 min", "spoiler": "No spoiler",
+      "title": "Attraversare Skyrim senza diventare schiavi degli indicatori",
+      "introduction": "Il mondo è costruito per essere letto: strade, fumo, torri, simboli della bussola, suoni e cambi di terreno indicano opportunità e pericoli.",
+      "images": [{ "src": "/atlas/skyrim/official/02-dragon-combat.webp", "alt": "Ampia tundra di Skyrim al tramonto", "caption": "Un orizzonte aperto offre più direzioni di quante ne possa mostrare il diario." }],
+      "blocks": [
+        { "label": "Metodo", "title": "Una missione principale, una deviazione, un ritorno", "text": "Questo ritmo mantiene viva la scoperta senza riempire il diario di promesse dimenticate.", "steps": ["Scegli una destinazione narrativa.", "Segna una sola deviazione visibile lungo il percorso.", "Completa o abbandona consapevolmente la deviazione.", "Rientra in città per vendere, creare e parlare.", "Aggiorna il salvataggio manuale prima del viaggio seguente."] },
+        { "label": "Dungeon", "title": "Capisci quando una rovina ti sta avvertendo", "text": "Nemici, serrature, trappole e risorse raccontano il livello di pressione prima del boss.", "tips": ["Controlla pareti e pavimento quando il corridoio diventa troppo pulito.", "Le urne leggere sono bottino migliore delle armature pesanti quando lo spazio scarseggia.", "Una porta con caricamento spesso separa fasi importanti: salva prima.", "Se consumi tutte le cure nelle prime stanze, il ritorno è una decisione intelligente."] },
+        { "label": "Viaggio", "title": "Muoversi con o senza viaggio rapido", "text": "Carrozze e barche collegano aree principali; cavalli e percorsi a piedi rivelano luoghi e ingredienti.", "table": { "columns": ["Metodo", "Vantaggio", "Costo"], "rows": [["A piedi", "Scoperta e raccolta", "Tempo e rischio"], ["Cavallo", "Velocità e terreno", "Gestione della cavalcatura"], ["Carrozza o barca", "Collega città non scoperte", "Oro e punti fissi"], ["Viaggio rapido", "Comodità", "Salta opportunità; disattivato in Sopravvivenza"]] } }
+      ]
+    },
+    {
+      "id": "economy-inventory", "number": "08", "label": "Inventario e oro", "estimatedRead": "10–13 min", "spoiler": "No spoiler",
+      "title": "Portare valore, non il contenuto dell'intero dungeon",
+      "introduction": "Il peso è una scelta strategica. Oro, gemme, pozioni, materiali e oggetti incantati competono per lo stesso spazio delle armi che servono a sopravvivere.",
+      "images": [{ "src": "/atlas/skyrim/official/15-east-empire.webp", "alt": "Porto commerciale dell'Impero Orientale in una Creation ufficiale", "caption": "Rotte, mercanti e bottino trasformano l'esplorazione in un'economia personale." }],
+      "blocks": [
+        { "label": "Rapporto", "title": "Valore diviso peso", "text": "Quando devi scegliere, confronta quanto oro potenziale occupa ogni unità di peso.", "table": { "columns": ["Oggetto", "Tendenza", "Decisione"], "rows": [["Gemme e gioielli", "Alto valore, poco peso", "Quasi sempre"], ["Pozioni", "Buon valore e utilità", "Conserva le utili, vendi i doppioni"], ["Armature comuni", "Molto peso", "Solo se migliorano il set"], ["Armi incantate", "Valore o effetto da apprendere", "Valuta disincantamento"]] } },
+        { "label": "Routine", "title": "Scarica l'inventario in quattro contenitori mentali", "text": "Equipaggiamento, consumabili, materiali e merci hanno destinazioni diverse.", "steps": ["Ripara la configurazione dei preferiti.", "Deposita materiali rari nella casa scelta.", "Vendi le merci partendo dal rapporto valore-peso peggiore.", "Disincanta soltanto gli effetti che vuoi imparare.", "Parti con almeno un quarto della capacità libero."] },
+        { "label": "Mercanti", "title": "Vendi per categoria e non aspettarti capitale infinito", "text": "I mercanti hanno oro e inventari limitati che si aggiornano nel tempo.", "tips": ["Fabbri comprano equipaggiamento, alchimisti ingredienti e pozioni, maghi libri e oggetti arcani.", "Migliorare Eloquenza amplia gradualmente le possibilità commerciali.", "Non comprare un oggetto costoso soltanto per recuperare l'oro del mercante.", "Conserva materiali di missione e oggetti unici finché non ne conosci l'uso."] }
+      ]
+    },
+    {
+      "id": "crafting", "number": "09", "label": "Mestieri", "estimatedRead": "14–18 min", "spoiler": "No spoiler",
+      "title": "Forgiatura, alchimia e incantamento senza rompere la progressione",
+      "introduction": "I tre mestieri si rafforzano a vicenda. Usati con misura costruiscono identità; spinti soltanto per moltiplicare numeri possono cancellare il senso della scoperta.",
+      "images": [{ "src": "/atlas/skyrim/official/06-cities.webp", "alt": "Funghi e ingredienti raccolti nel sottobosco di Skyrim", "caption": "Ogni ingrediente raccolto è una domanda: effetto, combinazione o semplice merce?" }],
+      "blocks": [
+        { "label": "Forgiatura", "title": "Migliora prima ciò che usi", "text": "Banco da lavoro e mola aumentano protezione e danno; i perk aprono materiali e miglioramenti più efficaci.", "steps": ["Scegli un tipo di armatura coerente.", "Conserva lingotti e pelli per il prossimo miglioramento reale.", "Migliora arma principale e pezzi più deboli.", "Non fabbricare montagne di oggetti soltanto per accelerare l'abilità."] },
+        { "label": "Alchimia", "title": "Impara gli effetti con un registro semplice", "text": "Mangiare un ingrediente rivela il primo effetto; combinarne due con almeno un effetto comune crea una pozione o un veleno.", "tips": ["Separa ingredienti curativi, difensivi e offensivi.", "Prova coppie nuove al tavolo e annota quelle davvero utili.", "Porta poche pozioni mirate invece di decine di varianti minori.", "Gli ingredienti Anniversary possono cambiare le combinazioni disponibili."] },
+        { "label": "Incantamento", "title": "Apprendere distrugge l'oggetto, ma conserva l'effetto", "text": "Disincantare insegna un effetto; gemma dell'anima, abilità e perk determinano la forza dell'incanto.", "steps": ["Disincanta un oggetto non unico con un effetto ancora sconosciuto.", "Usa gemme piccole per oggetti temporanei.", "Conserva le gemme migliori per equipaggiamento destinato a durare.", "Abbina incanti al limite reale della build: costo, difesa, stamina o capacità."], "warning": "Evita cicli di potenziamento estremi se vuoi conservare una progressione leggibile e combattimenti significativi." }
+      ]
+    },
+    {
+      "id": "followers", "number": "10", "label": "Seguaci", "estimatedRead": "10–13 min", "spoiler": "No spoiler",
+      "title": "Viaggiare in due senza combattere contro il proprio alleato",
+      "introduction": "Un seguace trasporta, distrae e completa la build, ma può bloccare passaggi, attivare trappole o interrompere la furtività. Va scelto per funzione e trattato come parte del piano.",
+      "images": [{ "src": "/atlas/skyrim/official/09-followers.webp", "alt": "Katja la ladra osserva una città in una Creation ufficiale", "caption": "Un buon compagno aggiunge capacità senza sostituire le decisioni del protagonista." }],
+      "blocks": [
+        { "label": "Ruolo", "title": "Scegli chi copre il tuo punto debole", "text": "Un mago beneficia di una prima linea; un guerriero di supporto a distanza; un ladro di qualcuno che sappia attendere.", "table": { "columns": ["Tuo stile", "Seguace utile", "Rischio"], "rows": [["Mago", "Resistente in mischia", "Effetti ad area sull'alleato"], ["Guerriero", "Arciere o incantatore", "Separazione negli spazi stretti"], ["Furtivo", "Alleato discreto o attesa", "Allarme prematuro"], ["Esploratore", "Trasporto e versatilità", "Inventario del seguace pieno"]] } },
+        { "label": "Comandi", "title": "Aspetta, muoviti, raccogli", "text": "Gli ordini diretti risolvono porte, trappole, posizioni e oggetti fuori portata.", "steps": ["Fai attendere il seguace prima di una trappola o infiltrazione.", "Posizionalo lontano dalla tua linea di tiro.", "Distribuisci equipaggiamento coerente con le sue capacità.", "Controlla periodicamente il suo inventario."] },
+        { "label": "Sicurezza", "title": "Proteggi gli alleati durante il caos", "text": "Molti seguaci entrano in stato abbattuto, ma i colpi del giocatore possono comunque essere decisivi in situazioni pericolose.", "mistakes": ["Usare urla o magie ad area senza verificare la posizione dell'alleato.", "Chiudere una porta con il seguace dall'altra parte durante un boss.", "Affidargli oggetti unici senza ricordare dove si trova.", "Cambiare seguace senza svuotare ciò che vuoi conservare."] }
+      ]
+    },
+    {
+      "id": "dragons-shouts", "number": "11", "label": "Draghi e Urla", "estimatedRead": "12–16 min", "spoiler": "Spoiler leggeri",
+      "title": "Diventare Sangue di Drago senza correre verso la fine",
+      "introduction": "La trama principale introduce draghi, Parole del Potere e Urla. Puoi avanzare quanto basta per aprire questi sistemi e poi lasciare respirare il resto del mondo.",
+      "images": [{ "src": "/atlas/skyrim/official/01-open-world.webp", "alt": "Antiche strutture nordiche coperte di neve", "caption": "Le rovine conservano parole e rituali anteriori alle città moderne di Skyrim." }],
+      "blocks": [
+        { "label": "Draghi", "title": "Combatti il soffio, non soltanto la barra salute", "text": "Il terreno interrompe il soffio e crea finestre per curarsi o cambiare resistenza.", "steps": ["Identifica l'elemento del drago.", "Equipaggia la resistenza adatta.", "Usa roccia, torre o dislivello come copertura.", "Colpisci a distanza durante il volo.", "Quando atterra, evita testa e coda finché non riconosci l'animazione."] },
+        { "label": "Urla", "title": "Parola appresa, anima spesa", "text": "I Muri delle Parole insegnano vocaboli; le anime dei draghi sbloccano le parole disponibili.", "tips": ["Non spendere anime automaticamente: prova l'effetto della parola già sbloccata.", "Inserisci nei preferiti un'Urla offensiva e una di controllo o mobilità.", "Il tempo di recupero impedisce di concatenare Urla senza pianificazione.", "Alcune parole arrivano da missioni, altre dall'esplorazione."] },
+        { "label": "Ritmo", "title": "Quanto avanzare senza spoiler", "text": "Puoi seguire la trama fino a comprendere pienamente draghi e Barbagrigia, poi alternarla con fazioni e territori.", "spoilerDetails": { "summary": "Apri soltanto se vuoi una soglia narrativa concreta", "text": "Dopo aver incontrato i Barbagrigia e imparato il funzionamento basilare delle Urla, tutti i sistemi essenziali del Sangue di Drago sono leggibili. Da quel momento puoi esplorare liberamente senza dover accelerare verso le rivelazioni finali." } }
+      ]
+    },
+    {
+      "id": "factions-choices", "number": "12", "label": "Fazioni e scelte", "estimatedRead": "14–18 min", "spoiler": "Spoiler protetti",
+      "title": "Entrare nelle fazioni senza perdere il proprio personaggio",
+      "introduction": "Compagni, Collegio, Gilda dei Ladri, Confraternita Oscura e Guerra Civile raccontano fantasie diverse. Puoi viverle tutte, ma non devi farlo con lo stesso protagonista.",
+      "images": [{ "src": "/atlas/skyrim/official/05-wilderness.webp", "alt": "Città fortificata osservata da una strada di montagna", "caption": "Ogni capitale custodisce potere, alleanze e una versione diversa della guerra." }],
+      "blocks": [
+        { "label": "Coerenza", "title": "Chiedi perché il personaggio accetterebbe", "text": "La ricompensa non è l'unico criterio: identità, morale e competenze rendono memorabile una campagna.", "scenarios": [{ "problem": "Guerriero d'onore", "answer": "Compagni e incarichi civili sono un ingresso naturale." }, { "problem": "Studioso arcano", "answer": "Collegio e rovine collegano crescita e conoscenza." }, { "problem": "Fuorilegge", "answer": "Gilda dei Ladri e contratti richiedono un codice personale chiaro." }, { "problem": "Personaggio neutrale", "answer": "Rimanda la Guerra Civile finché non hai visitato entrambe le realtà." }] },
+        { "label": "Prima del sì", "title": "Salva prima delle scelte irreversibili", "text": "Skyrim segnala alcune decisioni, ma non tutte hanno una finestra evidente.", "steps": ["Completa i dialoghi opzionali.", "Leggi il diario e distingui incarico da alleanza.", "Crea un salvataggio manuale con luogo e fazione riconoscibili.", "Decidi con il personaggio, non con la paura di perdere contenuti."] },
+        { "label": "Guerra Civile", "title": "Ascolta entrambe le province prima di schierarti", "text": "La guerra modifica autorità e controllo di alcuni insediamenti, ma non deve essere la prima urgenza.", "spoilerDetails": { "summary": "Indicazione senza rivelare gli esiti", "text": "Visita Solitude e Windhelm, parla con cittadini e soldati e completa missioni locali prima di consegnare un impegno definitivo. La guida non indica una fazione migliore: chiarisce soltanto che la scelta è politica e narrativa, non una build obbligatoria." } }
+      ]
+    },
+    {
+      "id": "hearthfire-homes", "number": "13", "label": "Case e Hearthfire", "estimatedRead": "11–14 min", "spoiler": "No spoiler",
+      "title": "Trasformare un deposito in una vera casa",
+      "introduction": "Le case cittadine offrono comodità; Hearthfire permette di acquistare un terreno e costruire una proprietà con ali specializzate, laboratori, giardino, stalla e famiglia.",
+      "images": [{ "src": "/atlas/skyrim/official/10-player-home.webp", "alt": "Casa del giocatore illuminata nella notte invernale", "caption": "Una casa ben organizzata accorcia la preparazione tra due spedizioni." }],
+      "blocks": [
+        { "label": "Base", "title": "Una funzione per ogni contenitore", "text": "Organizzare per categoria evita di perdere oggetti unici dentro decine di casse.", "steps": ["Scegli un contenitore per materiali da forgia.", "Separa ingredienti e pozioni finite.", "Conserva libri, maschere e oggetti unici in uno spazio dedicato.", "Tieni vicino all'uscita il kit della prossima missione."] },
+        { "label": "Costruzione", "title": "Hearthfire procede per materiali e moduli", "text": "Il tavolo da disegno sceglie la struttura; il banco da carpentiere la costruisce usando tronchi, pietra, argilla, ferro e componenti.", "table": { "columns": ["Fase", "Priorità", "Perché"], "rows": [["Piccola casa", "Letto e deposito", "Base immediata"], ["Sala principale", "Spazio e servizi", "Cuore della proprietà"], ["Ali", "Funzione della build", "Alchimia, armeria, cucina o altri usi"], ["Esterni", "Giardino e animali", "Produzione nel tempo"]] } },
+        { "label": "Famiglia", "title": "Casa sicura prima di adozione e trasferimenti", "text": "Letti e contenitori appropriati rendono disponibile la vita familiare prevista dall'espansione.", "tips": ["Completa gli arredi essenziali prima di trasferire la famiglia.", "Controlla periodicamente attacchi e pericoli attorno alle proprietà rurali.", "Non usare contenitori casuali non sicuri per oggetti insostituibili.", "Una casa vicina ai servizi può essere più utile di quella esteticamente più spettacolare."] }
+      ]
+    },
+    {
+      "id": "dawnguard", "number": "14", "label": "Dawnguard", "estimatedRead": "13–17 min", "spoiler": "Spoiler protetti",
+      "title": "Dawnguard: prepararsi a una guerra contro la notte",
+      "introduction": "Dawnguard introduce una campagna dedicata ai vampiri, nuove fazioni, luoghi, equipaggiamenti e trasformazioni. Il cuore dell'espansione è una scelta di identità, non soltanto di ricompense.",
+      "images": [{ "src": "/atlas/skyrim/official/11-saints-seducers.webp", "alt": "Guerrieri oscuri in un contenuto ufficiale di Skyrim", "caption": "Contro minacce soprannaturali, luce, resistenze e preparazione contano più della sola armatura." }],
+      "blocks": [
+        { "label": "Preparazione", "title": "Porta strumenti contro non morti e magia", "text": "Cure, resistenza magica, fuoco, armi a distanza e gestione delle malattie riducono gli imprevisti.", "steps": ["Controlla effetti attivi e malattie dopo gli scontri.", "Conserva cure e resistenze per le aree interne.", "Porta una risposta a distanza.", "Crea un salvataggio manuale prima delle decisioni di fazione."] },
+        { "label": "Scelta", "title": "Cacciatore o potere vampirico?", "text": "La decisione cambia fantasia di gioco, strumenti e tono. Non scegliere soltanto confrontando il bottino finale.", "table": { "columns": ["Domanda", "Dawnguard", "Via vampirica"], "rows": [["Fantasia", "Cacciatore specializzato", "Potere e trasformazione"], ["Ritmo", "Equipaggiamento e alleati", "Gestione di forma e vulnerabilità"], ["Coerenza", "Proteggere Skyrim", "Abbracciare o controllare la maledizione"]] } },
+        { "label": "Spoiler", "title": "Quando aprire una soluzione completa", "text": "Prima prova dialoghi, diario e ambiente; cerca la soluzione soltanto dopo aver definito il punto preciso del blocco.", "spoilerDetails": { "summary": "Criterio per proteggere le scelte", "text": "Se una conversazione propone un potere, un rifiuto o un'alleanza, esci dal dialogo quando possibile, crea un salvataggio e rileggi gli obiettivi. Una soluzione dovrebbe indicare prima i requisiti tecnici e solo dopo le conseguenze narrative." } }
+      ]
+    },
+    {
+      "id": "dragonborn-solstheim", "number": "15", "label": "Dragonborn", "estimatedRead": "14–18 min", "spoiler": "Spoiler protetti",
+      "title": "Solstheim: entrare preparati in una terra diversa",
+      "introduction": "Dragonborn porta il viaggio oltre Skyrim, tra cenere, insediamenti, nuove creature, Libri Neri e un'altra storia del Sangue di Drago. È più leggibile quando la build ha già identità e risorse.",
+      "images": [{ "src": "/atlas/skyrim/official/12-root-dungeon.webp", "alt": "Dungeon organico e ultraterreno di un contenuto ufficiale Skyrim", "caption": "Le terre oltre Skyrim usano forme, colori e pericoli che richiedono un nuovo modo di leggere l'ambiente." }],
+      "blocks": [
+        { "label": "Partenza", "title": "Checklist prima della traversata", "text": "Non esiste un livello obbligatorio universale, ma la capacità di gestire gruppi, magia e risorse è un buon criterio.", "steps": ["Porta una configurazione completa, non equipaggiamento da esperimento.", "Libera almeno un terzo dell'inventario.", "Conserva cure, resistenze e gemme dell'anima.", "Completa un salvataggio manuale in Skyrim.", "Arriva disposto a esplorare senza inseguire subito la missione principale."] },
+        { "label": "Territorio", "title": "Cenere, gelo e magia cambiano la preparazione", "text": "Solstheim alterna ambienti e avversari che puniscono una difesa troppo specializzata.", "tips": ["Controlla spesso resistenze attive e danni elementali.", "Acquista e prova equipaggiamenti locali invece di considerarli soltanto bottino.", "Parla negli insediamenti prima di entrare nelle rovine.", "I Libri Neri sono contenuti delicati: salva prima di interagirvi."] },
+        { "label": "Ritmo", "title": "Non correre verso il primo Sangue di Drago", "text": "Missioni locali e paesaggio spiegano Solstheim meglio di una corsa tra indicatori.", "spoilerDetails": { "summary": "Soglia narrativa consigliata", "text": "Dopo aver raggiunto Raven Rock, stabilisci servizi, commercianti e un punto di ritorno. Esplora almeno una missione locale prima di seguire la trama principale dell'espansione: avrai contesto, risorse e un confronto più leggibile con ciò che ti attende." } }
+      ]
+    },
+    {
+      "id": "survival-creations", "number": "16", "label": "Sopravvivenza e Creations", "estimatedRead": "15–19 min", "spoiler": "No spoiler",
+      "title": "Proteggere una partita destinata a durare centinaia di ore",
+      "introduction": "Sopravvivenza modifica bisogni e viaggio; Creations e mod modificano contenuti e sistema. La regola finale è semplice: cambia una cosa alla volta e conserva sempre un ritorno pulito.",
+      "images": [{ "src": "/atlas/skyrim/official/16-dwarven-delves.webp", "alt": "Rovina dwemer di una Creation ufficiale per Skyrim", "caption": "Ogni nuovo contenuto apre una porta: il load order decide in quale ordine il mondo la attraversa." }],
+      "blocks": [
+        { "label": "Sopravvivenza", "title": "Freddo, fame, fatica e distanza diventano sistemi", "text": "Il viaggio rapido è disattivato, la rigenerazione cambia e il peso diventa più severo. Pianifica per tratte, non per indicatori.", "steps": ["Controlla clima e calore prima di partire.", "Porta cibo cotto e una fonte di calore.", "Segna locande, carrozze e ripari lungo il percorso.", "Riduci il bottino e cura presto malattie e afflizioni.", "Dormi per recuperare davvero e consolidare il livello."] },
+        { "label": "Creations e mod", "title": "Un load order leggibile è parte del salvataggio", "text": "Dipendenze e tipi di file stabiliscono l'ordine; Bethesda segnala che ESM ed ESL precedono gli ESP.", "steps": ["Leggi descrizione, requisiti e incompatibilità.", "Installa un gruppo piccolo e coerente.", "Ordina master e dipendenze prima dei plugin collegati.", "Avvia una prova su un salvataggio separato.", "Non rimuovere alla cieca contenuti usati da una partita avanzata."] },
+        { "label": "Diagnosi finale", "title": "La checklist prima di chiedere assistenza", "text": "Annota piattaforma, edizione, versione e configurazione prima di cercare una correzione.", "scenarios": [{ "problem": "Il salvataggio non carica", "answer": "Verifica contenuti mancanti, versione e ordine; prova il manuale precedente senza sovrascriverlo." }, { "problem": "Una missione non avanza", "answer": "Rileggi obiettivi, attendi o cambia area, parla ai personaggi coinvolti e verifica eventuali Creations." }, { "problem": "Crash dopo una modifica", "answer": "Ripristina l'ultima configurazione verificata e controlla dipendenze e duplicati." }, { "problem": "Prestazioni peggiorate", "answer": "Riduci modifiche grafiche e script recenti una variabile alla volta." }], "warning": "Non promettere mai che una mod sia sicura soltanto perché il gioco si avvia: la prova deve includere salvataggio, caricamento, viaggio e combattimento." }
+      ]
+    }
+  ],
+  "sections": [
+    { "id": "awaken", "label": "Risveglia l'eroe", "summary": "Edizioni, prime ore e crescita senza classi obbligatorie.", "icon": { "src": "/atlas/skyrim/official/08-character.webp", "alt": "Avventuriero in un villaggio", "caption": "Il viaggio comincia da ciò che scegli di fare." }, "iconSprite": { "src": "/atlas/skyrim/guide-section-icons-v1.webp", "position": "0% 0%" }, "chapterIds": ["editions-saves", "first-hours", "character-growth"] },
+    { "id": "combat", "label": "Affronta il pericolo", "summary": "Mischia, furtività, arco e magia come sistemi complementari.", "icon": { "src": "/atlas/skyrim/official/04-magic.webp", "alt": "Guerriero daedrico", "caption": "Ogni scontro premia una preparazione diversa." }, "iconSprite": { "src": "/atlas/skyrim/guide-section-icons-v1.webp", "position": "50% 0%" }, "chapterIds": ["melee-defense", "stealth-archery", "magic"] },
+    { "id": "explore", "label": "Leggi la provincia", "summary": "Esplorazione, dungeon, inventario e commercio senza inseguire ogni freccia.", "icon": { "src": "/atlas/skyrim/official/02-dragon-combat.webp", "alt": "Tundra di Skyrim", "caption": "La strada è parte della missione." }, "iconSprite": { "src": "/atlas/skyrim/guide-section-icons-v1.webp", "position": "100% 0%" }, "chapterIds": ["exploration", "economy-inventory"] },
+    { "id": "forge", "label": "Forgia il tuo stile", "summary": "Mestieri, equipaggiamento e seguaci al servizio della tua build.", "icon": { "src": "/atlas/skyrim/official/13-rare-curios.webp", "alt": "Ingredienti rari", "caption": "Preparazione prima della potenza." }, "iconSprite": { "src": "/atlas/skyrim/guide-section-icons-v1.webp", "position": "0% 100%" }, "chapterIds": ["crafting", "followers"] },
+    { "id": "legend", "label": "Scrivi la leggenda", "summary": "Draghi, fazioni, Dawnguard e Dragonborn con spoiler protetti.", "icon": { "src": "/atlas/skyrim/official/01-open-world.webp", "alt": "Rovina nordica", "caption": "Le parole antiche cambiano il mondo." }, "iconSprite": { "src": "/atlas/skyrim/guide-section-icons-v1.webp", "position": "50% 100%" }, "chapterIds": ["dragons-shouts", "factions-choices", "dawnguard", "dragonborn-solstheim"] },
+    { "id": "preserve", "label": "Custodisci il mondo", "summary": "Case, Sopravvivenza, Creations e salvataggi per una partita longeva.", "icon": { "src": "/atlas/skyrim/official/10-player-home.webp", "alt": "Casa nella neve", "caption": "Ogni mondo merita un ritorno sicuro." }, "iconSprite": { "src": "/atlas/skyrim/guide-section-icons-v1.webp", "position": "100% 100%" }, "chapterIds": ["hearthfire-homes", "survival-creations"] }
+  ],
+  "sources": [
+    { "label": "Bethesda · Skyrim Anniversary Edition", "href": "https://elderscrolls.bethesda.net/en-US/skyrim10" },
+    { "label": "Bethesda · Special Edition e add-on ufficiali", "href": "https://elderscrolls.bethesda.net/en-US/news/8s0xLtUArmU6MUi2Wau06/skyrim-special-edition-now-available" },
+    { "label": "Bethesda · contenuti Anniversary e quattro Creations gratuite", "href": "https://bethesda.net/en-US/news/skyrim-anniversary-edition-and-creation-club-content-first-look" },
+    { "label": "Bethesda · installazione e load order delle Creations", "href": "https://help.bethesda.net/app/answers/detail/a_id/36360/~/how-do-i-install-creations%2Fmods-for-the-elder-scrolls-v%3A-skyrim-special-edition%3F" },
+    { "label": "Bethesda · ordine ESM, ESL ed ESP", "href": "https://help.bethesda.net/app/answers/detail/a_id/63978/~/why-cant-i-change-my-load-order-after-the-creations-update%3F" },
+    { "label": "Bethesda · modalità Sopravvivenza", "href": "https://elderscrolls.bethesda.net/es-ES/news/5lz4Q7F4li6kwKmakkgWww/skyrim-survival-mode-coming-soon" },
+    { "label": "Bethesda · sistema Creations", "href": "https://elderscrolls.bethesda.net/en-US/news/52xMsb1fD2nTiNBkiWCbxq/build-share-and-find-creations-skyrim-special-edition" },
+    { "label": "Steam · pagina ufficiale di Skyrim Special Edition", "href": "https://store.steampowered.com/app/489830/The_Elder_Scrolls_V_Skyrim_Special_Edition/" },
+    { "label": "UESP · portale tecnico di Skyrim", "href": "https://en.uesp.net/wiki/Skyrim:Skyrim" }
+  ]
+}

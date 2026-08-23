@@ -1,0 +1,938 @@
+{
+  "id": "minecraft-complete-guide-01",
+  "slug": "minecraft",
+  "code": "LW-ATLAS-MC-001",
+  "game": "Minecraft",
+  "title": "Il manuale del mondo infinito",
+  "subtitle": "Dalla prima notte al Drago dell’End, senza perdere il piacere di scoprire.",
+  "description": "Sedici capitoli operativi per Survival Java e Bedrock: rifugio, fame, miniere, crafting, biomi, fattorie, villaggi, combattimento, incantamenti, Nether, End, Redstone, automazione e multiplayer. Ogni sezione risponde a un problema concreto con una procedura breve, controlli di sicurezza ed errori da evitare.",
+  "versionLabel": "Java 26.2 · Bedrock 26.20 · fondamentali verificati",
+  "updatedAt": "23 agosto 2026",
+  "vipFrom": "2026-08-31T00:00:00+02:00",
+  "publicAt": "2026-09-07T00:00:00+02:00",
+  "theme": "minecraft",
+  "cover": {
+    "src": "/atlas/minecraft/official/cover-building.webp",
+    "alt": "Grande fortezza costruita tra montagne e foreste in Minecraft",
+    "caption": "Minecraft · un mondo da leggere un blocco alla volta"
+  },
+  "storeUrl": "https://www.minecraft.net/en-us/store/minecraft-deluxe-collection-pc",
+  "storeLabel": "Scopri Minecraft sul sito ufficiale",
+  "chapters": [
+    {
+      "id": "first-night",
+      "number": "01",
+      "label": "Prima notte",
+      "title": "Trasformare il primo giorno in una base sicura",
+      "introduction": "Il primo obiettivo non è trovare diamanti: è costruire una piccola catena autosufficiente prima del tramonto. Legno, strumenti di pietra, cibo, luce e un riparo chiuso valgono più di qualsiasi esplorazione prematura.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "12–15 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/survival-night.webp",
+        "alt": "Giocatrice davanti a un rifugio mentre creature ostili arrivano di notte",
+        "caption": "La notte diventa gestibile quando luce, pareti e via di fuga sono pronte prima del buio."
+      }],
+      "blocks": [
+        {
+          "label": "Ordine sicuro",
+          "title": "I primi dieci minuti",
+          "text": "Segui una sequenza che produce strumenti e sicurezza senza allontanarti troppo dal punto iniziale.",
+          "steps": [
+            "Raccogli almeno 10–16 tronchi e trasformane una parte in assi e bastoni.",
+            "Crea banco da lavoro, piccone di legno e passa subito alla pietra.",
+            "Con la pietra costruisci piccone, ascia, spada e fornace.",
+            "Cerca carbone; se manca, cuoci tronchi per ottenere carbone vegetale e fabbrica torce.",
+            "Raccogli cibo vicino e tre unità di lana se trovi pecore senza rischiare il tramonto.",
+            "Chiudi un rifugio con ingresso controllabile, luce interna e nessun varco sul tetto."
+          ]
+        },
+        {
+          "label": "Priorità",
+          "title": "Cosa serve davvero prima del tramonto",
+          "text": "Non tutto ha la stessa urgenza. Questa tabella separa il necessario dal miglioramento.",
+          "table": {
+            "columns": ["Priorità", "Oggetti", "Perché"],
+            "rows": [
+              ["Essenziale", "Banco, piccone di pietra, cibo, torce", "Permettono di continuare a lavorare al sicuro"],
+              ["Molto utile", "Fornace, scudo, letto", "Riducono rischio, fame e tempo esposto"],
+              ["Rimandabile", "Casa grande, decorazioni, diamanti", "Consumano luce e tempo senza risolvere il pericolo immediato"]
+            ]
+          }
+        },
+        {
+          "label": "Emergenze",
+          "title": "Il sole sta calando e manca qualcosa",
+          "text": "Riduci l’obiettivo invece di correre alla cieca.",
+          "scenarios": [
+            {"problem": "Non ho carbone", "answer": "Cuoci un tronco usando assi o altro legno come combustibile: il carbone vegetale crea le stesse torce."},
+            {"problem": "Non ho un letto", "answer": "Resta nel rifugio illuminato, scava una piccola miniera a gradini e attendi il giorno senza uscire."},
+            {"problem": "Sono lontano dalla base", "answer": "Costruisci un riparo temporaneo sul posto; attraversare terreno sconosciuto al buio moltiplica i rischi."},
+            {"problem": "Un creeper è vicino all’ingresso", "answer": "Non aprire. Crea una seconda uscita o aspetta il giorno e affrontalo in spazio aperto mantenendo distanza."}
+          ],
+          "mistakes": ["Scavare direttamente sotto i piedi.", "Costruire una casa grande prima delle torce.", "Portare con sé tutto il legno invece di lasciare una riserva."]
+        }
+      ]
+    },
+    {
+      "id": "base-and-respawn",
+      "number": "02",
+      "label": "Base e rinascita",
+      "title": "Costruire una base che protegge anche il futuro",
+      "introduction": "Una buona base non è soltanto bella: rende leggibili deposito, fusione, cibo, sonno e partenza. Il letto imposta il punto di rinascita, ma va usato consapevolmente e mantenuto accessibile.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "11–14 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/cover-building.webp",
+        "alt": "Fortezza di pietra integrata in una montagna",
+        "caption": "La costruzione migliore nasce da percorsi chiari, illuminazione e spazio per crescere."
+      }],
+      "blocks": [
+        {
+          "label": "Progetto minimo",
+          "title": "Le cinque zone della prima base",
+          "text": "Separa le funzioni prima di decorare.",
+          "table": {
+            "columns": ["Zona", "Contenuto", "Controllo"],
+            "rows": [
+              ["Ingresso", "Porta, luce, spazio per combattere", "Nessun punto buio o caduta davanti all’uscita"],
+              ["Deposito", "Bauli etichettati per categoria", "Strumenti e cibo raggiungibili in pochi secondi"],
+              ["Lavorazione", "Banchi e fornaci", "Combustibile accanto alle fornaci"],
+              ["Riposo", "Letto e baule di emergenza", "Spazio libero attorno al letto"],
+              ["Uscita tecnica", "Scala o tunnel secondario", "Via alternativa se l’ingresso è occupato"]
+            ]
+          }
+        },
+        {
+          "label": "Rinascita",
+          "title": "Proteggere il punto di spawn",
+          "text": "Dormire o interagire con il letto imposta la rinascita nell’Overworld. Se il letto viene distrutto o non ha spazio libero, il ritorno può avvenire altrove.",
+          "steps": [
+            "Posiziona il letto in una stanza illuminata e non ostruire i blocchi vicini.",
+            "Lascia un baule con cibo, legno, pietra, torce e un equipaggiamento economico.",
+            "Annota o fotografa le coordinate della base se la tua edizione e le impostazioni le mostrano.",
+            "Costruisci un riferimento visibile: torre illuminata, sentiero o segnale naturale.",
+            "Dopo aver spostato il letto, verifica subito che il nuovo punto sia stato registrato."
+          ]
+        },
+        {
+          "label": "Sicurezza",
+          "title": "Luce, perimetro e accessi",
+          "text": "La luce riduce la comparsa di molte creature ostili, ma non sostituisce muri e visibilità.",
+          "tips": [
+            "Illumina prima interno, tetto e ingressi; poi allarga il perimetro.",
+            "Elimina alberi o rilievi che permettono alle creature di cadere dentro il recinto.",
+            "Usa cancelli e porte in punti visibili, non corridoi ciechi.",
+            "Conserva acqua e un’uscita secondaria per incendi o assedi."
+          ],
+          "mistakes": ["Dormire in un letto isolato senza protezione.", "Lasciare il tetto buio.", "Mettere tutti gli oggetti di valore in un solo baule esposto."]
+        }
+      ]
+    },
+    {
+      "id": "mining",
+      "number": "03",
+      "label": "Miniere",
+      "title": "Scendere, orientarsi e tornare vivi con le risorse",
+      "introduction": "Una miniera efficace evita cadute, lava, oscurità e disorientamento. La profondità migliore dipende dal materiale e dalla versione: usa l’altezza come riferimento, ma lascia che grotte e sicurezza guidino il percorso.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "15–18 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/mining-cavern.webp",
+        "alt": "Grande miniera abbandonata con passerelle, ragnatele e lanterne",
+        "caption": "Ogni grotta è un percorso: illumina, segna il ritorno e non combattere circondato."
+      }],
+      "blocks": [
+        {
+          "label": "Preparazione",
+          "title": "Inventario da spedizione sotterranea",
+          "text": "Porta strumenti ridondanti e lascia spazio per il ritorno.",
+          "steps": [
+            "Prendi due picconi, arma, scudo, cibo e almeno uno stack di torce.",
+            "Porta blocchi economici per ponti, chiusure e pilastri.",
+            "Aggiungi secchio d’acqua quando hai ferro: spegne, crea discese e neutralizza lava superficiale.",
+            "Lascia a casa oggetti rari che non servono alla spedizione.",
+            "Segna coordinate o direzione della base prima di entrare."
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "La regola della parete e delle torce",
+          "text": "Scegli una convenzione che funzioni anche nel panico.",
+          "tips": [
+            "Colloca le torce sempre sullo stesso lato all’andata: al ritorno dovranno trovarsi sul lato opposto.",
+            "Chiudi o marca i rami già esplorati.",
+            "Scava scale di due blocchi d’altezza; mai pozzi verticali sotto i piedi.",
+            "Ascolta lava e creature prima di rompere l’ultimo blocco.",
+            "Metti un baule di transito vicino all’ingresso della miniera."
+          ]
+        },
+        {
+          "label": "Pericoli",
+          "title": "Quando la grotta cambia improvvisamente",
+          "text": "Fermati, controlla i lati e modifica il terreno a tuo favore.",
+          "scenarios": [
+            {"problem": "Si apre una caverna enorme", "answer": "Illumina il bordo, crea una piattaforma protetta e osserva prima di scendere."},
+            {"problem": "Trovo lava davanti al minerale", "answer": "Scava lateralmente, verifica sotto il blocco e usa acqua senza stare sulla traiettoria del flusso."},
+            {"problem": "Sento molti nemici", "answer": "Non aprire un varco ampio: crea una feritoia controllata o cambia percorso."},
+            {"problem": "Mi sono perso", "answer": "Non scavare casualmente. Torna all’ultimo punto marcato o risali con una scala sicura controllando ghiaia e lava."}
+          ],
+          "warning": "Non estrarre diamanti o altri materiali rari restando sopra il blocco: controlla sempre ciò che si trova sotto e attorno."
+        }
+      ]
+    },
+    {
+      "id": "crafting-storage",
+      "number": "04",
+      "label": "Crafting e deposito",
+      "title": "Trasformare materiali sparsi in un sistema leggibile",
+      "introduction": "Il libro delle ricette mostra ciò che puoi costruire, ma una buona organizzazione evita di perdere tempo tra bauli e griglie. Produci per obiettivo, non per accumulo.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "12–15 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/village-pots.webp",
+        "alt": "Personaggio davanti a contenitori e vasi in un villaggio",
+        "caption": "Contenitori, banchi e materiali diventano utili soltanto quando sai dove trovarli."
+      }],
+      "blocks": [
+        {
+          "label": "Flusso",
+          "title": "Dalla raccolta all’oggetto finito",
+          "text": "Ogni progetto passa per quattro domande.",
+          "steps": [
+            "Definisci l’oggetto finale e apri la ricetta.",
+            "Scomponi gli ingredienti nei materiali grezzi necessari.",
+            "Controlla quale stazione serve: inventario, banco, fornace, tagliapietre, incudine o tavolo da forgiatura.",
+            "Produci prima i componenti intermedi e lascia libero uno spazio nell’inventario.",
+            "Riponi subito l’eccedenza nella categoria corretta."
+          ]
+        },
+        {
+          "label": "Deposito",
+          "title": "Un magazzino che non richiede memoria",
+          "text": "Le categorie devono seguire il modo in cui giochi.",
+          "table": {
+            "columns": ["Categoria", "Esempi", "Vicino a"],
+            "rows": [
+              ["Costruzione", "Pietra, legno, vetro", "Ingresso del cantiere"],
+              ["Minerali", "Grezzi, lingotti, carbone", "Fornaci e banco"],
+              ["Avventura", "Armi, archi, torce, mappe", "Uscita principale"],
+              ["Cibo e agricoltura", "Semi, raccolti, carne", "Forni e fattoria"],
+              ["Raro", "Diamanti, libri, modelli", "Zona protetta e riconoscibile"]
+            ]
+          }
+        },
+        {
+          "label": "Efficienza",
+          "title": "Costruire senza sprecare",
+          "text": "Mantieni una riserva e usa gli strumenti adatti al materiale.",
+          "tips": [
+            "Non trasformare tutto il legno in assi: i tronchi hanno ricette e usi decorativi propri.",
+            "Fondi in lotti e abbina il combustibile alla quantità da cuocere.",
+            "Crea strumenti di riserva prima che quello attivo si rompa in spedizione.",
+            "Usa il ricettario per verificare ingredienti mancanti invece di tentare combinazioni casuali."
+          ],
+          "mistakes": ["Portare tutti i materiali rari in esplorazione.", "Mescolare ogni oggetto nello stesso baule.", "Fabbricare interi stack di strumenti che non userai."]
+        }
+      ]
+    },
+    {
+      "id": "biomes-exploration",
+      "number": "05",
+      "label": "Biomi ed esplorazione",
+      "title": "Esplorare lontano senza trasformare il viaggio in uno smarrimento",
+      "introduction": "Ogni bioma cambia risorse, terreno, visibilità e pericoli. Parti con un obiettivo, lascia riferimenti e conserva sempre un margine per il ritorno.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "14–17 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/exploration-biomes.webp",
+        "alt": "Paesaggio con montagne innevate, foresta e ciliegi",
+        "caption": "Il paesaggio racconta altitudine, clima, risorse e direzione prima ancora della mappa."
+      }],
+      "blocks": [
+        {
+          "label": "Partenza",
+          "title": "Kit da esploratore",
+          "text": "Non serve riempire l’inventario: serve poter tornare.",
+          "steps": [
+            "Porta cibo affidabile, letto, torce, blocchi, barca e strumenti di riserva.",
+            "Segna le coordinate della base e la direzione iniziale.",
+            "Lascia a casa gli oggetti che non aiutano il viaggio.",
+            "Stabilisci una soglia di ritorno: metà cibo, inventario quasi pieno o strumenti sotto metà durata.",
+            "Crea piccoli avamposti soltanto nei punti davvero utili."
+          ]
+        },
+        {
+          "label": "Orientamento",
+          "title": "Tre sistemi che si sostengono a vicenda",
+          "text": "Non affidarti a un solo segnale.",
+          "table": {
+            "columns": ["Sistema", "Vantaggio", "Limite"],
+            "rows": [
+              ["Coordinate", "Precise e veloci", "Dipendono da edizione e impostazioni"],
+              ["Mappa e bussola", "Visuali e trasportabili", "Richiedono materiali e comprensione della scala"],
+              ["Segnali nel mondo", "Visibili senza interfaccia", "Possono confondersi o non caricarsi da lontano"]
+            ]
+          }
+        },
+        {
+          "label": "Decisioni",
+          "title": "Quando fermarsi, dormire o tornare",
+          "text": "La spedizione è riuscita se il bottino rientra alla base.",
+          "scenarios": [
+            {"problem": "Trovo una struttura al tramonto", "answer": "Segnala la posizione, dormi in zona sicura e avvicinati con luce e inventario libero."},
+            {"problem": "L’inventario è pieno", "answer": "Scarta materiali comuni, crea un baule marcato o torna. Non continuare rischiando gli oggetti rari."},
+            {"problem": "Perdo il riferimento della base", "answer": "Fermati, usa coordinate o bussola e ripercorri l’ultimo segmento certo."},
+            {"problem": "Attraverso un oceano", "answer": "Porta barca di riserva, letto e legno; osserva coste riconoscibili e non abbandonare l’imbarcazione senza motivo."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "farming-food",
+      "number": "06",
+      "label": "Cibo e fattorie",
+      "title": "Rendere stabile la fame prima di inseguire il progresso",
+      "introduction": "Una fonte rinnovabile di cibo libera tempo per costruire ed esplorare. Colture e animali richiedono ritmi diversi: inizia semplice, poi automatizza soltanto ciò che consumi davvero.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "12–15 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/sniffer-torchflowers.webp",
+        "alt": "Sniffer vicino a germogli e fiori in un bosco di ciliegi",
+        "caption": "Semi, terreno e tempo trasformano una risorsa occasionale in una riserva rinnovabile."
+      }],
+      "blocks": [
+        {
+          "label": "Prima fattoria",
+          "title": "Grano, acqua e luce",
+          "text": "Una piccola area ordinata è sufficiente per iniziare.",
+          "steps": [
+            "Crea una zappa e trasforma terra o erba in terreno coltivabile.",
+            "Posiziona acqua in modo che il terreno resti idratato.",
+            "Pianta semi e illumina la zona per renderla utilizzabile anche di notte.",
+            "Proteggi il campo dal calpestio con percorsi e recinzioni.",
+            "Conserva sempre una parte del raccolto come seme per il ciclo successivo."
+          ]
+        },
+        {
+          "label": "Scelta alimentare",
+          "title": "Quale fonte sviluppare",
+          "text": "Scegli in base a disponibilità e lavoro richiesto.",
+          "table": {
+            "columns": ["Fonte", "Vantaggio", "Attenzione"],
+            "rows": [
+              ["Pane e colture", "Semplici e scalabili", "Richiedono raccolta e ripiantumazione"],
+              ["Animali", "Cibo e materiali secondari", "Evita recinti troppo affollati"],
+              ["Patate o carote", "Buona resa e gestione diretta", "Dipendono dal ritrovamento iniziale"],
+              ["Pesca", "Nessun campo necessario", "Più lenta come fonte principale"]
+            ]
+          }
+        },
+        {
+          "label": "Allevamento",
+          "title": "Far crescere la riserva senza svuotarla",
+          "text": "Non consumare gli ultimi due animali o tutti i semi.",
+          "tips": [
+            "Mantieni coppie riproduttive separate dalla zona di raccolta.",
+            "Coltiva vicino alla base per controllare maturazione e sicurezza.",
+            "Cucina il cibo quando migliora il recupero e la conservazione.",
+            "Automatizza soltanto dopo aver capito il ciclo manuale."
+          ],
+          "mistakes": ["Raccogliere colture immature.", "Entrare saltando sui campi.", "Usare tutto il raccolto senza conservare semi o riproduttori."]
+        }
+      ]
+    },
+    {
+      "id": "villages-trading",
+      "number": "07",
+      "label": "Villaggi e scambi",
+      "title": "Proteggere un villaggio e capire il valore degli scambi",
+      "introduction": "I villaggi sono nodi di letti, lavori, cibo e commercio. Prima di modificarli, illumina e osserva: un abitante perso può significare una professione o uno scambio difficile da recuperare.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "13–16 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/desert-village.webp",
+        "alt": "Abitanti del deserto accanto a un cammello e vasi decorati",
+        "caption": "Un villaggio è un ecosistema di abitanti, letti, postazioni e percorsi."
+      }],
+      "blocks": [
+        {
+          "label": "Primo contatto",
+          "title": "Mettere in sicurezza senza distruggere il villaggio",
+          "text": "Intervieni prima sui pericoli evidenti.",
+          "steps": [
+            "Illumina strade, ingressi e tetti raggiungibili.",
+            "Chiudi buche, lava e passaggi dove gli abitanti possono restare bloccati.",
+            "Non rompere letti e postazioni finché non hai capito chi li usa.",
+            "Costruisci un perimetro semplice senza impedire i percorsi interni.",
+            "Crea un punto di deposito esterno per non confondere i contenitori del luogo."
+          ]
+        },
+        {
+          "label": "Professioni",
+          "title": "Postazioni, mestieri e scambi",
+          "text": "Molte professioni dipendono dalla postazione raggiungibile. Gli scambi possono evolvere con l’esperienza dell’abitante.",
+          "table": {
+            "columns": ["Obiettivo", "Approccio", "Pericolo"],
+            "rows": [
+              ["Ottenere smeraldi", "Vendi risorse rinnovabili che produci già", "Consumare scorte essenziali"],
+              ["Cercare un oggetto", "Confronta più professioni e livelli", "Bloccare troppo presto una scelta mediocre"],
+              ["Mantenere il villaggio", "Proteggi abitanti e accessi", "Creare percorsi che l’IA non riesce a usare"]
+            ]
+          }
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Lo scambio o il lavoro non funzionano",
+          "text": "Controlla spazio, orario, accesso e stato dell’abitante.",
+          "scenarios": [
+            {"problem": "Non prende la professione", "answer": "Verifica che possa raggiungere una postazione libera e che non abbia già scambi bloccati o un altro ruolo."},
+            {"problem": "Non rifornisce lo scambio", "answer": "Deve poter raggiungere la propria postazione durante il ciclo lavorativo."},
+            {"problem": "Gli abitanti scompaiono", "answer": "Controlla illuminazione, assedi, varchi, cadute e zone dove possono soffocare o restare esposti."},
+            {"problem": "I prezzi sono peggiorati", "answer": "Evita danni e azioni ostili; lascia che reputazione e condizioni tornino normali prima di insistere."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "movement-navigation",
+      "number": "08",
+      "label": "Movimento e ritorno",
+      "title": "Attraversare il mondo senza perdere salute, tempo e inventario",
+      "introduction": "Cadute, acqua, ravine e terreno verticale sono pericolosi quanto le creature. Muoversi bene significa leggere il prossimo appoggio prima di saltare e costruire percorsi riutilizzabili.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "10–13 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/trial-parkour.webp",
+        "alt": "Personaggio salta tra piattaforme di rame in una struttura",
+        "caption": "Prima del salto conta il punto d’arrivo, la via di ritorno e ciò che perderesti cadendo."
+      }],
+      "blocks": [
+        {
+          "label": "Percorsi",
+          "title": "Costruire strade che fanno risparmiare tempo",
+          "text": "Un tragitto frequente merita di diventare infrastruttura.",
+          "tips": [
+            "Allarga i passaggi stretti e proteggi i bordi delle cadute.",
+            "Usa materiali o luci regolari per indicare la direzione.",
+            "Crea ponti con parapetti quando trasporti oggetti importanti.",
+            "Mantieni barche, minecart o cavalcature vicino ai punti di partenza.",
+            "Illumina i nodi, non soltanto i rettilinei."
+          ]
+        },
+        {
+          "label": "Cadute",
+          "title": "Scendere senza affidarsi alla fortuna",
+          "text": "L’acqua è uno strumento potente, ma non sostituisce una discesa stabile.",
+          "steps": [
+            "Osserva il fondo e verifica che non ci siano lava o sporgenze.",
+            "Crea una scala, una cascata controllata o piattaforme intermedie.",
+            "Lascia il percorso di risalita prima di scendere.",
+            "Non saltare con inventario raro se esiste una via più lenta.",
+            "Porta blocchi per chiudere correnti o creare appoggi."
+          ]
+        },
+        {
+          "label": "Recupero",
+          "title": "Se muori lontano dalla base",
+          "text": "Agisci con un kit economico e un percorso noto.",
+          "steps": [
+            "Non partire di nuovo a mani nude: usa il baule di emergenza.",
+            "Segui coordinate e riferimenti senza deviazioni.",
+            "Porta cibo, blocchi e un’arma sufficiente per liberare la zona.",
+            "Recupera prima gli oggetti essenziali e riposizionati al sicuro.",
+            "Dopo il recupero, correggi il percorso che ha causato la morte."
+          ],
+          "warning": "Gli oggetti lasciati a terra non restano disponibili per sempre quando l’area è caricata: evita tentativi confusi e ripetuti."
+        }
+      ]
+    },
+    {
+      "id": "combat-mobs",
+      "number": "09",
+      "label": "Combattimento",
+      "title": "Combattere creature ostili scegliendo terreno e distanza",
+      "introduction": "In Minecraft il combattimento cambia tra edizioni e versioni, ma la base resta stabile: non farti circondare, usa lo scudo quando disponibile, controlla la distanza e affronta un rischio alla volta.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "14–18 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/trial-combat.webp",
+        "alt": "Due giocatori corazzati affrontano scheletri in una camera di prova",
+        "caption": "Spazio, bersaglio prioritario e via di fuga contano più della fretta."
+      }],
+      "blocks": [
+        {
+          "label": "Routine",
+          "title": "Prima di entrare nello scontro",
+          "text": "Trasforma il terreno in un vantaggio.",
+          "steps": [
+            "Conta i nemici e individua quelli a distanza o esplosivi.",
+            "Cerca un corridoio, una porta o un dislivello che limiti gli accessi.",
+            "Controlla durabilità, fame, scudo e spazio nella barra rapida.",
+            "Elimina un bersaglio prima di distribuire danni sugli altri.",
+            "Arretra verso una zona già illuminata invece di spingerti nel buio."
+          ]
+        },
+        {
+          "label": "Minacce comuni",
+          "title": "Risposta breve per ogni problema",
+          "text": "Riconoscere il comportamento evita danni inutili.",
+          "table": {
+            "columns": ["Minaccia", "Risposta", "Errore"],
+            "rows": [
+              ["Creeper", "Spazio aperto, colpisci e arretra", "Combatterlo accanto a bauli o pareti fragili"],
+              ["Scheletro", "Copertura, scudo e avvicinamento laterale", "Correre in linea retta"],
+              ["Ragno", "Terreno aperto e luce", "Lasciarlo salire sopra di te"],
+              ["Enderman", "Evita lo sguardo o crea una copertura bassa", "Affrontarlo senza riparo"],
+              ["Gruppo misto", "Ritirati in un varco e separa i bersagli", "Entrare al centro"]
+            ]
+          }
+        },
+        {
+          "label": "Sopravvivenza",
+          "title": "Quando lo scontro è già compromesso",
+          "text": "Fuggire è una decisione tattica.",
+          "scenarios": [
+            {"problem": "Sono circondato", "answer": "Apri una direzione con blocchi, acqua o un colpo rapido e corri verso una zona illuminata."},
+            {"problem": "Lo scudo sta per rompersi", "answer": "Allontanati e cambia equipaggiamento; non aspettare la rottura davanti a uno scheletro."},
+            {"problem": "La fame è bassa", "answer": "Interrompi il combattimento, crea distanza e mangia in copertura."},
+            {"problem": "Arriva un creeper durante un altro scontro", "answer": "Dagli priorità o spostati subito lontano da strutture e oggetti importanti."}
+          ],
+          "mistakes": ["Combattere sull’orlo di una ravina.", "Tenere cibo e torce fuori dalla barra rapida.", "Inseguire un nemico dentro una zona non illuminata."]
+        }
+      ]
+    },
+    {
+      "id": "equipment-enchanting",
+      "number": "10",
+      "label": "Equipaggiamento",
+      "title": "Scegliere strumenti, incantamenti e riparazioni con un piano",
+      "introduction": "Il materiale più raro non corregge uno strumento sbagliato. Prima definisci la funzione, poi investi livelli, libri e incudine. Conserva sempre una copia affidabile dell’equipaggiamento essenziale.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "15–19 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/armor-trims.webp",
+        "alt": "Serie di armature con finiture colorate esposte su supporti",
+        "caption": "Protezione, utilità e aspetto sono scelte diverse: non confondere una finitura con un potenziamento."
+      }],
+      "blocks": [
+        {
+          "label": "Priorità",
+          "title": "Dove investire per primo",
+          "text": "Potenzia ciò che usi e ciò che protegge il ritorno.",
+          "table": {
+            "columns": ["Oggetto", "Obiettivo", "Perché"],
+            "rows": [
+              ["Piccone", "Durata, velocità e raccolta adatta", "È lo strumento più usato nella progressione"],
+              ["Armatura", "Riduzione del danno e durata", "Protegge tutto l’inventario che porti"],
+              ["Arma", "Danno affidabile", "Riduce il tempo esposto al pericolo"],
+              ["Arco", "Controllo a distanza", "Risolve bersagli difficili da raggiungere"]
+            ]
+          }
+        },
+        {
+          "label": "Incantare",
+          "title": "Dal tavolo all’equipaggiamento definitivo",
+          "text": "Il tavolo richiede esperienza e lapislazzuli; librerie correttamente disposte ampliano le opzioni. Incudine e libri permettono combinazioni più controllate.",
+          "steps": [
+            "Crea una zona sicura con tavolo e spazio corretto per le librerie.",
+            "Controlla tutte le opzioni prima di spendere livelli.",
+            "Usa libri per conservare un incantamento utile finché non hai l’oggetto giusto.",
+            "Combina con l’incudine valutando costo e ordine delle operazioni.",
+            "Conserva l’equipaggiamento migliore per spedizioni che ne giustificano il rischio."
+          ]
+        },
+        {
+          "label": "Forgia",
+          "title": "Netherite e finiture non sono la stessa cosa",
+          "text": "Il tavolo da forgiatura usa modelli specifici. Il potenziamento in netherite cambia l’equipaggiamento; le finiture dell’armatura sono principalmente estetiche.",
+          "tips": [
+            "Leggi il nome del modello prima di consumarlo.",
+            "Duplica i modelli rari solo quando il costo è sostenibile.",
+            "Ripara prima che l’oggetto si rompa, ma evita combinazioni casuali molto costose.",
+            "Tieni un set economico per recuperi e lavori ordinari."
+          ],
+          "mistakes": ["Confondere una finitura con protezione aggiuntiva.", "Portare tutto il set migliore in una prova sconosciuta.", "Spendere livelli senza controllare il costo finale dell’incudine."]
+        }
+      ]
+    },
+    {
+      "id": "nether-preparation",
+      "number": "11",
+      "label": "Portale del Nether",
+      "title": "Preparare il viaggio tra dimensioni prima di accendere il portale",
+      "introduction": "Il Nether comprime le distanze ma introduce fuoco, lava, terreno verticale e creature nuove. Il primo passaggio deve costruire un ritorno sicuro, non cercare subito il bottino migliore.",
+      "spoiler": "Spoiler leggeri",
+      "estimatedRead": "13–16 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/ruined-portal-bats.webp",
+        "alt": "Portale in rovina vicino a una pozza mentre volano pipistrelli",
+        "caption": "Ogni portale è un collegamento logistico: segnalo, proteggilo e verifica sempre il ritorno."
+      }],
+      "blocks": [
+        {
+          "label": "Equipaggiamento",
+          "title": "Il kit del primo ingresso",
+          "text": "Porta ciò che limita i rischi specifici della dimensione.",
+          "steps": [
+            "Indossa almeno un elemento d’oro per ridurre l’ostilità immediata di alcuni piglin, senza considerarti al sicuro da tutto.",
+            "Porta arco, scudo, cibo, blocchi non infiammabili e acciarino di riserva.",
+            "Lascia acqua nell’Overworld: nel Nether non funziona come normale fonte posizionabile.",
+            "Conserva ossidiana o materiali sufficienti per gestire un portale danneggiato.",
+            "Svuota l’inventario degli oggetti non necessari."
+          ]
+        },
+        {
+          "label": "Primo passaggio",
+          "title": "Mettere in sicurezza il lato pericoloso",
+          "text": "Non allontanarti finché il portale non è riconoscibile e protetto.",
+          "steps": [
+            "Appena arrivi, non muoverti alla cieca: osserva pavimento, soffitto e lava.",
+            "Chiudi i lati esposti con blocchi non infiammabili.",
+            "Illumina e crea una stanza con ingresso controllabile.",
+            "Annota le coordinate del portale in entrambe le dimensioni.",
+            "Attraversa di nuovo per confermare che il collegamento funzioni come previsto."
+          ]
+        },
+        {
+          "label": "Collegamenti",
+          "title": "Perché i portali possono condurre nel posto sbagliato",
+          "text": "Le coordinate orizzontali hanno una relazione di scala tra Overworld e Nether; portali vicini possono collegarsi a strutture esistenti.",
+          "scenarios": [
+            {"problem": "Ritorno da un portale diverso", "answer": "Registra le coordinate e controlla se il gioco ha trovato un portale esistente più adatto al collegamento."},
+            {"problem": "Il portale è sospeso o vicino alla lava", "answer": "Non uscire correndo: amplia una piattaforma e chiudi i bordi prima di esplorare."},
+            {"problem": "Il portale si spegne", "answer": "Usa l’acciarino di riserva o una soluzione controllata; proteggilo poi dalle esplosioni."},
+            {"problem": "Una creatura attraversa", "answer": "Costruisci porte e spazio di contenimento su entrambi i lati senza ostruire il portale."}
+          ],
+          "warning": "Dormire in un letto nel Nether è pericoloso: non usarlo come punto di riposo."
+        }
+      ]
+    },
+    {
+      "id": "nether-progression",
+      "number": "12",
+      "label": "Esplorare il Nether",
+      "title": "Trovare fortezze e bastioni senza perdere la via del portale",
+      "introduction": "Nel Nether la visibilità inganna e ogni caduta può chiudere la spedizione. Crea corridoi, rifugi e segnali resistenti al fuoco; affronta fortezze e bastioni come operazioni separate.",
+      "spoiler": "Spoiler leggeri",
+      "estimatedRead": "16–20 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/nether-blazes.webp",
+        "alt": "Giocatore con scudo affronta blaze in un delta di basalto",
+        "caption": "Nel Nether il terreno è parte del combattimento: proteggi prima la posizione, poi affronta la minaccia."
+      }],
+      "blocks": [
+        {
+          "label": "Esplorazione",
+          "title": "Una rete di ritorno resistente",
+          "text": "I segnali devono restare leggibili anche tra fuoco e rilievi simili.",
+          "tips": [
+            "Costruisci corridoi o ponti con parapetti nelle tratte frequenti.",
+            "Usa blocchi molto contrastanti rispetto al bioma.",
+            "Segna ogni bivio con direzione e coordinate.",
+            "Crea rifugi chiusi a distanza regolare.",
+            "Non scavare rapidamente verso suoni di lava senza verificare il blocco successivo."
+          ]
+        },
+        {
+          "label": "Fortezza",
+          "title": "Affrontare blaze e corridoi",
+          "text": "La fortezza serve alla progressione, ma non va esplorata tutta in una volta.",
+          "steps": [
+            "Blocca accessi laterali e illumina il percorso di ritorno.",
+            "Usa copertura e scudo contro i proiettili.",
+            "Crea una zona sicura vicino al punto di interesse, non sopra di esso.",
+            "Raccogli la quantità necessaria di risorse e torna a depositarla.",
+            "Non inseguire un nemico fuori dal corridoio protetto."
+          ]
+        },
+        {
+          "label": "Piglin e bastioni",
+          "title": "Oro, baratto e contenitori",
+          "text": "Indossare oro modifica soltanto alcune relazioni. Aprire contenitori o provocare piglin può trasformare immediatamente la situazione.",
+          "scenarios": [
+            {"problem": "I piglin mi attaccano con oro indossato", "answer": "Controlla se hai aperto contenitori, colpito qualcuno o incontrato una variante che non viene pacificata dall’armatura d’oro."},
+            {"problem": "Il bastione è troppo affollato", "answer": "Non scendere al centro: crea linee di vista controllate e una ritirata verticale sicura."},
+            {"problem": "Ho trovato detriti antichi", "answer": "Controlla ogni lato, raccogli con lo strumento adatto e conserva il bottino prima di proseguire."},
+            {"problem": "Non trovo il portale", "answer": "Smetti di esplorare, torna all’ultimo segnale certo e usa le coordinate registrate."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-end",
+      "number": "13",
+      "label": "End e Drago",
+      "title": "Preparare lo scontro finale e il viaggio oltre il portale",
+      "introduction": "Minecraft non impone una vera conclusione, ma molti considerano il Drago dell’End il traguardo della progressione principale. Entra soltanto con un piano per cristalli, cadute, Enderman e recupero.",
+      "spoiler": "Spoiler protetti",
+      "estimatedRead": "17–22 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/ender-dragon-finale.webp",
+        "alt": "Drago dell’End nella luce sopra le torri di ossidiana",
+        "caption": "Il combattimento si risolve per fasi: cristalli, posizione, finestre di attacco e sopravvivenza."
+      }],
+      "blocks": [
+        {
+          "label": "Preparazione",
+          "title": "Inventario per l’End",
+          "text": "Prepara ridondanza, distanza e protezione dalle cadute.",
+          "steps": [
+            "Porta armatura affidabile, arco e molte frecce o una fonte equivalente.",
+            "Aggiungi cibo, acqua, blocchi, piccone e oggetti per gestire cadute o levitazione.",
+            "Conserva una zucca intagliata come opzione contro gli sguardi degli Enderman, valutando la visibilità ridotta.",
+            "Lascia un baule di recupero vicino al portale dell’Overworld.",
+            "Imposta il punto di rinascita fuori dalla stanza del portale."
+          ]
+        },
+        {
+          "label": "Scontro",
+          "title": "Il piano in quattro fasi",
+          "text": "Non colpire tutto contemporaneamente.",
+          "steps": [
+            "Raggiungi l’isola in sicurezza senza guardare gli Enderman.",
+            "Distruggi i cristalli che curano il drago, usando distanza e cautela con le esplosioni.",
+            "Mantieniti lontano dal bordo e osserva traiettorie e soffio del drago.",
+            "Attacca durante le finestre sicure e ripristina salute e posizione tra un passaggio e l’altro."
+          ],
+          "warning": "Le esplosioni dei cristalli e le cadute dalle torri sono spesso più pericolose del drago stesso."
+        },
+        {
+          "label": "Dopo il drago",
+          "title": "End esterno, città e ritorno",
+          "text": "Dopo la vittoria si aprono possibilità ulteriori. Le città dell’End contengono bottino raro ma introducono levitazione, vuoto e percorsi verticali.",
+          "spoilerDetails": {
+            "summary": "Apri la procedura per esplorare oltre lo scontro",
+            "text": "Usa i gateway comparsi dopo il drago, porta perle dell’End e blocchi, segna il percorso tra le isole e affronta gli shulker sotto copertura. Non trasportare subito tutto il bottino insieme: crea un punto sicuro e rientra per depositi successivi."
+          },
+          "mistakes": ["Entrare senza equipaggiamento di recupero.", "Combattere vicino al vuoto.", "Guardare gli Enderman mentre si cercano i cristalli.", "Partire per le città con inventario già pieno."]
+        }
+      ]
+    },
+    {
+      "id": "redstone-basics",
+      "number": "14",
+      "label": "Redstone",
+      "title": "Capire alimentazione, segnale e stato prima di copiare circuiti",
+      "introduction": "La Redstone è un sistema logico: una sorgente produce un segnale, il circuito lo trasporta e un componente reagisce. Impara a leggere questi tre ruoli prima di costruire macchine grandi.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "15–19 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/redstone-pistons.webp",
+        "alt": "Serie di pistoni collegati durante una prova Redstone",
+        "caption": "Un circuito leggibile mostra chiaramente ingresso, trasmissione e uscita."
+      }],
+      "blocks": [
+        {
+          "label": "Fondamentali",
+          "title": "I quattro pezzi di ogni circuito",
+          "text": "Assegna una funzione a ogni componente.",
+          "table": {
+            "columns": ["Ruolo", "Esempi", "Domanda"],
+            "rows": [
+              ["Ingresso", "Leva, pulsante, piastra, sensore", "Che cosa avvia il sistema?"],
+              ["Trasmissione", "Polvere e blocchi", "Dove deve arrivare il segnale?"],
+              ["Controllo", "Ripetitore, comparatore, torcia", "Come cambia tempo o condizione?"],
+              ["Uscita", "Pistone, lampada, porta, dispenser", "Quale azione deve avvenire?"]
+            ]
+          }
+        },
+        {
+          "label": "Primo circuito",
+          "title": "Da una leva a una lampada",
+          "text": "Costruisci all’aperto, poi aggiungi complessità una sola variabile alla volta.",
+          "steps": [
+            "Posiziona una leva e una lampada con spazio tra loro.",
+            "Collegale con una linea di polvere Redstone.",
+            "Aziona la leva e osserva quali segmenti si accendono.",
+            "Allunga la linea finché il segnale non raggiunge più l’uscita.",
+            "Inserisci un ripetitore orientato correttamente e verifica il cambiamento.",
+            "Solo dopo aggiungi diramazioni, ritardi o pistoni."
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Il circuito non reagisce",
+          "text": "Segui il segnale dall’ingresso all’uscita.",
+          "scenarios": [
+            {"problem": "La polvere si accende ma il dispositivo no", "answer": "Controlla orientamento, distanza e modalità di alimentazione del blocco finale."},
+            {"problem": "Il segnale si ferma", "answer": "Misura la tratta e inserisci un ripetitore orientato nella direzione corretta."},
+            {"problem": "Il pistone resta attivo", "answer": "Cerca una sorgente indiretta o un blocco ancora alimentato prima di modificare il circuito."},
+            {"problem": "Funziona in Java ma non in Bedrock", "answer": "Verifica la meccanica specifica: comportamento e temporizzazioni non sono sempre identici tra edizioni."}
+          ],
+          "mistakes": ["Coprire il circuito prima di provarlo.", "Cambiare più componenti contemporaneamente.", "Copiare una macchina senza verificare edizione e versione."]
+        }
+      ]
+    },
+    {
+      "id": "automation-building",
+      "number": "15",
+      "label": "Automazione e costruzione",
+      "title": "Passare da una prova funzionante a una macchina mantenibile",
+      "introduction": "Automazione non significa riempire il mondo di circuiti. Scegli un compito ripetitivo, misura entrate e uscite, costruisci un modulo accessibile e prevedi sempre come spegnerlo.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "14–18 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/redstone-crafter.webp",
+        "alt": "Sistema automatico con Crafter, vetro, acqua e Redstone in un villaggio",
+        "caption": "Una buona automazione rende visibili flusso degli oggetti, alimentazione e punto di manutenzione."
+      }],
+      "blocks": [
+        {
+          "label": "Progetto",
+          "title": "Definire la macchina prima dei blocchi",
+          "text": "Scrivi il flusso in una frase semplice.",
+          "steps": [
+            "Definisci l’ingresso: quale oggetto o evento avvia il sistema.",
+            "Definisci l’uscita: dove deve finire il risultato.",
+            "Costruisci un prototipo aperto e manualmente controllabile.",
+            "Aggiungi trasporto con tramogge, acqua o altri sistemi soltanto dopo la prova.",
+            "Inserisci leva di arresto, troppo pieno e accesso ai contenitori.",
+            "Decora e chiudi la macchina solo quando ogni modulo è verificato."
+          ]
+        },
+        {
+          "label": "Scelta",
+          "title": "Che cosa vale la pena automatizzare",
+          "text": "Automatizza il consumo frequente, non la rarità occasionale.",
+          "table": {
+            "columns": ["Compito", "Buon primo progetto", "Rischio"],
+            "rows": [
+              ["Fusione", "Forno alimentato e raccolta separata", "Blocchi dei contenitori pieni"],
+              ["Raccolta", "Canna da zucchero o coltura semplice", "Perdere oggetti lungo il trasporto"],
+              ["Deposito", "Smistamento di poche categorie", "Filtri mal configurati"],
+              ["Crafting", "Una ricetta stabile con Crafter", "Ingredienti nell’ordine o quantità sbagliati"]
+            ]
+          }
+        },
+        {
+          "label": "Prestazioni",
+          "title": "Costruire senza appesantire il mondo",
+          "text": "Circuiti sempre attivi, molti oggetti a terra e grandi quantità di entità possono ridurre le prestazioni.",
+          "tips": [
+            "Spegni le macchine quando i contenitori sono pieni.",
+            "Evita clock rapidissimi se una temporizzazione lenta basta.",
+            "Raccogli gli oggetti prima che si accumulino nel mondo.",
+            "Separa moduli e prova l’impatto di ciascuno.",
+            "Mantieni una copia del mondo prima di modifiche estese."
+          ],
+          "warning": "Meccaniche, timing e caricamento dei chunk possono differire tra Java e Bedrock: usa progetti dichiarati compatibili con la tua edizione."
+        }
+      ]
+    },
+    {
+      "id": "multiplayer-world-care",
+      "number": "16",
+      "label": "Multiplayer e manutenzione",
+      "title": "Condividere un mondo senza perdere progressi o fiducia",
+      "introduction": "Java e Bedrock non condividono gli stessi server: il cross-play tra dispositivi avviene nell’ecosistema Bedrock, mentre Java gioca con Java. Prima della sessione chiarite edizione, host, regole e backup.",
+      "spoiler": "No spoiler",
+      "estimatedRead": "13–17 min",
+      "images": [{
+        "src": "/atlas/minecraft/official/multiplayer-portal.webp",
+        "alt": "Tre giocatori riuniti attorno a un portale del Nether",
+        "caption": "Un mondo condiviso funziona quando accesso, responsabilità e progressione sono chiari a tutti."
+      }],
+      "blocks": [
+        {
+          "label": "Edizioni",
+          "title": "Scegliere l’ambiente compatibile",
+          "text": "La prima domanda è sempre quale edizione usa ogni partecipante.",
+          "table": {
+            "columns": ["Gruppo", "Soluzione indicativa", "Nota"],
+            "rows": [
+              ["PC Windows, macOS, Linux su Java", "Server o Realm Java", "Tutti devono usare Java e versioni compatibili"],
+              ["Console, mobile e Windows Bedrock", "Mondo Bedrock, Realm o server", "Supporta cross-play Bedrock tra dispositivi compatibili"],
+              ["Java e Bedrock mescolati", "Non compatibile ufficialmente nello stesso server", "Scegliete un’edizione comune"],
+              ["Famiglia sulla stessa console", "Schermo condiviso Bedrock dove supportato", "Può richiedere account e abbonamenti della piattaforma"]
+            ]
+          }
+        },
+        {
+          "label": "Patto del mondo",
+          "title": "Cinque regole prima di costruire insieme",
+          "text": "Le regole sociali proteggono più blocchi di qualsiasi porta.",
+          "steps": [
+            "Decidete chi ospita e quando il mondo è disponibile.",
+            "Stabilite aree comuni, depositi personali e uso delle risorse rare.",
+            "Concordate difficoltà, PvP, coordinate, comandi e contenuti aggiuntivi.",
+            "Definite chi può invitare altre persone.",
+            "Create backup regolari e una copia prima di aggiornamenti importanti."
+          ]
+        },
+        {
+          "label": "Problemi comuni",
+          "title": "La sessione non si collega o il mondo è cambiato",
+          "text": "Separare rete, versione, contenuti e salvataggio accelera la diagnosi.",
+          "scenarios": [
+            {"problem": "Un amico non vede il mondo", "answer": "Controllate edizione, versione, account, privacy multiplayer e stato dell’host."},
+            {"problem": "Il server segnala incompatibilità", "answer": "Allineate versione del gioco e pacchetti richiesti; non forzate l’apertura del salvataggio principale."},
+            {"problem": "Mancano costruzioni dopo un problema", "answer": "Chiudete il mondo, conservate il file corrente e confrontate i backup prima di sovrascrivere."},
+            {"problem": "Il mondo rallenta", "answer": "Controllate entità accumulate, macchine attive, distanza di simulazione e zone caricate."}
+          ],
+          "mistakes": ["Aggiornare senza backup.", "Installare contenuti diversi tra i giocatori.", "Condividere privilegi amministrativi senza regole.", "Aprire più copie divergenti dello stesso mondo e poi sovrascriverle."]
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "survive",
+      "label": "Sopravvivi",
+      "summary": "Prima notte, base, luce e punto di rinascita.",
+      "icon": {"src": "/atlas/minecraft/official/survival-night.webp", "alt": "Rifugio nella notte", "caption": "La sicurezza viene prima del bottino."},
+      "iconSprite": {"src": "/atlas/minecraft/guide-section-icons-v1.webp", "position": "0% 0%"},
+      "chapterIds": ["first-night", "base-and-respawn"]
+    },
+    {
+      "id": "mine-craft",
+      "label": "Scava e crea",
+      "summary": "Miniere, strumenti, ricette e deposito leggibile.",
+      "icon": {"src": "/atlas/minecraft/official/mining-cavern.webp", "alt": "Miniera sotterranea", "caption": "Raccogli, trasforma, conserva."},
+      "iconSprite": {"src": "/atlas/minecraft/guide-section-icons-v1.webp", "position": "50% 0%"},
+      "chapterIds": ["mining", "crafting-storage"]
+    },
+    {
+      "id": "explore-grow",
+      "label": "Coltiva ed esplora",
+      "summary": "Biomi, cibo, villaggi, orientamento e ritorno.",
+      "icon": {"src": "/atlas/minecraft/official/exploration-biomes.webp", "alt": "Biomi diversi", "caption": "Ogni viaggio deve prevedere il ritorno."},
+      "iconSprite": {"src": "/atlas/minecraft/guide-section-icons-v1.webp", "position": "100% 0%"},
+      "chapterIds": ["biomes-exploration", "farming-food", "villages-trading", "movement-navigation"]
+    },
+    {
+      "id": "gear",
+      "label": "Potenzia l’equipaggiamento",
+      "summary": "Combattimento, armature, strumenti e incantamenti.",
+      "icon": {"src": "/atlas/minecraft/official/armor-trims.webp", "alt": "Armature potenziate", "caption": "Investi negli strumenti che usi davvero."},
+      "iconSprite": {"src": "/atlas/minecraft/guide-section-icons-v1.webp", "position": "0% 100%"},
+      "chapterIds": ["combat-mobs", "equipment-enchanting"]
+    },
+    {
+      "id": "dimensions",
+      "label": "Affronta le dimensioni",
+      "summary": "Portali, Nether, fortezze, End e Drago.",
+      "icon": {"src": "/atlas/minecraft/official/nether-blazes.webp", "alt": "Nether e blaze", "caption": "Ogni dimensione richiede un piano diverso."},
+      "iconSprite": {"src": "/atlas/minecraft/guide-section-icons-v1.webp", "position": "50% 100%"},
+      "chapterIds": ["nether-preparation", "nether-progression", "the-end"]
+    },
+    {
+      "id": "build-share",
+      "label": "Costruisci e condividi",
+      "summary": "Redstone, automazione, multiplayer e cura del mondo.",
+      "icon": {"src": "/atlas/minecraft/official/redstone-crafter.webp", "alt": "Macchina Redstone", "caption": "Sistemi comprensibili, mondi protetti."},
+      "iconSprite": {"src": "/atlas/minecraft/guide-section-icons-v1.webp", "position": "100% 100%"},
+      "chapterIds": ["redstone-basics", "automation-building", "multiplayer-world-care"]
+    }
+  ],
+  "sources": [
+    {"label": "Minecraft · guida ufficiale per principianti", "href": "https://www.minecraft.net/en-us/minecraft-tips-for-beginners"},
+    {"label": "Minecraft · sopravvivere alla prima notte", "href": "https://www.minecraft.net/en-us/article/how-survive-your-first-night-minecraft"},
+    {"label": "Minecraft · come funziona il crafting", "href": "https://www.minecraft.net/en-us/article/how-craft"},
+    {"label": "Minecraft · differenze Java e Bedrock", "href": "https://www.minecraft.net/en-us/article/java-or-bedrock-edition"},
+    {"label": "Minecraft · Redstone per creator", "href": "https://www.minecraft.net/en-us/creator/article/redstone"},
+    {"label": "Minecraft · End Highlands", "href": "https://www.minecraft.net/en-us/article/around-block--end-highlands"},
+    {"label": "Minecraft · Realms Java e Bedrock", "href": "https://www.minecraft.net/en-us/article/what-are-minecraft-realms"},
+    {"label": "Minecraft · Java 26.2", "href": "https://www.minecraft.net/da-dk/article/minecraft-java-edition-26-2"},
+    {"label": "Minecraft · Bedrock 26.20", "href": "https://www.minecraft.net/en-us/article/minecraft--bedrock-edition-26-20-changelog"}
+  ]
+}

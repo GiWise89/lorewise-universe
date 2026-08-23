@@ -212,7 +212,7 @@ export function AdminControlCenter() {
         <article><small>Ultimi 7 giorni</small><strong>{number.format(overview.analytics.totals.last7Days)}</strong><span>visualizzazioni</span></article>
         <article><small>Ultimi 30 giorni</small><strong>{number.format(overview.analytics.totals.last30Days)}</strong><span>visualizzazioni</span></article>
         <article><small>Sessioni tecniche · 30 giorni</small><strong>{number.format(overview.analytics.totals.sessions30Days)}</strong><span>non equivalgono a persone uniche</span></article>
-        <article><small>Da inizio raccolta</small><strong>{number.format(overview.analytics.totals.allTime)}</strong><span>visualizzazioni</span></article>
+        <article><small>Periodo conservato</small><strong>{number.format(overview.analytics.totals.allTime)}</strong><span>ultimi 90 giorni</span></article>
       </div>
       <div className="admin-analytics-layout">
         <article className="admin-analytics-chart"><header><strong>Andamento degli ultimi 14 giorni</strong><small>Visite alle pagine pubbliche</small></header>{overview.analytics.daily.length ? <ol>{overview.analytics.daily.map((entry) => <li key={entry.day}><span>{new Intl.DateTimeFormat("it-IT", { day: "2-digit", month: "short" }).format(new Date(`${entry.day}T12:00:00Z`))}</span><div><i style={{ height: `${Math.max(6, Math.round(entry.views / analyticsPeak * 100))}%` }} /></div><strong>{number.format(entry.views)}</strong></li>)}</ol> : <p>La raccolta inizierà dopo la pubblicazione sul dominio online.</p>}</article>

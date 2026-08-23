@@ -3,6 +3,7 @@ import { canonicalCodexUniverse, codexUniverseAliases, deriveCodexCategories } f
 
 export type CodexIndexEntry = {
   slug: string;
+  origin: CodexEntry["catalog"]["origin"];
   displayTitle: string;
   imageSrc: string;
   imageWidth: number;
@@ -41,6 +42,7 @@ export function createCodexIndexEntries(entries: CodexEntry[]): CodexIndexEntry[
     const inReview = entry.catalog.dossierStatus === "in-review" || genericCopy;
     return {
       slug: entry.slug,
+      origin: entry.catalog.origin,
       displayTitle: entry.displayTitle,
       imageSrc: entry.image.src,
       imageWidth: entry.image.width,

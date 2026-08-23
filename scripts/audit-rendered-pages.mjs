@@ -19,7 +19,7 @@ const curatedRoutes = ["/enciclopedia/nhevara-madreferita", "/enciclopedia/kharv
 const staticRoutes = [
   "/", "/arte", "/abbonamento", "/commissioni", "/commissioni/condizioni", "/commissioni/stato",
   "/giochi", "/assistenza-giochi", "/condizioni-vendita-giochi", "/licenza-arte", "/licenza-gioco",
-  "/contatti", "/enciclopedia", "/enciclopedia/originali-giwise", "/privacy", "/shop", "/account",
+  "/contatti", "/community", "/enciclopedia", "/enciclopedia/originali-giwise", "/privacy", "/shop", "/account",
   "/account/password", "/gestione-community-simulazione", "/gestione-consegne-giochi",
 ];
 const routes = [...new Set([...staticRoutes, ...curatedRoutes, ...originalRoutes, ...thirdPartyRoutes, ...aliasRoutes])];
@@ -40,6 +40,7 @@ async function auditRoute(route) {
     return;
   }
   const html = await response.text();
+  const mainHtml = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? html;
   const documentBytes = Buffer.byteLength(html);
   if (documentBytes > largestDocument.bytes) largestDocument = { route, bytes: documentBytes };
   if (response.status !== 200) failures.push(`${route}: HTTP ${response.status}`);
@@ -68,7 +69,7 @@ async function auditRoute(route) {
   const ids = [...html.matchAll(/\bid=["']([^"']+)["']/gi)].map((match) => match[1]);
   const duplicateIds = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
   if (duplicateIds.length) failures.push(`${route}: id HTML duplicati (${duplicateIds.slice(0, 5).join(", ")})`);
-  if (route.startsWith("/enciclopedia/") && thirdPartyRoutes.includes(route) && /Fuori Trama|\bNexus\b|Forza\s+\d|Destrezza\s+\d|Intelligenza\s+\d|Carisma\s+\d|Ruolo tattico|Modulo GiWise Studio/.test(html)) failures.push(`${route}: dati di gioco interni esposti`);
+  if (route.startsWith("/enciclopedia/") && thirdPartyRoutes.includes(route) && /Fuori Trama|\bNexus\b|Forza\s+\d|Destrezza\s+\d|Intelligenza\s+\d|Carisma\s+\d|Ruolo tattico|Modulo GiWise Studio/.test(mainHtml)) failures.push(`${route}: dati di gioco interni esposti`);
 }
 
 async function workerLoop() {

@@ -150,13 +150,13 @@ test("keeps downloads in a standalone VIP library with two collections", () => {
 });
 
 test("organizes the VIP archive into explicit editorial areas", () => {
-  assert.deepEqual(VIP_AREAS.map((area) => area.id), ["games", "art", "atelier", "downloads"]);
+  assert.deepEqual(VIP_AREAS.map((area) => area.id), ["guides", "games", "art", "atelier", "downloads"]);
   assert.equal(VIP_AREAS.find((area) => area.id === "games")?.available, true);
   assert.equal(VIP_AREAS.find((area) => area.id === "art")?.available, true);
   assert.equal(VIP_AREAS.find((area) => area.id === "atelier")?.available, true);
   assert.equal(VIP_AREAS.every((area) => area.update.length > 0), true);
   assert.equal(VIP_EDITORIAL_STATUS.lastUpdated, "21 agosto 2026");
-  assert.equal(VIP_EDITORIAL_STATUS.nextDrop, "In preparazione");
+  assert.equal(VIP_EDITORIAL_STATUS.nextDrop, "6 sfondi disponibili");
 });
 
 test("builds the Atelier as protected narrative processes rather than an anonymous gallery", () => {

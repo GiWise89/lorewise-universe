@@ -47,7 +47,7 @@ export const VIP_AREAS = [
 
 export const VIP_EDITORIAL_STATUS = {
   lastUpdated: "21 agosto 2026",
-  nextDrop: "In preparazione",
+  nextDrop: "6 sfondi disponibili",
 } as const;
 
 export const VIP_FUORI_TRAMA_DROP = {

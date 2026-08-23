@@ -90,6 +90,8 @@ export type CodexEntry = {
     verificationLabel: string;
     lastReviewed: string;
     editor: string;
+    researchScope?: string;
+    sourcePolicy?: string;
     contentWarnings: string[];
     missingFields: string[];
     sources: CodexSource[];

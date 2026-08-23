@@ -1,7 +1,6 @@
 "use client";
 
 import { Children, type KeyboardEvent, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
 
 type ChapterDefinition = { id: string; title: string };
 
@@ -94,7 +93,6 @@ export function CodexChapterTabs({ chapters, children }: { chapters: ChapterDefi
     </div>
     <nav className="codex-chapter-index" aria-label="Capitoli della scheda" role="tablist">
       {chapters.map((chapter, index) => <button id={`codex-tab-${chapter.id}`} type="button" role="tab" className={activeId === chapter.id ? "is-active" : ""} aria-selected={activeId === chapter.id} aria-controls={`codex-panel-${chapter.id}`} tabIndex={activeId === chapter.id ? 0 : -1} onClick={() => selectChapter(chapter.id)} onKeyDown={(event) => handleChapterKeyDown(event, index)} key={chapter.id}>
-        <Image src="/codex/ornaments/chapter-button-plate-v1.webp" alt="" fill sizes="190px" style={{ objectFit: "fill" }} unoptimized />
         <span>{String(index + 1).padStart(2, "0")}</span><strong>{chapter.title}</strong>
       </button>)}
     </nav>

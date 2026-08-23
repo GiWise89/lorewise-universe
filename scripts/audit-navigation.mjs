@@ -9,7 +9,7 @@ const concurrency = 4;
 const requiredRoutes = [
   "/", "/abbonamento", "/account", "/account/password", "/admin", "/arte",
   "/assistenza-giochi", "/cerca", "/commissioni", "/commissioni/condizioni",
-  "/commissioni/stato", "/condizioni-vendita-giochi", "/contatti",
+  "/commissioni/stato", "/condizioni-vendita-giochi", "/contatti", "/community",
   "/dove-nascono-i-mondi", "/enciclopedia", "/enciclopedia/originali-giwise",
   "/gestione-assistenza", "/gestione-commissioni", "/gestione-community",
   "/gestione-community-simulazione", "/gestione-consegne-arte",

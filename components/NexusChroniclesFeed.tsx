@@ -5,9 +5,10 @@ import Link from "next/link";
 import { useState } from "react";
 import type { NexusChronicle } from "@/lib/nexusChronicles";
 type ChroniclePanel = "signals" | "promotion" | "guides" | "benefits";
+type BenefitView = "focus" | "events";
 
 const panels: Array<{ id: ChroniclePanel; number: string; label: string }> = [
-  { id: "signals", number: "01", label: "Novità VIP" },
+  { id: "signals", number: "01", label: "Novità dal Nexus" },
   { id: "promotion", number: "02", label: "Promozione" },
   { id: "guides", number: "03", label: "Atlante dei Giochi" },
   { id: "benefits", number: "04", label: "Vantaggi" },
@@ -20,10 +21,13 @@ function italianDate(value: string) {
 function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index: number }) {
   const [activePanel, setActivePanel] = useState<ChroniclePanel>("signals");
   const [activeGuideSection, setActiveGuideSection] = useState(chronicle.upcoming.featuredGame?.sections[0]?.id ?? "overview");
+  const [activeBenefitView, setActiveBenefitView] = useState<BenefitView>("events");
+  const [activeBenefitEventCode, setActiveBenefitEventCode] = useState(chronicle.benefitEvents[0]?.code ?? "");
   const panelIndex = panels.findIndex((panel) => panel.id === activePanel);
   const movePanel = (direction: -1 | 1) => setActivePanel(panels[(panelIndex + direction + panels.length) % panels.length].id);
   const featuredGame = chronicle.upcoming.featuredGame;
   const selectedGuideSection = featuredGame?.sections.find((section) => section.id === activeGuideSection) ?? featuredGame?.sections[0];
+  const selectedBenefitEvent = chronicle.benefitEvents.find((event) => event.code === activeBenefitEventCode) ?? chronicle.benefitEvents[0];
 
   return <article className={`nexus-chronicle-story${chronicle.featured ? " is-featured" : ""}`}>
     <header className="nexus-chronicle-lead">
@@ -46,7 +50,7 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
 
     <section className="nexus-chronicle-transmissions" role="tabpanel" id={`${chronicle.id}-signals-panel`} aria-labelledby={`${chronicle.id}-signals-tab`} hidden={activePanel !== "signals"}>
       <div className="nexus-chronicle-section-heading"><span>01 · Segnali dal Nexus</span><h3>Novità dal Nexus.</h3></div>
-      <div className="nexus-signal-grid">{chronicle.signals.map((signal) => <article className="nexus-signal" key={signal.title}><div className="nexus-signal-image"><Image src={signal.image} alt={signal.imageAlt} width={1200} height={900} unoptimized /></div><div className="nexus-signal-copy"><span>{signal.label}</span><h4>{signal.title}</h4><p>{signal.text}</p><small>{signal.note}</small></div></article>)}</div>
+      <div className="nexus-signal-grid">{chronicle.signals.map((signal) => <article className="nexus-signal" key={signal.title}><div className="nexus-signal-image"><Image src={signal.image} alt={signal.imageAlt} width={1200} height={900} unoptimized /></div><div className="nexus-signal-copy"><span>{signal.label}</span><h4>{signal.title}</h4><p>{signal.text}</p><small>{signal.note}</small><Link className="nexus-signal-link" href={signal.href}>{signal.action}<span aria-hidden="true">→</span></Link></div></article>)}</div>
     </section>
 
     <section className="nexus-chronicle-promotion" role="tabpanel" id={`${chronicle.id}-promotion-panel`} aria-labelledby={`${chronicle.id}-promotion-tab`} hidden={activePanel !== "promotion"}>
@@ -58,7 +62,7 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
 
     <section className="nexus-chronicle-upcoming" role="tabpanel" id={`${chronicle.id}-guides-panel`} aria-labelledby={`${chronicle.id}-guides-tab`} hidden={activePanel !== "guides"}>
       <div className="nexus-guide-intro"><span>03 · {chronicle.upcoming.label}</span><h3>{chronicle.upcoming.title}</h3><strong>{chronicle.upcoming.status}</strong><p>{chronicle.upcoming.description}</p><ul>{chronicle.upcoming.features.map((feature) => <li key={feature}>{feature}</li>)}</ul></div>
-      {activePanel === "guides" && featuredGame && selectedGuideSection ? <div className="nexus-atlas-game">
+      {featuredGame && selectedGuideSection ? <div className="nexus-atlas-game">
         <header className="nexus-atlas-game-hero">
           <div className="nexus-atlas-game-image"><Image src={featuredGame.cover} alt={featuredGame.coverAlt} width={1920} height={1080} unoptimized /></div>
           <div className="nexus-atlas-game-copy">
@@ -68,7 +72,7 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
               <Link href={featuredGame.vipCta.href}>{featuredGame.vipCta.action}<span aria-hidden="true">→</span></Link>
               <small>{featuredGame.vipCta.note}</small>
             </div>
-            <a className="nexus-atlas-store-link" href={featuredGame.storeUrl} target="_blank" rel="noreferrer">{featuredGame.storeAction}<span aria-hidden="true">↗</span></a><small>Collegamento alla pagina ufficiale del gioco.</small>
+            <a className="nexus-atlas-store-link" href={featuredGame.storeUrl} target="_blank" rel="noopener noreferrer">{featuredGame.storeAction}<span aria-hidden="true">↗</span></a><small>Collegamento alla pagina ufficiale del gioco.</small>
           </div>
         </header>
 
@@ -90,8 +94,38 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
     </section>
 
     <section className="nexus-chronicle-benefits" role="tabpanel" id={`${chronicle.id}-benefits-panel`} aria-labelledby={`${chronicle.id}-benefits-tab`} hidden={activePanel !== "benefits"}>
-      <div className="nexus-chronicle-section-heading"><span>04 · Dentro il Pass</span><h3>Quello che puoi fare con il Pass.</h3></div>
-      <div className="nexus-benefit-grid">{chronicle.benefits.map((benefit, benefitIndex) => <article key={benefit.title}><span>{String(benefitIndex + 1).padStart(2, "0")}</span><h4>{benefit.title}</h4><p>{benefit.text}</p></article>)}</div>
+      <div className="nexus-benefit-storyboard">
+        <div className="nexus-chronicle-section-heading"><span>04 · Registro premium permanente</span><h3>Tutto quello che si muove nel Pass.</h3><p>Il focus cambia con ogni Cronaca, ma questo registro conserva sempre tutti gli eventi, i vantaggi, le frequenze e gli stati realmente dichiarati.</p></div>
+        <figure className="nexus-benefit-sketch">
+          <Image src="/universe-pass/benefits-sketch-constellation-v1.webp" alt="Taccuino illustrato dei vantaggi LoreWise: arte, giochi, commissioni, Codex e Community" width={1536} height={1024} />
+          <figcaption>Appunti dal Nexus · ogni orbita conduce a un vantaggio reale</figcaption>
+        </figure>
+      </div>
+      <div className="nexus-benefit-premium-lead">
+        <div><span>Edizione corrente</span><strong>{chronicle.issue}</strong><p>Focus e vantaggi della settimana</p></div>
+        <div><span>Registro completo</span><strong>{String(chronicle.benefitEvents.length).padStart(2, "0")}</strong><p>Eventi e percorsi monitorati</p></div>
+        <div><span>Aggiornamento</span><strong>Lunedì</strong><p>Rotazione editoriale automatica</p></div>
+      </div>
+      <div className="nexus-benefit-view-switcher" role="tablist" aria-label="Contenuti della sezione Vantaggi">
+        <button type="button" role="tab" aria-selected={activeBenefitView === "focus"} className={activeBenefitView === "focus" ? "is-active" : undefined} onClick={() => setActiveBenefitView("focus")}><span>01</span>Focus settimanale</button>
+        <button type="button" role="tab" aria-selected={activeBenefitView === "events"} className={activeBenefitView === "events" ? "is-active" : undefined} onClick={() => setActiveBenefitView("events")}><span>02</span>Registro eventi</button>
+      </div>
+      {activeBenefitView === "focus" ? <div className="nexus-benefit-view-panel" role="tabpanel">
+        <div className="nexus-benefit-subheading"><span>Focus della Cronaca</span><p>Quattro vantaggi messi in evidenza questa settimana.</p></div>
+        <div className="nexus-benefit-grid">{chronicle.benefits.map((benefit, benefitIndex) => <article key={benefit.title}><span>{String(benefitIndex + 1).padStart(2, "0")}</span><h4>{benefit.title}</h4><p>{benefit.text}</p></article>)}</div>
+      </div> : selectedBenefitEvent ? <div className="nexus-benefit-view-panel" role="tabpanel">
+        <div className="nexus-benefit-subheading"><span>Tutti gli eventi del Pass</span><p>Scegli un evento: nella pagina ne viene aperto uno solo alla volta.</p></div>
+        <div className="nexus-benefit-workbench">
+          <div className="nexus-benefit-event-switcher" role="tablist" aria-label="Eventi e vantaggi del Pass">
+            {chronicle.benefitEvents.map((event, eventIndex) => <button type="button" role="tab" aria-selected={event.code === selectedBenefitEvent.code} className={event.code === selectedBenefitEvent.code ? "is-active" : undefined} onClick={() => setActiveBenefitEventCode(event.code)} key={event.code}><span>{String(eventIndex + 1).padStart(2, "0")}</span>{event.area}</button>)}
+          </div>
+          <article className="nexus-benefit-event-stage">
+            <header><span>{selectedBenefitEvent.area}</span><strong>{selectedBenefitEvent.status}</strong></header>
+            <div><small>{selectedBenefitEvent.code}</small><h4>{selectedBenefitEvent.title}</h4><p>{selectedBenefitEvent.description}</p></div>
+            <aside><span>Frequenza o scadenza</span><strong>{selectedBenefitEvent.timing}</strong><Link href={selectedBenefitEvent.href}>{selectedBenefitEvent.action}<span aria-hidden="true">→</span></Link></aside>
+          </article>
+        </div>
+      </div> : null}
     </section>
 
     <footer className="nexus-chronicle-conclusion"><div><span>Una promessa chiara</span><h3>Il pubblico non perde nulla.</h3><p>{chronicle.transparency}</p></div><Link href={chronicle.href}>{chronicle.action}<span aria-hidden="true">→</span></Link></footer>
@@ -99,5 +133,19 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
 }
 
 export function NexusChroniclesFeed({ chronicles }: { chronicles: NexusChronicle[] }) {
-  return <div className="nexus-chronicles-list" aria-live="polite">{chronicles.map((chronicle, index) => <ChronicleStory chronicle={chronicle} index={index} key={chronicle.id} />)}</div>;
+  const [activeChronicleId, setActiveChronicleId] = useState(chronicles[0]?.id ?? "");
+  const activeChronicle = chronicles.find((chronicle) => chronicle.id === activeChronicleId) ?? chronicles[0];
+  const activeIndex = Math.max(0, chronicles.findIndex((chronicle) => chronicle.id === activeChronicle?.id));
+
+  if (!activeChronicle) return null;
+
+  return <div className="nexus-chronicles-list" aria-live="polite">
+    {chronicles.length > 1 ? <div className="nexus-section-switcher nexus-edition-switcher">
+      <div className="nexus-section-switcher-heading"><span>Archivio delle Cronache</span><strong>{String(activeIndex + 1).padStart(2, "0")} / {String(chronicles.length).padStart(2, "0")}</strong></div>
+      <div className="nexus-section-tabs" role="tablist" aria-label="Scegli un’edizione delle Cronache del Nexus">
+        {chronicles.map((chronicle) => <button type="button" role="tab" aria-selected={chronicle.id === activeChronicle.id} className={chronicle.id === activeChronicle.id ? "is-active" : undefined} onClick={() => setActiveChronicleId(chronicle.id)} key={chronicle.id}><span>{chronicle.issue.replace("Cronaca ", "")}</span>{italianDate(chronicle.publishedAt)}</button>)}
+      </div>
+    </div> : null}
+    <ChronicleStory chronicle={activeChronicle} index={activeIndex} key={activeChronicle.id} />
+  </div>;
 }

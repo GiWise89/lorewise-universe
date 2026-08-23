@@ -43,6 +43,48 @@ const wip = (src: string, alt: string, width = 1205, height = 1600): CreativeJou
 
 export const originalStories: CreativeJournalEntry[] = [
   {
+    id: "protocollo-ambra-cyborg",
+    title: "Protocollo Ambra",
+    shortTitle: "Cyborg",
+    kind: "originale",
+    label: "Creazione originale · LW-ART-079",
+    summary: "Un cyborg incappucciato prende forma dal primo studio del volto fino alla tavola completa, tra innesti meccanici, maschera scheletrica e segnali industriali color ambra.",
+    story: [
+      "Il progetto parte dal volto: una maschera scheletrica attraversata da placche e giunture meccaniche. Le prime immagini conservano le linee di costruzione, gli ingrandimenti usati per controllare i dettagli e la mano al lavoro sulla tavoletta grafica.",
+      "Quando la figura viene estesa a corpo intero, il cappuccio e la posa raccolta danno al personaggio una presenza silenziosa. Braccia, torace e gambe vengono organizzati come parti di un'unica armatura, evitando che gli elementi tecnici cancellino la silhouette umana.",
+      "La fase cromatica introduce bianco, grigio, nero e arancio. Il colore ambra passa dagli innesti allo sfondo di sicurezza e diventa il filo visivo dell'opera. La tavola finale aggiunge profondità, usura e atmosfera industriale senza perdere la leggibilità del disegno iniziale.",
+    ],
+    process: [
+      "Studio ravvicinato della maschera, delle orbite e delle prime connessioni meccaniche.",
+      "Costruzione della figura intera e controllo delle proporzioni con la penna digitale.",
+      "Verifica del lavoro nel suo contesto reale: tavoletta, schermo e posa completa.",
+      "Pulizia della line art e definizione di cappuccio, torace, braccia e articolazioni.",
+      "Prima campitura cromatica con separazione delle superfici chiare, scure e metalliche.",
+      "Rifinitura della palette arancio e nera, ombre, materiali e segni di usura.",
+      "Composizione finale con ambiente industriale e segnaletica di pericolo.",
+    ],
+    facts: [
+      { label: "Tipo", value: "Personaggio e opera originali" },
+      { label: "Strumento", value: "Tavoletta grafica" },
+      { label: "Tecnica", value: "Illustrazione digitale, line art, campiture e ombreggiatura" },
+      { label: "Palette", value: "Arancio ambra, nero, grigio e bianco" },
+      { label: "Documentazione", value: "Sei fasi di lavorazione e tavola finale" },
+      { label: "Stato", value: "Opera completa e disponibile nell'archivio" },
+    ],
+    tags: ["originale", "cyborg", "fantascienza", "distopico", "processo creativo"],
+    processImages: [
+      wip("lw-wip-079-1-preview.webp", "Studio protetto del volto e della maschera del cyborg", 1013, 1800),
+      wip("lw-wip-079-2-preview.webp", "Costruzione protetta della figura intera con penna digitale", 1350, 1800),
+      wip("lw-wip-079-3-preview.webp", "Fotografia protetta della postazione durante la lavorazione", 1350, 1800),
+      wip("lw-wip-079-4-preview.webp", "Line art protetta ripulita del personaggio completo", 1350, 1800),
+      wip("lw-wip-079-5-preview.webp", "Prima campitura cromatica protetta in bianco, grigio e arancio", 1350, 1800),
+      wip("lw-wip-079-6-preview.webp", "Fase protetta di rifinitura dei colori e dei materiali", 1350, 1800),
+    ],
+    image: { src: "/artworks/previews/lw-art-079-preview.jpg", alt: "Anteprima protetta dell'opera originale Protocollo Ambra", width: 1273, height: 1800 },
+    artworkHref: "/arte/lw-art-079",
+    status: "completo",
+  },
+  {
     id: "custode-delle-due-lune",
     title: "La Custode delle Due Lune",
     kind: "originale",

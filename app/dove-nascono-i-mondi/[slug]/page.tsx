@@ -25,6 +25,53 @@ export default async function CreativeJournalEntryPage({ params }: { params: Pro
   const previous = creativeJournalEntries[(entryIndex - 1 + creativeJournalEntries.length) % creativeJournalEntries.length];
   const next = creativeJournalEntries[(entryIndex + 1) % creativeJournalEntries.length];
   const gallery = [...entry.processImages, ...(entry.image ? [entry.image] : [])];
+  const cyborgSections = [
+    { id: `${entry.id}-maschera`, label: "Nasce la maschera", eyebrow: "01", content: (
+      <section className="journal-detail-story" aria-labelledby="cyborg-mask-title">
+        <div className="shell journal-detail-story-grid">
+          <div><p className="journal-kicker">01 · Primo segnale</p><h2 id="cyborg-mask-title">Il volto prima del corpo</h2><CreativeJournalPhoto image={entry.processImages[0]} caption="Studio iniziale · maschera e connessioni meccaniche" /></div>
+          <div className="journal-detail-prose"><p>{entry.story[0]}</p><p>Il personaggio comincia da ciò che deve comunicare a distanza: orbite accese, struttura ossea e parti artificiali leggibili come un unico volto.</p></div>
+        </div>
+      </section>
+    ) },
+    { id: `${entry.id}-struttura`, label: "Corpo e struttura", eyebrow: "02", content: (
+      <section className="journal-detail-gallery" aria-labelledby="cyborg-body-title">
+        <div className="shell"><header><p className="journal-kicker">02 · Dalla testa alla silhouette</p><h2 id="cyborg-body-title">Il cyborg occupa lo spazio</h2></header>
+          <div className="journal-detail-prose"><p>{entry.story[1]}</p></div>
+          <div className="journal-gallery journal-gallery-3">
+            <CreativeJournalPhoto image={entry.processImages[1]} caption="Figura completa · controllo delle proporzioni" />
+            <CreativeJournalPhoto image={entry.processImages[2]} caption="La postazione reale durante la lavorazione" />
+            <CreativeJournalPhoto image={entry.processImages[3]} caption="Line art ripulita · armatura, cappuccio e articolazioni" />
+          </div>
+        </div>
+      </section>
+    ) },
+    { id: `${entry.id}-ambra`, label: "Protocollo colore", eyebrow: "03", content: (
+      <section className="shell journal-detail-notes" aria-labelledby="cyborg-color-title">
+        <header><p className="journal-kicker">03 · Il codice Ambra</p><h2 id="cyborg-color-title">Il colore diventa identità</h2></header>
+        <div className="journal-detail-note-grid">
+          <div className="journal-gallery journal-gallery-2">
+            <CreativeJournalPhoto image={entry.processImages[4]} caption="Prima campitura · separazione delle superfici" />
+            <CreativeJournalPhoto image={entry.processImages[5]} caption="Rifinitura · materiali, ombre e segni di usura" />
+          </div>
+          <div className="journal-detail-prose"><p>{entry.story[2]}</p><dl>{entry.facts.slice(2, 5).map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl></div>
+        </div>
+      </section>
+    ) },
+    { id: `${entry.id}-risveglio`, label: "Tavola finale", eyebrow: "04", content: (
+      <>
+        <section className="journal-detail-gallery" aria-labelledby="cyborg-final-title">
+          <div className="shell"><header><p className="journal-kicker">04 · Protocollo attivo</p><h2 id="cyborg-final-title">La tavola completa</h2></header>
+            <div className="journal-gallery journal-gallery-1">{entry.image ? <CreativeJournalPhoto image={entry.image} caption="Protocollo Ambra · opera completa e anteprima protetta" /> : null}</div>
+          </div>
+        </section>
+        <section className="shell journal-detail-actions" aria-label="Collegamento all'opera Protocollo Ambra">
+          <div><p className="diary-hand">Dal diario all’archivio</p><h2>Il percorso resta visibile. L’originale resta protetto.</h2></div>
+          {entry.artworkHref ? <Link href={entry.artworkHref}>Apri Protocollo Ambra nell’archivio <span aria-hidden="true">→</span></Link> : null}
+        </section>
+      </>
+    ) },
+  ];
 
   return (
     <main className="journal-detail">
@@ -44,7 +91,7 @@ export default async function CreativeJournalEntryPage({ params }: { params: Pro
           <CreativeJournalPhoto image={entry.processImages[0]} caption="Una fotografia reale della lavorazione" priority />
         </header>
 
-        <CreativeJournalSections variant="paper" label={`Sezioni della pagina dedicata a ${entry.title}`} sections={[
+        <CreativeJournalSections variant="paper" label={`Sezioni della pagina dedicata a ${entry.title}`} sections={entry.id === "protocollo-ambra-cyborg" ? cyborgSections : [
           { id: `${entry.id}-racconto`, label: "Il progetto", eyebrow: "01", content: (
         <section className="journal-detail-story" aria-labelledby="story-title">
           <div className="shell journal-detail-story-grid">
