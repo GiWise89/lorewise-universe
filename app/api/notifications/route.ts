@@ -57,22 +57,23 @@ export async function PATCH(request: Request) {
     const action = typeof body?.action === "string" ? body.action : "";
     const id = typeof body?.id === "string" && body.id.length <= 180 ? body.id : "";
     const scope = body?.scope === "admin" ? "admin" : "personal";
+    const updatedAt = new Date().toISOString();
     if (scope === "admin" && !auth.admin) return Response.json({ error: "Permesso non valido." }, { status: 403 });
     if (scope === "admin" || (auth.admin && (action === "read_all" || action === "dismiss_read"))) {
       await ensureAdminNotificationsTable(auth.database);
     }
     if (action === "read" && id) {
-      if (scope === "admin") await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP) WHERE id = ?").bind(id).run();
-      else await auth.database.prepare("UPDATE user_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP) WHERE id = ? AND user_id = ?").bind(id, auth.user.id).run();
+      if (scope === "admin") await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, ?) WHERE id = ?").bind(updatedAt, id).run();
+      else await auth.database.prepare("UPDATE user_notifications SET read_at = COALESCE(read_at, ?), updated_at = ? WHERE id = ? AND user_id = ?").bind(updatedAt, updatedAt, id, auth.user.id).run();
     } else if (action === "read_all") {
-      await auth.database.prepare("UPDATE user_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP) WHERE user_id = ? AND dismissed_at IS NULL").bind(auth.user.id).run();
-      if (auth.admin) await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP) WHERE dismissed_at IS NULL").run();
+      await auth.database.prepare("UPDATE user_notifications SET read_at = COALESCE(read_at, ?), updated_at = ? WHERE user_id = ? AND dismissed_at IS NULL").bind(updatedAt, updatedAt, auth.user.id).run();
+      if (auth.admin) await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, ?) WHERE dismissed_at IS NULL").bind(updatedAt).run();
     } else if (action === "dismiss" && id) {
-      if (scope === "admin") await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP), dismissed_at = COALESCE(dismissed_at, CURRENT_TIMESTAMP) WHERE id = ?").bind(id).run();
-      else await auth.database.prepare("UPDATE user_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP), dismissed_at = COALESCE(dismissed_at, CURRENT_TIMESTAMP) WHERE id = ? AND user_id = ?").bind(id, auth.user.id).run();
+      if (scope === "admin") await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, ?), dismissed_at = COALESCE(dismissed_at, ?) WHERE id = ?").bind(updatedAt, updatedAt, id).run();
+      else await auth.database.prepare("UPDATE user_notifications SET read_at = COALESCE(read_at, ?), dismissed_at = COALESCE(dismissed_at, ?), updated_at = ? WHERE id = ? AND user_id = ?").bind(updatedAt, updatedAt, updatedAt, id, auth.user.id).run();
     } else if (action === "dismiss_read") {
-      await auth.database.prepare("UPDATE user_notifications SET dismissed_at = COALESCE(dismissed_at, CURRENT_TIMESTAMP) WHERE user_id = ? AND read_at IS NOT NULL").bind(auth.user.id).run();
-      if (auth.admin) await auth.database.prepare("UPDATE admin_notifications SET dismissed_at = COALESCE(dismissed_at, CURRENT_TIMESTAMP) WHERE read_at IS NOT NULL").run();
+      await auth.database.prepare("UPDATE user_notifications SET dismissed_at = COALESCE(dismissed_at, ?), updated_at = ? WHERE user_id = ? AND read_at IS NOT NULL").bind(updatedAt, updatedAt, auth.user.id).run();
+      if (auth.admin) await auth.database.prepare("UPDATE admin_notifications SET dismissed_at = COALESCE(dismissed_at, ?) WHERE read_at IS NOT NULL").bind(updatedAt).run();
     } else return Response.json({ error: "Azione non valida." }, { status: 400 });
     return Response.json({ message: "Notifiche aggiornate." }, { headers: { "Cache-Control": "private, no-store" } });
   } catch {

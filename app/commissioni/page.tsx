@@ -18,7 +18,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Commissioni artistiche",
-  description: "Scopri 32 lavori realizzati su commissione da GiWise Studio: ritratti, coppie, animali, trasformazioni fantasy e fan art protette.",
+  description: "Scopri 37 lavori realizzati su commissione da GiWise Studio: ritratti, coppie, animali, trasformazioni fantasy e fan art protette.",
 };
 
 const steps = [
@@ -80,7 +80,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams?:
             <p>Ritratti personali, coppie, animali e trasformazioni fantasy costruiti attorno al soggetto. Qui non trovi prodotti da rivendere: trovi lavori realmente eseguiti su commissione.</p>
             <div className="button-row">
               <Link className="button button-primary" href="#richiesta">Raccontami la tua idea</Link>
-              <Link className="button button-ghost" href="#portfolio">Esplora i 32 lavori</Link>
+              <Link className="button button-ghost" href="#portfolio">Esplora i 37 lavori</Link>
               <Link className="button button-ghost" href="/commissioni/stato">Segui una richiesta</Link>
             </div>
           </div>

@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabasePublicConfig } from "@/lib/supabase/config";
 
 function applySecurityHeaders(response: NextResponse, request: NextRequest) {
+  const scriptPolicy = process.env.NODE_ENV === "development"
+    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+    : "script-src 'self' 'unsafe-inline'";
   const policy = [
     "default-src 'self'",
     "base-uri 'self'",
@@ -12,7 +15,7 @@ function applySecurityHeaders(response: NextResponse, request: NextRequest) {
     "img-src 'self' data: blob:",
     "font-src 'self' data:",
     "style-src 'self' 'unsafe-inline'",
-    "script-src 'self' 'unsafe-inline'",
+    scriptPolicy,
     "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.stripe.com",
     "frame-src https://js.stripe.com https://hooks.stripe.com",
   ].join("; ");

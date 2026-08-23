@@ -27,7 +27,7 @@ export function CommissionPortfolio({ works }: { works: CommissionWork[] }) {
       <header className="commission-section-heading">
         <div>
           <p className="eyebrow">Archivio delle commissioni</p>
-          <h2 id="commission-archive-title">Trentadue richieste, sei percorsi creativi.</h2>
+          <h2 id="commission-archive-title">Trentasette richieste, sei percorsi creativi.</h2>
         </div>
         <p><strong>{visibleWorks.length}</strong> di {filteredWorks.length} {filteredWorks.length === 1 ? "lavoro" : "lavori"}</p>
       </header>

@@ -13,20 +13,20 @@ export type ArtworkGenre = (typeof artworkGenreLabels)[number];
 const genreGroups: Array<{ genre: ArtworkGenre; numbers: number[] }> = [
   { genre: "Contenuti per adulti", numbers: [6, 32, 37, 38, 54, 55] },
   { genre: "Religioso oscuro", numbers: [13, 28, 30, 35, 36, 50, 56, 57, 65, 67] },
-  { genre: "Anime e manga", numbers: [14, 15, 21, 22, 27, 29, 34, 42, 43, 44] },
-  { genre: "Cinema e serie", numbers: [1, 9, 12, 18, 19, 23, 26, 45, 47, 66] },
-  { genre: "Cartoon e cultura pop", numbers: [7, 8, 10, 11, 25, 40] },
-  { genre: "Fantasy e surreale", numbers: [16, 31, 33, 46, 48, 52, 53, 63, 64] },
-  { genre: "Horror e dark art", numbers: [2, 3, 4, 5, 17, 20, 24, 39, 41, 49, 51, 58, 59, 60, 61, 62] },
+  { genre: "Anime e manga", numbers: [14, 15, 21, 22, 27, 29, 34, 42, 43, 44, 76] },
+  { genre: "Cinema e serie", numbers: [1, 9, 12, 18, 19, 23, 26, 45, 47, 66, 74, 75, 77, 78] },
+  { genre: "Cartoon e cultura pop", numbers: [7, 8, 10, 11, 25, 40, 69] },
+  { genre: "Fantasy e surreale", numbers: [16, 31, 33, 46, 48, 52, 53, 63, 64, 70, 72] },
+  { genre: "Horror e dark art", numbers: [2, 3, 4, 5, 17, 20, 24, 39, 41, 49, 51, 58, 59, 60, 61, 62, 68, 71, 73] },
 ];
 
 const genreByArtworkNumber = new Map<number, ArtworkGenre>(
   genreGroups.flatMap(({ genre, numbers }) => numbers.map((number) => [number, genre] as const)),
 );
 
-const monochromeTechniqueNumbers = new Set([20, 44, 45, 47, 50, 51]);
-const popTechniqueNumbers = new Set([6, 7, 8, 10, 11, 12, 15, 16, 25, 32, 38, 40, 48, 52, 60, 61, 63, 64, 66]);
-const narrativeTechniqueNumbers = new Set([2, 3, 5, 13, 17, 19, 24, 28, 30, 33, 41, 49, 58, 62, 65, 67]);
+const monochromeTechniqueNumbers = new Set([20, 44, 45, 47, 50, 51, 71]);
+const popTechniqueNumbers = new Set([6, 7, 8, 10, 11, 12, 15, 16, 25, 32, 38, 40, 48, 52, 60, 61, 63, 64, 66, 69, 73, 75, 76, 78]);
+const narrativeTechniqueNumbers = new Set([2, 3, 5, 13, 17, 19, 24, 28, 30, 33, 41, 49, 58, 62, 65, 67, 68, 70, 72, 74, 77]);
 
 export const additionalArtworkWarnings: Partial<Record<number, string>> = {
   1: "Sangue, arma da taglio e figura horror.",
@@ -70,6 +70,10 @@ export const additionalArtworkWarnings: Partial<Record<number, string>> = {
   65: "Decomposizione, sangue e reinterpretazione horror dell’iconografia religiosa.",
   66: "Clown horror, sangue, dentatura mostruosa e volto deformato.",
   67: "Decomposizione, lutto infantile e reinterpretazione horror dell’iconografia religiosa.",
+  68: "Figura horror, sangue e violenza suggerita.",
+  71: "Anatomia scheletrica, figura fetale e iconografia della morte.",
+  73: "Cicatrici del volto e guanto con lame.",
+  77: "Temi di separazione, memoria e sofferenza emotiva.",
 };
 
 export function getArtworkGenre(artworkNumber: number): ArtworkGenre {

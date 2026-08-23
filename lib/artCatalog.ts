@@ -36,19 +36,23 @@ export type CatalogArtwork = {
 
 const commercialOriginalNumbers = new Set([
   2, 3, 4, 5, 6, 13, 16, 17, 20, 24, 28, 30, 33, 35, 36, 37, 39, 41, 46,
-  48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 63, 64, 65, 67,
+  48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 63, 64, 65, 67, 71,
 ]);
 const fanArtNumbers = new Set([
   1, 7, 8, 9, 10, 11, 12, 14, 15, 18, 19, 21, 22, 23, 25, 26, 27, 29, 31, 32,
-  34, 38, 40, 42, 43, 44, 45, 47, 66,
+  34, 38, 40, 42, 43, 44, 45, 47, 66, 68, 69, 70, 72, 73, 74, 75, 76, 77, 78,
 ]);
 const adultContentNumbers = new Set([6, 32, 37, 38, 54, 55]);
 const essentialNumbers = new Set([6, 16, 33, 39]);
-const detailedNumbers = new Set([4, 17, 20, 28, 35, 41, 48, 50, 52, 55, 59, 60, 63, 65, 67]);
-const largeNativeNumbers = new Set([2, 3, 4, 5, 13, 17, 20, 24, 28, 30, 33, 36, 39, 54, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 67]);
-const mediumNativeNumbers = new Set([6, 16, 35, 37, 41, 46, 48, 50, 51, 52, 53, 60, 66]);
+const detailedNumbers = new Set([4, 17, 20, 28, 35, 41, 48, 50, 52, 55, 59, 60, 63, 65, 67, 71]);
+const largeNativeNumbers = new Set([2, 3, 4, 5, 13, 17, 20, 24, 28, 30, 33, 36, 39, 54, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 67, 68, 72, 73, 76, 78]);
+const mediumNativeNumbers = new Set([6, 16, 35, 37, 41, 46, 48, 50, 51, 52, 53, 60, 66, 69, 71]);
 const nativeResolutionOverrides: Record<number, string> = {
   49: "3840 × 2160 px",
+  70: "1440 × 2304 px",
+  74: "1480 × 2100 px",
+  75: "1127 × 1600 px",
+  77: "1131 × 1599 px",
 };
 
 const approvedArtworkDetails: Record<number, {
@@ -139,7 +143,7 @@ const pricing: Record<ArtworkPriceTier, { label: string; price: string; membersh
   premium: { label: "Fascia Premium", price: "17,90 €", membership: "Collector · Supporter + 5 €" },
 };
 
-export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 67 }, (_, index) => {
+export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 78 }, (_, index) => {
   const artworkNumber = index + 1;
   const number = String(artworkNumber).padStart(3, "0");
   const isCommercialOriginal = commercialOriginalNumbers.has(artworkNumber);

@@ -651,7 +651,7 @@ test("renders the complete protected commission portfolio", async () => {
   const response = await render("/commissioni");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Trentadue richieste, sei percorsi creativi/);
+  assert.match(html, /Trentasette richieste, sei percorsi creativi/);
   assert.match(html, /Ritratti personalizzati/);
   assert.match(html, /Coppie e legami/);
   assert.match(html, /Animali/);
@@ -668,7 +668,7 @@ test("renders the complete protected commission portfolio", async () => {
   assert.match(html, /2026/);
   assert.doesNotMatch(html, /Anno da confermare/);
   assert.match(html, /Tariffe di lancio 2026/);
-  assert.ok(html.indexOf("Tariffe di lancio 2026") < html.indexOf("Trentadue richieste, sei percorsi creativi"));
+  assert.ok(html.indexOf("Tariffe di lancio 2026") < html.indexOf("Trentasette richieste, sei percorsi creativi"));
   assert.match(html, /Disponibilità di lancio/);
   assert.match(html, /10/);
   assert.match(html, /Ritratto Essenziale/);

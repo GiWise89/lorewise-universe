@@ -22,7 +22,7 @@ async function fileHash(filePath) {
 
 test("covers every commercial original with one automatic package", () => {
   const vipCodes = VIP_ARTWORKS_PRIVATE.filter((artwork) => artwork.mode === "commercial").map((artwork) => artwork.code);
-  assert.equal(automaticArtworkDeliveryCount(), 48);
+  assert.equal(automaticArtworkDeliveryCount(), 49);
   assert.equal(catalog.count, commercialOriginalArtworks.length + vipCodes.length);
   assert.deepEqual(
     catalog.deliveries.map((delivery) => delivery.code),

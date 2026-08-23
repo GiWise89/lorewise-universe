@@ -340,4 +340,59 @@ export const artworkEditorialCopy: Record<number, ArtworkEditorialCopy> = {
     year: "2026",
     description: "Non è una creatura elegante da fiaba, ma un personaggio sicuro di sé che sembra non chiedere il permesso di esistere. La posa, la pancia in vista e i colori accesi fanno dell’unicorno una piccola dichiarazione di libertà e ironia.",
   },
+  68: {
+    title: "Batman · La notte ha fame",
+    year: "2026",
+    description: "Il simbolo nato per incutere paura ai criminali finisce per diventare esso stesso una creatura della notte. La scena conserva un gesto protettivo, ma lo rende inquietante e ambiguo.",
+  },
+  69: {
+    title: "Batman & Deadpool · Foto impossibile",
+    year: "2026",
+    description: "Due icone costruite sul contrasto si incontrano in una posa volutamente assurda: l’abbraccio trasforma il confronto tra vigilante e antieroe in una gag visiva.",
+  },
+  70: {
+    title: "Baldur’s Gate 3 · Tre strade, una compagnia",
+    year: "2026",
+    description: "Tre compagne molto diverse condividono lo stesso ritratto senza perdere la propria identità. Diffidenza, controllo e calore convivono come accade durante un viaggio costruito sulle scelte.",
+  },
+  71: {
+    title: "Prima del respiro",
+    year: "2026",
+    description: "La figura raccoglie nello stesso corpo l’inizio della vita e il suo scheletro. Le corna, le mani unite e la posizione raccolta trasformano la quiete in un’immagine sospesa tra nascita, morte e rituale.",
+  },
+  72: {
+    title: "Final Fantasy VIII · Promessa al tramonto",
+    year: "2026",
+    description: "Squall e Rinoa si incontrano in un momento di intimità mentre la Gunblade e il paesaggio ricordano il mondo da cui provengono. La scena ferma una pausa prima che il viaggio ricominci.",
+  },
+  73: {
+    title: "Freddy Krueger · Il sogno ti guarda",
+    year: "2026",
+    description: "Il guanto resta vicino al volto, ma è lo sguardo a occupare tutta la scena. Il ritratto concentra Freddy in un’attesa immobile, come se l’incubo fosse già entrato nella stanza.",
+  },
+  74: {
+    title: "Jill Valentine · Un attimo prima",
+    year: "2026",
+    description: "Non è una posa da eroina invincibile. Jill abbassa lo sguardo e stringe il braccio come chi si concede un solo momento di stanchezza prima di rimettersi in movimento.",
+  },
+  75: {
+    title: "Marilyn · Dietro l’icona",
+    year: "2026",
+    description: "Il rosso e l’oro richiamano l’immagine pubblica, mentre lo sguardo rimane più quieto e personale. Il ritratto prova a lasciare spazio alla persona dietro il simbolo.",
+  },
+  76: {
+    title: "Rock Lee · Resistere ancora",
+    year: "2026",
+    description: "Le piante stringono il corpo, ma i pugni restano alzati. Il ritratto punta sulla qualità più riconoscibile di Rock Lee: continuare ad allenarsi e rialzarsi anche quando il talento non basta.",
+  },
+  77: {
+    title: "Se mi lasci ti cancello · Tra gli scaffali",
+    year: "2026",
+    description: "Lo stesso luogo contiene vicinanza e distanza. Nel primo momento i due si cercano; nel secondo resta il vuoto lasciato da qualcosa che sembrava impossibile dimenticare.",
+  },
+  78: {
+    title: "Sheldon Cooper · Logica in orbita",
+    year: "2026",
+    description: "Il saluto vulcaniano, gli atomi e la luce da laboratorio raccolgono in un’unica immagine il suo modo di stare al mondo: razionale, preciso e sempre un passo fuori dalla normalità.",
+  },
 };

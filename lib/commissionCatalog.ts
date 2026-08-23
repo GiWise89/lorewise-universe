@@ -60,6 +60,11 @@ const catalogSeed: Omit<CommissionWork, "slug" | "code" | "image" | "technique" 
   { title: "Ulla · Guardia al tramonto", category: "Animali", requestType: "Ritratto di animale", description: "Il profilo fiero di Ulla viene fissato in un ritratto ambientato, fedele alla postura e al carattere.", resolution: "2480 × 3508 px" },
   { title: "Warhammer 40,000 · Campione del Caos", category: "Fan art e ritratti iconici", requestType: "Reinterpretazione fan-made su commissione", description: "Il committente viene reinterpretato all’interno dell’universo di Warhammer 40,000 come guerriero corazzato.", resolution: "2480 × 3508 px", fanArt: true, featured: true },
   { title: "Luce sul mare", category: "Ritratti personalizzati", requestType: "Ritratto ambientato", description: "Un momento rilassato sul mare trasformato in un ritratto caldo, naturale e personale.", resolution: "2480 × 3508 px" },
+  { title: "Luce sul volto", category: "Ritratti personalizzati", requestType: "Ritratto ravvicinato", description: "Un primo piano personale costruito attorno allo sguardo, alla luce del tramonto e ai dettagli del volto.", resolution: "2480 × 3508 px" },
+  { title: "Una risata insieme", category: "Coppie e legami", requestType: "Ritratto di coppia", description: "Un momento spontaneo di coppia trasformato in un ritratto luminoso, con il sorriso condiviso al centro della scena.", resolution: "1748 × 2480 px", featured: true },
+  { title: "Serenità al tramonto", category: "Ritratti personalizzati", requestType: "Ritratto ambientato", description: "Un ritratto elegante e quieto, costruito sui lineamenti, sui toni blu e sulla luce morbida del tramonto.", resolution: "2480 × 3508 px" },
+  { title: "Complicità", category: "Coppie e legami", requestType: "Ritratto di coppia", description: "Un selfie spontaneo diventa un ritratto di coppia giocoso, mantenendo le espressioni e la complicità del momento.", resolution: "1748 × 2480 px" },
+  { title: "Tempo insieme", category: "Coppie e legami", requestType: "Ritratto condiviso", description: "Un momento quotidiano condiviso davanti allo smartphone diventa il centro di un ritratto intimo, sereno e personale.", resolution: "2480 × 3508 px", featured: true },
 ];
 
 export const commissionWorks: CommissionWork[] = catalogSeed.map((work, index) => {

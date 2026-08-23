@@ -3,6 +3,7 @@ param(
   [string]$OutputDirectory = (Join-Path $PSScriptRoot "..\public\artworks\previews"),
   [string]$ManifestPath = (Join-Path $PSScriptRoot "artwork-source-map.json"),
   [string[]]$CatalogCodes = @(),
+  [switch]$AllowUnmappedSourceFiles,
   [ValidateRange(0, 255)][int]$WatermarkLightAlpha = 82,
   [ValidateRange(0, 255)][int]$WatermarkDarkAlpha = 54,
   [ValidateRange(0, 255)][int]$StampLightAlpha = 128,
@@ -18,7 +19,7 @@ if (-not (Test-Path -LiteralPath $SourceDirectory)) {
 
 $catalogEntries = Get-Content -LiteralPath $ManifestPath -Raw | ConvertFrom-Json
 $supportedExtensions = @(".png", ".jpg", ".jpeg", ".webp")
-$sourceFiles = @(Get-ChildItem -LiteralPath $SourceDirectory -File | Where-Object { $_.Extension.ToLowerInvariant() -in $supportedExtensions })
+$sourceFiles = @(Get-ChildItem -LiteralPath $SourceDirectory -File -Recurse | Where-Object { $_.Extension.ToLowerInvariant() -in $supportedExtensions })
 
 $duplicateCodes = $catalogEntries | Group-Object code | Where-Object Count -gt 1
 $duplicateFiles = $catalogEntries | Group-Object file | Where-Object Count -gt 1
@@ -26,25 +27,30 @@ if ($duplicateCodes -or $duplicateFiles) {
   throw "La mappa delle opere contiene codici o file duplicati."
 }
 
-$sourceNames = @($sourceFiles.Name | Sort-Object)
-$mappedNames = @($catalogEntries.file | Sort-Object)
+$resolvedSourceDirectory = (Resolve-Path -LiteralPath $SourceDirectory).Path.TrimEnd([char[]]"\/")
+$sourceNames = @($sourceFiles | ForEach-Object {
+  $_.FullName.Substring($resolvedSourceDirectory.Length).TrimStart([char[]]"\/").Replace("\", "/")
+} | Sort-Object)
+$mappedNames = @($catalogEntries.file | ForEach-Object { $_.Replace("\", "/") } | Sort-Object)
 $unmappedFiles = @($sourceNames | Where-Object { $_ -notin $mappedNames })
 $missingFiles = @($mappedNames | Where-Object { $_ -notin $sourceNames })
-if ($unmappedFiles.Count -gt 0 -or $missingFiles.Count -gt 0) {
+if ((-not $AllowUnmappedSourceFiles -and $unmappedFiles.Count -gt 0) -or $missingFiles.Count -gt 0) {
   throw "Mappa non allineata. Non mappati: $($unmappedFiles -join ', '). Mancanti: $($missingFiles -join ', ')."
 }
 
-$selectedEntries = if ($CatalogCodes.Count -gt 0) {
-  @($catalogEntries | Where-Object { $_.code -in $CatalogCodes })
+$requestedCodes = @($CatalogCodes | ForEach-Object { $_ -split "," } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+$selectedEntries = if ($requestedCodes.Count -gt 0) {
+  @($catalogEntries | Where-Object { $requestedCodes -contains [string]$_.code })
 } else {
   $catalogEntries
 }
-if ($selectedEntries.Count -ne $(if ($CatalogCodes.Count -gt 0) { $CatalogCodes.Count } else { $catalogEntries.Count })) {
-  throw "Uno o piu codici richiesti non sono presenti nella mappa."
+if (@($selectedEntries).Count -ne $(if ($requestedCodes.Count -gt 0) { $requestedCodes.Count } else { $catalogEntries.Count })) {
+  throw "Uno o piu codici richiesti non sono presenti nella mappa. Richiesti: $($requestedCodes -join '|'). Selezionati: $($selectedEntries.code -join '|')."
 }
 
 $hashesBefore = @{}
-foreach ($file in $sourceFiles) {
+foreach ($entry in $selectedEntries) {
+  $file = Get-Item -LiteralPath (Join-Path $SourceDirectory $entry.file)
   $hashesBefore[$file.FullName] = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash
 }
 
@@ -134,12 +140,13 @@ foreach ($entry in $selectedEntries) {
   }
 }
 
-foreach ($file in $sourceFiles) {
+foreach ($entry in $selectedEntries) {
+  $file = Get-Item -LiteralPath (Join-Path $SourceDirectory $entry.file)
   $hashAfter = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash
   if ($hashAfter -ne $hashesBefore[$file.FullName]) {
     throw "Il file originale è cambiato: $($file.FullName)"
   }
 }
 
-Write-Output "ORIGINALS_VERIFIED=$($sourceFiles.Count)"
-Write-Output "PREVIEWS_GENERATED=$($selectedEntries.Count)"
+Write-Output "ORIGINALS_VERIFIED=$(@($selectedEntries).Count)"
+Write-Output "PREVIEWS_GENERATED=$(@($selectedEntries).Count)"

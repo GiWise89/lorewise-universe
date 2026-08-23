@@ -42,9 +42,14 @@ test("profili pubblici e avatar hanno privacy e validazione", () => {
 
 test("le notifiche possono essere lette e rimosse in modo persistente", () => {
   const api = read("app/api/notifications/route.ts");
+  const adminApi = read("app/api/admin/notifications/route.ts");
   const header = read("components/SiteHeader.tsx");
   for (const action of ["read", "read_all", "dismiss", "dismiss_read"]) assert.ok(api.includes(action));
   assert.ok(api.includes("dismissed_at IS NULL"));
+  assert.ok(api.includes("new Date().toISOString()"));
+  assert.ok(adminApi.includes("new Date().toISOString()"));
+  assert.doesNotMatch(api, /COALESCE\([^\n]*CURRENT_TIMESTAMP/);
+  assert.doesNotMatch(adminApi, /COALESCE\([^\n]*CURRENT_TIMESTAMP/);
   assert.ok(header.includes('href="/notifiche"'));
   assert.ok(header.includes("lorewise:notifications-updated"));
 });

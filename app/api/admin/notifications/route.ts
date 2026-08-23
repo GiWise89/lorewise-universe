@@ -19,17 +19,18 @@ export async function PATCH(request: Request) {
   const auth = await requireOrderAdmin();
   if ("response" in auth) return auth.response;
   const body = await request.json().catch(() => null) as { action?: unknown; id?: unknown } | null;
+  const updatedAt = new Date().toISOString();
   await ensureAdminNotificationsTable(auth.database);
   if (body?.action === "read" && typeof body.id === "string" && body.id.length <= 160) {
-    await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP) WHERE id = ?")
-      .bind(body.id).run();
+    await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, ?) WHERE id = ?")
+      .bind(updatedAt, body.id).run();
   } else if (body?.action === "read_all") {
-    await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP) WHERE read_at IS NULL AND dismissed_at IS NULL").run();
+    await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, ?) WHERE read_at IS NULL AND dismissed_at IS NULL").bind(updatedAt).run();
   } else if (body?.action === "dismiss" && typeof body.id === "string" && body.id.length <= 160) {
-    await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, CURRENT_TIMESTAMP), dismissed_at = COALESCE(dismissed_at, CURRENT_TIMESTAMP) WHERE id = ?")
-      .bind(body.id).run();
+    await auth.database.prepare("UPDATE admin_notifications SET read_at = COALESCE(read_at, ?), dismissed_at = COALESCE(dismissed_at, ?) WHERE id = ?")
+      .bind(updatedAt, updatedAt, body.id).run();
   } else if (body?.action === "dismiss_read") {
-    await auth.database.prepare("UPDATE admin_notifications SET dismissed_at = COALESCE(dismissed_at, CURRENT_TIMESTAMP) WHERE read_at IS NOT NULL").run();
+    await auth.database.prepare("UPDATE admin_notifications SET dismissed_at = COALESCE(dismissed_at, ?) WHERE read_at IS NOT NULL").bind(updatedAt).run();
   } else {
     return Response.json({ error: "Azione non valida." }, { status: 400 });
   }

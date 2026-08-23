@@ -10,9 +10,9 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceRoot = path.join(root, "Vetrina Disegni");
 const outputRoot = path.join(root, "output", "artwork-deliveries");
 const sourceMap = JSON.parse(await readFile(path.join(root, "scripts", "artwork-source-map.json"), "utf8"));
-const commercialNumbers = new Set([2, 3, 4, 5, 6, 13, 16, 17, 20, 24, 28, 30, 33, 35, 36, 37, 39, 41, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 63, 64, 65, 67]);
+const commercialNumbers = new Set([2, 3, 4, 5, 6, 13, 16, 17, 20, 24, 28, 30, 33, 35, 36, 37, 39, 41, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 63, 64, 65, 67, 71]);
 const essentialNumbers = new Set([6, 16, 33, 39]);
-const detailedNumbers = new Set([4, 17, 20, 28, 35, 41, 48, 50, 52, 55, 59, 60, 63, 65, 67]);
+const detailedNumbers = new Set([4, 17, 20, 28, 35, 41, 48, 50, 52, 55, 59, 60, 63, 65, 67, 71]);
 const selectedCode = process.argv.find((argument) => argument.startsWith("--code="))?.split("=")[1]?.toUpperCase();
 
 function sha256(bytes) {
