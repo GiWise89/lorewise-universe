@@ -68,7 +68,7 @@ export async function syncLoreWiseCustomer(user: User) {
   await database.prepare(`INSERT INTO customers (id, email, display_name, role, locale, community_emails,
       studio_updates_emails, privacy_version, privacy_accepted_at, status, created_at, updated_at)
     VALUES (?, ?, ?, ?, 'it-IT', ?, ?, ?, ?, 'active', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-    ON CONFLICT(id) DO UPDATE SET email = excluded.email, display_name = excluded.display_name,
+    ON CONFLICT(id) DO UPDATE SET email = excluded.email,
       role = CASE WHEN excluded.role = 'admin' THEN 'admin' ELSE customers.role END,
       privacy_version = COALESCE(customers.privacy_version, excluded.privacy_version),
       privacy_accepted_at = COALESCE(customers.privacy_accepted_at, excluded.privacy_accepted_at),

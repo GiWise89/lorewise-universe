@@ -40,6 +40,13 @@ test("profili pubblici e avatar hanno privacy e validazione", () => {
   assert.ok(publicAvatar.includes('"Cache-Control": "private, no-store"'));
 });
 
+test("la sincronizzazione dell'accesso non sovrascrive il nome pubblico salvato", () => {
+  const customerSync = read("lib/supabase/customer.ts");
+  const conflictUpdate = customerSync.slice(customerSync.indexOf("ON CONFLICT(id) DO UPDATE SET"));
+  assert.ok(conflictUpdate.includes("email = excluded.email"));
+  assert.doesNotMatch(conflictUpdate, /display_name\s*=\s*excluded\.display_name/);
+});
+
 test("le notifiche possono essere lette e rimosse in modo persistente", () => {
   const api = read("app/api/notifications/route.ts");
   const adminApi = read("app/api/admin/notifications/route.ts");
