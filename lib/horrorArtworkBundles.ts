@@ -12,20 +12,6 @@ const bundleDefinitions = [
     theme: "Devozione, simboli sacri e presenze che hanno smarrito la luce.",
     artworkCodes: ["LW-ART-036", "LW-ART-057", "LW-ART-067"],
   },
-  {
-    code: "LW-HORROR-BUNDLE-002",
-    slug: "incubi-interiori",
-    title: "Incubi Interiori",
-    theme: "Paure che crescono dentro, assenze che prendono forma e pensieri dai quali non si riesce a fuggire.",
-    artworkCodes: ["LW-ART-020", "LW-ART-051", "LW-ART-059"],
-  },
-  {
-    code: "LW-HORROR-BUNDLE-003",
-    slug: "creature-del-buio",
-    title: "Creature del Buio",
-    theme: "Presenze impossibili, reliquie viventi e sovrani mostruosi emersi dall’oscurità.",
-    artworkCodes: ["LW-ART-016", "LW-ART-046", "LW-ART-053"],
-  },
 ] as const;
 
 function priceCents(artwork: CatalogArtwork) {

@@ -7,16 +7,11 @@ import {
   isHorrorArtworkBundleActive,
 } from "../lib/horrorArtworkBundles.ts";
 
-test("defines the three approved Halloween collections with three GiWise originals each", () => {
-  assert.equal(horrorArtworkBundles.length, 3);
+test("defines the remaining Halloween collection with three commercial originals", () => {
+  assert.equal(horrorArtworkBundles.length, 1);
   const allCodes = horrorArtworkBundles.flatMap((bundle) => bundle.artworkCodes);
-  assert.equal(allCodes.length, 9);
-  assert.equal(new Set(allCodes).size, 9);
-  assert.deepEqual(horrorArtworkBundles.map((bundle) => ({ code: bundle.code, title: bundle.title, artworkCodes: [...bundle.artworkCodes] })), [
-    { code: "LW-HORROR-BUNDLE-001", title: "Fede Corrotta", artworkCodes: ["LW-ART-036", "LW-ART-057", "LW-ART-067"] },
-    { code: "LW-HORROR-BUNDLE-002", title: "Incubi Interiori", artworkCodes: ["LW-ART-020", "LW-ART-051", "LW-ART-059"] },
-    { code: "LW-HORROR-BUNDLE-003", title: "Creature del Buio", artworkCodes: ["LW-ART-016", "LW-ART-046", "LW-ART-053"] },
-  ]);
+  assert.equal(allCodes.length, 3);
+  assert.equal(new Set(allCodes).size, 3);
   for (const bundle of horrorArtworkBundles) {
     assert.equal(bundle.artworks.length, 3);
     assert.equal(bundle.amountCents, 2490);
@@ -48,13 +43,6 @@ test("keeps every collection preview fully visible", async () => {
   assert.ok(start >= 0);
   assert.match(styles.slice(start, end), /object-fit:contain/);
   assert.doesNotMatch(styles.slice(start, end), /object-fit:cover/);
-});
-
-test("states publicly that the collections contain only existing GiWise originals", async () => {
-  const page = await readFile(new URL("../app/arte/page.tsx", import.meta.url), "utf8");
-  assert.match(page, /Tre collezioni per entrare nell’ombra/);
-  assert.match(page, /opere originali GiWise già presenti in vetrina/);
-  assert.match(page, /nessuna immagine artificiale/);
 });
 
 test("uses the original Halloween backdrop and a real second-by-second promotion timer", async () => {

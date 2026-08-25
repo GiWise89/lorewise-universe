@@ -9,7 +9,6 @@ import catalog from "../data/automatic-artwork-deliveries.json" with { type: "js
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const siteID = "11a8e4a6-d1a6-4bbd-ae2e-8e823786e760";
 const execute = process.argv.includes("--execute");
-const verifyRemote = process.argv.includes("--verify-remote");
 const code = process.argv.find((argument) => argument.startsWith("--code="))?.slice(7).toUpperCase();
 if (!code) throw new Error("Indica il codice con --code=LW-ART-000.");
 const delivery = catalog.deliveries.find((entry) => entry.code === code);
@@ -20,7 +19,7 @@ const bytes = fs.readFileSync(packagePath);
 const localSha256 = createHash("sha256").update(bytes).digest("hex");
 if (bytes.length !== delivery.size || localSha256 !== delivery.sha256) throw new Error(`${code}: pacchetto locale non verificato.`);
 
-if (!execute && !verifyRemote) {
+if (!execute) {
   console.log(JSON.stringify({ mode: "dry-run", code, objectKey: delivery.objectKey, size: bytes.length, sha256: localSha256, verified: true }, null, 2));
   process.exit(0);
 }
@@ -32,13 +31,11 @@ const token = activeUser?.auth?.token;
 if (!token) throw new Error("Sessione Netlify non trovata. Esegui prima `netlify login`.");
 const store = getStore({ name: "lorewise-private-deliveries", siteID, token, consistency: "strong" });
 const metadata = { size: bytes.length, contentType: delivery.contentType, customMetadata: { artworkcode: code, sha256: localSha256, visibility: "private", source: "automatic-catalog" } };
-if (execute) {
-  await store.set(delivery.objectKey, bytes, { metadata });
-  await store.setJSON(`__metadata__/${delivery.objectKey}.json`, metadata);
-}
+await store.set(delivery.objectKey, bytes, { metadata });
+await store.setJSON(`__metadata__/${delivery.objectKey}.json`, metadata);
 const remote = await store.get(delivery.objectKey, { type: "arrayBuffer", consistency: "strong" });
-if (!remote) throw new Error(`${code}: oggetto remoto assente.`);
+if (!remote) throw new Error(`${code}: oggetto remoto assente dopo il caricamento.`);
 const remoteBytes = Buffer.from(remote);
 const remoteSha256 = createHash("sha256").update(remoteBytes).digest("hex");
 if (remoteBytes.length !== delivery.size || remoteSha256 !== delivery.sha256) throw new Error(`${code}: verifica remota di dimensione o SHA-256 fallita.`);
-console.log(JSON.stringify({ uploaded: execute, remoteVerified: true, store: "lorewise-private-deliveries", code, objectKey: delivery.objectKey, size: remoteBytes.length, sha256: remoteSha256, verified: true }, null, 2));
+console.log(JSON.stringify({ uploaded: true, store: "lorewise-private-deliveries", code, objectKey: delivery.objectKey, size: remoteBytes.length, sha256: remoteSha256, verified: true }, null, 2));
