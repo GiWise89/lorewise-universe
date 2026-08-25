@@ -1,0 +1,1102 @@
+{
+  "id": "hogwarts-legacy-complete-guide-01",
+  "slug": "hogwarts-legacy",
+  "code": "LW-ATLAS-HWL-001",
+  "game": "Hogwarts Legacy",
+  "title": "Il taccuino dell’Antica Magia",
+  "subtitle": "Dalla prima lezione ai segreti del castello, costruendo un mago leggibile senza perdere la meraviglia.",
+  "description": "Sedici capitoli e quarantotto schede operative dedicate a Hogwarts Legacy: edizioni, accessibilità, casa, incantesimi, combattimento, talenti, equipaggiamento, pozioni, piante, esplorazione, enigmi, Stanza delle Necessità, creature, relazioni, volo e completamento. La guida privilegia procedure verificabili, accessibilità, spoiler separati e scelte sostenibili.",
+  "versionLabel": "Edizione completa · verifica 24 agosto 2026",
+  "updatedAt": "24 agosto 2026",
+  "vipFrom": "2026-09-21T00:00:00+02:00",
+  "publicAt": "2026-09-28T00:00:00+02:00",
+  "theme": "atlas",
+  "cover": {
+    "src": "/atlas/hogwarts-legacy/cover.webp",
+    "alt": "Immagine ufficiale usata per la copertina editoriale di Hogwarts Legacy",
+    "caption": "Hogwarts Legacy · immagine dal sito ufficiale, mostrata integralmente",
+    "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/gameplay-showcase-i-t.jpg"
+  },
+  "storeUrl": "https://www.hogwartslegacy.com/en-us/buy",
+  "storeLabel": "Acquista Hogwarts Legacy",
+  "chapters": [
+    {
+      "id": "editions-accessibility",
+      "number": "01",
+      "label": "Edizioni e accessibilità",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Preparare il viaggio prima dello Smistamento",
+      "introduction": "Piattaforma, salvataggi, difficoltà, sottotitoli e opzioni di accessibilità definiscono il modo in cui leggerai combattimenti ed esplorazione.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/01-editions-accessibility.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Edizioni e accessibilità",
+          "caption": "Edizioni e accessibilità · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/gameplay-showcase-i-t.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta edizioni e accessibilità come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Verifica edizione e contenuti installati",
+            "Regola luminosità, mira e sensibilità",
+            "Attiva sottotitoli e indicatori utili",
+            "Crea un salvataggio manuale iniziale",
+            "Prova la difficoltà per almeno due scontri"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Preparare il viaggio prima dello Smistamento” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Conserva più salvataggi manuali",
+            "Riduci la difficoltà se impedisce di imparare",
+            "Distingui opzioni estetiche e aiuti di gioco"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non trovo un contenuto",
+              "answer": "Controlla piattaforma, edizione e stato del download"
+            },
+            {
+              "problem": "I comandi risultano confusi",
+              "answer": "Ripristina una configurazione semplice e cambia una voce alla volta"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "house-character",
+      "number": "02",
+      "label": "Casa e personaggio",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Scegliere un’identità che duri oltre il colore della divisa",
+      "introduction": "Casa, aspetto e tono dei dialoghi definiscono l’interpretazione, ma non devono diventare una ricerca ansiosa della scelta perfetta.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/02-house-character.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Casa e personaggio",
+          "caption": "Casa e personaggio · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-02.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta casa e personaggio come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Definisci il tono del personaggio",
+            "Ascolta la proposta del Cappello",
+            "Scegli la casa che vuoi abitare",
+            "Mantieni coerenti nome e aspetto",
+            "Salva prima di confermare"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Scegliere un’identità che duri oltre il colore della divisa” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "La casa cambia soprattutto atmosfera e spazi",
+            "Evita di consultare conseguenze narrative in anticipo",
+            "Scegli ciò che desideri vedere per molte ore"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Temo di perdere contenuti",
+              "answer": "Considera una seconda partita invece di annullare la prima scelta"
+            },
+            {
+              "problem": "Il personaggio non mi rappresenta",
+              "answer": "Correggi gli elementi modificabili e conserva il ruolo scelto"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "first-days",
+      "number": "03",
+      "label": "Prime lezioni",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Imparare il castello senza inseguire ogni icona",
+      "introduction": "Le prime ore introducono sistemi in sequenza: seguire le lezioni principali sblocca strumenti che rendono più chiara l’esplorazione successiva.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/03-first-days.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Prime lezioni",
+          "caption": "Prime lezioni · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-09.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta prime lezioni come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Completa le lezioni introduttive",
+            "Impara a usare Revelio con misura",
+            "Apri i punti di viaggio rapido incontrati",
+            "Prova ogni incantesimo appena appreso",
+            "Rientra spesso nel menu delle sfide"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Imparare il castello senza inseguire ogni icona” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Segui una missione principale e una deviazione",
+            "Osserva porte, simboli e percorsi verticali",
+            "Non vendere subito ogni oggetto nuovo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Mi perdo nel castello",
+              "answer": "Usa la mappa per piano e scegli un solo punto di arrivo"
+            },
+            {
+              "problem": "Ho troppe missioni",
+              "answer": "Segna un obiettivo principale e ignora temporaneamente gli altri"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "spells-sets",
+      "number": "04",
+      "label": "Incantesimi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Costruire set di magie facili da ricordare",
+      "introduction": "Colori, tempi di recupero e funzioni dividono gli incantesimi in famiglie; un buon set assegna a ogni pulsante un lavoro riconoscibile.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/04-spells-sets.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Incantesimi",
+          "caption": "Incantesimi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-05.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta incantesimi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Metti un attacco base in memoria muscolare",
+            "Associa controllo e danno nello stesso set",
+            "Crea un set per esplorazione",
+            "Crea un set per la Stanza delle Necessità",
+            "Prova le combinazioni su bersagli isolati"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Costruire set di magie facili da ricordare” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Usa la posizione prima del cooldown",
+            "Abbina incantesimi che sollevano e colpiscono",
+            "Mantieni sempre accessibile una risposta difensiva"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Cambio set per errore",
+              "answer": "Ordina i set per funzione e non per momento di sblocco"
+            },
+            {
+              "problem": "Un nemico resiste",
+              "answer": "Leggi il colore dello scudo e usa la famiglia corretta"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "combat-defense",
+      "number": "05",
+      "label": "Combattimento e difesa",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere il duello prima di lanciare la combo",
+      "introduction": "Protego, schivata, controllo e priorità dei bersagli decidono lo scontro più del numero di incantesimi disponibili.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/05-combat-defense.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Combattimento e difesa",
+          "caption": "Combattimento e difesa · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-10.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta combattimento e difesa come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Osserva gli indicatori sopra il personaggio",
+            "Usa Protego quando l’attacco è parabile",
+            "Schiva gli attacchi non parabili",
+            "Rompi lo scudo corretto",
+            "Concentra il gruppo su un bersaglio per volta"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Leggere il duello prima di lanciare la combo” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Sposta la telecamera prima di attaccare",
+            "Usa oggetti e ambiente contro i gruppi",
+            "Conserva Magia Antica per le vere emergenze"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Subisco colpi fuori campo",
+              "answer": "Aumenta distanza e ruota la telecamera"
+            },
+            {
+              "problem": "Le combo si interrompono",
+              "answer": "Riduci la sequenza e inserisci controllo o difesa"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "talents-build",
+      "number": "06",
+      "label": "Talenti",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Spendere punti su azioni già affidabili",
+      "introduction": "I talenti migliorano strumenti esistenti: la build migliore nasce da ciò che usi davvero, non da un elenco copiato senza contesto.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/06-talents-build.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Talenti",
+          "caption": "Talenti · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-13.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta talenti come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Individua tre incantesimi ricorrenti",
+            "Scegli un nucleo tra controllo, danno e furtività",
+            "Compra un miglioramento difensivo",
+            "Prova il talento prima del successivo",
+            "Mantieni punti liberi finché hai dubbi"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Spendere punti su azioni già affidabili” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Potenzia prima il ciclo principale",
+            "Evita di distribuire punti in ogni ramo",
+            "Considera pozioni e piante parte della build"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Ho speso male i punti",
+              "answer": "Rafforza il nucleo restante invece di ricominciare subito"
+            },
+            {
+              "problem": "La build funziona solo contro un nemico",
+              "answer": "Aggiungi una risposta universale di controllo o difesa"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "gear-traits",
+      "number": "07",
+      "label": "Equipaggiamento e tratti",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Separare potenza, aspetto e collezione",
+      "introduction": "Livello, rarità, statistiche, tratti e trasmogrificazione risolvono bisogni diversi; non conservare ogni mantello soltanto per l’aspetto.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/07-gear-traits.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Equipaggiamento e tratti",
+          "caption": "Equipaggiamento e tratti · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-04.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta equipaggiamento e tratti come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Confronta il valore offensivo o difensivo",
+            "Identifica i tratti utili alla build",
+            "Sblocca l’aspetto prima di vendere",
+            "Migliora soltanto pezzi destinati a durare",
+            "Libera gli slot prima di una missione lunga"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Separare potenza, aspetto e collezione” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "L’aspetto resta disponibile dopo aver venduto",
+            "Apri le prove che ampliano l’inventario",
+            "Conserva materiali rari per miglioramenti reali"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Inventario sempre pieno",
+              "answer": "Vendi i doppioni e completa prove dedicate"
+            },
+            {
+              "problem": "Un pezzo più alto sembra peggiore",
+              "answer": "Confronta statistiche, tratto e costo di miglioramento"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "potions-plants",
+      "number": "08",
+      "label": "Pozioni e piante",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Preparare strumenti che cambiano il ritmo dello scontro",
+      "introduction": "Pozioni e piante non sono decorazioni: riducono pressione, creano finestre e permettono di affrontare gruppi senza dipendere soltanto dalle combo.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/08-potions-plants.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Pozioni e piante",
+          "caption": "Pozioni e piante · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-07.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta pozioni e piante come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Coltiva una risorsa difensiva",
+            "Prepara una pozione offensiva",
+            "Assegna gli strumenti alla ruota rapida",
+            "Provali fuori dalle missioni difficili",
+            "Rifornisci prima di lasciare il castello"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Preparare strumenti che cambiano il ritmo dello scontro” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Usa una risorsa quando evita più danni del suo costo",
+            "Coltiva ciò che consumi regolarmente",
+            "Non accumulare strumenti senza provarli"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Finisco le scorte",
+              "answer": "Crea una routine tra coltivazione e missioni"
+            },
+            {
+              "problem": "Dimentico gli strumenti",
+              "answer": "Inseriscili nel primo ciclo di ogni scontro impegnativo"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "world-map",
+      "number": "09",
+      "label": "Esplorazione e mappa",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere Hogwarts, Hogsmeade e le Highlands come tre spazi diversi",
+      "introduction": "Il castello è verticale, Hogsmeade è commerciale e le Highlands richiedono orientamento a distanza: una sola abitudine non basta per tutti.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/09-world-map.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Esplorazione e mappa",
+          "caption": "Esplorazione e mappa · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-08.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta esplorazione e mappa come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Apri i punti di viaggio mentre attraversi una zona",
+            "Segna una deviazione per percorso",
+            "Usa Revelio dopo aver osservato",
+            "Controlla altezza e piano della destinazione",
+            "Rientra con inventario e scorte ordinati"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Leggere Hogwarts, Hogsmeade e le Highlands come tre spazi diversi” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Segui suoni e dettagli prima delle icone",
+            "Esplora per quartieri e non in modo casuale",
+            "Conserva alcune scoperte per il ritorno"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "L’indicatore sembra vicino ma non arrivo",
+              "answer": "Controlla piano, scala o ingresso esterno"
+            },
+            {
+              "problem": "La mappa è piena",
+              "answer": "Filtra mentalmente una categoria per sessione"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "puzzles-secrets",
+      "number": "10",
+      "label": "Enigmi e segreti",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Risolvere il linguaggio del castello senza aprire subito una soluzione",
+      "introduction": "Simboli, luce, movimento e ordine costituiscono un vocabolario ricorrente. Prima di cercare la risposta, identifica quale elemento reagisce.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/10-puzzles-secrets.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Enigmi e segreti",
+          "caption": "Enigmi e segreti · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-01.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta enigmi e segreti come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Osserva tutti gli oggetti interattivi",
+            "Prova Revelio una sola volta",
+            "Associa ogni simbolo a un’azione",
+            "Cambia posizione e prospettiva",
+            "Annota il tentativo che ha prodotto una reazione"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Risolvere il linguaggio del castello senza aprire subito una soluzione” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Molti enigmi insegnano la regola vicino al primo esempio",
+            "La soluzione può richiedere un incantesimo non ancora appreso",
+            "Usa gli aiuti graduati prima della risposta completa"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Nulla reagisce",
+              "answer": "Potrebbe mancare un incantesimo o l’angolo corretto"
+            },
+            {
+              "problem": "Conosco la regola ma non l’ordine",
+              "answer": "Ripristina la sequenza e osserva il feedback di ogni passaggio"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "room-requirement",
+      "number": "11",
+      "label": "Stanza delle Necessità",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Trasformare la stanza in un vero campo base",
+      "introduction": "La stanza collega creazione, identificazione, miglioramenti, piante, pozioni e creature. Organizzala per ridurre i viaggi e rendere visibili le scorte.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/11-room-requirement.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Stanza delle Necessità",
+          "caption": "Stanza delle Necessità · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-06.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta stanza delle necessità come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Crea una zona per pozioni",
+            "Crea una zona per coltivazione",
+            "Raggruppa identificazione e miglioramento",
+            "Lascia corridoi leggibili",
+            "Salva dopo grandi modifiche"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Trasformare la stanza in un vero campo base” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "La funzione viene prima della decorazione",
+            "Aumenta capacità soltanto quando serve",
+            "Usa disposizioni coerenti tra stanze"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non trovo una postazione",
+              "answer": "Raggruppa gli strumenti per ciclo di utilizzo"
+            },
+            {
+              "problem": "Produzione troppo lenta",
+              "answer": "Controlla vasi, tavoli e ricette realmente necessari"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "beasts-vivariums",
+      "number": "12",
+      "label": "Creature e vivarium",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Curare le creature senza trasformarle in un inventario",
+      "introduction": "Cattura, cura e allevamento devono sostenere la relazione e i materiali, senza riempire ogni spazio con esemplari raccolti senza progetto.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/12-beasts-vivariums.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Creature e vivarium",
+          "caption": "Creature e vivarium · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/hogwarts-legacy-wallpaper.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta creature e vivarium come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Prepara lo strumento di cattura",
+            "Riduci il pericolo nell’area",
+            "Avvicinati con controllo",
+            "Assegna la creatura al vivarium adatto",
+            "Crea una routine di cura e raccolta"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Curare le creature senza trasformarle in un inventario” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Cibo e spazzola rendono leggibile il ciclo",
+            "Mantieni spazio per nuove specie",
+            "Decora senza bloccare i percorsi"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La creatura fugge",
+              "answer": "Usa controllo e avvicinati prima di iniziare"
+            },
+            {
+              "problem": "Il vivarium è caotico",
+              "answer": "Riduci il numero e separa le specie per spazio"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "companions-quests",
+      "number": "13",
+      "label": "Relazioni e missioni",
+      "estimatedRead": "13–17 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Seguire le storie personali senza bruciare le conseguenze",
+      "introduction": "Le missioni dei compagni hanno tono e soglie diverse. Leggi i dialoghi, conserva un salvataggio e apri gli spoiler solo quando la scelta è davvero bloccante.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/13-companions-quests.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Relazioni e missioni",
+          "caption": "Relazioni e missioni · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-12.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta relazioni e missioni come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Completa il dialogo opzionale",
+            "Leggi il diario prima di partire",
+            "Porta strumenti coerenti con la missione",
+            "Salva prima delle decisioni esplicite",
+            "Concludi il confronto dopo la missione"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Seguire le storie personali senza bruciare le conseguenze” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non tutte le richieste vanno accettate subito",
+            "Distingui curiosità del giocatore e motivazione del personaggio",
+            "Usa dettagli spoiler richiudibili"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Ho perso il filo narrativo",
+              "answer": "Rileggi le ultime voci del diario"
+            },
+            {
+              "problem": "Temo una scelta irreversibile",
+              "answer": "Crea un salvataggio nominabile prima del dialogo"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "broom-travel",
+      "number": "14",
+      "label": "Scopa e movimento",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Volare con controllo prima di inseguire il tempo migliore",
+      "introduction": "Volo, gare e atterraggi richiedono una sensibilità diversa dal movimento a piedi. Prima costruisci precisione, poi velocità.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/14-broom-travel.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Scopa e movimento",
+          "caption": "Scopa e movimento · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-03.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta scopa e movimento come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Prova decollo e atterraggio in spazio aperto",
+            "Regola la telecamera",
+            "Segui un percorso senza accelerazione continua",
+            "Impara a correggere altezza in anticipo",
+            "Affronta la gara dopo un giro di prova"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Volare con controllo prima di inseguire il tempo migliore” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Guarda due anelli avanti",
+            "Rilascia accelerazione nelle correzioni strette",
+            "Usa il volo per orientarti, non per saltare ogni scoperta"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Perdo gli anelli",
+              "answer": "Riduci velocità e anticipa la curva"
+            },
+            {
+              "problem": "Atterro lontano",
+              "answer": "Allinea direzione e quota prima del comando"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "challenges-collections",
+      "number": "15",
+      "label": "Sfide e collezioni",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Completare senza trasformare il mondo in una lista",
+      "introduction": "Le sfide premiano categorie di attività e spesso sbloccano capacità utili. Scegli una raccolta per sessione e lascia che il resto emerga durante il viaggio.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/15-challenges-collections.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Sfide e collezioni",
+          "caption": "Sfide e collezioni · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-11.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta sfide e collezioni come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Controlla la ricompensa della categoria",
+            "Scegli una regione limitata",
+            "Segna ciò che richiede un ritorno",
+            "Completa la soglia utile",
+            "Riscatta manualmente le ricompense"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Completare senza trasformare il mondo in una lista” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Dai priorità agli ampliamenti funzionali",
+            "Non cercare l’ultimo oggetto senza verificare i filtri",
+            "Alterna raccolta e missioni"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il conteggio non avanza",
+              "answer": "Controlla categoria, regione e ricompensa non riscattata"
+            },
+            {
+              "problem": "Manca un solo elemento",
+              "answer": "Verifica interni, missioni e contenuti legati alla progressione"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "completion-saves",
+      "number": "16",
+      "label": "Finale e seconda partita",
+      "estimatedRead": "13–17 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Chiudere l’anno conservando ciò che rende unica la prima avventura",
+      "introduction": "Il completamento può significare storia, sfide, collezioni o un nuovo personaggio. Definisci il tuo traguardo prima di inseguire il cento per cento.",
+      "images": [
+        {
+          "src": "/atlas/hogwarts-legacy/chapters/16-completion-saves.webp",
+          "alt": "Immagine ufficiale di Hogwarts Legacy associata al capitolo Finale e seconda partita",
+          "caption": "Finale e seconda partita · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://cdn-hogwartslegacy.warnerbrosgames.com/media/screen-14.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta finale e seconda partita come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Completa le missioni personali aperte",
+            "Conserva un salvataggio prima della soglia finale",
+            "Decidi quali collezioni ti interessano",
+            "Esporta mentalmente build e set preferiti",
+            "Crea un nuovo personaggio solo con un obiettivo diverso"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Chiudere l’anno conservando ciò che rende unica la prima avventura” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Una seconda casa giustifica una nuova prospettiva",
+            "Conserva il salvataggio conclusivo separato",
+            "Non confondere trofeo e soddisfazione personale"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non so se ho finito",
+              "answer": "Scrivi tre obiettivi personali e verifica se sono conclusi"
+            },
+            {
+              "problem": "Voglio ricominciare subito",
+              "answer": "Cambia casa, stile o difficoltà per evitare di ripetere la stessa partita"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "arrive",
+      "label": "Entra nel castello",
+      "summary": "Edizione, identità e prime lezioni senza fretta.",
+      "icon": {
+        "src": "/atlas/hogwarts-legacy/chapters/01-editions-accessibility.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a edizioni e accessibilità in Hogwarts Legacy",
+        "caption": "Edizioni e accessibilità · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/hogwarts-legacy/guide-section-icons-v1.webp",
+        "position": "0% 0%"
+      },
+      "chapterIds": [
+        "editions-accessibility",
+        "house-character",
+        "first-days"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/hogwarts-legacy/section-icons-imagegen-v1/01-arrive.webp",
+        "alt": "Icona illustrata della sezione Entra nel castello",
+        "caption": "Entra nel castello · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "duel",
+      "label": "Impara la magia",
+      "summary": "Incantesimi, difesa e talenti come sistema leggibile.",
+      "icon": {
+        "src": "/atlas/hogwarts-legacy/chapters/04-spells-sets.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a incantesimi in Hogwarts Legacy",
+        "caption": "Incantesimi · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/hogwarts-legacy/guide-section-icons-v1.webp",
+        "position": "50% 0%"
+      },
+      "chapterIds": [
+        "spells-sets",
+        "combat-defense",
+        "talents-build"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/hogwarts-legacy/section-icons-imagegen-v1/02-duel.webp",
+        "alt": "Icona illustrata della sezione Impara la magia",
+        "caption": "Impara la magia · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "prepare",
+      "label": "Prepara gli strumenti",
+      "summary": "Equipaggiamento, pozioni e piante al servizio della build.",
+      "icon": {
+        "src": "/atlas/hogwarts-legacy/chapters/07-gear-traits.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a equipaggiamento e tratti in Hogwarts Legacy",
+        "caption": "Equipaggiamento e tratti · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/hogwarts-legacy/guide-section-icons-v1.webp",
+        "position": "100% 0%"
+      },
+      "chapterIds": [
+        "gear-traits",
+        "potions-plants"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/hogwarts-legacy/section-icons-imagegen-v1/03-prepare.webp",
+        "alt": "Icona illustrata della sezione Prepara gli strumenti",
+        "caption": "Prepara gli strumenti · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "explore",
+      "label": "Leggi il mondo",
+      "summary": "Mappa, segreti e volo senza inseguire ogni icona.",
+      "icon": {
+        "src": "/atlas/hogwarts-legacy/chapters/09-world-map.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a esplorazione e mappa in Hogwarts Legacy",
+        "caption": "Esplorazione e mappa · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/hogwarts-legacy/guide-section-icons-v1.webp",
+        "position": "0% 100%"
+      },
+      "chapterIds": [
+        "world-map",
+        "puzzles-secrets",
+        "broom-travel"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/hogwarts-legacy/section-icons-imagegen-v1/04-explore.webp",
+        "alt": "Icona illustrata della sezione Leggi il mondo",
+        "caption": "Leggi il mondo · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "home",
+      "label": "Costruisci il rifugio",
+      "summary": "Stanza delle Necessità e creature come campo base.",
+      "icon": {
+        "src": "/atlas/hogwarts-legacy/chapters/11-room-requirement.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a stanza delle necessità in Hogwarts Legacy",
+        "caption": "Stanza delle Necessità · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/hogwarts-legacy/guide-section-icons-v1.webp",
+        "position": "50% 100%"
+      },
+      "chapterIds": [
+        "room-requirement",
+        "beasts-vivariums"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/hogwarts-legacy/section-icons-imagegen-v1/05-home.webp",
+        "alt": "Icona illustrata della sezione Costruisci il rifugio",
+        "caption": "Costruisci il rifugio · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "legacy",
+      "label": "Proteggi la storia",
+      "summary": "Relazioni, sfide e completamento con spoiler separati.",
+      "icon": {
+        "src": "/atlas/hogwarts-legacy/chapters/13-companions-quests.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a relazioni e missioni in Hogwarts Legacy",
+        "caption": "Relazioni e missioni · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/hogwarts-legacy/guide-section-icons-v1.webp",
+        "position": "100% 100%"
+      },
+      "chapterIds": [
+        "companions-quests",
+        "challenges-collections",
+        "completion-saves"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/hogwarts-legacy/section-icons-imagegen-v1/06-legacy.webp",
+        "alt": "Icona illustrata della sezione Proteggi la storia",
+        "caption": "Proteggi la storia · icona tematica generata con ImageGen"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "Hogwarts Legacy · sito ufficiale",
+      "href": "https://www.hogwartslegacy.com/"
+    },
+    {
+      "label": "Hogwarts Legacy · domande frequenti",
+      "href": "https://www.hogwartslegacy.com/en-us/faq"
+    },
+    {
+      "label": "Hogwarts Legacy · accessibilità",
+      "href": "https://www.hogwartslegacy.com/en-us/accessibility"
+    },
+    {
+      "label": "Portkey Games · Hogwarts Legacy",
+      "href": "https://www.portkeygames.com/game/hogwarts-legacy/"
+    },
+    {
+      "label": "WB Games Support · Hogwarts Legacy",
+      "href": "https://portkeygamessupport.wbgames.com/hc/en-us/categories/360004953714-Hogwarts-Legacy"
+    }
+  ]
+}

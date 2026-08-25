@@ -67,7 +67,6 @@ const normalizeResearchValue = (value) => String(value || "")
   .trim();
 const structuredValue = (pack, label) => normalizeResearchValue(pack?.structuredFacts?.find((fact) => fact.label === label)?.value);
 const compactList = (...values) => values.filter(Boolean).join(" · ");
-const factualSentence = (prefix, value) => value ? `${prefix}${value}.` : "";
 const sentence = (text) => {
   const clean = String(text || "").trim();
   if (!clean) return "";

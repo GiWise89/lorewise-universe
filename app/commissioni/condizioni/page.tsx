@@ -19,7 +19,7 @@ export default function CommissionTermsPage() {
       </section>
 
       <div className="shell commission-terms-layout">
-        <aside><strong>Versione</strong><span>{COMMISSION_TERMS_VERSION}</span><p>La versione accettata viene registrata insieme alla richiesta e al preventivo.</p><Link href="/commissioni#richiesta">Prepara la richiesta →</Link></aside>
+        <aside><strong>Versione</strong><span>{COMMISSION_TERMS_VERSION}</span><p>La versione accettata viene registrata insieme alla richiesta e al preventivo.</p><Link href="/commissioni?request=preventivo#richiesta">Prepara la richiesta →</Link></aside>
         <article>
           <section><p className="eyebrow">01 · Politica dei contenuti</p><h2>Limiti creativi non negoziabili.</h2><ul>{commissionContentRules.map((rule) => <li key={rule}>{rule}</li>)}</ul><p>GiWise Studio può rifiutare richieste che violino queste regole o che risultino illegali, discriminatorie, lesive o sfruttino persone vulnerabili. La valutazione avviene prima del preventivo.</p></section>
           <section><p className="eyebrow">02 · Minori e autorizzazioni</p><h2>La tutela viene prima del portfolio.</h2><p>Il richiedente deve essere il genitore o il tutore legale, oppure dimostrare di avere una sua autorizzazione esplicita. Potrà essere richiesta una verifica prima dell’avvio. L’eventuale esposizione pubblica richiede un consenso separato e facoltativo.</p></section>

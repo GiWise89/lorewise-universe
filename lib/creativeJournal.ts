@@ -16,6 +16,9 @@ export type CreativeJournalEntry = {
   tags: string[];
   image?: CreativeJournalImage;
   processImages: CreativeJournalImage[];
+  processCaptions?: string[];
+  finalCaption?: string;
+  heroImageIndex?: number;
   artworkHref?: string;
   shopHref?: string;
   status: "completo" | "in-lavorazione" | "da-documentare";
@@ -154,6 +157,72 @@ export const originalStories: CreativeJournalEntry[] = [
     tags: ["ritratto", "vampiro", "soft horror", "bianco e nero"],
     processImages: [wip("lw-wip-005-preview.jpg", "Fotografia protetta del ritratto vampiresco durante la lavorazione")],
     status: "da-documentare",
+  },
+];
+
+export const commissionStories: CreativeJournalEntry[] = [
+  {
+    id: "luce-nello-sguardo",
+    title: "Luce nello sguardo",
+    shortTitle: "Luce nello sguardo",
+    kind: "ritratto",
+    label: "Ritratto su commissione · LW-COM-038",
+    summary: "Nove immagini conservano la nascita di un ritratto: il verde degli occhi apre la composizione, il volto emerge dalla linea e il tramonto completa l’atmosfera.",
+    story: [
+      "Il ritratto comincia dallo sguardo. Il primo occhio è già acceso dal verde mentre il resto della tavola è ancora quasi vuoto; nel passaggio successivo compare il secondo e l’espressione trova il proprio equilibrio.",
+      "Dopo gli occhi arrivano il profilo del naso, il sorriso e la mano raccolta vicino al volto. I capelli chiudono gradualmente la composizione e trasformano una serie di dettagli separati in un ritratto riconoscibile.",
+      "Le campiture della pelle entrano per grandi zone, poi si precisano su labbra, guance e dita. Nell’opera completa il fondo al tramonto e i toni caldi dei capelli accompagnano gli occhi senza sottrarre loro il centro della scena.",
+    ],
+    process: [
+      "Primo occhio e sopracciglio: il verde stabilisce subito il punto focale.",
+      "Disegno del secondo occhio e ricerca della simmetria dell’espressione.",
+      "Colorazione di entrambe le iridi e definizione delle ciglia.",
+      "Costruzione di naso, sorriso e mano appoggiata al volto.",
+      "Apertura della composizione con i primi volumi dei capelli.",
+      "Completamento della line art del ritratto e della silhouette.",
+      "Prime campiture calde della pelle, delle labbra e delle ombre.",
+      "Rifinitura cromatica del volto prima dell’ambientazione finale.",
+      "Inserimento del tramonto e colorazione conclusiva dei capelli.",
+    ],
+    facts: [
+      { label: "Tipo", value: "Ritratto personale su commissione" },
+      { label: "Tecnica", value: "Illustrazione digitale, line art e colorazione" },
+      { label: "Palette", value: "Verde, rosa corallo, rame, nero e luce del tramonto" },
+      { label: "Documentazione", value: "Otto fasi di lavorazione e opera completa" },
+      { label: "Formato sorgente", value: "1920 × 1080 px" },
+      { label: "Stato", value: "Commissione completata e inserita nel portfolio" },
+    ],
+    tags: ["ritratto", "commissione", "processo creativo", "line art", "colore"],
+    processImages: [
+      wip("lw-wip-012-1-preview.webp", "Prima fase protetta del ritratto: un occhio verde e il sopracciglio", 999, 562),
+      wip("lw-wip-012-2-preview.webp", "Seconda fase protetta del ritratto: compare il secondo occhio", 1032, 582),
+      wip("lw-wip-012-3-preview.webp", "Terza fase protetta del ritratto: entrambi gli occhi sono colorati", 962, 537),
+      wip("lw-wip-012-4-preview.webp", "Quarta fase protetta del ritratto: volto, sorriso e mano prendono forma", 1059, 590),
+      wip("lw-wip-012-5-preview.webp", "Quinta fase protetta del ritratto: iniziano i volumi dei capelli", 910, 511),
+      wip("lw-wip-012-6-preview.webp", "Sesta fase protetta del ritratto: line art completa", 788, 443),
+      wip("lw-wip-012-7-preview.webp", "Settima fase protetta del ritratto: prime campiture della pelle", 867, 486),
+      wip("lw-wip-012-8-preview.webp", "Ottava fase protetta del ritratto: rifinitura cromatica del volto", 851, 482),
+    ],
+    processCaptions: [
+      "01 · Lo sguardo apre la tavola",
+      "02 · Il secondo occhio trova la sua posizione",
+      "03 · Il verde unisce l’espressione",
+      "04 · Volto, sorriso e mano",
+      "05 · I capelli chiudono la composizione",
+      "06 · La line art completa",
+      "07 · Entrano le prime campiture",
+      "08 · Il volto prima dello sfondo",
+    ],
+    image: {
+      src: "/commissions/previews-webp/lw-com-038-preview.webp",
+      alt: "Anteprima protetta del ritratto completo al tramonto",
+      width: 1400,
+      height: 788,
+    },
+    finalCaption: "09 · Opera completa: luce del tramonto",
+    heroImageIndex: 5,
+    artworkHref: "/commissioni/lw-com-038",
+    status: "completo",
   },
 ];
 
@@ -312,7 +381,7 @@ export const studioSketches: CreativeJournalEntry[] = [
   },
 ];
 
-export const creativeJournalEntries = [...originalStories, ...reinterpretationStories, ...studioSketches];
+export const creativeJournalEntries = [...originalStories, ...commissionStories, ...reinterpretationStories, ...studioSketches];
 export const featuredCreativeStory = originalStories.find((entry) => entry.id === "scappa-finche-puoi")!;
 export function getCreativeJournalEntry(id: string) { return creativeJournalEntries.find((entry) => entry.id === id); }
 

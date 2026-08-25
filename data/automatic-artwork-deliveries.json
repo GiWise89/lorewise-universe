@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "count": 50,
+  "count": 45,
   "deliveries": [
     {
       "code": "LW-ART-002",
@@ -19,24 +19,6 @@
       "sha256": "b9520ec5cea7447b98ba59c5c15cebe7ea958a596ef84f58788d17744fd66eff",
       "objectKey": "art-deliveries/automatic/lw-art-003/LW-ART-003-pacchetto-premium.zip",
       "localPackage": "LW-ART-003/LW-ART-003-pacchetto-premium.zip"
-    },
-    {
-      "code": "LW-ART-004",
-      "filename": "LW-ART-004-pacchetto-dettagliata.zip",
-      "contentType": "application/zip",
-      "size": 6383025,
-      "sha256": "f20c79ae41407a1137f6ba777bd0552f85174c50ea2988b3259f6a6879676c2b",
-      "objectKey": "art-deliveries/automatic/lw-art-004/LW-ART-004-pacchetto-dettagliata.zip",
-      "localPackage": "LW-ART-004/LW-ART-004-pacchetto-dettagliata.zip"
-    },
-    {
-      "code": "LW-ART-005",
-      "filename": "LW-ART-005-pacchetto-premium.zip",
-      "contentType": "application/zip",
-      "size": 8611319,
-      "sha256": "d43c3c5ebaa89f9531297467d15be0d8a85fdb5aec039f3398a039cf993109e1",
-      "objectKey": "art-deliveries/automatic/lw-art-005/LW-ART-005-pacchetto-premium.zip",
-      "localPackage": "LW-ART-005/LW-ART-005-pacchetto-premium.zip"
     },
     {
       "code": "LW-ART-006",
@@ -82,15 +64,6 @@
       "sha256": "86164038e2d73614adafad65f6043b830b8cd70b8649c53f69961051bb89b7ce",
       "objectKey": "art-deliveries/automatic/lw-art-020/LW-ART-020-pacchetto-dettagliata.zip",
       "localPackage": "LW-ART-020/LW-ART-020-pacchetto-dettagliata.zip"
-    },
-    {
-      "code": "LW-ART-024",
-      "filename": "LW-ART-024-pacchetto-premium.zip",
-      "contentType": "application/zip",
-      "size": 11168364,
-      "sha256": "d6d16c2fe9f84e058fa23c152cb04f30f67fbc55c3f9ecf6ebaa08b55e1119b8",
-      "objectKey": "art-deliveries/automatic/lw-art-024/LW-ART-024-pacchetto-premium.zip",
-      "localPackage": "LW-ART-024/LW-ART-024-pacchetto-premium.zip"
     },
     {
       "code": "LW-ART-028",
@@ -183,15 +156,6 @@
       "localPackage": "LW-ART-048/LW-ART-048-pacchetto-dettagliata.zip"
     },
     {
-      "code": "LW-ART-049",
-      "filename": "LW-ART-049-pacchetto-premium.zip",
-      "contentType": "application/zip",
-      "size": 8784857,
-      "sha256": "0a3124ca660446882d78a666264a936de82e3ecca714d601c1691fab60aa85e0",
-      "objectKey": "art-deliveries/automatic/lw-art-049/LW-ART-049-pacchetto-premium.zip",
-      "localPackage": "LW-ART-049/LW-ART-049-pacchetto-premium.zip"
-    },
-    {
       "code": "LW-ART-050",
       "filename": "LW-ART-050-pacchetto-dettagliata.zip",
       "contentType": "application/zip",
@@ -262,15 +226,6 @@
       "sha256": "f611923dfc8068f43fb630129a4f532d40538e19d5290fac375ead7f255fe66f",
       "objectKey": "art-deliveries/automatic/lw-art-057/LW-ART-057-pacchetto-premium.zip",
       "localPackage": "LW-ART-057/LW-ART-057-pacchetto-premium.zip"
-    },
-    {
-      "code": "LW-ART-058",
-      "filename": "LW-ART-058-pacchetto-premium.zip",
-      "contentType": "application/zip",
-      "size": 4122698,
-      "sha256": "3be851f4d6022b69005d8cf0a9e8aa43e6ad8aa5ccc2ad4fb2e9463df081d1a2",
-      "objectKey": "art-deliveries/automatic/lw-art-058/LW-ART-058-pacchetto-premium.zip",
-      "localPackage": "LW-ART-058/LW-ART-058-pacchetto-premium.zip"
     },
     {
       "code": "LW-ART-059",

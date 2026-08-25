@@ -30,6 +30,7 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
   const artworkPageSize = 6;
   const artworkPages = Math.max(1, Math.ceil((activeChapter.artworkGallery?.length ?? 0) / artworkPageSize));
   const visibleArtworks = activeChapter.artworkGallery?.slice(artworkPage * artworkPageSize, (artworkPage + 1) * artworkPageSize) ?? [];
+  const hasGameIdentity = ["cyberpunk-2077", "inazuma-eleven-victory-road", "the-mortuary-assistant"].includes(guide.theme ?? "");
 
   return <article className={`game-guide-experience is-${context} theme-${guide.theme ?? "baldurs-gate"}`}>
     <header className="game-guide-hero">
@@ -48,26 +49,26 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
           <div><dt>Aggiornata</dt><dd>{guide.updatedAt}</dd></div>
           <div><dt>Spoiler</dt><dd>Separati e segnalati</dd></div>
         </dl>
-        <a href={guide.storeUrl} target="_blank" rel="noopener noreferrer">{guide.storeLabel} <span aria-hidden="true">↗</span></a>
+        <div className="game-guide-store-cta">
+          <a href={guide.storeUrl} target="_blank" rel="noopener noreferrer">{guide.storeLabel} <span aria-hidden="true">↗</span></a>
+          <small>Store ufficiale esterno · prezzi, disponibilità e condizioni sono gestiti dal venditore.</small>
+        </div>
       </div>
     </header>
 
-    {guide.livingGuide ? <aside className="game-guide-living-status" aria-label="Stato della Guida Viva">
-      <div className="game-guide-living-status-mark" aria-hidden="true"><span>LIVE</span></div>
-      <div>
-        <p>{guide.livingGuide.announcement}</p>
-        <h2>Una guida che resta al passo con Azeroth.</h2>
-        <span>Ogni mese vengono controllate le fonti ufficiali. Se emerge una novitÃ  ricevi una notifica; la guida cambia soltanto dopo la tua approvazione.</span>
-      </div>
-      <dl>
-        <div><dt>Frequenza</dt><dd>Controllo mensile</dd></div>
-        <div><dt>Prossimo controllo</dt><dd>{new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Rome" }).format(new Date(guide.livingGuide.nextCheckAt))}</dd></div>
-        <div><dt>Pubblicazione</dt><dd>Solo dopo approvazione</dd></div>
-      </dl>
-      <a href={guide.livingGuide.notificationTarget}>Apri il Centro notifiche <span aria-hidden="true">â†’</span></a>
-    </aside> : null}
-
     <section className="game-guide-reader" aria-labelledby={`${guide.id}-chapter-title`}>
+      {hasGameIdentity ? <div className="game-guide-theme-stickers" aria-hidden="true">
+        {sections.map((section, index) => section.generatedIcon ? <Image
+          className={`game-guide-theme-sticker is-${index + 1}`}
+          src={section.generatedIcon.src}
+          alt=""
+          width={512}
+          height={512}
+          loading="lazy"
+          unoptimized
+          key={`${section.id}-sticker`}
+        /> : null)}
+      </div> : null}
       <div className="game-guide-switch-heading">
         <div><span>Sfoglia la guida</span><strong>{activeChapter.number} / {String(guide.chapters.length).padStart(2, "0")}</strong></div>
         <p>{activeChapter.spoiler}</p>
@@ -86,7 +87,11 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
             }}
             key={section.id}
           >
-            {section.iconSprite ? <span className="game-guide-section-icon" aria-hidden="true" style={{ backgroundImage: `url(${section.iconSprite.src})`, backgroundPosition: section.iconSprite.position }} /> : <Image src={section.icon.src} alt="" width={220} height={220} loading="lazy" unoptimized />}
+            {section.generatedIcon
+              ? <Image className="game-guide-section-icon-image" src={section.generatedIcon.src} alt="" width={440} height={440} loading="lazy" unoptimized />
+              : section.iconSprite
+                ? <span className="game-guide-section-icon" aria-hidden="true" style={{ backgroundImage: `url(${section.iconSprite.src})`, backgroundPosition: section.iconSprite.position }} />
+                : <Image src={section.icon.src} alt="" width={220} height={220} loading="lazy" unoptimized />}
             <span><strong>{section.label}</strong><small>{section.summary}</small></span>
           </button>)}
         </nav>
@@ -127,6 +132,16 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
         <span className="wow-arcane-threshold-orbit is-outer" />
         <span className="wow-arcane-threshold-orbit is-inner" />
         <span className="wow-arcane-threshold-core" />
+      </div> : null}
+      {guide.theme === "the-witcher-3" ? <div className="witcher-contract-divider" aria-hidden="true">
+        <span className="witcher-contract-divider-line" />
+        <span className="witcher-contract-divider-seal" />
+        <span className="witcher-contract-divider-line" />
+      </div> : null}
+      {hasGameIdentity ? <div className="game-guide-identity-divider" aria-hidden="true">
+        <span />
+        {activeSection?.generatedIcon ? <Image src={activeSection.generatedIcon.src} alt="" width={96} height={96} unoptimized /> : null}
+        <span />
       </div> : null}
 
       <section className="game-guide-chapter" role="tabpanel" id={`${guide.id}-${activeChapter.id}-panel`} aria-labelledby={`${guide.id}-chapter-title`}>

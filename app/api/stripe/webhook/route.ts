@@ -4,6 +4,7 @@ import { getStripeConfiguration, retrieveStripeInvoicePaymentIntent, sha256Hex, 
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { grantPaidInvoiceCredits, revokeUnusedInvoiceBenefits } from "@/lib/benefitEngine";
 import { queueAndAttemptTransactionalEmail, type TransactionalTemplate } from "@/lib/transactionalEmail";
+import { getHorrorArtworkBundle } from "@/lib/horrorArtworkBundles";
 
 type RuntimeEnv = StripeRuntimeEnv & { DB?: D1Database; RESEND_API_KEY?: string; LOREWISE_EMAIL_SENDER_NAME?: string; LOREWISE_EMAIL_SENDER_ADDRESS?: string; LOREWISE_EMAIL_REPLY_TO?: string };
 type StripeCheckoutSession = {
@@ -62,7 +63,8 @@ export async function POST(request: Request) {
   }
   const stripe = getStripeConfiguration(runtime);
   if (!runtime.DB || !stripe.configured) return Response.json({ error: stripe.blockers[0] || "Webhook Stripe non configurato." }, { status: 503 });
-  await ensureCommerceTables(runtime.DB);
+  const database = runtime.DB;
+  await ensureCommerceTables(database);
   if (!await verifyStripeWebhook(rawBody, signature, stripe.webhookSecret)) return Response.json({ error: "Firma webhook non valida." }, { status: 400 });
 
   let event: StripeEvent;
@@ -320,7 +322,7 @@ export async function POST(request: Request) {
     });
     return Response.json({ received: true, commissionPaymentRecorded: true, phase: payment.phase });
   }
-  let metadata: { resourceType?: string; downloadLimit?: number; deliveryMode?: string } = {};
+  let metadata: { resourceType?: string; downloadLimit?: number; deliveryMode?: string; bundleMembers?: string[] } = {};
   try { metadata = JSON.parse(item.metadata_json || "{}") as typeof metadata; }
   catch { return Response.json({ error: "Metadati della licenza non validi." }, { status: 409 }); }
   const expectedResourceType = item.product_type === "artwork" ? "artwork" : item.product_type === "game" ? "game" : item.product_type;
@@ -329,13 +331,15 @@ export async function POST(request: Request) {
   const downloadLimit = Number.isInteger(requestedLimit) && requestedLimit > 0 && requestedLimit <= 20
     ? requestedLimit
     : item.product_type === "game" ? 5 : 3;
+  const bundle = item.product_type === "artwork" ? getHorrorArtworkBundle(item.product_code) : null;
+  const entitlementCodes = bundle ? [...bundle.artworkCodes] : [item.product_code];
 
   await runtime.DB.batch([
     runtime.DB.prepare(`INSERT INTO payment_events (id, provider_event_id, event_type, processing_status, payload_hash, processed_at)
       VALUES (?, ?, ?, 'processed', ?, CURRENT_TIMESTAMP)`).bind(crypto.randomUUID(), event.id, event.type, payloadHash),
     runtime.DB.prepare(`UPDATE orders SET status = 'paid', stripe_payment_intent_id = ?, paid_at = CURRENT_TIMESTAMP,
       updated_at = CURRENT_TIMESTAMP WHERE id = ? AND status IN ('pending', 'checkout_failed', 'paid')`).bind(session.payment_intent ?? null, order.id),
-    runtime.DB.prepare(`INSERT INTO entitlements (id, customer_id, order_item_id, resource_type, resource_code,
+    ...entitlementCodes.map((resourceCode) => database.prepare(`INSERT INTO entitlements (id, customer_id, order_item_id, resource_type, resource_code,
       status, download_limit, download_count, created_at) VALUES (?, ?, ?, ?, ?, 'active', ?, 0, CURRENT_TIMESTAMP)
       ON CONFLICT(customer_id, resource_type, resource_code) DO UPDATE SET
         order_item_id = excluded.order_item_id,
@@ -343,7 +347,7 @@ export async function POST(request: Request) {
         download_limit = excluded.download_limit,
         download_count = 0,
         expires_at = NULL`)
-      .bind(crypto.randomUUID(), order.customer_id, item.id, resourceType, item.product_code, downloadLimit),
+      .bind(crypto.randomUUID(), order.customer_id, item.id, resourceType, resourceCode, downloadLimit)),
     ...(metadata.deliveryMode === "manual" ? [runtime.DB.prepare(`INSERT INTO manual_deliveries
       (id, order_id, customer_id, destination_email, status, created_at, updated_at)
       SELECT ?, ?, ?, customers.email, 'pending', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP

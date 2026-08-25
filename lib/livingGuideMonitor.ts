@@ -12,11 +12,23 @@ export const WORLD_OF_WARCRAFT_MONITOR = {
   sourceUrls: [
     "https://worldofwarcraft.blizzard.com/en-us/news/",
     "https://worldofwarcraft.blizzard.com/en-us/midnight",
-    "https://worldofwarcraft.blizzard.com/en-us/news/24295090",
+    "https://worldofwarcraft.blizzard.com/en-us/news/24293281/curse-of-ulatek-content-update-notes",
+    "https://worldofwarcraft.blizzard.com/en-us/news/24296142/hotfixes-august-14-2026",
   ],
 } as const;
 
-const RELEVANT_TERMS = /midnight|hotfix|content update|season|class|talent|dungeon|raid|mythic|delve|prey|pvp|housing|profession|warband|patch|ula.?tek/i;
+export const LIVING_GUIDE_MONITORS = [
+  WORLD_OF_WARCRAFT_MONITOR,
+  { guideSlug: "the-sims-4", guideTitle: "The Sims 4", notificationTarget: "/notifiche", sourceUrls: ["https://www.ea.com/games/the-sims/the-sims-4/news", "https://www.ea.com/games/the-sims/the-sims-4/download"] },
+  { guideSlug: "monster-hunter-wilds", guideTitle: "Monster Hunter Wilds", notificationTarget: "/notifiche", sourceUrls: ["https://www.monsterhunter.com/wilds/en-us/topics/tu/", "https://info.monsterhunter.com/wilds/update/us/"] },
+  { guideSlug: "diablo-iv", guideTitle: "Diablo IV", notificationTarget: "/notifiche", sourceUrls: ["https://news.blizzard.com/en-us/diablo4", "https://news.blizzard.com/en-us/diablo4/23964909/diablo-iv-patch-notes"] },
+  { guideSlug: "pokemon-pokopia", guideTitle: "Pokémon Pokopia", notificationTarget: "/notifiche", sourceUrls: ["https://www.pokemon.com/us/pokemon-news", "https://www.pokemon.com/us/pokemon-video-games/pokemon-pokopia"] },
+  { guideSlug: "the-witcher-3", guideTitle: "The Witcher 3: Wild Hunt", notificationTarget: "/notifiche", sourceUrls: ["https://www.thewitcher.com/en/en/witcher3", "https://www.thewitcher.com/gp/en/songs-of-the-past", "https://www.thewitcher.com/gb/en/redkit/modding", "https://support.cdprojektred.com/en/witcher-3/pc"] },
+  { guideSlug: "cyberpunk-2077", guideTitle: "Cyberpunk 2077", notificationTarget: "/notifiche", sourceUrls: ["https://www.cyberpunk.net/us/en/update-2.3", "https://www.cyberpunk.net/en/news/51674/update-2-3-patch-notes", "https://support.cdprojektred.com/en/cyberpunk/pc"] },
+  { guideSlug: "inazuma-eleven-victory-road", guideTitle: "INAZUMA ELEVEN: Victory Road", notificationTarget: "/notifiche", sourceUrls: ["https://www.inazuma.jp/victory-road/en/index.html", "https://www.inazuma.jp/victory-road/en/topics/", "https://www.inazuma.jp/victory-road/en/system/"] },
+] as const;
+
+const RELEVANT_TERMS = /midnight|hotfix|content update|season|class|talent|dungeon|raid|mythic|delve|prey|pvp|housing|profession|warband|patch|ula.?tek|update|pack|expansion|event|monster|quest|balance|pokopia|bubbly basin|diablo|sims|witcher|redkit|songs of the past|cyberpunk|phantom liberty|inazuma|victory road|tournament|dlc/i;
 
 export function extractLivingGuideSignals(html: string) {
   const headings = [...html.matchAll(/<(?:title|h1|h2|h3)[^>]*>([\s\S]*?)<\/(?:title|h1|h2|h3)>/gi)]
@@ -44,14 +56,16 @@ export function livingGuideChanged(previous: LivingGuideSnapshot | null, current
 
 export function buildLivingGuideNotification(snapshot: LivingGuideSnapshot) {
   const shortFingerprint = snapshot.fingerprint.slice(0, 12);
+  const monitor = LIVING_GUIDE_MONITORS.find((candidate) => candidate.guideSlug === snapshot.guideSlug);
+  const guideTitle = monitor?.guideTitle ?? snapshot.guideSlug;
   return {
     id: `living-guide:${snapshot.guideSlug}:${shortFingerprint}`,
     category: "living-guide",
     severity: "medium",
-    title: "World of Warcraft: novitÃ  da verificare",
+    title: `${guideTitle}: novità da verificare`,
     message: "Il controllo mensile ha rilevato cambiamenti nelle fonti ufficiali. Controlla le novitÃ  e decidi se aggiornare la Guida Viva: nessun contenuto Ã¨ stato pubblicato automaticamente.",
-    referenceCode: `LW-LIVE-WOW-${shortFingerprint.toUpperCase()}`,
-    targetUrl: "/notifiche",
+    referenceCode: `LW-LIVE-${snapshot.guideSlug.toUpperCase().replace(/[^A-Z0-9]+/g, "-")}-${shortFingerprint.toUpperCase()}`,
+    targetUrl: monitor?.notificationTarget ?? "/notifiche",
     sourceCreatedAt: snapshot.checkedAt,
   };
 }

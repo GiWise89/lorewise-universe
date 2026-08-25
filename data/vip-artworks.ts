@@ -11,6 +11,7 @@ type VipArtworkPrivate = {
   title: string;
   lore: string;
   priceCents?: number;
+  sourceRoot?: "vip-media" | "art-archive";
 };
 
 const commercial = [
@@ -66,6 +67,33 @@ const exhibition = [
   ["Tom1.png", "portrait"],
   ["tsunade creepy1.png", "portrait"],
 ] as const;
+
+const archiveExhibition: VipArtworkPrivate[] = [
+  {
+    id: "vip-catalog-art-004", code: "LW-ART-004", mediaId: "vip-catalog-art-preview-004",
+    sourceFile: "Bad Trip II.png", sourceRoot: "art-archive", mode: "exhibition", format: "portrait",
+    title: "L’Altra Metà",
+    lore: "La parte mostrata agli altri e quella temuta convivono nello stesso volto: identità, tempo e fragilità restano inseparabili dal lato oscuro.",
+  },
+  {
+    id: "vip-catalog-art-005", code: "LW-ART-005", mediaId: "vip-catalog-art-preview-005",
+    sourceFile: "Bad Trip.png", sourceRoot: "art-archive", mode: "exhibition", format: "portrait",
+    title: "Lasciami Uscire",
+    lore: "Lo specchio non restituisce più un’immagine fedele, ma ciò che viene tenuto nascosto: rabbia, paura e parti di sé difficili da accettare.",
+  },
+  {
+    id: "vip-catalog-art-024", code: "LW-ART-024", mediaId: "vip-catalog-art-preview-024",
+    sourceFile: "GiWise Restored.png", sourceRoot: "art-archive", mode: "exhibition", format: "portrait",
+    title: "Ciò che Mi Cammina Accanto",
+    lore: "La figura umana, lo scheletro e il cuore acceso raccontano la convivenza con ciò che ferisce ma continua a restare parte di noi.",
+  },
+  {
+    id: "vip-catalog-art-049", code: "LW-ART-049", mediaId: "vip-catalog-art-preview-049",
+    sourceFile: "kid me.png", sourceRoot: "art-archive", mode: "exhibition", format: "landscape",
+    title: "Perché non siamo più felici?",
+    lore: "L’adulto incontra una versione più giovane di sé e misura la distanza tra l’innocenza ricordata e il presente, senza trovare una risposta definitiva.",
+  },
+];
 
 const editorialBySource: Record<string, { title: string; lore: string }> = {
   "broncio creepy1.png": {
@@ -285,11 +313,13 @@ export const VIP_ARTWORKS_PRIVATE: VipArtworkPrivate[] = [
       ...editorialBySource[sourceFile],
     };
   }),
+  ...archiveExhibition,
 ];
 
 export const VIP_ARTWORKS = VIP_ARTWORKS_PRIVATE.map((privateArtwork) => {
-  const { sourceFile, ...artwork } = privateArtwork;
+  const { sourceFile, sourceRoot, ...artwork } = privateArtwork;
   void sourceFile;
+  void sourceRoot;
   return artwork;
 });
 

@@ -1,0 +1,1102 @@
+{
+  "id": "zelda-tears-of-the-kingdom-complete-guide-01",
+  "slug": "zelda-tears-of-the-kingdom",
+  "code": "LW-ATLAS-ZTK-001",
+  "game": "The Legend of Zelda: Tears of the Kingdom",
+  "title": "L’ingegno sopra Hyrule",
+  "subtitle": "Un percorso pratico tra cielo, superficie e profondità, dove ogni soluzione può diventare davvero tua.",
+  "description": "Sedici capitoli e quarantotto schede operative dedicate a The Legend of Zelda: Tears of the Kingdom: prime ore, poteri, costruzioni, combattimento, equipaggiamento, tre livelli del mondo, santuari, congegni Zonau, risorse, cucina, armature, cavalli, missioni regionali e completamento. La guida privilegia procedure verificabili, accessibilità, spoiler separati e scelte sostenibili.",
+  "versionLabel": "Nintendo Switch e Switch 2 Edition · verifica 24 agosto 2026",
+  "updatedAt": "24 agosto 2026",
+  "vipFrom": "2026-09-28T00:00:00+02:00",
+  "publicAt": "2026-10-05T00:00:00+02:00",
+  "theme": "atlas",
+  "cover": {
+    "src": "/atlas/zelda-tears-of-the-kingdom/cover.webp",
+    "alt": "Immagine ufficiale usata per la copertina editoriale di The Legend of Zelda: Tears of the Kingdom",
+    "caption": "The Legend of Zelda: Tears of the Kingdom · immagine dal sito ufficiale, mostrata integralmente",
+    "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/05b3d8e8c74beaa43a7714c275a7ad06018ed069bd6bd3f923442b9ac16fdc49"
+  },
+  "storeUrl": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-tears-of-the-kingdom-switch/",
+  "storeLabel": "Acquista Zelda: Tears of the Kingdom",
+  "chapters": [
+    {
+      "id": "editions-saves",
+      "number": "01",
+      "label": "Versioni e salvataggi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Preparare Hyrule senza perdere il proprio percorso",
+      "introduction": "Edizione, controlli, HUD e salvataggi devono essere chiari prima di affidare molte ore a esplorazione e costruzioni.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/01-editions-saves.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Versioni e salvataggi",
+          "caption": "Versioni e salvataggi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/05b3d8e8c74beaa43a7714c275a7ad06018ed069bd6bd3f923442b9ac16fdc49"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta versioni e salvataggi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Verifica versione e aggiornamenti",
+            "Regola telecamera e mira",
+            "Prova HUD normale e ridotto",
+            "Crea un salvataggio manuale riconoscibile",
+            "Controlla la sincronizzazione cloud disponibile"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Preparare Hyrule senza perdere il proprio percorso” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Mantieni più punti di ritorno",
+            "Non sovrascrivere prima di esperimenti costosi",
+            "Usa gli aiuti senza rinunciare alla scoperta"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il salvataggio non appare",
+              "answer": "Controlla profilo, versione e sincronizzazione"
+            },
+            {
+              "problem": "I comandi sembrano troppi",
+              "answer": "Esercita una capacità alla volta in uno spazio sicuro"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "great-sky-island",
+      "number": "02",
+      "label": "Grande Isola Celeste",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Trasformare il prologo in un laboratorio",
+      "introduction": "L’area iniziale insegna clima, verticalità, risorse e poteri. Completarla con calma evita di arrivare a Hyrule senza strumenti mentali.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/02-great-sky-island.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Grande Isola Celeste",
+          "caption": "Grande Isola Celeste · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/ca80e4d9f7ddc2971daea8d9b9144c42dbdf2245c3546f41b94a740067bd42a0"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta grande isola celeste come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Raccogli cibo e materiali vicini",
+            "Segui i santuari nell’ordine suggerito dal terreno",
+            "Prova ogni potere fuori dal pericolo",
+            "Prepara una risposta al freddo",
+            "Rientra al punto centrale prima della discesa"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Trasformare il prologo in un laboratorio” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Osserva il percorso prima di costruire",
+            "Conserva dispositivi rari",
+            "Usa il clima come parte della navigazione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non raggiungo un santuario",
+              "answer": "Cerca quota, riparo e risorse termiche"
+            },
+            {
+              "problem": "La costruzione cade",
+              "answer": "Riduci i pezzi e riallinea il baricentro"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "ultrahand",
+      "number": "03",
+      "label": "Ultramano",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Costruire partendo dal problema e non dall’oggetto",
+      "introduction": "Ultramano unisce, sposta e ruota: la soluzione più affidabile è spesso quella con meno pezzi e un baricentro leggibile.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/03-ultrahand.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Ultramano",
+          "caption": "Ultramano · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/Microsites/zelda-tears-of-the-kingdom/pmp/microsite_features_create"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta ultramano come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Definisci dove devi arrivare",
+            "Osserva i materiali disponibili",
+            "Posiziona una base stabile",
+            "Aggiungi una funzione per volta",
+            "Prova il mezzo senza carico prezioso"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Costruire partendo dal problema e non dall’oggetto” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Usa superfici ampie prima dei dettagli",
+            "Allinea ruote e ventole nella stessa direzione",
+            "Stacca e ricostruisci invece di correggere all’infinito"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il veicolo gira su se stesso",
+              "answer": "Controlla simmetria e orientamento delle spinte"
+            },
+            {
+              "problem": "La struttura si rompe",
+              "answer": "Riduci peso e punti di giunzione"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "fuse",
+      "number": "04",
+      "label": "Compositor",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Dare una funzione nuova a ogni arma",
+      "introduction": "La fusione trasforma materiali in danno, portata, elemento o utilità. Valuta il problema prima del valore numerico.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/04-fuse.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Compositor",
+          "caption": "Compositor · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/54e87e1c41d21f32e74c61ad9c18c0a2688800e939d9d5ab97182304b9c37591"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta compositor come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Identifica il ruolo dell’arma base",
+            "Scegli materiale per danno o funzione",
+            "Conserva combinazioni elementali",
+            "Prepara almeno una soluzione contro armature",
+            "Sostituisci le fusioni esaurite con criterio"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Dare una funzione nuova a ogni arma” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Una lancia privilegia distanza",
+            "Uno scudo può diventare mobilità o difesa",
+            "Le frecce risolvono problemi con materiali comuni"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Le armi si rompono troppo presto",
+              "answer": "Usa strumenti economici sui nemici minori"
+            },
+            {
+              "problem": "Non supero una difesa",
+              "answer": "Cambia tipo di danno o sfrutta l’ambiente"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "ascend-recall",
+      "number": "05",
+      "label": "Ascensus e Reverto",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere spazio e tempo come passaggi",
+      "introduction": "Ascensus risolve soffitti e verticalità; Reverto trasforma traiettorie recenti in percorsi. Prima cerca il movimento già presente nel mondo.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/05-ascend-recall.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Ascensus e Reverto",
+          "caption": "Ascensus e Reverto · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/54e87e1c41d21f32e74c61ad9c18c0a2688800e939d9d5ab97182304b9c37591"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta ascensus e reverto come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Controlla il soffitto sopra Link",
+            "Cerca una superficie attraversabile",
+            "Osserva la traiettoria di un oggetto",
+            "Attiva Reverto da una posizione sicura",
+            "Interrompi il potere appena raggiunto il punto utile"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Leggere spazio e tempo come passaggi” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Ascensus può evitare una lunga scalata",
+            "Reverto crea piattaforme temporanee",
+            "Combina poteri invece di forzare un solo metodo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Ascensus non si attiva",
+              "answer": "Cambia posizione e verifica spessore o inclinazione"
+            },
+            {
+              "problem": "Reverto termina troppo presto",
+              "answer": "Avvicina il punto di partenza o usa un oggetto diverso"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "combat-basics",
+      "number": "06",
+      "label": "Combattimento",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Sopravvivere leggendo distanza e intenzione",
+      "introduction": "Parata, schivata, arco, materiali e terreno creano un combattimento flessibile. Il primo obiettivo è evitare di essere circondati.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/06-combat-basics.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Combattimento",
+          "caption": "Combattimento · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/490ccb15d914eabada74b34de895e9061c7917d7f75782bc934a528fb77ea4be"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta combattimento come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Osserva arma e postura del nemico",
+            "Isola il bersaglio più pericoloso",
+            "Usa scudo o schivata senza anticipare troppo",
+            "Sfrutta altezza e coperture",
+            "Raccogli e riorganizza dopo lo scontro"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Sopravvivere leggendo distanza e intenzione” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Apri con arco o elemento quando conviene",
+            "Conserva cure accessibili",
+            "Fuggi se consumi più risorse del bottino previsto"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Muoio in un colpo",
+              "answer": "Aumenta cuori, armatura o distanza"
+            },
+            {
+              "problem": "Vengo circondato",
+              "answer": "Usa terreno, controllo elementale e ritirata"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "bows-shields-elements",
+      "number": "07",
+      "label": "Archi, scudi ed elementi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Preparare una risposta per ogni distanza",
+      "introduction": "Frecce fuse, scudi modificati e reazioni elementali ampliano le opzioni. Porta strumenti semplici invece di una sola combinazione perfetta.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/07-bows-shields-elements.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Archi, scudi ed elementi",
+          "caption": "Archi, scudi ed elementi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/490ccb15d914eabada74b34de895e9061c7917d7f75782bc934a528fb77ea4be"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta archi, scudi ed elementi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Mantieni un arco affidabile",
+            "Prepara materiali per luce, fuoco e gelo",
+            "Conserva uno scudo non modificato",
+            "Prova le fusioni in spazio aperto",
+            "Rifornisci dopo ogni spedizione"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Preparare una risposta per ogni distanza” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Il gelo crea tempo e piattaforme",
+            "Il fuoco modifica clima e ambiente",
+            "Gli occhi dei mostri aiutano la mira senza sostituirla"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Finisco le frecce",
+              "answer": "Compra, rompi casse e riduci l’uso sui bersagli semplici"
+            },
+            {
+              "problem": "Una fusione ostacola lo scudo",
+              "answer": "Rimuovila o assegna un secondo scudo"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "three-layers",
+      "number": "08",
+      "label": "Cielo, superficie e profondità",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Costruire una mappa mentale su tre livelli",
+      "introduction": "I tre strati comunicano attraverso verticalità, radici, voragini e punti di riferimento. Ogni discesa deve prevedere anche un ritorno.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/08-three-layers.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Cielo, superficie e profondità",
+          "caption": "Cielo, superficie e profondità · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/Microsites/zelda-tears-of-the-kingdom/pmp/microsite_features_explore"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta cielo, superficie e profondità come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Segna il punto sulla superficie",
+            "Controlla quota e risorse",
+            "Porta luce e cure per il miasma",
+            "Attiva un punto sicuro appena possibile",
+            "Confronta la geografia tra i livelli"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Costruire una mappa mentale su tre livelli” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Le radici aiutano a leggere i santuari",
+            "Le isole indicano possibili rotte dall’alto",
+            "Non entrare nelle profondità senza semi luminosi"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Mi perdo al buio",
+              "answer": "Torna all’ultima radice e marca una sola direzione"
+            },
+            {
+              "problem": "Non riesco a risalire",
+              "answer": "Usa viaggio rapido o cerca Ascensus prima di esaurire risorse"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "towers-geoglyphs",
+      "number": "09",
+      "label": "Torri e geoglifi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Aprire la mappa senza consumare la storia",
+      "introduction": "Le torri orientano l’esplorazione; i geoglifi contengono memoria narrativa. Puoi separarli per proteggere l’ordine della storia.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/09-towers-geoglyphs.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Torri e geoglifi",
+          "caption": "Torri e geoglifi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/05b3d8e8c74beaa43a7714c275a7ad06018ed069bd6bd3f923442b9ac16fdc49"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta torri e geoglifi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Raggiungi la torre con scorte minime",
+            "Risolvi l’accesso prima di cercare scorciatoie",
+            "Marca punti visibili durante il lancio",
+            "Esamina il geoglifo dall’alto",
+            "Conserva l’ordine narrativo desiderato"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Aprire la mappa senza consumare la storia” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Una torre è un punto di partenza, non una lista",
+            "Usa i segnaposto per domande, non per obblighi",
+            "Apri le memorie solo quando vuoi avanzare la storia"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La torre è bloccata",
+              "answer": "Cerca il problema locale attorno alla base"
+            },
+            {
+              "problem": "I geoglifi confondono la trama",
+              "answer": "Segui l’ordine suggerito dalla stanza dedicata"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "shrines",
+      "number": "10",
+      "label": "Santuari",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Risolvere una regola prima di cercare l’uscita",
+      "introduction": "Ogni santuario presenta un principio e poi lo combina. Isola la regola, prova in piccolo e usa l’inventario solo se il problema lo richiede.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/10-shrines.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Santuari",
+          "caption": "Santuari · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/1c786a296ab9c1f28ff509723f621311b7525d0c773ae314622b02c03bf27b5b"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta santuari come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Leggi il titolo come indizio",
+            "Osserva elementi mobili e bersagli",
+            "Prova il potere più evidente",
+            "Ripristina la stanza dopo un errore",
+            "Cerca il forziere solo dopo la soluzione base"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Risolvere una regola prima di cercare l’uscita” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Esistono spesso più soluzioni valide",
+            "Una costruzione semplice è più facile da correggere",
+            "Il fallimento mostra cosa resta stabile"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non capisco la regola",
+              "answer": "Sperimenta su un singolo oggetto"
+            },
+            {
+              "problem": "La soluzione quasi funziona",
+              "answer": "Correggi angolo, tempo o baricentro invece di ricostruire tutto"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "zonai-autobuild",
+      "number": "11",
+      "label": "Congegni Zonau e Schemai",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Passare dall’esperimento a un progetto riutilizzabile",
+      "introduction": "Energia, capsule e Zonaite determinano quanto può durare una costruzione. Salva soltanto progetti che risolvono davvero un compito.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/11-zonai-autobuild.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Congegni Zonau e Schemai",
+          "caption": "Congegni Zonau e Schemai · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/Microsites/zelda-tears-of-the-kingdom/pmp/microsite_features_create"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta congegni zonau e schemai come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Definisci trasporto, combattimento o esplorazione",
+            "Scegli una base minima",
+            "Aggiungi controllo e propulsione",
+            "Misura il consumo energetico",
+            "Registra il progetto con Schemai"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Passare dall’esperimento a un progetto riutilizzabile” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Le capsule sono risorse mobili",
+            "Aumenta la batteria prima dei mezzi complessi",
+            "Preferisci progetti riparabili sul campo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il progetto consuma troppo",
+              "answer": "Riduci dispositivi attivi e peso"
+            },
+            {
+              "problem": "Schemai chiede troppa Zonaite",
+              "answer": "Porta più componenti reali o semplifica"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "resources-cooking",
+      "number": "12",
+      "label": "Risorse e cucina",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Preparare pasti con uno scopo dichiarato",
+      "introduction": "Cure, resistenze, attacco, difesa e movimento competono nello stesso piatto. Non mescolare bonus incompatibili senza sapere cosa vuoi ottenere.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/12-resources-cooking.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Risorse e cucina",
+          "caption": "Risorse e cucina · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto/q_auto/dpr_1.5/Microsites/zelda-tears-of-the-kingdom/pmp/microsite_features_discover"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta risorse e cucina come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli l’effetto necessario",
+            "Usa un ingrediente base affidabile",
+            "Aggiungi potenza senza confondere bonus",
+            "Cucina più porzioni prima del viaggio",
+            "Separa pasti normali ed elisir"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Preparare pasti con uno scopo dichiarato” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Conserva ingredienti rari per sfide reali",
+            "Il clima va risolto prima della partenza",
+            "Fotografa mentalmente le ricette riuscite"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il piatto perde l’effetto",
+              "answer": "Hai mescolato bonus diversi"
+            },
+            {
+              "problem": "Le cure non bastano",
+              "answer": "Aumenta qualità degli ingredienti o porta più porzioni"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "armor-upgrades",
+      "number": "13",
+      "label": "Armature e potenziamenti",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Vestirsi per il problema e non soltanto per la difesa",
+      "introduction": "Set, bonus ambientali e miglioramenti permettono di cambiare ruolo senza rifare il personaggio. Costruisci pochi completi leggibili.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/13-armor-upgrades.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Armature e potenziamenti",
+          "caption": "Armature e potenziamenti · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/490ccb15d914eabada74b34de895e9061c7917d7f75782bc934a528fb77ea4be"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta armature e potenziamenti come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli un set da esplorazione",
+            "Scegli un set da combattimento",
+            "Raccogli materiali per una soglia concreta",
+            "Potenzia prima i pezzi più usati",
+            "Conserva rupie per il passaggio successivo"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Vestirsi per il problema e non soltanto per la difesa” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Un bonus utile può valere più di qualche difesa",
+            "Cambia completo prima dell’area pericolosa",
+            "Non vendere materiali senza controllare gli upgrade"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non posso potenziare",
+              "answer": "Controlla fata, livello e materiali richiesti"
+            },
+            {
+              "problem": "Cambio armatura troppo tardi",
+              "answer": "Salva completi mentali per clima, furtività e scontro"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "horses-vehicles",
+      "number": "14",
+      "label": "Cavalli e veicoli",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Scegliere il mezzo adatto al territorio",
+      "introduction": "Cavallo, planata e costruzioni Zonau hanno costi e vantaggi differenti. La rotta deve decidere il mezzo, non il contrario.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/14-horses-vehicles.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Cavalli e veicoli",
+          "caption": "Cavalli e veicoli · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/ec907a9568fb27177faf87288e98cee15f4fc4f0ff575ab39b150b3c6efe0350"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta cavalli e veicoli come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Registra un cavallo affidabile",
+            "Aumenta il legame con guida regolare",
+            "Controlla terreno e dislivelli",
+            "Costruisci soltanto dove serve",
+            "Parcheggia prima di un’area complessa"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Scegliere il mezzo adatto al territorio” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Il cavallo è ideale sulle strade",
+            "I veicoli risolvono ostacoli specifici",
+            "La planata richiede sempre un piano di atterraggio"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il cavallo non segue il comando",
+              "answer": "Aumenta legame e riduci correzioni brusche"
+            },
+            {
+              "problem": "Il veicolo resta indietro",
+              "answer": "Segnalo, ricostruiscilo o accetta di proseguire a piedi"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "regional-quests",
+      "number": "15",
+      "label": "Fenomeni regionali",
+      "estimatedRead": "13–17 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Seguire la storia senza perdere la libertà",
+      "introduction": "Le grandi regioni introducono popoli, alleati e strumenti diversi. Completarne una alla volta rende leggibile la progressione narrativa.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/15-regional-quests.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Fenomeni regionali",
+          "caption": "Fenomeni regionali · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/1c786a296ab9c1f28ff509723f621311b7525d0c773ae314622b02c03bf27b5b"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta fenomeni regionali come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli una regione in base a interesse e preparazione",
+            "Stabilisci un hub locale",
+            "Completa missioni che spiegano il territorio",
+            "Prepara resistenze specifiche",
+            "Salva prima della soglia del dungeon"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Seguire la storia senza perdere la libertà” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Ogni regione insegna una nuova lettura del mondo",
+            "Parla con gli abitanti prima del boss",
+            "Proteggi i dettagli narrativi dietro spoiler"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La regione sembra troppo difficile",
+              "answer": "Migliora armatura, cuori e scorte altrove"
+            },
+            {
+              "problem": "Ho perso il filo",
+              "answer": "Rileggi il diario e torna all’ultimo hub"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "completion-endgame",
+      "number": "16",
+      "label": "Finale e completamento",
+      "estimatedRead": "13–17 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Definire il proprio traguardo prima dell’ultima discesa",
+      "introduction": "Storia, santuari, armature, costruzioni e collezioni offrono finali personali differenti. Prepara la soglia conclusiva senza trasformarla in un obbligo totale.",
+      "images": [
+        {
+          "src": "/atlas/zelda-tears-of-the-kingdom/chapters/16-completion-endgame.webp",
+          "alt": "Immagine ufficiale di The Legend of Zelda: Tears of the Kingdom associata al capitolo Finale e completamento",
+          "caption": "Finale e completamento · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000063714/05b3d8e8c74beaa43a7714c275a7ad06018ed069bd6bd3f923442b9ac16fdc49"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta finale e completamento come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Chiudi le missioni che contano per te",
+            "Prepara set, pasti e armi",
+            "Crea un salvataggio manuale separato",
+            "Decidi quali collezioni lasciare aperte",
+            "Affronta la soglia finale senza inventario sperimentale"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Definire il proprio traguardo prima dell’ultima discesa” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Il cento per cento non è l’unica conclusione",
+            "Conserva progetti e fotografie preferite",
+            "Rientra nel mondo dopo il finale con un obiettivo scelto"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non so se sono pronto",
+              "answer": "Verifica difesa, cure e una risposta a distanza"
+            },
+            {
+              "problem": "Temo gli spoiler",
+              "answer": "Apri soltanto suggerimenti meccanici e lascia chiusi i dettagli narrativi"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "awaken",
+      "label": "Risvegliati nel cielo",
+      "summary": "Versioni, prologo e primi poteri come laboratorio.",
+      "icon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/chapters/01-editions-saves.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a versioni e salvataggi in The Legend of Zelda: Tears of the Kingdom",
+        "caption": "Versioni e salvataggi · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/guide-section-icons-v1.webp",
+        "position": "0% 0%"
+      },
+      "chapterIds": [
+        "editions-saves",
+        "great-sky-island",
+        "ultrahand"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/section-icons-imagegen-v1/01-awaken.webp",
+        "alt": "Icona illustrata della sezione Risvegliati nel cielo",
+        "caption": "Risvegliati nel cielo · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "powers",
+      "label": "Domina i poteri",
+      "summary": "Compositor, Ascensus e Reverto per risolvere problemi.",
+      "icon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/chapters/04-fuse.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a compositor in The Legend of Zelda: Tears of the Kingdom",
+        "caption": "Compositor · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/guide-section-icons-v1.webp",
+        "position": "50% 0%"
+      },
+      "chapterIds": [
+        "fuse",
+        "ascend-recall"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/section-icons-imagegen-v1/02-powers.webp",
+        "alt": "Icona illustrata della sezione Domina i poteri",
+        "caption": "Domina i poteri · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "survive",
+      "label": "Affronta il pericolo",
+      "summary": "Combattimento, arco, scudo ed elementi.",
+      "icon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/chapters/06-combat-basics.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a combattimento in The Legend of Zelda: Tears of the Kingdom",
+        "caption": "Combattimento · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/guide-section-icons-v1.webp",
+        "position": "100% 0%"
+      },
+      "chapterIds": [
+        "combat-basics",
+        "bows-shields-elements"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/section-icons-imagegen-v1/03-survive.webp",
+        "alt": "Icona illustrata della sezione Affronta il pericolo",
+        "caption": "Affronta il pericolo · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "explore",
+      "label": "Leggi Hyrule",
+      "summary": "Tre livelli, torri, geoglifi e santuari.",
+      "icon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/chapters/08-three-layers.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a cielo, superficie e profondità in The Legend of Zelda: Tears of the Kingdom",
+        "caption": "Cielo, superficie e profondità · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/guide-section-icons-v1.webp",
+        "position": "0% 100%"
+      },
+      "chapterIds": [
+        "three-layers",
+        "towers-geoglyphs",
+        "shrines"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/section-icons-imagegen-v1/04-explore.webp",
+        "alt": "Icona illustrata della sezione Leggi Hyrule",
+        "caption": "Leggi Hyrule · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "build",
+      "label": "Costruisci il viaggio",
+      "summary": "Congegni, cucina, armature e mezzi.",
+      "icon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/chapters/11-zonai-autobuild.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a congegni zonau e schemai in The Legend of Zelda: Tears of the Kingdom",
+        "caption": "Congegni Zonau e Schemai · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/guide-section-icons-v1.webp",
+        "position": "50% 100%"
+      },
+      "chapterIds": [
+        "zonai-autobuild",
+        "resources-cooking",
+        "armor-upgrades",
+        "horses-vehicles"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/section-icons-imagegen-v1/05-build.webp",
+        "alt": "Icona illustrata della sezione Costruisci il viaggio",
+        "caption": "Costruisci il viaggio · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "legend",
+      "label": "Proteggi la leggenda",
+      "summary": "Regioni, finale e completamento con spoiler separati.",
+      "icon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/chapters/15-regional-quests.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a fenomeni regionali in The Legend of Zelda: Tears of the Kingdom",
+        "caption": "Fenomeni regionali · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/guide-section-icons-v1.webp",
+        "position": "100% 100%"
+      },
+      "chapterIds": [
+        "regional-quests",
+        "completion-endgame"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/zelda-tears-of-the-kingdom/section-icons-imagegen-v1/06-legend.webp",
+        "alt": "Icona illustrata della sezione Proteggi la leggenda",
+        "caption": "Proteggi la leggenda · icona tematica generata con ImageGen"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "Nintendo · Tears of the Kingdom",
+      "href": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-tears-of-the-kingdom-switch/"
+    },
+    {
+      "label": "Nintendo · sito ufficiale di Zelda",
+      "href": "https://www.zelda.com/tears-of-the-kingdom/"
+    },
+    {
+      "label": "Nintendo Support · Tears of the Kingdom",
+      "href": "https://en-americas-support.nintendo.com/app/products/detail/p/989"
+    },
+    {
+      "label": "Nintendo · Switch 2 Edition e Zelda Notes",
+      "href": "https://www.nintendo.com/us/gaming-systems/switch-2/games/the-legend-of-zelda-tears-of-the-kingdom-nintendo-switch-2-edition/"
+    },
+    {
+      "label": "Nintendo · panoramica ufficiale della serie",
+      "href": "https://www.nintendo.com/us/store/games/zelda-games/"
+    }
+  ]
+}

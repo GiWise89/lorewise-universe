@@ -6,6 +6,7 @@ import { CreativeJournalSections } from "@/components/CreativeJournalSections";
 import { GameJournalShowcase } from "@/components/GameJournalShowcase";
 import { PassionsJournalShowcase } from "@/components/PassionsJournalShowcase";
 import {
+  commissionStories,
   gameJournalEntries,
   getCreativeJournalEntry,
   reinterpretationStories,
@@ -26,6 +27,7 @@ export default function CreativeJournalPage() {
   const custode = getCreativeJournalEntry("custode-delle-due-lune")!;
   const scappa = getCreativeJournalEntry("scappa-finche-puoi")!;
   const vampire = getCreativeJournalEntry("ritratto-vampiresco")!;
+  const commissionPortrait = commissionStories[0];
   const cartoonCover = getCreativeJournalEntry("mucca-e-pollo")!;
   const allReinterpretations = [...reinterpretationStories, ...studioSketches];
 
@@ -36,7 +38,7 @@ export default function CreativeJournalPage() {
           <div className="diary-cover-copy">
             <p className="diary-hand">Il mio diario creativo</p>
             <h1 id="diary-title">Dove nascono<br />i mondi</h1>
-            <p>Disegni originali, reinterpretazioni, passioni e giochi in lavorazione. Qui raccolgo le fasi che normalmente restano dietro il risultato finale.</p>
+            <p>Disegni originali, ritratti su commissione, reinterpretazioni, passioni e giochi in lavorazione. Qui raccolgo le fasi che normalmente restano dietro il risultato finale.</p>
             <a href="#prime-pagine">Inizia a sfogliare <span aria-hidden="true">↓</span></a>
           </div>
           <div className="diary-cover-collage" aria-label="Disegno, cartoon e videogioco: tre pagine del diario">
@@ -147,18 +149,38 @@ export default function CreativeJournalPage() {
         </div>
       </section>
         ) },
-        { id: "passioni", label: "Passioni", eyebrow: "03", content: (
+        { id: "commissioni", label: "Commissioni", eyebrow: "03", content: (
+      <section id="commissioni-creative" className="diary-chapter diary-commission-chapter" aria-labelledby="commission-stories-title">
+        <header className="shell diary-chapter-title">
+          <span>Capitolo 03</span><h2 id="commission-stories-title">Ritratti su commissione</h2><p>Il percorso reale di un ritratto, dalla prima linea fino all’opera consegnata e conservata nel portfolio.</p>
+        </header>
+        <article className="shell diary-commission-story" aria-labelledby="commission-portrait-title">
+          <div className="diary-commission-copy">
+            <p className="diary-hand">Nove passaggi · uno sguardo</p>
+            <h3 id="commission-portrait-title">{commissionPortrait.title}</h3>
+            <p>{commissionPortrait.summary}</p>
+            <StoryLink id={commissionPortrait.id}>Apri la sequenza completa</StoryLink>
+          </div>
+          <div className="diary-commission-sequence" aria-label="Tre momenti del ritratto, dalla prima linea al risultato">
+            <CreativeJournalPhoto image={commissionPortrait.processImages[0]} caption={commissionPortrait.processCaptions?.[0] ?? "Prima fase"} />
+            <CreativeJournalPhoto image={commissionPortrait.processImages[5]} caption={commissionPortrait.processCaptions?.[5] ?? "Line art"} />
+            {commissionPortrait.image ? <CreativeJournalPhoto image={commissionPortrait.image} caption={commissionPortrait.finalCaption ?? "Opera completa"} /> : null}
+          </div>
+        </article>
+      </section>
+        ) },
+        { id: "passioni", label: "Passioni", eyebrow: "04", content: (
       <section id="passioni" className="diary-loose-pages" aria-labelledby="passions-title">
         <header className="shell diary-chapter-title">
-          <span>Capitolo 03</span><h2 id="passions-title">Qualcosa di me</h2><p>Prima dei disegni e dei giochi ci sono le passioni, le collezioni e lo spazio in cui passo gran parte del mio tempo.</p>
+          <span>Capitolo 04</span><h2 id="passions-title">Qualcosa di me</h2><p>Prima dei disegni e dei giochi ci sono le passioni, le collezioni e lo spazio in cui passo gran parte del mio tempo.</p>
         </header>
         <div className="shell"><PassionsJournalShowcase /></div>
       </section>
         ) },
-        { id: "giochi", label: "Giochi", eyebrow: "04", content: (
+        { id: "giochi", label: "Giochi", eyebrow: "05", content: (
       <section id="giochi" className="diary-games" aria-labelledby="games-title">
         <header className="shell diary-chapter-title">
-          <span>Capitolo 04</span><h2 id="games-title">Mondi in costruzione</h2><p>Il dietro le quinte continua nei videogiochi: schermate reali, stato corrente e lavoro ancora aperto.</p>
+          <span>Capitolo 05</span><h2 id="games-title">Mondi in costruzione</h2><p>Il dietro le quinte continua nei videogiochi: schermate reali, stato corrente e lavoro ancora aperto.</p>
         </header>
         <div className="shell"><GameJournalShowcase games={gameJournalEntries} /></div>
       </section>

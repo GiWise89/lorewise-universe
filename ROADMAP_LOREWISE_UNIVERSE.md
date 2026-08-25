@@ -1,13 +1,106 @@
 # Roadmap ufficiale — LoreWise Universe
 
-Ultimo aggiornamento: 20 agosto 2026  
-Stato generale: sviluppo e verifica esclusivamente in locale
+Ultimo aggiornamento: **25 agosto 2026**
+
+Stato generale: **progetti in pausa per decisione del proprietario**; lavoro recente conservato in locale e non pubblicato con questa fase
 
 Questo documento è il registro principale del progetto. Una funzione discussa in chat non è considerata realizzata finché non compare qui come **Completata in locale** e non viene approvata da Luigi.
+
+## Checkpoint di pausa — 25 agosto 2026
+
+La crescita di LoreWise Universe viene messa temporaneamente in pausa. Durante la pausa non vengono aggiunte nuove guide, promozioni, Cronache, funzioni commerciali o pubblicazioni. Il lavoro locale esistente resta conservato; alla ripresa si continuerà da questo checkpoint senza ricominciare da zero.
+
+### Stato sintetico alla pausa
+
+| Area recente | Stato alla pausa | Risultato conservato | Cosa manca |
+|---|---|---|---|
+| Guide dell’Atlante | Da verificare visivamente | 16 guide strutturate, con calendario completo fino alla pubblicazione di INAZUMA ELEVEN: Victory Road del 7 dicembre 2026 | Scelta e realizzazione delle quattro guide necessarie per coprire dal 7 dicembre al 1° gennaio |
+| Novità · Cronache del Nexus | Da verificare visivamente | Cronache dalla 001 alla 017, archivio selezionabile, collegamenti interni e immagini integrali | Adeguare la Cronaca 017 alla prossima guida e preparare le Cronache 018, 019 e 020; decidere l’eventuale speciale del 1° gennaio |
+| Promozioni | Da verificare visivamente | Apertura 10/15/20, Halloween 15/20/25 per “La mia versione corrotta”, ritorno ai vantaggi permanenti Listino/5/10 | Decidere la campagna invernale dal 7 dicembre al 1° gennaio: nome, offerta, prodotti, percentuali e durata |
+| Schermate promozionali | Da verificare visivamente | Layout premium differenziato per apertura, Halloween, conclusione e vantaggi permanenti | Controllo visivo del proprietario e creatività originali dedicate alle future campagne |
+| Arte VIP | Completata in locale | `LW-ART-004`, `LW-ART-005`, `LW-ART-024` e `LW-ART-049` restano solo da esposizione VIP; `LW-ART-058` è esclusa dal catalogo e dalla VIP Zone | Nessun intervento previsto durante la pausa |
+| Navigazione Giochi | Completata in locale | “Scarica l’app” usa lo stesso trattamento di navigazione degli altri collegamenti | Solo controllo visivo conclusivo |
+| Nome pubblico account | Da verificare | Il profilo dispone del campo `display_name` e del percorso di aggiornamento | Ripetere una prova autenticata completa di salvataggio, ricaricamento e visualizzazione pubblica prima di dichiarare risolto il difetto segnalato |
+| VIP permanente richiesto | Da verificare | Il sistema supporta un Collector permanente, ma la regola automatica corrente riconosce soltanto l’email proprietaria | Verificare esistenza e stato di `giorgiadervasi@gmail.com` nel database autorizzato e confermare l’assegnazione permanente senza affidarsi alla sola conversazione |
+| Pubblicazione del lavoro recente | In pausa | Build e controlli locali conservati | Nessun deploy delle modifiche recenti senza nuova approvazione esplicita |
+
+### Guide completate nel progetto
+
+Le guide presenti e strutturate sono:
+
+1. Animal Crossing: New Horizons.
+2. Baldur’s Gate 3.
+3. Minecraft.
+4. The Elder Scrolls V: Skyrim.
+5. World of Warcraft, impostata come Guida Viva per espansione e stagione.
+6. Hogwarts Legacy.
+7. The Legend of Zelda: Tears of the Kingdom.
+8. The Sims 4.
+9. Red Dead Redemption 2.
+10. Monster Hunter Wilds.
+11. The Mortuary Assistant, collocata nella settimana di Halloween.
+12. Diablo IV.
+13. Pokémon Pokopia.
+14. The Witcher 3: Wild Hunt.
+15. Cyberpunk 2077.
+16. INAZUMA ELEVEN: Victory Road.
+
+Le ultime tre guide concordate — The Witcher 3, Cyberpunk 2077 e Inazuma Eleven — dispongono di identità visiva dedicata, immagini associate alle sezioni, icone originali e collegamenti ufficiali. Restano comunque soggette al controllo visivo finale del proprietario.
+
+### Promozioni controllate e conservate
+
+| Periodo | Promozione | Visitatori | Supporter | Collector | Stato |
+|---|---|---:|---:|---:|---|
+| 22 agosto–30 settembre 2026 | Apertura del Nexus | −10% | −15% | −20% | Completata in locale |
+| 26 ottobre–1° novembre 2026 | La mia versione corrotta | −15% | −20% | −25% | Completata in locale |
+| Dal 2 novembre 2026 | Vantaggi permanenti | Listino | −5% | −10% | Completata in locale |
+| 7 dicembre 2026–1° gennaio 2027 | Campagna invernale | Da decidere | Da decidere | Da decidere | In pausa |
+
+La creatività Halloween attiva nella schermata premium è un’illustrazione originale generata appositamente e salvata come `public/promotions/halloween-corrupted-portrait-premium-v1.webp`; non usa più uno sfondo generico recuperato da un’altra sezione.
+
+### Calendario mancante per arrivare al 1° gennaio 2027
+
+Per non lasciare settimane senza una guida VIP, alla ripresa serviranno quattro titoli:
+
+| Slot | Anteprima VIP | Passaggio pubblico | Stato |
+|---|---:|---:|---|
+| Guida da scegliere 1 | 7 dicembre 2026 | 14 dicembre 2026 | Da decidere |
+| Guida da scegliere 2 | 14 dicembre 2026 | 21 dicembre 2026 | Da decidere |
+| Guida da scegliere 3 | 21 dicembre 2026 | 28 dicembre 2026 | Da decidere |
+| Guida da scegliere 4 | 28 dicembre 2026 | 4 gennaio 2027 | Da decidere; necessaria per coprire il 1° gennaio |
+
+Alla scelta dei titoli seguiranno, per ogni guida: ricerca da fonti ufficiali, immagini web pertinenti, copertina integrale, icone originali, decorazioni coerenti con il gioco, collegamento ufficiale di acquisto o download, controllo anti-ritaglio e revisione dei testi pubblici.
+
+### Novità mancanti
+
+- [ ] Aggiornare la Cronaca 017 del 7 dicembre con la prima nuova guida VIP, mantenendo Inazuma Eleven come uscita pubblica della settimana.
+- [ ] Preparare la Cronaca 018 del 14 dicembre.
+- [ ] Preparare la Cronaca 019 del 21 dicembre.
+- [ ] Preparare la Cronaca 020 del 28 dicembre.
+- [ ] Decidere se pubblicare una Cronaca speciale il 1° gennaio 2027 con riepilogo dell’Atlante, risultati delle iniziative VIP e apertura del nuovo anno.
+- [ ] Collegare a ogni Cronaca la promozione corretta, una creatività originale e immagini delle guide abbastanza grandi da non sembrare miniature.
+
+### Punto esatto da cui ripartire
+
+1. Scegliere i quattro giochi mancanti.
+2. Definire un’unica campagna invernale coerente oppure dichiarare esplicitamente che restano soltanto i vantaggi permanenti.
+3. Completare le Cronache fino al 1° gennaio.
+4. Eseguire il controllo visivo del proprietario su guide, immagini, promozioni e responsive.
+5. Ripetere test e build sul checkpoint finale.
+6. Pubblicare soltanto dopo una nuova autorizzazione esplicita.
+
+### Ultima verifica tecnica del blocco recente
+
+- [x] Test mirati di guide, calendario, promozioni e immagini completati senza errori.
+- [x] Build Vinext completata dopo l’inserimento della creatività Halloween definitiva.
+- [x] Nuovo asset Halloween servito correttamente in locale e vecchio sfondo rimosso dal pannello promozionale.
+- [ ] Controllo visivo finale affidato al proprietario.
+- [ ] Pubblicazione delle modifiche recenti non autorizzata durante la pausa.
 
 ## Stati utilizzati
 
 - **Da decidere**: idea registrata, servono ancora scelte del proprietario.
+- **In pausa**: lavoro conservato senza nuove modifiche finché il proprietario non decide di riprenderlo.
 - **Approvata**: comportamento concordato, sviluppo non ancora iniziato.
 - **In lavorazione**: implementazione locale in corso.
 - **Da verificare**: costruita in locale, attende prova e approvazione visiva/funzionale.

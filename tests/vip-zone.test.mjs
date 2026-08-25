@@ -120,7 +120,7 @@ test("defines the approved spoiler-safe VIP expansion reveal", () => {
 });
 
 test("allows only declared private VIP media identifiers", () => {
-  assert.equal(Object.keys(VIP_MEDIA).length, 83);
+  assert.equal(Object.keys(VIP_MEDIA).length, 87);
   assert.equal(getVipMedia("rogo-key-art")?.contentType, "image/png");
   assert.equal(getVipMedia("vharokh-dossier")?.objectKey.includes("vharokh-sagoma"), true);
   assert.equal(getVipMedia("velisara-dossier")?.objectKey.includes("velisara-sagoma"), true);
@@ -174,9 +174,14 @@ test("builds the Atelier as protected narrative processes rather than an anonymo
 test("separates commercial VIP originals from exhibition-only works", () => {
   const commercial = VIP_ARTWORKS.filter((artwork) => artwork.mode === "commercial");
   const exhibition = VIP_ARTWORKS.filter((artwork) => artwork.mode === "exhibition");
-  assert.equal(VIP_ARTWORKS.length, 48);
+  assert.equal(VIP_ARTWORKS.length, 52);
   assert.equal(commercial.length, 11);
-  assert.equal(exhibition.length, 37);
+  assert.equal(exhibition.length, 41);
+  assert.deepEqual(
+    exhibition.filter((artwork) => artwork.code.startsWith("LW-ART-")).map((artwork) => artwork.code),
+    ["LW-ART-004", "LW-ART-005", "LW-ART-024", "LW-ART-049"],
+  );
+  assert.equal(VIP_ARTWORKS.some((artwork) => artwork.code === "LW-ART-058"), false);
   assert.equal(VIP_ARTWORKS.every((artwork) => artwork.title && !artwork.title.startsWith("Opera ")), true);
   assert.equal(VIP_ARTWORKS.every((artwork) => artwork.lore.length > 40), true);
   assert.equal(commercial.every((artwork) => typeof artwork.priceCents === "number" && artwork.priceCents > 0), true);

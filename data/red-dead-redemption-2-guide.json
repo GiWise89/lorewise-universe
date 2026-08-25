@@ -1,0 +1,1094 @@
+{
+  "id": "red-dead-redemption-2-complete-guide-01",
+  "slug": "red-dead-redemption-2",
+  "code": "LW-ATLAS-RDR2-001",
+  "game": "Red Dead Redemption 2",
+  "title": "Il taccuino della frontiera",
+  "subtitle": "Un viaggio lento e consapevole tra accampamento, cavalli, caccia, onore e territori da leggere.",
+  "description": "Sedici capitoli e quarantotto schede operative dedicate a Red Dead Redemption 2: edizioni, prologo, comandi, combattimento, nuclei, cavalli, campo, onore, caccia, creazione, economia, esplorazione, missioni, sfide, legge e completamento. La guida privilegia procedure verificabili, accessibilità, spoiler separati e scelte sostenibili.",
+  "versionLabel": "Modalità Storia · verifica 24 agosto 2026",
+  "updatedAt": "24 agosto 2026",
+  "vipFrom": "2026-10-12T00:00:00+02:00",
+  "publicAt": "2026-10-19T00:00:00+02:00",
+  "theme": "atlas",
+  "cover": {
+    "src": "/atlas/red-dead-redemption-2/cover.webp",
+    "alt": "Immagine ufficiale usata per la copertina editoriale di Red Dead Redemption 2",
+    "caption": "Red Dead Redemption 2 · immagine dal sito ufficiale, mostrata integralmente",
+    "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/ss_d1a8f5a69155c3186c65d1da90491fcfd43663d9.1920x1080.jpg?t=1759502961"
+  },
+  "storeUrl": "https://store.rockstargames.com/en/game/buy-red-dead-redemption-2",
+  "storeLabel": "Acquista Red Dead Redemption 2",
+  "chapters": [
+    {
+      "id": "edition-saves",
+      "number": "01",
+      "label": "Edizione e salvataggi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Preparare una storia lunga prima di entrare nella neve",
+      "introduction": "Installazione, spazio, salvataggi automatici e manuali vanno chiariti prima di una campagna in cui le conseguenze si accumulano.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/01-edition-saves.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Edizione e salvataggi",
+          "caption": "Edizione e salvataggi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/ss_d1a8f5a69155c3186c65d1da90491fcfd43663d9.1920x1080.jpg?t=1759502961"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta edizione e salvataggi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Verifica edizione e contenuti",
+            "Aggiorna il gioco",
+            "Regola sottotitoli e mira",
+            "Crea un salvataggio manuale",
+            "Conserva più slot datati"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Preparare una storia lunga prima di entrare nella neve” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non sovrascrivere sempre lo stesso slot",
+            "Separa Storia e Online",
+            "Controlla spazio libero"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un contenuto manca",
+              "answer": "Verifica edizione e download"
+            },
+            {
+              "problem": "Il salvataggio sembra vecchio",
+              "answer": "Confronta data, capitolo e percentuale"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "prologue-camp",
+      "number": "02",
+      "label": "Primi giorni",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Imparare il ritmo prima del mondo aperto",
+      "introduction": "Il prologo introduce persone, comandi e sopravvivenza con gradualità; seguire le indicazioni prepara un’esplorazione più libera dopo la neve.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/02-prologue-camp.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Primi giorni",
+          "caption": "Primi giorni · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/FREE_CONTENToZlCoShC2j15o82YyWYd/PREVIEW_SCREENSHOT2_166081.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta primi giorni come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Segui il gruppo",
+            "Prova ogni comando quando appare",
+            "Raccogli soltanto il necessario",
+            "Parla ai membri del campo",
+            "Salva alla fine di una missione"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Imparare il ritmo prima del mondo aperto” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non giudicare il ritmo dal prologo",
+            "Leggi diario e registro",
+            "Ascolta le conversazioni ambientali"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non posso esplorare liberamente",
+              "answer": "Completa le missioni introduttive"
+            },
+            {
+              "problem": "Ho perso un comando",
+              "answer": "Apri schema controlli e compendio"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "controls-dead-eye",
+      "number": "03",
+      "label": "Comandi e Dead Eye",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Rendere intenzionali mira, ruota e interazioni",
+      "introduction": "La stessa pressione può mirare, salutare, minacciare o scegliere un oggetto: distanza, bersaglio e contesto decidono l’azione.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/03-controls-dead-eye.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Comandi e Dead Eye",
+          "caption": "Comandi e Dead Eye · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/FREE_CONTENTPkRWha1p8XekBjvSs2jd/PREVIEW_SCREENSHOT3_166081.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta comandi e dead eye come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Regola sensibilità e assistenza",
+            "Allena la ruota in luogo sicuro",
+            "Aggancia un bersaglio isolato",
+            "Attiva Dead Eye senza sparare",
+            "Rimetti via l’arma prima di parlare"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Rendere intenzionali mira, ruota e interazioni” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Osserva sempre il suggerimento contestuale",
+            "Rallenta prima di scegliere dalla ruota",
+            "Usa Dead Eye per precisione, non panico"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Minaccio una persona per errore",
+              "answer": "Abbassa l’arma e aumenta la distanza"
+            },
+            {
+              "problem": "Scelgo l’oggetto sbagliato",
+              "answer": "Apri la ruota lentamente e cambia settore"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "combat-cover",
+      "number": "04",
+      "label": "Combattimento",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Sopravvivere con copertura, angoli e priorità",
+      "introduction": "Restare esposti consuma salute e risorse; la copertura funziona quando limita le linee di tiro e lascia una via di uscita.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/04-combat-cover.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Combattimento",
+          "caption": "Combattimento · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/FREE_CONTENTvJKvL7yfxIr782YEPFC1/PREVIEW_SCREENSHOT10_166081.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta combattimento come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Entra in copertura",
+            "Conta i bersagli visibili",
+            "Elimina chi ti aggira",
+            "Sposta posizione dopo una raffica",
+            "Saccheggia solo a scontro finito"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Sopravvivere con copertura, angoli e priorità” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Pulisci l’arma prima delle missioni",
+            "Porta una scelta corta e una lunga",
+            "Non inseguire al centro del fuoco"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Subisco colpi laterali",
+              "answer": "Cambia copertura e controlla minimappa"
+            },
+            {
+              "problem": "La mira oscilla",
+              "answer": "Ripristina nucleo, calma e distanza utile"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "cores-status",
+      "number": "05",
+      "label": "Nuclei e condizioni",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Capire energia, riserva e consumo",
+      "introduction": "Salute, resistenza e Dead Eye hanno nucleo e anello: mangiare, dormire, curarsi e vestire correttamente evita di reagire troppo tardi.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/05-cores-status.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Nuclei e condizioni",
+          "caption": "Nuclei e condizioni · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/FREE_CONTENTNUnS6JI3rQg5ELQyhpej/PREVIEW_SCREENSHOT5_166081.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta nuclei e condizioni come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Controlla nuclei prima di partire",
+            "Mangia una razione adatta",
+            "Dormi con regolarità",
+            "Porta tonici essenziali",
+            "Cambia abiti per il clima"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Capire energia, riserva e consumo” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non sprecare tonici per un nucleo vuoto",
+            "Mantieni Arthur nel peso desiderato",
+            "Cura anche il cavallo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La resistenza non recupera",
+              "answer": "Ripristina il nucleo e riduci lo sforzo"
+            },
+            {
+              "problem": "Perdo salute senza nemici",
+              "answer": "Controlla temperatura, veleno e condizioni"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "horse-bonding",
+      "number": "06",
+      "label": "Cavallo",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Costruire fiducia prima della velocità",
+      "introduction": "Legame, calma, pulizia, sella e distanza determinano controllo e sicurezza; un cavallo affidabile vale più di una statistica isolata.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/06-horse-bonding.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Cavallo",
+          "caption": "Cavallo · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/FREE_CONTENTxyyRex1B6WQIughYFrcQ/PREVIEW_SCREENSHOT4_166081.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta cavallo come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli un cavallo gestibile",
+            "Nutri e spazzola",
+            "Calma durante il viaggio",
+            "Aumenta il legame gradualmente",
+            "Conserva medicine e rianimatore"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Costruire fiducia prima della velocità” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Fischia prima di allontanarti",
+            "Evita ostacoli ad alta velocità",
+            "Metti la sella prima di cambiare compagno"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il cavallo non arriva",
+              "answer": "Controlla distanza e terreno"
+            },
+            {
+              "problem": "È agitato vicino a un predatore",
+              "answer": "Allontanati, calma e non forzare"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "camp-gang",
+      "number": "07",
+      "label": "Accampamento",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Usare il campo come casa, archivio e termometro della banda",
+      "introduction": "Donazioni, provviste, incarichi e conversazioni cambiano il rapporto con il gruppo; rientrare tra le missioni restituisce contesto alla storia.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/07-camp-gang.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Accampamento",
+          "caption": "Accampamento · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/ss_66b553f4c209476d3e4ce25fa4714002cc914c4f.1920x1080.jpg?t=1759502961"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta accampamento come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Saluta e ascolta",
+            "Controlla registro e scorte",
+            "Consegna contributi utili",
+            "Completa un incarico alla volta",
+            "Dormi e salva prima di ripartire"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Usare il campo come casa, archivio e termometro della banda” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non misurare il campo solo dagli upgrade",
+            "Porta selvaggina quando serve",
+            "Visita il campo in orari diversi"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Le scorte restano basse",
+              "answer": "Controlla simboli e rifornimenti specifici"
+            },
+            {
+              "problem": "Perdo dialoghi",
+              "answer": "Rientra dopo le missioni principali e rallenta"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "honor-choices",
+      "number": "08",
+      "label": "Onore e scelte",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Decidere che fuorilegge vuoi interpretare",
+      "introduction": "Azioni pubbliche, aiuti, crimini e risposte modificano onore e tono; non serve ottimizzare ogni punto, serve coerenza.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/08-honor-choices.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Onore e scelte",
+          "caption": "Onore e scelte · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/FREE_CONTENTHGtjr9cnSmOKjo4nN4EF/PREVIEW_SCREENSHOT8_166081.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta onore e scelte come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Definisci un codice personale",
+            "Osserva il simbolo dopo le azioni",
+            "Ripara i danni quando possibile",
+            "Evita crimini inutili",
+            "Accetta alcune conseguenze"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Decidere che fuorilegge vuoi interpretare” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Saluta e aiuta senza trasformarlo in routine meccanica",
+            "Il volto coperto non cancella ogni prova",
+            "Salva prima dei grandi bivi"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "L’onore scende senza capire",
+              "answer": "Rivedi vittime, testimoni e azioni sul campo"
+            },
+            {
+              "problem": "Voglio cambiare rotta",
+              "answer": "Compi scelte coerenti per più missioni"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "hunting-tracking",
+      "number": "09",
+      "label": "Caccia",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere tracce, vento e qualità della preda",
+      "introduction": "Una pelle perfetta richiede animale adatto, qualità iniziale, arma corretta e colpo pulito; il compendio è parte dello strumento.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/09-hunting-tracking.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Caccia",
+          "caption": "Caccia · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/FREE_CONTENTxMGjvWfhU2fx4VJIgUP1/PREVIEW_SCREENSHOT9_166081.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta caccia come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Studia l’animale",
+            "Controlla qualità e arma",
+            "Segui la traccia senza correre",
+            "Posizionati per un colpo pulito",
+            "Trasporta o consegna subito"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Leggere tracce, vento e qualità della preda” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Usa binocolo prima del fucile",
+            "Evita di danneggiare la carcassa",
+            "Segna dove trovi specie rare"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La pelle perde qualità",
+              "answer": "Verifica arma, munizione e numero di colpi"
+            },
+            {
+              "problem": "La traccia sparisce",
+              "answer": "Riattiva Occhio dell’Aquila e torna all’ultimo segno"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "crafting-cooking",
+      "number": "10",
+      "label": "Creazione e cucina",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Trasformare raccolta e caccia in autonomia",
+      "introduction": "Fuoco, ricette, erbe, munizioni e talismani premiano una raccolta mirata; crea ciò che userai nella prossima uscita.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/10-crafting-cooking.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Creazione e cucina",
+          "caption": "Creazione e cucina · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/ss_66b553f4c209476d3e4ce25fa4714002cc914c4f.1920x1080.jpg?t=1759502961"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta creazione e cucina come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Leggi la ricetta",
+            "Segna gli ingredienti mancanti",
+            "Raccogli durante un percorso reale",
+            "Accampa in luogo sicuro",
+            "Prepara scorte limitate"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Trasformare raccolta e caccia in autonomia” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Conserva materiali rari",
+            "Cucina carne con erbe utili",
+            "Controlla artigiani e ricettari"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Una ricetta è bloccata",
+              "answer": "Verifica progressione e ricettario"
+            },
+            {
+              "problem": "Non trovo un’erba",
+              "answer": "Consulta compendio, habitat e ora"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "economy-shops",
+      "number": "11",
+      "label": "Economia e negozi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Spendere per strumenti che aprono possibilità",
+      "introduction": "Armi, munizioni, sella, campo e abiti competono per il denaro; compra prima affidabilità, poi varianti estetiche.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/11-economy-shops.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Economia e negozi",
+          "caption": "Economia e negozi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/FREE_CONTENT2xdDEeTPXhKgM3mqi53l/PREVIEW_SCREENSHOT1_166081.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta economia e negozi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Paga o gestisci le taglie",
+            "Pulisci e rifornisci le armi",
+            "Migliora equipaggiamento utile",
+            "Vendi oggetti al compratore corretto",
+            "Mantieni una riserva"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Spendere per strumenti che aprono possibilità” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non comprare doppioni senza ruolo",
+            "Confronta catalogo e inventario",
+            "Recupera armi uniche con attenzione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non posso vendere un oggetto",
+              "answer": "Cerca il mercante adatto o verifica se è unico"
+            },
+            {
+              "problem": "Il denaro scompare",
+              "answer": "Controlla taglie, munizioni e acquisti ripetuti"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "map-exploration",
+      "number": "12",
+      "label": "Mappa ed esplorazione",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Attraversare territori che raccontano prima delle icone",
+      "introduction": "Strade, ferrovie, fiumi, fumo e suoni guidano verso incontri; scegli una direzione e lascia spazio alla deviazione.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/12-map-exploration.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Mappa ed esplorazione",
+          "caption": "Mappa ed esplorazione · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/FREE_CONTENT66dehxycKqgS4Mhiabti/PREVIEW_SCREENSHOT7_166081.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta mappa ed esplorazione come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Prepara cavallo e abiti",
+            "Scegli una regione limitata",
+            "Segui un punto ambientale",
+            "Annota luoghi da riprendere",
+            "Rientra con scorte ordinate"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Attraversare territori che raccontano prima delle icone” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Viaggia talvolta senza galoppo",
+            "Controlla il meteo",
+            "Non aprire guide complete per ogni incontro"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La meta sembra irraggiungibile",
+              "answer": "Cerca passo, ponte o sentiero"
+            },
+            {
+              "problem": "Mi perdo di notte",
+              "answer": "Accampa e riparti con luce"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "missions-spoilers",
+      "number": "13",
+      "label": "Missioni e spoiler",
+      "estimatedRead": "13–17 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Seguire la storia proteggendo sorprese e attività mancate",
+      "introduction": "Le missioni principali avanzano tempo e disponibilità; alterna campo, secondarie ed esplorazione e apri gli spoiler a livelli.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/13-missions-spoilers.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Missioni e spoiler",
+          "caption": "Missioni e spoiler · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/ss_668dafe477743f8b50b818d5bbfcec669e9ba93e.1920x1080.jpg?t=1759502961"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta missioni e spoiler come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Leggi il registro",
+            "Completa attività urgenti",
+            "Salva prima della missione",
+            "Porta equipaggiamento essenziale",
+            "Rientra al campo dopo il capitolo"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Seguire la storia proteggendo sorprese e attività mancate” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Usa prima un indizio senza esito",
+            "Non cercare il nome di un personaggio",
+            "Conserva un salvataggio per capitolo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Una missione è scomparsa",
+              "answer": "Controlla ora, luogo e avanzamento"
+            },
+            {
+              "problem": "Temo un punto di non ritorno",
+              "answer": "Completa le attività personali e crea uno slot separato"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "challenges-collectibles",
+      "number": "14",
+      "label": "Sfide e collezioni",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Completare per categorie invece di svuotare la mappa",
+      "introduction": "Sfide, compendio e collezioni richiedono condizioni precise; scegli una famiglia per sessione e registra ciò che manca.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/14-challenges-collectibles.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Sfide e collezioni",
+          "caption": "Sfide e collezioni · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/ss_4ce07ae360b166f0f650e9a895a3b4b7bf15e34f.1920x1080.jpg?t=1759502961"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta sfide e collezioni come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Leggi il requisito letterale",
+            "Prepara equipaggiamento",
+            "Scegli un territorio",
+            "Completa una soglia",
+            "Verifica subito il conteggio"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Completare per categorie invece di svuotare la mappa” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Combina obiettivi compatibili",
+            "Non ripetere senza leggere il feedback",
+            "Lascia gli ultimi elementi alla fase finale"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il conteggio non sale",
+              "answer": "Controlla arma, bersaglio e sequenza"
+            },
+            {
+              "problem": "Manca un oggetto",
+              "answer": "Verifica capitolo, regione e fascia oraria"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "law-bounties",
+      "number": "15",
+      "label": "Legge e taglie",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Uscire da un crimine prima che diventi una guerra",
+      "introduction": "Testimoni, identificazione, area di ricerca e taglia sono fasi diverse; interrompere presto la catena costa meno che combattere tutti.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/15-law-bounties.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Legge e taglie",
+          "caption": "Legge e taglie · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/FREE_CONTENT6360cGXTPL8vg7J1iBU1/PREVIEW_SCREENSHOT6_166081.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta legge e taglie come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Rimetti via l’arma",
+            "Interrompi o allontana il testimone senza escalation",
+            "Esci dall’area rossa",
+            "Cambia abiti e cavallo se utile",
+            "Paga la taglia quando sostenibile"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Uscire da un crimine prima che diventi una guerra” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "La maschera riduce il riconoscimento, non le conseguenze",
+            "Non saccheggiare durante la fuga",
+            "Scegli vie fuori strada"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La taglia continua a salire",
+              "answer": "Smetti di combattere e lascia la regione"
+            },
+            {
+              "problem": "La legge mi riconosce",
+              "answer": "Eri già identificato o sei rimasto visibile"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "completion-epilogue",
+      "number": "16",
+      "label": "Completamento",
+      "estimatedRead": "13–17 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Chiudere il viaggio senza ridurlo a una percentuale",
+      "introduction": "Storia, epilogo, compendio, sfide e incontri misurano traguardi diversi; definisci cosa significa finire per questa partita.",
+      "images": [
+        {
+          "src": "/atlas/red-dead-redemption-2/chapters/16-completion-epilogue.webp",
+          "alt": "Immagine ufficiale di Red Dead Redemption 2 associata al capitolo Completamento",
+          "caption": "Completamento · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/ss_d1a8f5a69155c3186c65d1da90491fcfd43663d9.1920x1080.jpg?t=1759502961"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta completamento come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Conserva un salvataggio per capitolo",
+            "Completa le storie che contano",
+            "Rivedi compendio e sfide",
+            "Decidi il livello di completamento",
+            "Archivia uno slot finale"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Chiudere il viaggio senza ridurlo a una percentuale” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non leggere l’epilogo prima del tempo",
+            "Alterna attività lunghe e brevi",
+            "Lascia che il diario chiuda il viaggio"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La percentuale non è completa",
+              "answer": "Controlla la lista di completamento, non ogni oggetto"
+            },
+            {
+              "problem": "Voglio ricominciare",
+              "answer": "Cambia codice morale, ritmo o priorità"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "begin",
+      "label": "Entra nella frontiera",
+      "summary": "Edizione, prologo e controllo consapevole.",
+      "icon": {
+        "src": "/atlas/red-dead-redemption-2/chapters/01-edition-saves.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a edizione e salvataggi in Red Dead Redemption 2",
+        "caption": "Edizione e salvataggi · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/red-dead-redemption-2/guide-section-icons-v1.webp",
+        "position": "0% 0%"
+      },
+      "chapterIds": [
+        "edition-saves",
+        "prologue-camp",
+        "controls-dead-eye"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/red-dead-redemption-2/section-icons-imagegen-v1/01-begin.webp",
+        "alt": "Icona illustrata della sezione Entra nella frontiera",
+        "caption": "Entra nella frontiera · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "survive",
+      "label": "Resta vivo",
+      "summary": "Combattimento, nuclei e cavallo.",
+      "icon": {
+        "src": "/atlas/red-dead-redemption-2/chapters/04-combat-cover.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a combattimento in Red Dead Redemption 2",
+        "caption": "Combattimento · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/red-dead-redemption-2/guide-section-icons-v1.webp",
+        "position": "50% 0%"
+      },
+      "chapterIds": [
+        "combat-cover",
+        "cores-status",
+        "horse-bonding"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/red-dead-redemption-2/section-icons-imagegen-v1/02-survive.webp",
+        "alt": "Icona illustrata della sezione Resta vivo",
+        "caption": "Resta vivo · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "belong",
+      "label": "Vivi con la banda",
+      "summary": "Campo, onore e missioni.",
+      "icon": {
+        "src": "/atlas/red-dead-redemption-2/chapters/07-camp-gang.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a accampamento in Red Dead Redemption 2",
+        "caption": "Accampamento · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/red-dead-redemption-2/guide-section-icons-v1.webp",
+        "position": "100% 0%"
+      },
+      "chapterIds": [
+        "camp-gang",
+        "honor-choices",
+        "missions-spoilers"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/red-dead-redemption-2/section-icons-imagegen-v1/03-belong.webp",
+        "alt": "Icona illustrata della sezione Vivi con la banda",
+        "caption": "Vivi con la banda · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "land",
+      "label": "Leggi il territorio",
+      "summary": "Caccia, creazione ed esplorazione.",
+      "icon": {
+        "src": "/atlas/red-dead-redemption-2/chapters/09-hunting-tracking.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a caccia in Red Dead Redemption 2",
+        "caption": "Caccia · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/red-dead-redemption-2/guide-section-icons-v1.webp",
+        "position": "0% 100%"
+      },
+      "chapterIds": [
+        "hunting-tracking",
+        "crafting-cooking",
+        "map-exploration"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/red-dead-redemption-2/section-icons-imagegen-v1/04-land.webp",
+        "alt": "Icona illustrata della sezione Leggi il territorio",
+        "caption": "Leggi il territorio · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "outlaw",
+      "label": "Gestisci il fuorilegge",
+      "summary": "Economia, legge e conseguenze.",
+      "icon": {
+        "src": "/atlas/red-dead-redemption-2/chapters/11-economy-shops.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a economia e negozi in Red Dead Redemption 2",
+        "caption": "Economia e negozi · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/red-dead-redemption-2/guide-section-icons-v1.webp",
+        "position": "50% 100%"
+      },
+      "chapterIds": [
+        "economy-shops",
+        "law-bounties"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/red-dead-redemption-2/section-icons-imagegen-v1/05-outlaw.webp",
+        "alt": "Icona illustrata della sezione Gestisci il fuorilegge",
+        "caption": "Gestisci il fuorilegge · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "legacy",
+      "label": "Completa il viaggio",
+      "summary": "Sfide, collezioni ed epilogo protetto.",
+      "icon": {
+        "src": "/atlas/red-dead-redemption-2/chapters/14-challenges-collectibles.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a sfide e collezioni in Red Dead Redemption 2",
+        "caption": "Sfide e collezioni · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/red-dead-redemption-2/guide-section-icons-v1.webp",
+        "position": "100% 100%"
+      },
+      "chapterIds": [
+        "challenges-collectibles",
+        "completion-epilogue"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/red-dead-redemption-2/section-icons-imagegen-v1/06-legacy.webp",
+        "alt": "Icona illustrata della sezione Completa il viaggio",
+        "caption": "Completa il viaggio · icona tematica generata con ImageGen"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "Rockstar Games · Red Dead Redemption 2",
+      "href": "https://www.rockstargames.com/reddeadredemption2/"
+    },
+    {
+      "label": "Rockstar Games · manuale ufficiale",
+      "href": "https://www.rockstargames.com/reddeadredemption2/manual"
+    },
+    {
+      "label": "Rockstar Support · Red Dead Redemption 2",
+      "href": "https://support.rockstargames.com/categories/115001624507"
+    }
+  ]
+}

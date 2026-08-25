@@ -1,0 +1,1116 @@
+{
+  "id": "the-sims-4-complete-guide-01",
+  "slug": "the-sims-4",
+  "code": "LW-ATLAS-TS4-001",
+  "game": "The Sims 4",
+  "title": "Il diario di una vita possibile",
+  "subtitle": "Dalla prima famiglia a un quartiere vivo, con strumenti chiari per costruire, raccontare e proteggere i salvataggi.",
+  "description": "Sedici capitoli e quarantotto schede operative dedicate a The Sims 4: installazione, Crea un Sim, aspirazioni, Modalità Costruisci, bisogni, abilità, carriere, relazioni, denaro, mondi, calendario, pacchetti, Galleria, mod, salvataggi e aggiornamenti. La guida privilegia procedure verificabili, accessibilità, spoiler separati e scelte sostenibili.",
+  "versionLabel": "Gioco base e pacchetti · verifica 24 agosto 2026",
+  "updatedAt": "24 agosto 2026",
+  "vipFrom": "2026-10-05T00:00:00+02:00",
+  "publicAt": "2026-10-12T00:00:00+02:00",
+  "theme": "atlas",
+  "cover": {
+    "src": "/atlas/the-sims-4/cover.webp",
+    "alt": "Immagine ufficiale usata per la copertina editoriale di The Sims 4",
+    "caption": "The Sims 4 · immagine dal sito ufficiale, mostrata integralmente",
+    "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_537683e5e29c2d6d02c64aa7321dcb26166f7d82.1920x1080.jpg?t=1786121820"
+  },
+  "storeUrl": "https://www.ea.com/games/the-sims/the-sims-4/download",
+  "storeLabel": "Scarica gratis The Sims 4",
+  "livingGuide": {
+    "enabled": true,
+    "announcement": "Guida Viva: controlliamo aggiornamenti, pacchetti e compatibilità delle mod senza modificare automaticamente i contenuti.",
+    "scope": {
+      "expansion": "The Sims 4",
+      "contentUpdate": "Gioco base e pacchetti installati",
+      "season": "Aggiornamenti 2026"
+    },
+    "cadence": "monthly",
+    "lastCheckedAt": "2026-08-24",
+    "nextCheckAt": "2026-09-24T09:00:00+02:00",
+    "notificationTarget": "/notifiche",
+    "approvalRequired": true,
+    "monitoredSourceUrls": [
+      "https://www.ea.com/games/the-sims/the-sims-4/news",
+      "https://www.ea.com/games/the-sims/the-sims-4/download"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "install-packs",
+      "number": "01",
+      "label": "Versione e pacchetti",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Sapere quale gioco stai davvero avviando",
+      "introduction": "Contenuti posseduti, installati e attivi non coincidono sempre: partire da un inventario evita ricerche su funzioni assenti.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/01-install-packs.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Versione e pacchetti",
+          "caption": "Versione e pacchetti · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_537683e5e29c2d6d02c64aa7321dcb26166f7d82.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta versione e pacchetti come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Aggiorna gioco e launcher",
+            "Annota piattaforma e versione",
+            "Controlla i pacchetti installati",
+            "Avvia senza mod al primo test",
+            "Crea un salvataggio di prova"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Sapere quale gioco stai davvero avviando” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Aggiungi un pacchetto alla volta",
+            "Leggi i requisiti prima dell’acquisto",
+            "Distingui gioco base e contenuti opzionali"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un mondo non compare",
+              "answer": "Verifica proprietà, download e filtri"
+            },
+            {
+              "problem": "Il gioco si chiude",
+              "answer": "Prova riparazione e avvio senza contenuti personalizzati"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "create-a-sim",
+      "number": "02",
+      "label": "Crea un Sim",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Creare una persona prima di scegliere i vestiti",
+      "introduction": "Età, tratti, aspirazione, voce, relazioni e stile formano un personaggio giocabile; definisci prima desideri e limiti.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/02-create-a-sim.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Crea un Sim",
+          "caption": "Crea un Sim · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_b447d6436d2d00cd5e7c170e509b2246dfc879e8.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta crea un sim come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli una fase di vita",
+            "Definisci tre parole guida",
+            "Assegna tratti coerenti ma non identici",
+            "Scegli un’aspirazione iniziale",
+            "Crea relazioni della famiglia"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Creare una persona prima di scegliere i vestiti” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Lascia spazio all’evoluzione",
+            "Prepara abiti per ogni categoria",
+            "Controlla pronomi, voce e camminata"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il Sim sembra generico",
+              "answer": "Rafforza un desiderio e una contraddizione"
+            },
+            {
+              "problem": "La famiglia non è collegata",
+              "answer": "Rivedi le relazioni prima di confermare"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "aspirations-traits",
+      "number": "03",
+      "label": "Tratti e aspirazioni",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Trasformare obiettivi astratti in una routine giocabile",
+      "introduction": "Le aspirazioni orientano le tappe, i tratti influenzano reazioni e autonomia: usali come bussola, non come obbligo.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/03-aspirations-traits.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Tratti e aspirazioni",
+          "caption": "Tratti e aspirazioni · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_b447d6436d2d00cd5e7c170e509b2246dfc879e8.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta tratti e aspirazioni come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Leggi ogni tappa dell’aspirazione",
+            "Scegli un’attività quotidiana coerente",
+            "Individua un tratto che crea difficoltà",
+            "Controlla i punti soddisfazione",
+            "Cambia aspirazione quando cambia la storia"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Trasformare obiettivi astratti in una routine giocabile” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Alterna obiettivi brevi e lunghi",
+            "Non ottimizzare ogni emozione",
+            "Usa le ricompense con intenzione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "L’aspirazione non avanza",
+              "answer": "Controlla testo, luogo e Sim attivo"
+            },
+            {
+              "problem": "Il Sim ripete sempre la stessa azione",
+              "answer": "Riduci autonomia mirata e offri alternative"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "build-mode",
+      "number": "04",
+      "label": "Modalità Costruisci",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Progettare una casa leggibile prima di decorarla",
+      "introduction": "Percorsi, dimensioni, luce e budget determinano se la casa funziona; la decorazione arriva dopo una pianta attraversabile.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/04-build-mode.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Modalità Costruisci",
+          "caption": "Modalità Costruisci · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_2fc938d99a1e87893852cb2d2113478190607941.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta modalità costruisci come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Traccia stanze e ingressi",
+            "Verifica spazio davanti agli oggetti",
+            "Posa luci provvisorie",
+            "Arreda bisogni essenziali",
+            "Prova la casa in Modalità Vivi"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Progettare una casa leggibile prima di decorarla” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Costruisci dal percorso quotidiano",
+            "Usa griglia e filtri",
+            "Conserva una copia prima delle grandi modifiche"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un oggetto non è raggiungibile",
+              "answer": "Libera le caselle e controlla porte"
+            },
+            {
+              "problem": "Il tetto attraversa la stanza",
+              "answer": "Separa falde e verifica ogni piano"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "live-mode-needs",
+      "number": "05",
+      "label": "Bisogni e autonomia",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere una giornata senza inseguire ogni barra",
+      "introduction": "I bisogni segnalano priorità, ma tempo, distanza ed emozioni spiegano perché un comando riesce o viene annullato.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/05-live-mode-needs.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Bisogni e autonomia",
+          "caption": "Bisogni e autonomia · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_537683e5e29c2d6d02c64aa7321dcb26166f7d82.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta bisogni e autonomia come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Metti in pausa e leggi le barre",
+            "Ordina prima il bisogno critico",
+            "Riduci tragitti inutili",
+            "Accoda poche azioni compatibili",
+            "Controlla il risultato prima di accelerare"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Leggere una giornata senza inseguire ogni barra” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Mantieni bagno e cucina accessibili",
+            "Lascia margine prima di lavoro o scuola",
+            "Osserva l’autonomia prima di correggerla"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Le azioni spariscono",
+              "answer": "Controlla percorso, oggetto e stato emotivo"
+            },
+            {
+              "problem": "Tutti sono esausti",
+              "answer": "Semplifica la routine e distribuisci gli orari"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "number": "06",
+      "label": "Abilità",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Imparare con un progetto invece che con una barra",
+      "introduction": "Un’abilità cresce meglio quando serve a un obiettivo concreto: un piatto, un quadro, una riparazione o una relazione.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/06-skills.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Abilità",
+          "caption": "Abilità · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_537683e5e29c2d6d02c64aa7321dcb26166f7d82.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta abilità come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli una competenza principale",
+            "Compra lo strumento minimo",
+            "Inserisci sessioni brevi",
+            "Sfrutta stati emotivi utili",
+            "Vendi o usa ciò che produci"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Imparare con un progetto invece che con una barra” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Alterna studio e pratica",
+            "Evita di allenare tutti allo stesso modo",
+            "Trasforma i risultati in arredamento o reddito"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La crescita è lenta",
+              "answer": "Controlla umore, qualità dello strumento e continuità"
+            },
+            {
+              "problem": "Il Sim abbandona l’attività",
+              "answer": "Soddisfa prima i bisogni urgenti"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "careers",
+      "number": "07",
+      "label": "Carriere e scuola",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Far convivere orari, prestazioni e vita personale",
+      "introduction": "Promozioni e voti richiedono compiti, abilità e buon umore; pianifica il giorno prima senza ridurre la famiglia a una catena produttiva.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/07-careers.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Carriere e scuola",
+          "caption": "Carriere e scuola · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_b447d6436d2d00cd5e7c170e509b2246dfc879e8.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta carriere e scuola come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Leggi orario e requisiti",
+            "Completa il compito giornaliero",
+            "Prepara bisogni la sera",
+            "Sviluppa l’abilità richiesta",
+            "Conserva tempo libero dopo il turno"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Far convivere orari, prestazioni e vita personale” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Usa ferie prima del collasso",
+            "Scegli una carriera coerente con la storia",
+            "Non sacrificare ogni relazione alla prestazione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La prestazione non sale",
+              "answer": "Controlla atteggiamento e compito"
+            },
+            {
+              "problem": "Il Sim perde il lavoro",
+              "answer": "Verifica orari, ritardi e assenze"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "relationships",
+      "number": "08",
+      "label": "Relazioni e famiglia",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Costruire legami attraverso contesto e continuità",
+      "introduction": "Barre sociali, sentimenti, compatibilità e ricordi possono raccontare rapporti diversi; non forzare una singola interazione ripetuta.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/08-relationships.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Relazioni e famiglia",
+          "caption": "Relazioni e famiglia · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_537683e5e29c2d6d02c64aa7321dcb26166f7d82.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta relazioni e famiglia come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Presentati nel tono giusto",
+            "Alterna conversazione e attività",
+            "Leggi reazioni e stati emotivi",
+            "Crea occasioni ricorrenti",
+            "Lascia evolvere conflitti e riconciliazioni"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Costruire legami attraverso contesto e continuità” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "I piccoli contatti mantengono i legami",
+            "Rispetta orientamenti e preferenze",
+            "Salva prima dei grandi cambi familiari"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Una relazione scende rapidamente",
+              "answer": "Controlla interazioni fallite e sentimenti"
+            },
+            {
+              "problem": "L’evento romantico non parte",
+              "answer": "Verifica età, preferenze e contesto"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "money-household",
+      "number": "09",
+      "label": "Denaro domestico",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Creare sicurezza senza eliminare ogni imprevisto",
+      "introduction": "Bollette, pasti, riparazioni e ampliamenti competono per lo stesso budget; separa spese necessarie, crescita e desideri.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/09-money-household.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Denaro domestico",
+          "caption": "Denaro domestico · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_e1f0ce3ca2c9a538e382cc8b040944fe05af4bb2.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta denaro domestico come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Calcola le bollette previste",
+            "Mantieni una riserva",
+            "Compra strumenti che producono valore",
+            "Vendi oggetti inutilizzati",
+            "Amplia una stanza alla volta"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Creare sicurezza senza eliminare ogni imprevisto” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "La qualità non serve ovunque",
+            "Ripara se il rischio è gestibile",
+            "Usa il lotto come investimento narrativo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non riesco a pagare",
+              "answer": "Vendi eccedenze e riduci costi ricorrenti"
+            },
+            {
+              "problem": "La casa è piena ma povera",
+              "answer": "Valuta inventari e oggetti decorativi costosi"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "worlds-travel",
+      "number": "10",
+      "label": "Mondi e viaggi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Usare il quartiere come parte della storia",
+      "introduction": "Lotti comunitari, vicini, servizi e mondi installati offrono risorse diverse; viaggiare con uno scopo riduce caricamenti e dispersione.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/10-worlds-travel.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Mondi e viaggi",
+          "caption": "Mondi e viaggi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_e1f0ce3ca2c9a538e382cc8b040944fe05af4bb2.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta mondi e viaggi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Esplora il quartiere a piedi",
+            "Segna servizi utili",
+            "Visita un lotto per obiettivo",
+            "Invita il gruppo corretto",
+            "Rientra prima dei bisogni critici"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Usare il quartiere come parte della storia” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Salva prima dei grandi spostamenti",
+            "Usa parchi e biblioteche come risorse",
+            "Controlla regole del lotto"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un lotto non appare",
+              "answer": "Verifica pacchetto e gestione mondi"
+            },
+            {
+              "problem": "Il gruppo si separa",
+              "answer": "Seleziona i partecipanti prima del viaggio"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "calendar-events",
+      "number": "11",
+      "label": "Calendario ed eventi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Dare ritmo alla famiglia senza riempire ogni giorno",
+      "introduction": "Festività, compleanni ed eventi sociali funzionano meglio quando preparazione, ospiti e obiettivi rispettano la capacità reale della casa.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/11-calendar-events.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Calendario ed eventi",
+          "caption": "Calendario ed eventi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_537683e5e29c2d6d02c64aa7321dcb26166f7d82.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta calendario ed eventi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Controlla la settimana in anticipo",
+            "Prepara spazio e oggetti",
+            "Invita pochi ospiti pertinenti",
+            "Completa prima gli obiettivi semplici",
+            "Lascia tempo per chiudere l’evento"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Dare ritmo alla famiglia senza riempire ogni giorno” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Crea tradizioni sostenibili",
+            "Non sovrapporre lavoro ed evento",
+            "Usa eventi senza medaglia quando vuoi libertà"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La festa fallisce",
+              "answer": "Riduci obiettivi e migliora accessibilità del lotto"
+            },
+            {
+              "problem": "Un compleanno passa inosservato",
+              "answer": "Controlla calendario e torta prima dell’orario"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "packs-scope",
+      "number": "12",
+      "label": "Pacchetti e sistemi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Aggiungere contenuti senza perdere il centro della partita",
+      "introduction": "Espansioni, Game Pack, Stuff Pack e kit introducono mondi, sistemi e oggetti diversi; scegli ciò che sostiene la storia corrente.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/12-packs-scope.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Pacchetti e sistemi",
+          "caption": "Pacchetti e sistemi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_2fc938d99a1e87893852cb2d2113478190607941.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta pacchetti e sistemi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Definisci la funzione desiderata",
+            "Leggi cosa include davvero il pacchetto",
+            "Controlla compatibilità e spazio",
+            "Installa prima su un salvataggio copia",
+            "Integra un sistema alla volta"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Aggiungere contenuti senza perdere il centro della partita” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non comprare solo per un singolo oggetto",
+            "Disattiva ciò che non vuoi usare",
+            "Mantieni una nota dei pacchetti attivi"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Una guida cita un sistema assente",
+              "answer": "Controlla il pacchetto richiesto"
+            },
+            {
+              "problem": "Dopo l’installazione tutto cambia",
+              "answer": "Prova un salvataggio nuovo e verifica conflitti"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "gallery",
+      "number": "13",
+      "label": "Galleria e Biblioteca",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Condividere creazioni senza perdere dipendenze e attribuzione",
+      "introduction": "La Galleria rende immediato importare lotti e famiglie, ma filtri, contenuti personalizzati e pacchetti mancanti cambiano il risultato.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/13-gallery.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Galleria e Biblioteca",
+          "caption": "Galleria e Biblioteca · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_e1f0ce3ca2c9a538e382cc8b040944fe05af4bb2.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta galleria e biblioteca come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Controlla connessione e account",
+            "Filtra per tipo e pacchetti posseduti",
+            "Leggi descrizione e crediti",
+            "Salva prima nella Biblioteca",
+            "Posiziona su un lotto compatibile"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Condividere creazioni senza perdere dipendenze e attribuzione” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Verifica sostituzioni degli oggetti",
+            "Attribuisci sempre l’autore",
+            "Conserva una copia locale delle tue creazioni"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il lotto è incompleto",
+              "answer": "Controlla pacchetti e contenuti personalizzati"
+            },
+            {
+              "problem": "Non trovo la creazione",
+              "answer": "Rivedi filtri e voce Contenuti personalizzati"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "mods-custom-content",
+      "number": "14",
+      "label": "Mod e contenuti personalizzati",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Personalizzare senza affidare il salvataggio al caso",
+      "introduction": "Mod e CC sono esterni al gioco: aggiornamenti, dipendenze e ordine richiedono una cartella leggibile e un test controllato.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/14-mods-custom-content.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Mod e contenuti personalizzati",
+          "caption": "Mod e contenuti personalizzati · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_b447d6436d2d00cd5e7c170e509b2246dfc879e8.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta mod e contenuti personalizzati come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Fai backup dei salvataggi",
+            "Aggiorna una mod dalla fonte originale",
+            "Leggi dipendenze e versione",
+            "Prova in piccoli gruppi",
+            "Rimuovi la cache quando indicato"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Personalizzare senza affidare il salvataggio al caso” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Separa mod script e cosmetiche",
+            "Conserva un elenco con versioni",
+            "Dopo una patch avvia prima senza mod"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il gioco non parte",
+              "answer": "Sposta temporaneamente la cartella Mods e testa"
+            },
+            {
+              "problem": "Interfaccia deformata",
+              "answer": "Aggiorna prima le mod che cambiano UI"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "saves-recovery",
+      "number": "15",
+      "label": "Salvataggi e diagnosi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Proteggere anni virtuali con copie comprensibili",
+      "introduction": "Salva con nome, backup e versioni separate prima di patch, mod o ristrutturazioni; ripara una variabile per volta.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/15-saves-recovery.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Salvataggi e diagnosi",
+          "caption": "Salvataggi e diagnosi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_537683e5e29c2d6d02c64aa7321dcb26166f7d82.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta salvataggi e diagnosi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Usa Salva con nome periodicamente",
+            "Copia la cartella dei salvataggi",
+            "Conserva tre generazioni",
+            "Prova il recupero su una copia",
+            "Annota l’ultima modifica stabile"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Proteggere anni virtuali con copie comprensibili” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non sincronizzare alla cieca file corrotti",
+            "Distingui lotto, famiglia e salvataggio",
+            "Verifica lo spazio libero"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un salvataggio non compare",
+              "answer": "Controlla cartella, profilo e file recuperabili"
+            },
+            {
+              "problem": "Il lotto resta bloccato",
+              "answer": "Prova un’altra famiglia e ripara il gioco"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "living-updates",
+      "number": "16",
+      "label": "Guida Viva",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Aggiornare il gioco senza riscrivere la famiglia",
+      "introduction": "The Sims 4 continua a ricevere patch e contenuti: questo capitolo aiuta a mantenere salvataggi, mod e pacchetti ordinati nel tempo.",
+      "images": [
+        {
+          "src": "/atlas/the-sims-4/chapters/16-living-updates.webp",
+          "alt": "Immagine ufficiale di The Sims 4 associata al capitolo Guida Viva",
+          "caption": "Guida Viva · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1222670/ss_537683e5e29c2d6d02c64aa7321dcb26166f7d82.1920x1080.jpg?t=1786121820"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta guida viva come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Leggi note ufficiali",
+            "Fai backup prima della patch",
+            "Controlla mod e CC",
+            "Prova una copia del salvataggio",
+            "Approva soltanto correzioni verificate"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Aggiornare il gioco senza riscrivere la famiglia” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non aggiornare una guida da indiscrezioni",
+            "Separa novità gratuite e pacchetti",
+            "Registra data e piattaforme interessate"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Una meccanica è cambiata",
+              "answer": "Confronta note ufficiali e prova pulita"
+            },
+            {
+              "problem": "Una mod è incompatibile",
+              "answer": "Attendi l’autore o rimuovila dalla copia di test"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "start",
+      "label": "Crea la famiglia",
+      "summary": "Versione, identità e obiettivi iniziali.",
+      "icon": {
+        "src": "/atlas/the-sims-4/chapters/01-install-packs.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a versione e pacchetti in The Sims 4",
+        "caption": "Versione e pacchetti · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/the-sims-4/guide-section-icons-v1.webp",
+        "position": "0% 0%"
+      },
+      "chapterIds": [
+        "install-packs",
+        "create-a-sim",
+        "aspirations-traits"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-sims-4/section-icons-imagegen-v1/01-start.webp",
+        "alt": "Icona illustrata della sezione Crea la famiglia",
+        "caption": "Crea la famiglia · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "home",
+      "label": "Costruisci la casa",
+      "summary": "Spazi, bisogni e denaro domestico.",
+      "icon": {
+        "src": "/atlas/the-sims-4/chapters/04-build-mode.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a modalità costruisci in The Sims 4",
+        "caption": "Modalità Costruisci · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/the-sims-4/guide-section-icons-v1.webp",
+        "position": "50% 0%"
+      },
+      "chapterIds": [
+        "build-mode",
+        "live-mode-needs",
+        "money-household"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-sims-4/section-icons-imagegen-v1/02-home.webp",
+        "alt": "Icona illustrata della sezione Costruisci la casa",
+        "caption": "Costruisci la casa · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "grow",
+      "label": "Fai crescere le vite",
+      "summary": "Abilità, carriere e relazioni.",
+      "icon": {
+        "src": "/atlas/the-sims-4/chapters/06-skills.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a abilità in The Sims 4",
+        "caption": "Abilità · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/the-sims-4/guide-section-icons-v1.webp",
+        "position": "100% 0%"
+      },
+      "chapterIds": [
+        "skills",
+        "careers",
+        "relationships"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-sims-4/section-icons-imagegen-v1/03-grow.webp",
+        "alt": "Icona illustrata della sezione Fai crescere le vite",
+        "caption": "Fai crescere le vite · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "world",
+      "label": "Abita il quartiere",
+      "summary": "Mondi, calendario e contenuti installati.",
+      "icon": {
+        "src": "/atlas/the-sims-4/chapters/10-worlds-travel.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a mondi e viaggi in The Sims 4",
+        "caption": "Mondi e viaggi · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/the-sims-4/guide-section-icons-v1.webp",
+        "position": "0% 100%"
+      },
+      "chapterIds": [
+        "worlds-travel",
+        "calendar-events",
+        "packs-scope"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-sims-4/section-icons-imagegen-v1/04-world.webp",
+        "alt": "Icona illustrata della sezione Abita il quartiere",
+        "caption": "Abita il quartiere · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "share",
+      "label": "Condividi con cura",
+      "summary": "Galleria, mod e salvataggi protetti.",
+      "icon": {
+        "src": "/atlas/the-sims-4/chapters/13-gallery.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a galleria e biblioteca in The Sims 4",
+        "caption": "Galleria e Biblioteca · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/the-sims-4/guide-section-icons-v1.webp",
+        "position": "50% 100%"
+      },
+      "chapterIds": [
+        "gallery",
+        "mods-custom-content",
+        "saves-recovery"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-sims-4/section-icons-imagegen-v1/05-share.webp",
+        "alt": "Icona illustrata della sezione Condividi con cura",
+        "caption": "Condividi con cura · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "live",
+      "label": "Segui gli aggiornamenti",
+      "summary": "Salvataggi, mod e contenuti nel tempo.",
+      "icon": {
+        "src": "/atlas/the-sims-4/chapters/16-living-updates.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a guida viva in The Sims 4",
+        "caption": "Guida Viva · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/the-sims-4/guide-section-icons-v1.webp",
+        "position": "100% 100%"
+      },
+      "chapterIds": [
+        "living-updates"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-sims-4/section-icons-imagegen-v1/06-live.webp",
+        "alt": "Icona illustrata della sezione Segui gli aggiornamenti",
+        "caption": "Segui gli aggiornamenti · icona tematica generata con ImageGen"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "The Sims 4 · sito ufficiale",
+      "href": "https://www.ea.com/games/the-sims/the-sims-4"
+    },
+    {
+      "label": "The Sims 4 · notizie",
+      "href": "https://www.ea.com/games/the-sims/the-sims-4/news"
+    },
+    {
+      "label": "The Sims 4 · download",
+      "href": "https://www.ea.com/games/the-sims/the-sims-4/download"
+    },
+    {
+      "label": "EA Help · The Sims 4",
+      "href": "https://help.ea.com/en/games/the-sims/the-sims-4/"
+    }
+  ]
+}

@@ -3,23 +3,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArtCatalog } from "@/components/ArtCatalog";
 import { UniverseGuide } from "@/components/UniverseGuide";
+import { ArtworkBundlePurchaseButton } from "@/components/ArtworkBundlePurchaseButton";
+import { HorrorPromotionTimer } from "@/components/HorrorPromotionTimer";
 import {
   catalogArtworks,
   commercialOriginalArtworks,
   exhibitionOnlyArtworks,
 } from "@/lib/artCatalog";
+import { horrorArtworkBundles, isHorrorArtworkBundleActive } from "@/lib/horrorArtworkBundles";
 
 export const metadata: Metadata = {
   title: "Arte in Vetrina",
-  description: "Esplora 67 opere digitali GiWise Studio: originali acquistabili e opere in esposizione, con schede, filigrana e licenze trasparenti.",
+  description: `Esplora ${catalogArtworks.length} opere digitali GiWise Studio: originali acquistabili e opere in esposizione, con schede, filigrana e licenze trasparenti.`,
   openGraph: {
     title: "Arte in Vetrina | LoreWise Universe",
-    description: "67 opere digitali protette, divise tra originali GiWise acquistabili e opere in esposizione.",
+    description: `${catalogArtworks.length} opere digitali protette, divise tra originali GiWise acquistabili e opere in esposizione.`,
     images: [{ url: "/brand/art-portals/originals-emblem-v1.webp", alt: "Emblema illustrato delle opere originali GiWise" }],
   },
 };
 
-export default function ArtPage() {
+export default async function ArtPage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
+  const query = await searchParams;
+  const localPreview = query?.anteprima === "halloween" && process.env.LOREWISE_LOCAL_CALENDAR_PREVIEW === "true";
+  const showHorrorBundles = localPreview || isHorrorArtworkBundleActive();
   return (
     <main className="art-page">
       <section className="art-page-hero" aria-labelledby="art-page-title">
@@ -52,6 +58,35 @@ export default function ArtPage() {
           <article><span>03</span><h3>Fan art non ufficiale</h3><p>Reinterpretazione di personaggi riconoscibili, mostrata soltanto come anteprima protetta.</p></article>
         </div>
       </section>
+
+      {showHorrorBundles ? <section className="horror-bundles" id="collezioni-horror" aria-labelledby="horror-bundles-title">
+        <div className="shell horror-bundles-heading">
+          <p className="eyebrow">Collezioni di Halloween · Edizione limitata</p>
+          <h2 id="horror-bundles-title">Una collezione per entrare nell’ombra.</h2>
+          <p>La collezione riunisce tre opere originali già presenti in vetrina. Ricevi i tre file digitali con licenza personale: nessuna nuova versione, nessun disegno duplicato.</p>
+          <div><strong>24,90 €</strong><span>per collezione · dal 1° ottobre al 1° novembre 2026</span></div>
+          <HorrorPromotionTimer preview={localPreview} />
+        </div>
+        <div className="shell horror-bundle-list">
+          {horrorArtworkBundles.map((bundle, index) => <article className="horror-bundle" key={bundle.code} id={bundle.slug}>
+            <header>
+              <span>Collezione 0{index + 1}</span>
+              <h3>{bundle.title}</h3>
+              <p>{bundle.theme}</p>
+            </header>
+            <div className="horror-bundle-artworks">
+              {bundle.artworks.map((artwork) => <figure key={artwork.code}>
+                <Image src={artwork.image} alt={`Anteprima protetta di ${artwork.title}`} width={1131} height={1600} unoptimized />
+                <figcaption><small>{artwork.code}</small><strong>{artwork.title}</strong></figcaption>
+              </figure>)}
+            </div>
+            <footer>
+              <div><s>{new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR" }).format(bundle.originalTotalCents / 100)}</s><strong>{bundle.priceLabel}</strong><span>Tre licenze digitali personali · offerta non cumulabile</span></div>
+              <ArtworkBundlePurchaseButton productCode={bundle.code} />
+            </footer>
+          </article>)}
+        </div>
+      </section> : null}
 
       <ArtCatalog artworks={catalogArtworks} />
 

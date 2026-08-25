@@ -1,0 +1,1103 @@
+{
+  "id": "cyberpunk-2077-complete-guide-01",
+  "slug": "cyberpunk-2077",
+  "code": "LW-ATLAS-CP77-001",
+  "game": "Cyberpunk 2077",
+  "title": "Manuale di sopravvivenza a Night City",
+  "subtitle": "Dalla creazione di V a Phantom Liberty, per costruire una mercenaria o un mercenario efficace senza perdere il controllo della storia.",
+  "description": "Sedici capitoli e quarantotto schede operative dedicate a edizioni, impostazioni, V, attributi, cyberware, combattimento, hacking, veicoli, quartieri, incarichi, economia, relazioni, storia, finali, Phantom Liberty e Update 2.3.",
+  "versionLabel": "Ultimate Edition · Update 2.3 · Phantom Liberty · verifica 24 agosto 2026",
+  "updatedAt": "24 agosto 2026",
+  "vipFrom": "2026-11-23T00:00:00+01:00",
+  "publicAt": "2026-11-30T00:00:00+01:00",
+  "theme": "cyberpunk-2077",
+  "cover": {
+    "src": "/atlas/cyberpunk-2077/cover.webp",
+    "alt": "V e un’auto davanti allo skyline di Night City",
+    "caption": "Night City · screenshot ufficiale dello store Steam mostrato integralmente",
+    "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_526123764d1c628caa1eb62c596f1b732f416c8c.1920x1080.jpg"
+  },
+  "storeUrl": "https://www.cyberpunk.net/us/en/buy",
+  "storeLabel": "Acquista Cyberpunk 2077",
+  "livingGuide": {
+    "enabled": true,
+    "announcement": "Ultimate Edition, Phantom Liberty e Update 2.3 riuniti in un unico percorso.",
+    "scope": {
+      "expansion": "Phantom Liberty",
+      "contentUpdate": "Update 2.3",
+      "season": "Edizione corrente"
+    },
+    "cadence": "monthly",
+    "lastCheckedAt": "2026-08-24",
+    "nextCheckAt": "2026-09-24T09:00:00+02:00",
+    "notificationTarget": "/notifiche",
+    "approvalRequired": true,
+    "monitoredSourceUrls": [
+      "https://www.cyberpunk.net/us/en/update-2.3",
+      "https://www.cyberpunk.net/en/news/51674/update-2-3-patch-notes",
+      "https://support.cdprojektred.com/en/cyberpunk/pc"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "editions-platforms",
+      "number": "01",
+      "label": "Edizioni e piattaforme",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Scegliere base game, espansione e piattaforma corretti",
+      "introduction": "La Ultimate Edition comprende il gioco base e Phantom Liberty; Update 2.3 è gratuito per chi possiede il gioco sulle piattaforme supportate.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/01-editions-platforms.webp",
+          "alt": "Night City vista dalle strade sopraelevate",
+          "caption": "Edizioni e piattaforme · Night City su PC · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_872822c5e50dc71f345416098d29fc3ae5cd26c1.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "La Ultimate Edition comprende il gioco base e Phantom Liberty; Update 2.3 è gratuito per chi possiede il gioco sulle piattaforme supportate.",
+          "steps": [
+            "Confronta base e Ultimate Edition",
+            "Verifica che Phantom Liberty sia inclusa",
+            "Controlla spazio libero e requisiti",
+            "Collega l’account CD PROJEKT RED se vuoi il cross-progression",
+            "Scarica ogni pacchetto prima di iniziare"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Scegliere base game, espansione e piattaforma corretti” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Phantom Liberty non è disponibile su PS4 e Xbox One",
+            "La versione attuale è pensata per PC, PS5, Xbox Series, Switch 2 e Mac",
+            "Conserva la ricevuta dello store usato"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "L’espansione non compare",
+              "answer": "Controlla licenza, piattaforma e download separato"
+            },
+            {
+              "problem": "Il gioco avvia una versione precedente",
+              "answer": "Verifica aggiornamenti e spazio libero"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "settings-accessibility",
+      "number": "02",
+      "label": "Impostazioni e accessibilità",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Rendere Night City leggibile prima del primo incarico",
+      "introduction": "Interfaccia, sottotitoli, difficoltà, mira, camera, grafica e densità urbana vanno regolati prima di giudicare il combattimento.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/02-settings-accessibility.webp",
+          "alt": "Night City illuminata di notte",
+          "caption": "Impostazioni e leggibilità nella città notturna · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_ae4465fa8a44dd330dbeb7992ba196c2f32cabb1.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Interfaccia, sottotitoli, difficoltà, mira, camera, grafica e densità urbana vanno regolati prima di giudicare il combattimento.",
+          "steps": [
+            "Imposta lingua, sottotitoli e dimensione testo",
+            "Regola luminosità e campo visivo",
+            "Scegli difficoltà e aiuti alla mira",
+            "Controlla motion blur, aberrazione e vibrazione",
+            "Prova guida e combattimento in una zona sicura"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Rendere Night City leggibile prima del primo incarico” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "La modalità prestazioni aiuta la risposta ai comandi",
+            "Riduci gli effetti che causano affaticamento",
+            "Conserva un preset stabile prima di sperimentare"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Il testo è difficile da leggere",
+              "answer": "Aumenta sottotitoli e contrasto HUD"
+            },
+            {
+              "problem": "La guida del veicolo dà nausea",
+              "answer": "Riduci movimento camera e motion blur"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "character-lifepath",
+      "number": "03",
+      "label": "V e percorso di vita",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Creare V senza confondere identità e statistiche",
+      "introduction": "Aspetto, voce e percorso di vita definiscono presentazione e opzioni narrative; non determinano da soli una build superiore.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/03-character-lifepath.webp",
+          "alt": "Editor dell’aspetto di V",
+          "caption": "Creazione di V · schermata ufficiale · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_af2804aa4bf35d4251043744412ce3b359a125ef.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Aspetto, voce e percorso di vita definiscono presentazione e opzioni narrative; non determinano da soli una build superiore.",
+          "steps": [
+            "Scegli corpo, voce e aspetto",
+            "Valuta Nomade, Ragazzo di strada o Corporativo",
+            "Decidi lo stile di dialogo",
+            "Conferma il livello di nudità desiderato",
+            "Crea un salvataggio prima del prologo"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Creare V senza confondere identità e statistiche” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Il percorso di vita apre dialoghi specifici",
+            "La build si decide soprattutto con attributi, perk e cyberware",
+            "Scegli il prologo che vuoi davvero interpretare"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Temo di perdere contenuti",
+              "answer": "Ogni percorso offre varianti, non una campagna completamente diversa"
+            },
+            {
+              "problem": "Voglio cambiare aspetto",
+              "answer": "Usa specchi e servizi disponibili, verificando ciò che resta modificabile"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "attributes-perks",
+      "number": "04",
+      "label": "Attributi, perk e build",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Costruire un ciclo di gioco che sai spiegare",
+      "introduction": "Corpo, Riflessi, Abilità tecnica, Intelligenza e Freddezza sostengono famiglie diverse di armi, dialoghi e azioni.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/04-attributes-perks.webp",
+          "alt": "Albero degli attributi e dei perk nel Build Planner ufficiale",
+          "caption": "Attributi e perk · Build Planner ufficiale mostrato integralmente",
+          "sourceUrl": "https://static.cdprojektred.com/cms.cdprojektred.com/16x9_big/ddf0ae3a1c70d90888f491db5125f3a0f6d0e492-1280x720.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Corpo, Riflessi, Abilità tecnica, Intelligenza e Freddezza sostengono famiglie diverse di armi, dialoghi e azioni.",
+          "steps": [
+            "Scegli un’azione principale",
+            "Individua l’attributo che la sostiene",
+            "Aggiungi sopravvivenza e mobilità",
+            "Spendi perk lungo una sola sinergia alla volta",
+            "Prova la rotazione prima di salire di livello"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Costruire un ciclo di gioco che sai spiegare” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non distribuire punti in modo uniforme",
+            "I perk si possono riorganizzare più facilmente degli attributi",
+            "Mantieni almeno una soluzione contro bersagli corazzati o lontani"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "La build sembra debole",
+              "answer": "Controlla arma, attributo, perk e cyberware come unico sistema"
+            },
+            {
+              "problem": "Hai troppi comandi",
+              "answer": "Riduci le abilità attive e scegli un ciclo più semplice"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "cyberware-health",
+      "number": "05",
+      "label": "Cyberware e sopravvivenza",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Aumentare la potenza senza saturare la capacità",
+      "introduction": "Il cyberware governa armatura, mobilità, sistema operativo e strumenti offensivi; ogni impianto deve sostenere la build.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/05-cyberware-health.webp",
+          "alt": "Mercenario con un braccio cibernetico in piena luce davanti a una clinica",
+          "caption": "Cyberware e salute · impianto cibernetico mostrato integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_284ba40590de8f604ae693631c751a0aefdc452e.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Il cyberware governa armatura, mobilità, sistema operativo e strumenti offensivi; ogni impianto deve sostenere la build.",
+          "steps": [
+            "Scegli sistema operativo",
+            "Controlla capacità cyberware",
+            "Aggiungi difesa e cura",
+            "Installa mobilità coerente",
+            "Confronta il risultato in combattimento"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Aumentare la potenza senza saturare la capacità” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Cyberdeck, Sandevistan e Berserk richiedono stili diversi",
+            "Non comprare ogni rarità senza leggere l’effetto",
+            "Bilancia armatura, vita e mitigazione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Non posso installare un impianto",
+              "answer": "Aumenta capacità o libera uno slot"
+            },
+            {
+              "problem": "Muoio durante la ricarica",
+              "answer": "Rivedi cura, copertura e attivazione difensiva"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "combat-weapons",
+      "number": "06",
+      "label": "Combattimento e armi",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere distanza, coperture e priorità",
+      "introduction": "Pistole, fucili, armi tecniche, smart, lame e corpo a corpo cambiano gestione di munizioni, posizione e tempo d’esposizione.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/06-combat-weapons.webp",
+          "alt": "Scontro ravvicinato contro avversari potenziati",
+          "caption": "Combattimento e lettura delle minacce · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_0002f18563d313bdd1d82c725d411408ebf762b0.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Pistole, fucili, armi tecniche, smart, lame e corpo a corpo cambiano gestione di munizioni, posizione e tempo d’esposizione.",
+          "steps": [
+            "Scansiona il gruppo",
+            "Segna netrunner e tiratori",
+            "Apri da copertura",
+            "Usa mobilità per cambiare angolo",
+            "Raccogli bottino dopo lo scontro"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Leggere distanza, coperture e priorità” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Porta due soluzioni con distanze diverse",
+            "Ricarica dietro copertura",
+            "Non inseguire un nemico dentro un secondo gruppo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Le munizioni finiscono",
+              "answer": "Alterna armi o migliora economia dei colpi"
+            },
+            {
+              "problem": "Un’élite assorbe tutto",
+              "answer": "Controlla tipo di danno, armatura e punti deboli"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "stealth-netrunning",
+      "number": "07",
+      "label": "Furtività e netrunning",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Entrare in un’area prima con gli occhi e poi con le armi",
+      "introduction": "Telecamere, access point, quickhack, RAM e tracciamento permettono di ridurre il rischio prima del contatto diretto.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/07-stealth-netrunning.webp",
+          "alt": "V si muove in un vicolo sorvegliato di Night City",
+          "caption": "Furtività e accesso agli ambienti · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_b529b0abc43f55fc23fe8058eddb6e37c9629a6a.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Telecamere, access point, quickhack, RAM e tracciamento permettono di ridurre il rischio prima del contatto diretto.",
+          "steps": [
+            "Scansiona telecamere e guardie",
+            "Individua una via verticale",
+            "Disattiva o controlla i dispositivi",
+            "Isola il primo bersaglio",
+            "Prepara un’uscita se parte l’allarme"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Entrare in un’area prima con gli occhi e poi con le armi” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Controlla costo RAM e coda dei quickhack",
+            "Sposta i corpi fuori dalle pattuglie",
+            "La furtività non obbliga a evitare ogni scontro"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Vengo localizzato subito",
+              "answer": "Interrompi il tracciamento e cambia posizione"
+            },
+            {
+              "problem": "La RAM non basta",
+              "answer": "Riduci il costo o scegli quickhack più essenziali"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "vehicles",
+      "number": "08",
+      "label": "Veicoli e spostamenti",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Scegliere il mezzo per strada, combattimento e atmosfera",
+      "introduction": "Auto e moto hanno massa, visibilità e risposta diverse; Update 2.3 amplia collezione, guida autonoma e personalizzazione.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/08-vehicles.webp",
+          "alt": "Automobile sportiva in officina",
+          "caption": "Veicoli, collezione e personalizzazione · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_0e64170751e1ae20ff8fdb7001a8892fd48260e7.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Auto e moto hanno massa, visibilità e risposta diverse; Update 2.3 amplia collezione, guida autonoma e personalizzazione.",
+          "steps": [
+            "Prova visuale interna ed esterna",
+            "Regola sensibilità di guida",
+            "Salva un veicolo preferito",
+            "Usa la chiamata lontano dagli ostacoli",
+            "Sperimenta CrystalCoat dove supportato"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Scegliere il mezzo per strada, combattimento e atmosfera” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Le moto aiutano nel traffico",
+            "Le auto proteggono meglio negli scontri",
+            "Non iniziare una sparatoria senza una via di fuga"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Il veicolo non arriva",
+              "answer": "Spostati in una strada libera"
+            },
+            {
+              "problem": "Perdi controllo in curva",
+              "answer": "Frena prima e riduci la correzione improvvisa"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "night-city-districts",
+      "number": "09",
+      "label": "Night City e quartieri",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Esplorare senza trasformare la mappa in una lista",
+      "introduction": "Watson, Westbrook, City Center, Heywood, Santo Domingo, Pacifica e Badlands hanno identità, pericoli e incarichi differenti.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/09-night-city-districts.webp",
+          "alt": "Panorama urbano di Night City alla luce del giorno",
+          "caption": "Quartieri e orientamento urbano · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_9284d1c5b248726760233a933dbb83757d7d5d95.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Watson, Westbrook, City Center, Heywood, Santo Domingo, Pacifica e Badlands hanno identità, pericoli e incarichi differenti.",
+          "steps": [
+            "Apri punti di viaggio",
+            "Scegli un quartiere per sessione",
+            "Raggruppa incarichi vicini",
+            "Osserva verticalità e accessi",
+            "Rientra quando l’inventario è pieno"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Esplorare senza trasformare la mappa in una lista” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Camminare rivela più eventi della guida rapida",
+            "Il livello di pericolo conta meno di build e attenzione",
+            "Lascia attività secondarie per cambiare ritmo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Un segnalino sembra irraggiungibile",
+              "answer": "Cerca scale, ascensori e livelli stradali"
+            },
+            {
+              "problem": "La mappa è opprimente",
+              "answer": "Filtra categorie e scegli un solo obiettivo"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "gigs-ncpd",
+      "number": "10",
+      "label": "Incarichi, fixer e NCPD",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Capire obiettivo e ricompensa prima di sparare",
+      "introduction": "Gli incarichi premiano approcci diversi, mentre le attività NCPD sono più immediate e utili per denaro, esperienza e materiali.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/10-gigs-ncpd.webp",
+          "alt": "Inseguimento tra V e la polizia",
+          "caption": "Incarichi, pericoli e risposta della polizia · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_7924f64b6e5d586a80418c9896a1c92881a7905b.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Gli incarichi premiano approcci diversi, mentre le attività NCPD sono più immediate e utili per denaro, esperienza e materiali.",
+          "steps": [
+            "Leggi il messaggio del fixer",
+            "Scansiona l’edificio",
+            "Scegli furtività o assalto",
+            "Completa eventuali obiettivi facoltativi",
+            "Controlla il messaggio di chiusura"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Capire obiettivo e ricompensa prima di sparare” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non lasciare l’area prima della conferma",
+            "I bonus dipendono spesso dal metodo",
+            "Usa gli incarichi per provare la build"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "L’incarico non termina",
+              "answer": "Controlla oggetti, messaggi e area evidenziata"
+            },
+            {
+              "problem": "Il fixer non chiama",
+              "answer": "Avvicinati correttamente o verifica lo stato della missione"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "economy-crafting",
+      "number": "11",
+      "label": "Economia, bottino e creazione",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Tenere soltanto ciò che sostiene la build",
+      "introduction": "Crediti, componenti, armi iconiche e materiali diventano gestibili con una routine di confronto e deposito.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/11-economy-crafting.webp",
+          "alt": "V parla con una fixer in un mercato",
+          "caption": "Fixer, ricompense ed economia · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_bb1a60b8e5061caef7208369f42c5c9d574c9ac4.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Crediti, componenti, armi iconiche e materiali diventano gestibili con una routine di confronto e deposito.",
+          "steps": [
+            "Segna armi iconiche",
+            "Confronta danno e sinergie",
+            "Smonta ciò che serve ai componenti",
+            "Vendi il resto",
+            "Conserva un set alternativo nel deposito"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Tenere soltanto ciò che sostiene la build” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non valutare un’arma solo dal DPS",
+            "Proteggi gli oggetti iconici",
+            "Compra cyberware prima di consumabili casuali"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "L’inventario è pieno",
+              "answer": "Smonta, vendi e usa il deposito del veicolo"
+            },
+            {
+              "problem": "I crediti finiscono",
+              "answer": "Riduci acquisti cosmetici e completa incarichi mirati"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "relationships",
+      "number": "12",
+      "label": "Relazioni e romance",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Rispettare tempi, identità e richieste dei personaggi",
+      "introduction": "Judy, Panam, River, Kerry e altri alleati sviluppano archi distinti; dialoghi e disponibilità dipendono da scelte precedenti.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/12-relationships.webp",
+          "alt": "V conversa in automobile",
+          "caption": "Relazioni e dialoghi a Night City · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_2f649b68d579bf87011487d29bc4ccbfdd97d34f.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Judy, Panam, River, Kerry e altri alleati sviluppano archi distinti; dialoghi e disponibilità dipendono da scelte precedenti.",
+          "steps": [
+            "Ascolta le chiamate",
+            "Completa le missioni personali",
+            "Evita risposte che contraddicono il ruolo scelto",
+            "Non forzare ogni opzione romantica",
+            "Salva prima dei dialoghi decisivi"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Rispettare tempi, identità e richieste dei personaggi” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non tutte le romance sono disponibili a ogni V",
+            "L’amicizia resta un percorso completo",
+            "Le conseguenze possono arrivare molte ore dopo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Una missione personale non parte",
+              "answer": "Attendi tempo di gioco e completa il passaggio precedente"
+            },
+            {
+              "problem": "Hai chiuso una relazione",
+              "answer": "Torna a un salvataggio precedente solo se vuoi davvero riscriverla"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "main-story",
+      "number": "13",
+      "label": "Storia principale",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Seguire il Relic senza perdere Night City",
+      "introduction": "La campagna alterna urgenza narrativa e libertà reale: gli atti principali aprono personaggi, quartieri e sistemi.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/13-main-story.webp",
+          "alt": "Johnny Silverhand davanti alle luci di Night City",
+          "caption": "Johnny Silverhand e la storia principale · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_8640d9db74f7cad714f6ecfb0e1aceaa3f887e58.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "La campagna alterna urgenza narrativa e libertà reale: gli atti principali aprono personaggi, quartieri e sistemi.",
+          "steps": [
+            "Mantieni un salvataggio per atto",
+            "Alterna storia e secondarie",
+            "Leggi messaggi dopo le missioni",
+            "Completa gli archi degli alleati",
+            "Fermati prima del punto di non ritorno"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Seguire il Relic senza perdere Night City” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Il timer narrativo non è sempre un timer reale",
+            "Le secondarie modificano le opzioni finali",
+            "Non leggere guide ai finali prima del momento decisivo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Temi di avanzare troppo",
+              "answer": "Controlla l’avviso di punto di non ritorno"
+            },
+            {
+              "problem": "Una missione sembra bloccata",
+              "answer": "Passa tempo, allontanati e attendi la chiamata"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "endings-completion",
+      "number": "14",
+      "label": "Finali e completamento",
+      "estimatedRead": "14–19 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Preparare le opzioni finali senza rivelarle",
+      "introduction": "I finali dipendono dagli archi completati, da scelte precise e, con Phantom Liberty, da ulteriori possibilità.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/14-endings-completion.webp",
+          "alt": "Figura solitaria nelle Badlands",
+          "caption": "Finali e conseguenze protette · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_ff3d920e254d18aa2a25d3765ac2ebe845efd208.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "I finali dipendono dagli archi completati, da scelte precise e, con Phantom Liberty, da ulteriori possibilità.",
+          "steps": [
+            "Completa missioni degli alleati",
+            "Conserva un salvataggio prima del punto di non ritorno",
+            "Controlla equipaggiamento e consumabili",
+            "Scegli secondo il tuo V",
+            "Rientra nel salvataggio di completamento per altri percorsi"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Preparare le opzioni finali senza rivelarle” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Ogni finale ha un tono diverso",
+            "Il cento per cento non richiede una sola conclusione",
+            "Proteggi la prima scelta dalle anticipazioni"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Manca un’opzione",
+              "answer": "Non hai completato l’arco collegato"
+            },
+            {
+              "problem": "Vuoi vedere altri finali",
+              "answer": "Usa il salvataggio precedente senza cancellare quello originale"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "phantom-liberty",
+      "number": "15",
+      "label": "Phantom Liberty",
+      "estimatedRead": "14–19 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Entrare a Dogtown al momento giusto",
+      "introduction": "L’espansione aggiunge una storia di spionaggio, il distretto di Dogtown, Relic perk, incarichi, veicoli e finali collegati.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/15-phantom-liberty.webp",
+          "alt": "Mercato notturno di Dogtown illuminato da lanterne",
+          "caption": "Phantom Liberty · Dogtown riconoscibile e mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2138330/ss_0e506eb18c5b9c2a6adabaa763592a91114fa3d4.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "L’espansione aggiunge una storia di spionaggio, il distretto di Dogtown, Relic perk, incarichi, veicoli e finali collegati.",
+          "steps": [
+            "Verifica installazione dell’espansione",
+            "Raggiungi il punto d’accesso nella storia",
+            "Crea un salvataggio separato",
+            "Esplora Dogtown prima di correre",
+            "Spendi Relic point sulla build reale"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Entrare a Dogtown al momento giusto” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Dogtown è più verticale e densa",
+            "Le decisioni hanno conseguenze importanti",
+            "Alterna incarichi di Mr. Hands e trama principale"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "La chiamata non arriva",
+              "answer": "Avanza la storia base e controlla il download"
+            },
+            {
+              "problem": "Un finale cambia il percorso",
+              "answer": "Usa il salvataggio separato per esplorare altre scelte"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "update-23-future",
+      "number": "16",
+      "label": "Update 2.3 e contenuti",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Usare le novità senza ricominciare la partita",
+      "introduction": "Update 2.3 aggiunge veicoli, AutoDrive, taxi Delamain, Photo Mode ampliato e nuove opzioni di personalizzazione su piattaforme supportate.",
+      "images": [
+        {
+          "src": "/atlas/cyberpunk-2077/chapters/16-update-23-future.webp",
+          "alt": "Grafica ufficiale dell'Update 2.3 di Cyberpunk 2077",
+          "caption": "Update 2.3 · grafica ufficiale mostrata integralmente",
+          "sourceUrl": "https://common.cdn.cdpr.app/news/439d3d1d9f367237bcfddf6851f48eb3_q90_1280x720.png"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Update 2.3 aggiunge veicoli, AutoDrive, taxi Delamain, Photo Mode ampliato e nuove opzioni di personalizzazione su piattaforme supportate.",
+          "steps": [
+            "Aggiorna gioco e driver",
+            "Carica un salvataggio esistente",
+            "Prova AutoDrive in una strada libera",
+            "Controlla nuovi veicoli e CrystalCoat",
+            "Esplora Photo Mode con una scena sicura"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Usare le novità senza ricominciare la partita” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non è necessario iniziare un nuovo V",
+            "Alcune funzioni dipendono dalla piattaforma",
+            "Disattiva le mod incompatibili prima dell’aggiornamento"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Il gioco si chiude dopo la patch",
+              "answer": "Avvia senza mod e verifica i file"
+            },
+            {
+              "problem": "Una funzione non compare",
+              "answer": "Controlla piattaforma, versione e requisiti ufficiali"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "prepare",
+      "label": "Prepara Night City",
+      "summary": "Edizioni, impostazioni e creazione di V.",
+      "icon": {
+        "src": "/atlas/cyberpunk-2077/chapters/01-editions-platforms.webp",
+        "alt": "Night City vista dalle strade sopraelevate",
+        "caption": "Edizioni e piattaforme · Night City su PC · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_872822c5e50dc71f345416098d29fc3ae5cd26c1.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "editions-platforms",
+        "settings-accessibility",
+        "character-lifepath"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/cyberpunk-2077/generated-icons-v1/01-prepare.webp",
+        "alt": "Chip di accesso e skyline al neon",
+        "caption": "Preparazione a Night City · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "build",
+      "label": "Costruisci V",
+      "summary": "Attributi, cyberware e combattimento.",
+      "icon": {
+        "src": "/atlas/cyberpunk-2077/chapters/04-attributes-perks.webp",
+        "alt": "V osserva Night City con la giacca da mercenario",
+        "caption": "Identità e crescita del personaggio · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_429db1d013a0366417d650d84f1eff02d1a18c2d.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "attributes-perks",
+        "cyberware-health",
+        "combat-weapons"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/cyberpunk-2077/generated-icons-v1/02-build.webp",
+        "alt": "Teschio cibernetico attraversato da circuiti",
+        "caption": "Build e cyberware · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "infiltrate",
+      "label": "Entra nel sistema",
+      "summary": "Furtività, hacking e veicoli.",
+      "icon": {
+        "src": "/atlas/cyberpunk-2077/chapters/07-stealth-netrunning.webp",
+        "alt": "V si muove in un vicolo sorvegliato di Night City",
+        "caption": "Furtività e accesso agli ambienti · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_b529b0abc43f55fc23fe8058eddb6e37c9629a6a.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "stealth-netrunning",
+        "vehicles"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/cyberpunk-2077/generated-icons-v1/03-infiltrate.webp",
+        "alt": "Cyberdeck e occhio connessi a una rete",
+        "caption": "Infiltrazione e netrunning · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "city",
+      "label": "Vivi la città",
+      "summary": "Quartieri, incarichi ed economia.",
+      "icon": {
+        "src": "/atlas/cyberpunk-2077/chapters/09-night-city-districts.webp",
+        "alt": "Panorama urbano di Night City alla luce del giorno",
+        "caption": "Quartieri e orientamento urbano · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_9284d1c5b248726760233a933dbb83757d7d5d95.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "night-city-districts",
+        "gigs-ncpd",
+        "economy-crafting"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/cyberpunk-2077/generated-icons-v1/04-city.webp",
+        "alt": "Skyline urbano attraversato da un percorso luminoso",
+        "caption": "Esplorazione di Night City · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "story",
+      "label": "Scegli chi essere",
+      "summary": "Relazioni, storia e finali protetti.",
+      "icon": {
+        "src": "/atlas/cyberpunk-2077/chapters/12-relationships.webp",
+        "alt": "V conversa in automobile",
+        "caption": "Relazioni e dialoghi a Night City · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_2f649b68d579bf87011487d29bc4ccbfdd97d34f.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "relationships",
+        "main-story",
+        "endings-completion"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/cyberpunk-2077/generated-icons-v1/05-story.webp",
+        "alt": "Frammento di memoria con due sagome",
+        "caption": "Storia e conseguenze · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "dogtown",
+      "label": "Oltre il confine",
+      "summary": "Phantom Liberty e Update 2.3.",
+      "icon": {
+        "src": "/atlas/cyberpunk-2077/chapters/15-phantom-liberty.webp",
+        "alt": "Solomon Reed nel distretto di Dogtown",
+        "caption": "Phantom Liberty · Dogtown e Solomon Reed · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/ss_f79fda81e6f3a37e0978054102102d71840f8b57.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "phantom-liberty",
+        "update-23-future"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/cyberpunk-2077/generated-icons-v1/06-dogtown.webp",
+        "alt": "Varco incrinato con uccello-spia",
+        "caption": "Dogtown e Phantom Liberty · icona originale generata con ImageGen"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "Cyberpunk 2077 · sito ufficiale",
+      "href": "https://www.cyberpunk.net/us/en/cyberpunk-2077"
+    },
+    {
+      "label": "Cyberpunk 2077 · Update 2.3",
+      "href": "https://www.cyberpunk.net/us/en/update-2.3"
+    },
+    {
+      "label": "Update 2.3 · note ufficiali",
+      "href": "https://www.cyberpunk.net/en/news/51674/update-2-3-patch-notes"
+    },
+    {
+      "label": "CD PROJEKT RED · supporto",
+      "href": "https://support.cdprojektred.com/en/cyberpunk/pc"
+    },
+    {
+      "label": "Cyberpunk 2077 · Steam",
+      "href": "https://store.steampowered.com/app/1091500/Cyberpunk_2077/"
+    }
+  ]
+}

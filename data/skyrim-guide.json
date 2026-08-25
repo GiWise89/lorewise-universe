@@ -7,7 +7,7 @@
   "subtitle": "Dalla prima fuga alle terre di Solstheim, costruendo un'avventura che rimane davvero tua.",
   "description": "Sedici capitoli pratici per Skyrim Special e Anniversary Edition: edizioni, salvataggi, personaggio, combattimento, furtività, magia, esplorazione, economia, mestieri, seguaci, draghi, fazioni, Hearthfire, Dawnguard, Dragonborn, Sopravvivenza e Creations. La guida evita build obbligatorie e protegge le decisioni narrative.",
   "versionLabel": "Special/Anniversary Edition · aggiornamento 20 agosto 2026",
-  "updatedAt": "23 agosto 2026",
+  "updatedAt": "24 agosto 2026",
   "vipFrom": "2026-09-07T00:00:00+02:00",
   "publicAt": "2026-09-14T00:00:00+02:00",
   "theme": "skyrim",
@@ -17,7 +17,7 @@
     "caption": "Skyrim Anniversary Edition · un decennio di avventure in un solo viaggio"
   },
   "storeUrl": "https://store.steampowered.com/app/489830/The_Elder_Scrolls_V_Skyrim_Special_Edition/",
-  "storeLabel": "Scopri Skyrim su Steam",
+  "storeLabel": "Acquista The Elder Scrolls V: Skyrim",
   "chapters": [
     {
       "id": "editions-saves", "number": "01", "label": "Edizioni e salvataggi", "estimatedRead": "10–13 min", "spoiler": "No spoiler",
@@ -191,7 +191,7 @@
       "images": [{ "src": "/atlas/skyrim/official/16-dwarven-delves.webp", "alt": "Rovina dwemer di una Creation ufficiale per Skyrim", "caption": "Ogni nuovo contenuto apre una porta: il load order decide in quale ordine il mondo la attraversa." }],
       "blocks": [
         { "label": "Sopravvivenza", "title": "Freddo, fame, fatica e distanza diventano sistemi", "text": "Il viaggio rapido è disattivato, la rigenerazione cambia e il peso diventa più severo. Pianifica per tratte, non per indicatori.", "steps": ["Controlla clima e calore prima di partire.", "Porta cibo cotto e una fonte di calore.", "Segna locande, carrozze e ripari lungo il percorso.", "Riduci il bottino e cura presto malattie e afflizioni.", "Dormi per recuperare davvero e consolidare il livello."] },
-        { "label": "Creations e mod", "title": "Un load order leggibile è parte del salvataggio", "text": "Dipendenze e tipi di file stabiliscono l'ordine; Bethesda segnala che ESM ed ESL precedono gli ESP.", "steps": ["Leggi descrizione, requisiti e incompatibilità.", "Installa un gruppo piccolo e coerente.", "Ordina master e dipendenze prima dei plugin collegati.", "Avvia una prova su un salvataggio separato.", "Non rimuovere alla cieca contenuti usati da una partita avanzata."] },
+        { "label": "Creations e mod", "title": "Un load order leggibile è parte del salvataggio", "text": "Dipendenze e tipi di file stabiliscono l'ordine; Bethesda segnala che ESM ed ESL precedono gli ESP. L'aggiornamento ufficiale del 20 agosto 2026 ha inoltre migliorato ripristino e caricamento dei load order e ha ampliato lo spazio per le mod a 15 GB su PlayStation 5 e Xbox.", "steps": ["Leggi descrizione, requisiti e incompatibilità.", "Installa un gruppo piccolo e coerente.", "Ordina master e dipendenze prima dei plugin collegati.", "Avvia una prova su un salvataggio separato.", "Non rimuovere alla cieca contenuti usati da una partita avanzata."], "tips": ["Su PlayStation 4 lo spazio Creations è indicato come circa 16 GB, ma il sistema può mostrare differenze tra dimensione scaricata e spazio realmente occupato.", "Le Creations possono disattivare obiettivi o trofei salvo indicazione contraria; verifica sempre la scheda del contenuto.", "Le Creations certificate come compatibili con obiettivi o trofei richiedono una nuova partita per applicare questa compatibilità."] },
         { "label": "Diagnosi finale", "title": "La checklist prima di chiedere assistenza", "text": "Annota piattaforma, edizione, versione e configurazione prima di cercare una correzione.", "scenarios": [{ "problem": "Il salvataggio non carica", "answer": "Verifica contenuti mancanti, versione e ordine; prova il manuale precedente senza sovrascriverlo." }, { "problem": "Una missione non avanza", "answer": "Rileggi obiettivi, attendi o cambia area, parla ai personaggi coinvolti e verifica eventuali Creations." }, { "problem": "Crash dopo una modifica", "answer": "Ripristina l'ultima configurazione verificata e controlla dipendenze e duplicati." }, { "problem": "Prestazioni peggiorate", "answer": "Riduci modifiche grafiche e script recenti una variabile alla volta." }], "warning": "Non promettere mai che una mod sia sicura soltanto perché il gioco si avvia: la prova deve includere salvataggio, caricamento, viaggio e combattimento." }
       ]
     }
@@ -212,7 +212,9 @@
     { "label": "Bethesda · ordine ESM, ESL ed ESP", "href": "https://help.bethesda.net/app/answers/detail/a_id/63978/~/why-cant-i-change-my-load-order-after-the-creations-update%3F" },
     { "label": "Bethesda · modalità Sopravvivenza", "href": "https://elderscrolls.bethesda.net/es-ES/news/5lz4Q7F4li6kwKmakkgWww/skyrim-survival-mode-coming-soon" },
     { "label": "Bethesda · sistema Creations", "href": "https://elderscrolls.bethesda.net/en-US/news/52xMsb1fD2nTiNBkiWCbxq/build-share-and-find-creations-skyrim-special-edition" },
+    { "label": "Bethesda · aggiornamento Skyrim del 20 agosto 2026", "href": "https://elderscrolls.bethesda.net/en-US/news/skyrim-update-august-20" },
+    { "label": "Bethesda · Creations, obiettivi e trofei", "href": "https://help.bethesda.net/app/answers/detail/a_id/39862/~/does-using-creations-disable-achievements%2Ftrophies-in-the-elder-scrolls-v%3A" },
     { "label": "Steam · pagina ufficiale di Skyrim Special Edition", "href": "https://store.steampowered.com/app/489830/The_Elder_Scrolls_V_Skyrim_Special_Edition/" },
-    { "label": "UESP · portale tecnico di Skyrim", "href": "https://en.uesp.net/wiki/Skyrim:Skyrim" }
+    { "label": "Bethesda · catalogo ufficiale delle Creations di Skyrim", "href": "https://creations.bethesda.net/en/skyrim/all" }
   ]
 }

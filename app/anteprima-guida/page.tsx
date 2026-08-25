@@ -1,10 +1,7 @@
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { GameGuideExperience } from "@/components/GameGuideExperience";
-import type { GameGuide } from "@/lib/gameGuides";
-import minecraftGuideJson from "@/data/minecraft-guide.json";
-import skyrimGuideJson from "@/data/skyrim-guide.json";
-import worldOfWarcraftGuideJson from "@/data/world-of-warcraft-guide.json";
+import { getGameGuideBySlug } from "@/lib/gameGuides";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Anteprima locale guida | LoreWise Universe", robots: { index: false, follow: false } };
@@ -16,9 +13,8 @@ export default async function LocalGuidePreviewPage({ searchParams }: { searchPa
   if (!isLocal && process.env.NODE_ENV === "production") notFound();
 
   const requestedGuide = (await searchParams)?.guida;
-  const guide = (requestedGuide === "world-of-warcraft"
-    ? worldOfWarcraftGuideJson
-    : requestedGuide === "skyrim" ? skyrimGuideJson : minecraftGuideJson) as GameGuide;
+  const guide = getGameGuideBySlug(requestedGuide ?? "") ?? getGameGuideBySlug("minecraft");
+  if (!guide) notFound();
 
   return <main className="public-game-guides-page">
     <header className="public-game-guides-header">

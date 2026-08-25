@@ -1,0 +1,1080 @@
+{
+  "id": "the-mortuary-assistant-complete-guide-01",
+  "slug": "the-mortuary-assistant",
+  "code": "LW-ATLAS-TMA-001",
+  "game": "The Mortuary Assistant",
+  "title": "Il turno di River Fields",
+  "subtitle": "Una guida horror ordinata per affrontare il lavoro notturno, riconoscere l’entità e proteggere i segreti della prima partita.",
+  "description": "Sedici capitoli e quarantotto schede operative dedicate a edizioni, accessibilità, primo turno, obitorio, ispezione, registri, strumenti, imbalsamazione, infestazioni, demoni, sigilli, inventario, possessione, finali, Embalming Only e Definitive Edition.",
+  "versionLabel": "Definitive Edition · verifica 24 agosto 2026",
+  "updatedAt": "24 agosto 2026",
+  "vipFrom": "2026-10-26T00:00:00+01:00",
+  "publicAt": "2026-11-02T00:00:00+01:00",
+  "theme": "the-mortuary-assistant",
+  "cover": {
+    "src": "/atlas/the-mortuary-assistant/cover.webp",
+    "alt": "River Fields Mortuary nella copertina ufficiale di The Mortuary Assistant",
+    "caption": "Definitive Edition · grafica ufficiale Steam mostrata integralmente",
+    "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/library_hero.jpg"
+  },
+  "storeUrl": "https://store.steampowered.com/app/1295920/The_Mortuary_Assistant/",
+  "storeLabel": "Acquista The Mortuary Assistant",
+  "chapters": [
+    {
+      "id": "editions-accessibility",
+      "number": "01",
+      "label": "Edizioni e accessibilità",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Entrare a River Fields sapendo che esperienza aspettarsi",
+      "introduction": "La Definitive Edition è disponibile su PC e console e contiene horror psicologico, corpi, sangue, possessione, sobbalzi e temi di dipendenza e trauma.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/01-editions-accessibility.webp",
+          "alt": "Titolo ufficiale di The Mortuary Assistant con gli occhi nell'oscurità",
+          "caption": "Edizioni e piattaforme · titolo ufficiale leggibile e mostrato integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/header.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "La Definitive Edition è disponibile su PC e console e contiene horror psicologico, corpi, sangue, possessione, sobbalzi e temi di dipendenza e trauma.",
+          "steps": [
+            "Controlla classificazione e avvisi",
+            "Scegli piattaforma e comandi",
+            "Regola luminosità e volume",
+            "Imposta l’aggressività delle infestazioni quando disponibile",
+            "Decidi se iniziare dalla modalità narrativa o Embalming Only"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Entrare a River Fields sapendo che esperienza aspettarsi” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Gioca in un ambiente adatto al tuo benessere",
+            "Riduci volume e sensibilità se i sobbalzi sono troppo intensi",
+            "Interrompere una sessione è sempre una scelta valida"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "L’horror è troppo forte",
+              "answer": "Riduci aggressività o usa Embalming Only"
+            },
+            {
+              "problem": "L’immagine è troppo buia",
+              "answer": "Regola gamma senza cancellare i contrasti essenziali"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "first-shift",
+      "number": "02",
+      "label": "Primo turno",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Imparare il lavoro prima di inseguire il soprannaturale",
+      "introduction": "Il tutorial introduce strumenti, stanze e ordine generale; la prima priorità è completare correttamente le attività osservabili.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/02-first-shift.webp",
+          "alt": "Ufficio della camera mortuaria durante il turno",
+          "caption": "Primo turno · ufficio e ambiente di lavoro · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_42f9274feae24d77a539fea430ae214f6bab62f4.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Il tutorial introduce strumenti, stanze e ordine generale; la prima priorità è completare correttamente le attività osservabili.",
+          "steps": [
+            "Ascolta Raymond",
+            "Esplora l’ufficio",
+            "Leggi la checklist",
+            "Impara dove sono gli strumenti",
+            "Salva mentalmente il percorso tra ufficio e sala di preparazione"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Imparare il lavoro prima di inseguire il soprannaturale” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non correre durante il tutorial",
+            "Apri cassetti e armadi con metodo",
+            "Distingui un’attività di lavoro da un evento horror"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Non sai cosa fare",
+              "answer": "Rileggi clipboard e messaggi"
+            },
+            {
+              "problem": "Un oggetto sembra mancare",
+              "answer": "Controlla la stanza e il mobile associati alla fase"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "mortuary-layout",
+      "number": "03",
+      "label": "Mappa dell’obitorio",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Orientarsi senza perdersi durante un evento",
+      "introduction": "Ufficio, sala d’attesa, corridoi, deposito refrigerato e sala di imbalsamazione formano un circuito breve ma facile da confondere sotto pressione.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/03-mortuary-layout.webp",
+          "alt": "Sala d’attesa della River Fields Mortuary",
+          "caption": "Orientamento negli ambienti della struttura · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_2cdf505b0575216a6ea88bfebe56a381d5f58750.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Ufficio, sala d’attesa, corridoi, deposito refrigerato e sala di imbalsamazione formano un circuito breve ma facile da confondere sotto pressione.",
+          "steps": [
+            "Individua l’uscita",
+            "Memorizza il deposito",
+            "Localizza computer e clipboard",
+            "Segna mentalmente armadi e reagenti",
+            "Ripeti il giro prima di iniziare il corpo"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Orientarsi senza perdersi durante un evento” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Lascia aperto ciò che aiuta l’orientamento",
+            "Non accumulare oggetti in punti casuali",
+            "Usa luci e porte come riferimenti"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Ti perdi durante un’apparizione",
+              "answer": "Torna alla sala centrale e riparti"
+            },
+            {
+              "problem": "Non trovi il reagente",
+              "answer": "Controlla etichetta, mobile e fase corrente"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "body-inspection",
+      "number": "04",
+      "label": "Ispezione del corpo",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Registrare i segni senza saltare zone",
+      "introduction": "La scheda richiede di esaminare sistematicamente il corpo e annotare i segni prima di inserirli nel Record System.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/04-body-inspection.webp",
+          "alt": "Scheda d’ispezione accanto al corpo",
+          "caption": "Ispezione del corpo e registrazione dei segni · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_595746f0b8a03392b143d7dd74952f55db87b9a2.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "La scheda richiede di esaminare sistematicamente il corpo e annotare i segni prima di inserirli nel Record System.",
+          "steps": [
+            "Prendi la clipboard",
+            "Ruota il corpo con calma",
+            "Controlla testa e torso",
+            "Esamina entrambe le braccia",
+            "Concludi con entrambe le gambe"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Registrare i segni senza saltare zone” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Segui sempre lo stesso ordine",
+            "Non confondere un segno registrabile con un evento",
+            "Ricontrolla il lato opposto prima del computer"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Manca un segno",
+              "answer": "Ripeti l’ispezione per zone"
+            },
+            {
+              "problem": "Il registro non accetta i dati",
+              "answer": "Controlla posizione e descrizione selezionate"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "record-system",
+      "number": "05",
+      "label": "Record System",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Trasformare l’ispezione in un registro completo",
+      "introduction": "Il computer richiede dati e segni corretti; una voce incompleta blocca le fasi successive.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/05-record-system.webp",
+          "alt": "Sistema informatico dei registri mortuari",
+          "caption": "Record System · inserimento dei segni osservati · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_b144f359ddfd81efb20a55440748ced0b3c36ace.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Il computer richiede dati e segni corretti; una voce incompleta blocca le fasi successive.",
+          "steps": [
+            "Apri il record del corpo",
+            "Inserisci nome e dati richiesti",
+            "Seleziona ogni segno",
+            "Confronta con la clipboard",
+            "Stampa o completa la registrazione"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Trasformare l’ispezione in un registro completo” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non affidarti alla memoria sotto pressione",
+            "Controlla due volte le zone simmetriche",
+            "Completa il record prima di cambiare attività"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Il record resta incompleto",
+              "answer": "Confronta ogni riga con la clipboard"
+            },
+            {
+              "problem": "Hai inserito il lato sbagliato",
+              "answer": "Correggi prima di confermare"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "embalming-tools",
+      "number": "06",
+      "label": "Strumenti e sostanze",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Riconoscere ogni oggetto dalla sua funzione di gioco",
+      "introduction": "Aghi, fili, tubi, trocar, reagenti e prodotti finali vengono usati in fasi precise; raccogliere tutto senza criterio rallenta.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/06-embalming-tools.webp",
+          "alt": "Fluido per imbalsamazione selezionato nell’inventario",
+          "caption": "Strumenti e sostanze della procedura di gioco · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_9c03b9e47c3b3038c0b1f8c07d22627741f5d876.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Aghi, fili, tubi, trocar, reagenti e prodotti finali vengono usati in fasi precise; raccogliere tutto senza criterio rallenta.",
+          "steps": [
+            "Leggi il nome dell’oggetto",
+            "Associalo alla fase della checklist",
+            "Porta solo ciò che serve ora",
+            "Rimetti a posto la ricerca",
+            "Controlla la fase successiva prima di muoverti"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Riconoscere ogni oggetto dalla sua funzione di gioco” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "La clipboard resta la fonte principale",
+            "Gli oggetti piccoli possono essere vicini tra loro",
+            "Non confondere prodotti simili"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Non puoi usare uno strumento",
+              "answer": "Non sei nella fase corretta"
+            },
+            {
+              "problem": "L’inventario è pieno",
+              "answer": "Deposita ciò che non serve immediatamente"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "embalming-sequence",
+      "number": "07",
+      "label": "Sequenza di imbalsamazione",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Completare il procedimento di gioco senza saltare passaggi",
+      "introduction": "La procedura è una sequenza interattiva specifica del gioco e non sostituisce formazione o pratica professionale reale.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/07-embalming-sequence.webp",
+          "alt": "Checklist delle attività di imbalsamazione",
+          "caption": "Sequenza di imbalsamazione e controllo delle attività · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_d4767e3cc1cad71a68f0f79ba061de5eb770917a.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "La procedura è una sequenza interattiva specifica del gioco e non sostituisce formazione o pratica professionale reale.",
+          "steps": [
+            "Segui la checklist nell’ordine",
+            "Prepara gli strumenti della fase",
+            "Completa l’interazione richiesta",
+            "Controlla che l’attività venga barrata",
+            "Passa alla fase successiva solo dopo conferma"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Completare il procedimento di gioco senza saltare passaggi” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non improvvisare l’ordine",
+            "Un evento horror può interrompere ma non cancellare la fase",
+            "Rileggi la voce se il comando non appare"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "La checklist non avanza",
+              "answer": "Manca un’interazione o un oggetto"
+            },
+            {
+              "problem": "Hai perso il punto della sequenza",
+              "answer": "Riparti dall’ultima voce non barrata"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "haunt-signs",
+      "number": "08",
+      "label": "Segnali e infestazioni",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Notare ciò che cambia senza inseguire ogni rumore",
+      "introduction": "Porte, luci, apparizioni, oggetti e suoni possono indicare un evento, ma non ogni anomalia identifica direttamente il corpo posseduto.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/08-haunt-signs.webp",
+          "alt": "Apparizione nel corridoio della camera mortuaria",
+          "caption": "Infestazioni e segnali fuori posto · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_648b098a80d70afc687cea973298a4039c2eac80.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Porte, luci, apparizioni, oggetti e suoni possono indicare un evento, ma non ogni anomalia identifica direttamente il corpo posseduto.",
+          "steps": [
+            "Mantieni una routine",
+            "Osserva cambiamenti evidenti",
+            "Controlla il corpo dopo un evento",
+            "Usa gli strumenti previsti dal gioco",
+            "Torna alla checklist quando il pericolo passa"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Notare ciò che cambia senza inseguire ogni rumore” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Il panico fa perdere più tempo dell’apparizione",
+            "Non ogni rumore richiede di lasciare la stanza",
+            "Confronta più indizi prima di decidere"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Gli eventi sono troppo frequenti",
+              "answer": "Riduci l’aggressività se disponibile"
+            },
+            {
+              "problem": "Non sai se un segnale conta",
+              "answer": "Annotalo mentalmente e cerca conferme"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "demon-identification",
+      "number": "09",
+      "label": "Identificazione del demone",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Incrociare segni, corpo e database",
+      "introduction": "Il risultato richiede di individuare il corpo corretto e il demone corretto usando più fonti; una singola manifestazione non basta.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/09-demon-identification.webp",
+          "alt": "Creatura inquietante sopra i mobili",
+          "caption": "Manifestazioni e pressione demoniaca · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_8f7f15e075b4843726e2e52e0ca10df3b7022aba.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Il risultato richiede di individuare il corpo corretto e il demone corretto usando più fonti; una singola manifestazione non basta.",
+          "steps": [
+            "Raccogli i sigilli",
+            "Consulta il database",
+            "Confronta i nomi possibili",
+            "Osserva i corpi durante il turno",
+            "Scegli soltanto quando gli indizi convergono"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Incrociare segni, corpo e database” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Evita di decidere troppo presto",
+            "Controlla forma e ordine dei sigilli",
+            "Tieni separati identità del demone e corpo posseduto"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Due demoni sembrano compatibili",
+              "answer": "Cerca il sigillo mancante"
+            },
+            {
+              "problem": "Non riconosci il corpo",
+              "answer": "Confronta nuovi segni ed eventi specifici"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "sigils-night-shift",
+      "number": "10",
+      "label": "Sigilli e turno notturno",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Confermare la scelta prima della fase finale",
+      "introduction": "Sigilli incompleti, ordine errato o corpo sbagliato trasformano una buona indagine in un finale negativo.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/10-sigils-night-shift.webp",
+          "alt": "Menu dei sigilli demoniaci sopra un corpo",
+          "caption": "Identificazione del demone e scelta dei sigilli · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_1dd874221214b4c3c753bc0142bc345d2bc15735.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Sigilli incompleti, ordine errato o corpo sbagliato trasformano una buona indagine in un finale negativo.",
+          "steps": [
+            "Rivedi ogni sigillo",
+            "Conferma il nome nel database",
+            "Controlla il corpo scelto",
+            "Prepara il marchio corretto",
+            "Avvia la fase finale solo dopo l’ultimo controllo"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Confermare la scelta prima della fase finale” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Usa una procedura identica a ogni turno",
+            "Non cambiare scelta per un solo sobbalzo",
+            "Conserva tempo per la conferma finale"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Il marchio non corrisponde",
+              "answer": "Ricontrolla ordine e famiglia del demone"
+            },
+            {
+              "problem": "Il turno termina male",
+              "answer": "Separa errore sul corpo da errore sui sigilli"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "survival-inventory",
+      "number": "11",
+      "label": "Inventario e sopravvivenza",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Tenere gli strumenti essenziali raggiungibili",
+      "introduction": "Lo spazio limitato obbliga a scegliere cosa portare; una buona routine riduce viaggi e confusione durante gli eventi.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/11-survival-inventory.webp",
+          "alt": "Corridoio con scritta inquietante sulla parete",
+          "caption": "Sopravvivenza durante il turno notturno · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_6b347b201a841701a7765a02a372551534347766.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Lo spazio limitato obbliga a scegliere cosa portare; una buona routine riduce viaggi e confusione durante gli eventi.",
+          "steps": [
+            "Porta clipboard e strumento corrente",
+            "Conserva gli oggetti investigativi",
+            "Deposita ciò che appartiene a fasi concluse",
+            "Mantieni libero almeno uno spazio",
+            "Controlla l’inventario prima di uscire dalla stanza"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Tenere gli strumenti essenziali raggiungibili” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non raccogliere tutto insieme",
+            "Gli oggetti chiave meritano una posizione mentale",
+            "Apri l’inventario in una zona sicura"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Non puoi raccogliere un oggetto",
+              "answer": "Libera uno slot"
+            },
+            {
+              "problem": "Hai perso uno strumento",
+              "answer": "Ripercorri l’ultima fase e i piani di lavoro"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "possession-stability",
+      "number": "12",
+      "label": "Possessione e pressione",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Capire quando il turno sta peggiorando",
+      "introduction": "Allucinazioni, eventi e perdita di controllo aumentano la pressione narrativa; avanzare nel lavoro e nell’identificazione resta la risposta centrale.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/12-possession-stability.webp",
+          "alt": "Checklist e simbolo demoniaco nella camera mortuaria",
+          "caption": "Possessione, tempo e stabilità del turno · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_12ab4a16b0901b3939efd13b03ca0d625497dedb.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Allucinazioni, eventi e perdita di controllo aumentano la pressione narrativa; avanzare nel lavoro e nell’identificazione resta la risposta centrale.",
+          "steps": [
+            "Non abbandonare la checklist",
+            "Completa una fase alla volta",
+            "Cerca indizi tra gli eventi",
+            "Evita giri inutili",
+            "Prepara la decisione finale con anticipo"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Capire quando il turno sta peggiorando” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "La fretta produce errori permanenti",
+            "Gli eventi possono cambiare tra i turni",
+            "La conoscenza della struttura riduce la paura"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Ti blocchi dopo un evento",
+              "answer": "Torna all’ultima attività verificabile"
+            },
+            {
+              "problem": "Il turno sembra ormai perso",
+              "answer": "Completa comunque l’indagine per imparare la causa"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "endings-secrets",
+      "number": "13",
+      "label": "Finali e segreti",
+      "estimatedRead": "14–19 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Scoprire River Fields senza rovinare la prima conclusione",
+      "introduction": "Finali multipli, oggetti e frammenti di lore richiedono più turni; la prima partita va protetta dalle soluzioni complete.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/13-endings-secrets.webp",
+          "alt": "Primo piano inquietante durante un evento horror",
+          "caption": "Finali e segreti protetti · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_95f294e3b2b43cf5c8f9765e51c0953663c30ad6.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Finali multipli, oggetti e frammenti di lore richiedono più turni; la prima partita va protetta dalle soluzioni complete.",
+          "steps": [
+            "Concludi una prima volta senza guida ai finali",
+            "Conserva gli indizi trovati",
+            "Esplora nuove interazioni nei turni successivi",
+            "Cambia una decisione alla volta",
+            "Usa i salvataggi disponibili con attenzione"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Scoprire River Fields senza rovinare la prima conclusione” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Un finale negativo offre informazioni",
+            "La lore si ricompone su più turni",
+            "Non cercare ogni segreto durante il tutorial"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Ottieni sempre lo stesso finale",
+              "answer": "Modifica un requisito alla volta"
+            },
+            {
+              "problem": "Manca un oggetto narrativo",
+              "answer": "Esplora ufficio e aree accessibili nei turni successivi"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "embalming-only",
+      "number": "14",
+      "label": "Embalming Only",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Esercitarsi sul lavoro senza la pressione horror",
+      "introduction": "La Definitive Edition aggiunge una modalità di imbalsamazione continua pensata per concentrarsi sulla routine e sui corpi.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/14-embalming-only.webp",
+          "alt": "Ispezione completa di un corpo nella modalità Embalming Only",
+          "caption": "Embalming Only · ispezione del corpo mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/256695030/movie.293x165.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "La Definitive Edition aggiunge una modalità di imbalsamazione continua pensata per concentrarsi sulla routine e sui corpi.",
+          "steps": [
+            "Seleziona Embalming Only",
+            "Ripeti il giro degli strumenti",
+            "Segui sempre la checklist",
+            "Riduci i tempi senza saltare passaggi",
+            "Usa la modalità per memorizzare la struttura"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Esercitarsi sul lavoro senza la pressione horror” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "È utile anche dopo una pausa",
+            "Separa velocità e precisione",
+            "Non sostituisce i contenuti narrativi della modalità principale"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "La procedura resta lenta",
+              "answer": "Prepara il percorso prima del corpo"
+            },
+            {
+              "problem": "Vuoi tornare all’horror",
+              "answer": "Avvia una modalità principale separata"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "definitive-content",
+      "number": "15",
+      "label": "Definitive Edition",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Riconoscere cosa aggiunge l’edizione definitiva",
+      "introduction": "L’aggiornamento gratuito ha introdotto nuovi corpi, infestazioni, lore, obiettivi, evento di San Valentino, miglioramenti e Embalming Only.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/15-definitive-content.webp",
+          "alt": "Grafica ufficiale di The Mortuary Assistant con sala mortuaria e presenza inquietante",
+          "caption": "Definitive Edition · identità horror e nuovi contenuti mostrati integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/256700661/movie.600x338.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "L’aggiornamento gratuito ha introdotto nuovi corpi, infestazioni, lore, obiettivi, evento di San Valentino, miglioramenti e Embalming Only.",
+          "steps": [
+            "Verifica che il gioco sia aggiornato",
+            "Controlla nuovi obiettivi",
+            "Prova Embalming Only",
+            "Rientra nella modalità principale per nuovi eventi",
+            "Conserva un turno per l’evento stagionale di febbraio"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Riconoscere cosa aggiunge l’edizione definitiva” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "I nuovi eventi non appaiono tutti subito",
+            "Le correzioni migliorano stabilità e prestazioni",
+            "I contenuti aggiuntivi si mescolano ai turni esistenti"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Una funzione manca",
+              "answer": "Controlla versione e piattaforma"
+            },
+            {
+              "problem": "Il salvataggio è precedente",
+              "answer": "Aggiorna e carica senza cancellarlo"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "halloween-session",
+      "number": "16",
+      "label": "Settimana di Halloween",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Preparare una sessione horror completa e sostenibile",
+      "introduction": "La guida entra nell’Area VIP dal 26 ottobre al 2 novembre: scegli durata, intensità e obiettivo prima di iniziare il turno.",
+      "images": [
+        {
+          "src": "/atlas/the-mortuary-assistant/chapters/16-halloween-session.webp",
+          "alt": "Inventario del turno con strumenti mortuari",
+          "caption": "Settimana di Halloween · preparazione completa del turno · mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_fd9c4f93a6c5eaa9e698616decfe1d1357840d3b.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "La guida entra nell’Area VIP dal 26 ottobre al 2 novembre: scegli durata, intensità e obiettivo prima di iniziare il turno.",
+          "steps": [
+            "Regola luce e audio della stanza",
+            "Scegli modalità e aggressività",
+            "Prepara una sessione di durata limitata",
+            "Fermati dopo un turno completo",
+            "Annota il finale senza cercare subito la soluzione"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Preparare una sessione horror completa e sostenibile” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Meglio un turno intenso che una maratona stancante",
+            "Giocare in compagnia cambia il tono ma non le regole",
+            "Rispetta sempre i limiti personali"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "La tensione diventa sgradevole",
+              "answer": "Interrompi o passa a Embalming Only"
+            },
+            {
+              "problem": "Vuoi continuare dopo Halloween",
+              "answer": "La guida resta valida per la Definitive Edition"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "enter",
+      "label": "Entra a River Fields",
+      "summary": "Edizioni, primo turno e ambienti.",
+      "icon": {
+        "src": "/atlas/the-mortuary-assistant/chapters/01-editions-accessibility.webp",
+        "alt": "River Fields Mortuary nella grafica ufficiale",
+        "caption": "Edizioni, piattaforme e contenuti della Definitive Edition · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/page_bg_raw.jpg"
+      },
+      "chapterIds": [
+        "editions-accessibility",
+        "first-shift",
+        "mortuary-layout"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-mortuary-assistant/generated-icons-v1/01-enter.webp",
+        "alt": "Chiave della camera mortuaria sotto una lampada",
+        "caption": "Ingresso a River Fields · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "prepare",
+      "label": "Prepara il corpo",
+      "summary": "Ispezione, registro e strumenti.",
+      "icon": {
+        "src": "/atlas/the-mortuary-assistant/chapters/04-body-inspection.webp",
+        "alt": "Scheda d’ispezione accanto al corpo",
+        "caption": "Ispezione del corpo e registrazione dei segni · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_595746f0b8a03392b143d7dd74952f55db87b9a2.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "body-inspection",
+        "record-system",
+        "embalming-tools"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-mortuary-assistant/generated-icons-v1/02-prepare.webp",
+        "alt": "Cartella, targhetta e lente d'ispezione",
+        "caption": "Preparazione del corpo · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "work",
+      "label": "Completa il lavoro",
+      "summary": "Sequenza e segnali inquietanti.",
+      "icon": {
+        "src": "/atlas/the-mortuary-assistant/chapters/07-embalming-sequence.webp",
+        "alt": "Checklist delle attività di imbalsamazione",
+        "caption": "Sequenza di imbalsamazione e controllo delle attività · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_d4767e3cc1cad71a68f0f79ba061de5eb770917a.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "embalming-sequence",
+        "haunt-signs"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-mortuary-assistant/generated-icons-v1/03-work.webp",
+        "alt": "Flacone, tubo e strumento mortuario",
+        "caption": "Procedura di imbalsamazione · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "identify",
+      "label": "Identifica l’entità",
+      "summary": "Demone, sigilli e sopravvivenza.",
+      "icon": {
+        "src": "/atlas/the-mortuary-assistant/chapters/09-demon-identification.webp",
+        "alt": "Creatura inquietante sopra i mobili",
+        "caption": "Manifestazioni e pressione demoniaca · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_8f7f15e075b4843726e2e52e0ca10df3b7022aba.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "demon-identification",
+        "sigils-night-shift",
+        "survival-inventory"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-mortuary-assistant/generated-icons-v1/04-identify.webp",
+        "alt": "Sigillo immaginario illuminato da una candela",
+        "caption": "Identificazione dell'entità · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "survive",
+      "label": "Resisti al turno",
+      "summary": "Possessione, finali e segreti.",
+      "icon": {
+        "src": "/atlas/the-mortuary-assistant/chapters/12-possession-stability.webp",
+        "alt": "Checklist e simbolo demoniaco nella camera mortuaria",
+        "caption": "Possessione, tempo e stabilità del turno · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_12ab4a16b0901b3939efd13b03ca0d625497dedb.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "possession-stability",
+        "endings-secrets"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-mortuary-assistant/generated-icons-v1/05-survive.webp",
+        "alt": "Corridoio buio, lampada e ombra a forma di occhio",
+        "caption": "Sopravvivenza al turno · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "definitive",
+      "label": "Vivi la Definitive Edition",
+      "summary": "Embalming Only, nuovi contenuti e Halloween.",
+      "icon": {
+        "src": "/atlas/the-mortuary-assistant/chapters/14-embalming-only.webp",
+        "alt": "Figura nell’oscurità della camera mortuaria",
+        "caption": "Embalming Only e differenze dalla modalità horror · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295920/ss_bfe5af7e6d6a8671edf025e0f9d00f9a2a414d92.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "embalming-only",
+        "definitive-content",
+        "halloween-session"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/the-mortuary-assistant/generated-icons-v1/06-definitive.webp",
+        "alt": "Custodia funeraria, zucca e orologio",
+        "caption": "Definitive Edition e Halloween · icona originale generata con ImageGen"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "The Mortuary Assistant · Steam",
+      "href": "https://store.steampowered.com/app/1295920/The_Mortuary_Assistant/"
+    },
+    {
+      "label": "DarkStone Digital · sito ufficiale",
+      "href": "https://www.darkstonedigital.com/"
+    },
+    {
+      "label": "Definitive Edition · annuncio ufficiale",
+      "href": "https://store.steampowered.com/news/posts/?enddate=1721315189&feed=steam_community_announcements"
+    },
+    {
+      "label": "DarkStone · trailer Definitive Edition",
+      "href": "https://www.youtube.com/watch?v=b8mdz1EAyV4"
+    }
+  ]
+}

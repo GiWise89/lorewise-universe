@@ -6,6 +6,7 @@ import Link from "next/link";
 import { BenefitsCenter } from "@/components/BenefitsCenter";
 import { AccountProfilePanel } from "@/components/AccountProfilePanel";
 import { HorizontalScrollHint } from "@/components/HorizontalScrollHint";
+import { getCommissionPromotionForSubmission } from "@/lib/commissionPromotion";
 
 type Dashboard = {
   identity: { email: string; displayName: string; role: string; status: string; memberSince: string };
@@ -265,7 +266,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
     <div id="account-commissions" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "commissions"}>
       <article className="personal-chapter personal-commissions">
         <header><Image src="/brand/icons/commissioni-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Lavori su richiesta</p><h3>Le tue commissioni.</h3></div></header>
-        {data.commissions.length ? <ol>{data.commissions.map((commission) => <li key={commission.referenceCode}><div><strong>{commission.packageName}</strong><small>{commission.referenceCode} · {commission.category}</small>{commission.membershipDiscountPercent ? <small>{commission.membershipPlanCode ?? "Promozione apertura"} · sconto {commission.membershipDiscountPercent}%: −{money(commission.quoteDiscountCents)}</small> : null}</div><span>{statusLabels[commission.status] ?? commission.status}</span><b>{money(commission.quoteCents)}</b></li>)}</ol> : <div className="personal-empty"><strong>Nessuna commissione collegata.</strong><p>Le nuove richieste vengono collegate direttamente al LoreWise ID e ricevono automaticamente i vantaggi del piano attivo.</p><Link href="/commissioni">Richiedi un progetto</Link></div>}
+        {data.commissions.length ? <ol>{data.commissions.map((commission) => <li key={commission.referenceCode}><div><strong>{commission.packageName}</strong><small>{commission.referenceCode} · {commission.category}</small>{commission.membershipDiscountPercent ? <small>{getCommissionPromotionForSubmission(commission.packageName, commission.createdAt)?.label ?? commission.membershipPlanCode ?? "Visitatore"} · sconto {commission.membershipDiscountPercent}%: −{money(commission.quoteDiscountCents)}</small> : null}</div><span>{statusLabels[commission.status] ?? commission.status}</span><b>{money(commission.quoteCents)}</b></li>)}</ol> : <div className="personal-empty"><strong>Nessuna commissione collegata.</strong><p>Le nuove richieste vengono collegate direttamente al LoreWise ID e ricevono automaticamente i vantaggi del piano attivo.</p><Link href="/commissioni">Richiedi un progetto</Link></div>}
       </article>
 
     </div>

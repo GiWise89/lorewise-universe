@@ -33,6 +33,14 @@ const faq = [
   ["Il badge dà privilegi nella Community?", "No. Indica soltanto Supporter o Collector: non assegna poteri di moderazione e non rende un giudizio più autorevole degli altri."],
 ];
 
+const passAreas = [
+  { id: "arte", label: "Arte", description: "Crediti mensili, opere autorizzate e archivio personale.", icon: "/brand/icons/vip-art-v1.webp" },
+  { id: "giochi", label: "Giochi", description: "Edizioni incluse, accessi anticipati e diari di sviluppo.", icon: "/brand/icons/vip-games-v1.webp" },
+  { id: "commissioni", label: "Commissioni", description: "Sconti riconosciuti automaticamente dal LoreWise ID.", icon: "/brand/icons/commissioni-panoramica-v2.webp" },
+  { id: "codex", label: "Codex", description: "Personaggi, opere e dossier custoditi nel tuo archivio.", icon: "/brand/icons/pass-codex-v1.webp" },
+  { id: "community", label: "Community", description: "Votazioni, candidature e partecipazione verificabile.", icon: "/brand/icons/pass-community-v1.webp" },
+] as const;
+
 export default async function MembershipPage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   const query = await searchParams;
   const focusPlans = query?.focus === "piani";
@@ -64,7 +72,20 @@ export default async function MembershipPage({ searchParams }: { searchParams?: 
         </div>
       </section>
 
-      <nav className="pass-section-nav" aria-label="Vantaggi inclusi"><HorizontalScrollHint className="pass-scroll-hint" /><div className="shell"><a href="#arte">Arte</a><a href="#giochi">Giochi</a><a href="#commissioni">Commissioni</a><a href="#codex">Codex</a><a href="#community">Community</a></div></nav>
+      <nav className="pass-section-nav" aria-label="Vantaggi inclusi">
+        <HorizontalScrollHint className="pass-scroll-hint" />
+        <div className="shell">
+          {passAreas.map((area) => <a href={`#${area.id}`} data-area={area.id} key={area.id}>
+            <Image className="pass-area-icon" src={area.icon} alt="" aria-hidden="true" width={768} height={768} unoptimized />
+            <span>
+              <small>Vantaggio incluso</small>
+              <strong>{area.label}</strong>
+              <em>{area.description}</em>
+            </span>
+            <b>Scopri <i aria-hidden="true">→</i></b>
+          </a>)}
+        </div>
+      </nav>
 
       <section className="pass-intro shell" id="vantaggi"><p className="pass-eyebrow">Non una raccolta di promesse</p><h2>Ogni vantaggio ha un posto, una regola e uno storico.</h2><p>Crediti, sconti, accessi e partecipazione sono collegati allo stesso account. Puoi vedere cosa hai, quando lo hai ricevuto e come è stato utilizzato.</p></section>
 

@@ -31,7 +31,7 @@ export default async function CommissionWorkPage({ params }: { params: Promise<{
   return (
     <main className="commission-detail-page">
       <div className="shell commission-detail-breadcrumbs">
-        <Link href="/commissioni#portfolio">← Torna alle commissioni</Link>
+        <Link href="/commissioni?view=portfolio#portfolio">← Torna alle commissioni</Link>
         <span>{work.code} · {String(index + 1).padStart(2, "0")} / {commissionWorks.length}</span>
       </div>
 
@@ -80,7 +80,7 @@ export default async function CommissionWorkPage({ params }: { params: Promise<{
             <span>Ti piace questa direzione?</span>
             <h2>Richiedi un lavoro simile.</h2>
             <p>Indica il codice <strong>{work.code}</strong> nel modulo: servirà come riferimento stilistico, senza copiare il lavoro originale.</p>
-            <Link className="button button-primary" href={`/commissioni?reference=${encodeURIComponent(work.code)}#richiesta`}>Inizia la tua richiesta</Link>
+            <Link className="button button-primary" href={`/commissioni?request=preventivo&reference=${encodeURIComponent(work.code)}#richiesta`}>Inizia la tua richiesta</Link>
           </aside>
         </div>
       </article>
@@ -94,7 +94,7 @@ export default async function CommissionWorkPage({ params }: { params: Promise<{
 
       <nav className="shell commission-pagination" aria-label="Navigazione tra i lavori su commissione">
         {previous ? <Link href={`/commissioni/${previous.slug}`}><small>← Lavoro precedente</small><strong>{previous.title}</strong></Link> : <span />}
-        <Link href="/commissioni#portfolio">Indice completo</Link>
+        <Link href="/commissioni?view=portfolio#portfolio">Indice completo</Link>
         {next ? <Link href={`/commissioni/${next.slug}`}><small>Lavoro successivo →</small><strong>{next.title}</strong></Link> : <span />}
       </nav>
     </main>

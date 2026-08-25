@@ -2,9 +2,20 @@ import animalCrossingGuideJson from "@/data/animal-crossing-guide.json";
 import minecraftGuideJson from "@/data/minecraft-guide.json";
 import skyrimGuideJson from "@/data/skyrim-guide.json";
 import worldOfWarcraftGuideJson from "@/data/world-of-warcraft-guide.json";
+import hogwartsLegacyGuideJson from "@/data/hogwarts-legacy-guide.json";
+import zeldaTearsGuideJson from "@/data/zelda-tears-of-the-kingdom-guide.json";
+import theSims4GuideJson from "@/data/the-sims-4-guide.json";
+import redDeadRedemption2GuideJson from "@/data/red-dead-redemption-2-guide.json";
+import monsterHunterWildsGuideJson from "@/data/monster-hunter-wilds-guide.json";
+import diablo4GuideJson from "@/data/diablo-iv-guide.json";
+import pokemonPokopiaGuideJson from "@/data/pokemon-pokopia-guide.json";
+import theWitcher3GuideJson from "@/data/the-witcher-3-guide.json";
+import cyberpunk2077GuideJson from "@/data/cyberpunk-2077-guide.json";
+import inazumaElevenVictoryRoadGuideJson from "@/data/inazuma-eleven-victory-road-guide.json";
+import theMortuaryAssistantGuideJson from "@/data/the-mortuary-assistant-guide.json";
 import { getScheduledGuideEditorialNews } from "@/lib/guideEditorial";
 
-export type GameGuideImage = { src: string; alt: string; caption: string };
+export type GameGuideImage = { src: string; alt: string; caption: string; sourceUrl?: string };
 export type GameGuideTable = { columns: string[]; rows: string[][] };
 export type GameGuideScenario = { problem: string; answer: string };
 export type GameGuideBlock = {
@@ -30,19 +41,21 @@ export type GameGuideSection = {
   label: string;
   summary: string;
   icon: GameGuideImage;
+  generatedIcon?: GameGuideImage;
   iconSprite?: { src: string; position: string };
   chapterIds: string[];
 };
 export type GameGuide = {
   id: string; slug: string; code: string; game: string; title: string; subtitle: string;
   description: string; versionLabel: string; updatedAt: string; vipFrom: string; publicAt: string;
-  theme?: "baldurs-gate" | "animal-crossing" | "minecraft" | "skyrim" | "world-of-warcraft";
+  theme?: "baldurs-gate" | "animal-crossing" | "minecraft" | "skyrim" | "world-of-warcraft" | "the-witcher-3" | "cyberpunk-2077" | "inazuma-eleven-victory-road" | "the-mortuary-assistant" | "atlas";
   cover: GameGuideImage; storeUrl: string; storeLabel: string; chapters: GameGuideChapter[];
   sections?: GameGuideSection[];
   sources: Array<{ label: string; href: string }>;
   livingGuide?: {
     enabled: true;
     announcement: string;
+    scope: { expansion: string; contentUpdate: string; season: string };
     cadence: "monthly";
     lastCheckedAt: string;
     nextCheckAt: string;
@@ -56,6 +69,17 @@ const animalCrossingGuide = animalCrossingGuideJson as GameGuide;
 const minecraftGuide = minecraftGuideJson as GameGuide;
 const skyrimGuide = skyrimGuideJson as GameGuide;
 const worldOfWarcraftGuide = worldOfWarcraftGuideJson as GameGuide;
+const hogwartsLegacyGuide = hogwartsLegacyGuideJson as GameGuide;
+const zeldaTearsGuide = zeldaTearsGuideJson as GameGuide;
+const theSims4Guide = theSims4GuideJson as GameGuide;
+const redDeadRedemption2Guide = redDeadRedemption2GuideJson as GameGuide;
+const monsterHunterWildsGuide = monsterHunterWildsGuideJson as GameGuide;
+const diablo4Guide = diablo4GuideJson as GameGuide;
+const pokemonPokopiaGuide = pokemonPokopiaGuideJson as GameGuide;
+const theWitcher3Guide = theWitcher3GuideJson as GameGuide;
+const cyberpunk2077Guide = cyberpunk2077GuideJson as GameGuide;
+const inazumaElevenVictoryRoadGuide = inazumaElevenVictoryRoadGuideJson as GameGuide;
+const theMortuaryAssistantGuide = theMortuaryAssistantGuideJson as GameGuide;
 
 export const GAME_GUIDES: GameGuide[] = [animalCrossingGuide, {
   id: "bg3-complete-guide-01",
@@ -72,7 +96,7 @@ export const GAME_GUIDES: GameGuide[] = [animalCrossingGuide, {
   cover: { src: "/atlas/baldurs-gate-3/copertina.webp", alt: "Copertina ufficiale di Baldur’s Gate 3 con il gruppo", caption: "Baldur’s Gate 3 · quaderno LoreWise" },
   theme: "baldurs-gate",
   storeUrl: "https://store.steampowered.com/app/1086940/Baldurs_Gate_3/",
-  storeLabel: "Acquista il gioco su Steam",
+  storeLabel: "Acquista Baldur’s Gate 3",
   chapters: [
     {
       id: "character", number: "01", label: "Protagonista", estimatedRead: "12–15 min", spoiler: "No spoiler",
@@ -411,7 +435,7 @@ export const GAME_GUIDES: GameGuide[] = [animalCrossingGuide, {
     { label: "Larian · Steam Deck nativo e Hotfix 34", href: "https://baldursgate3.game/news/hotfix-34-now-live_144" },
     { label: "Larian · archivio aggiornamenti fino all’Hotfix 36", href: "https://baldursgate3.game/news" },
   ],
-}, minecraftGuide, skyrimGuide, worldOfWarcraftGuide];
+}, minecraftGuide, skyrimGuide, worldOfWarcraftGuide, hogwartsLegacyGuide, zeldaTearsGuide, theSims4Guide, redDeadRedemption2Guide, monsterHunterWildsGuide, theMortuaryAssistantGuide, diablo4Guide, pokemonPokopiaGuide, theWitcher3Guide, cyberpunk2077Guide, inazumaElevenVictoryRoadGuide];
 
 export function isGuideVipNow(guide: GameGuide, now = new Date()) {
   const instant = now.getTime();

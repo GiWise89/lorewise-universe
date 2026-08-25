@@ -43,7 +43,7 @@ export default function GamesPage() {
           <a href="#diario"><span>02</span>Diario</a>
           <a href="#accesso"><span>03</span>Accesso</a>
           <a href="#community"><span>04</span>Community</a>
-          <Link className="studio-games-index-download" href="/download-app"><span>05</span><strong>Scarica l’app</strong><b aria-hidden="true">&#8594;</b></Link>
+          <Link href="/download-app"><span>05</span>Scarica l’app</Link>
           <Link href="/giochi/guide"><span>06</span>Guide</Link>
         </div>
       </nav>

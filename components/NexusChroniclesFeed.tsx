@@ -29,7 +29,7 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
   const selectedGuideSection = featuredGame?.sections.find((section) => section.id === activeGuideSection) ?? featuredGame?.sections[0];
   const selectedBenefitEvent = chronicle.benefitEvents.find((event) => event.code === activeBenefitEventCode) ?? chronicle.benefitEvents[0];
 
-  return <article className={`nexus-chronicle-story${chronicle.featured ? " is-featured" : ""}`}>
+  return <article className={`nexus-chronicle-story is-${chronicle.category}${chronicle.featured ? " is-featured" : ""}`}>
     <header className="nexus-chronicle-lead">
       <div className="nexus-chronicle-visual"><span>{String(index + 1).padStart(2, "0")}</span><Image src={chronicle.image} alt={chronicle.imageAlt} width={1024} height={1024} unoptimized /></div>
       <div className="nexus-chronicle-copy">
@@ -53,8 +53,9 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
       <div className="nexus-signal-grid">{chronicle.signals.map((signal) => <article className="nexus-signal" key={signal.title}><div className="nexus-signal-image"><Image src={signal.image} alt={signal.imageAlt} width={1200} height={900} unoptimized /></div><div className="nexus-signal-copy"><span>{signal.label}</span><h4>{signal.title}</h4><p>{signal.text}</p><small>{signal.note}</small><Link className="nexus-signal-link" href={signal.href}>{signal.action}<span aria-hidden="true">→</span></Link></div></article>)}</div>
     </section>
 
-    <section className="nexus-chronicle-promotion" role="tabpanel" id={`${chronicle.id}-promotion-panel`} aria-labelledby={`${chronicle.id}-promotion-tab`} hidden={activePanel !== "promotion"}>
+    <section className={`nexus-chronicle-promotion is-${chronicle.promotion.theme}`} role="tabpanel" id={`${chronicle.id}-promotion-panel`} aria-labelledby={`${chronicle.id}-promotion-tab`} hidden={activePanel !== "promotion"}>
       <div className="nexus-promotion-heading"><span>02 · {chronicle.promotion.label}</span><h3>{chronicle.promotion.title}</h3><strong>{chronicle.promotion.period}</strong><p>{chronicle.promotion.description}</p></div>
+      <figure className="nexus-promotion-visual"><Image src={chronicle.promotion.visual} alt={chronicle.promotion.visualAlt} width={1600} height={1000} unoptimized /><figcaption>{chronicle.promotion.label} · {chronicle.promotion.period}</figcaption></figure>
       <div className="nexus-promotion-rates" aria-label="Sconti della promozione">{chronicle.promotion.rates.map((rate) => <div key={rate.audience}><span>{rate.audience}</span><strong>{rate.discount}</strong></div>)}</div>
       <ul className="nexus-promotion-terms">{chronicle.promotion.terms.map((term) => <li key={term}>{term}</li>)}</ul>
       <Link href={chronicle.promotion.href}>{chronicle.promotion.action}<span aria-hidden="true">→</span></Link>
@@ -103,8 +104,8 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
       </div>
       <div className="nexus-benefit-premium-lead">
         <div><span>Edizione corrente</span><strong>{chronicle.issue}</strong><p>Focus e vantaggi della settimana</p></div>
-        <div><span>Registro completo</span><strong>{String(chronicle.benefitEvents.length).padStart(2, "0")}</strong><p>Eventi e percorsi monitorati</p></div>
-        <div><span>Aggiornamento</span><strong>Lunedì</strong><p>Rotazione editoriale automatica</p></div>
+        <div><span>Registro completo</span><strong>{String(chronicle.benefitEvents.length).padStart(2, "0")}</strong><p>Eventi e percorsi disponibili</p></div>
+        <div><span>Nuova Cronaca</span><strong>Lunedì</strong><p>Un nuovo capitolo ogni settimana</p></div>
       </div>
       <div className="nexus-benefit-view-switcher" role="tablist" aria-label="Contenuti della sezione Vantaggi">
         <button type="button" role="tab" aria-selected={activeBenefitView === "focus"} className={activeBenefitView === "focus" ? "is-active" : undefined} onClick={() => setActiveBenefitView("focus")}><span>01</span>Focus settimanale</button>

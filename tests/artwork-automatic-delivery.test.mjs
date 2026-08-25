@@ -22,7 +22,7 @@ async function fileHash(filePath) {
 
 test("covers every commercial original with one automatic package", () => {
   const vipCodes = VIP_ARTWORKS_PRIVATE.filter((artwork) => artwork.mode === "commercial").map((artwork) => artwork.code);
-  assert.equal(automaticArtworkDeliveryCount(), 50);
+  assert.equal(automaticArtworkDeliveryCount(), 45);
   assert.equal(catalog.count, commercialOriginalArtworks.length + vipCodes.length);
   assert.deepEqual(
     catalog.deliveries.map((delivery) => delivery.code),
@@ -31,6 +31,15 @@ test("covers every commercial original with one automatic package", () => {
   assert.equal(getAutomaticArtworkDelivery("LW-ART-001"), null);
   assert.equal(getAutomaticArtworkDelivery("LW-VIP-EXH-001"), null);
   assert.equal(getAutomaticArtworkDelivery("../../private"), null);
+});
+
+test("keeps the selected archive works out of the public catalog and commerce", () => {
+  const excludedCodes = ["LW-ART-004", "LW-ART-005", "LW-ART-024", "LW-ART-049", "LW-ART-058"];
+  for (const code of excludedCodes) {
+    assert.equal(commercialOriginalArtworks.some((artwork) => artwork.code === code), false);
+    assert.equal(getAutomaticArtworkDelivery(code), null);
+    assert.equal(resolveArtworkProduct(code), null);
+  }
 });
 
 test("all automatic packages match their approved size and SHA-256", async () => {

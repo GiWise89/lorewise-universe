@@ -1,0 +1,1117 @@
+{
+  "id": "diablo-iv-complete-guide-01",
+  "slug": "diablo-iv",
+  "code": "LW-ATLAS-D4-001",
+  "game": "Diablo IV",
+  "title": "Il grimorio di Sanctuarium",
+  "subtitle": "Dalla prima classe all’endgame, con una build comprensibile e una separazione netta tra reame stagionale ed eterno.",
+  "description": "Sedici capitoli e quarantotto schede operative dedicate a Diablo IV: edizioni, reami, classi, campagna, abilità, combattimento, equipaggiamento, tempra, aspetti, mondo, spedizioni, boss, stagione, migrazione, cooperativa e aggiornamenti. La guida privilegia procedure verificabili, accessibilità, spoiler separati e scelte sostenibili.",
+  "versionLabel": "Stagione della Rinascita Mortale · build 3.1.3 · verifica 24 agosto 2026",
+  "updatedAt": "24 agosto 2026",
+  "vipFrom": "2026-11-02T00:00:00+01:00",
+  "publicAt": "2026-11-09T00:00:00+01:00",
+  "theme": "atlas",
+  "cover": {
+    "src": "/atlas/diablo-iv/cover.webp",
+    "alt": "Immagine ufficiale usata per la copertina editoriale di Diablo IV",
+    "caption": "Diablo IV · immagine dal sito ufficiale, mostrata integralmente",
+    "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/14880a1527241507d9a2d26f439f83fac20c4246/ss_14880a1527241507d9a2d26f439f83fac20c4246.1920x1080.jpg?t=1782839766"
+  },
+  "storeUrl": "https://diablo4.blizzard.com/en-us/",
+  "storeLabel": "Acquista Diablo IV",
+  "livingGuide": {
+    "enabled": true,
+    "announcement": "Guida Viva: stagioni, patch e bilanciamento vengono verificati sulle fonti Blizzard prima di aggiornare build o progressione.",
+    "scope": {
+      "expansion": "Lord of Hatred",
+      "contentUpdate": "Season of Death Awakening",
+      "season": "Stagione corrente"
+    },
+    "cadence": "monthly",
+    "lastCheckedAt": "2026-08-24",
+    "nextCheckAt": "2026-09-24T09:00:00+02:00",
+    "notificationTarget": "/notifiche",
+    "approvalRequired": true,
+    "monitoredSourceUrls": [
+      "https://news.blizzard.com/en-us/diablo4",
+      "https://news.blizzard.com/en-us/diablo4/23964909/diablo-iv-patch-notes",
+      "https://diablo4.blizzard.com/"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "edition-realms",
+      "number": "01",
+      "label": "Edizione e reami",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Capire dove nascerà il personaggio",
+      "introduction": "Piattaforma, contenuti, reame stagionale o eterno e modalità di gioco determinano progressione e migrazione; scegli prima di creare.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/01-edition-realms.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Edizione e reami",
+          "caption": "Edizione e reami · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/14880a1527241507d9a2d26f439f83fac20c4246/ss_14880a1527241507d9a2d26f439f83fac20c4246.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta edizione e reami come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Aggiorna gioco e account",
+            "Verifica espansioni possedute",
+            "Confronta Stagionale ed Eterno",
+            "Scegli modalità normale o estrema",
+            "Controlla cross-play e privacy"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Capire dove nascerà il personaggio” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Il personaggio non cambia reame liberamente",
+            "Estrema richiede accettare la morte permanente",
+            "Conserva più slot"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un contenuto non compare",
+              "answer": "Controlla licenza, download e reame"
+            },
+            {
+              "problem": "Non vedo un amico",
+              "answer": "Verifica piattaforma, cross-play e livello del mondo"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "class-character",
+      "number": "02",
+      "label": "Classe e personaggio",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Scegliere una fantasia di combattimento, non una classifica",
+      "introduction": "Distanza, risorsa, mobilità, evocazioni e robustezza cambiano il ritmo più del danno teorico; prova il ciclo base.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/02-class-character.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Classe e personaggio",
+          "caption": "Classe e personaggio · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/24952fc1c8779c9a7a555c01489c76f9814f70a7/ss_24952fc1c8779c9a7a555c01489c76f9814f70a7.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta classe e personaggio come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Guarda l’azione principale della classe",
+            "Prova generatore e consumatore",
+            "Verifica una difesa",
+            "Valuta mobilità e distanza",
+            "Porta il personaggio almeno al primo snodo"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Scegliere una fantasia di combattimento, non una classifica” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Le tier list scadono con le patch",
+            "Scegli una classe che vuoi osservare per ore",
+            "Non copiare la build prima di capire la risorsa"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Resto senza risorsa",
+              "answer": "Riduci i consumatori e aggiungi generazione"
+            },
+            {
+              "problem": "La classe sembra fragile",
+              "answer": "Usa difese, distanza e controllo"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "campaign-skip",
+      "number": "03",
+      "label": "Campagna e salto",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Scegliere il percorso di crescita adatto alla prima o alla nuova stagione",
+      "introduction": "La prima esperienza beneficia della campagna; personaggi successivi possono usare percorsi più aperti quando i requisiti di account lo consentono.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/03-campaign-skip.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Campagna e salto",
+          "caption": "Campagna e salto · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/7eda1d661ffde2750d56517e1a46406f340675e5/ss_7eda1d661ffde2750d56517e1a46406f340675e5.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta campagna e salto come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Controlla stato della campagna",
+            "Decidi se seguire la storia",
+            "Sblocca punti di viaggio",
+            "Completa priorità di classe",
+            "Rivedi obiettivi stagionali"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Scegliere il percorso di crescita adatto alla prima o alla nuova stagione” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non inseguire ogni attività subito",
+            "Usa la campagna per imparare sistemi",
+            "Il salto non sostituisce una direzione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il salto non è disponibile",
+              "answer": "Verifica requisiti e personaggio"
+            },
+            {
+              "problem": "La progressione è dispersiva",
+              "answer": "Scegli un capitolo stagionale e una regione"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "skills-build",
+      "number": "04",
+      "label": "Abilità e build",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Costruire un ciclo che sai spiegare in una frase",
+      "introduction": "Una build leggibile genera risorsa, applica una condizione, infligge danno e sopravvive; ogni punto deve sostenere una di queste funzioni.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/04-skills-build.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Abilità e build",
+          "caption": "Abilità e build · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/73d3413a15dcde01592a1e8e3c998ec128ef9676/ss_73d3413a15dcde01592a1e8e3c998ec128ef9676.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta abilità e build come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli un’abilità principale",
+            "Aggiungi generazione",
+            "Inserisci difesa e mobilità",
+            "Seleziona una sinergia",
+            "Prova prima di spendere altri punti"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Costruire un ciclo che sai spiegare in una frase” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Cambia un nodo alla volta",
+            "Leggi parole chiave e condizioni",
+            "Mantieni una barra eseguibile"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il danno è intermittente",
+              "answer": "Controlla risorsa, tempi e condizione"
+            },
+            {
+              "problem": "Ho troppe abilità attive",
+              "answer": "Concentra la build su un solo ciclo"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "combat-resources",
+      "number": "05",
+      "label": "Combattimento",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere gruppi, élite e terreno prima del danno",
+      "introduction": "Controllo, vulnerabilità, fortificazione, barriera e risorse dipendono dalla classe; identifica affissi pericolosi prima di restare fermo.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/05-combat-resources.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Combattimento",
+          "caption": "Combattimento · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/11d4a9be127719b22681d823b83b0c6b4798bf1f/ss_11d4a9be127719b22681d823b83b0c6b4798bf1f.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta combattimento come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Raggruppa o separa i nemici",
+            "Elimina la minaccia prioritaria",
+            "Attiva difesa prima del picco",
+            "Usa mobilità per uscire",
+            "Raccogli bottino a combattimento finito"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Leggere gruppi, élite e terreno prima del danno” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non inseguire un’élite dentro altri gruppi",
+            "Conserva un’uscita",
+            "Impara i segnali dei boss"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Muoio senza capire",
+              "answer": "Leggi affissi e registro visivo"
+            },
+            {
+              "problem": "La risorsa finisce sui boss",
+              "answer": "Aggiungi generazione sostenibile"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "gear-affixes",
+      "number": "06",
+      "label": "Equipaggiamento e affissi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Valutare un oggetto per funzione, non solo per potere",
+      "introduction": "Potere, affissi, qualità e sinergia non crescono sempre insieme; confronta un pezzo dentro il ciclo reale.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/06-gear-affixes.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Equipaggiamento e affissi",
+          "caption": "Equipaggiamento e affissi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/ee4b4e1ba9c8a07f40aff563c7c43fd04477d60c/ss_ee4b4e1ba9c8a07f40aff563c7c43fd04477d60c.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta equipaggiamento e affissi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Definisci affissi prioritari",
+            "Confronta oggetti allo stesso stato",
+            "Equipaggia e prova",
+            "Segna i pezzi da lavorare",
+            "Ricicla o vendi il resto"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Valutare un oggetto per funzione, non solo per potere” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non conservare ogni leggendario",
+            "Proteggi gli oggetti con combinazioni rare",
+            "Il danno sul foglio non racconta la difesa"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un pezzo alto peggiora la build",
+              "answer": "Hai perso un affisso o una soglia"
+            },
+            {
+              "problem": "L’inventario è pieno",
+              "answer": "Usa preferiti e routine di riciclo"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "temper-masterwork",
+      "number": "07",
+      "label": "Tempra e rifinitura",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Investire materiali soltanto sui pezzi che meritano",
+      "introduction": "I sistemi di lavorazione cambiano con patch e progressione; verifica interfaccia corrente, limiti e possibilità prima di consumare risorse.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/07-temper-masterwork.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Tempra e rifinitura",
+          "caption": "Tempra e rifinitura · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/7905f91c07b2cb828d0036389bc783300350fb74/ss_7905f91c07b2cb828d0036389bc783300350fb74.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta tempra e rifinitura come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli un pezzo destinato a durare",
+            "Controlla ricetta e risultato possibile",
+            "Applica un solo investimento",
+            "Verifica la build",
+            "Continua solo se il beneficio è reale"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Investire materiali soltanto sui pezzi che meritano” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Conserva materiali rari per l’endgame",
+            "Non inseguire subito il risultato perfetto",
+            "Annota i sistemi cambiati dalla stagione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Ho ottenuto un affisso inutile",
+              "answer": "Valuta costo e limite prima di riprovare"
+            },
+            {
+              "problem": "Non posso lavorare il pezzo",
+              "answer": "Controlla qualità, fabbro e progressione"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "codex-aspects",
+      "number": "08",
+      "label": "Codice e aspetti",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Collegare poteri leggendari a slot e rotazione",
+      "introduction": "Un aspetto vale quando attiva una sinergia affidabile; distribuisci i poteri fondamentali sugli slot che cambierai meno.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/08-codex-aspects.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Codice e aspetti",
+          "caption": "Codice e aspetti · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/f6bf337468fdf3963cb249fc2d3c58a81eafd2a5/ss_f6bf337468fdf3963cb249fc2d3c58a81eafd2a5.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta codice e aspetti come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Identifica tre poteri centrali",
+            "Sblocca o recupera la fonte",
+            "Scegli gli slot stabili",
+            "Applica il potere",
+            "Prova l’intero ciclo"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Collegare poteri leggendari a slot e rotazione” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non duplicare effetti non cumulabili",
+            "Controlla valori e categorie",
+            "Conserva una configurazione alternativa"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "L’aspetto non si attiva",
+              "answer": "Verifica condizione e compatibilità dello slot"
+            },
+            {
+              "problem": "Ho sostituito un pezzo chiave",
+              "answer": "Ripristina prima il potere mancante"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "open-world",
+      "number": "09",
+      "label": "Mondo e attività",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Usare Sanctuarium come rete di obiettivi",
+      "introduction": "Eventi, sussurri, roccaforti e attività stagionali hanno ricompense diverse; scegli ciò che risolve il prossimo limite.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/09-open-world.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Mondo e attività",
+          "caption": "Mondo e attività · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/14880a1527241507d9a2d26f439f83fac20c4246/ss_14880a1527241507d9a2d26f439f83fac20c4246.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta mondo e attività come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Apri punti di viaggio",
+            "Controlla ricompense attive",
+            "Raggruppa attività vicine",
+            "Completa un obiettivo di reputazione",
+            "Rientra per ordinare il bottino"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Usare Sanctuarium come rete di obiettivi” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non attraversare la mappa per una ricompensa minore",
+            "Usa eventi per testare la build",
+            "Controlla timer e reame"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un evento non appare",
+              "answer": "Verifica orario, livello e stato del mondo"
+            },
+            {
+              "problem": "La ricompensa è bassa",
+              "answer": "Scegli attività coerenti con la progressione"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "dungeons-nightmare",
+      "number": "10",
+      "label": "Spedizioni e Incubo",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Entrare con obiettivo, sigillo e via di uscita",
+      "introduction": "Affissi, livello, obiettivi e densità modificano il rischio; una spedizione utile deve migliorare esperienza, glifi o materiali.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/10-dungeons-nightmare.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Spedizioni e Incubo",
+          "caption": "Spedizioni e Incubo · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/f6bf337468fdf3963cb249fc2d3c58a81eafd2a5/ss_f6bf337468fdf3963cb249fc2d3c58a81eafd2a5.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta spedizioni e incubo come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Leggi sigillo e affissi",
+            "Controlla resistenze",
+            "Scegli un livello sostenibile",
+            "Completa obiettivi senza dispersione",
+            "Valuta tempo e ricompensa"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Entrare con obiettivo, sigillo e via di uscita” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Scarta sigilli incompatibili con la build",
+            "Non aumentare livello dopo una vittoria lenta",
+            "Porta controllo per le élite"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La spedizione non si apre",
+              "answer": "Controlla sigillo, reame e requisiti"
+            },
+            {
+              "problem": "Il boss blocca tutto",
+              "answer": "Riduci livello o modifica difesa"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "boss-endgame",
+      "number": "11",
+      "label": "Boss ed endgame",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Preparare resistenze e fasi invece di comprare tentativi",
+      "introduction": "I boss avanzati richiedono materiali, danno sostenuto e lettura delle meccaniche; misura il progresso per fase raggiunta.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/11-boss-endgame.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Boss ed endgame",
+          "caption": "Boss ed endgame · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/38d64c37bf2e84bbec5138cf114529eada712ebc/ss_38d64c37bf2e84bbec5138cf114529eada712ebc.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta boss ed endgame come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Verifica costo di evocazione",
+            "Aumenta resistenze necessarie",
+            "Impara una fase per tentativo",
+            "Conserva mobilità",
+            "Raccogli e confronta il bottino"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Preparare resistenze e fasi invece di comprare tentativi” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non spendere tutti i materiali in una sessione",
+            "Cerca gruppi con obiettivo chiaro",
+            "Distingui errore meccanico e limite numerico"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Muoio nella stessa fase",
+              "answer": "Studia segnale e posizione"
+            },
+            {
+              "problem": "Il combattimento dura troppo",
+              "answer": "Riduci difficoltà o migliora il nucleo offensivo"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "season-journey",
+      "number": "12",
+      "label": "Stagione e percorso",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Separare potere, obiettivi e ricompense cosmetiche",
+      "introduction": "Percorso stagionale, capitoli e pass battaglia non sono la stessa cosa; leggi requisiti e scadenze prima di ottimizzare.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/12-season-journey.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Stagione e percorso",
+          "caption": "Stagione e percorso · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/7eda1d661ffde2750d56517e1a46406f340675e5/ss_7eda1d661ffde2750d56517e1a46406f340675e5.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta stagione e percorso come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Apri il percorso stagionale",
+            "Scegli obiettivi compatibili",
+            "Completa prima gli sblocchi funzionali",
+            "Controlla ricompense gratuite e premium",
+            "Registra la data di fine"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Separare potere, obiettivi e ricompense cosmetiche” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Il pass non sostituisce il gioco",
+            "Non comprare livelli senza capire il valore",
+            "Raggruppa obiettivi nello stesso contenuto"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un obiettivo non avanza",
+              "answer": "Controlla reame, difficoltà e formulazione"
+            },
+            {
+              "problem": "Una ricompensa manca",
+              "answer": "Verifica livello, riscatto e sezione corretta"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "season-eternal",
+      "number": "13",
+      "label": "Migrazione stagionale",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Sapere cosa resta quando la stagione finisce",
+      "introduction": "Personaggi e oggetti possono migrare verso l’Eterno, mentre sistemi stagionali possono cambiare o terminare; prepara inventari e aspettative.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/13-season-eternal.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Migrazione stagionale",
+          "caption": "Migrazione stagionale · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/73d3413a15dcde01592a1e8e3c998ec128ef9676/ss_73d3413a15dcde01592a1e8e3c998ec128ef9676.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta migrazione stagionale come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Leggi l’avviso ufficiale di fine stagione",
+            "Libera spazio nel forziere",
+            "Conserva oggetti essenziali",
+            "Annota meccaniche temporanee",
+            "Controlla il personaggio dopo la migrazione"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Sapere cosa resta quando la stagione finisce” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non dare per permanente un potere stagionale",
+            "Riscatta ricompense prima della scadenza",
+            "Mantieni un progetto per l’Eterno"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un oggetto non è nel forziere",
+              "answer": "Controlla deposito temporaneo e scadenze"
+            },
+            {
+              "problem": "La build non funziona più",
+              "answer": "Manca una meccanica stagionale o è cambiata una patch"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "coop-crossplay",
+      "number": "14",
+      "label": "Cooperativa e cross-play",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Condividere progressione senza perdere l’obiettivo",
+      "introduction": "Gruppo, livello del mondo, stato delle missioni e cross-play devono essere compatibili; stabilite chi guida e cosa state completando.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/14-coop-crossplay.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Cooperativa e cross-play",
+          "caption": "Cooperativa e cross-play · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/8512b560be0ddef49cb0da366b7d2ddf5df18cab/ss_8512b560be0ddef49cb0da366b7d2ddf5df18cab.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta cooperativa e cross-play come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Verifica account collegati",
+            "Allinea difficoltà e reame",
+            "Invita il gruppo",
+            "Segna la missione comune",
+            "Controlla avanzamento a fine attività"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Condividere progressione senza perdere l’obiettivo” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Comunica materiali di evocazione",
+            "Non trascinare un giocatore oltre la comprensione",
+            "Confronta lo stato della campagna"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non posso unirmi",
+              "answer": "Controlla reame, modalità estrema e cross-play"
+            },
+            {
+              "problem": "La missione avanza solo a uno",
+              "answer": "Verifica stato e guida del gruppo"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "difficulty-diagnosis",
+      "number": "15",
+      "label": "Difficoltà e diagnosi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Aumentare la pressione soltanto quando il ciclo regge",
+      "introduction": "Una difficoltà utile migliora ricompense senza trasformare ogni incontro in un blocco; prova su élite, boss e attività lunghe.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/15-difficulty-diagnosis.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Difficoltà e diagnosi",
+          "caption": "Difficoltà e diagnosi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/11d4a9be127719b22681d823b83b0c6b4798bf1f/ss_11d4a9be127719b22681d823b83b0c6b4798bf1f.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta difficoltà e diagnosi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Misura tempo contro un’élite",
+            "Controlla morti e pozioni",
+            "Verifica resistenze",
+            "Aumenta un livello",
+            "Torna indietro se il rendimento cala"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Aumentare la pressione soltanto quando il ciclo regge” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "La sopravvivenza viene prima del danno teorico",
+            "Non cambiare build e difficoltà insieme",
+            "Prova senza lag o gruppo casuale"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Muoio nei picchi",
+              "answer": "Aumenta difesa e anticipa abilità"
+            },
+            {
+              "problem": "Uccido lentamente ma non muoio",
+              "answer": "Migliora moltiplicatori e disponibilità della risorsa"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "living-updates",
+      "number": "16",
+      "label": "Guida Viva",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Mantenere valida una guida dentro un gioco stagionale",
+      "introduction": "Patch e stagioni modificano numeri, sistemi e priorità: usa questo capitolo per riallineare build, attività e obiettivi al contesto attuale.",
+      "images": [
+        {
+          "src": "/atlas/diablo-iv/chapters/16-living-updates.webp",
+          "alt": "Immagine ufficiale di Diablo IV associata al capitolo Guida Viva",
+          "caption": "Guida Viva · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2344520/8512b560be0ddef49cb0da366b7d2ddf5df18cab/ss_8512b560be0ddef49cb0da366b7d2ddf5df18cab.1920x1080.jpg?t=1782839766"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta guida viva come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Leggi note Blizzard complete",
+            "Segna build e data",
+            "Individua i capitoli coinvolti",
+            "Prova la modifica",
+            "Approva e data la revisione"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Mantenere valida una guida dentro un gioco stagionale” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non aggiornare da anticipazioni non confermate",
+            "Conserva indicazioni per Eterno e Stagionale",
+            "Dichiara sempre la versione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La build cambia dopo una patch",
+              "answer": "Correggi il ciclo, non solo i numeri"
+            },
+            {
+              "problem": "Inizia una nuova stagione",
+              "answer": "Rivedi progressione, sistemi temporanei e migrazione"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "begin",
+      "label": "Entra a Sanctuarium",
+      "summary": "Edizione, reame e scelta della classe.",
+      "icon": {
+        "src": "/atlas/diablo-iv/chapters/01-edition-realms.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a edizione e reami in Diablo IV",
+        "caption": "Edizione e reami · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/diablo-iv/guide-section-icons-v1.webp",
+        "position": "0% 0%"
+      },
+      "chapterIds": [
+        "edition-realms",
+        "class-character",
+        "campaign-skip"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/diablo-iv/section-icons-imagegen-v1/01-begin.webp",
+        "alt": "Icona illustrata della sezione Entra a Sanctuarium",
+        "caption": "Entra a Sanctuarium · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "build",
+      "label": "Costruisci il ciclo",
+      "summary": "Abilità, combattimento e affissi.",
+      "icon": {
+        "src": "/atlas/diablo-iv/chapters/04-skills-build.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a abilità e build in Diablo IV",
+        "caption": "Abilità e build · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/diablo-iv/guide-section-icons-v1.webp",
+        "position": "50% 0%"
+      },
+      "chapterIds": [
+        "skills-build",
+        "combat-resources",
+        "gear-affixes"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/diablo-iv/section-icons-imagegen-v1/02-build.webp",
+        "alt": "Icona illustrata della sezione Costruisci il ciclo",
+        "caption": "Costruisci il ciclo · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "forge",
+      "label": "Lavora il potere",
+      "summary": "Tempra, aspetti e rifinitura.",
+      "icon": {
+        "src": "/atlas/diablo-iv/chapters/07-temper-masterwork.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a tempra e rifinitura in Diablo IV",
+        "caption": "Tempra e rifinitura · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/diablo-iv/guide-section-icons-v1.webp",
+        "position": "100% 0%"
+      },
+      "chapterIds": [
+        "temper-masterwork",
+        "codex-aspects"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/diablo-iv/section-icons-imagegen-v1/03-forge.webp",
+        "alt": "Icona illustrata della sezione Lavora il potere",
+        "caption": "Lavora il potere · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "world",
+      "label": "Percorri il mondo",
+      "summary": "Attività, spedizioni e boss.",
+      "icon": {
+        "src": "/atlas/diablo-iv/chapters/09-open-world.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a mondo e attività in Diablo IV",
+        "caption": "Mondo e attività · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/diablo-iv/guide-section-icons-v1.webp",
+        "position": "0% 100%"
+      },
+      "chapterIds": [
+        "open-world",
+        "dungeons-nightmare",
+        "boss-endgame"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/diablo-iv/section-icons-imagegen-v1/04-world.webp",
+        "alt": "Icona illustrata della sezione Percorri il mondo",
+        "caption": "Percorri il mondo · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "season",
+      "label": "Vivi la stagione",
+      "summary": "Percorso, migrazione e cooperativa.",
+      "icon": {
+        "src": "/atlas/diablo-iv/chapters/12-season-journey.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a stagione e percorso in Diablo IV",
+        "caption": "Stagione e percorso · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/diablo-iv/guide-section-icons-v1.webp",
+        "position": "50% 100%"
+      },
+      "chapterIds": [
+        "season-journey",
+        "season-eternal",
+        "coop-crossplay"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/diablo-iv/section-icons-imagegen-v1/05-season.webp",
+        "alt": "Icona illustrata della sezione Vivi la stagione",
+        "caption": "Vivi la stagione · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "live",
+      "label": "Mantieni la build",
+      "summary": "Difficoltà e Guida Viva.",
+      "icon": {
+        "src": "/atlas/diablo-iv/chapters/15-difficulty-diagnosis.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a difficoltà e diagnosi in Diablo IV",
+        "caption": "Difficoltà e diagnosi · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/diablo-iv/guide-section-icons-v1.webp",
+        "position": "100% 100%"
+      },
+      "chapterIds": [
+        "difficulty-diagnosis",
+        "living-updates"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/diablo-iv/section-icons-imagegen-v1/06-live.webp",
+        "alt": "Icona illustrata della sezione Mantieni la build",
+        "caption": "Mantieni la build · icona tematica generata con ImageGen"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "Diablo IV · sito ufficiale",
+      "href": "https://diablo4.blizzard.com/"
+    },
+    {
+      "label": "Blizzard · notizie Diablo IV",
+      "href": "https://news.blizzard.com/en-us/diablo4"
+    },
+    {
+      "label": "Blizzard · note della patch Diablo IV",
+      "href": "https://news.blizzard.com/en-us/diablo4/23964909/diablo-iv-patch-notes"
+    },
+    {
+      "label": "Blizzard Support · Diablo IV",
+      "href": "https://us.battle.net/support/en/games/diablo4"
+    }
+  ]
+}

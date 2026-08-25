@@ -13,8 +13,9 @@ export const dynamic = "force-dynamic";
 
 export default async function NexusChroniclesPage({ searchParams }: { searchParams: Promise<{ anteprima?: string }> }) {
   const params = await searchParams;
-  const localCalendarPreview = process.env.NODE_ENV !== "production" && params.anteprima === "tutte";
-  const editorialDate = localCalendarPreview ? new Date("2026-09-07T12:00:00+02:00") : new Date();
+  const localCalendarPreview = params.anteprima === "tutte"
+    && (process.env.NODE_ENV !== "production" || process.env.LOREWISE_LOCAL_CALENDAR_PREVIEW === "true");
+  const editorialDate = localCalendarPreview ? new Date("2026-12-07T12:00:00+01:00") : new Date();
   const nexusChronicles = getNexusChronicles(editorialDate);
   const currentChronicle = nexusChronicles[0];
   return <main className="nexus-chronicles-page">

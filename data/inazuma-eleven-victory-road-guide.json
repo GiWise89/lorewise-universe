@@ -1,0 +1,1103 @@
+{
+  "id": "inazuma-eleven-victory-road-complete-guide-01",
+  "slug": "inazuma-eleven-victory-road",
+  "code": "LW-ATLAS-IEVR-001",
+  "game": "INAZUMA ELEVEN: Victory Road",
+  "title": "La strada verso la vittoria",
+  "subtitle": "Dalla nuova storia alla squadra dei sogni, per padroneggiare il calcio iperdimensionale senza perdere progressi o legami.",
+  "description": "Sedici capitoli e quarantotto schede operative dedicate a edizioni, configurazione, Story Mode, partite, Focus, Zone, tecniche speciali, tattiche, sviluppo, Chronicle, scouting, Competition, Bond Station, cross-save, aggiornamenti e completamento.",
+  "versionLabel": "Versione 7.1.x · Contenders for Glory · verifica 24 agosto 2026",
+  "updatedAt": "24 agosto 2026",
+  "vipFrom": "2026-11-30T00:00:00+01:00",
+  "publicAt": "2026-12-07T00:00:00+01:00",
+  "theme": "inazuma-eleven-victory-road",
+  "cover": {
+    "src": "/atlas/inazuma-eleven-victory-road/cover.webp",
+    "alt": "Il cast di INAZUMA ELEVEN Victory Road riunito attorno al pallone con il logo ufficiale",
+    "caption": "INAZUMA ELEVEN: Victory Road · cast e identità ufficiale del gioco",
+    "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2799860/capsule_616x353.jpg"
+  },
+  "storeUrl": "https://www.inazuma.jp/victory-road/en/product/",
+  "storeLabel": "Acquista Victory Road",
+  "livingGuide": {
+    "enabled": true,
+    "announcement": "Story, Chronicle, Competition e aggiornamenti gratuiti riuniti in un solo percorso.",
+    "scope": {
+      "expansion": "Contenders for Glory",
+      "contentUpdate": "Versione 7.1.x",
+      "season": "Tornei online"
+    },
+    "cadence": "monthly",
+    "lastCheckedAt": "2026-08-24",
+    "nextCheckAt": "2026-09-24T09:00:00+02:00",
+    "notificationTarget": "/notifiche",
+    "approvalRequired": true,
+    "monitoredSourceUrls": [
+      "https://www.inazuma.jp/victory-road/en/index.html",
+      "https://www.inazuma.jp/victory-road/en/topics/",
+      "https://www.inazuma.jp/victory-road/en/system/"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "editions-platforms",
+      "number": "01",
+      "label": "Edizioni e piattaforme",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Scegliere Standard, Deluxe e piattaforma",
+      "introduction": "Victory Road è disponibile in digitale su Switch 2, Switch, PS5, PS4, Xbox Series e Steam, con Standard, Deluxe e upgrade separato.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/01-editions-platforms.webp",
+          "alt": "Logo ufficiale e protagonisti di Victory Road attorno al pallone",
+          "caption": "Edizioni e piattaforme · identità ufficiale del gioco",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2799860/header.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Victory Road è disponibile in digitale su Switch 2, Switch, PS5, PS4, Xbox Series e Steam, con Standard, Deluxe e upgrade separato.",
+          "steps": [
+            "Confronta Standard e Deluxe",
+            "Verifica costo dell’upgrade",
+            "Controlla spazio e requisiti PC",
+            "Valuta cross-save tra le piattaforme usate",
+            "Scarica aggiornamenti prima del primo avvio"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Scegliere Standard, Deluxe e piattaforma” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "I bonus Deluxe vanno posseduti sulla piattaforma in cui vuoi usarli",
+            "La versione italiana include interfaccia e sottotitoli",
+            "Su PC è richiesto Easy Anti-Cheat"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Un bonus non compare",
+              "answer": "Controlla edizione e piattaforma della licenza"
+            },
+            {
+              "problem": "Il gioco non parte su PC",
+              "answer": "Verifica Windows 11, driver, spazio ed Easy Anti-Cheat"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "first-setup",
+      "number": "02",
+      "label": "Configurazione iniziale",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Preparare comandi, rete e leggibilità",
+      "introduction": "Prima di entrare in Story o Competition conviene regolare camera, assistenze, indicatori, volume e connessione.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/02-first-setup.webp",
+          "alt": "Esplorazione della scuola con obiettivo e comandi visibili",
+          "caption": "Configurazione iniziale · comandi, obiettivi ed esplorazione",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2799860/ss_1279f2e22e9c3760910577060bc78189111bdec7.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Prima di entrare in Story o Competition conviene regolare camera, assistenze, indicatori, volume e connessione.",
+          "steps": [
+            "Scegli lingua e sottotitoli",
+            "Completa il tutorial dei comandi",
+            "Regola camera e vibrazione",
+            "Verifica connessione e account",
+            "Prova una partita senza pressione"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Preparare comandi, rete e leggibilità” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Impara un comando alla volta",
+            "La qualità della rete conta nelle partite online",
+            "Conserva un preset comodo per sessioni lunghe"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "I comandi sembrano confusi",
+              "answer": "Ripeti il tutorial e usa allenamento"
+            },
+            {
+              "problem": "La partita online scatta",
+              "answer": "Controlla rete cablata e regione"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "story-mode",
+      "number": "03",
+      "label": "Story Mode",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Seguire Destin senza correre oltre la squadra",
+      "introduction": "La storia si svolge venticinque anni dopo il primo Inazuma Eleven e segue Destin Billows e Harper Evans.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/03-story-mode.webp",
+          "alt": "Destin Billows nel cortile della scuola durante lo Story Mode",
+          "caption": "Story Mode · il nuovo protagonista e la nuova scuola",
+          "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/story/synopsis/img_synopsis_01_2510.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "La storia si svolge venticinque anni dopo il primo Inazuma Eleven e segue Destin Billows e Harper Evans.",
+          "steps": [
+            "Esplora la scuola",
+            "Parla con i personaggi segnati",
+            "Completa gli obiettivi di squadra",
+            "Allena i ruoli mancanti",
+            "Salva prima delle partite importanti"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Seguire Destin senza correre oltre la squadra” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Le scene animate sono parte centrale dell’esperienza",
+            "Non trascurare dialoghi e legami",
+            "Costruisci la squadra secondo la storia prima di ottimizzarla"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Non trovi il prossimo obiettivo",
+              "answer": "Controlla mappa e registro"
+            },
+            {
+              "problem": "Una partita blocca la storia",
+              "answer": "Rivedi ruoli, tensione e tecniche"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "match-basics",
+      "number": "04",
+      "label": "Fondamentali della partita",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Trasformare possesso e duelli in occasioni",
+      "introduction": "Movimento, passaggi, contrasti, Over Ride e Catch Bomb costruiscono il ritmo prima delle tecniche speciali.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/04-match-basics.webp",
+          "alt": "Zona offensiva attiva durante una partita",
+          "caption": "Fondamentali della partita · posizione, tensione e scelta dell'azione",
+          "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/competition/stit_zone_o_2510.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Movimento, passaggi, contrasti, Over Ride e Catch Bomb costruiscono il ritmo prima delle tecniche speciali.",
+          "steps": [
+            "Mantieni una linea di passaggio",
+            "Attira un avversario",
+            "Usa Over Ride nel momento utile",
+            "Proteggi la palla prima del tiro",
+            "Ricompattati dopo la perdita"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Trasformare possesso e duelli in occasioni” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non correre sempre verso la porta",
+            "Cambia lato contro una difesa affollata",
+            "Conserva giocatori dietro la palla"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Perdi ogni duello",
+              "answer": "Valuta statistiche, direzione e supporto"
+            },
+            {
+              "problem": "Non crei occasioni",
+              "answer": "Muovi la palla prima di usare una tecnica"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "focus-zone",
+      "number": "05",
+      "label": "Focus",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Vincere il confronto leggendo spazio e direzione",
+      "introduction": "Il Focus concentra il duello tra attaccante e difensore; posizione, abilità e scelta del movimento determinano l’esito.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/05-focus-zone.webp",
+          "alt": "Interfaccia Focus durante un confronto uno contro uno",
+          "caption": "Focus · spazio, direzione e risultato del duello",
+          "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/competition/stit_forcus_2510.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Il Focus concentra il duello tra attaccante e difensore; posizione, abilità e scelta del movimento determinano l’esito.",
+          "steps": [
+            "Osserva la direzione avversaria",
+            "Scegli il varco",
+            "Valuta il supporto vicino",
+            "Usa l’abilità solo quando serve",
+            "Prepara l’azione successiva"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Vincere il confronto leggendo spazio e direzione” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "La fretta rende prevedibili",
+            "Un Focus vinto non garantisce un tiro libero",
+            "Impara quando rinunciare al duello"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Il difensore anticipa sempre",
+              "answer": "Varia direzione e tempo"
+            },
+            {
+              "problem": "Vinci il Focus ma perdi palla",
+              "answer": "Cerca subito un passaggio sicuro"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "special-moves",
+      "number": "06",
+      "label": "Zone e tecniche speciali",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Spendere tensione per cambiare davvero l’azione",
+      "introduction": "Zone, tiri, parate, blocchi e catene hanno costi e finestre diverse; la tecnica migliore è quella usata nel momento corretto.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/06-special-moves.webp",
+          "alt": "Fire Tornado DD eseguito da due giocatori",
+          "caption": "Tecniche speciali · Fire Tornado DD in azione",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2799860/ss_9a85e64436ad96f1ceb06a9b71f433229d2834d2.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Zone, tiri, parate, blocchi e catene hanno costi e finestre diverse; la tecnica migliore è quella usata nel momento corretto.",
+          "steps": [
+            "Controlla tensione disponibile",
+            "Attiva la zona coerente",
+            "Crea spazio per il tiratore",
+            "Concatena solo con supporto",
+            "Conserva una risposta difensiva"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Spendere tensione per cambiare davvero l’azione” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non spendere tutto nel primo attacco",
+            "Le tecniche difensive valgono quanto i tiri",
+            "Conosci portata e requisito di ogni mossa"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "La tecnica non si attiva",
+              "answer": "Controlla posizione, tensione e finestra"
+            },
+            {
+              "problem": "Il portiere para tutto",
+              "answer": "Aumenta qualità dell’occasione e usa catene"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "tactics-commander",
+      "number": "07",
+      "label": "Tattiche e Commander Mode",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Dare alla squadra un piano riconoscibile",
+      "introduction": "Tattiche, Geoglyph e Commander Mode permettono di guidare ruoli e comportamento oltre il controllo diretto.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/07-tactics-commander.webp",
+          "alt": "Carta tattica dorata attivata durante la partita",
+          "caption": "Tattiche e comando · bonus e piano di squadra",
+          "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/competition/stit_tactics_2510.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Tattiche, Geoglyph e Commander Mode permettono di guidare ruoli e comportamento oltre il controllo diretto.",
+          "steps": [
+            "Scegli un’identità offensiva",
+            "Assegna ruoli chiari",
+            "Prepara una variante difensiva",
+            "Usa Geoglyph nella zona utile",
+            "Cambia piano dopo aver letto l’avversario"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Dare alla squadra un piano riconoscibile” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Una tattica deve adattarsi ai giocatori",
+            "Non cambiare formazione a ogni errore",
+            "Commander Mode richiede istruzioni semplici"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "La squadra si allunga",
+              "answer": "Riduci aggressività o distanza tra reparti"
+            },
+            {
+              "problem": "Gli attaccanti non ricevono palla",
+              "answer": "Rivedi supporti e costruzione"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "team-building",
+      "number": "08",
+      "label": "Formazione e ruoli",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Costruire undici giocatori che si aiutano",
+      "introduction": "Portiere, difensori, centrocampisti e attaccanti devono coprire fasi diverse; il valore totale non sostituisce l’equilibrio.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/08-team-building.webp",
+          "alt": "Giocatori di epoche diverse riuniti come squadra",
+          "caption": "Costruzione della squadra · ruoli e generazioni riunite",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2799860/ss_a128008288c35a69d0b5511eb8633c742e17f7f7.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Portiere, difensori, centrocampisti e attaccanti devono coprire fasi diverse; il valore totale non sostituisce l’equilibrio.",
+          "steps": [
+            "Scegli un portiere affidabile",
+            "Costruisci una coppia difensiva",
+            "Aggiungi regia e recupero",
+            "Abbina attaccanti complementari",
+            "Prepara sostituzioni per ruolo"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Costruire undici giocatori che si aiutano” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non usare soltanto i personaggi preferiti nello stesso ruolo",
+            "Controlla elementi e tecniche",
+            "La panchina deve risolvere problemi reali"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Subisci contropiedi",
+              "answer": "Aggiungi equilibrio e copertura"
+            },
+            {
+              "problem": "Segni poco",
+              "answer": "Crea un secondo modo di finalizzare"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "abilearn-passives",
+      "number": "09",
+      "label": "Abilearn, passivi e legami",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Far crescere la squadra lungo un progetto",
+      "introduction": "Abilearn Board, Team Passives e Bond Link permettono di specializzare giocatori e rafforzare relazioni tra i membri.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/09-abilearn-passives.webp",
+          "alt": "Giocatore potenziato con una tecnica durante la crescita",
+          "caption": "Abilearn e passivi · sviluppo del giocatore",
+          "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/competition/img_enhancement-system_01_2510.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Abilearn Board, Team Passives e Bond Link permettono di specializzare giocatori e rafforzare relazioni tra i membri.",
+          "steps": [
+            "Definisci il ruolo finale",
+            "Apri l’Abilearn Board",
+            "Sblocca nodi coerenti",
+            "Combina Team Passives",
+            "Collega Bond Link utili"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Far crescere la squadra lungo un progetto” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non spendere risorse su ogni ramo",
+            "I passivi di squadra richiedono composizione",
+            "I legami devono sostenere il piano di gioco"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "La crescita sembra lenta",
+              "answer": "Concentra risorse sul nucleo titolare"
+            },
+            {
+              "problem": "Un passivo non si attiva",
+              "answer": "Controlla requisiti e limite della squadra"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "chronicle-mode",
+      "number": "10",
+      "label": "Chronicle Mode",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Attraversare la storia della serie senza perdersi",
+      "introduction": "Chronicle Mode raccoglie squadre, partite e oltre 5.400 giocatori dell’intera saga lungo percorsi tematici.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/10-chronicle-mode.webp",
+          "alt": "Percorso di battaglie e squadre del Chronicle Mode",
+          "caption": "Chronicle Mode · percorso nella storia della serie",
+          "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/chronicle/img_chronicle-battle-route_01_2510.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Chronicle Mode raccoglie squadre, partite e oltre 5.400 giocatori dell’intera saga lungo percorsi tematici.",
+          "steps": [
+            "Scegli un percorso storico",
+            "Controlla requisiti della tappa",
+            "Prepara una squadra adatta",
+            "Completa obiettivi secondari",
+            "Segna i giocatori ancora mancanti"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Attraversare la storia della serie senza perdersi” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Procedi per epoca o squadra",
+            "Non tentare di collezionare tutto subito",
+            "Usa Chronicle per testare combinazioni"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Una tappa è troppo difficile",
+              "answer": "Cambia percorso e rinforza il nucleo"
+            },
+            {
+              "problem": "Non trovi un giocatore",
+              "answer": "Controlla percorso, ricompensa e condizione"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "scouting-collection",
+      "number": "11",
+      "label": "Scouting e collezione",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Ottenere giocatori senza sprecare risorse",
+      "introduction": "La collezione enorme richiede filtri, priorità e una distinzione tra preferiti, titolari e progetti futuri.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/11-scouting-collection.webp",
+          "alt": "Schermata della rosa con giocatori e parametri",
+          "caption": "Scouting e collezione · scelta e confronto dei giocatori",
+          "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/chronicle/img_chronicle-players_01_2510.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "La collezione enorme richiede filtri, priorità e una distinzione tra preferiti, titolari e progetti futuri.",
+          "steps": [
+            "Filtra per ruolo ed elemento",
+            "Segna i preferiti",
+            "Controlla metodo di ottenimento",
+            "Investi prima sui titolari",
+            "Archivia i doppioni con criterio"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Ottenere giocatori senza sprecare risorse” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non inseguire rarità senza ruolo",
+            "Costruisci una lista breve",
+            "Conserva risorse per eventi e nuovi percorsi"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "La rosa è ingestibile",
+              "answer": "Usa filtri e categorie personali"
+            },
+            {
+              "problem": "Non ottieni il giocatore desiderato",
+              "answer": "Verifica la fonte prima di spendere ancora"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "competition-online",
+      "number": "12",
+      "label": "Competition e online",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Giocare contro persone con un piano e rispetto",
+      "introduction": "Competition Mode, ranked e tornei mettono alla prova lettura, gestione della tensione e capacità di adattamento.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/12-competition-online.webp",
+          "alt": "Partita competitiva nello stadio con punteggio e comandi visibili",
+          "caption": "Competition Mode · partita e pressione competitiva",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2799860/ss_8c0e596b3d4e097bb24072e90e27e42ac449ae2f.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Competition Mode, ranked e tornei mettono alla prova lettura, gestione della tensione e capacità di adattamento.",
+          "steps": [
+            "Controlla connessione",
+            "Scegli una squadra conosciuta",
+            "Osserva i primi minuti",
+            "Cambia tattica una volta",
+            "Rivedi la sconfitta senza cambiare tutto"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Giocare contro persone con un piano e rispetto” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Evita abbandoni e comportamenti scorretti",
+            "Impara una risposta contro le strategie frequenti",
+            "La classifica non misura il divertimento"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Il matchmaking fallisce",
+              "answer": "Controlla stato servizi, regione e aggiornamento"
+            },
+            {
+              "problem": "Perdi serie di partite",
+              "answer": "Fermati e rivedi un solo errore ricorrente"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "bond-station",
+      "number": "13",
+      "label": "Bond Station",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Creare una città che racconta la tua squadra",
+      "introduction": "Bond Station permette di personalizzare avatar e Bond Town, collocare oggetti, invitare amici e usare l’avatar nelle partite.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/13-bond-station.webp",
+          "alt": "Bond Town personalizzata attorno a un campo da calcio",
+          "caption": "Bond Station · costruzione della propria città",
+          "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/kizuna/img_kizuna-town_02_2510.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Bond Station permette di personalizzare avatar e Bond Town, collocare oggetti, invitare amici e usare l’avatar nelle partite.",
+          "steps": [
+            "Crea l’avatar",
+            "Scegli un tema della città",
+            "Posiziona oggetti funzionali e decorativi",
+            "Salva il layout",
+            "Invita amici quando il percorso è leggibile"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Creare una città che racconta la tua squadra” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Lascia spazio per muoversi",
+            "Usa oggetti della serie che ami",
+            "Non sacrificare chiarezza per riempire ogni area"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Un oggetto non si posiziona",
+              "answer": "Controlla spazio e collisioni"
+            },
+            {
+              "problem": "Gli amici non entrano",
+              "answer": "Verifica privacy, rete e versione"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "crossplay-crosssave",
+      "number": "14",
+      "label": "Cross-play e cross-save",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Spostare la squadra senza perdere dati o bonus",
+      "introduction": "Cross-play e cross-save permettono di giocare su più piattaforme, ma licenze e contenuti Deluxe restano legati agli acquisti.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/14-crossplay-crosssave.webp",
+          "alt": "Avatar e amici riuniti nella Bond Station",
+          "caption": "Cross-play e cross-save · squadra e amici tra piattaforme",
+          "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/kizuna/img_friends_01_2510.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Cross-play e cross-save permettono di giocare su più piattaforme, ma licenze e contenuti Deluxe restano legati agli acquisti.",
+          "steps": [
+            "Crea o collega l’account richiesto",
+            "Carica il salvataggio principale",
+            "Attendi conferma della sincronizzazione",
+            "Apri l’altra piattaforma",
+            "Controlla squadra e contenuti prima di continuare"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Spostare la squadra senza perdere dati o bonus” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non sovrascrivere alla cieca",
+            "I bonus Deluxe richiedono licenza sulla piattaforma usata",
+            "Conserva una copia sicura quando disponibile"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Il salvataggio non compare",
+              "answer": "Controlla account, rete e versione"
+            },
+            {
+              "problem": "Mancano bonus",
+              "answer": "Verifica edizione posseduta su quella piattaforma"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "dlc-updates",
+      "number": "15",
+      "label": "Aggiornamenti gratuiti",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Integrare nuovi percorsi senza smontare la squadra",
+      "introduction": "Gli aggiornamenti maggiori gratuiti hanno ampliato giocatori, modalità e sfide fino a Contenders for Glory e alla versione 7.1.x.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/15-dlc-updates.webp",
+          "alt": "Nuova scena narrativa con Destin Billows durante un aggiornamento",
+          "caption": "Aggiornamenti e DLC · nuovi percorsi narrativi",
+          "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2799860/ss_e78a4001ebb5a025a277d249bd04368d7d5f5800.1920x1080.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Gli aggiornamenti maggiori gratuiti hanno ampliato giocatori, modalità e sfide fino a Contenders for Glory e alla versione 7.1.x.",
+          "steps": [
+            "Aggiorna tutte le piattaforme",
+            "Leggi il contenuto aggiunto",
+            "Controlla nuovi percorsi",
+            "Prova una novità alla volta",
+            "Rivedi passivi solo se necessario"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Integrare nuovi percorsi senza smontare la squadra” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Non ricostruire la squadra per ogni patch",
+            "Controlla limiti aggiornati dei passivi",
+            "Separa novità permanenti e tornei temporanei"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Una modalità non compare",
+              "answer": "Verifica versione e completamento richiesto"
+            },
+            {
+              "problem": "La squadra cambia rendimento",
+              "answer": "Controlla note di bilanciamento e passivi"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    },
+    {
+      "id": "completion",
+      "number": "16",
+      "label": "Completamento",
+      "estimatedRead": "14–19 min",
+      "spoiler": "No spoiler",
+      "title": "Definire la propria vittoria finale",
+      "introduction": "Storia, Chronicle, collezione, online e Bond Town offrono traguardi diversi; scegli ciò che rende completa la tua esperienza.",
+      "images": [
+        {
+          "src": "/atlas/inazuma-eleven-victory-road/chapters/16-completion.webp",
+          "alt": "Tecnica speciale concatenata nella fase decisiva della partita",
+          "caption": "Completamento · tecnica concatenata per la vittoria finale",
+          "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/competition/stit_chain_2510.jpg"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Storia, Chronicle, collezione, online e Bond Town offrono traguardi diversi; scegli ciò che rende completa la tua esperienza.",
+          "steps": [
+            "Completa la storia",
+            "Chiudi i percorsi Chronicle preferiti",
+            "Costruisci la squadra dei sogni",
+            "Raggiungi un obiettivo online realistico",
+            "Fotografa o salva Bond Town e rosa finale"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Cosa fa davvero la differenza",
+          "text": "Nel capitolo “Definire la propria vittoria finale” conta mantenere un obiettivo leggibile e cambiare una scelta alla volta.",
+          "tips": [
+            "Il 100% non è obbligatorio",
+            "Oltre 5.400 giocatori richiedono selezione",
+            "Conserva una squadra simbolica oltre a quella competitiva"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Parti dal problema osservabile e verifica contesto, requisiti e sequenza prima di cambiare tutto.",
+          "scenarios": [
+            {
+              "problem": "Ti senti bloccato dal collezionismo",
+              "answer": "Riduci la lista ai personaggi importanti"
+            },
+            {
+              "problem": "Non sai cosa fare dopo la storia",
+              "answer": "Scegli Chronicle, Competition o Bond Station come nuovo centro"
+            }
+          ],
+          "warning": "Conserva un salvataggio sicuro prima delle scelte irreversibili o dei passaggi narrativi importanti."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "kickoff",
+      "label": "Prepara il calcio d’inizio",
+      "summary": "Edizioni, impostazioni e Story Mode.",
+      "icon": {
+        "src": "/atlas/inazuma-eleven-victory-road/chapters/01-editions-platforms.webp",
+        "alt": "Personaggi principali di Victory Road",
+        "caption": "Edizioni e piattaforme · immagine ufficiale Steam · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2799860/ss_8c0e596b3d4e097bb24072e90e27e42ac449ae2f.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "editions-platforms",
+        "first-setup",
+        "story-mode"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/inazuma-eleven-victory-road/generated-icons-v1/01-kickoff.webp",
+        "alt": "Pallone da calcio circondato da un fulmine",
+        "caption": "Calcio d'inizio · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "match",
+      "label": "Gioca la partita",
+      "summary": "Fondamentali, Focus e tecniche.",
+      "icon": {
+        "src": "/atlas/inazuma-eleven-victory-road/chapters/04-match-basics.webp",
+        "alt": "Duello Over Ride durante una partita",
+        "caption": "Fondamentali della partita · Over Ride · mostrata integralmente",
+        "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/competition/stit_over-ride.jpg"
+      },
+      "chapterIds": [
+        "match-basics",
+        "focus-zone",
+        "special-moves"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/inazuma-eleven-victory-road/generated-icons-v1/02-tactics.webp",
+        "alt": "Lavagna tattica con frecce e traiettorie",
+        "caption": "Partita e tattica · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "coach",
+      "label": "Guida la squadra",
+      "summary": "Tattiche, formazione e crescita.",
+      "icon": {
+        "src": "/atlas/inazuma-eleven-victory-road/chapters/07-tactics-commander.webp",
+        "alt": "Catena di tecniche speciali",
+        "caption": "Tecniche speciali e Chain · mostrata integralmente",
+        "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/competition/stit_chain_2510.jpg"
+      },
+      "chapterIds": [
+        "tactics-commander",
+        "team-building",
+        "abilearn-passives"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/inazuma-eleven-victory-road/generated-icons-v1/03-special.webp",
+        "alt": "Scarpa che colpisce un pallone elementale",
+        "caption": "Tecniche speciali · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "chronicle",
+      "label": "Attraversa la leggenda",
+      "summary": "Chronicle, scouting e collezione.",
+      "icon": {
+        "src": "/atlas/inazuma-eleven-victory-road/chapters/10-chronicle-mode.webp",
+        "alt": "Percorso di battaglie del Chronicle Mode",
+        "caption": "Chronicle Mode · percorsi nella storia della serie · mostrata integralmente",
+        "sourceUrl": "https://www.inazuma.jp/victory-road/assets/img/chronicle/img_chronicle-battle-route_01_2510.jpg"
+      },
+      "chapterIds": [
+        "chronicle-mode",
+        "scouting-collection"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/inazuma-eleven-victory-road/generated-icons-v1/04-team.webp",
+        "alt": "Formazione di squadra rappresentata da pedine",
+        "caption": "Costruzione della squadra · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "connect",
+      "label": "Connettiti al mondo",
+      "summary": "Competition, Bond Station e cross-save.",
+      "icon": {
+        "src": "/atlas/inazuma-eleven-victory-road/chapters/12-competition-online.webp",
+        "alt": "Squadre schierate in una partita competitiva",
+        "caption": "Competition Mode e gioco online · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2799860/ss_0f77cd90aa1f790d92d3f201984a205f63009529.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "competition-online",
+        "bond-station",
+        "crossplay-crosssave"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/inazuma-eleven-victory-road/generated-icons-v1/05-chronicle.webp",
+        "alt": "Libro-archivio con una formazione di calciatori",
+        "caption": "Chronicle Mode · icona originale generata con ImageGen"
+      }
+    },
+    {
+      "id": "future",
+      "label": "Continua il viaggio",
+      "summary": "Aggiornamenti e completamento.",
+      "icon": {
+        "src": "/atlas/inazuma-eleven-victory-road/chapters/15-dlc-updates.webp",
+        "alt": "Tecnica speciale durante una partita",
+        "caption": "Aggiornamenti gratuiti e nuove sfide · mostrata integralmente",
+        "sourceUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2799860/ss_e78a4001ebb5a025a277d249bd04368d7d5f5800.1920x1080.jpg"
+      },
+      "chapterIds": [
+        "dlc-updates",
+        "completion"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/inazuma-eleven-victory-road/generated-icons-v1/06-future.webp",
+        "alt": "Coppa davanti a uno stadio luminoso",
+        "caption": "Competizione e futuro · icona originale generata con ImageGen"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "Victory Road · sito ufficiale",
+      "href": "https://www.inazuma.jp/victory-road/en/index.html"
+    },
+    {
+      "label": "Victory Road · prodotto ed edizioni",
+      "href": "https://www.inazuma.jp/victory-road/en/product/"
+    },
+    {
+      "label": "Victory Road · sistema di gioco",
+      "href": "https://www.inazuma.jp/victory-road/en/system/"
+    },
+    {
+      "label": "Victory Road · notizie e aggiornamenti",
+      "href": "https://www.inazuma.jp/victory-road/en/topics/"
+    },
+    {
+      "label": "Victory Road · Steam",
+      "href": "https://store.steampowered.com/app/2799860/INAZUMA_ELEVEN__Victory_Road/"
+    }
+  ]
+}

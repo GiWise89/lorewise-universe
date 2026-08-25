@@ -138,14 +138,15 @@ test("groups every destination into the approved responsive navigation", async (
   assert.match(html, /href="\/contatti"/);
 });
 
-test("renders the automatic weekly guide inside the game Atlas panel", async () => {
+test("renders the weekly guide inside the game Atlas panel without internal workflow copy", async () => {
   const response = await render("/cronache-del-nexus");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Atlante dei Giochi[\s\S]*Aggiornamento automatico del lunedì[\s\S]*La guida della settimana/);
+  assert.match(html, /Atlante dei Giochi[\s\S]*Novità del lunedì[\s\S]*La guida della settimana/);
   assert.match(html, /ora in LoreWise VIP/);
   assert.match(html, /La prossima guida sarà/);
-  assert.match(html, /Passaggio automatico nell[^<]*Atlante pubblico/);
+  assert.match(html, /Disponibile nell’Atlante pubblico/);
+  assert.doesNotMatch(html, /Aggiornamento automatico|Passaggio automatico/);
   assert.match(html, /Apri la guida VIP/);
   assert.match(html, /Collegamento alla pagina ufficiale del gioco/);
 });
@@ -191,6 +192,11 @@ test("renders the GiWise creative journal with originals and clearly separated r
   assert.match(html, /lw-art-079-preview\.jpg/);
   assert.match(html, /lw-wip-079-3-preview\.webp/);
   assert.match(html, /Ritratto vampiresco/);
+  assert.match(html, /Ritratti su commissione/);
+  assert.match(html, /Luce nello sguardo/);
+  assert.doesNotMatch(html, /Miriana/i);
+  assert.match(html, /lw-com-038-preview\.webp/);
+  assert.equal(getCreativeJournalEntry("luce-nello-sguardo")?.artworkHref, "/commissioni/lw-com-038");
   assert.match(html, /reinterpretazione personale non ufficiale/);
   assert.match(html, /lw-art-041-preview\.jpg/);
   assert.match(html, /lw-wip-001-a-preview\.jpg/);
@@ -204,6 +210,19 @@ test("renders the GiWise creative journal with originals and clearly separated r
   assert.doesNotMatch(html, /Scorri per vedere tutto/);
   assert.doesNotMatch(html, /La storia del personaggio|La chiamavano Terza/);
   assert.match(html, /href="\/dove-nascono-i-mondi\/scappa-finche-puoi"/);
+});
+
+test("gives the portrait a complete protected commission sequence without a personal name", async () => {
+  const response = await render("/dove-nascono-i-mondi/luce-nello-sguardo");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Luce nello sguardo/);
+  assert.doesNotMatch(html, /Miriana/i);
+  assert.match(html, /Otto fasi di lavorazione e opera completa/);
+  for (let index = 1; index <= 8; index += 1) assert.match(html, new RegExp(`lw-wip-012-${index}-preview\\.webp`));
+  assert.match(html, /lw-com-038-preview\.webp/);
+  assert.equal(getCreativeJournalEntry("luce-nello-sguardo")?.artworkHref, "/commissioni/lw-com-038");
+  assert.match(html, /09 · Opera completa: luce del tramonto/);
 });
 
 test("gives Protocollo Ambra its own documented creative sequence", async () => {
@@ -461,7 +480,7 @@ test("renders the protected art catalog without deriving public titles from file
   assert.match(html, /fanart-emblem-v1\.webp/);
   assert.match(html, /Ordina/);
   assert.match(html, /Apri il capitolo successivo/);
-  assert.match(html, /Visualizzate[\s\S]*6[\s\S]*67 opere/);
+  assert.match(html, /Visualizzate[\s\S]*6[\s\S]*74 opere/);
   assert.match(html, /Originale autorizzata/);
   assert.match(html, /Fascia Essenziale/);
   assert.match(html, /Fascia Dettagliata/);
@@ -478,10 +497,9 @@ test("renders the protected art catalog without deriving public titles from file
   assert.match(html, /href="\/arte\/lw-art-003"/);
 });
 
-test("renders the nine newly authorized originals with their approved price tiers", async () => {
+test("renders the eight public newly authorized originals with their approved price tiers", async () => {
   const expected = [
     ["048", "Fascia Dettagliata", "12,90", "1748 × 2480 px"],
-    ["049", "Fascia Premium", "17,90", "3840 × 2160 px"],
     ["050", "Fascia Dettagliata", "12,90", "1748 × 2480 px"],
     ["051", "Fascia Premium", "17,90", "1748 × 2480 px"],
     ["052", "Fascia Dettagliata", "12,90", "1748 × 2480 px"],
@@ -635,8 +653,8 @@ test("downloads only the harmless artwork package manifest in the public simulat
 });
 
 test("renders approved years, titles and descriptions for every catalog artwork", async () => {
-  const artworks2025 = [1, 2, 3, 4, 5, 7, 10, 13, 14, 17, 19, 21, 24, 25, 26, 27, 28, 29, 30, 35, 36, 39, 40, 42, 43, 54, 55, 56];
-  const artworks2026 = [6, 8, 9, 11, 12, 15, 16, 18, 20, 22, 23, 31, 32, 33, 34, 37, 38, 41, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 57, 58, 59, 60, 61, 62, 63];
+  const artworks2025 = [1, 2, 3, 7, 10, 13, 14, 17, 19, 21, 25, 26, 27, 28, 29, 30, 35, 36, 39, 40, 42, 43, 54, 55, 56];
+  const artworks2026 = [6, 8, 9, 11, 12, 15, 16, 18, 20, 22, 23, 31, 32, 33, 34, 37, 38, 41, 44, 45, 46, 47, 48, 50, 51, 52, 53, 57, 59, 60, 61, 62, 63];
 
   for (const [year, numbers] of [["2025", artworks2025], ["2026", artworks2026]]) {
     for (const artworkNumber of numbers) {
@@ -653,10 +671,9 @@ test("renders approved years, titles and descriptions for every catalog artwork"
   }
 });
 
-test("renders the seven new 2026 originals with the approved commercial split", async () => {
+test("renders the six retained 2026 originals with the approved commercial split", async () => {
   const commercial = [
     ["057", "Il Predicatore del Vuoto", "17,90"],
-    ["058", "L’Infanzia che Ride", "17,90"],
     ["059", "La Morsa Interiore", "12,90"],
     ["060", "Il Piccolo Risorto", "12,90"],
     ["061", "Misuzu · Festa Cremisi", "17,90"],
@@ -774,10 +791,17 @@ test("renders art packages, personal license and protected delivery as a local d
 });
 
 test("renders the complete protected commission portfolio", async () => {
-  const response = await render("/commissioni");
-  assert.equal(response.status, 200);
-  const html = await response.text();
-  assert.match(html, /Trentasette richieste, sei percorsi creativi/);
+  const responses = await Promise.all([
+    render("/commissioni"),
+    render("/commissioni?view=prezzi"),
+    render("/commissioni?view=portfolio"),
+    render("/commissioni?view=metodo"),
+    render("/commissioni?request=preventivo"),
+  ]);
+  responses.forEach((response) => assert.equal(response.status, 200));
+  const html = (await Promise.all(responses.map((response) => response.text()))).join("\n");
+  assert.match(html, /Quattro ambienti, una sola esperienza/);
+  assert.match(html, /Trentotto richieste, sei percorsi creativi/);
   assert.match(html, /Ritratti personalizzati/);
   assert.match(html, /Coppie e legami/);
   assert.match(html, /Animali/);
@@ -794,7 +818,7 @@ test("renders the complete protected commission portfolio", async () => {
   assert.match(html, /2026/);
   assert.doesNotMatch(html, /Anno da confermare/);
   assert.match(html, /Tariffe di lancio 2026/);
-  assert.ok(html.indexOf("Tariffe di lancio 2026") < html.indexOf("Trentasette richieste, sei percorsi creativi"));
+  assert.ok(html.indexOf("Tariffe di lancio 2026") < html.indexOf("Trentotto richieste, sei percorsi creativi"));
   assert.match(html, /Disponibilità di lancio/);
   assert.match(html, /10/);
   assert.match(html, /Ritratto Essenziale/);
@@ -823,7 +847,9 @@ test("renders the complete protected commission portfolio", async () => {
   assert.match(html, /Richieste inviate entro il 30 settembre 2026/i);
   assert.match(html, /Visitatori/);
   assert.match(html, /tre nell’Opera Narrativa/i);
-  assert.match(html, /Mostra altri lavori/);
+  assert.match(html, /Pagine del portfolio/);
+  assert.match(html, /Lavori successivi/);
+  assert.doesNotMatch(html, /Mostra altri lavori/);
   assert.match(html, /Scegli questo percorso/);
   assert.match(html, /Non vengono accettate richieste di nudo, pornografia o contenuti sessualmente espliciti/);
   assert.match(html, /href="\/commissioni\/condizioni"/);
@@ -836,17 +862,38 @@ test("renders the complete protected commission portfolio", async () => {
   assert.doesNotMatch(html, /Acquista l’opera|download disponibile/i);
 });
 
+test("keeps each commission chapter focused instead of rebuilding the long page", async () => {
+  const [overview, pricing, portfolio, method] = await Promise.all([
+    render("/commissioni"),
+    render("/commissioni?view=prezzi"),
+    render("/commissioni?view=portfolio"),
+    render("/commissioni?view=metodo"),
+  ]);
+  const [overviewHtml, pricingHtml, portfolioHtml, methodHtml] = await Promise.all([
+    overview.text(), pricing.text(), portfolio.text(), method.text(),
+  ]);
+  assert.match(overviewHtml, /Dal volto reale al personaggio/);
+  assert.doesNotMatch(overviewHtml, /Trentotto richieste, sei percorsi creativi|Tariffe di lancio 2026|Domande frequenti/);
+  assert.match(pricingHtml, /Tariffe di lancio 2026/);
+  assert.doesNotMatch(pricingHtml, /Trentotto richieste, sei percorsi creativi|Domande frequenti/);
+  assert.match(portfolioHtml, /Trentotto richieste, sei percorsi creativi/);
+  assert.doesNotMatch(portfolioHtml, /Tariffe di lancio 2026|Domande frequenti/);
+  assert.match(methodHtml, /Un percorso chiaro, prima di disegnare/);
+  assert.match(methodHtml, /Domande frequenti/);
+  assert.doesNotMatch(methodHtml, /Trentotto richieste, sei percorsi creativi|Tariffe di lancio 2026/);
+});
+
 test("opens the promotion focus without loading the complete commission portfolio", async () => {
   const response = await render("/commissioni?focus=promozione-apertura");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Gli sconti sono qui/);
-  assert.match(html, /Questa versione leggera mostra subito disponibilità/);
+  assert.match(html, /Promozione di apertura/);
+  assert.match(html, /Più vantaggi per chi entra ora nel Nexus/);
   assert.match(html, /id="promozione-apertura"/);
   assert.match(html, /Ritratto Essenziale/);
   assert.match(html, /Ritratto Completo/);
   assert.match(html, /Opera Narrativa/);
-  assert.doesNotMatch(html, /commission-archive|Trentasette richieste, sei percorsi creativi/);
+  assert.doesNotMatch(html, /commission-archive|Trentotto richieste, sei percorsi creativi/);
 });
 
 test("renders a commission dossier without sale or download actions", async () => {
@@ -863,6 +910,66 @@ test("renders a commission dossier without sale or download actions", async () =
   assert.match(html, /2026/);
   assert.doesNotMatch(html, /Anno da confermare/);
   assert.doesNotMatch(html, /Acquista l.opera|download disponibile|€|Disponibile prossimamente/i);
+});
+
+test("opens package CTAs in the dedicated estimate form instead of the portfolio", async () => {
+  const response = await render("/commissioni?request=preventivo&package=Ritratto%20Essenziale#richiesta");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Preventivo senza impegno/);
+  assert.match(html, /id="richiesta" tabindex="-1"/);
+  assert.match(html, /Partiamo dalla tua idea/);
+  assert.match(html, /LoreWise ID richiesto|L.O.R.E.W.I.S.E ID riconosciuto/i);
+  assert.doesNotMatch(html, /commission-archive|Trentotto richieste, sei percorsi creativi|Esplora i 38 lavori/);
+});
+
+test("keeps Halloween portrait examples and pricing copy in separate non-cropping regions", async () => {
+  const [page, styles, countdown] = await Promise.all([
+    readFile(new URL("../app/commissioni/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../components/HalloweenCountdown.tsx", import.meta.url), "utf8"),
+  ]);
+  assert.match(page, /const corruptedPortraitExamples = \[6, 7, 12, 23, 25\]/);
+  assert.match(styles, /\.commission-price-grid article > div \{[^}]*margin: 0 18px;[^}]*overflow: hidden;/s);
+  assert.match(styles, /\.commission-price-grid \.commission-card-promo \{[^}]*margin: 0 0 19px;/s);
+  assert.match(styles, /\.corrupted-portrait-gallery figure img \{[^}]*object-fit: contain;/s);
+  assert.match(page, /<HalloweenCountdown \/>/);
+  assert.match(countdown, /halloween-countdown-diorama-optimized-v1\.webp/);
+  assert.match(countdown, /giorni ad Halloween/);
+  assert.match(page, /\/decorations\/halloween\/wrapped-candy-low-optimized-v1\.webp/);
+  assert.match(page, /className="corrupted-promotion-details"/);
+  assert.match(page, /Ritratto horror personalizzato sul tuo volto/);
+  assert.match(styles, /halloween-corrupted-portrait-bg-v1\.png/);
+  assert.equal((page.match(/<HalloweenSticker /g) ?? []).length, 13);
+  assert.match(page, /className="corrupted-promo-rails"/);
+  assert.match(page, /pumpkin-vines-top-optimized-v1\.webp/);
+  assert.match(styles, /@keyframes corruptedTicker/);
+  assert.match(styles, /prefers-reduced-motion:reduce/);
+  assert.match(page, /className="corrupted-focus-hero"/);
+  assert.match(page, /className="corrupted-journey"/);
+  assert.match(page, /className="corrupted-gallery-side"/);
+  assert.match(page, /className="corrupted-details-ornaments"/);
+  assert.match(page, /La trasformazione ha un rituale/);
+  assert.match(styles, /\.corrupted-halloween-sticker img[^}]*object-fit: contain;/s);
+  assert.match(styles, /\.halloween-countdown-stage > img[^}]*object-fit: contain;/s);
+  assert.match(styles, /\.halloween-countdown-card small,[^}]*word-break: normal;[^}]*hyphens: none;/s);
+  assert.match(styles, /\.corrupted-focus-hero \{[^}]*grid-template-columns:/s);
+  assert.match(styles, /\.corrupted-journey ol \{[^}]*grid-template-columns: repeat\(3/s);
+  assert.match(styles, /\.corrupted-portrait-collage[^}]*grid-template-columns: repeat\(12/);
+  assert.doesNotMatch(styles, /\.commission-price-grid article > div \{[^}]*margin: -/s);
+});
+
+test("renders the portrait as the latest completed commission without a personal name", async () => {
+  const response = await render("/commissioni/lw-com-038");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /LW-COM-038/);
+  assert.match(html, /Luce nello sguardo/);
+  assert.doesNotMatch(html, /Miriana/i);
+  assert.match(html, /Ritratto ravvicinato/);
+  assert.match(html, /1920 × 1080 px/);
+  assert.match(html, /lw-com-038-preview\.webp/);
+  assert.doesNotMatch(html, /Acquista l.opera|download disponibile/i);
 });
 
 test("protects the GiWise commission management workspace outside development", async () => {

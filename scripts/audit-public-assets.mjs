@@ -24,7 +24,13 @@ for (const file of sourceRoots.flatMap((directory) => collect(path.join(root, di
     if (!fs.existsSync(diskPath)) failures.push(`${path.relative(root, file)}: risorsa assente ${publicPath}`);
     else references.set(publicPath, fs.statSync(diskPath).size);
     if (publicPath.startsWith("/codex/characters/")) failures.push(`${path.relative(root, file)}: originale Codex esposto direttamente ${publicPath}`);
-    if (/^\/(?:brand\/(?:icons|art-portals)|codex\/(?:seals|ornaments)|backgrounds)\/.*\.png$/i.test(publicPath)) failures.push(`${path.relative(root, file)}: variante WebP non utilizzata ${publicPath}`);
+    if (/^\/(?:brand\/(?:icons|art-portals)|codex\/(?:seals|ornaments)|backgrounds)\/.*\.png$/i.test(publicPath)) {
+      const directWebp = diskPath.replace(/\.png$/i, ".webp");
+      const optimizedWebp = diskPath.replace(/(?:-v\d+)?\.png$/i, "-optimized-v1.webp");
+      if (fs.existsSync(directWebp) || fs.existsSync(optimizedWebp)) {
+        failures.push(`${path.relative(root, file)}: variante WebP non utilizzata ${publicPath}`);
+      }
+    }
   }
 }
 

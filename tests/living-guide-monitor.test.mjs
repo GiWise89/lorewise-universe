@@ -5,7 +5,21 @@ import {
   extractLivingGuideSignals,
   fingerprintLivingGuideSignals,
   livingGuideChanged,
+  LIVING_GUIDE_MONITORS,
+  WORLD_OF_WARCRAFT_MONITOR,
 } from "../lib/livingGuideMonitor.ts";
+
+test("monitors the current Midnight content notes and rolling hotfixes", () => {
+  assert.ok(WORLD_OF_WARCRAFT_MONITOR.sourceUrls.some((url) => url.includes("24293281")));
+  assert.ok(WORLD_OF_WARCRAFT_MONITOR.sourceUrls.some((url) => url.includes("24296142")));
+});
+
+test("registers every evolving game as an approval-only living guide", () => {
+  assert.deepEqual(LIVING_GUIDE_MONITORS.map((monitor) => monitor.guideSlug), [
+    "world-of-warcraft", "the-sims-4", "monster-hunter-wilds", "diablo-iv", "pokemon-pokopia", "the-witcher-3", "cyberpunk-2077", "inazuma-eleven-victory-road",
+  ]);
+  assert.ok(LIVING_GUIDE_MONITORS.every((monitor) => monitor.notificationTarget === "/notifiche"));
+});
 
 test("extracts only stable guide-relevant official headings", () => {
   const signals = extractLivingGuideSignals(`<html><head><title>World of Warcraft: Midnight</title></head><body>
@@ -24,4 +38,10 @@ test("seeds silently, detects a later change, and prepares an approval notificat
   const notification = buildLivingGuideNotification(next);
   assert.equal(notification.targetUrl, "/notifiche");
   assert.match(notification.message, /nessun contenuto .* pubblicato automaticamente/i);
+});
+
+test("uses the monitored game name in each approval notification", async () => {
+  const signals = ["New Expansion Update"];
+  const snapshot = { guideSlug: "pokemon-pokopia", checkedAt: "2026-09-24T07:00:00.000Z", fingerprint: await fingerprintLivingGuideSignals(signals), signals };
+  assert.match(buildLivingGuideNotification(snapshot).title, /^Pokémon Pokopia:/);
 });

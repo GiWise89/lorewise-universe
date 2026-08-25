@@ -6,7 +6,10 @@ import sharp from "sharp";
 import { VIP_ARTWORKS_PRIVATE } from "../data/vip-artworks.ts";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const sourceDirectory = path.join(root, "vip media", "opere");
+const sourceDirectories = {
+  "vip-media": path.join(root, "vip media", "opere"),
+  "art-archive": path.join(root, "Vetrina Disegni"),
+};
 const outputDirectory = path.join(root, "tmp", "vip-art-previews");
 const execute = process.argv.includes("--execute-local");
 
@@ -24,6 +27,7 @@ function watermark(width, height) {
 fs.mkdirSync(outputDirectory, { recursive: true });
 const prepared = [];
 for (const artwork of VIP_ARTWORKS_PRIVATE) {
+  const sourceDirectory = sourceDirectories[artwork.sourceRoot ?? "vip-media"];
   const sourcePath = path.join(sourceDirectory, artwork.sourceFile);
   if (!fs.existsSync(sourcePath)) throw new Error(`Originale non trovato: ${artwork.sourceFile}`);
   const resized = await sharp(sourcePath).rotate().resize({ width: 1400, height: 1400, fit: "inside", withoutEnlargement: true }).toBuffer({ resolveWithObject: true });

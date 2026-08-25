@@ -35,9 +35,11 @@ export type CatalogArtwork = {
 };
 
 const commercialOriginalNumbers = new Set([
-  2, 3, 4, 5, 6, 13, 16, 17, 20, 24, 28, 30, 33, 35, 36, 37, 39, 41, 46,
-  48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 63, 64, 65, 67, 71, 79,
+  2, 3, 6, 13, 16, 17, 20, 28, 30, 33, 35, 36, 37, 39, 41, 46,
+  48, 50, 51, 52, 53, 54, 55, 56, 57, 59, 60, 61, 63, 64, 65, 67, 71, 79,
 ]);
+const vipOnlyArtworkNumbers = new Set([4, 5, 24, 49]);
+const removedArtworkNumbers = new Set([58]);
 const fanArtNumbers = new Set([
   1, 7, 8, 9, 10, 11, 12, 14, 15, 18, 19, 21, 22, 23, 25, 26, 27, 29, 31, 32,
   34, 38, 40, 42, 43, 44, 45, 47, 66, 68, 69, 70, 72, 73, 74, 75, 76, 77, 78,
@@ -144,8 +146,9 @@ const pricing: Record<ArtworkPriceTier, { label: string; price: string; membersh
   premium: { label: "Fascia Premium", price: "17,90 €", membership: "Collector · Supporter + 5 €" },
 };
 
-export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 79 }, (_, index) => {
-  const artworkNumber = index + 1;
+export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 79 }, (_, index) => index + 1)
+  .filter((artworkNumber) => !vipOnlyArtworkNumbers.has(artworkNumber) && !removedArtworkNumbers.has(artworkNumber))
+  .map((artworkNumber) => {
   const number = String(artworkNumber).padStart(3, "0");
   const isCommercialOriginal = commercialOriginalNumbers.has(artworkNumber);
   const priceTier: ArtworkPriceTier | null = !isCommercialOriginal

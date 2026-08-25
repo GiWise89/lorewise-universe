@@ -1,6 +1,6 @@
-import { commissionOpeningPromotion } from "@/lib/commissionPromotion";
+import { commissionOpeningPromotion, corruptedPortraitPromotion } from "@/lib/commissionPromotion";
 import { editorialReleaseInstant, getReleasedEditorialEntries } from "@/lib/editorialCalendar";
-import { getGuideEditorialNews, type GameGuide } from "@/lib/gameGuides";
+import { GAME_GUIDES, getGuideEditorialNews, type GameGuide } from "@/lib/gameGuides";
 
 export type NexusChronicleCategory = "art" | "games" | "codex" | "worlds" | "vip";
 
@@ -32,10 +32,13 @@ export type NexusChronicleBenefitEvent = {
 };
 
 export type NexusChroniclePromotion = {
+  theme: "opening" | "halloween" | "ended" | "standard";
   label: string;
   title: string;
   period: string;
   description: string;
+  visual: string;
+  visualAlt: string;
   rates: Array<{ audience: string; discount: string }>;
   terms: string[];
   href: string;
@@ -112,7 +115,7 @@ export const nexusBenefitEvents: NexusChronicleBenefitEvent[] = [
     title: "Guida completa in anteprima",
     status: "Attivo",
     timing: "Ogni lunedì",
-    description: "Una nuova guida entra nell’Area VIP prima del passaggio pubblico. La Cronaca mostra sempre gioco corrente, data di pubblicazione e prossimo titolo approvato.",
+    description: "Una nuova guida entra nell’Area VIP prima dell’uscita pubblica. La Cronaca riunisce il gioco corrente, la data di pubblicazione e il prossimo titolo in arrivo.",
     href: "/vip-zone?area=guides#guides",
     action: "Apri la guida VIP",
   },
@@ -120,9 +123,9 @@ export const nexusBenefitEvents: NexusChronicleBenefitEvent[] = [
     code: "ATLAS-PUBLIC-ROTATION",
     area: "Atlante dei Giochi",
     title: "Passaggio nell’archivio pubblico",
-    status: "Automatico",
+    status: "Permanente",
     timing: "Sette giorni dopo",
-    description: "La guida della settimana precedente lascia l’anteprima VIP e rimane consultabile nell’Atlante pubblico, senza sparire dal calendario editoriale.",
+    description: "La guida della settimana precedente lascia l’anteprima VIP e rimane consultabile nell’Atlante pubblico.",
     href: "/giochi/guide",
     action: "Apri l’Atlante",
   },
@@ -152,7 +155,7 @@ export const nexusBenefitEvents: NexusChronicleBenefitEvent[] = [
     title: "Sei sfondi originali protetti",
     status: "Disponibile",
     timing: "Due raccolte complete",
-    description: "Archivio dei Custodi e LoreWise Match riuniscono tre sfondi ciascuno. Le anteprime sono protette; i file completi vengono consegnati dopo la verifica del Pass.",
+    description: "Archivio dei Custodi e LoreWise Match riuniscono tre sfondi ciascuno. Le anteprime sono protette; i file completi sono disponibili agli abbonati con Pass attivo.",
     href: "/vip-zone?area=downloads#downloads",
     action: "Apri i Download",
   },
@@ -162,7 +165,7 @@ export const nexusBenefitEvents: NexusChronicleBenefitEvent[] = [
     title: "Il Rogo delle Dieci Porte",
     status: "In progettazione",
     timing: "Aggiornamenti progressivi",
-    description: "Il dossier VIP segue fazione, personaggi e direzione creativa dell’espansione senza anticipare il finale e senza promettere contenuti prima della loro approvazione.",
+    description: "Il dossier VIP segue fazione, personaggi e direzione creativa dell’espansione senza anticipare il finale.",
     href: "/vip-zone?area=games&game=the-wound-remembers#dossier-rogo",
     action: "Segui il dossier",
   },
@@ -171,8 +174,8 @@ export const nexusBenefitEvents: NexusChronicleBenefitEvent[] = [
     area: "Fuori Trama",
     title: "Proposte e partecipazione",
     status: "In sviluppo",
-    timing: "Consultazioni verificate",
-    description: "Gli abbonati possono seguire le direzioni del roster e proporre candidature. Fattibilità, diritti e inserimento definitivo restano soggetti a verifica editoriale.",
+    timing: "Consultazioni dedicate",
+    description: "Gli abbonati possono seguire le direzioni del roster, proporre candidature e partecipare alle consultazioni dedicate.",
     href: "/vip-zone?area=games&game=fuori-trama#vip-panel-fuori-trama",
     action: "Apri Fuori Trama",
   },
@@ -185,6 +188,16 @@ export const nexusBenefitEvents: NexusChronicleBenefitEvent[] = [
     description: "Le richieste inviate entro la scadenza conservano la tariffa di apertura: −10% Visitatori, −15% Supporter e −20% Collector.",
     href: "/commissioni",
     action: "Apri le commissioni",
+  },
+  {
+    code: "HALLOWEEN-HORROR-COLLECTIONS",
+    area: "Arte in Vetrina",
+    title: "Tre collezioni horror",
+    status: "Programmata",
+    timing: "Dal 1° ottobre al 1° novembre 2026",
+    description: "Fede Corrotta, Incubi Interiori e Creature del Buio: tre opere originali per collezione a 24,90 €, con licenze personali e consegna protetta.",
+    href: "/arte#collezioni-horror",
+    action: "Apri la vetrina",
   },
 ];
 
@@ -213,7 +226,7 @@ const openingChronicle: NexusChronicle = {
       {
         label: "Fuori Trama",
         title: "Nuove voci vogliono entrare nel Nexus.",
-        text: "Il roster esplora un filone ispirato alla musica. Gli abbonati potranno proporre e votare candidature, mentre diritti, fattibilità e inserimento finale verranno verificati prima di ogni annuncio.",
+        text: "Il roster esplora un filone ispirato alla musica. Gli abbonati possono proporre e votare le candidature dedicate.",
         image: "/games/lorewise-fuori-trama-next/catalog-cover-generated-v1.webp",
         imageAlt: "Copertina pubblica di Fuori Trama",
         note: "Il gioco resta gratuito · i VIP partecipano prima",
@@ -222,10 +235,13 @@ const openingChronicle: NexusChronicle = {
       },
     ],
     promotion: {
+      theme: "opening",
       label: "Promozione di apertura",
       title: "Apertura del Nexus",
       period: commissionOpeningPromotion.period,
       description: "Per inaugurare il sito, le richieste di commissione inviate entro la scadenza ricevono una tariffa di apertura legata al LoreWise ID.",
+      visual: "/brand/icons/commissioni-concept-v1.webp",
+      visualAlt: "Emblema delle commissioni LoreWise",
       rates: [
         { audience: "Visitatori", discount: `−${commissionOpeningPromotion.rates.visitor}%` },
         { audience: "Supporter", discount: `−${commissionOpeningPromotion.rates.supporter}%` },
@@ -244,7 +260,7 @@ const openingChronicle: NexusChronicle = {
       label: "Novità in arrivo",
       title: "Atlante dei Giochi",
       status: "Guida completa disponibile ora · anteprima LoreWise VIP",
-      description: "Animal Crossing: New Horizons inaugura ufficialmente l’Atlante dei Giochi con il Taccuino dell’isola. La guida completa è già aperta in anteprima nell’area LoreWise VIP; Baldur’s Gate 3 è la prossima guida in rifinitura e verrà presentata soltanto quando sarà pronta.",
+      description: "Animal Crossing: New Horizons inaugura ufficialmente l’Atlante dei Giochi con il Taccuino dell’isola. La guida completa è già aperta in anteprima nell’area LoreWise VIP; Baldur’s Gate 3 sarà il viaggio successivo.",
       features: [
         "I primi sette giorni e la crescita dell’isola",
         "Stelline, rape, servizi e progressione",
@@ -291,7 +307,7 @@ const openingChronicle: NexusChronicle = {
           text: "Entra subito nei 16 capitoli dedicati a progressione, Stelline, progettazione, DLC, creature e opere del museo. Con il Pass accedi prima ai nuovi contenuti e sostieni direttamente la crescita di LoreWise Universe.",
           href: "/abbonamento",
           action: "Entra in LoreWise VIP",
-          note: "L’Atlante pubblico continuerà a ricevere le guide secondo il calendario editoriale del Nexus.",
+          note: "Ogni nuova guida raggiunge l’Atlante pubblico dopo i sette giorni di anteprima VIP.",
         },
         sections: [
           {
@@ -330,7 +346,7 @@ const openingChronicle: NexusChronicle = {
     },
     benefits: [
       { title: "Vedi prima", text: "Diari, direzioni creative, materiali di sviluppo e demo dichiarate pronte arrivano prima della pubblicazione generale." },
-      { title: "Puoi partecipare", text: "Proposte, votazioni verificate e candidature ai test permettono di seguire i progetti da vicino senza comprare autorevolezza." },
+      { title: "Puoi partecipare", text: "Proposte, votazioni e candidature ai test permettono di seguire i progetti da vicino." },
       { title: "Costruisci la collezione", text: "Ogni mese ricevi crediti Arte, prezzi riservati sui contenuti ammessi e download protetti collegati al tuo LoreWise ID." },
       { title: "Scegli il livello", text: "Supporter include 1 credito Arte e il 5% sui prodotti ammessi; Collector offre 2 crediti, il 10% e dossier originali estesi." },
     ],
@@ -350,18 +366,186 @@ type WeeklyChronicle = Omit<Partial<NexusChronicle>, "promotion" | "upcoming"> &
   detail: string;
   signals: NexusChronicleSignal[];
   promotion: Partial<NexusChroniclePromotion>;
+  upcoming?: Omit<Partial<NexusChronicleUpcoming>, "featuredGame"> & { featuredGame?: NexusChronicleUpcoming["featuredGame"] | null };
   benefits: NexusChronicleBenefit[];
 };
 
 function makeWeeklyChronicle(weekly: WeeklyChronicle): NexusChronicle {
+  const { featuredGame, ...upcomingPatch } = weekly.upcoming ?? {};
+  const upcoming: NexusChronicleUpcoming = { ...openingChronicle.upcoming, ...upcomingPatch };
+  if (weekly.upcoming && "featuredGame" in weekly.upcoming) {
+    if (featuredGame) upcoming.featuredGame = featuredGame;
+    else delete upcoming.featuredGame;
+  }
   return {
     ...openingChronicle,
     ...weekly,
     promotion: { ...openingChronicle.promotion, ...weekly.promotion },
-    upcoming: openingChronicle.upcoming,
+    upcoming,
     featured: true,
   };
 }
+
+const ordinaryCommissionPromotion: NexusChroniclePromotion = {
+  theme: "standard",
+  label: "Vantaggi permanenti",
+  title: "Il Pass continua oltre le campagne stagionali.",
+  period: "Disponibile tutto l’anno",
+  description: "Fuori dalle promozioni a tempo restano attivi gli sconti ordinari collegati al LoreWise ID.",
+  visual: "/universe-pass/benefits-sketch-constellation-v1.webp",
+  visualAlt: "Costellazione illustrata dei vantaggi LoreWise Universe Pass",
+  rates: [
+    { audience: "Visitatori", discount: "Listino" },
+    { audience: "Supporter", discount: "−5%" },
+    { audience: "Collector", discount: "−10%" },
+  ],
+  terms: [
+    "Lo sconto viene applicato direttamente al preventivo.",
+    "Il livello attivo resta collegato al LoreWise ID.",
+    "Prezzo e condizioni sono confermati prima dell’inizio del lavoro.",
+    "Inviare una richiesta è gratuito e non comporta un acquisto.",
+  ],
+  href: "/abbonamento?focus=piani",
+  action: "Confronta i vantaggi",
+};
+
+function halloweenChroniclePromotion(status: "preview" | "active" | "ended"): NexusChroniclePromotion {
+  if (status === "ended") return {
+    ...ordinaryCommissionPromotion,
+    theme: "ended",
+    label: "Halloween · promozione conclusa",
+    title: "La mia versione corrotta lascia spazio ai vantaggi permanenti.",
+    period: corruptedPortraitPromotion.period,
+    description: "La settimana di Halloween è terminata. Restano disponibili le commissioni ordinarie e gli sconti permanenti del Universe Pass.",
+    visual: "/decorations/halloween/moon-amber-mist-optimized-v1.webp",
+    visualAlt: "Luna ambrata immersa nella nebbia di Halloween",
+    terms: [
+      "Le richieste valide inviate entro il 1° novembre conservano lo sconto acquisito.",
+      "Supporter mantiene il 5% sulle commissioni ordinarie ammesse.",
+      "Collector mantiene il 10% sulle commissioni ordinarie ammesse.",
+      "Inviare una nuova richiesta è gratuito e non comporta un acquisto.",
+    ],
+    href: "/commissioni",
+    action: "Apri le commissioni",
+  };
+  return {
+    theme: "halloween",
+    label: status === "active" ? "Halloween · promozione attiva" : "In arrivo · settimana di Halloween",
+    title: status === "active" ? corruptedPortraitPromotion.title : "La tua versione corrotta sta per emergere.",
+    period: corruptedPortraitPromotion.period,
+    description: status === "active"
+      ? "Un ritratto personale reinterpretato in stile horror, con le stesse regole delle commissioni ordinarie e uno sconto dedicato sul preventivo."
+      : "Dal 26 ottobre al 1° novembre il tuo ritratto diventa una versione horror costruita sulla tua atmosfera, sui tuoi riferimenti e sul formato scelto.",
+    visual: "/promotions/halloween-corrupted-portrait-premium-v1.webp",
+    visualAlt: "Ritratto originale metà umano e metà corrotto creato per la promozione Halloween",
+    rates: [
+      { audience: "Visitatori", discount: `−${corruptedPortraitPromotion.rates.visitor}%` },
+      { audience: "Supporter", discount: `−${corruptedPortraitPromotion.rates.supporter}%` },
+      { audience: "Collector", discount: `−${corruptedPortraitPromotion.rates.collector}%` },
+    ],
+    terms: [
+      "La promozione vale soltanto per La mia versione corrotta.",
+      "Lo sconto è del 15% per Visitatori, 20% per Supporter e 25% per Collector.",
+      "La richiesta completa deve essere inviata entro il 1° novembre 2026.",
+      "Lo sconto sostituisce quello ordinario del Pass e non si somma ad altre offerte.",
+    ],
+    href: `/commissioni?focus=${corruptedPortraitPromotion.focusId}`,
+    action: status === "active" ? "Crea la mia versione corrotta" : "Scopri la promozione",
+  };
+}
+
+const guideChronicleEditorial = [
+  { issue: "Cronaca 005", publishedAt: "2026-09-14", slug: "world-of-warcraft", title: "Il mondo non resta fermo.", excerpt: "World of Warcraft entra nell’Atlante con sedici capitoli dedicati al gioco moderno.", detail: "Classi, talenti, progressione, dungeon, raid, PvP, Delve, Housing e routine sostenibili accompagnano ogni stile di gioco." },
+  { issue: "Cronaca 006", publishedAt: "2026-09-21", slug: "hogwarts-legacy", title: "Il castello apre le sue porte.", excerpt: "Hogwarts Legacy entra nell’anteprima VIP con sedici capitoli dedicati a magia, esplorazione, equipaggiamento e relazioni.", detail: "La guida accompagna l’avventura senza correre verso gli spoiler: ogni sezione separa preparazione, sistemi e contenuti narrativi protetti." },
+  { issue: "Cronaca 007", publishedAt: "2026-09-28", slug: "zelda-tears-of-the-kingdom", title: "Tre livelli, infinite soluzioni.", excerpt: "Tears of the Kingdom porta nell’Atlante una guida costruita attorno a Ultramano, Compositor, cielo, superficie e profondità.", detail: "Questa è anche l’ultima Cronaca prima della chiusura della promozione di apertura: le richieste complete inviate entro il 30 settembre conservano la tariffa acquisita." },
+  { issue: "Cronaca 008", publishedAt: "2026-10-05", slug: "the-sims-4", title: "Ogni vita comincia da una scelta.", excerpt: "The Sims 4 entra nel calendario con una guida pratica per Creazione Sim, costruzione, relazioni, denaro, mondi e contenuti aggiuntivi.", detail: "Salvataggi, mod, pacchetti e gestione delle famiglie sono organizzati in percorsi chiari e consultabili." },
+  { issue: "Cronaca 009", publishedAt: "2026-10-12", slug: "red-dead-redemption-2", title: "La frontiera richiede metodo.", excerpt: "Red Dead Redemption 2 arriva con un percorso ordinato tra accampamento, caccia, combattimento, economia e sfide.", detail: "La guida protegge le svolte narrative e lavora sul ritmo: cosa preparare, cosa controllare e quando fermarsi prima di rovinare una scoperta." },
+  { issue: "Cronaca 010", publishedAt: "2026-10-19", slug: "monster-hunter-wilds", title: "Prima della caccia viene la lettura.", excerpt: "Monster Hunter Wilds entra nell’Atlante mentre il Nexus annuncia La mia versione corrotta.", detail: "Armi, carichi, ecosistemi e mostri vengono organizzati come una vera preparazione di caccia. Dal 26 ottobre inizierà la settimana dei ritratti personali reinterpretati in stile horror." },
+  { issue: "Cronaca 011", publishedAt: "2026-10-26", slug: "the-mortuary-assistant", title: "Il turno di Halloween comincia a River Fields.", excerpt: "The Mortuary Assistant: Definitive Edition occupa la settimana di Halloween con sedici capitoli dedicati al lavoro notturno e all’indagine demoniaca.", detail: "Ispezione, registri, strumenti, imbalsamazione, infestazioni, sigilli, finali ed Embalming Only sono separati in un percorso horror leggibile e con spoiler protetti." },
+  { issue: "Cronaca 012", publishedAt: "2026-11-02", slug: "diablo-iv", title: "Il grimorio di Sanctuarium si apre.", excerpt: "Diablo IV entra nell’Atlante con classi, build, equipaggiamento, attività e progressione stagionale.", detail: "La settimana horror termina, mentre il percorso prosegue tra reame stagionale ed eterno, boss, spedizioni e cooperativa." },
+  { issue: "Cronaca 013", publishedAt: "2026-11-09", slug: "pokemon-pokopia", title: "Dopo l’ombra, si ricomincia a costruire.", excerpt: "Pokémon Pokopia arriva con una guida dedicata a raccolta, costruzione, amicizie, richieste e routine.", detail: "La guida accompagna ogni progetto con obiettivi chiari, spazio organizzato e un ritmo sostenibile." },
+  { issue: "Cronaca 014", publishedAt: "2026-11-16", slug: "the-witcher-3", title: "Il Sentiero riapre l’Atlante.", excerpt: "The Witcher 3: Wild Hunt entra in anteprima VIP con venti capitoli, sessanta schede operative e spoiler narrativi protetti.", detail: "Segni, alchimia, equipaggiamento, Gwent, storia, espansioni, Photo Mode e REDkit seguono immagini specifiche per ogni capitolo." },
+  { issue: "Cronaca 015", publishedAt: "2026-11-23", slug: "cyberpunk-2077", title: "Night City non concede una seconda prima impressione.", excerpt: "Cyberpunk 2077 arriva con una guida completa per Ultimate Edition, Update 2.3 e Phantom Liberty.", detail: "Creazione di V, attributi, cyberware, combattimento, hacking, veicoli, incarichi, relazioni, finali e Dogtown formano sedici capitoli operativi." },
+  { issue: "Cronaca 016", publishedAt: "2026-11-30", slug: "inazuma-eleven-victory-road", title: "La strada verso la vittoria attraversa il Nexus.", excerpt: "INAZUMA ELEVEN: Victory Road porta nell’Atlante Story, Chronicle, Competition e Bond Station.", detail: "Focus, Zone, tecniche speciali, tattiche, formazione, oltre 5.400 giocatori, cross-play e cross-save accompagnano la costruzione della squadra dei sogni." },
+  { issue: "Cronaca 017", publishedAt: "2026-12-07", slug: "inazuma-eleven-victory-road", finalPublic: true, title: "La squadra dei sogni entra nell’Atlante.", excerpt: "INAZUMA ELEVEN: Victory Road è ora disponibile per tutti con sedici capitoli dedicati al calcio iperdimensionale.", detail: "Story Mode, Focus, Zone, tecniche speciali, formazione, Chronicle, scouting, Competition, Bond Station, aggiornamenti e completamento restano raccolti in un solo percorso." },
+] as const;
+
+const guideCalendarChronicles = guideChronicleEditorial.map((entry) => {
+  const guide = GAME_GUIDES.find((item) => item.slug === entry.slug)!;
+  const publicGuide = GAME_GUIDES.find((item) => item.publicAt.startsWith(entry.publishedAt));
+  const finalPublic = "finalPublic" in entry && entry.finalPublic;
+  const promotion = entry.publishedAt <= "2026-09-28"
+    ? openingChronicle.promotion
+    : entry.publishedAt === "2026-10-19"
+      ? halloweenChroniclePromotion("preview")
+      : entry.publishedAt === "2026-10-26"
+        ? halloweenChroniclePromotion("active")
+        : entry.publishedAt === "2026-11-02"
+          ? halloweenChroniclePromotion("ended")
+          : ordinaryCommissionPromotion;
+  const signals: NexusChronicleSignal[] = [{
+    label: finalPublic ? "Atlante pubblico" : "Guida VIP della settimana",
+    title: finalPublic ? `${guide.game} è ora disponibile per tutti.` : `${guide.game} entra nell’Atlante.`,
+    text: finalPublic
+      ? "La guida completa resta consultabile nell’archivio pubblico insieme alle uscite precedenti."
+      : `${guide.title} raccoglie ${guide.chapters.length} capitoli operativi, immagini coerenti con gli argomenti e sei percorsi tematici per orientarsi senza perdere il filo.`,
+    image: guide.cover.src,
+    imageAlt: guide.cover.alt,
+    note: finalPublic ? `Pubblica dal ${guideDate(guide.publicAt)}` : `Anteprima VIP dal ${guideDate(guide.vipFrom)} · pubblica dal ${guideDate(guide.publicAt)}`,
+    href: finalPublic ? "/giochi/guide" : "/vip-zone?area=guides#guides",
+    action: finalPublic ? "Apri l’Atlante pubblico" : "Apri la guida VIP",
+  }];
+  if (!finalPublic && publicGuide) signals.push({
+    label: "Passaggio pubblico",
+    title: `${publicGuide.game} resta nell’archivio pubblico.`,
+    text: "La guida della settimana precedente non scompare con la rotazione: passa nell’Atlante pubblico e rimane disponibile nel calendario permanente.",
+    image: publicGuide.cover.src,
+    imageAlt: publicGuide.cover.alt,
+    note: `Disponibile per tutti dal ${guideDate(publicGuide.publicAt)}`,
+    href: "/giochi/guide",
+    action: "Consulta le guide pubbliche",
+  });
+  if (finalPublic) signals.push({
+    label: "Archivio delle uscite",
+    title: "Diciassette Cronache, un percorso leggibile.",
+    text: "Guide, date, passaggi pubblici e campagne stagionali restano raccolti in un archivio facile da consultare.",
+    image: "/brand/icons/giochi-concept-v1.webp",
+    imageAlt: "Emblema della sezione Giochi di LoreWise Universe",
+    note: "Calendario completato · archivio permanente",
+    href: "/cronache-del-nexus",
+    action: "Sfoglia tutte le Cronache",
+  });
+  return makeWeeklyChronicle({
+    id: `guide-calendar-${entry.publishedAt}`,
+    issue: entry.issue,
+    category: "games",
+    categoryLabel: finalPublic ? "Atlante dei Giochi" : "Guida della settimana",
+    publishedAt: entry.publishedAt,
+    title: entry.title,
+    excerpt: entry.excerpt,
+    detail: entry.detail,
+    image: guide.cover.src,
+    imageAlt: guide.cover.alt,
+    signals,
+    promotion,
+    benefits: [
+      { title: "Sette giorni di anteprima", text: "Ogni guida entra prima nell’Area VIP e diventa pubblica nell’Atlante la settimana successiva." },
+      { title: "Sedici capitoli completi", text: "Ogni uscita offre percorsi pratici, immagini leggibili e sezioni facili da consultare." },
+      { title: "Nessun contenuto scompare", text: "La rotazione cambia l’accesso, non cancella le guide già pubblicate né le Cronache precedenti." },
+      { title: "Guide che seguono il gioco", text: "I titoli in evoluzione conservano sezioni dedicate a stagioni, espansioni e nuovi contenuti." },
+    ],
+    upcoming: finalPublic ? {
+      label: "Percorso completato",
+      title: "INAZUMA ELEVEN: Victory Road è ora pubblico.",
+      status: `${guide.game} · pubblico dal ${guideDate(guide.publicAt)}`,
+      description: "La guida raggiunge le altre uscite nell’Atlante dei Giochi e resta disponibile per tutti.",
+      features: ["17 Cronache da sfogliare", "Guide pubbliche permanenti", "Sezioni dedicate a ogni gioco", "Nuovi percorsi in arrivo"],
+      featuredGame: null,
+    } : undefined,
+    href: "/giochi/guide",
+    action: "Apri l’Atlante dei Giochi",
+  });
+});
 
 export const nexusChronicles: NexusChronicle[] = [
   openingChronicle,
@@ -390,7 +574,7 @@ export const nexusChronicles: NexusChronicle[] = [
       {
         label: "Download VIP",
         title: "Apre l’Archivio dei Custodi.",
-        text: "Tre sfondi originali dedicati a The Wound Remembers entrano nella raccolta digitale riservata. Le anteprime restano leggere e protette; i file completi vengono consegnati soltanto dopo la verifica del Pass.",
+        text: "Tre sfondi originali dedicati a The Wound Remembers entrano nella raccolta digitale riservata. Le anteprime restano leggere e protette; i file completi sono disponibili agli abbonati con Pass attivo.",
         image: "/brand/icons/lorewise-vip-official-v1.webp",
         imageAlt: "Emblema ufficiale LoreWise VIP",
         note: "Tre sfondi originali · archivio digitale protetto",
@@ -412,7 +596,7 @@ export const nexusChronicles: NexusChronicle[] = [
     },
     benefits: [
       { title: "La guida arriva prima", text: "Ogni lunedì una guida completa entra nell’Area VIP sette giorni prima del passaggio pubblico nell’Atlante." },
-      { title: "Il calendario è trasparente", text: "La Cronaca indica la guida disponibile, la data del passaggio pubblico e il gioco previsto per la settimana successiva." },
+      { title: "Sai sempre cosa leggere", text: "La Cronaca riunisce la guida disponibile, la data dell’uscita pubblica e il prossimo gioco." },
       { title: "L’archivio resta leggibile", text: "Quando una guida diventa pubblica non scompare: cambia area e rimane consultabile nell’Atlante dei Giochi." },
       { title: "Il Pass sostiene il lavoro", text: "L’accesso anticipato finanzia ricerca, scrittura, immagini e manutenzione senza sottrarre contenuti già pubblici." },
     ],
@@ -481,27 +665,27 @@ export const nexusChronicles: NexusChronicle[] = [
     publishedAt: "2026-09-07",
     title: "Personaggi, regole e mondi che crescono.",
     excerpt: "Nhevara e Kharvoss aprono due dossier del Codex; Fuori Trama mostra come compagnia, prove d20 e combattimento tattico convivono nello stesso percorso.",
-    detail: "Questa edizione distingue ciò che appartiene già al canone, ciò che viene raccontato editorialmente e ciò che resta ancora in sviluppo. Nessuna data di uscita viene promessa prima della verifica finale.",
+    detail: "Questa edizione unisce due dossier del Codex e un viaggio dentro Fuori Trama, tra compagnia, inventario, prove d20 e battaglie tattiche.",
     image: "/codex/seals/lorewise-codex-emblem-v1.webp",
     imageAlt: "Emblema del LoreWise Codex",
     signals: [
       {
         label: "LoreWise Codex",
         title: "Due custodi, due memorie.",
-        text: "I dossier di Nhevara e Kharvoss raccolgono identità, ruolo, relazioni, continuità e fonti di The Wound Remembers, separando con chiarezza informazioni verificate e letture editoriali.",
+        text: "I dossier di Nhevara e Kharvoss raccolgono identità, ruolo, relazioni, continuità e fonti di The Wound Remembers.",
         image: "/codex/display/nhevara.webp",
         imageAlt: "Ritratto di Nhevara nel LoreWise Codex",
-        note: "Nhevara e Kharvoss · dossier con fonti e stato editoriale",
+        note: "Nhevara e Kharvoss · identità, legami e memoria",
         href: "/enciclopedia#indice-codex",
         action: "Apri i dossier del Codex",
       },
       {
         label: "Fuori Trama",
         title: "Dal gruppo al tavolo tattico.",
-        text: "Il diario di sviluppo collega scelta della campagna, compagnia, inventario, prove d20 e battaglia. La build pubblica resta in preparazione e non viene indicata una data finché controllo dei contenuti e distribuzione non saranno completati.",
+        text: "Il diario di Fuori Trama collega scelta della campagna, compagnia, inventario, prove d20 e battaglia tattica in un unico viaggio.",
         image: "/games/lorewise-fuori-trama-next/gameplay-current-tactical-battle.webp",
         imageAlt: "Schermata reale del combattimento tattico di Fuori Trama",
-        note: "Sviluppo reale · uscita pubblica non ancora datata",
+        note: "Diario disponibile · campagna e battaglie tattiche",
         href: "/dove-nascono-i-mondi/giochi/lorewise-fuori-trama-next",
         action: "Apri il diario di sviluppo",
       },
@@ -509,7 +693,7 @@ export const nexusChronicles: NexusChronicle[] = [
     promotion: {
       label: "Promozione attiva · Dall’idea alla consegna",
       title: "Ogni commissione ha un percorso chiaro.",
-      description: "Prima di iniziare vengono definiti soggetto, formato, atmosfera e destinazione. Preventivo e approvazione precedono la lavorazione; la consegna completa resta privata e protetta.",
+      description: "Soggetto, formato, atmosfera e destinazione vengono definiti prima della lavorazione. La consegna completa resta privata e protetta.",
       terms: [
         "01 · Invia la richiesta con riferimenti e obiettivo.",
         "02 · Ricevi valutazione e preventivo senza obbligo di acquisto.",
@@ -521,12 +705,13 @@ export const nexusChronicles: NexusChronicle[] = [
     benefits: [
       { title: "Crediti Arte mensili", text: "Supporter riceve 1 credito al mese fino a un massimo di 2; Collector ne riceve 2 fino a un massimo di 4." },
       { title: "Atelier riservato", text: "Processi, studi e trasformazioni restano consultabili come percorsi, non come una semplice galleria di risultati finali." },
-      { title: "Partecipazione verificata", text: "Proposte e votazioni possono orientare gli approfondimenti, senza sostituire controlli editoriali, fattibilità e diritti." },
+      { title: "Partecipazione VIP", text: "Proposte e votazioni permettono agli abbonati di contribuire agli approfondimenti e ai percorsi futuri." },
       { title: "Una sola identità", text: "Vantaggi, crediti, download e contenuti riscattati restano collegati allo stesso LoreWise ID." },
     ],
     href: "/enciclopedia",
     action: "Apri il LoreWise Codex",
   }),
+  ...guideCalendarChronicles,
 ];
 
 function guideDate(value: string) {
@@ -563,7 +748,7 @@ function guideAsFeaturedGame(guide: GameGuide, next: GameGuide | null): NonNulla
   return {
     title: guide.game,
     kicker: guide.livingGuide ? "Prima Guida Viva LoreWise" : "Guida VIP della settimana",
-    description: `${guide.title}. ${guide.subtitle}${guide.livingGuide ? ` ${guide.livingGuide.announcement}: controllo mensile delle fonti ufficiali e aggiornamenti soltanto dopo approvazione.` : ""}`,
+    description: `${guide.title}. ${guide.subtitle}`,
     cover: guide.cover.src,
     coverAlt: guide.cover.alt,
     storeUrl: guide.storeUrl,
@@ -573,10 +758,10 @@ function guideAsFeaturedGame(guide: GameGuide, next: GameGuide | null): NonNulla
       title: `${guide.title} è ora nell’area LoreWise VIP.`,
       text: next
         ? `La prossima guida sarà ${next.game}${nextLivingLabel}: arrivo previsto ${guideDate(next.vipFrom)}.`
-        : "La prossima guida verrà annunciata qui appena entrerà nel calendario editoriale.",
+        : "Il prossimo viaggio verrà annunciato nelle Cronache del Nexus.",
       href: "/vip-zone?area=guides#guides",
       action: "Apri la guida VIP",
-      note: `Passaggio automatico nell’Atlante pubblico: ${guideDate(guide.publicAt)}.`,
+      note: `Disponibile nell’Atlante pubblico dal ${guideDate(guide.publicAt)}.`,
     },
     sections,
   };
@@ -589,7 +774,7 @@ function chronicleWithScheduledGuide(chronicle: NexusChronicle): NexusChronicle 
 
   const nextAnnouncement = next
     ? `La prossima guida sarà ${next.game}${next?.livingGuide ? ", la prima Guida Viva LoreWise" : ""} e arriverà nell’area VIP ${guideDate(next.vipFrom)}.`
-    : "La guida successiva verrà anticipata qui non appena sarà completa e approvata.";
+    : "La prossima guida verrà annunciata qui.";
   const publicAnnouncement = latestPublic
     ? `${latestPublic.game} è disponibile nell’Atlante pubblico.`
     : `${current.game} passerà nell’Atlante pubblico ${guideDate(current.publicAt)}.`;
@@ -598,7 +783,7 @@ function chronicleWithScheduledGuide(chronicle: NexusChronicle): NexusChronicle 
     ...chronicle,
     upcoming: {
       ...chronicle.upcoming,
-      label: "Aggiornamento automatico del lunedì",
+      label: "Novità del lunedì",
       title: "La guida della settimana",
       status: `${current.game} · ora in LoreWise VIP`,
       description: `${current.game} è la guida scelta per questa settimana. ${publicAnnouncement} ${nextAnnouncement}`,

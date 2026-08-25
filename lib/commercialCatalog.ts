@@ -1,5 +1,6 @@
 import { catalogArtworks } from "./artCatalog.ts";
 import { VIP_ARTWORKS_PRIVATE } from "../data/vip-artworks.ts";
+import { getHorrorArtworkBundle } from "./horrorArtworkBundles.ts";
 
 const artworkPrices = { essential: 890, detailed: 1290, premium: 1790 } as const;
 
@@ -46,9 +47,26 @@ export type CommercialProduct = {
   currency: "eur";
   licenseType: "personal-digital" | "personal-software" | "subscription-access";
   downloadLimit: number;
+  bundleMembers?: string[];
+  discountEligible?: boolean;
 };
 
 export function resolveArtworkProduct(code: string): CommercialProduct | null {
+  const bundle = getHorrorArtworkBundle(code);
+  if (bundle) return {
+    code: bundle.code,
+    slug: `arte?collezione=${bundle.slug}#collezioni-horror`,
+    title: `Collezione horror · ${bundle.title}`,
+    description: `Tre opere digitali originali GiWise Studio: ${bundle.artworks.map((artwork) => artwork.title).join(", ")}`,
+    productType: "artwork",
+    resourceType: "artwork",
+    amountCents: bundle.amountCents,
+    currency: "eur",
+    licenseType: "personal-digital",
+    downloadLimit: 3,
+    bundleMembers: [...bundle.artworkCodes],
+    discountEligible: false,
+  };
   const artwork = catalogArtworks.find((item) => item.code === code);
   if (artwork?.access === "commercial-original" && artwork.priceTier && artwork.title) {
     return {

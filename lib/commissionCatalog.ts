@@ -65,6 +65,7 @@ const catalogSeed: Omit<CommissionWork, "slug" | "code" | "image" | "technique" 
   { title: "Serenità al tramonto", category: "Ritratti personalizzati", requestType: "Ritratto ambientato", description: "Un ritratto elegante e quieto, costruito sui lineamenti, sui toni blu e sulla luce morbida del tramonto.", resolution: "2480 × 3508 px" },
   { title: "Complicità", category: "Coppie e legami", requestType: "Ritratto di coppia", description: "Un selfie spontaneo diventa un ritratto di coppia giocoso, mantenendo le espressioni e la complicità del momento.", resolution: "1748 × 2480 px" },
   { title: "Tempo insieme", category: "Coppie e legami", requestType: "Ritratto condiviso", description: "Un momento quotidiano condiviso davanti allo smartphone diventa il centro di un ritratto intimo, sereno e personale.", resolution: "2480 × 3508 px", featured: true },
+  { title: "Luce nello sguardo", category: "Ritratti personalizzati", requestType: "Ritratto ravvicinato", description: "Un ritratto personale costruito a partire dagli occhi verdi, completato da toni caldi, capelli ramati e luce del tramonto.", resolution: "1920 × 1080 px", featured: true },
 ];
 
 export const commissionWorks: CommissionWork[] = catalogSeed.map((work, index) => {

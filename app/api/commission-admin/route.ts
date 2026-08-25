@@ -198,10 +198,10 @@ export async function PATCH(request: Request) {
     return Response.json({ error: "Dati di aggiornamento non validi." }, { status: 400 });
   }
 
-  const existing = await runtime.DB.prepare(`SELECT id, customer_id, reference_code, name, email, package_name, status, quote_base_cents, quote_discount_cents,
+  const existing = await runtime.DB.prepare(`SELECT id, customer_id, reference_code, name, email, category, package_name, status, quote_base_cents, quote_discount_cents,
     quote_cents, deposit_cents, membership_plan_code, membership_discount_percent, benefit_snapshot_at, quote_terms_accepted_at, created_at
     FROM commission_requests WHERE id = ?`).bind(id).first<{
-      id: string; customer_id: string | null; reference_code: string; name: string; email: string; package_name: string; status: string; quote_base_cents: number | null;
+      id: string; customer_id: string | null; reference_code: string; name: string; email: string; category: string; package_name: string; status: string; quote_base_cents: number | null;
       quote_discount_cents: number | null; quote_cents: number | null; deposit_cents: number | null; membership_plan_code: string | null;
       membership_discount_percent: number; benefit_snapshot_at: string | null; quote_terms_accepted_at: string | null; created_at: string;
     }>();
@@ -215,6 +215,7 @@ export async function PATCH(request: Request) {
     planCode: currentPass.code,
     ordinaryDiscountPercent: currentPass.commissionDiscountPercent,
     submittedAt: existing.created_at,
+    packageName: existing.package_name,
   });
   const preserveSnapshot = quoteBaseCents !== null && quoteBaseCents === existing.quote_base_cents && Boolean(existing.benefit_snapshot_at);
   const pricing = quoteBaseCents === null ? null : preserveSnapshot ? {

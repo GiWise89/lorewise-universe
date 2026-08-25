@@ -7,11 +7,17 @@ import { createStripeCheckoutSession, getStripeConfiguration, type StripeRuntime
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser } from "@/lib/supabase/server";
 import { calculatePurchaseBenefit, discountPercentForProduct, getActiveUniversePass, type DiscountableProductType } from "@/lib/universePass";
+import { getHorrorArtworkBundle, isHorrorArtworkBundleActive } from "@/lib/horrorArtworkBundles";
 
 type RuntimeEnv = StripeRuntimeEnv & { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket; LOREWISE_MANUAL_DELIVERY_APPROVED?: string };
 
 function enabled(value: string | undefined) {
   return value?.trim().toLowerCase() === "true";
+}
+
+async function artworkDeliveryApproved(runtime: RuntimeEnv, code: string, testMode: boolean) {
+  return await automaticArtworkDeliveryReady(runtime.COMMISSION_UPLOADS, code, testMode)
+    || Boolean(runtime.DB && await runtime.DB.prepare("SELECT id FROM artwork_delivery_files WHERE artwork_code = ? AND status = 'approved' LIMIT 1").bind(code).first());
 }
 
 async function runtimeEnv() {
@@ -27,14 +33,17 @@ export async function GET(request: Request) {
     const requestedType = url.searchParams.get("productType") as CommercialProductType | null;
     const requestedCode = url.searchParams.get("productCode") ?? "";
     const product = requestedType && requestedCode ? resolveCommercialProduct(requestedType, requestedCode) : null;
+    const bundle = product?.productType === "artwork" ? getHorrorArtworkBundle(product.code) : null;
+    const saleWindowActive = bundle ? isHorrorArtworkBundleActive() : true;
     let deliveryReady: boolean | null = null;
     let deliveryMode: "automatic" | "manual" | null = null;
     if (product && runtime.DB) {
       try {
         await ensureCommerceTables(runtime.DB);
         if (product.productType === "artwork") {
-          const automaticCatalog = await automaticArtworkDeliveryReady(runtime.COMMISSION_UPLOADS, product.code, stripe.testMode);
-          const approved = automaticCatalog || Boolean(await runtime.DB.prepare("SELECT id FROM artwork_delivery_files WHERE artwork_code = ? AND status = 'approved' LIMIT 1").bind(product.code).first());
+          const deliveryCodes = bundle ? [...bundle.artworkCodes] : [product.code];
+          const approvals = await Promise.all(deliveryCodes.map((code) => artworkDeliveryApproved(runtime, code, stripe.testMode)));
+          const approved = approvals.every(Boolean);
           const automatic = approved && (stripe.testMode || Boolean(runtime.COMMISSION_UPLOADS));
           deliveryReady = automatic || enabled(runtime.LOREWISE_MANUAL_DELIVERY_APPROVED);
           deliveryMode = automatic ? "automatic" : deliveryReady ? "manual" : null;
@@ -62,6 +71,7 @@ export async function GET(request: Request) {
       blockers: stripe.blockers,
       authenticated: Boolean(user?.email),
       productAvailable: Boolean(product),
+      saleWindowActive,
       deliveryReady,
       deliveryMode,
     }, { headers: { "Cache-Control": "private, no-store" } });
@@ -92,6 +102,10 @@ export async function POST(request: Request) {
     if (!supportedTypes.has(body.productType as CommercialProductType)) return Response.json({ error: "Tipo di prodotto non valido." }, { status: 400 });
     const product = resolveCommercialProduct(body.productType as CommercialProductType, body.productCode);
     if (!product) return Response.json({ error: "Questo prodotto non è ancora disponibile per l’acquisto." }, { status: 404 });
+    const bundle = product.productType === "artwork" ? getHorrorArtworkBundle(product.code) : null;
+    if (bundle && !isHorrorArtworkBundleActive()) {
+      return Response.json({ error: "La collezione sarà acquistabile dal 1° ottobre al 1° novembre 2026." }, { status: 409 });
+    }
 
     const stripe = getStripeConfiguration(runtime);
     if (!stripe.configured || !runtime.DB) {
@@ -104,14 +118,14 @@ export async function POST(request: Request) {
       .bind(user.id).first<{ id: string; email: string; display_name: string | null; status: string }>();
     if (!customer || customer.status !== "active") return Response.json({ error: "Questo account non può effettuare acquisti." }, { status: 403 });
     const activePass = await getActiveUniversePass(runtime.DB, customer.id);
-    const discountPercent = product.productType === "subscription"
+    const discountPercent = product.productType === "subscription" || product.discountEligible === false
       ? 0
       : discountPercentForProduct(activePass, product.productType as DiscountableProductType);
     const pricing = calculatePurchaseBenefit(product.amountCents, discountPercent);
     const checkoutProduct = { ...product, amountCents: pricing.finalCents };
     const approvedDelivery = product.productType === "artwork"
-      ? await automaticArtworkDeliveryReady(runtime.COMMISSION_UPLOADS, product.code, stripe.testMode)
-        || Boolean(await runtime.DB.prepare("SELECT id FROM artwork_delivery_files WHERE artwork_code = ? AND status = 'approved' LIMIT 1").bind(product.code).first<{ id: string }>())
+      ? (await Promise.all((bundle ? [...bundle.artworkCodes] : [product.code])
+          .map((code) => artworkDeliveryApproved(runtime, code, stripe.testMode)))).every(Boolean)
       : product.productType === "game"
         ? await runtime.DB.prepare(`SELECT id FROM game_delivery_files
           WHERE product_code = ? AND status = 'approved'
@@ -130,10 +144,12 @@ export async function POST(request: Request) {
         .bind(customer.id).first<{ id: string }>();
       if (activeSubscription) return Response.json({ error: "Hai già un abbonamento attivo o in attesa di conferma." }, { status: 409 });
     }
-    const entitlement = await runtime.DB.prepare(`SELECT id FROM entitlements
-      WHERE customer_id = ? AND resource_type = ? AND resource_code = ? AND status = 'active'`)
-      .bind(customer.id, product.resourceType, product.code).first<{ id: string }>();
-    if (product.productType !== "subscription" && entitlement) return Response.json({ error: "Questo contenuto è già presente nella tua libreria." }, { status: 409 });
+    const entitlementCodes = bundle ? [...bundle.artworkCodes] : [product.code];
+    const placeholders = entitlementCodes.map(() => "?").join(", ");
+    const entitlement = await runtime.DB.prepare(`SELECT COUNT(*) AS owned FROM entitlements
+      WHERE customer_id = ? AND resource_type = ? AND resource_code IN (${placeholders}) AND status = 'active'`)
+      .bind(customer.id, product.resourceType, ...entitlementCodes).first<{ owned: number }>();
+    if (product.productType !== "subscription" && Number(entitlement?.owned) === entitlementCodes.length) return Response.json({ error: "Questo contenuto è già presente nella tua libreria." }, { status: 409 });
 
     const orderId = crypto.randomUUID();
     const orderItemId = crypto.randomUUID();
@@ -157,6 +173,7 @@ export async function POST(request: Request) {
             licenseHolderName: customer.display_name?.trim() || customer.email,
             licenseHolderEmail: customer.email,
             deliveryMode: automaticDelivery ? "automatic" : manualDelivery ? "manual" : "none",
+            bundleMembers: product.bundleMembers,
           })),
     ]);
 

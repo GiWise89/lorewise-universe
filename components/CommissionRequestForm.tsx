@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { CORRUPTED_PORTRAIT_PACKAGE } from "@/lib/commissionPromotion";
 
 type PackageOption = { name: string; price: string; image: string; alt: string; description: string; timing: string };
 type RequestState = {
@@ -24,7 +25,6 @@ type RequestState = {
 
 const maxFiles = 3;
 const maxFileSize = 8 * 1024 * 1024;
-const packageNames = new Set(["Ritratto Essenziale", "Ritratto Completo", "Opera Narrativa"]);
 function isValidEuropeanDate(value: string) {
   if (!value) return true;
   const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(value);
@@ -59,10 +59,12 @@ const initialState: RequestState = {
 };
 
 export function CommissionRequestForm({ categories, packages, initialPackage = "", initialReference = "", account }: { categories: readonly string[]; packages: readonly PackageOption[]; initialPackage?: string; initialReference?: string; account: { name: string; email: string } }) {
+  const packageNames = new Set(packages.map((item) => item.name));
   const startingValues: RequestState = {
     ...initialState,
     name: account.name,
     email: account.email,
+    category: initialPackage === CORRUPTED_PORTRAIT_PACKAGE ? "Trasformazioni fantasy/horror" : initialState.category,
     artworkReference: initialReference.slice(0, 120),
     packageName: packageNames.has(initialPackage) ? initialPackage : initialState.packageName,
   };

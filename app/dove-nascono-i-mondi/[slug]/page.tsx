@@ -25,6 +25,7 @@ export default async function CreativeJournalEntryPage({ params }: { params: Pro
   const previous = creativeJournalEntries[(entryIndex - 1 + creativeJournalEntries.length) % creativeJournalEntries.length];
   const next = creativeJournalEntries[(entryIndex + 1) % creativeJournalEntries.length];
   const gallery = [...entry.processImages, ...(entry.image ? [entry.image] : [])];
+  const heroImage = entry.processImages[entry.heroImageIndex ?? 0] ?? entry.processImages[0];
   const cyborgSections = [
     { id: `${entry.id}-maschera`, label: "Nasce la maschera", eyebrow: "01", content: (
       <section className="journal-detail-story" aria-labelledby="cyborg-mask-title">
@@ -88,7 +89,7 @@ export default async function CreativeJournalEntryPage({ params }: { params: Pro
             <p>{entry.summary}</p>
             <ul className="journal-tags" aria-label="Argomenti">{entry.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
           </div>
-          <CreativeJournalPhoto image={entry.processImages[0]} caption="Una fotografia reale della lavorazione" priority />
+          <CreativeJournalPhoto image={heroImage} caption={entry.heroImageIndex == null ? "Una fotografia reale della lavorazione" : "Una fase significativa della lavorazione"} priority />
         </header>
 
         <CreativeJournalSections variant="paper" label={`Sezioni della pagina dedicata a ${entry.title}`} sections={entry.id === "protocollo-ambra-cyborg" ? cyborgSections : [
@@ -113,7 +114,7 @@ export default async function CreativeJournalEntryPage({ params }: { params: Pro
         <section className="journal-detail-gallery" aria-labelledby="gallery-title">
           <div className="shell"><header><p className="journal-kicker">03 · Le immagini</p><h2 id="gallery-title">Lavorazione e risultato</h2></header>
             <div className={`journal-gallery journal-gallery-${gallery.length}`}>
-              {gallery.map((image, index) => <CreativeJournalPhoto key={`${image.src}-${index}`} image={image} caption={index < entry.processImages.length ? `Fase di lavorazione ${index + 1}` : entry.shopHref ? "Opera completa applicata al quadro" : "Risultato completo · anteprima protetta"} />)}
+              {gallery.map((image, index) => <CreativeJournalPhoto key={`${image.src}-${index}`} image={image} caption={index < entry.processImages.length ? entry.processCaptions?.[index] ?? `Fase di lavorazione ${index + 1}` : entry.finalCaption ?? (entry.shopHref ? "Opera completa applicata al quadro" : "Risultato completo · anteprima protetta")} />)}
             </div>
           </div>
         </section>

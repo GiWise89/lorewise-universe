@@ -26,6 +26,13 @@ type VipPayload = {
 
 type ActiveGame = "the-wound-remembers" | "fuori-trama";
 type ActiveArea = "guides" | "games" | "art" | "atelier" | "downloads";
+const VIP_AREA_ICONS: Record<ActiveArea, string> = {
+  guides: "/brand/icons/vip-guides-v1.webp",
+  games: "/brand/icons/vip-games-v1.webp",
+  art: "/brand/icons/vip-art-v1.webp",
+  atelier: "/brand/icons/vip-atelier-v1.webp",
+  downloads: "/brand/icons/vip-downloads-v1.webp",
+};
 type SingerVotePayload = {
   ranking: Array<{ id: string; name: string; votes: number; position: number }>;
   viewerChoice: string | null;
@@ -140,9 +147,18 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
   return <>
     <aside className="vip-member-bar" aria-label="Stato Universe Pass">
       <div className="shell">
-        <img src="/brand/icons/lorewise-vip-official-v1.webp" alt="" aria-hidden="true" width="1024" height="1024" />
-        <p><small>LoreWise VIP</small><strong>Pass {member.plan} attivo</strong></p>
+        <div className="vip-club-identity">
+          <span className="vip-club-seal" aria-hidden="true">
+            <img src="/brand/icons/lorewise-vip-official-v1.webp" alt="" width="1024" height="1024" />
+          </span>
+          <div>
+            <small>Il circolo privato di LoreWise</small>
+            <strong>Benvenuto nell&rsquo;Area VIP.</strong>
+            <p>Anteprime, opere e contenuti riservati a chi sostiene ogni nuovo mondo.</p>
+          </div>
+        </div>
         <div className="vip-editorial-status">
+          <span className="vip-pass-status"><small>Il tuo accesso</small><strong>Pass {member.plan} attivo</strong></span>
           <span><small>Ultimo aggiornamento</small><strong>{editorial.lastUpdated}</strong></span>
           <span><small>Prossimo VIP Drop</small><strong>{editorial.nextDrop}</strong></span>
         </div>
@@ -150,25 +166,28 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
     </aside>
     <nav className="vip-area-nav" aria-label="Sezioni della VIP Zone">
       <div className="shell" role="tablist" aria-label="Aree riservate">
-        {areas.map((area, index) => area.available ? <button
+        {areas.map((area) => area.available ? <button
           className={area.id === activeArea ? "is-active" : undefined}
           type="button"
           role="tab"
           aria-selected={area.id === activeArea}
           aria-controls={area.id}
           onClick={() => openArea(area.id)}
+          data-area={area.id}
           key={area.id}
         >
-          <span>{String(index + 1).padStart(2, "0")}</span>
+          <img className="vip-area-icon" src={VIP_AREA_ICONS[area.id as ActiveArea]} alt="" aria-hidden="true" width="768" height="768" />
+          <small>Sala riservata</small>
           <strong>{area.label}</strong>
-          <small>{area.description}</small>
-          <em>{area.status}</em>
+          <em>{area.description}</em>
+          <i>{area.status}</i>
           <b>{area.update}</b>
-        </button> : <div className="is-locked" aria-disabled="true" key={area.id}>
-          <span>{String(index + 1).padStart(2, "0")}</span>
+        </button> : <div className="is-locked" aria-disabled="true" data-area={area.id} key={area.id}>
+          <img className="vip-area-icon" src={VIP_AREA_ICONS[area.id as ActiveArea]} alt="" aria-hidden="true" width="768" height="768" />
+          <small>Sala riservata</small>
           <strong>{area.label}</strong>
-          <small>{area.description}</small>
-          <em>{area.status}</em>
+          <em>{area.description}</em>
+          <i>{area.status}</i>
           <b>{area.update}</b>
         </div>)}
       </div>

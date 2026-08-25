@@ -5,31 +5,37 @@
   "game": "World of Warcraft",
   "title": "Il compendio vivo di Azeroth",
   "subtitle": "Una guida permanente per iniziare, tornare e scegliere cosa fare senza perdersi nell’enormità di WoW.",
-  "description": "Sedici capitoli operativi dedicati a World of Warcraft moderno: versioni, personaggio, classi, talenti, interfaccia, progressione, equipaggiamento, professioni, dungeon, raid, Mitiche+, PvP, Delve, Housing e routine mensile. È la prima Guida Viva LoreWise: le fonti Blizzard vengono ricontrollate ogni mese, le novità generano una notifica e nessuna modifica viene pubblicata senza approvazione.",
+  "description": "Sedici capitoli operativi dedicati a World of Warcraft moderno: versioni, personaggio, classi, talenti, interfaccia, progressione, equipaggiamento, professioni, dungeon, raid, Mitiche+, PvP, Delve, Housing e una routine sostenibile.",
   "versionLabel": "Midnight · Curse of Ula’tek · Stagione 2",
-  "updatedAt": "23 agosto 2026",
+  "updatedAt": "24 agosto 2026",
   "vipFrom": "2026-09-14T00:00:00+02:00",
   "publicAt": "2026-09-21T00:00:00+02:00",
   "theme": "world-of-warcraft",
   "cover": {
     "src": "/atlas/world-of-warcraft/official/cover-midnight.webp",
     "alt": "Panorama ufficiale di World of Warcraft Midnight avvolto dalla luce e dal Vuoto",
-    "caption": "Midnight · Stagione 2 · verifica editoriale del 23 agosto 2026"
+    "caption": "Midnight · Stagione 2 · verifica editoriale del 24 agosto 2026"
   },
   "storeUrl": "https://worldofwarcraft.blizzard.com/en-us/midnight",
-  "storeLabel": "Apri il sito ufficiale di Midnight",
+  "storeLabel": "Acquista World of Warcraft: Midnight",
   "livingGuide": {
     "enabled": true,
     "announcement": "La prima Guida Viva del progetto LoreWise",
+    "scope": {
+      "expansion": "Midnight",
+      "contentUpdate": "Curse of Ula’tek",
+      "season": "Stagione 2"
+    },
     "cadence": "monthly",
-    "lastCheckedAt": "2026-08-23",
+    "lastCheckedAt": "2026-08-24",
     "nextCheckAt": "2026-09-23T09:00:00+02:00",
     "notificationTarget": "/notifiche",
     "approvalRequired": true,
     "monitoredSourceUrls": [
       "https://worldofwarcraft.blizzard.com/en-us/news/",
       "https://worldofwarcraft.blizzard.com/en-us/midnight",
-      "https://worldofwarcraft.blizzard.com/en-us/news/24295090"
+      "https://worldofwarcraft.blizzard.com/en-us/news/24293281/curse-of-ulatek-content-update-notes",
+      "https://worldofwarcraft.blizzard.com/en-us/news/24296142/hotfixes-august-14-2026"
     ]
   },
   "chapters": [
@@ -135,7 +141,7 @@
     {
       "id": "dungeons", "number": "10", "label": "Dungeon", "estimatedRead": "17–22 min", "spoiler": "Spoiler leggeri",
       "title": "Entrare in gruppo sapendo cosa osservare",
-      "introduction": "Un dungeon è una sequenza di gruppi, percorsi e boss. Imparare interruzioni e segnali visivi vale più di memorizzare ogni numero.",
+      "introduction": "Un dungeon è una sequenza di gruppi, percorsi e boss. Nella Stagione 2 Altar of Fangs entra nella rotazione insieme a quattro dungeon di Midnight e tre dungeon di ritorno: imparare interruzioni e segnali visivi vale più di memorizzare ogni numero.",
       "images": [{ "src": "/atlas/world-of-warcraft/official/10-dungeons-raids.webp", "alt": "Gruppo ufficiale affronta una creatura in un dungeon di Midnight", "caption": "Il gruppo sopravvive quando ognuno riconosce il pericolo prima che diventi danno." }],
       "blocks": [
         { "label": "Ingresso", "title": "La checklist prima della coda", "text": "Controlli semplici riducono abbandoni e confusione.", "steps": ["Ripara l’equipaggiamento.", "Libera spazio nelle borse.", "Leggi ruolo e abilità chiave.", "Metti interruzione e difensivi in posizione accessibile.", "Conferma la difficoltà scelta.", "Avvisa se è la prima volta."] },
@@ -146,7 +152,7 @@
     {
       "id": "raids", "number": "11", "label": "Raid", "estimatedRead": "18–24 min", "spoiler": "Spoiler protetti",
       "title": "Dal racconto al coordinamento di squadra",
-      "introduction": "Story Mode, Ricerca delle Incursioni e difficoltà organizzate permettono rapporti diversi con il raid. Scegli il livello che corrisponde al tuo obiettivo.",
+      "introduction": "Story Mode, Ricerca delle Incursioni e difficoltà organizzate permettono rapporti diversi con il raid. La Stagione 2 apre il Venomous Abyss con otto boss: scegli il livello che corrisponde al tuo obiettivo e proteggi gli spoiler della campagna.",
       "images": [{ "src": "/atlas/world-of-warcraft/official/11-raid-voidspire.webp", "alt": "Ingresso ufficiale del raid Voidspire circondato dall’energia del Vuoto", "caption": "Prima dell’ingresso assegna ruoli e responsabilità: nel raid la preparazione appartiene a tutto il gruppo." }],
       "blocks": [
         { "label": "Accessi", "title": "Non esiste un solo modo di vedere il raid", "text": "Story Mode privilegia la conclusione narrativa; LFR introduce meccaniche in gruppi automatici; Normale e oltre richiedono coordinamento crescente.", "table": { "columns": ["Modalità", "Obiettivo", "Preparazione"], "rows": [["Story Mode", "Seguire la storia", "Prerequisiti di campagna quando richiesti"], ["LFR", "Primo contatto e ricompense accessibili", "Equipaggiamento minimo e attenzione"], ["Normale/Eroico", "Progressione organizzata", "Gruppo, orari, consumabili e strategia"], ["Mitico", "Sfida coordinata massima", "Roster stabile e analisi dettagliata"]] } },
@@ -160,7 +166,7 @@
       "introduction": "Delve, Prey, eventi e Journeys offrono obiettivi leggibili anche con poco tempo. La difficoltà deve crescere insieme a strumenti e conoscenza.",
       "images": [{ "src": "/atlas/world-of-warcraft/official/12-prey.webp", "alt": "Cacciatore ufficiale affronta una potente Prey nel mondo di Midnight", "caption": "Una caccia è leggibile quando sai cosa può interrompere il tuo piano." }],
       "blocks": [
-        { "label": "Delve", "title": "Aumenta il livello una soglia alla volta", "text": "Le Delve premiano esplorazione e combattimento in gruppi piccoli o in solitaria.", "steps": ["Completa una difficoltà confortevole.", "Controlla modificatori e obiettivo.", "Porta cure, interruzione e mobilità.", "Esplora senza separarti dal supporto.", "Aumenta livello solo dopo una chiusura pulita."] },
+        { "label": "Delve", "title": "Aumenta il livello una soglia alla volta", "text": "La Stagione 2 aggiunge The Ring of Glory, Gnarldor Isle e la Delve Nemesis Venomfall Deeps. Le Delve generose permettono di avanzare oltre il livello 7, ma la soglia va aumentata soltanto dopo una chiusura controllata.", "steps": ["Completa una difficoltà confortevole.", "Controlla modificatori e obiettivo.", "Porta cure, interruzione e mobilità.", "Esplora senza separarti dal supporto.", "Aumenta livello solo dopo una chiusura pulita."] },
         { "label": "Prey", "title": "La preda può reagire mentre la insegui", "text": "Il sistema Prey trasforma il mondo in una caccia dinamica. Leggi il bersaglio e conserva risorse per l’imboscata.", "tips": ["Accetta una caccia compatibile con il tempo disponibile.", "Controlla percorso e vie di fuga.", "Non spendere tutti i cooldown sui nemici minori.", "Raggruppati se la difficoltà supera la tua preparazione."] },
         { "label": "Journeys", "title": "Un cruscotto per decidere, non un’altra lista", "text": "Journeys riunisce reputazioni, Delve, Prey e accesso alla Cassaforte. Usalo per scegliere un obiettivo concreto.", "scenarios": [{ "problem": "Ho soltanto venti minuti", "answer": "Scegli una singola attività mondiale o un avanzamento breve di Journey." }, { "problem": "Non so cosa migliora il personaggio", "answer": "Confronta ricompense e riga della Cassaforte prima di partire." }, { "problem": "Mi sento obbligato a fare tutto", "answer": "Scegli un traguardo settimanale e considera il resto facoltativo." }] }
       ]
@@ -171,9 +177,9 @@
       "introduction": "La Stagione 2 cambia rotazione, ricompense e pressione. Una chiave è un esercizio di percorso, priorità e uso coordinato dei cooldown.",
       "images": [{ "src": "/atlas/world-of-warcraft/official/13-mythic-plus-combat.webp", "alt": "Gruppo in combattimento contro un branco con bersaglio prioritario contrassegnato", "caption": "In Mitica+ tempo, percorso e bersaglio prioritario fanno parte della stessa decisione." }],
       "blocks": [
-        { "label": "Ingresso", "title": "Dal Mitico base alla chiave", "text": "Impara boss e gruppi senza timer prima di aggiungere affissi e percorso ottimizzato.", "steps": ["Completa il dungeon in difficoltà inferiore.", "Riconosci cast da interrompere.", "Memorizza due meccaniche per boss.", "Prova un Mitico base.", "Entra in una chiave bassa.", "Aumenta soltanto quando il gruppo chiude con controllo."] },
+        { "label": "Ingresso", "title": "Dal Mitico base alla chiave", "text": "Impara boss e gruppi senza timer prima di aggiungere affissi e percorso ottimizzato.", "steps": ["Completa il dungeon in difficoltà inferiore.", "Riconosci cast da interrompere.", "Memorizza due meccaniche per boss.", "Prova un Mitico base.", "Entra in una chiave bassa.", "Aumenta soltanto quando il gruppo chiude con controllo."], "table": { "columns": ["Stagione 2", "Dungeon"], "rows": [["Midnight", "Altar of Fangs, Murder Row, Den of Nalorakk, The Blinding Vale, Voidscar Arena"], ["Di ritorno", "Kings’ Rest, Ruby Life Pools, Temple of Sethraliss"]] } },
         { "label": "Percorso", "title": "Percentuale, tempo e risorse", "text": "Il tank propone il percorso, ma tutti devono sapere quando usare interruzioni, controllo e resurrezioni.", "tips": ["Condividi il percorso prima della partenza.", "Segna i gruppi pericolosi.", "Alterna cooldown offensivi e difensivi.", "Conserva resurrezioni da combattimento.", "Dopo una morte valuta se recuperare o saltare."] },
-        { "label": "Stagione viva", "title": "Non congelare numeri e classifiche", "text": "Dungeon, tuning, ricompense e strategie possono cambiare durante la stagione.", "warning": "Questa guida non pubblica una tier list permanente. Il controllo mensile segnala patch e cambiamenti ufficiali; ogni revisione richiede approvazione prima di sostituire il testo.", "mistakes": ["Copiare un percorso di una stagione precedente.", "Valutare il gruppo soltanto dal punteggio.", "Ignorare aggiornamenti agli affissi.", "Cambiare build senza provarla fuori dal timer."] }
+        { "label": "Stagione viva", "title": "Non congelare numeri e classifiche", "text": "Dungeon, tuning, ricompense e strategie possono cambiare durante la stagione.", "warning": "Confronta sempre classe, specializzazione, contenuto e stagione prima di applicare una classifica generale.", "mistakes": ["Copiare un percorso di una stagione precedente.", "Valutare il gruppo soltanto dal punteggio.", "Ignorare aggiornamenti agli affissi.", "Cambiare build senza provarla fuori dal timer."] }
       ]
     },
     {
@@ -182,7 +188,7 @@
       "introduction": "Training Grounds, campi di battaglia e arene richiedono priorità diverse dal PvE. Sopravvivere, comunicare e giocare l’obiettivo viene prima del danno totale.",
       "images": [{ "src": "/atlas/world-of-warcraft/official/14-pvp-objectives.webp", "alt": "Campo PvP ufficiale con giocatori, fortificazioni e un obiettivo d’assedio", "caption": "Nel PvP non basta vincere lo scontro: posizione, rotazione e controllo dell’obiettivo decidono la partita." }],
       "blocks": [
-        { "label": "Allenamento", "title": "Inizia dai Training Grounds", "text": "Midnight introduce campi contro avversari controllati dal gioco per apprendere mappe e ruoli senza la pressione iniziale del PvP completo.", "steps": ["Scegli una specializzazione che conosci.", "Metti in barra controllo e rimozione effetti.", "Segui l’obiettivo della mappa.", "Prova a sopravvivere prima di inseguire eliminazioni.", "Rivedi un errore alla fine di ogni partita."] },
+        { "label": "Allenamento", "title": "Inizia dai Training Grounds", "text": "Midnight introduce campi contro avversari controllati dal gioco; con Curse of Ula’tek l’allenamento si estende anche alle arene contro bot, così puoi apprendere mappe, controllo e finestre difensive prima del PvP completo.", "steps": ["Scegli una specializzazione che conosci.", "Metti in barra controllo e rimozione effetti.", "Segui l’obiettivo della mappa.", "Prova a sopravvivere prima di inseguire eliminazioni.", "Rivedi un errore alla fine di ogni partita."] },
         { "label": "Campi", "title": "La mappa decide la vittoria", "text": "Bandiere, basi e carrelli richiedono presenza e rotazioni. Un combattimento lontano dall’obiettivo può essere una sconfitta anche se viene vinto.", "tips": ["Leggi obiettivo prima dell’apertura.", "Comunica nemici in arrivo.", "Difendi finché arriva il cambio.", "Non abbandonare una base per inseguire.", "Usa cavalcatura e terreno per ruotare."] },
         { "label": "Duello", "title": "Controllo, difensivi e finestre", "text": "In arena impara prima a riconoscere cooldown avversari e momenti di pericolo.", "scenarios": [{ "problem": "Muoio senza reagire", "answer": "Rivedi il primo controllo subito e prepara rimozione o difensivo prima del burst." }, { "problem": "Inseguo e perdo il healer", "answer": "Mantieni linea di vista con gli alleati e non attraversare ostacoli senza comunicarlo." }, { "problem": "Faccio danno ma non chiudo", "answer": "Coordina controllo e cooldown nello stesso intervallo invece di usarli isolatamente." }] }
       ]
@@ -193,7 +199,7 @@
       "introduction": "Housing è condiviso dalla Warband e si collega a quartieri, decorazioni, professioni e attività mensili. Cavalcature, aspetti, mascotte e gilda danno continuità oltre l’equipaggiamento stagionale.",
       "images": [{ "src": "/atlas/world-of-warcraft/official/15-housing.webp", "alt": "Casa ufficiale di World of Warcraft Housing in un quartiere illuminato", "caption": "Una casa non chiude l’avventura: conserva ciò che hai scelto di ricordare." }],
       "blocks": [
-        { "label": "Housing", "title": "Casa, quartiere e Warband", "text": "Non sono previste lotterie, costi proibitivi o manutenzione obbligatoria. La casa e la collezione decorativa sono condivise tra i personaggi della Warband.", "steps": ["Scegli quartiere pubblico, privato o di gilda.", "Rivendica il lotto.", "Costruisci una stanza funzionale.", "Salva la disposizione prima di grandi modifiche.", "Aggiungi decorazioni ottenute giocando o creando.", "Visita le case degli amici anche tra fazioni."] },
+        { "label": "Housing", "title": "Casa, quartiere e Warband", "text": "Non sono previste lotterie, costi proibitivi o manutenzione obbligatoria. La casa e la collezione decorativa sono condivise tra i personaggi della Warband; Curse of Ula’tek aggiunge salvataggio, esportazione e importazione dei progetti e consente alle mascotte non combattenti di muoversi nella casa.", "steps": ["Scegli quartiere pubblico, privato o di gilda.", "Rivendica il lotto.", "Costruisci una stanza funzionale.", "Salva la disposizione prima di grandi modifiche.", "Aggiungi decorazioni ottenute giocando o creando.", "Visita le case degli amici anche tra fazioni."] },
         { "label": "Endeavors", "title": "Un progetto mensile del quartiere", "text": "Le attività collettive sbloccano ricompense e decorazioni. Contribuisci senza trasformare il quartiere in un secondo lavoro.", "tips": ["Controlla il tema mensile.", "Scegli compiti collegati alle tue attività normali.", "Coordina materiali e professioni.", "Usa i coupon per una priorità decorativa.", "Fotografa o salva il layout prima di cambiarlo."] },
         { "label": "Comunità", "title": "La gilda giusta vale più di una classifica", "text": "Cerca orari, tono e obiettivi compatibili. Una comunità stabile rende sostenibili raid, PvP, economia e Housing.", "table": { "columns": ["Domanda", "Segnale sano", "Segnale da chiarire"], "rows": [["Quando giocate?", "Calendario esplicito", "Richiesta di presenza continua"], ["Come gestite errori?", "Revisione concreta e rispettosa", "Colpa pubblica senza spiegazione"], ["Qual è l’obiettivo?", "Progressione dichiarata", "Aspettative diverse per membri diversi"]] } }
       ]
@@ -201,12 +207,12 @@
     {
       "id": "living-routine", "number": "16", "label": "Routine e Guida Viva", "estimatedRead": "15–20 min", "spoiler": "No spoiler",
       "title": "Decidere cosa fare oggi e cosa aggiornare domani",
-      "introduction": "World of Warcraft cambia con hotfix, patch e stagioni. La guida chiude con una routine sostenibile e con il protocollo che impedisce alle informazioni variabili di invecchiare in silenzio.",
-      "images": [{ "src": "/atlas/world-of-warcraft/official/16-endeavors.webp", "alt": "Quartiere ufficiale impegnato in un Endeavor mensile", "caption": "Una guida viva osserva il cambiamento, lo segnala e aspetta una decisione prima di riscrivere il percorso." }],
+      "introduction": "World of Warcraft cambia con hotfix, patch e stagioni. La guida chiude con una routine sostenibile per scegliere bene senza trasformare il gioco in un secondo lavoro.",
+      "images": [{ "src": "/atlas/world-of-warcraft/official/16-endeavors.webp", "alt": "Quartiere ufficiale impegnato in un Endeavor mensile", "caption": "Gli Endeavor offrono obiettivi condivisi da integrare nella propria routine." }],
       "blocks": [
         { "label": "Settimana", "title": "La routine in cinque domande", "text": "Non serve completare ogni sistema: scegli una direzione e una ricompensa coerente.", "steps": ["Quale personaggio voglio usare?", "Quale attività mi diverte oggi?", "Quale progresso appare in Journeys?", "Quale riga della Cassaforte voglio aprire?", "Cosa posso lasciare volontariamente alla settimana seguente?"] },
-        { "label": "Controllo mensile", "title": "Come funziona la prima Guida Viva LoreWise", "text": "Il 23 di ogni mese vengono ricontrollate le fonti ufficiali Blizzard monitorate. Se non emergono cambiamenti la guida resta invariata; se emergono novità viene creata una notifica nel Centro notifiche/Admin.", "table": { "columns": ["Fase", "Automatica", "Decisione umana"], "rows": [["Controllo fonti", "Sì, una volta al mese", "Nessuna"], ["Rilevazione novità", "Sì, con confronto della versione", "Valutare la rilevanza"], ["Notifica", "Sì, soltanto se cambia qualcosa", "Aprire o rimandare"], ["Aggiornamento testo", "No", "Richiede approvazione"], ["Pubblicazione", "No", "Avviene dopo verifica finale"]] } },
-        { "label": "Versione", "title": "Cosa controllare prima di fidarti di un consiglio", "text": "Ogni sezione variabile deve dichiarare espansione, stagione e data di verifica.", "scenarios": [{ "problem": "È uscita una patch", "answer": "Attendi la notifica mensile oppure avvia un controllo straordinario prima di cambiare build o percorso." }, { "problem": "Una fonte contraddice la guida", "answer": "Segnala la sezione: l’aggiornamento resta in bozza finché non viene approvato." }, { "problem": "La novità riguarda soltanto una classe", "answer": "Aggiorna il modulo della classe senza riscrivere i capitoli stabili." }, { "problem": "Non risultano novità", "answer": "La data di controllo avanza, il contenuto resta identico e non viene generata una notifica inutile." }], "warning": "Stato verificato: Midnight · Curse of Ula’tek · Stagione 2. Ultimo controllo editoriale: 23 agosto 2026." }
+        { "label": "Priorità", "title": "Costruire una routine che non diventi un obbligo", "text": "Scegli pochi obiettivi coerenti con il tempo disponibile e lascia intenzionalmente il resto.", "table": { "columns": ["Tempo disponibile", "Obiettivo principale", "Extra facoltativo"], "rows": [["Sessione breve", "Una missione o un’attività mirata", "Professioni"], ["Una serata", "Dungeon, Delve o PvP", "Cassaforte"], ["Più serate", "Progressione di gruppo", "Collezionismo"], ["Fine settimana", "Raid o progetto Housing", "Economia"], ["Pausa dal gioco", "Nessun recupero obbligatorio", "Rientro quando vuoi"]] } },
+        { "label": "Versione", "title": "Cosa controllare prima di fidarti di un consiglio", "text": "Verifica sempre espansione, aggiornamento e stagione a cui si riferisce un consiglio. Gli hotfix possono cambiare classi, Delve, dungeon, professioni e missioni.", "scenarios": [{ "problem": "È uscita una patch", "answer": "Rileggi le note relative alla tua classe e prova la build in un contenuto senza pressione." }, { "problem": "Due consigli si contraddicono", "answer": "Confronta data, stagione, specializzazione e tipo di contenuto a cui si riferiscono." }, { "problem": "La novità riguarda soltanto una classe", "answer": "Cambia solo il percorso di quella classe e conserva il resto della routine." }, { "problem": "Non trovi cambiamenti per il tuo personaggio", "answer": "Continua con la configurazione che già funziona per i tuoi obiettivi." }], "warning": "Contesto della guida: Midnight · Curse of Ula’tek · Stagione 2." }
       ]
     }
   ],
@@ -216,13 +222,15 @@
     { "id": "explore", "label": "Attraversa i mondi", "summary": "Campagna, viaggio, Warband e progressione senza trasformare la mappa in un debito.", "icon": { "src": "/atlas/world-of-warcraft/official/07-harandar.webp", "alt": "Paesaggio di Harandar", "caption": "Hub, percorso e ritorno." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "100% 0%" }, "chapterIds": ["leveling-campaign", "world-warband-travel", "gear-progression"] },
     { "id": "craft", "label": "Costruisci il tuo posto", "summary": "Professioni, economia, Housing e collezioni come sistemi destinati a durare.", "icon": { "src": "/atlas/world-of-warcraft/official/09-decoration.webp", "alt": "Interno decorato di Housing", "caption": "Crea, conserva e condividi." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "0% 100%" }, "chapterIds": ["professions-economy", "housing-collections-community"] },
     { "id": "group", "label": "Affronta la sfida", "summary": "Dungeon, raid, Delve, Mitiche+ e PvP letti attraverso ruolo e obiettivo.", "icon": { "src": "/atlas/world-of-warcraft/official/10-dungeons-raids.webp", "alt": "Gruppo in combattimento", "caption": "Meccanica prima del numero." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "50% 100%" }, "chapterIds": ["dungeons", "raids", "delves-prey-world", "mythic-plus", "pvp"] },
-    { "id": "living", "label": "Mantieni viva la guida", "summary": "Routine sostenibile, data di verifica e aggiornamenti approvati senza riscritture cieche.", "icon": { "src": "/atlas/world-of-warcraft/official/16-endeavors.webp", "alt": "Attività mensile del quartiere", "caption": "Controllare, notificare, decidere." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "100% 100%" }, "chapterIds": ["living-routine"] }
+    { "id": "living", "label": "Trova il tuo ritmo", "summary": "Routine sostenibile, priorità e libertà di fermarsi.", "icon": { "src": "/atlas/world-of-warcraft/official/16-endeavors.webp", "alt": "Attività mensile del quartiere", "caption": "Scegliere obiettivi compatibili con il proprio tempo." }, "iconSprite": { "src": "/atlas/world-of-warcraft/guide-section-icons-v1.webp", "position": "100% 100%" }, "chapterIds": ["living-routine"] }
   ],
   "sources": [
     { "label": "Blizzard · World of Warcraft Midnight", "href": "https://worldofwarcraft.blizzard.com/en-us/midnight" },
     { "label": "Blizzard · Midnight ora disponibile", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24264417" },
     { "label": "Blizzard · guida per giocatori di ritorno", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24263354" },
     { "label": "Blizzard · Curse of Ula’tek e preparazione Stagione 2", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24295090" },
+    { "label": "Blizzard · note complete di Curse of Ula’tek", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24293281/curse-of-ulatek-content-update-notes" },
+    { "label": "Blizzard · hotfix fino al 21 agosto 2026", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24296142/hotfixes-august-14-2026" },
     { "label": "Blizzard · panoramica informazioni Midnight", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24229031" },
     { "label": "Blizzard · Housing in Midnight", "href": "https://worldofwarcraft.blizzard.com/en-gb/news/24244457" },
     { "label": "Blizzard · futuro di Housing", "href": "https://worldofwarcraft.blizzard.com/en-us/news/24244406" },

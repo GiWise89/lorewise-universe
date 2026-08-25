@@ -57,7 +57,7 @@ export default function Home() {
 
       <section className="home-story art-story shell" aria-labelledby="art-story-title">
         <div className="home-art-preview" aria-label="Tre opere protette in fase di catalogazione">
-          <Image src="/artworks/previews/lw-art-024-preview.jpg" alt="Anteprima protetta LW-ART-024" width={1131} height={1600} unoptimized />
+          <Image src="/artworks/previews/lw-art-003-preview.jpg" alt="Anteprima protetta LW-ART-003" width={1128} height={1600} unoptimized />
           <Image src="/artworks/previews/lw-art-032-preview.jpg" alt="Anteprima protetta LW-ART-032" width={1128} height={1600} unoptimized />
           <Image src="/artworks/previews/lw-art-018-preview.jpg" alt="Anteprima protetta LW-ART-018" width={1131} height={1600} unoptimized />
         </div>

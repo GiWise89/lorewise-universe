@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
 
 type Suggestion = {
@@ -107,7 +108,7 @@ export function CodexSuggestionForm() {
 
   return <section className="codex-suggestion" aria-labelledby="codex-suggestion-title">
     <header className="codex-suggestion-intro">
-      <img src="/brand/icons/lorewise-vip-official-v1.webp" alt="" width="1024" height="1024" />
+      <Image src="/brand/icons/lorewise-vip-official-v1.webp" alt="" width={1024} height={1024} unoptimized />
       <div>
         <p className="eyebrow">Partecipazione editoriale · Solo LoreWise VIP</p>
         <h2 id="codex-suggestion-title">Manca un personaggio?</h2>

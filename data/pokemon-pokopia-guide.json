@@ -1,0 +1,1117 @@
+{
+  "id": "pokemon-pokopia-complete-guide-01",
+  "slug": "pokemon-pokopia",
+  "code": "LW-ATLAS-PKP-001",
+  "game": "Pokémon Pokopia",
+  "title": "Il quaderno della nuova Pokopia",
+  "subtitle": "Da Ditto e il primo germoglio a una terra condivisa, costruita insieme ai Pokémon senza correre.",
+  "description": "Sedici capitoli e quarantotto schede operative dedicate a Pokémon Pokopia: versione, primi giorni, ripristino, mosse, risorse, costruzione, coltivazione, habitat, amicizie, esplorazione, decorazione, multiplayer, Bubbly Basin, collezioni, salvataggi ed espansioni. La guida privilegia procedure verificabili, accessibilità, spoiler separati e scelte sostenibili.",
+  "versionLabel": "Expansion Pass · Bubbly Basin · verifica 24 agosto 2026",
+  "updatedAt": "24 agosto 2026",
+  "vipFrom": "2026-11-09T00:00:00+01:00",
+  "publicAt": "2026-11-16T00:00:00+01:00",
+  "theme": "atlas",
+  "cover": {
+    "src": "/atlas/pokemon-pokopia/cover.webp",
+    "alt": "Immagine ufficiale usata per la copertina editoriale di Pokémon Pokopia",
+    "caption": "Pokémon Pokopia · immagine dal sito ufficiale, mostrata integralmente",
+    "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000107421/2045c3f67f865d333b1995562ad6b2894473b8a869e4c8efa01572539ec86019"
+  },
+  "storeUrl": "https://www.nintendo.com/us/store/products/pokemon-pokopia-switch-2/",
+  "storeLabel": "Acquista Pokémon Pokopia",
+  "livingGuide": {
+    "enabled": true,
+    "announcement": "L’Expansion Pass amplia il percorso con nuove aree e attività.",
+    "scope": {
+      "expansion": "Pokémon Pokopia",
+      "contentUpdate": "Bubbly Basin",
+      "season": "Expansion Pass · Parte 1"
+    },
+    "cadence": "monthly",
+    "lastCheckedAt": "2026-08-24",
+    "nextCheckAt": "2026-09-24T09:00:00+02:00",
+    "notificationTarget": "/notifiche",
+    "approvalRequired": true,
+    "monitoredSourceUrls": [
+      "https://www.pokemon.com/us/pokemon-news",
+      "https://www.pokemon.com/us/pokemon-video-games/pokemon-pokopia",
+      "https://www.nintendo.com/us/gaming-systems/switch-2/games/pokemon-pokopia/"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "version-dlc",
+      "number": "01",
+      "label": "Versione e contenuti",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Sapere quale Pokopia stai costruendo",
+      "introduction": "Gioco base, aggiornamenti ed Expansion Pass aggiungono aree e progetti in momenti diversi; verifica versione e contenuti prima di cercarli.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/01-version-dlc.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Versione e contenuti",
+          "caption": "Versione e contenuti · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000107421/2045c3f67f865d333b1995562ad6b2894473b8a869e4c8efa01572539ec86019"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta versione e contenuti come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Aggiorna Nintendo Switch 2",
+            "Controlla il profilo corretto",
+            "Verifica Expansion Pass e download",
+            "Leggi l’avviso di avvio",
+            "Crea spazio per il salvataggio"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Sapere quale Pokopia stai costruendo” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Distingui aggiornamento gratuito e DLC",
+            "Controlla date ufficiali",
+            "Non cercare contenuti futuri nel gioco"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Bubbly Basin non compare",
+              "answer": "Verifica acquisto, download e requisiti"
+            },
+            {
+              "problem": "Il gioco non si aggiorna",
+              "answer": "Controlla rete, spazio e versione di sistema"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "ditto-first-day",
+      "number": "02",
+      "label": "Ditto e il primo giorno",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Osservare prima di riempire la terra",
+      "introduction": "La forma umana di Ditto permette di costruire e imparare; le prime richieste insegnano il ciclo tra incontro, mossa e trasformazione del luogo.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/02-ditto-first-day.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Ditto e il primo giorno",
+          "caption": "Ditto e il primo giorno · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000107421/3265e8eea231c87a7c9ff87890c235d25f7f21079fab68f3761dbd0bba922b04"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta ditto e il primo giorno come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Segui il primo abitante",
+            "Raccogli solo risorse vicine",
+            "Impara il comando di interazione",
+            "Completa un piccolo progetto",
+            "Rientra e osserva il cambiamento"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Osservare prima di riempire la terra” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non ripulire tutto subito",
+            "Lascia riferimenti naturali",
+            "Parla di nuovo dopo ogni progetto"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non so quale richiesta seguire",
+              "answer": "Apri il registro e scegli quella introduttiva"
+            },
+            {
+              "problem": "Ho raccolto troppo",
+              "answer": "Conserva una riserva e torna a costruire"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "restore-land",
+      "number": "03",
+      "label": "Ripristino della terra",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Far tornare la vita con interventi leggibili",
+      "introduction": "Acqua, vegetazione, terreno e strutture attirano possibilità diverse; modifica una zona per volta e osserva cosa ritorna.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/03-restore-land.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Ripristino della terra",
+          "caption": "Ripristino della terra · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto,q_auto/Marketing/pmp_pokopia/story/screenshot-story-1-2x"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta ripristino della terra come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli una piccola area",
+            "Rimuovi solo gli ostacoli necessari",
+            "Porta acqua o vegetazione",
+            "Aggiungi un punto di sosta",
+            "Aspetta e controlla nuovi arrivi"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Far tornare la vita con interventi leggibili” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Conserva spazi selvatici",
+            "Collega aree con sentieri",
+            "Fotografa mentalmente il prima e dopo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non arriva nessun Pokémon",
+              "answer": "Controlla habitat, spazio e requisito"
+            },
+            {
+              "problem": "La zona è confusa",
+              "answer": "Riduci oggetti e definisci un percorso"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "learn-moves",
+      "number": "04",
+      "label": "Mosse dei Pokémon",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Imparare capacità che cambiano il paesaggio",
+      "introduction": "I Pokémon insegnano mosse utili a raccolta e costruzione; ogni nuova capacità va provata subito su un problema semplice.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/04-learn-moves.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Mosse dei Pokémon",
+          "caption": "Mosse dei Pokémon · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000107421/6c8214bd886f2c4c04e511a30a6627c7dc2f4934398707bfd497f61c51d5559c"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta mosse dei pokémon come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Incontra il Pokémon richiesto",
+            "Completa la sua condizione",
+            "Impara la mossa",
+            "Provala vicino al villaggio",
+            "Annota ostacoli che ora puoi superare"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Imparare capacità che cambiano il paesaggio” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Una mossa è uno strumento, non solo un premio",
+            "Torna nelle aree precedenti",
+            "Mantieni accessibile la capacità più usata"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "La mossa non funziona",
+              "answer": "Controlla bersaglio, distanza e contesto"
+            },
+            {
+              "problem": "Non trovo chi la insegna",
+              "answer": "Migliora l’habitat e segui le richieste collegate"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "crafting-resources",
+      "number": "05",
+      "label": "Risorse e creazione",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Raccogliere per un progetto concreto",
+      "introduction": "Materiali comuni e rari hanno ritmi diversi; una lista corta evita di svuotare l’ambiente e dimenticare perché stavi raccogliendo.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/05-crafting-resources.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Risorse e creazione",
+          "caption": "Risorse e creazione · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000107421/ba24cf48fef976afa00230c5005f526c0dc5acaac260c99d378bd7d4d806e68f"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta risorse e creazione come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli una ricetta",
+            "Segna quantità mancanti",
+            "Raccogli lungo un percorso",
+            "Crea al banco corretto",
+            "Conserva l’eccedenza ordinata"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Raccogliere per un progetto concreto” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non trasformare subito ogni materiale",
+            "Raggruppa depositi per uso",
+            "Mantieni scorte per riparazioni"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Manca un materiale",
+              "answer": "Controlla bioma, strumento e momento"
+            },
+            {
+              "problem": "L’inventario è pieno",
+              "answer": "Deposita per categoria e porta solo il necessario"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "build-town",
+      "number": "06",
+      "label": "Costruzione del villaggio",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Creare luoghi attraversabili dai Pokémon",
+      "introduction": "Case, servizi, sentieri e spazi comuni devono funzionare per abitanti diversi; prima definisci connessioni, poi decora.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/06-build-town.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Costruzione del villaggio",
+          "caption": "Costruzione del villaggio · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000107421/ccd630dbe73fa9c7c5c1ed471c4e81eda6f4ee4515d3f1a2f88514635941a8b2"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta costruzione del villaggio come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Traccia la via principale",
+            "Posiziona un servizio centrale",
+            "Lascia spazio davanti agli ingressi",
+            "Collega le abitazioni",
+            "Prova il percorso completo"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Creare luoghi attraversabili dai Pokémon” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Costruisci a scala del Pokémon",
+            "Evita corridoi troppo stretti",
+            "Conserva aree per ampliamenti"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Un abitante non usa la struttura",
+              "answer": "Controlla accesso e requisito"
+            },
+            {
+              "problem": "Il villaggio sembra un deposito",
+              "answer": "Riduci doppioni e crea zone tematiche"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "gardening",
+      "number": "07",
+      "label": "Coltivazione",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Dare un ritmo sostenibile a semi e raccolti",
+      "introduction": "Terreno, acqua, cura e tempo trasformano i semi in risorsa e paesaggio; coltiva ciò che sostiene i progetti correnti.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/07-gardening.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Coltivazione",
+          "caption": "Coltivazione · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto,q_auto/Marketing/pmp_pokopia/gameplay-craft/Switch2_PP_PMP_GrowCrops_H264_V1-fallback"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta coltivazione come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Prepara una parcella limitata",
+            "Pianta per categoria",
+            "Irriga con regolarità",
+            "Osserva la crescita",
+            "Raccogli senza svuotare tutto"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Dare un ritmo sostenibile a semi e raccolti” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Lascia spazio tra colture e sentieri",
+            "Conserva semi",
+            "Abbina orto e deposito"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Una pianta non cresce",
+              "answer": "Controlla terreno, acqua e tempo"
+            },
+            {
+              "problem": "Dimentico il raccolto",
+              "answer": "Inseriscilo nella routine di rientro"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "habitats-biomes",
+      "number": "08",
+      "label": "Habitat e biomi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Accogliere Pokémon attraverso ambienti adatti",
+      "introduction": "Specie diverse cercano condizioni riconoscibili; acqua, piante, rilievi e oggetti devono raccontare un ambiente, non un catalogo.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/08-habitats-biomes.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Habitat e biomi",
+          "caption": "Habitat e biomi · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto,q_auto/Marketing/pmp_pokopia/gameplay-craft/Switch2_PP_PMP_ALittleHelp_H264_V1-fallback"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta habitat e biomi come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli una specie obiettivo",
+            "Leggi gli indizi dell’habitat",
+            "Prepara la zona",
+            "Aggiungi risorse coerenti",
+            "Osserva senza modificare subito"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Accogliere Pokémon attraverso ambienti adatti” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Un habitat può servire più specie",
+            "Mantieni transizioni naturali",
+            "Non comprimere tutti i biomi insieme"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Arriva la specie sbagliata",
+              "answer": "Rivedi gli elementi dominanti"
+            },
+            {
+              "problem": "Nessuno resta",
+              "answer": "Aggiungi spazio, riparo e risorse"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "friendships",
+      "number": "09",
+      "label": "Amicizie e richieste",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Conoscere i Pokémon oltre la lista delle presenze",
+      "introduction": "Dialoghi, aiuti e spazi condivisi costruiscono familiarità; segui poche relazioni alla volta e lascia che il villaggio racconti il resto.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/09-friendships.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Amicizie e richieste",
+          "caption": "Amicizie e richieste · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto,q_auto/Marketing/pmp_pokopia/gameplay-craft/Switch2_PP_PMP_CraftObjects_H264_V1-fallback"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta amicizie e richieste come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Saluta i nuovi arrivi",
+            "Leggi la richiesta completa",
+            "Prepara ciò che serve",
+            "Concludi e parla di nuovo",
+            "Crea un luogo legato al Pokémon"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Conoscere i Pokémon oltre la lista delle presenze” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non correre attraverso i dialoghi",
+            "Alterna richieste e vita libera",
+            "Ricorda chi ha insegnato una mossa"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Una richiesta non avanza",
+              "answer": "Controlla quantità, luogo e interlocutore"
+            },
+            {
+              "problem": "Un Pokémon è scomparso",
+              "answer": "Cerca nel suo habitat e in orari diversi"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "exploration",
+      "number": "10",
+      "label": "Esplorazione",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Partire con uno scopo e tornare con una scoperta",
+      "introduction": "Nuove aree offrono materiali, Pokémon e ostacoli; porta spazio libero, una mossa utile e un obiettivo, poi lascia margine all’inatteso.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/10-exploration.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Esplorazione",
+          "caption": "Esplorazione · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto,q_auto/Marketing/pmp_pokopia/story/screenshot-story-2-2x"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta esplorazione come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli una direzione",
+            "Libera l’inventario",
+            "Segui un riferimento naturale",
+            "Segna un ostacolo irrisolto",
+            "Rientra prima di perdere il filo"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Partire con uno scopo e tornare con una scoperta” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non raccogliere ogni oggetto",
+            "Apri scorciatoie quando possibile",
+            "Torna dopo aver imparato nuove mosse"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non trovo la strada",
+              "answer": "Cambia altezza e segui confini naturali"
+            },
+            {
+              "problem": "Sono sovraccarico",
+              "answer": "Deposita e crea una spedizione mirata"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "home-decoration",
+      "number": "11",
+      "label": "Casa e decorazione",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Rendere personale uno spazio senza bloccarne l’uso",
+      "introduction": "Colori, mobili e piccoli oggetti raccontano Ditto e gli abitanti; conserva percorsi e punti interattivi sempre visibili.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/11-home-decoration.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Casa e decorazione",
+          "caption": "Casa e decorazione · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000107421/5ceb12f1763cc8525f4a9092b4e0736287adbf65431934140ba579dbfec26c44"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta casa e decorazione come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Scegli un tema",
+            "Posiziona gli oggetti funzionali",
+            "Definisci il percorso",
+            "Aggiungi decorazioni per gruppi",
+            "Prova ogni interazione"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Rendere personale uno spazio senza bloccarne l’uso” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Usa spazio vuoto come parte del design",
+            "Ripeti pochi colori",
+            "Salva una disposizione prima di rifarla"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non raggiungo un mobile",
+              "answer": "Libera ingresso e area d’uso"
+            },
+            {
+              "problem": "La stanza sembra caotica",
+              "answer": "Riduci categorie e crea un punto focale"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "multiplayer-visits",
+      "number": "12",
+      "label": "Visite e condivisione",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Aprire la Pokopia senza perdere il controllo del progetto",
+      "introduction": "Le funzioni di visita dipendono da rete, profili e regole della sessione; chiarisci cosa si può fare prima di invitare.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/12-multiplayer-visits.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Visite e condivisione",
+          "caption": "Visite e condivisione · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto,q_auto/Marketing/pmp_pokopia/gameplay-craft/Switch2_PP_PMP_MakeComfySpaces_H264_V1-fallback"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta visite e condivisione come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Controlla connessione e impostazioni",
+            "Salva prima della visita",
+            "Concorda area e progetto",
+            "Invita il gruppo",
+            "Verifica il mondo dopo la sessione"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Aprire la Pokopia senza perdere il controllo del progetto” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Mostra prima i percorsi principali",
+            "Non lasciare materiali rari esposti senza motivo",
+            "Usa un progetto collaborativo breve"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "L’invito non arriva",
+              "answer": "Controlla account, rete e privacy"
+            },
+            {
+              "problem": "Un ospite non può interagire",
+              "answer": "Verifica permessi e modalità"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "bubbly-basin",
+      "number": "13",
+      "label": "Bubbly Basin",
+      "estimatedRead": "13–17 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Entrare nella prima espansione senza mescolarla al gioco base",
+      "introduction": "Bubbly Basin è la prima parte dell’Expansion Pass: trattala come una nuova area con requisiti, materiali e abitanti da documentare separatamente.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/13-bubbly-basin.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Bubbly Basin",
+          "caption": "Bubbly Basin · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000107421/3265e8eea231c87a7c9ff87890c235d25f7f21079fab68f3761dbd0bba922b04"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta bubbly basin come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Verifica installazione e accesso",
+            "Completa i requisiti indicati",
+            "Visita con inventario libero",
+            "Registra nuove risorse",
+            "Integra un elemento alla volta nella città"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Entrare nella prima espansione senza mescolarla al gioco base” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Dichiara sempre che è contenuto DLC",
+            "Non anticipare le parti successive",
+            "Conserva materiali esclusivi"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Non trovo l’ingresso",
+              "answer": "Controlla requisito di storia e download"
+            },
+            {
+              "problem": "Una ricetta usa materiali ignoti",
+              "answer": "Cercali nella nuova area e nelle richieste"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "collections-projects",
+      "number": "14",
+      "label": "Collezioni e progetti",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Completare per storie, non per caselle",
+      "introduction": "Pokémon, ricette, materiali e strutture possono diventare una lista enorme; scegli una collezione che migliori davvero una zona.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/14-collections-projects.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Collezioni e progetti",
+          "caption": "Collezioni e progetti · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000107421/5ceb12f1763cc8525f4a9092b4e0736287adbf65431934140ba579dbfec26c44"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta collezioni e progetti come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Definisci un progetto finale",
+            "Dividilo in tre materiali",
+            "Abbina Pokémon e habitat",
+            "Completa una fase",
+            "Documenta il risultato"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Completare per storie, non per caselle” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Combina raccolta e amicizie",
+            "Non spostare habitat riusciti per una casella",
+            "Lascia l’ultimo elemento alla scoperta"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il conteggio non sale",
+              "answer": "Controlla variante, area e consegna"
+            },
+            {
+              "problem": "Manca una ricetta",
+              "answer": "Segui richieste e progressione"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "save-routine",
+      "number": "15",
+      "label": "Salvataggio e routine",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Proteggere una terra che cresce per mesi",
+      "introduction": "Prima di DLC, grandi ristrutturazioni o visite, verifica il salvataggio e conserva una routine di chiusura semplice.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/15-save-routine.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Salvataggio e routine",
+          "caption": "Salvataggio e routine · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/q_auto:best/f_auto/dpr_2.0/store/software/switch2/70010000107421/2045c3f67f865d333b1995562ad6b2894473b8a869e4c8efa01572539ec86019"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta salvataggio e routine come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Rientra in una zona stabile",
+            "Deposita materiali rari",
+            "Completa l’azione in corso",
+            "Salva e attendi conferma",
+            "Chiudi il gioco correttamente"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Proteggere una terra che cresce per mesi” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non spegnere durante l’icona di salvataggio",
+            "Mantieni spazio libero",
+            "Controlla il cloud del profilo corretto"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Il progresso recente manca",
+              "answer": "Verifica ultimo salvataggio e profilo"
+            },
+            {
+              "problem": "Il gioco non carica",
+              "answer": "Controlla aggiornamento e assistenza ufficiale"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    },
+    {
+      "id": "living-expansions",
+      "number": "16",
+      "label": "Guida Viva",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Accogliere nuove parti senza inventare ciò che non è uscito",
+      "introduction": "L’Expansion Pass continua oltre Bubbly Basin: prepara risorse e spazio senza anticipare contenuti non ancora disponibili.",
+      "images": [
+        {
+          "src": "/atlas/pokemon-pokopia/chapters/16-living-expansions.webp",
+          "alt": "Immagine ufficiale di Pokémon Pokopia associata al capitolo Guida Viva",
+          "caption": "Guida Viva · immagine dal sito ufficiale, mostrata integralmente",
+          "sourceUrl": "https://assets.nintendo.com/image/upload/f_auto,q_auto/Marketing/pmp_pokopia/story/screenshot-story-2-2x"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Percorso",
+          "title": "Procedura consigliata",
+          "text": "Affronta guida viva come una sequenza verificabile: prepara le risorse, prova una scelta alla volta e conserva un punto di ritorno.",
+          "steps": [
+            "Controlla notizie Pokémon e Nintendo",
+            "Segna data e parte dell’espansione",
+            "Verifica requisiti in gioco",
+            "Aggiorna capitoli coinvolti",
+            "Prova il nuovo contenuto con un salvataggio sicuro"
+          ]
+        },
+        {
+          "label": "Metodo",
+          "title": "Decisioni che fanno la differenza",
+          "text": "Questi controlli mantengono leggibile il capitolo “Accogliere nuove parti senza inventare ciò che non è uscito” anche quando il gioco offre molte possibilità contemporaneamente.",
+          "tips": [
+            "Non confondere trailer e funzione disponibile",
+            "Separa ogni parte del Pass",
+            "Mantieni valida la guida base"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile prima di cambiare difficoltà, configurazione o obiettivo.",
+          "scenarios": [
+            {
+              "problem": "Una nuova parte viene annunciata",
+              "answer": "Prepara lo spazio ma non pubblicare procedure"
+            },
+            {
+              "problem": "Un aggiornamento cambia una mossa",
+              "answer": "Riprova il progetto collegato"
+            }
+          ],
+          "warning": "Le indicazioni variabili vanno confrontate con la versione e la piattaforma dichiarate nelle fonti della guida."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "begin",
+      "label": "Risveglia Pokopia",
+      "summary": "Versione, Ditto e primi interventi.",
+      "icon": {
+        "src": "/atlas/pokemon-pokopia/chapters/01-version-dlc.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a versione e contenuti in Pokémon Pokopia",
+        "caption": "Versione e contenuti · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/pokemon-pokopia/guide-section-icons-v1.webp",
+        "position": "0% 0%"
+      },
+      "chapterIds": [
+        "version-dlc",
+        "ditto-first-day",
+        "restore-land"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/pokemon-pokopia/section-icons-imagegen-v1/01-begin.webp",
+        "alt": "Icona illustrata della sezione Risveglia Pokopia",
+        "caption": "Risveglia Pokopia · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "learn",
+      "label": "Impara dai Pokémon",
+      "summary": "Mosse, risorse e coltivazione.",
+      "icon": {
+        "src": "/atlas/pokemon-pokopia/chapters/04-learn-moves.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a mosse dei pokémon in Pokémon Pokopia",
+        "caption": "Mosse dei Pokémon · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/pokemon-pokopia/guide-section-icons-v1.webp",
+        "position": "50% 0%"
+      },
+      "chapterIds": [
+        "learn-moves",
+        "crafting-resources",
+        "gardening"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/pokemon-pokopia/section-icons-imagegen-v1/02-learn.webp",
+        "alt": "Icona illustrata della sezione Impara dai Pokémon",
+        "caption": "Impara dai Pokémon · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "build",
+      "label": "Costruisci insieme",
+      "summary": "Villaggio, habitat e decorazione.",
+      "icon": {
+        "src": "/atlas/pokemon-pokopia/chapters/06-build-town.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a costruzione del villaggio in Pokémon Pokopia",
+        "caption": "Costruzione del villaggio · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/pokemon-pokopia/guide-section-icons-v1.webp",
+        "position": "100% 0%"
+      },
+      "chapterIds": [
+        "build-town",
+        "habitats-biomes",
+        "home-decoration"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/pokemon-pokopia/section-icons-imagegen-v1/03-build.webp",
+        "alt": "Icona illustrata della sezione Costruisci insieme",
+        "caption": "Costruisci insieme · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "meet",
+      "label": "Crea legami",
+      "summary": "Amicizie, esplorazione e visite.",
+      "icon": {
+        "src": "/atlas/pokemon-pokopia/chapters/09-friendships.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a amicizie e richieste in Pokémon Pokopia",
+        "caption": "Amicizie e richieste · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/pokemon-pokopia/guide-section-icons-v1.webp",
+        "position": "0% 100%"
+      },
+      "chapterIds": [
+        "friendships",
+        "exploration",
+        "multiplayer-visits"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/pokemon-pokopia/section-icons-imagegen-v1/04-meet.webp",
+        "alt": "Icona illustrata della sezione Crea legami",
+        "caption": "Crea legami · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "expand",
+      "label": "Apri nuove aree",
+      "summary": "Bubbly Basin e progetti di collezione.",
+      "icon": {
+        "src": "/atlas/pokemon-pokopia/chapters/13-bubbly-basin.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a bubbly basin in Pokémon Pokopia",
+        "caption": "Bubbly Basin · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/pokemon-pokopia/guide-section-icons-v1.webp",
+        "position": "50% 100%"
+      },
+      "chapterIds": [
+        "bubbly-basin",
+        "collections-projects"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/pokemon-pokopia/section-icons-imagegen-v1/05-expand.webp",
+        "alt": "Icona illustrata della sezione Apri nuove aree",
+        "caption": "Apri nuove aree · icona tematica generata con ImageGen"
+      }
+    },
+    {
+      "id": "live",
+      "label": "Proteggi la terra",
+      "summary": "Salvataggi e future parti della Guida Viva.",
+      "icon": {
+        "src": "/atlas/pokemon-pokopia/chapters/15-save-routine.webp",
+        "alt": "Tavola editoriale LoreWise dedicata a salvataggio e routine in Pokémon Pokopia",
+        "caption": "Salvataggio e routine · procedura, decisioni e diagnosi senza tagliare l’immagine"
+      },
+      "iconSprite": {
+        "src": "/atlas/pokemon-pokopia/guide-section-icons-v1.webp",
+        "position": "100% 100%"
+      },
+      "chapterIds": [
+        "save-routine",
+        "living-expansions"
+      ],
+      "generatedIcon": {
+        "src": "/atlas/pokemon-pokopia/section-icons-imagegen-v1/06-live.webp",
+        "alt": "Icona illustrata della sezione Proteggi la terra",
+        "caption": "Proteggi la terra · icona tematica generata con ImageGen"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "Pokémon Pokopia · sito ufficiale",
+      "href": "https://www.pokemon.com/us/pokemon-video-games/pokemon-pokopia"
+    },
+    {
+      "label": "Nintendo Switch 2 · Pokémon Pokopia",
+      "href": "https://www.nintendo.com/us/gaming-systems/switch-2/games/pokemon-pokopia/"
+    },
+    {
+      "label": "Pokémon · notizie ufficiali",
+      "href": "https://www.pokemon.com/us/pokemon-news"
+    },
+    {
+      "label": "Nintendo Support",
+      "href": "https://en-americas-support.nintendo.com/"
+    }
+  ]
+}

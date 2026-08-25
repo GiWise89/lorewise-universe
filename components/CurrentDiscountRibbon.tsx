@@ -1,13 +1,15 @@
 import Link from "next/link";
-import { commissionOpeningPromotion, isCommissionOpeningPromotionActive } from "@/lib/commissionPromotion";
+import { corruptedPortraitPromotion, getActiveCommissionPromotion } from "@/lib/commissionPromotion";
 
 export function CurrentDiscountRibbon() {
-  const promotionActive = isCommissionOpeningPromotionActive();
-  const rates = promotionActive
+  const promotion = process.env.LOREWISE_LOCAL_HALLOWEEN_PREVIEW === "true"
+    ? corruptedPortraitPromotion
+    : getActiveCommissionPromotion();
+  const rates = promotion
     ? [
-        { audience: "Visitatori", discount: `−${commissionOpeningPromotion.rates.visitor}%` },
-        { audience: "Supporter", discount: `−${commissionOpeningPromotion.rates.supporter}%` },
-        { audience: "Collector", discount: `−${commissionOpeningPromotion.rates.collector}%` },
+        { audience: "Visitatori", discount: `−${promotion.rates.visitor}%` },
+        { audience: "Supporter", discount: `−${promotion.rates.supporter}%` },
+        { audience: "Collector", discount: `−${promotion.rates.collector}%` },
       ]
     : [
         { audience: "Visitatori", discount: "Listino" },
@@ -15,9 +17,9 @@ export function CurrentDiscountRibbon() {
         { audience: "Collector", discount: "−10%" },
       ];
 
-  const href = promotionActive ? "/commissioni?focus=promozione-apertura" : "/abbonamento?focus=piani";
-  const badge = promotionActive ? commissionOpeningPromotion.shortLabel : "Sconti Universe Pass";
-  const action = promotionActive ? "Scopri la promozione" : "Confronta i vantaggi";
+  const href = promotion ? `/commissioni?focus=${promotion.focusId}` : "/abbonamento?focus=piani";
+  const badge = promotion?.shortLabel ?? "Sconti Universe Pass";
+  const action = promotion ? promotion.label : "Confronta i vantaggi";
 
   return (
     <aside className="studio-ribbon studio-promotion-ribbon" aria-label="Sconti attualmente disponibili">

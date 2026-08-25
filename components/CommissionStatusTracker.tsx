@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { isCommissionOpeningPromotionActive } from "@/lib/commissionPromotion";
+import { getCommissionPromotionForSubmission } from "@/lib/commissionPromotion";
 
 type PublicRequest = {
   referenceCode: string;
@@ -149,7 +149,7 @@ export function CommissionStatusTracker() {
             <strong>{(result.quoteCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</strong>
             <dl className="commission-status-benefit-breakdown">
               <div><dt>Prezzo iniziale</dt><dd>{((result.quoteBaseCents ?? result.quoteCents) / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
-              <div><dt>{result.membershipDiscountPercent ? `${isCommissionOpeningPromotionActive(result.createdAt) ? "Promozione apertura" : result.membershipPlanCode ? "Universe Pass" : "Visitatore"} · sconto ${result.membershipDiscountPercent}%` : "Visitatore · nessuno sconto"}</dt><dd>−{(result.quoteDiscountCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
+              <div><dt>{result.membershipDiscountPercent ? `${getCommissionPromotionForSubmission(result.packageName, result.createdAt)?.label ?? (result.membershipPlanCode ? "Universe Pass" : "Visitatore")} · sconto ${result.membershipDiscountPercent}%` : "Visitatore · nessuno sconto"}</dt><dd>−{(result.quoteDiscountCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
               <div><dt>Totale finale</dt><dd>{(result.quoteCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
             </dl>
             <p>Il preventivo diventa operativo soltanto dopo la conferma del cliente e le successive indicazioni di GiWise Studio.</p>

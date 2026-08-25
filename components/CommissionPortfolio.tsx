@@ -11,25 +11,30 @@ import {
 
 type CategoryFilter = "Tutte" | CommissionCategory;
 const initialVisible = 4;
-const loadMoreCount = 4;
 
 export function CommissionPortfolio({ works }: { works: CommissionWork[] }) {
   const [category, setCategory] = useState<CategoryFilter>("Tutte");
-  const [visibleCount, setVisibleCount] = useState(initialVisible);
+  const [page, setPage] = useState(0);
   const filteredWorks = useMemo(
     () => category === "Tutte" ? works : works.filter((work) => work.category === category),
     [category, works],
   );
-  const visibleWorks = filteredWorks.slice(0, visibleCount);
+  const totalPages = Math.max(1, Math.ceil(filteredWorks.length / initialVisible));
+  const visibleWorks = filteredWorks.slice(page * initialVisible, (page + 1) * initialVisible);
+
+  function changePage(nextPage: number) {
+    setPage(Math.min(Math.max(nextPage, 0), totalPages - 1));
+    document.getElementById("commission-archive-title")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   return (
     <section className="commission-archive shell" id="portfolio" aria-labelledby="commission-archive-title">
       <header className="commission-section-heading">
         <div>
           <p className="eyebrow">Archivio delle commissioni</p>
-          <h2 id="commission-archive-title">Trentasette richieste, sei percorsi creativi.</h2>
+          <h2 id="commission-archive-title">Trentotto richieste, sei percorsi creativi.</h2>
         </div>
-        <p><strong>{visibleWorks.length}</strong> di {filteredWorks.length} {filteredWorks.length === 1 ? "lavoro" : "lavori"}</p>
+        <p aria-live="polite"><strong>{page * initialVisible + 1}{"\u2013"}{Math.min((page + 1) * initialVisible, filteredWorks.length)}</strong> di {filteredWorks.length} {filteredWorks.length === 1 ? "lavoro" : "lavori"}</p>
       </header>
 
       <nav className="commission-filters" aria-label="Filtra i lavori su commissione">
@@ -38,7 +43,7 @@ export function CommissionPortfolio({ works }: { works: CommissionWork[] }) {
             key={filter}
             type="button"
             aria-pressed={category === filter}
-            onClick={() => { setCategory(filter); setVisibleCount(initialVisible); }}
+            onClick={() => { setCategory(filter); setPage(0); }}
           >
             {filter}
           </button>
@@ -61,12 +66,11 @@ export function CommissionPortfolio({ works }: { works: CommissionWork[] }) {
           </article>
         ))}
       </div>
-      {visibleWorks.length < filteredWorks.length ? (
-        <div className="commission-load-more">
-          <p>Hai visto {visibleWorks.length} lavori su {filteredWorks.length}.</p>
-          <button className="button button-primary" type="button" onClick={() => setVisibleCount((count) => count + loadMoreCount)}>Mostra altri lavori</button>
-        </div>
-      ) : null}
+      {totalPages > 1 ? <nav className="commission-pagination-controls" aria-label="Pagine del portfolio">
+        <button type="button" onClick={() => changePage(page - 1)} disabled={page === 0}>{"\u2190 Lavori precedenti"}</button>
+        <p><span>Pagina</span><strong>{page + 1}</strong><span>di {totalPages}</span></p>
+        <button type="button" onClick={() => changePage(page + 1)} disabled={page === totalPages - 1}>{"Lavori successivi \u2192"}</button>
+      </nav> : null}
     </section>
   );
 }

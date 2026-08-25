@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { calculateArtworkCreditGrant, calculateCommissionBenefit, calculatePurchaseBenefit, discountPercentForProduct, isPermanentCollectorEmail, pollIsOpen, universePassBenefitFromCode } from "../lib/universePass.ts";
-import { commissionDiscountForSubmission, isCommissionOpeningPromotionActive } from "../lib/commissionPromotion.ts";
+import { CORRUPTED_PORTRAIT_PACKAGE, commissionDiscountForSubmission, getCommissionPromotionForSubmission, isCommissionOpeningPromotionActive, isCorruptedPortraitPromotionActive } from "../lib/commissionPromotion.ts";
 
 test("recognizes the automatic commission discount for every Universe Pass", () => {
   assert.equal(universePassBenefitFromCode(null).commissionDiscountPercent, 0);
@@ -18,6 +18,19 @@ test("applies the opening promotion only to requests submitted during its declar
   assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-SUPPORTER", ordinaryDiscountPercent: 5, submittedAt: "2026-08-22T12:00:00Z" }), 15);
   assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-COLLECTOR", ordinaryDiscountPercent: 10, submittedAt: "2026-08-22T12:00:00Z" }), 20);
   assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-COLLECTOR", ordinaryDiscountPercent: 10, submittedAt: "2026-10-01T12:00:00Z" }), 10);
+});
+
+test("applies the Halloween 15/20/25 rates only to La mia versione corrotta during Halloween week", () => {
+  assert.equal(isCorruptedPortraitPromotionActive("2026-10-25T22:59:59Z"), false);
+  assert.equal(isCorruptedPortraitPromotionActive("2026-10-25T23:00:00Z"), true);
+  assert.equal(isCorruptedPortraitPromotionActive("2026-11-01T22:59:59Z"), true);
+  assert.equal(isCorruptedPortraitPromotionActive("2026-11-01T23:00:00Z"), false);
+  assert.equal(getCommissionPromotionForSubmission(CORRUPTED_PORTRAIT_PACKAGE, "2026-10-31T12:00:00Z")?.label, "La mia versione corrotta");
+  assert.equal(getCommissionPromotionForSubmission("Ritratto Completo", "2026-10-31T12:00:00Z"), null);
+  assert.equal(commissionDiscountForSubmission({ planCode: null, ordinaryDiscountPercent: 0, packageName: CORRUPTED_PORTRAIT_PACKAGE, submittedAt: "2026-10-31T12:00:00Z" }), 15);
+  assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-SUPPORTER", ordinaryDiscountPercent: 5, packageName: CORRUPTED_PORTRAIT_PACKAGE, submittedAt: "2026-10-31T12:00:00Z" }), 20);
+  assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-COLLECTOR", ordinaryDiscountPercent: 10, packageName: CORRUPTED_PORTRAIT_PACKAGE, submittedAt: "2026-10-31T12:00:00Z" }), 25);
+  assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-COLLECTOR", ordinaryDiscountPercent: 10, packageName: "Ritratto Completo", submittedAt: "2026-10-31T12:00:00Z" }), 10);
 });
 
 test("reserves the permanent Collector grant for the LoreWise owner email", () => {

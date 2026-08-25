@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { commissionRequestFiles, commissionRequests } from "@/db/schema";
 import { commissionCategories } from "@/lib/commissionCatalog";
+import { CORRUPTED_PORTRAIT_PACKAGE, getCommissionPromotionForSubmission } from "@/lib/commissionPromotion";
 import { getLoreWiseUser } from "@/lib/supabase/server";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { ensureCommissionBenefitColumns, getActiveUniversePass } from "@/lib/universePass";
@@ -12,7 +13,7 @@ import { queueAndAttemptTransactionalEmail } from "@/lib/transactionalEmail";
 const maxFiles = 3;
 const maxFileSize = 8 * 1024 * 1024;
 const allowedFileTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
-const packages = new Set(["Da valutare insieme", "Ritratto Essenziale", "Ritratto Completo", "Opera Narrativa"]);
+const packages = new Set(["Da valutare insieme", "Ritratto Essenziale", "Ritratto Completo", "Opera Narrativa", CORRUPTED_PORTRAIT_PACKAGE]);
 const uses = new Set(["Personale", "Commerciale da valutare", "Non sono sicuro"]);
 
 type RuntimeEnv = {
@@ -145,6 +146,9 @@ export async function POST(request: Request) {
     }
     if (!commissionCategories.includes(category as (typeof commissionCategories)[number]) || !packages.has(packageName) || !uses.has(intendedUse)) {
       return Response.json({ error: "Categoria, pacchetto o utilizzo non validi." }, { status: 400 });
+    }
+    if (packageName === CORRUPTED_PORTRAIT_PACKAGE && !getCommissionPromotionForSubmission(packageName, new Date())) {
+      return Response.json({ error: "La promozione La mia versione corrotta non è attiva." }, { status: 400 });
     }
     if (brief.length < 20) {
       return Response.json({ error: "Descrivi la richiesta con almeno 20 caratteri." }, { status: 400 });
