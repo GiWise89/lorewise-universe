@@ -55,7 +55,7 @@ export function resolveArtworkProduct(code: string): CommercialProduct | null {
   const bundle = getHorrorArtworkBundle(code);
   if (bundle) return {
     code: bundle.code,
-    slug: `arte?collezione=${bundle.slug}#collezioni-horror`,
+    slug: `arte?collezione=${bundle.slug}#${bundle.slug}`,
     title: `Collezione horror · ${bundle.title}`,
     description: `Tre opere digitali originali GiWise Studio: ${bundle.artworks.map((artwork) => artwork.title).join(", ")}`,
     productType: "artwork",
