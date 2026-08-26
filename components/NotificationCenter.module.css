@@ -36,3 +36,16 @@
   .actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; }
   .actions > :first-child { grid-column:1/-1; }
 }
+
+@media (max-width:700px) {
+  .hero,.panel,.panel li,.panel li > div,.actions { min-width:0; max-width:100%; }
+  .hero h1,.hero p,.panel li small,.panel li strong,.panel li p,.panel button,.panel a {
+    max-width:100%;
+    overflow-wrap:normal;
+    word-break:normal;
+    hyphens:none;
+    white-space:normal;
+    text-overflow:clip;
+  }
+  .hero h1 { line-height:1.05; text-wrap:balance; }
+}

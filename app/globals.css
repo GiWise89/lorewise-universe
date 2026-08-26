@@ -13056,3 +13056,114 @@ main :where(p,li,dt,dd,figcaption,strong,small,span,label,a,button):not(code):no
   .pass-game-demon { min-height:500px; }
   .pass-game-demon .pass-game-copy img { width:min(78%,320px); height:128px; }
 }
+
+/*
+ * Sicurezza tipografica mobile globale.
+ * Le parole restano intere, i controlli possono andare su piu righe e ogni
+ * colonna testuale puo realmente restringersi senza finire sotto un ritaglio.
+ */
+@media (max-width:700px) {
+  main :where(section,article,header,footer,nav,div,ul,ol,li,form,fieldset,figure),
+  .site-header :where(nav,div,ul,li),
+  .site-footer :where(nav,div,ul,li) {
+    min-width:0;
+    max-width:100%;
+  }
+
+  main :where(h1,h2,h3,h4,h5,h6,p,li,dt,dd,figcaption,label,legend),
+  .site-header :where(a,button,span,strong,small),
+  .site-footer :where(h2,p,a,span,strong,small) {
+    max-width:100%;
+    overflow-wrap:normal;
+    word-break:normal;
+    hyphens:none;
+  }
+
+  main :where(h1,h2,h3,h4,h5,h6),
+  .site-footer :where(h2,h3) {
+    line-height:1.05;
+    text-wrap:balance;
+  }
+
+  main :where(a,button,[role="button"]),
+  .site-header :where(a,button),
+  .site-footer :where(a,button) {
+    max-width:100%;
+    height:auto;
+    white-space:normal;
+    text-overflow:clip;
+    overflow-wrap:normal;
+    word-break:normal;
+    hyphens:none;
+  }
+
+  main :where(code,kbd,samp,var),
+  .site-footer :where(code,kbd,samp,var) {
+    white-space:normal;
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+
+  main :where(img,svg,video),
+  .site-header :where(img,svg),
+  .site-footer :where(img,svg) {
+    max-inline-size:100%;
+  }
+
+  .commission-admin-files a strong,
+  .commission-admin-files a span,
+  .commission-upload-previews figcaption,
+  .delivery-admin-register li span,
+  .admin-analytics-chart li > span,
+  .admin-analytics-ranking code,
+  .admin-user-list small,
+  .diary-photo figcaption,
+  .studio-work-progress-timeline button small,
+  .account-profile .account-avatar-picker span {
+    overflow:visible;
+    text-overflow:clip;
+    white-space:normal;
+  }
+
+  .shop-product-price > strong,
+  .studio-ribbon-title b,
+  .halloween-countdown-card span,
+  .halloween-countdown-card time,
+  .halloween-countdown-fact,
+  .personal-order-detail,
+  .privacy-storage-table code,
+  .privacy-provider-list a,
+  .giwise-shop-product-copy > div strong,
+  .vip-character-copy h2,
+  .studio-app-download-callout h2 span,
+  .studio-work-progress-unfinished > a,
+  .nexus-chronicles-membership > div > a,
+  .game-guide-living-status > a,
+  .black-friday-ribbon-action {
+    white-space:normal;
+  }
+
+  .story-dossier-card,
+  .story-dossier-card:nth-child(1),
+  .story-dossier-card:nth-child(2),
+  .story-dossier-card:nth-child(3) {
+    grid-template-rows:auto auto;
+  }
+
+  .story-dossier-meta {
+    min-height:0;
+    flex-direction:column;
+    align-items:stretch;
+    padding-block:12px;
+  }
+
+  .story-dossier-meta img {
+    align-self:center;
+    max-width:min(78%,210px);
+  }
+
+  .story-dossier-meta small {
+    width:100%;
+    text-align:center;
+  }
+}
