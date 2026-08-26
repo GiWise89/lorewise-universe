@@ -125,8 +125,9 @@ export async function syncWelcomeCommissionOfferEntitlement(database: D1Database
     VALUES (?, ?, ?, ?, ?, ?, ?, 'eligible')`)
     .bind(crypto.randomUUID(), user.id, WELCOME_COMMISSION_OFFER.code, WELCOME_COMMISSION_OFFER.discountCents,
       user.created_at, eligibleFrom, welcomeCommissionOfferExpiresAt(confirmedAt)).run();
-  const commissionTable = await database.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'commission_requests'")
-    .first<{ name: string }>();
+  const commissionTable = await database.prepare("SELECT 1 AS found FROM sqlite_master WHERE type = 'table' AND name = ? LIMIT 1")
+    .bind("commission_requests")
+    .first<{ found: number }>();
   if (commissionTable) {
     await database.prepare(`UPDATE commission_offer_entitlements
       SET status = 'claimed',
