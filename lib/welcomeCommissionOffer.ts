@@ -129,15 +129,20 @@ export async function syncWelcomeCommissionOfferEntitlement(database: D1Database
     .bind("commission_requests")
     .first<{ found: number }>();
   if (commissionTable) {
-    await database.prepare(`UPDATE commission_offer_entitlements
-      SET status = 'claimed',
-        claimed_request_id = (SELECT id FROM commission_requests WHERE customer_id = ? ORDER BY datetime(created_at) ASC, created_at ASC, id ASC LIMIT 1),
-        claimed_at = (SELECT created_at FROM commission_requests WHERE customer_id = ? ORDER BY datetime(created_at) ASC, created_at ASC, id ASC LIMIT 1),
-        updated_at = CURRENT_TIMESTAMP
-      WHERE customer_id = ? AND offer_code = ? AND status = 'eligible' AND claimed_request_id IS NULL
-        AND datetime((SELECT created_at FROM commission_requests WHERE customer_id = ? ORDER BY datetime(created_at) ASC, created_at ASC, id ASC LIMIT 1)) >= datetime(confirmed_at)
-        AND datetime((SELECT created_at FROM commission_requests WHERE customer_id = ? ORDER BY datetime(created_at) ASC, created_at ASC, id ASC LIMIT 1)) <= datetime(expires_at)`)
-      .bind(user.id, user.id, user.id, WELCOME_COMMISSION_OFFER.code, user.id, user.id).run();
+    const firstRequest = await database.prepare(`SELECT id, created_at FROM commission_requests
+      WHERE customer_id = ? ORDER BY created_at ASC, id ASC LIMIT 1`)
+      .bind(user.id)
+      .first<{ id: string; created_at: string }>();
+    const requestedAt = firstRequest ? new Date(firstRequest.created_at).getTime() : Number.NaN;
+    const confirmedTime = new Date(eligibleFrom).getTime();
+    const expiresAt = welcomeCommissionOfferExpiresAt(confirmedAt);
+    const expiresTime = new Date(expiresAt).getTime();
+    if (firstRequest && Number.isFinite(requestedAt) && requestedAt >= confirmedTime && requestedAt <= expiresTime) {
+      await database.prepare(`UPDATE commission_offer_entitlements
+        SET status = 'claimed', claimed_request_id = ?, claimed_at = ?, updated_at = CURRENT_TIMESTAMP
+        WHERE customer_id = ? AND offer_code = ? AND status = 'eligible' AND claimed_request_id IS NULL`)
+        .bind(firstRequest.id, firstRequest.created_at, user.id, WELCOME_COMMISSION_OFFER.code).run();
+    }
   }
   return true;
 }
