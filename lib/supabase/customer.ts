@@ -3,6 +3,8 @@ import { env } from "@/lib/netlifyRuntime";
 import type { User } from "@supabase/supabase-js";
 import { ACCOUNT_PRIVACY_VERSION, LOREWISE_OWNER_EMAIL } from "@/lib/accountPolicy";
 import { ensureAdminNotificationsTable } from "@/lib/adminNotifications";
+import { recordMarketingConsent } from "@/lib/marketingEmail";
+import { syncWelcomeCommissionOfferEntitlement } from "@/lib/welcomeCommissionOffer";
 
 type RuntimeEnv = { DB?: D1Database; LOREWISE_ADMIN_EMAILS?: string };
 
@@ -76,6 +78,11 @@ export async function syncLoreWiseCustomer(user: User) {
       updated_at = CURRENT_TIMESTAMP`)
     .bind(user.id, normalizedEmail, displayName, role, communityEmails, studioUpdatesEmails, privacyVersion, privacyAcceptedAt)
     .run();
+
+  await syncWelcomeCommissionOfferEntitlement(database, user);
+
+  await recordMarketingConsent(database, { customerId: user.id, channel: "community", granted: Boolean(communityEmails), source: "registration", eventKey: `registration:${user.id}:community` });
+  await recordMarketingConsent(database, { customerId: user.id, channel: "studio_updates", granted: Boolean(studioUpdatesEmails), source: "registration", eventKey: `registration:${user.id}:studio_updates` });
 
   const registration = await database.prepare("SELECT registration_notified_at FROM customers WHERE id = ?")
     .bind(user.id).first<{ registration_notified_at: string | null }>();

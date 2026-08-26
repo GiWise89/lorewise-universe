@@ -9,6 +9,7 @@ import { getLoreWiseUser } from "@/lib/supabase/server";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { ensureCommissionBenefitColumns, getActiveUniversePass } from "@/lib/universePass";
 import { queueAndAttemptTransactionalEmail } from "@/lib/transactionalEmail";
+import { claimWelcomeCommissionOffer } from "@/lib/welcomeCommissionOffer";
 
 const maxFiles = 3;
 const maxFileSize = 8 * 1024 * 1024;
@@ -195,6 +196,7 @@ export async function POST(request: Request) {
       privacyConsent,
       contentPolicyConsent,
     });
+    let welcomeOfferClaimed = false;
 
     try {
       for (const file of files) {
@@ -214,6 +216,10 @@ export async function POST(request: Request) {
           size: file.size,
         });
       }
+      const storedRequest = await runtime.DB.prepare("SELECT created_at FROM commission_requests WHERE id = ?")
+        .bind(requestId).first<{ created_at: string }>();
+      if (!storedRequest) throw new Error("La richiesta appena creata non è stata trovata.");
+      welcomeOfferClaimed = await claimWelcomeCommissionOffer(runtime.DB, customer.id, requestId, storedRequest.created_at);
     } catch (error) {
       await Promise.all(storedKeys.map((key) => runtime.COMMISSION_UPLOADS?.delete(key)));
       await db.delete(commissionRequests).where(eq(commissionRequests.id, requestId));
@@ -240,6 +246,7 @@ export async function POST(request: Request) {
       emailConfirmationConfigured: emailResult.status === "sent",
       emailStatus: emailResult.status,
       account: { email: customer.email, plan: pass.name, commissionDiscountPercent: pass.commissionDiscountPercent },
+      welcomeCommissionOffer: welcomeOfferClaimed ? { claimed: true, discountCents: 500 } : { claimed: false },
     }, { status: 201 });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Errore inatteso";

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, type FormEvent } from "react";
-import type { VIP_AREAS, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP } from "@/lib/vipZone";
+import type { VIP_AREAS, VIP_DEMON_MATCH_DROP, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP } from "@/lib/vipZone";
 import type { VIP_ARTWORKS, VIP_ART_DROP } from "@/data/vip-artworks";
 import { VipArtExperience } from "@/components/VipArtExperience";
 import type { VIP_ATELIER } from "@/data/vip-atelier";
@@ -18,13 +18,14 @@ type VipPayload = {
   editorial: typeof VIP_EDITORIAL_STATUS;
   expansion: typeof VIP_EXPANSION;
   fuoriTrama: typeof VIP_FUORI_TRAMA_DROP;
+  demonMatch: typeof VIP_DEMON_MATCH_DROP;
   art: typeof VIP_ART_DROP & { artworks: typeof VIP_ARTWORKS };
   atelier: typeof VIP_ATELIER;
   downloads: typeof VIP_DOWNLOAD_LIBRARY;
   weeklyGuide: GameGuide | null;
 };
 
-type ActiveGame = "the-wound-remembers" | "fuori-trama";
+type ActiveGame = "the-wound-remembers" | "fuori-trama" | "demon-match-three";
 type ActiveArea = "guides" | "games" | "art" | "atelier" | "downloads";
 const VIP_AREA_ICONS: Record<ActiveArea, string> = {
   guides: "/brand/icons/vip-guides-v1.webp",
@@ -135,7 +136,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
 
   if (!payload) {
     const loadingTargetId = activeArea === "games"
-      ? activeGame === "fuori-trama" ? "vip-panel-fuori-trama" : "dossier-rogo"
+      ? activeGame === "fuori-trama" ? "vip-panel-fuori-trama" : activeGame === "demon-match-three" ? "vip-demon-match" : "dossier-rogo"
       : activeArea;
     return <section className="vip-loading shell" id={loadingTargetId} aria-live="polite">
       <span aria-hidden="true" />
@@ -143,7 +144,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
     </section>;
   }
 
-  const { areas, editorial, expansion, fuoriTrama, member } = payload;
+  const { areas, editorial, expansion, fuoriTrama, demonMatch, member } = payload;
   return <>
     <aside className="vip-member-bar" aria-label="Stato Universe Pass">
       <div className="shell">
@@ -223,7 +224,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
         </div>
       </header>
       <div className="shell vip-download-collections">
-        {payload.downloads.collections.map((collection, collectionIndex) => <section className={`vip-download-collection is-${collection.accent}`} aria-labelledby={`vip-download-${collection.id}`} key={collection.id}>
+        {payload.downloads.collections.map((collection, collectionIndex) => <section className={`vip-download-collection is-${collection.accent}`} id={collection.id} aria-labelledby={`vip-download-${collection.id}`} key={collection.id}>
           <header>
             <div>
               <p className="eyebrow">Raccolta {String(collectionIndex + 1).padStart(2, "0")} · {collection.code}</p>
@@ -261,7 +262,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
       <div className="shell">
         <header>
           <p className="eyebrow">Area Giochi</p>
-          <h1 id="vip-games-directory-title">Due giochi. Due archivi separati.</h1>
+          <h1 id="vip-games-directory-title">Tre giochi. Tre archivi separati.</h1>
           <p>Scegli quale dossier riservato consultare.</p>
         </header>
         <nav aria-label="Dossier dei giochi" role="tablist">
@@ -274,6 +275,11 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
             <span>02</span>
             <strong>Fuori Trama</strong>
             <small>Cantanti fuori trama</small>
+          </button>
+          <button className={activeGame === "demon-match-three" ? "is-selected" : undefined} type="button" role="tab" aria-selected={activeGame === "demon-match-three"} aria-controls="vip-demon-match" onClick={() => setActiveGame("demon-match-three")}>
+            <span>03</span>
+            <strong>Demon Match Three</strong>
+            <small>Nora · Varek · Android</small>
           </button>
         </nav>
       </div>
@@ -437,6 +443,36 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
           <footer>{fuoriTrama.communityVote.rule}</footer>
         </section>
       </div>
+    </section> : null}
+    {activeGame === "demon-match-three" ? <section className="vip-demon-match" id="vip-demon-match" role="tabpanel" aria-labelledby="vip-demon-match-title">
+      <header className="vip-demon-match-hero">
+        <div className="vip-demon-match-art"><img src={`/api/vip-media?asset=${encodeURIComponent(demonMatch.image)}`} alt={demonMatch.imageAlt} decoding="async" fetchPriority="high" onError={showVipMediaFallback} /></div>
+        <div className="vip-demon-match-copy">
+          <p className="eyebrow">{demonMatch.eyebrow}</p>
+          <span>{demonMatch.status}</span>
+          <h2 id="vip-demon-match-title">{demonMatch.title}</h2>
+          <h3>{demonMatch.subtitle}</h3>
+          <p>{demonMatch.introduction}</p>
+          <dl><div><dt>Piattaforma</dt><dd>{demonMatch.platform}</dd></div><div><dt>Rivelazione</dt><dd>Due protagonisti · due fazioni</dd></div></dl>
+          <small>{demonMatch.spoilerNote}</small>
+        </div>
+      </header>
+      <div className="shell vip-demon-match-dossiers" aria-label="Protagonisti svelati">
+        {demonMatch.characters.map((character) => <article className={`is-${character.tone}`} key={character.name}>
+          <figure><img src={`/api/vip-media?asset=${encodeURIComponent(character.image)}`} alt={character.imageAlt} loading="lazy" decoding="async" onError={showVipMediaFallback} /></figure>
+          <div><span>{character.faction}</span><h3>{character.name}</h3><strong>{character.role}</strong><p>{character.text}</p></div>
+        </article>)}
+      </div>
+      <section className="vip-demon-match-development" aria-labelledby="vip-demon-development-title">
+        <div className="shell">
+          <div><p className="eyebrow">Sviluppo mobile</p><h3 id="vip-demon-development-title">Il nuovo Demon Match Three nasce per Android.</h3><p>La nuova versione viene costruita come esperienza nativa per schermi verticali, controlli touch e sessioni leggibili sia su smartphone sia su tablet.</p></div>
+          <ol>{demonMatch.development.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><p>{item}</p></li>)}</ol>
+        </div>
+      </section>
+      <footer className="shell vip-demon-match-demo">
+        <div><span>{demonMatch.demo.label}</span><h3>{demonMatch.demo.title}</h3><p>{demonMatch.demo.text}</p></div>
+        <Link href="/giochi/demon-match-three">Apri la scheda aggiornata <span aria-hidden="true">→</span></Link>
+      </footer>
     </section> : null}
     </> : null}
   </>;

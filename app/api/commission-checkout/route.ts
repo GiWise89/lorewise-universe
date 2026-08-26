@@ -36,11 +36,12 @@ export async function POST(request: Request) {
     if (!customer || customer.status !== "active") return Response.json({ error: "Questo account non può effettuare pagamenti." }, { status: 403 });
     const commission = await runtime.DB.prepare(`SELECT id, reference_code, customer_id, email, package_name, status,
       quote_base_cents, quote_discount_cents, quote_cents, deposit_cents, membership_plan_code,
-      membership_discount_percent, quote_terms_accepted_at
+      membership_discount_percent, pricing_discount_code, pricing_discount_label, pricing_discount_kind, pricing_discount_value, quote_terms_accepted_at
       FROM commission_requests WHERE reference_code = ? LIMIT 1`).bind(referenceCode).first<{
         id: string; reference_code: string; customer_id: string | null; email: string; package_name: string; status: string;
         quote_base_cents: number | null; quote_discount_cents: number | null; quote_cents: number | null;
         deposit_cents: number | null; membership_plan_code: string | null; membership_discount_percent: number;
+        pricing_discount_code: string | null; pricing_discount_label: string | null; pricing_discount_kind: string | null; pricing_discount_value: number | null;
         quote_terms_accepted_at: string | null;
       }>();
     if (!commission || (commission.customer_id ? commission.customer_id !== customer.id : commission.email.trim().toLowerCase() !== customer.email.trim().toLowerCase())) {
@@ -94,6 +95,10 @@ export async function POST(request: Request) {
           quoteFinalCents: commission.quote_cents,
           membershipPlanCode: commission.membership_plan_code,
           membershipDiscountPercent: commission.membership_discount_percent,
+          pricingDiscountCode: commission.pricing_discount_code,
+          pricingDiscountLabel: commission.pricing_discount_label,
+          pricingDiscountKind: commission.pricing_discount_kind,
+          pricingDiscountValue: commission.pricing_discount_value,
         })),
       runtime.DB.prepare(`INSERT INTO commission_payments (id, request_id, order_id, phase, amount_cents, status, created_at)
         VALUES (?, ?, ?, ?, ?, 'pending', CURRENT_TIMESTAMP)`).bind(paymentId, commission.id, orderId, phase, amountCents),

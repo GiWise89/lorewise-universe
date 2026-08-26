@@ -28,9 +28,11 @@ async function notifyOrder(database: D1Database, runtime: RuntimeEnv, orderId: s
     .bind(orderId).first<{ id: string; reference_code: string; total_cents: number; currency: string; customer_id: string; email: string; display_name: string | null; item_title: string; item_metadata: string }>();
   if (!row) return;
   let deliveryMode = "automatic";
+  let collectionSize: number | undefined;
   try {
-    const metadata = JSON.parse(row.item_metadata) as { deliveryMode?: unknown };
+    const metadata = JSON.parse(row.item_metadata) as { deliveryMode?: unknown; bundleMembers?: unknown };
     if (metadata.deliveryMode === "manual") deliveryMode = "manual";
+    if (Array.isArray(metadata.bundleMembers) && metadata.bundleMembers.length > 1) collectionSize = metadata.bundleMembers.length;
   } catch { /* I vecchi ordini non contengono ancora la modalità di consegna. */ }
   const origin = runtime.NEXT_PUBLIC_SITE_URL?.trim() || "https://lorewisenexus.it";
   await queueAndAttemptTransactionalEmail(database, runtime, {
@@ -46,6 +48,7 @@ async function notifyOrder(database: D1Database, runtime: RuntimeEnv, orderId: s
       accountUrl: `${origin}/account`,
       detailUrl: `${origin}/account/ordini/${encodeURIComponent(row.reference_code)}`,
       deliveryMode,
+      collectionSize,
       ...extra,
     },
   });

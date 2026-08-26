@@ -6,7 +6,6 @@ import sharp from "sharp";
 import { VIP_WALLPAPERS_PRIVATE } from "../data/vip-downloads.ts";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const sourceDirectory = path.join(root, "vip media", "dekstop vip");
 const outputDirectory = path.join(root, "tmp", "vip-wallpaper-previews");
 const execute = process.argv.includes("--execute-local");
 
@@ -28,8 +27,8 @@ const originalState = new Map();
 const prepared = [];
 
 for (const wallpaper of VIP_WALLPAPERS_PRIVATE) {
-  const sourcePath = path.join(sourceDirectory, wallpaper.sourceFile);
-  if (!fs.existsSync(sourcePath)) throw new Error(`Originale non trovato: ${wallpaper.sourceFile}`);
+  const sourcePath = path.resolve(root, wallpaper.sourcePath);
+  if (!sourcePath.startsWith(root + path.sep) || !fs.existsSync(sourcePath)) throw new Error(`Originale non trovato: ${wallpaper.sourcePath}`);
   const sourceStat = fs.statSync(sourcePath);
   originalState.set(sourcePath, `${sourceStat.size}:${sourceStat.mtimeMs}`);
   const resized = await sharp(sourcePath)

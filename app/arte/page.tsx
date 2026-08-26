@@ -62,8 +62,8 @@ export default async function ArtPage({ searchParams }: { searchParams?: Promise
       {showHorrorBundles ? <section className="horror-bundles" id="collezioni-horror" aria-labelledby="horror-bundles-title">
         <div className="shell horror-bundles-heading">
           <p className="eyebrow">Collezioni di Halloween · Edizione limitata</p>
-          <h2 id="horror-bundles-title">Una collezione per entrare nell’ombra.</h2>
-          <p>La collezione riunisce tre opere originali già presenti in vetrina. Ricevi i tre file digitali con licenza personale: nessuna nuova versione, nessun disegno duplicato.</p>
+          <h2 id="horror-bundles-title">Tre collezioni per entrare nell’ombra.</h2>
+          <p>Ogni collezione riunisce tre opere originali GiWise già presenti in vetrina. Ricevi i tre file digitali con licenza personale: nessuna immagine artificiale, nessuna nuova versione e nessun disegno duplicato.</p>
           <div><strong>24,90 €</strong><span>per collezione · dal 1° ottobre al 1° novembre 2026</span></div>
           <HorrorPromotionTimer preview={localPreview} />
         </div>

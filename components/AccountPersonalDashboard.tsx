@@ -7,20 +7,66 @@ import { BenefitsCenter } from "@/components/BenefitsCenter";
 import { AccountProfilePanel } from "@/components/AccountProfilePanel";
 import { HorizontalScrollHint } from "@/components/HorizontalScrollHint";
 import { getCommissionPromotionForSubmission } from "@/lib/commissionPromotion";
+import { horrorArtworkBundles } from "@/lib/horrorArtworkBundles";
 
 type Dashboard = {
   identity: { email: string; displayName: string; role: string; status: string; memberSince: string };
   commerce: { testMode: boolean; mode: "test" | "live"; manualDelivery: boolean };
   summary: { orders: number; libraryItems: number; commissions: number; communityInteractions: number };
   orders: Array<{ referenceCode: string; type: string; status: string; currency: string; totalCents: number; paidAt: string | null; createdAt: string; itemCount: number; itemTitles: string; checkoutSessionId: string | null; productCode: string | null }>;
-  library: Array<{ resourceType: string; resourceCode: string; title: string; status: string; downloadLimit: number | null; downloadCount: number; expiresAt: string | null; createdAt: string; deliveryStatus: string | null; deliveryFilename: string | null; deliveryVersion: string | null; certificateAvailable: boolean }>;
+  library: Array<{ resourceType: string; resourceCode: string; title: string; status: string; downloadLimit: number | null; downloadCount: number; expiresAt: string | null; createdAt: string; deliveryStatus: string | null; deliveryFilename: string | null; deliveryVersion: string | null; orderProductCode: string | null; orderReferenceCode: string | null; collectionCode: string | null; collectionTitle: string | null; certificateAvailable: boolean }>;
   subscription: { planCode: string; status: string; currentPeriodEnd: string | null; cancelAtPeriodEnd: boolean; complimentary: boolean; expiresSoon: boolean; createdAt: string } | null;
   benefits: { code: string | null; name: string; active: boolean; commissionDiscountPercent: number; artworkCreditsPerMonth: number; artworkCreditCap: number; currentPeriodEnd: string | null };
   subscriptionInvoices: Array<{ invoiceId: string; amountPaidCents: number; currency: string; status: string; periodStart: string | null; periodEnd: string | null; paidAt: string | null }>;
-  commissions: Array<{ referenceCode: string; category: string; packageName: string; status: string; quoteBaseCents: number | null; quoteDiscountCents: number; quoteCents: number | null; membershipPlanCode: string | null; membershipDiscountPercent: number; createdAt: string; updatedAt: string }>;
+  commissions: Array<{ referenceCode: string; category: string; packageName: string; status: string; quoteBaseCents: number | null; quoteDiscountCents: number; quoteCents: number | null; membershipPlanCode: string | null; membershipDiscountPercent: number; pricingDiscountCode: string | null; pricingDiscountLabel: string | null; pricingDiscountKind: string | null; pricingDiscountValue: number | null; createdAt: string; updatedAt: string }>;
   supportTickets: Array<{ referenceCode: string; category: string; subject: string; status: string; priority: string; adminNotes: string | null; createdAt: string; updatedAt: string }>;
   community: { likes: number; comments: number; openReports: number };
 };
+
+function halloweenPurchasePreview(): Dashboard {
+  const now = "2026-10-08T18:30:00.000Z";
+  const orders = horrorArtworkBundles.map((bundle, index) => ({
+    referenceCode: `LW-HALLOWEEN-00${index + 1}`,
+    type: "artwork",
+    status: "paid",
+    currency: "EUR",
+    totalCents: 2490,
+    paidAt: now,
+    createdAt: now,
+    itemCount: 1,
+    itemTitles: `Collezione horror · ${bundle.title}`,
+    checkoutSessionId: `cs_test_preview_halloween_${index + 1}`,
+    productCode: bundle.code,
+  }));
+  const library = horrorArtworkBundles.flatMap((bundle) => bundle.artworks.map((artwork) => ({
+    resourceType: "artwork",
+    resourceCode: artwork.code,
+    title: artwork.title ?? artwork.code,
+    status: "active",
+    downloadLimit: 3,
+    downloadCount: 0,
+    expiresAt: null,
+    createdAt: now,
+    deliveryStatus: "approved",
+    deliveryFilename: `${artwork.code}-pacchetto.zip`,
+    deliveryVersion: null,
+    orderProductCode: bundle.code,
+    orderReferenceCode: orders.find((order) => order.productCode === bundle.code)?.referenceCode ?? null,
+    collectionCode: bundle.code,
+    collectionTitle: bundle.title,
+    certificateAvailable: true,
+  })));
+  return {
+    identity: { email: "anteprima.halloween@lorewise.local", displayName: "Cliente Halloween", role: "member", status: "active", memberSince: now },
+    commerce: { testMode: true, mode: "test", manualDelivery: false },
+    summary: { orders: orders.length, libraryItems: library.length, commissions: 0, communityInteractions: 0 },
+    orders,
+    library,
+    subscription: null,
+    benefits: { code: null, name: "Visitatore", active: false, commissionDiscountPercent: 0, artworkCreditsPerMonth: 0, artworkCreditCap: 0, currentPeriodEnd: null },
+    subscriptionInvoices: [], commissions: [], supportTickets: [], community: { likes: 0, comments: 0, openReports: 0 },
+  };
+}
 
 type AccountView = "overview" | "benefits" | "library" | "commissions" | "orders" | "community" | "profile";
 
@@ -95,8 +141,8 @@ function GameLibraryEntry({ item }: { item: Dashboard["library"][number] }) {
   </li>;
 }
 
-export function AccountPersonalDashboard({ successfulSessionId = "" }: { successfulSessionId?: string }) {
-  const [data, setData] = useState<Dashboard | null>(null);
+export function AccountPersonalDashboard({ successfulSessionId = "", localHalloweenPreview = false }: { successfulSessionId?: string; localHalloweenPreview?: boolean }) {
+  const [data, setData] = useState<Dashboard | null>(() => localHalloweenPreview ? halloweenPurchasePreview() : null);
   const [message, setMessage] = useState("Apertura del tuo archivio personale…");
   const [subscriptionMessage, setSubscriptionMessage] = useState("");
   const [subscriptionBusy, setSubscriptionBusy] = useState(false);
@@ -104,6 +150,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
   const activeView = useSyncExternalStore(subscribeToAccountView, readAccountView, () => "overview");
 
   useEffect(() => {
+    if (localHalloweenPreview) return;
     let active = true;
     void fetch("/api/account/dashboard", { headers: { accept: "application/json" } })
       .then(async (response) => {
@@ -115,7 +162,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
       })
       .catch((error: Error) => active && setMessage(error.message));
     return () => { active = false; };
-  }, []);
+  }, [localHalloweenPreview]);
 
   async function updateSubscription(cancelAtPeriodEnd: boolean) {
     if (cancelAtPeriodEnd && !window.confirm("Vuoi disattivare il rinnovo mensile? Il Universe Pass resterà attivo fino alla fine del periodo già pagato.")) return;
@@ -146,19 +193,29 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
   const canModerate = ["admin", "moderator"].includes(data.identity.role);
   const artworkItems = data.library.filter((item) => ["artwork", "art", "license"].includes(item.resourceType));
   const gameItems = data.library.filter((item) => ["game", "app", "software"].includes(item.resourceType));
+  const artworkCollectionGroups = horrorArtworkBundles.map((bundle) => ({
+    bundle,
+    items: artworkItems.filter((item) => item.collectionCode === bundle.code || item.orderProductCode === bundle.code),
+  })).filter((group) => group.items.length > 0);
+  const groupedArtworkCodes = new Set(artworkCollectionGroups.flatMap((group) => group.items.map((item) => item.resourceCode)));
+  const standaloneArtworkItems = artworkItems.filter((item) => !groupedArtworkCodes.has(item.resourceCode));
   const successfulOrder = successfulSessionId
     ? data.orders.find((order) => order.checkoutSessionId === successfulSessionId && order.status === "paid")
     : null;
   const successfulSubscription = successfulOrder?.type === "subscription";
   const successfulCommission = successfulOrder?.type === "commission";
-  const purchasedItem = successfulOrder?.productCode
-    ? data.library.find((item) => item.resourceCode === successfulOrder.productCode && item.status === "active")
+  const purchasedItems = successfulOrder?.productCode
+    ? data.library.filter((item) => (item.resourceCode === successfulOrder.productCode || item.orderProductCode === successfulOrder.productCode) && item.status === "active")
+    : [];
+  const purchasedItem = purchasedItems[0] ?? null;
+  const purchasedCollection = successfulOrder?.productCode
+    ? horrorArtworkBundles.find((bundle) => bundle.code === successfulOrder.productCode) ?? null
     : null;
   const purchasedRemaining = purchasedItem?.downloadLimit === null
     ? null
     : purchasedItem ? Math.max(0, purchasedItem.downloadLimit - purchasedItem.downloadCount) : 0;
   const purchasedIsArtwork = Boolean(purchasedItem && ["artwork", "art", "license"].includes(purchasedItem.resourceType));
-  const purchasedAutomaticReady = purchasedItem?.deliveryStatus === "approved";
+  const purchasedAutomaticReady = purchasedItems.length > 0 && purchasedItems.every((item) => item.deliveryStatus === "approved");
   const renewalSuffix = data.commerce.testMode ? " di prova" : "";
   const purchasedDownloadUrl = purchasedItem
     ? purchasedIsArtwork
@@ -191,8 +248,8 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
         <Image className="purchase-success-seal" src="/brand/lorewise-wax-seal-v1.webp" alt="Sigillo LoreWise Universe" width={1024} height={1024} />
         <div className="purchase-success-copy">
           <p className="eyebrow">{successfulSubscription ? "Universe Pass · attivazione confermata" : successfulCommission ? "Commissione · pagamento confermato" : "Acquisto confermato · consegna protetta"}</p>
-          <h2 id="purchase-success-title">{successfulSubscription ? "Il tuo Universe Pass è attivo." : successfulCommission ? "Il pagamento del progetto è registrato." : purchasedAutomaticReady ? "Ora puoi scaricare ciò che hai acquistato." : "Acquisto registrato. Prepariamo la consegna privata."}</h2>
-          <p id="purchase-success-description">{successfulSubscription ? "Crediti, sconti e accessi sono collegati al tuo LoreWise ID e compaiono nel Centro vantaggi." : successfulCommission ? "La pratica è stata aggiornata automaticamente. Puoi seguirne ogni passaggio nell’Area personale e nella pagina Stato commissione." : purchasedAutomaticReady ? "Il file non parte automaticamente: rimane custodito nella tua Libreria LoreWise, così potrai ritrovarlo anche dopo aver chiuso questa pagina." : "Riceverai il collegamento privato all'indirizzo email associato al tuo LoreWise ID dopo la verifica dell'ordine. L'originale non viene esposto pubblicamente."}</p>
+          <h2 id="purchase-success-title">{successfulSubscription ? "Il tuo Universe Pass è attivo." : successfulCommission ? "Il pagamento del progetto è registrato." : purchasedCollection && purchasedAutomaticReady ? "Le tre opere sono pronte nella tua Libreria." : purchasedAutomaticReady ? "Ora puoi scaricare ciò che hai acquistato." : "Acquisto registrato. Prepariamo la consegna privata."}</h2>
+          <p id="purchase-success-description">{successfulSubscription ? "Crediti, sconti e accessi sono collegati al tuo LoreWise ID e compaiono nel Centro vantaggi." : successfulCommission ? "La pratica è stata aggiornata automaticamente. Puoi seguirne ogni passaggio nell’Area personale e nella pagina Stato commissione." : purchasedCollection && purchasedAutomaticReady ? `${purchasedCollection.title} contiene tre pacchetti protetti. Ogni opera ha il proprio download e il proprio certificato personale, sempre collegati a questo LoreWise ID.` : purchasedAutomaticReady ? "Il file non parte automaticamente: rimane custodito nella tua Libreria LoreWise, così potrai ritrovarlo anche dopo aver chiuso questa pagina." : "Riceverai il collegamento privato all'indirizzo email associato al tuo LoreWise ID dopo la verifica dell'ordine. L'originale non viene esposto pubblicamente."}</p>
           {successfulOrder ? <div className="purchase-success-order"><span>Ordine</span><strong>{successfulOrder.itemTitles || successfulOrder.productCode}</strong><small>{successfulOrder.referenceCode} · {money(successfulOrder.totalCents, successfulOrder.currency)}</small></div> : <p className="purchase-success-waiting" role="status">Stripe ha ricevuto il pagamento. La licenza sta comparendo nella Libreria: attendi qualche istante e aggiorna la pagina.</p>}
           {successfulSubscription ? <ol>
             <li><b>01</b><span><strong>Controlla il piano</strong>Stato, periodo corrente e rinnovo sono visibili qui sotto.</span></li>
@@ -203,13 +260,13 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
             <li><b>02</b><span><strong>Stato aggiornato</strong>La lavorazione procede soltanto secondo il preventivo accettato.</span></li>
             <li><b>03</b><span><strong>Assistenza tracciata</strong>Ordine e pratica restano disponibili nel tuo account.</span></li>
           </ol> : <ol>
-            <li><b>01</b><span><strong>{purchasedAutomaticReady ? "Scarica il pacchetto" : "Attendi la consegna privata"}</strong>{purchasedAutomaticReady ? "Contiene il file acquistato. Ogni scaricamento utilizza uno dei tentativi disponibili." : "GiWise Studio verifica l'ordine e invia il collegamento soltanto all'email del LoreWise ID."}</span></li>
-            <li><b>02</b><span><strong>Conserva il certificato</strong>Il PDF nominativo prova l’associazione tra ordine, LoreWise ID e licenza personale.</span></li>
+            <li><b>01</b><span><strong>{purchasedCollection && purchasedAutomaticReady ? "Scegli uno dei tre pacchetti" : purchasedAutomaticReady ? "Scarica il pacchetto" : "Attendi la consegna privata"}</strong>{purchasedCollection && purchasedAutomaticReady ? "I download restano separati, così puoi scaricare soltanto l’opera che ti serve." : purchasedAutomaticReady ? "Contiene il file acquistato. Ogni scaricamento utilizza uno dei tentativi disponibili." : "GiWise Studio verifica l'ordine e invia il collegamento soltanto all'email del LoreWise ID."}</span></li>
+            <li><b>02</b><span><strong>Conserva {purchasedCollection ? "i certificati" : "il certificato"}</strong>{purchasedCollection ? "Ogni opera dispone del proprio PDF nominativo collegato all’ordine e alla licenza personale." : "Il PDF nominativo prova l’associazione tra ordine, LoreWise ID e licenza personale."}</span></li>
             <li><b>03</b><span><strong>Ritrovalo quando vuoi</strong>Account → Libreria → Arte e licenze.</span></li>
           </ol>}
           <div className="purchase-success-actions">
-            {successfulSubscription ? <button type="button" onClick={() => { closePurchaseGuide(); openView("benefits"); }}>Apri i miei vantaggi</button> : successfulCommission ? <button type="button" onClick={() => { closePurchaseGuide(); openView("commissions"); }}>Apri la commissione</button> : purchasedAutomaticReady && purchasedItem && purchasedRemaining !== 0 ? <a className="purchase-success-download" href={purchasedDownloadUrl}>{purchasedIsArtwork ? "Scarica il pacchetto" : "Scarica il gioco"}<span>{purchasedRemaining === null ? "Accesso attivo" : purchasedRemaining === 1 ? "1 download disponibile" : `${purchasedRemaining} download disponibili`}</span></a> : <button type="button" onClick={() => { closePurchaseGuide(); openView("orders"); }}>Segui la consegna</button>}
-            {purchasedIsArtwork && purchasedItem?.certificateAvailable ? <a className="purchase-success-certificate" href={`/api/artwork-certificate?code=${encodeURIComponent(purchasedItem.resourceCode)}`}>Scarica il certificato <span>PDF nominativo</span></a> : null}
+            {successfulSubscription ? <button type="button" onClick={() => { closePurchaseGuide(); openView("benefits"); }}>Apri i miei vantaggi</button> : successfulCommission ? <button type="button" onClick={() => { closePurchaseGuide(); openView("commissions"); }}>Apri la commissione</button> : purchasedCollection && purchasedAutomaticReady ? <button type="button" onClick={() => { closePurchaseGuide(); openView("library"); }}>Apri i tre download <span>Pacchetti e certificati</span></button> : purchasedAutomaticReady && purchasedItem && purchasedRemaining !== 0 ? <a className="purchase-success-download" href={purchasedDownloadUrl}>{purchasedIsArtwork ? "Scarica il pacchetto" : "Scarica il gioco"}<span>{purchasedRemaining === null ? "Accesso attivo" : purchasedRemaining === 1 ? "1 download disponibile" : `${purchasedRemaining} download disponibili`}</span></a> : <button type="button" onClick={() => { closePurchaseGuide(); openView("orders"); }}>Segui la consegna</button>}
+            {purchasedCollection && successfulOrder ? <Link className="purchase-success-certificate" href={`/account/ordini/${encodeURIComponent(successfulOrder.referenceCode)}`}>Apri ricevuta e licenze <span>{successfulOrder.referenceCode}</span></Link> : purchasedIsArtwork && purchasedItem?.certificateAvailable ? <a className="purchase-success-certificate" href={`/api/artwork-certificate?code=${encodeURIComponent(purchasedItem.resourceCode)}`}>Scarica il certificato <span>PDF nominativo</span></a> : null}
           </div>
           <small className="purchase-success-note">{successfulSubscription ? "Il Pass resta gestibile dall’Area personale; l’annullamento del rinnovo non cancella le opere già riscattate." : successfulCommission ? "La ricevuta dell’ordine non sostituisce il preventivo e le condizioni già accettate." : "Il certificato non consuma download. Il pacchetto acquistato sì."}</small>
         </div>
@@ -258,7 +315,14 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
     <div id="account-library" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "library"}>
       <article className="personal-chapter personal-library">
         <header><Image src="/brand/icons/arte-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Arte, giochi e licenze</p><h3>La tua libreria.</h3></div></header>
-        {data.library.length ? <div className="personal-library-columns"><section><h4>Arte e licenze</h4>{artworkItems.length ? <ul>{artworkItems.map((item) => <ArtworkLibraryEntry key={`${item.resourceType}-${item.resourceCode}`} item={item} />)}</ul> : <p>Nessuna opera posseduta.</p>}</section><section><h4>Giochi e applicazioni</h4>{gameItems.length ? <ul>{gameItems.map((item) => <GameLibraryEntry key={`${item.resourceType}-${item.resourceCode}`} item={item} />)}</ul> : <p>Nessun gioco acquistato.</p>}</section></div> : <div className="personal-empty"><strong>La libreria è ancora vuota.</strong><p>Download e file appariranno esclusivamente dopo l’assegnazione di una licenza o di un diritto verificato.</p></div>}
+        {data.library.length ? <div className="personal-library-columns"><section><h4>Arte e licenze</h4>{artworkItems.length ? <div className="personal-library-art-groups">
+          {artworkCollectionGroups.map(({ bundle, items }) => <section className="personal-library-collection" key={bundle.code} aria-labelledby={`library-${bundle.slug}`}>
+            <header><div><small>Collezione completa · 3 opere</small><h5 id={`library-${bundle.slug}`}>{bundle.title}</h5></div><span>{items[0]?.orderReferenceCode ?? bundle.code}</span></header>
+            <ul>{items.map((item) => <ArtworkLibraryEntry key={`${item.resourceType}-${item.resourceCode}`} item={item} />)}</ul>
+            <footer><Link href={`/account/ordini/${encodeURIComponent(items[0]?.orderReferenceCode ?? "")}`}>Ricevuta e riepilogo</Link><Link href="/licenza-arte">Condizioni della licenza personale</Link></footer>
+          </section>)}
+          {standaloneArtworkItems.length ? <section className="personal-library-standalone"><h5>Opere singole</h5><ul>{standaloneArtworkItems.map((item) => <ArtworkLibraryEntry key={`${item.resourceType}-${item.resourceCode}`} item={item} />)}</ul></section> : null}
+        </div> : <p>Nessuna opera posseduta.</p>}</section><section><h4>Giochi e applicazioni</h4>{gameItems.length ? <ul>{gameItems.map((item) => <GameLibraryEntry key={`${item.resourceType}-${item.resourceCode}`} item={item} />)}</ul> : <p>Nessun gioco acquistato.</p>}</section></div> : <div className="personal-empty"><strong>La libreria è ancora vuota.</strong><p>Download e file appariranno esclusivamente dopo l’assegnazione di una licenza o di un diritto verificato.</p></div>}
       </article>
 
     </div>
@@ -266,7 +330,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "" }: { success
     <div id="account-commissions" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "commissions"}>
       <article className="personal-chapter personal-commissions">
         <header><Image src="/brand/icons/commissioni-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Lavori su richiesta</p><h3>Le tue commissioni.</h3></div></header>
-        {data.commissions.length ? <ol>{data.commissions.map((commission) => <li key={commission.referenceCode}><div><strong>{commission.packageName}</strong><small>{commission.referenceCode} · {commission.category}</small>{commission.membershipDiscountPercent ? <small>{getCommissionPromotionForSubmission(commission.packageName, commission.createdAt)?.label ?? commission.membershipPlanCode ?? "Visitatore"} · sconto {commission.membershipDiscountPercent}%: −{money(commission.quoteDiscountCents)}</small> : null}</div><span>{statusLabels[commission.status] ?? commission.status}</span><b>{money(commission.quoteCents)}</b></li>)}</ol> : <div className="personal-empty"><strong>Nessuna commissione collegata.</strong><p>Le nuove richieste vengono collegate direttamente al LoreWise ID e ricevono automaticamente i vantaggi del piano attivo.</p><Link href="/commissioni">Richiedi un progetto</Link></div>}
+        {data.commissions.length ? <ol>{data.commissions.map((commission) => <li key={commission.referenceCode}><div><strong>{commission.packageName}</strong><small>{commission.referenceCode} · {commission.category}</small>{commission.quoteDiscountCents ? <small>{commission.pricingDiscountLabel ?? getCommissionPromotionForSubmission(commission.packageName, commission.createdAt)?.label ?? commission.membershipPlanCode ?? "Sconto"}{commission.pricingDiscountKind === "percentage" ? ` · ${commission.pricingDiscountValue ?? commission.membershipDiscountPercent}%` : ""}: −{money(commission.quoteDiscountCents)}</small> : null}</div><span>{statusLabels[commission.status] ?? commission.status}</span><b>{money(commission.quoteCents)}</b></li>)}</ol> : <div className="personal-empty"><strong>Nessuna commissione collegata.</strong><p>Le nuove richieste vengono collegate direttamente al LoreWise ID e ricevono automaticamente i vantaggi del piano attivo.</p><Link href="/commissioni">Richiedi un progetto</Link></div>}
       </article>
 
     </div>

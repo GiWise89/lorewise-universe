@@ -19,6 +19,10 @@ type PublicRequest = {
   membershipPlanCode: string | null;
   membershipDiscountPercent: number;
   benefitSnapshotAt: string | null;
+  pricingDiscountCode: string | null;
+  pricingDiscountLabel: string | null;
+  pricingDiscountKind: "none" | "percentage" | "fixed" | null;
+  pricingDiscountValue: number | null;
   clientResponse: string | null;
   clientMessage: string | null;
   clientRespondedAt: string | null;
@@ -149,7 +153,7 @@ export function CommissionStatusTracker() {
             <strong>{(result.quoteCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</strong>
             <dl className="commission-status-benefit-breakdown">
               <div><dt>Prezzo iniziale</dt><dd>{((result.quoteBaseCents ?? result.quoteCents) / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
-              <div><dt>{result.membershipDiscountPercent ? `${getCommissionPromotionForSubmission(result.packageName, result.createdAt)?.label ?? (result.membershipPlanCode ? "Universe Pass" : "Visitatore")} · sconto ${result.membershipDiscountPercent}%` : "Visitatore · nessuno sconto"}</dt><dd>−{(result.quoteDiscountCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
+              <div><dt>{result.pricingDiscountLabel ?? (result.membershipDiscountPercent ? `${getCommissionPromotionForSubmission(result.packageName, result.createdAt)?.label ?? (result.membershipPlanCode ? "Universe Pass" : "Visitatore")} · sconto ${result.membershipDiscountPercent}%` : "Visitatore · nessuno sconto")}{result.pricingDiscountKind === "percentage" ? ` · ${result.pricingDiscountValue ?? result.membershipDiscountPercent}%` : ""}</dt><dd>−{(result.quoteDiscountCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
               <div><dt>Totale finale</dt><dd>{(result.quoteCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
             </dl>
             <p>Il preventivo diventa operativo soltanto dopo la conferma del cliente e le successive indicazioni di GiWise Studio.</p>

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CurrentDiscountRibbon } from "@/components/CurrentDiscountRibbon";
+import { WelcomeCommissionPopup } from "@/components/WelcomeCommissionPopup";
+import { corruptedPortraitPromotion, getActiveCommissionPromotion } from "@/lib/commissionPromotion";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -25,12 +27,21 @@ const portals = [
   { key: "shop", title: "GiWise Shop", note: "Merchandising e collezioni ufficiali", href: "/shop", image: "/brand/home-portals/shop.webp" },
 ];
 
-export default function Home() {
+export default async function Home({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
+  const query = await searchParams;
+  const localCalendarPreview = process.env.NODE_ENV !== "production" || process.env.LOREWISE_LOCAL_CALENDAR_PREVIEW === "true";
+  const previewBlackFriday = query?.anteprima === "black-friday" && localCalendarPreview;
+  const previewBlackFridayCampaign = query?.anteprima === "black-friday-campaign" && localCalendarPreview;
+  const previewWelcomeOffer = query?.anteprima === "benvenuto" && localCalendarPreview;
+  const initialPromotion = process.env.LOREWISE_LOCAL_HALLOWEEN_PREVIEW === "true"
+    ? corruptedPortraitPromotion
+    : getActiveCommissionPromotion();
   const closingPortals = ["shop", "commissioni"].map((key) => portals.find((portal) => portal.key === key)!);
   const servicePortal = { key: "social", title: "Social e assistenza", note: "Contatti, richieste e canali ufficiali", href: "/contatti" };
 
   return (
     <main className="universe-home">
+      <WelcomeCommissionPopup preview={previewWelcomeOffer} />
       <section className="universe-map" aria-label="Mappa di LoreWise Universe">
         <div id="mappa-universo" className="portal-stage shell">
           <div className="universe-orbits" aria-hidden="true">
@@ -53,7 +64,7 @@ export default function Home() {
         </div>
       </section>
 
-      <CurrentDiscountRibbon />
+      <CurrentDiscountRibbon initialPromotion={initialPromotion} previewBlackFriday={previewBlackFriday} previewCampaign={previewBlackFridayCampaign} />
 
       <section className="home-story art-story shell" aria-labelledby="art-story-title">
         <div className="home-art-preview" aria-label="Tre opere protette in fase di catalogazione">
@@ -87,8 +98,8 @@ export default function Home() {
               <span className="story-dossier-meta"><Image src="/games/lorewise-fuori-trama-next/logo-official-v2.webp" alt="Fuori Trama" width={560} height={260} unoptimized /><small>In sviluppo</small></span>
             </Link>
             <Link className="story-dossier-card story-dossier-demon" href="/giochi/demon-match-three" aria-label="Apri il dossier di Demon Match Three">
-              <span className="story-dossier-cover"><Image src="/games/demon-match-three/hero-ritual-chapel-v1.jpg" alt="Copertina del dossier di Demon Match Three" fill sizes="(max-width: 900px) 82vw, 26vw" unoptimized /></span>
-              <span className="story-dossier-meta"><Image src="/games/demon-match-three/logo-official-v2.webp" alt="Demon Match Three" width={560} height={300} unoptimized /><small>In sviluppo</small></span>
+              <span className="story-dossier-cover"><Image src="/games/demon-match-three/gameplay-portal-backdrop-v1.webp" alt="Portale fantasy e griglia match-3 di Demon Match Three" fill sizes="(max-width: 900px) 82vw, 26vw" unoptimized /></span>
+              <span className="story-dossier-meta"><Image src="/games/demon-match-three/logo-official-v2.webp" alt="Demon Match Three" width={560} height={300} unoptimized /><small>Android · demo gratuita in arrivo</small></span>
             </Link>
           </div>
         </div>

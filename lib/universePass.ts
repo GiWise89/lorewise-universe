@@ -173,6 +173,10 @@ export async function ensureCommissionBenefitColumns(database: D1Database) {
     ["membership_plan_code", "ALTER TABLE commission_requests ADD COLUMN membership_plan_code TEXT"],
     ["membership_discount_percent", "ALTER TABLE commission_requests ADD COLUMN membership_discount_percent INTEGER NOT NULL DEFAULT 0"],
     ["benefit_snapshot_at", "ALTER TABLE commission_requests ADD COLUMN benefit_snapshot_at TEXT"],
+    ["pricing_discount_code", "ALTER TABLE commission_requests ADD COLUMN pricing_discount_code TEXT"],
+    ["pricing_discount_label", "ALTER TABLE commission_requests ADD COLUMN pricing_discount_label TEXT"],
+    ["pricing_discount_kind", "ALTER TABLE commission_requests ADD COLUMN pricing_discount_kind TEXT"],
+    ["pricing_discount_value", "ALTER TABLE commission_requests ADD COLUMN pricing_discount_value INTEGER"],
   ] as const;
   for (const [name, statement] of additions) {
     if (!names.has(name)) await database.prepare(statement).run();

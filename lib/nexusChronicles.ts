@@ -180,6 +180,16 @@ export const nexusBenefitEvents: NexusChronicleBenefitEvent[] = [
     action: "Apri Fuori Trama",
   },
   {
+    code: "DEMON-MATCH-ANDROID-DEMO",
+    area: "Demon Match Three",
+    title: "Due percorsi arrivano su Android",
+    status: "In sviluppo",
+    timing: "Demo gratuita in arrivo",
+    description: "Due forze contrapposte aprono i percorsi iniziali del nuovo Demon Match Three, costruito come esperienza Android nativa per smartphone e tablet.",
+    href: "/vip-zone?area=games&game=demon-match-three#vip-demon-match",
+    action: "Apri l’anteprima VIP",
+  },
+  {
     code: "COMMISSIONS-OPENING",
     area: "Commissioni",
     title: "Promozione Apertura del Nexus",
@@ -454,6 +464,61 @@ function halloweenChroniclePromotion(status: "preview" | "active" | "ended"): Ne
   };
 }
 
+const demonMatchRevealChronicle = makeWeeklyChronicle({
+  id: "demon-match-android-development",
+  issue: "Novità Games 001",
+  category: "games",
+  categoryLabel: "Demon Match Three",
+  publishedAt: "2026-08-26",
+  title: "Le identità del nuovo conflitto sono state svelate nell’Area VIP.",
+  excerpt: "Il nuovo Demon Match Three nasce attorno a due forze contrapposte. Volti, nomi e motivazioni restano protetti nell’anteprima VIP; la cronaca pubblica mostra soltanto atmosfera e gameplay.",
+  detail: "Il gioco è in pieno sviluppo per smartphone e tablet Android. La griglia, le fusioni e le prime missioni sono già presenti nella build privata; una demo gratuita arriverà quando il percorso iniziale sarà pronto per il pubblico.",
+  image: "/games/demon-match-three/gameplay-portal-backdrop-v1.webp",
+  imageAlt: "Portale fantasy tra energia celeste e infernale sopra una griglia match-3",
+  signals: [
+    {
+      label: "Gameplay Android",
+      title: "La campagna avanza missione dopo missione.",
+      text: "La mappa dell’Atto I rende visibili il percorso, le tappe disponibili e la progressione. La schermata proviene dalla build mobile corrente e non rivela i protagonisti.",
+      image: "/games/demon-match-three/gameplay-map-act-1-v1.webp",
+      imageAlt: "Schermata mobile della mappa dell’Atto I con i nodi delle missioni",
+      note: "Cattura reale della build Android · nessuno spoiler narrativo",
+      href: "/giochi/demon-match-three#come-si-gioca",
+      action: "Scopri come si gioca",
+    },
+    {
+      label: "Sistema di fusione",
+      title: "Due potenziamenti preparano un effetto combinato.",
+      text: "La griglia mostra quando i potenziamenti sono pronti per essere avvicinati e fusi. Combinazioni, cascate ed effetti speciali trasformano ogni mossa in avanzamento dell’obiettivo.",
+      image: "/games/demon-match-three/gameplay-powerup-ready-v1.webp",
+      imageAlt: "Griglia match-3 mobile con due potenziamenti pronti per la fusione",
+      note: "Gameplay verticale · controlli touch · nessuno spoiler",
+      href: "/giochi/demon-match-three#come-si-gioca",
+      action: "Guarda il ciclo di gioco",
+    },
+  ],
+  promotion: ordinaryCommissionPromotion,
+  upcoming: {
+    label: "Prossimo varco",
+    title: "Demo gratuita Android",
+    status: "In pieno sviluppo · data non ancora annunciata",
+    description: "La nuova esperienza nasce per schermi verticali, controlli touch e sessioni mobile leggibili. La demo verrà aperta soltanto quando le prime missioni saranno pronte.",
+    features: ["Due percorsi iniziali", "Prologo dedicato", "Prime missioni match-3", "Smartphone e tablet Android"],
+    previews: [],
+    featuredGame: null,
+  },
+  benefits: [
+    { title: "Segui ogni rivelazione", text: "L’Area VIP raccoglie protagonisti e nuove anteprime man mano che il gioco cresce." },
+    { title: "Niente spoiler in pubblico", text: "Fuori dall’Area VIP vengono mostrati soltanto atmosfera, sistemi e scene di gameplay." },
+    { title: "Mobile al centro", text: "Il nuovo progetto nasce come applicazione Android nativa per smartphone e tablet." },
+    { title: "Demo gratuita in arrivo", text: "L’accesso alla futura demo non richiederà l’abbonamento; il Pass serve a seguire più da vicino tutte le novità." },
+  ],
+  transparency: "La demo gratuita resterà accessibile a tutti quando sarà pronta. L’Area VIP offre anteprime e approfondimenti per chi vuole seguire lo sviluppo più da vicino.",
+  href: "/abbonamento",
+  action: "Abbonati all’Area VIP",
+  featured: true,
+});
+
 const guideChronicleEditorial = [
   { issue: "Cronaca 005", publishedAt: "2026-09-14", slug: "world-of-warcraft", title: "Il mondo non resta fermo.", excerpt: "World of Warcraft entra nell’Atlante con sedici capitoli dedicati al gioco moderno.", detail: "Classi, talenti, progressione, dungeon, raid, PvP, Delve, Housing e routine sostenibili accompagnano ogni stile di gioco." },
   { issue: "Cronaca 006", publishedAt: "2026-09-21", slug: "hogwarts-legacy", title: "Il castello apre le sue porte.", excerpt: "Hogwarts Legacy entra nell’anteprima VIP con sedici capitoli dedicati a magia, esplorazione, equipaggiamento e relazioni.", detail: "La guida accompagna l’avventura senza correre verso gli spoiler: ogni sezione separa preparazione, sistemi e contenuti narrativi protetti." },
@@ -548,6 +613,7 @@ const guideCalendarChronicles = guideChronicleEditorial.map((entry) => {
 });
 
 export const nexusChronicles: NexusChronicle[] = [
+  demonMatchRevealChronicle,
   openingChronicle,
   makeWeeklyChronicle({
     id: "worlds-laezel-and-custodians",

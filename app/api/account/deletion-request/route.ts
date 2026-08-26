@@ -4,6 +4,7 @@ import { ACCOUNT_DELETION_CONFIRMATION } from "@/lib/accountPolicy";
 import { ensureAccountDeletionRequestsTable } from "@/lib/accountDeletion";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient } from "@/lib/supabase/server";
+import { recordMarketingConsent } from "@/lib/marketingEmail";
 
 type RuntimeEnv = { DB?: D1Database };
 
@@ -27,8 +28,8 @@ export async function POST(request: Request) {
     if (body.confirmation !== ACCOUNT_DELETION_CONFIRMATION || body.understood !== true) {
       return Response.json({ error: "La conferma di cancellazione non è completa." }, { status: 400 });
     }
-    const customer = await authenticated.database.prepare("SELECT role, status FROM customers WHERE id = ?")
-      .bind(authenticated.user.id).first<{ role: string; status: string }>();
+    const customer = await authenticated.database.prepare("SELECT role, status, community_emails, studio_updates_emails FROM customers WHERE id = ?")
+      .bind(authenticated.user.id).first<{ role: string; status: string; community_emails: number; studio_updates_emails: number }>();
     if (!customer || customer.status === "blocked") return Response.json({ error: "L’account non può inviare questa richiesta." }, { status: 403 });
     if (customer.role === "admin") {
       const admins = await authenticated.database.prepare("SELECT COUNT(*) AS total FROM customers WHERE role = 'admin' AND status = 'active'")
@@ -45,6 +46,9 @@ export async function POST(request: Request) {
     }
     await authenticated.database.prepare(`UPDATE customers SET status = 'deletion_requested', community_emails = 0,
       studio_updates_emails = 0, updated_at = CURRENT_TIMESTAMP WHERE id = ?`).bind(authenticated.user.id).run();
+    await authenticated.database.prepare("UPDATE marketing_deliveries SET status = 'revoked', last_error = NULL, updated_at = CURRENT_TIMESTAMP WHERE customer_id = ? AND status IN ('queued', 'failed')").bind(authenticated.user.id).run();
+    if (customer.community_emails) await recordMarketingConsent(authenticated.database, { customerId: authenticated.user.id, channel: "community", granted: false, source: "account_deletion" });
+    if (customer.studio_updates_emails) await recordMarketingConsent(authenticated.database, { customerId: authenticated.user.id, channel: "studio_updates", granted: false, source: "account_deletion" });
     const current = pending ?? await authenticated.database.prepare("SELECT id, requested_at FROM account_deletion_requests WHERE customer_id = ? AND status = 'pending' ORDER BY requested_at DESC LIMIT 1")
       .bind(authenticated.user.id).first<{ id: string; requested_at: string }>();
     return Response.json({ status: "deletion_requested", requestedAt: current?.requested_at, message: "Richiesta registrata. Le interazioni Community sono state sospese." }, { headers: { "Cache-Control": "private, no-store" } });

@@ -1,10 +1,51 @@
-import Link from "next/link";
-import { corruptedPortraitPromotion, getActiveCommissionPromotion } from "@/lib/commissionPromotion";
+"use client";
 
-export function CurrentDiscountRibbon() {
-  const promotion = process.env.LOREWISE_LOCAL_HALLOWEEN_PREVIEW === "true"
-    ? corruptedPortraitPromotion
-    : getActiveCommissionPromotion();
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { BlackFridayCountdown } from "@/components/BlackFridayCountdown";
+import { blackFridayCampaign, blackFridayTeaser, getBlackFridayCampaignPhase, isBlackFridayTeaserActive } from "@/lib/blackFridayTeaser";
+import { getActiveCommissionPromotion, type CommissionPromotion } from "@/lib/commissionPromotion";
+
+export function CurrentDiscountRibbon({ initialPromotion = null, previewBlackFriday = false, previewCampaign = false }: { initialPromotion?: CommissionPromotion | null; previewBlackFriday?: boolean; previewCampaign?: boolean }) {
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const refresh = () => setNow(new Date());
+    refresh();
+    const timer = window.setInterval(refresh, 1_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const showBlackFridayTeaser = previewBlackFriday || (now ? isBlackFridayTeaserActive(now) : false);
+  if (showBlackFridayTeaser) return (
+    <aside className="studio-ribbon black-friday-ribbon" aria-label="Conto alla rovescia per il Black Friday 2026">
+      <Link className="black-friday-ribbon-link" href={`${blackFridayTeaser.href}${previewBlackFriday ? "?anteprima=1" : ""}`}>
+        <Image src="/promotions/black-friday/countdown-clock-emblem-v1.webp" alt="Medaglione con orologio e portale cosmico" width={1254} height={1254} unoptimized />
+        <span className="black-friday-ribbon-copy"><small>{blackFridayTeaser.shortLabel}</small><strong>{blackFridayTeaser.label}</strong></span>
+        <BlackFridayCountdown compact preview={previewBlackFriday} />
+        <span className="black-friday-ribbon-action">Entra nell’attesa <b aria-hidden="true">→</b></span>
+      </Link>
+    </aside>
+  );
+
+  const campaignPhase = previewCampaign ? "black-friday" : now ? getBlackFridayCampaignPhase(now) : "teaser";
+  if (campaignPhase === "black-friday" || campaignPhase === "cyber-monday") return (
+    <aside className="studio-ribbon black-friday-ribbon is-campaign" aria-label="Promozione Black Friday e Cyber Monday 2026">
+      <div className="black-friday-ribbon-link">
+        <Image src="/promotions/black-friday/campaign-hero-v1.webp" alt="Tre percorsi promozionali collegati nell’osservatorio cosmico" width={1536} height={1024} unoptimized />
+        <span className="black-friday-ribbon-copy"><small>{campaignPhase === "cyber-monday" ? "Cyber Monday · Ultime ore" : blackFridayCampaign.period}</small><strong>{blackFridayCampaign.label}</strong></span>
+        <nav className="black-friday-ribbon-routes" aria-label="Accessi diretti alle offerte">
+          <Link href="/shop/catalogo"><small>01</small><strong>Shop</strong><span>Tutto il catalogo</span></Link>
+          <Link href="/abbonamento?focus=piani"><small>02</small><strong>Pass</strong><span>Primo mese</span></Link>
+          <Link href="/vip-zone?area=downloads#cyber-nexus"><small>03</small><strong>Cyber Nexus</strong><span>Incluso nel Pass</span></Link>
+        </nav>
+        <Link className="black-friday-ribbon-action" href="/black-friday">Vedi la campagna <b aria-hidden="true">→</b></Link>
+      </div>
+    </aside>
+  );
+
+  const promotion = now ? getActiveCommissionPromotion(now) : initialPromotion;
   const rates = promotion
     ? [
         { audience: "Visitatori", discount: `−${promotion.rates.visitor}%` },

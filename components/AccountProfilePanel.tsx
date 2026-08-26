@@ -287,9 +287,9 @@ export function AccountProfilePanel() {
           <label><input type="radio" name="profile-visibility" checked={profileVisibility === "public"} onChange={() => setProfileVisibility("public")} /><span><strong>Pubblico</strong><small>Nome, nickname e immagine sono visibili nella Community.</small></span></label>
           <label><input type="radio" name="profile-visibility" checked={profileVisibility === "private"} onChange={() => setProfileVisibility("private")} /><span><strong>Riservato</strong><small>Commenti visibili, profilo personale non consultabile.</small></span></label>
         </fieldset>
-        <fieldset><legend>Comunicazioni facoltative</legend>
+        <fieldset id="comunicazioni"><legend>Comunicazioni facoltative</legend>
           <label><input type="checkbox" checked={communityEmails} onChange={(event) => setCommunityEmails(event.target.checked)} /><span><strong>Community</strong><small>Risposte, moderazione e novità legate alle tue interazioni.</small></span></label>
-          <label><input type="checkbox" checked={studioUpdatesEmails} onChange={(event) => setStudioUpdatesEmails(event.target.checked)} /><span><strong>GiWise Studio</strong><small>Uscite, diari di sviluppo e novità dello studio.</small></span></label>
+          <label><input type="checkbox" checked={studioUpdatesEmails} onChange={(event) => setStudioUpdatesEmails(event.target.checked)} /><span><strong>GiWise Studio</strong><small>Nuove opere, videogiochi, commissioni e promozioni. Puoi revocare il consenso qui o direttamente da ogni email.</small></span></label>
         </fieldset>
         <fieldset className="account-codex-preference"><legend>LoreWise Codex</legend>
           <label><input type="radio" name="codex-spoilers" value="protected" checked={codexSpoilerPreference === "protected"} onChange={() => setCodexSpoilerPreference("protected")} /><span><strong>Protezione spoiler</strong><small>Le cronologie restano chiuse finché non scegli di mostrarle.</small></span></label>

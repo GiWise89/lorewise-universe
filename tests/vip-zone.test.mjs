@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { Miniflare } from "miniflare";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
-import { getVipDownload, getVipMedia, VIP_AREAS, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP, VIP_MEDIA } from "../lib/vipZone.ts";
+import { getVipDownload, getVipMedia, VIP_AREAS, VIP_DEMON_MATCH_DROP, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP, VIP_MEDIA } from "../lib/vipZone.ts";
 import { VIP_ARTWORKS, VIP_ART_DROP } from "../data/vip-artworks.ts";
 import { VIP_ATELIER, VIP_ATELIER_MEDIA_PRIVATE } from "../data/vip-atelier.ts";
 import { VIP_DOWNLOAD_LIBRARY } from "../data/vip-downloads.ts";
@@ -120,15 +120,20 @@ test("defines the approved spoiler-safe VIP expansion reveal", () => {
 });
 
 test("allows only declared private VIP media identifiers", () => {
-  assert.equal(Object.keys(VIP_MEDIA).length, 87);
+  assert.equal(Object.keys(VIP_MEDIA).length, 102);
   assert.equal(getVipMedia("rogo-key-art")?.contentType, "image/png");
   assert.equal(getVipMedia("vharokh-dossier")?.objectKey.includes("vharokh-sagoma"), true);
   assert.equal(getVipMedia("velisara-dossier")?.objectKey.includes("velisara-sagoma"), true);
+  assert.equal(getVipMedia("demon-match-duality")?.objectKey.includes("nora-varek-duality"), true);
+  assert.equal(getVipMedia("demon-match-nora")?.contentType, "image/webp");
+  assert.equal(getVipMedia("demon-match-varek")?.contentType, "image/webp");
   assert.equal(getVipDownload("desktop-vip-01")?.downloadName.includes("desktop-vip-01"), true);
   assert.equal(getVipDownload("desktop-vip-02")?.downloadName.includes("desktop-vip-02"), true);
   assert.equal(getVipDownload("desktop-vip-03")?.downloadName.includes("desktop-vip-03"), true);
   assert.equal(getVipDownload("lorewise-match-01")?.downloadName.includes("lorewise-match"), true);
   assert.equal(getVipMedia("lorewise-match-01-preview")?.contentType, "image/webp");
+  assert.equal(getVipDownload("cyber-nexus-heart-desktop")?.downloadName.includes("desktop-4k"), true);
+  assert.equal(getVipMedia("cyber-nexus-heart-mobile-preview")?.contentType, "image/webp");
   assert.equal(getVipDownload("rogo-key-art"), null);
   assert.equal(getVipMedia("../../public/secret"), null);
   assert.equal(getVipMedia(null), null);
@@ -141,10 +146,10 @@ test("offers the three original desktop files as VIP rewards", () => {
   assert.equal(VIP_EXPANSION.downloadBundle.packageId, "twr-vip-drop-01-completo");
 });
 
-test("keeps downloads in a standalone VIP library with two collections", () => {
-  assert.deepEqual(VIP_DOWNLOAD_LIBRARY.collections.map((collection) => collection.id), ["the-wound-remembers", "lorewise-match"]);
-  assert.equal(VIP_DOWNLOAD_LIBRARY.collections.flatMap((collection) => collection.items).length, 6);
-  assert.deepEqual(VIP_DOWNLOAD_LIBRARY.collections.map((collection) => collection.bundle.packageId), ["twr-vip-drop-01-completo", "lorewise-match-vip-completo"]);
+test("keeps downloads in a standalone VIP library with Cyber Nexus included", () => {
+  assert.deepEqual(VIP_DOWNLOAD_LIBRARY.collections.map((collection) => collection.id), ["the-wound-remembers", "lorewise-match", "cyber-nexus"]);
+  assert.equal(VIP_DOWNLOAD_LIBRARY.collections.flatMap((collection) => collection.items).length, 12);
+  assert.deepEqual(VIP_DOWNLOAD_LIBRARY.collections.map((collection) => collection.bundle.packageId), ["twr-vip-drop-01-completo", "lorewise-match-vip-completo", "cyber-nexus-vip-completo"]);
   assert.equal(VIP_DOWNLOAD_LIBRARY.collections.flatMap((collection) => collection.items).every((item) => getVipMedia(item.image)?.contentType === "image/webp"), true);
   assert.equal(VIP_DOWNLOAD_LIBRARY.collections.flatMap((collection) => collection.items).every((item) => Boolean(getVipDownload(item.downloadAsset))), true);
 });
@@ -155,8 +160,18 @@ test("organizes the VIP archive into explicit editorial areas", () => {
   assert.equal(VIP_AREAS.find((area) => area.id === "art")?.available, true);
   assert.equal(VIP_AREAS.find((area) => area.id === "atelier")?.available, true);
   assert.equal(VIP_AREAS.every((area) => area.update.length > 0), true);
-  assert.equal(VIP_EDITORIAL_STATUS.lastUpdated, "21 agosto 2026");
-  assert.equal(VIP_EDITORIAL_STATUS.nextDrop, "6 sfondi disponibili");
+  assert.equal(VIP_EDITORIAL_STATUS.lastUpdated, "26 agosto 2026");
+  assert.equal(VIP_EDITORIAL_STATUS.nextDrop, "Demon Match 3 · Alba e Ombra");
+});
+
+test("reveals Nora and Varek in the VIP area without spoiling the Android campaign", () => {
+  assert.equal(VIP_DEMON_MATCH_DROP.code, "DM3-ANDROID-REVEAL-01");
+  assert.equal(VIP_DEMON_MATCH_DROP.status, "In pieno sviluppo");
+  assert.deepEqual(VIP_DEMON_MATCH_DROP.characters.map((character) => character.name), ["Nora", "Varek"]);
+  assert.match(VIP_DEMON_MATCH_DROP.demo.title, /Demo gratuita Android in arrivo/);
+  assert.match(VIP_DEMON_MATCH_DROP.spoilerNote, /non la verità/i);
+  const copy = JSON.stringify(VIP_DEMON_MATCH_DROP).toLocaleLowerCase("it");
+  assert.doesNotMatch(copy, /nel finale|tradisce|muore|boss finale/);
 });
 
 test("builds the Atelier as protected narrative processes rather than an anonymous gallery", () => {

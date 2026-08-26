@@ -7,6 +7,7 @@ import { localAccountProfile, netlifyDatabaseIsConfigured } from "@/lib/localAcc
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 import { profileCompletion } from "@/lib/profileCompletion";
+import { recordMarketingConsent } from "@/lib/marketingEmail";
 
 type RuntimeEnv = { DB?: D1Database; LOREWISE_ADMIN_EMAILS?: string };
 
@@ -174,6 +175,12 @@ export async function PATCH(request: Request) {
       studio_updates_emails = ?, codex_spoiler_preference = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`)
       .bind(displayName || null, username || null, bio || null, profileVisibility, communityEmails ? 1 : 0, studioUpdatesEmails ? 1 : 0, codexSpoilerPreference, authenticated.user.id)
       .run();
+    if (communityEmails !== Boolean(currentProfile.community_emails)) {
+      await recordMarketingConsent(authenticated.database, { customerId: authenticated.user.id, channel: "community", granted: communityEmails, source: "account" });
+    }
+    if (studioUpdatesEmails !== Boolean(currentProfile.studio_updates_emails)) {
+      await recordMarketingConsent(authenticated.database, { customerId: authenticated.user.id, channel: "studio_updates", granted: studioUpdatesEmails, source: "account" });
+    }
     const row = await readProfile(authenticated.database, authenticated.user.id);
     return Response.json({ profile: publicProfile(row!), message: "Profilo e preferenze aggiornati." }, { headers: { "Cache-Control": "private, no-store" } });
   } catch {

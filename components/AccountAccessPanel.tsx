@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ACCOUNT_MINIMUM_AGE, ACCOUNT_PRIVACY_VERSION } from "@/lib/accountPolicy";
 import { createLoreWiseBrowserClient, createLoreWiseRecoveryClient } from "@/lib/supabase/client";
 
-type AuthMode = "login" | "register" | "recover";
+export type AuthMode = "login" | "register" | "recover";
 
 function authErrorMessage(error: { code?: string; message: string; status?: number }, email: string) {
   if (error.status === 429 || error.code === "over_email_send_rate_limit" || /rate limit/i.test(error.message)) return `Hai richiesto più email ravvicinate per ${email}. Attendi circa un’ora dall’ultimo invio, poi riprova una sola volta.`;
@@ -16,8 +16,8 @@ function authErrorMessage(error: { code?: string; message: string; status?: numb
   return "Non è stato possibile completare l’operazione. Controlla i dati e riprova.";
 }
 
-export function AccountAccessPanel({ configured, userEmail }: { configured: boolean; userEmail?: string }) {
-  const [mode, setMode] = useState<AuthMode>("login");
+export function AccountAccessPanel({ configured, userEmail, initialMode = "login" }: { configured: boolean; userEmail?: string; initialMode?: AuthMode }) {
+  const [mode, setMode] = useState<AuthMode>(initialMode);
   const [email, setEmail] = useState(() => {
     if (typeof window === "undefined") return "";
     return window.localStorage.getItem("lorewise-remembered-email") || "";
@@ -163,8 +163,8 @@ export function AccountAccessPanel({ configured, userEmail }: { configured: bool
         {mode === "register" ? <fieldset className="account-registration-consents"><legend>Privacy e comunicazioni</legend>
           <label><input type="checkbox" checked={minimumAgeConfirmed} onChange={(event) => setMinimumAgeConfirmed(event.target.checked)} required disabled={busy} /><span><strong>Confermo di avere almeno {ACCOUNT_MINIMUM_AGE} anni</strong><small>Necessario per creare LoreWise ID. I contenuti contrassegnati 18+ restano comunque riservati esclusivamente agli adulti.</small></span></label>
           <label><input type="checkbox" checked={privacyAccepted} onChange={(event) => setPrivacyAccepted(event.target.checked)} required disabled={busy} /><span><strong>Confermo di aver letto l’informativa privacy</strong><small>Descrive il trattamento necessario per creare e gestire il profilo. <Link href="/privacy" target="_blank">Apri l’informativa</Link>.</small></span></label>
-          <label><input type="checkbox" checked={communityEmails} onChange={(event) => setCommunityEmails(event.target.checked)} disabled={busy} /><span><strong>Aggiornamenti dalla Community</strong><small>Facoltativi. Potrai disattivarli in qualsiasi momento.</small></span></label>
-          <label><input type="checkbox" checked={studioUpdatesEmails} onChange={(event) => setStudioUpdatesEmails(event.target.checked)} disabled={busy} /><span><strong>Novità di GiWise Studio</strong><small>Facoltative e separate dalla creazione dell’account.</small></span></label>
+          <label><input type="checkbox" checked={communityEmails} onChange={(event) => setCommunityEmails(event.target.checked)} disabled={busy} /><span><strong>Aggiornamenti dalla Community</strong><small>Ricevi email sulle tue interazioni, come risposte e avvisi di moderazione. Facoltativo: puoi disattivarle quando vuoi.</small></span></label>
+          <label><input type="checkbox" checked={studioUpdatesEmails} onChange={(event) => setStudioUpdatesEmails(event.target.checked)} disabled={busy} /><span><strong>Novità di GiWise Studio</strong><small>Ricevi email occasionali su nuove opere, videogiochi, commissioni e promozioni. Facoltativo: puoi disattivarle dall’Area personale o da ogni email.</small></span></label>
         </fieldset> : null}
         <button type="submit" disabled={busy}>{busy ? "Operazione in corso…" : mode === "login" ? "Accedi al profilo" : mode === "register" ? "Crea il profilo" : "Invia le istruzioni"}</button>
       </form>

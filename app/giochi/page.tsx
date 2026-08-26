@@ -66,7 +66,7 @@ export default function GamesPage() {
         <header><div><p className="eyebrow">Catalogo GiWise Studio</p><h2 id="real-projects-title">Scegli il tuo mondo.</h2></div><p>Ogni copertina presenta il vero universo del gioco, il logo originale e lo stato attuale del progetto.</p></header>
         <div className="studio-real-project-list">
           {gameProjects.map((project, index) => (
-            <article className={`studio-real-project studio-real-project-${project.statusTone}`} key={project.slug}>
+            <article className={`studio-real-project studio-real-project-${project.statusTone} studio-real-project-${project.slug}`} key={project.slug}>
               <Link className="studio-real-project-visual" href={`/giochi/${project.slug}`} aria-label={`Apri la scheda di ${project.title}`}>
                 <Image src={project.catalogCoverImage ?? project.coverImage ?? project.heroImage} alt={project.catalogCoverAlt ?? project.coverAlt ?? project.heroAlt} width={2000} height={1250} unoptimized />
                 {project.logoImage ? <Image className="studio-real-project-logo" src={project.logoImage} alt="" width={1600} height={900} unoptimized /> : <strong>{project.title}</strong>}

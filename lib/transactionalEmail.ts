@@ -14,6 +14,7 @@ export type TransactionalEmailPayload = {
   name?: string; referenceCode?: string; title?: string; amountLabel?: string;
   phaseLabel?: string; planLabel?: string; periodLabel?: string;
   deliveryMode?: string;
+  collectionSize?: number;
   accountUrl?: string; detailUrl?: string;
 };
 
@@ -28,7 +29,9 @@ function templateCopy(template: TransactionalTemplate, payload: TransactionalEma
   const copies: Record<TransactionalTemplate, { subject: string; heading: string; body: string; action: string }> = {
     order_paid: payload.deliveryMode === "manual"
       ? { subject: `Acquisto confermato · ${reference}`, heading: "Il tuo acquisto è registrato.", body: `${title} è stato collegato al tuo LoreWise ID.${amount} GiWise Studio verificherà l'ordine e invierà la consegna privata all'indirizzo email associato al profilo.`, action: "Segui ordine e consegna" }
-      : { subject: `Acquisto confermato · ${reference}`, heading: "Il tuo acquisto è nella Libreria.", body: `${title} è stato collegato al tuo LoreWise ID.${amount} Il file non parte automaticamente: resta protetto nella tua Area personale.`, action: "Apri Libreria e ordine" },
+      : payload.collectionSize && payload.collectionSize > 1
+        ? { subject: `Collezione confermata · ${reference}`, heading: "Le tue opere sono nella Libreria.", body: `${title} è stata collegata al tuo LoreWise ID.${amount} Troverai ${payload.collectionSize} pacchetti protetti, una licenza personale per ogni opera e il riepilogo dell’ordine nella tua Area personale.`, action: "Apri i download della collezione" }
+        : { subject: `Acquisto confermato · ${reference}`, heading: "Il tuo acquisto è nella Libreria.", body: `${title} è stato collegato al tuo LoreWise ID.${amount} Il file non parte automaticamente: resta protetto nella tua Area personale.`, action: "Apri Libreria e ordine" },
     order_refunded: { subject: `Rimborso confermato · ${reference}`, heading: "Il rimborso è stato registrato.", body: `L’ordine ${reference} risulta rimborsato. I diritti digitali collegati sono stati revocati secondo le condizioni accettate.`, action: "Apri il riepilogo" },
     payment_disputed: { subject: `Verifica necessaria · ${reference}`, heading: "Il pagamento richiede attenzione.", body: `Stripe ha segnalato una contestazione per ${reference}. I diritti collegati restano sospesi durante la verifica.`, action: "Apri assistenza ordine" },
     subscription_activated: { subject: `Universe Pass attivo · ${reference}`, heading: "Il tuo Universe Pass è attivo.", body: `${payload.planLabel || title} è ora collegato al LoreWise ID. Crediti, sconti e accessi compaiono automaticamente nell’Area personale.`, action: "Apri i miei vantaggi" },

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { commissionDiscountForSubmission, getCommissionPromotionForSubmission } from "@/lib/commissionPromotion";
+import { calculateBestCommissionDiscount } from "@/lib/welcomeCommissionOffer";
 
 type RequestFile = { id: string; originalName: string; contentType: string; size: number };
 type CommissionRequest = {
@@ -30,6 +31,11 @@ type CommissionRequest = {
   membershipPlanCode: string | null;
   membershipDiscountPercent: number;
   benefitSnapshotAt: string | null;
+  pricingDiscountCode: string | null;
+  pricingDiscountLabel: string | null;
+  pricingDiscountKind: "none" | "percentage" | "fixed" | null;
+  pricingDiscountValue: number | null;
+  welcomeOfferClaimed: boolean;
   activeMembership: { code: string | null; name: string; active: boolean; commissionDiscountPercent: number; currentPeriodEnd: string | null };
   adminNotes: string;
   launchSlotReserved: boolean;
@@ -129,16 +135,21 @@ export function CommissionAdminDashboard() {
     packageName: selected.packageName,
   }) : 0;
   const selectedPromotion = selected ? getCommissionPromotionForSubmission(selected.packageName, selected.createdAt) : null;
-  const quoteBenefitName = selectedPromotion ? selectedPromotion.label
-    : selected?.benefitSnapshotAt
-    ? selected.membershipPlanCode === "LW-PASS-COLLECTOR" ? "Collector" : selected.membershipPlanCode === "LW-PASS-SUPPORTER" ? "Supporter" : "Visitatore"
-    : selected?.activeMembership.name ?? "Visitatore";
-  const quotePreview = selected?.quoteBaseCents == null ? null : {
+  const percentageLabel = selectedPromotion?.label ?? (selected?.activeMembership.active ? `Universe Pass ${selected.activeMembership.name}` : "Visitatore");
+  const quotePreview = selected?.quoteBaseCents == null ? null : selected.benefitSnapshotAt ? {
     baseCents: selected.quoteBaseCents,
-    discountPercent: quoteDiscountPercent,
-    discountCents: Math.round(selected.quoteBaseCents * quoteDiscountPercent / 100),
-    finalCents: selected.quoteBaseCents - Math.round(selected.quoteBaseCents * quoteDiscountPercent / 100),
-  };
+    discountPercent: selected.pricingDiscountKind === "percentage" ? selected.pricingDiscountValue ?? selected.membershipDiscountPercent : 0,
+    discountCents: selected.quoteDiscountCents ?? 0,
+    finalCents: selected.quoteCents ?? selected.quoteBaseCents,
+    label: selected.pricingDiscountLabel ?? percentageLabel,
+    kind: selected.pricingDiscountKind ?? (selected.membershipDiscountPercent ? "percentage" : "none"),
+  } : calculateBestCommissionDiscount({
+    baseCents: selected.quoteBaseCents,
+    percentage: quoteDiscountPercent,
+    percentageCode: selectedPromotion?.id ?? selected.activeMembership.code,
+    percentageLabel,
+    welcomeOfferEligible: selected.welcomeOfferClaimed,
+  });
   const pricingLocked = Boolean(selected?.quoteTermsAcceptedAt) || ["accepted", "in_progress", "awaiting_balance", "balance_paid", "completed"].includes(selected?.status ?? "");
 
   function updateSelected(patch: Partial<CommissionRequest>) {
@@ -209,7 +220,7 @@ export function CommissionAdminDashboard() {
   }
 
   const emailSubject = selected ? encodeURIComponent(`GiWise Studio · ${selected.referenceCode}`) : "";
-  const quoteText = selected?.quoteCents != null ? `Il preventivo finale è di ${(selected.quoteCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}${selected.membershipDiscountPercent ? `, con lo sconto ${selectedPromotion?.label ?? "Universe Pass"} del ${selected.membershipDiscountPercent}% già applicato` : ""}.` : "";
+  const quoteText = selected?.quoteCents != null ? `Il preventivo finale è di ${(selected.quoteCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}${selected.quoteDiscountCents ? `, con ${selected.pricingDiscountLabel ?? "lo sconto più conveniente"} già applicato` : ""}.` : "";
   const emailBody = selected ? encodeURIComponent(`Ciao ${selected.name},\n\nti contatto in merito alla tua richiesta ${selected.referenceCode}.\n${quoteText}\n\nGiWise Studio`) : "";
 
   return (
@@ -245,6 +256,7 @@ export function CommissionAdminDashboard() {
               <strong>{item.name}</strong>
               <small>{item.referenceCode}</small>
               {item.activeMembership.active ? <i className="commission-admin-pass">{item.activeMembership.name} · −{item.activeMembership.commissionDiscountPercent}%</i> : <i className="commission-admin-pass is-visitor">Visitatore · nessuno sconto</i>}
+              {item.welcomeOfferClaimed ? <i className="commission-admin-pass">Bonus LoreWise ID · 5 €</i> : null}
               <em>{item.category} · {item.packageName}</em>
             </button>
           ))}
@@ -268,6 +280,7 @@ export function CommissionAdminDashboard() {
                 <div><dt>Opera citata</dt><dd>{selected.artworkReference || "Nessuna"}</dd></div>
                 <div><dt>LoreWise ID</dt><dd>{selected.customerId ? "Account collegato" : "Richiesta precedente da collegare"}</dd></div>
                 <div><dt>Universe Pass</dt><dd>{selected.activeMembership.active ? `${selected.activeMembership.name} · sconto automatico ${selected.activeMembership.commissionDiscountPercent}%` : "Visitatore · nessuno sconto"}</dd></div>
+                <div><dt>Bonus LoreWise ID</dt><dd>{selected.welcomeOfferClaimed ? "5 € riservati alla prima commissione" : "Non disponibile"}</dd></div>
               </dl>
             </section>
 
@@ -301,13 +314,13 @@ export function CommissionAdminDashboard() {
               <label><span>Acconto concordato in euro</span><input type="number" min="0.01" step="0.01" disabled={pricingLocked} value={selected.depositCents == null ? "" : selected.depositCents / 100} onChange={(event) => updateSelected({ depositCents: event.target.value === "" ? null : Math.round(Number(event.target.value) * 100) })} placeholder="es. 24,50" /></label>
               {pricingLocked && <p className="field-wide commission-admin-pricing-lock" role="status">Preventivo accettato: prezzo, sconto e acconto sono protetti e non possono più essere modificati.</p>}
               <div className="commission-admin-benefit-preview field-wide">
-                <span>Calcolo automatico Universe Pass</span>
+                <span>Calcolo automatico dello sconto più conveniente</span>
                 {quotePreview ? <dl>
                   <div><dt>Prezzo iniziale</dt><dd>{(quotePreview.baseCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
-                  <div><dt>{quoteBenefitName} · sconto {quotePreview.discountPercent}%</dt><dd>−{(quotePreview.discountCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
+                  <div><dt>{quotePreview.label}{quotePreview.kind === "percentage" ? ` · sconto ${quotePreview.discountPercent}%` : ""}</dt><dd>−{(quotePreview.discountCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
                   <div><dt>Totale finale</dt><dd>{(quotePreview.finalCents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" })}</dd></div>
                 </dl> : <p>Inserisci il prezzo iniziale: il server applicherà automaticamente il piano riconosciuto.</p>}
-                <small>Al salvataggio il server ricontrolla l’abbonamento e registra il risultato definitivo.</small>
+                <small>Al salvataggio il server confronta percentuale e bonus da 5 €, applica un solo vantaggio e registra il risultato definitivo.</small>
               </div>
               <label className="field-wide"><span>Note private GiWise Studio</span><textarea rows={5} maxLength={4000} value={selected.adminNotes} onChange={(event) => updateSelected({ adminNotes: event.target.value })} placeholder="Valutazione, modifiche richieste, accordi e prossime azioni…" /></label>
               <label className="commission-admin-slot field-wide"><input type="checkbox" checked={selected.launchSlotReserved} onChange={(event) => updateSelected({ launchSlotReserved: event.target.checked })} /><span><strong>Conta tra le 10 commissioni di lancio</strong><small>Attivalo solo quando l’incarico è realmente confermato.</small></span></label>

@@ -138,17 +138,17 @@ test("groups every destination into the approved responsive navigation", async (
   assert.match(html, /href="\/contatti"/);
 });
 
-test("renders the weekly guide inside the game Atlas panel without internal workflow copy", async () => {
+test("keeps the Demon Match Three protagonist reveal protected inside the VIP area", async () => {
   const response = await render("/cronache-del-nexus");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Atlante dei Giochi[\s\S]*Novità del lunedì[\s\S]*La guida della settimana/);
-  assert.match(html, /ora in LoreWise VIP/);
-  assert.match(html, /La prossima guida sarà/);
-  assert.match(html, /Disponibile nell’Atlante pubblico/);
-  assert.doesNotMatch(html, /Aggiornamento automatico|Passaggio automatico/);
-  assert.match(html, /Apri la guida VIP/);
-  assert.match(html, /Collegamento alla pagina ufficiale del gioco/);
+  assert.match(html, /Le identità del nuovo conflitto sono state svelate nell’Area VIP/);
+  assert.match(html, /gameplay-portal-backdrop-v1\.webp/);
+  assert.match(html, /La griglia alimenta ogni battaglia/);
+  assert.doesNotMatch(html, /Nora|Varek|nora-order|varek-shadow|nora-varek-duality/);
+  assert.match(html, /Demo gratuita Android in arrivo/);
+  assert.match(html, /Abbonati all’Area VIP/);
+  assert.doesNotMatch(html, /nel finale|tradisce|muore|boss finale/i);
 });
 
 test("applies the global browser security policy", async () => {
@@ -1096,33 +1096,39 @@ test("renders Fuori Trama as a free tactical RPG dossier with current desktop ga
   assert.doesNotMatch(html, /Acquista ora|Scarica gratuitamente/);
 });
 
-test("renders Demon Match Three with its official identity and verified 2.1 development status", async () => {
+test("renders the current native Android Demon Match Three gameplay without exposing the VIP protagonists", async () => {
   const response = await render("/giochi/demon-match-three");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Demon Match Three/);
-  assert.match(html, /Horror match-3 RPG rituale/);
-  assert.match(html, /Versione di sviluppo 2\.1\.0/);
+  assert.match(html, /Match-3 RPG fantasy per Android/);
+  assert.match(html, /Android nativo 0\.1\.0-native/);
   assert.match(html, /logo-official-v2\.webp/);
-  assert.match(html, /60\/60 scenari gameplay superati/);
-  assert.match(html, /Copertura delle schermate 22\/22/);
-  assert.match(html, /Audit del bilanciamento su 100 livelli/);
-  assert.match(html, /Prezzo previsto €5,99/);
-  assert.match(html, /prezzo ordinario futuro previsto di €7,99/);
-  assert.match(html, /APK ufficiale GiWise Studio dal catalogo LoreWise/);
-  assert.match(html, /gameplay-current-menu\.webp/);
-  assert.match(html, /gameplay-current-map\.webp/);
-  assert.match(html, /gameplay-current-battle\.webp/);
-  assert.match(html, /gameplay-current-reward\.webp/);
-  assert.match(html, /gameplay-current-reliquary\.webp/);
-  assert.match(html, /gameplay-current-nightmare\.webp/);
-  assert.match(html, /gameplay-current-porter\.webp/);
-  assert.match(html, /Sette catture reali della versione desktop 2\.1\.0/);
-  assert.match(html, /senza ritagli, deformazioni o sostituzioni/);
-  assert.match(html, /APK 0\.1\.8 non rappresenta la versione attuale/);
+  assert.match(html, /gameplay-portal-backdrop-v1\.webp/);
+  assert.match(html, /gameplay-map-act-1-v1\.webp/);
+  assert.match(html, /gameplay-mission-4-brief-v1\.webp/);
+  assert.match(html, /gameplay-powerup-ready-v1\.webp/);
+  assert.match(html, /gameplay-crimson-wave-v1\.webp/);
+  assert.match(html, /gameplay-after-cascade-v1\.webp/);
+  assert.match(html, /Prepara una fusione sulla griglia/);
+  assert.match(html, /Attiva l’Onda Cremisi/);
+  assert.doesNotMatch(html, /Nora|Varek|Ordine dell’Alba|Stirpe dell’Ombra|nora-order|varek-shadow|nora-varek-duality/);
+  assert.match(html, /Demo gratuita Android in arrivo/);
+  assert.match(html, /senza ritagli/);
   assert.match(html, /Distribuzione e disponibilità/);
-  assert.match(html, /In preparazione/);
+  assert.match(html, /Gratuita · presto in arrivo/);
   assert.doesNotMatch(html, /Acquista ora|Download APK disponibile/);
+});
+
+test("uses only the gameplay backdrop and official logo for Demon Match Three on public entry pages", async () => {
+  for (const route of ["/", "/giochi", "/abbonamento"]) {
+    const response = await render(route);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /gameplay-portal-backdrop-v1\.webp/);
+    assert.match(html, /logo-official-v2\.webp/);
+    assert.doesNotMatch(html, /Nora|Varek|nora-order|varek-shadow|nora-varek-duality/);
+  }
 });
 
 test("renders the unified LoreWise account with a safe authentication state and no payments", async () => {

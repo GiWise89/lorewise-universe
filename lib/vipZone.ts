@@ -15,8 +15,8 @@ export const VIP_AREAS = [
     id: "games",
     label: "Giochi",
     description: "Anteprime, dossier e diari di sviluppo",
-    status: "2 progetti",
-    update: "Aggiornato",
+    status: "3 progetti",
+    update: "Nora e Varek",
     available: true,
   },
   {
@@ -39,15 +39,60 @@ export const VIP_AREAS = [
     id: "downloads",
     label: "Download VIP",
     description: "File digitali inclusi nel Pass",
-    status: "6 sfondi",
-    update: "Nuovo drop",
+    status: "12 sfondi",
+    update: "Cyber Nexus",
     available: true,
   },
 ] as const;
 
 export const VIP_EDITORIAL_STATUS = {
-  lastUpdated: "21 agosto 2026",
-  nextDrop: "6 sfondi disponibili",
+  lastUpdated: "26 agosto 2026",
+  nextDrop: "Demon Match 3 · Alba e Ombra",
+} as const;
+
+export const VIP_DEMON_MATCH_DROP = {
+  code: "DM3-ANDROID-REVEAL-01",
+  game: "Demon Match Three",
+  eyebrow: "Anteprima VIP · Android",
+  title: "Alba e Ombra hanno un volto.",
+  subtitle: "Nora e Varek aprono il nuovo viaggio mobile.",
+  status: "In pieno sviluppo",
+  platform: "Android · smartphone e tablet",
+  image: "demon-match-duality",
+  imageAlt: "Nora dell’Ordine dell’Alba e Varek della Stirpe dell’Ombra divisi da una frattura di cristallo",
+  introduction: "Demon Match Three rinasce come gioco Android nativo. La scelta iniziale mette il giocatore davanti a due richiami opposti: la luce disciplinata dell’Ordine dell’Alba e il potere libero della Stirpe dell’Ombra.",
+  spoilerNote: "Questa anteprima svela le identità dei protagonisti, non la verità che li ha condotti allo scontro.",
+  characters: [
+    {
+      name: "Nora",
+      faction: "Ordine dell’Alba",
+      role: "Guida dell’Alba",
+      image: "demon-match-nora",
+      imageAlt: "Nora, protagonista dell’Ordine dell’Alba",
+      text: "Nora incarna disciplina, protezione e luce. Il suo richiamo promette una strada ordinata, ma non rivela ancora quale sacrificio possa nascondersi dietro quella perfezione.",
+      tone: "dawn",
+    },
+    {
+      name: "Varek",
+      faction: "Stirpe dell’Ombra",
+      role: "Guida dell’Ombra",
+      image: "demon-match-varek",
+      imageAlt: "Varek, protagonista della Stirpe dell’Ombra",
+      text: "Varek rappresenta libertà, trasformazione e forza infernale. Mostra apertamente la propria natura, ma custodisce ancora il motivo che lo spinge a combattere.",
+      tone: "shadow",
+    },
+  ],
+  development: [
+    "Scelta della fazione e prologo distinti",
+    "Prime missioni match-3 già nella build privata",
+    "Interfaccia verticale progettata per il touch",
+    "Esperienza adattiva per smartphone e tablet",
+  ],
+  demo: {
+    label: "Prossimo varco",
+    title: "Demo gratuita Android in arrivo",
+    text: "La demo sarà aperta quando le prime missioni saranno stabili e leggibili sui dispositivi previsti. Nessuna data viene annunciata prima del collaudo.",
+  },
 } as const;
 
 export const VIP_FUORI_TRAMA_DROP = {
@@ -202,6 +247,18 @@ export const VIP_MEDIA = {
   "velisara-dossier": {
     objectKey: "vip-zone/games/the-wound-remembers/il-rogo-delle-dieci-porte/velisara-sagoma-v3.png",
     contentType: "image/png",
+  },
+  "demon-match-duality": {
+    objectKey: "vip-zone/games/demon-match-three/nora-varek-duality-v1.webp",
+    contentType: "image/webp",
+  },
+  "demon-match-nora": {
+    objectKey: "vip-zone/games/demon-match-three/nora-order-of-dawn-v1.webp",
+    contentType: "image/webp",
+  },
+  "demon-match-varek": {
+    objectKey: "vip-zone/games/demon-match-three/varek-shadow-lineage-v1.webp",
+    contentType: "image/webp",
   },
   "fuori-trama-salmo": {
     objectKey: "vip-zone/games/fuori-trama/cantanti/salmo-v1.jpg",

@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 type VipArea = "guides" | "games" | "art" | "atelier" | "downloads";
-type VipGame = "the-wound-remembers" | "fuori-trama";
+type VipGame = "the-wound-remembers" | "fuori-trama" | "demon-match-three";
 
 const vipAreas = new Set<VipArea>(["guides", "games", "art", "atelier", "downloads"]);
-const vipGames = new Set<VipGame>(["the-wound-remembers", "fuori-trama"]);
+const vipGames = new Set<VipGame>(["the-wound-remembers", "fuori-trama", "demon-match-three"]);
 
 export default async function VipZonePage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   const query = await searchParams;

@@ -4,14 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import type { NexusChronicle } from "@/lib/nexusChronicles";
-type ChroniclePanel = "signals" | "promotion" | "guides" | "benefits";
+import { isWelcomeCommissionOfferActive, WELCOME_COMMISSION_OFFER } from "@/lib/welcomeCommissionOffer";
+import { StudioWorkInProgress } from "@/components/StudioWorkInProgress";
+type ChroniclePanel = "overview" | "signals" | "studio" | "promotion" | "guides" | "benefits";
 type BenefitView = "focus" | "events";
 
 const panels: Array<{ id: ChroniclePanel; number: string; label: string }> = [
-  { id: "signals", number: "01", label: "Novità dal Nexus" },
-  { id: "promotion", number: "02", label: "Promozione" },
-  { id: "guides", number: "03", label: "Atlante dei Giochi" },
-  { id: "benefits", number: "04", label: "Vantaggi" },
+  { id: "overview", number: "01", label: "In primo piano" },
+  { id: "signals", number: "02", label: "Aggiornamenti" },
+  { id: "studio", number: "03", label: "Laboratorio" },
+  { id: "promotion", number: "04", label: "Promozioni" },
+  { id: "guides", number: "05", label: "Guide e demo" },
+  { id: "benefits", number: "06", label: "Area VIP" },
 ];
 
 function italianDate(value: string) {
@@ -19,7 +23,7 @@ function italianDate(value: string) {
 }
 
 function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index: number }) {
-  const [activePanel, setActivePanel] = useState<ChroniclePanel>("signals");
+  const [activePanel, setActivePanel] = useState<ChroniclePanel>("overview");
   const [activeGuideSection, setActiveGuideSection] = useState(chronicle.upcoming.featuredGame?.sections[0]?.id ?? "overview");
   const [activeBenefitView, setActiveBenefitView] = useState<BenefitView>("events");
   const [activeBenefitEventCode, setActiveBenefitEventCode] = useState(chronicle.benefitEvents[0]?.code ?? "");
@@ -28,18 +32,9 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
   const featuredGame = chronicle.upcoming.featuredGame;
   const selectedGuideSection = featuredGame?.sections.find((section) => section.id === activeGuideSection) ?? featuredGame?.sections[0];
   const selectedBenefitEvent = chronicle.benefitEvents.find((event) => event.code === activeBenefitEventCode) ?? chronicle.benefitEvents[0];
+  const welcomeOfferActive = isWelcomeCommissionOfferActive();
 
   return <article className={`nexus-chronicle-story is-${chronicle.category}${chronicle.featured ? " is-featured" : ""}`}>
-    <header className="nexus-chronicle-lead">
-      <div className="nexus-chronicle-visual"><span>{String(index + 1).padStart(2, "0")}</span><Image src={chronicle.image} alt={chronicle.imageAlt} width={1024} height={1024} unoptimized /></div>
-      <div className="nexus-chronicle-copy">
-        <div className="nexus-chronicle-meta"><strong>{chronicle.issue}</strong><span>{chronicle.categoryLabel}</span><time dateTime={chronicle.publishedAt}>{italianDate(chronicle.publishedAt)}</time></div>
-        <h2>{chronicle.title}</h2><p className="nexus-chronicle-excerpt">{chronicle.excerpt}</p><p>{chronicle.detail}</p>
-      </div>
-    </header>
-
-    <div className="nexus-vip-location" role="note" aria-label="Dove trovare i contenuti completi"><span>Dossier, anteprime, votazioni e download riservati</span><strong>TROVI TUTTO DENTRO L’AREA VIP</strong></div>
-
     <div className="nexus-section-switcher">
       <div className="nexus-section-switcher-heading"><span>Sfoglia la cronaca</span><strong>{String(panelIndex + 1).padStart(2, "0")} / {String(panels.length).padStart(2, "0")}</strong></div>
       <div className="nexus-section-tabs" role="tablist" aria-label="Sezioni della Cronaca">
@@ -48,21 +43,56 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
       <div className="nexus-switch-mobile-controls" aria-label="Controlli per cambiare sezione"><button type="button" onClick={() => movePanel(-1)} aria-label="Sezione precedente">←</button><span>Tocca una categoria o usa le frecce</span><button type="button" onClick={() => movePanel(1)} aria-label="Sezione successiva">→</button></div>
     </div>
 
+    <section className="nexus-chronicle-overview" role="tabpanel" id={`${chronicle.id}-overview-panel`} aria-labelledby={`${chronicle.id}-overview-tab`} hidden={activePanel !== "overview"}>
+      <header className="nexus-chronicle-lead">
+        <div className="nexus-chronicle-visual"><span>{String(index + 1).padStart(2, "0")}</span><Image src={chronicle.image} alt={chronicle.imageAlt} width={1024} height={1024} unoptimized /></div>
+        <div className="nexus-chronicle-copy">
+          <div className="nexus-chronicle-meta"><strong>{chronicle.issue}</strong><span>{chronicle.categoryLabel}</span><time dateTime={chronicle.publishedAt}>{italianDate(chronicle.publishedAt)}</time></div>
+          <h2>{chronicle.title}</h2><p className="nexus-chronicle-excerpt">{chronicle.excerpt}</p><p>{chronicle.detail}</p>
+        </div>
+      </header>
+      <footer className="nexus-chronicle-conclusion"><div><span>Una promessa chiara</span><h3>Il pubblico non perde nulla.</h3><p>{chronicle.transparency}</p></div><Link href={chronicle.href}>{chronicle.action}<span aria-hidden="true">→</span></Link></footer>
+      <div className="nexus-vip-location" role="note" aria-label="Dove trovare i contenuti completi"><span>Dossier, anteprime, votazioni e download riservati</span><strong>TROVI TUTTO DENTRO L’AREA VIP</strong><Link href="/abbonamento">Abbonati all’Area VIP <span aria-hidden="true">→</span></Link>{chronicle.id === "demon-match-android-development" ? <small>Demo gratuita Android in arrivo</small> : null}</div>
+    </section>
+
     <section className="nexus-chronicle-transmissions" role="tabpanel" id={`${chronicle.id}-signals-panel`} aria-labelledby={`${chronicle.id}-signals-tab`} hidden={activePanel !== "signals"}>
-      <div className="nexus-chronicle-section-heading"><span>01 · Segnali dal Nexus</span><h3>Novità dal Nexus.</h3></div>
+      <div className="nexus-chronicle-section-heading"><span>02 · Segnali dal Nexus</span><h3>Aggiornamenti.</h3></div>
       <div className="nexus-signal-grid">{chronicle.signals.map((signal) => <article className="nexus-signal" key={signal.title}><div className="nexus-signal-image"><Image src={signal.image} alt={signal.imageAlt} width={1200} height={900} unoptimized /></div><div className="nexus-signal-copy"><span>{signal.label}</span><h4>{signal.title}</h4><p>{signal.text}</p><small>{signal.note}</small><Link className="nexus-signal-link" href={signal.href}>{signal.action}<span aria-hidden="true">→</span></Link></div></article>)}</div>
     </section>
 
+    <section className="nexus-chronicle-studio" role="tabpanel" id={`${chronicle.id}-studio-panel`} aria-labelledby={`${chronicle.id}-studio-tab`} hidden={activePanel !== "studio"}>
+      <StudioWorkInProgress />
+    </section>
+
     <section className={`nexus-chronicle-promotion is-${chronicle.promotion.theme}`} role="tabpanel" id={`${chronicle.id}-promotion-panel`} aria-labelledby={`${chronicle.id}-promotion-tab`} hidden={activePanel !== "promotion"}>
-      <div className="nexus-promotion-heading"><span>02 · {chronicle.promotion.label}</span><h3>{chronicle.promotion.title}</h3><strong>{chronicle.promotion.period}</strong><p>{chronicle.promotion.description}</p></div>
+      <div className="nexus-promotion-heading"><span>04 · {chronicle.promotion.label}</span><h3>{chronicle.promotion.title}</h3><strong>{chronicle.promotion.period}</strong><p>{chronicle.promotion.description}</p></div>
       <figure className="nexus-promotion-visual"><Image src={chronicle.promotion.visual} alt={chronicle.promotion.visualAlt} width={1600} height={1000} unoptimized /><figcaption>{chronicle.promotion.label} · {chronicle.promotion.period}</figcaption></figure>
       <div className="nexus-promotion-rates" aria-label="Sconti della promozione">{chronicle.promotion.rates.map((rate) => <div key={rate.audience}><span>{rate.audience}</span><strong>{rate.discount}</strong></div>)}</div>
       <ul className="nexus-promotion-terms">{chronicle.promotion.terms.map((term) => <li key={term}>{term}</li>)}</ul>
       <Link href={chronicle.promotion.href}>{chronicle.promotion.action}<span aria-hidden="true">→</span></Link>
+      {welcomeOfferActive ? <section className="nexus-welcome-offer" aria-labelledby={`${chronicle.id}-welcome-offer-title`}>
+        <div className="nexus-welcome-offer-seal"><Image src="/brand/lorewise-wax-seal-v1.webp" alt="Sigillo LoreWise Universe" width={1536} height={1536} unoptimized /><span>−5 €</span></div>
+        <div className="nexus-welcome-offer-copy">
+          <span>Bonus LoreWise ID · In vigore</span>
+          <h4 id={`${chronicle.id}-welcome-offer-title`}>{WELCOME_COMMISSION_OFFER.title}</h4>
+          <p>Un vantaggio dedicato al primo progetto commissionato, disponibile sia per chi crea ora il proprio LoreWise ID sia per chi è già iscritto.</p>
+          <dl>
+            <div><dt>Nuovi iscritti</dt><dd>Conferma entro il 30 settembre</dd></div>
+            <div><dt>Account già confermati</dt><dd>Bonus valido fino al 30 ottobre</dd></div>
+            <div><dt>Applicazione</dt><dd>Automatica sul preventivo</dd></div>
+          </dl>
+          <ul>
+            <li>Riservato alla prima commissione collegata al LoreWise ID.</li>
+            <li>Per i nuovi iscritti dura 30 giorni dalla conferma dell’account.</li>
+            <li>Non si somma ad altri sconti: viene applicato il vantaggio più conveniente.</li>
+          </ul>
+          <Link href={WELCOME_COMMISSION_OFFER.href}>{WELCOME_COMMISSION_OFFER.action}<span aria-hidden="true">→</span></Link>
+        </div>
+      </section> : null}
     </section>
 
     <section className="nexus-chronicle-upcoming" role="tabpanel" id={`${chronicle.id}-guides-panel`} aria-labelledby={`${chronicle.id}-guides-tab`} hidden={activePanel !== "guides"}>
-      <div className="nexus-guide-intro"><span>03 · {chronicle.upcoming.label}</span><h3>{chronicle.upcoming.title}</h3><strong>{chronicle.upcoming.status}</strong><p>{chronicle.upcoming.description}</p><ul>{chronicle.upcoming.features.map((feature) => <li key={feature}>{feature}</li>)}</ul></div>
+      <div className="nexus-guide-intro"><span>05 · {chronicle.upcoming.label}</span><h3>{chronicle.upcoming.title}</h3><strong>{chronicle.upcoming.status}</strong><p>{chronicle.upcoming.description}</p><ul>{chronicle.upcoming.features.map((feature) => <li key={feature}>{feature}</li>)}</ul></div>
       {featuredGame && selectedGuideSection ? <div className="nexus-atlas-game">
         <header className="nexus-atlas-game-hero">
           <div className="nexus-atlas-game-image"><Image src={featuredGame.cover} alt={featuredGame.coverAlt} width={1920} height={1080} unoptimized /></div>
@@ -96,7 +126,7 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
 
     <section className="nexus-chronicle-benefits" role="tabpanel" id={`${chronicle.id}-benefits-panel`} aria-labelledby={`${chronicle.id}-benefits-tab`} hidden={activePanel !== "benefits"}>
       <div className="nexus-benefit-storyboard">
-        <div className="nexus-chronicle-section-heading"><span>04 · Registro premium permanente</span><h3>Tutto quello che si muove nel Pass.</h3><p>Il focus cambia con ogni Cronaca, ma questo registro conserva sempre tutti gli eventi, i vantaggi, le frequenze e gli stati realmente dichiarati.</p></div>
+        <div className="nexus-chronicle-section-heading"><span>06 · Registro premium permanente</span><h3>Tutto quello che si muove nel Pass.</h3><p>Il focus cambia con ogni Cronaca, ma questo registro conserva sempre tutti gli eventi, i vantaggi, le frequenze e gli stati realmente dichiarati.</p></div>
         <figure className="nexus-benefit-sketch">
           <Image src="/universe-pass/benefits-sketch-constellation-v1.webp" alt="Taccuino illustrato dei vantaggi LoreWise: arte, giochi, commissioni, Codex e Community" width={1536} height={1024} />
           <figcaption>Appunti dal Nexus · ogni orbita conduce a un vantaggio reale</figcaption>
@@ -129,7 +159,6 @@ function ChronicleStory({ chronicle, index }: { chronicle: NexusChronicle; index
       </div> : null}
     </section>
 
-    <footer className="nexus-chronicle-conclusion"><div><span>Una promessa chiara</span><h3>Il pubblico non perde nulla.</h3><p>{chronicle.transparency}</p></div><Link href={chronicle.href}>{chronicle.action}<span aria-hidden="true">→</span></Link></footer>
   </article>;
 }
 

@@ -40,6 +40,10 @@ export const commissionRequests = sqliteTable("commission_requests", {
   membershipPlanCode: text("membership_plan_code"),
   membershipDiscountPercent: integer("membership_discount_percent").notNull().default(0),
   benefitSnapshotAt: text("benefit_snapshot_at"),
+  pricingDiscountCode: text("pricing_discount_code"),
+  pricingDiscountLabel: text("pricing_discount_label"),
+  pricingDiscountKind: text("pricing_discount_kind"),
+  pricingDiscountValue: integer("pricing_discount_value"),
   adminNotes: text("admin_notes"),
   launchSlotReserved: integer("launch_slot_reserved", { mode: "boolean" }).notNull().default(false),
   clientResponse: text("client_response"),
@@ -90,6 +94,26 @@ export const customers = sqliteTable("customers", {
 }, (table) => [
   index("customers_email_idx").on(table.email),
   index("customers_status_idx").on(table.status),
+]);
+
+export const commissionOfferEntitlements = sqliteTable("commission_offer_entitlements", {
+  id: text("id").primaryKey(),
+  customerId: text("customer_id").notNull().references(() => customers.id, { onDelete: "cascade" }),
+  offerCode: text("offer_code").notNull(),
+  discountCents: integer("discount_cents").notNull(),
+  registeredAt: text("registered_at").notNull(),
+  confirmedAt: text("confirmed_at").notNull(),
+  expiresAt: text("expires_at").notNull(),
+  status: text("status").notNull().default("eligible"),
+  claimedRequestId: text("claimed_request_id").references(() => commissionRequests.id, { onDelete: "set null" }).unique(),
+  claimedAt: text("claimed_at"),
+  redeemedAt: text("redeemed_at"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, (table) => [
+  uniqueIndex("commission_offer_entitlements_customer_offer_unique").on(table.customerId, table.offerCode),
+  index("commission_offer_entitlements_customer_idx").on(table.customerId, table.status),
+  index("commission_offer_entitlements_expiry_idx").on(table.expiresAt, table.status),
 ]);
 
 export const accountDeletionRequests = sqliteTable("account_deletion_requests", {
@@ -317,6 +341,55 @@ export const transactionalEmails = sqliteTable("transactional_emails", {
 }, (table) => [
   index("transactional_emails_status_idx").on(table.status, table.createdAt),
   index("transactional_emails_customer_idx").on(table.customerId, table.createdAt),
+]);
+
+export const marketingConsentEvents = sqliteTable("marketing_consent_events", {
+  id: text("id").primaryKey(),
+  eventKey: text("event_key").unique(),
+  customerId: text("customer_id").notNull().references(() => customers.id, { onDelete: "cascade" }),
+  channel: text("channel").notNull(),
+  action: text("action").notNull(),
+  source: text("source").notNull(),
+  policyVersion: text("policy_version").notNull(),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, (table) => [
+  index("marketing_consent_customer_idx").on(table.customerId, table.channel, table.createdAt),
+]);
+
+export const marketingCampaigns = sqliteTable("marketing_campaigns", {
+  id: text("id").primaryKey(),
+  code: text("code").notNull().unique(),
+  audience: text("audience").notNull().default("studio_updates"),
+  subject: text("subject").notNull(),
+  heading: text("heading").notNull(),
+  body: text("body").notNull(),
+  actionLabel: text("action_label"),
+  actionUrl: text("action_url"),
+  status: text("status").notNull().default("draft"),
+  createdBy: text("created_by").references(() => customers.id, { onDelete: "set null" }),
+  recipientCount: integer("recipient_count").notNull().default(0),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  queuedAt: text("queued_at"),
+  sentAt: text("sent_at"),
+}, (table) => [index("marketing_campaigns_status_idx").on(table.status, table.createdAt)]);
+
+export const marketingDeliveries = sqliteTable("marketing_deliveries", {
+  id: text("id").primaryKey(),
+  campaignId: text("campaign_id").notNull().references(() => marketingCampaigns.id, { onDelete: "cascade" }),
+  customerId: text("customer_id").references(() => customers.id, { onDelete: "set null" }),
+  recipientEmail: text("recipient_email").notNull(),
+  unsubscribeToken: text("unsubscribe_token").notNull().unique(),
+  status: text("status").notNull().default("queued"),
+  providerMessageId: text("provider_message_id"),
+  attempts: integer("attempts").notNull().default(0),
+  lastError: text("last_error"),
+  sentAt: text("sent_at"),
+  createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, (table) => [
+  uniqueIndex("marketing_delivery_recipient_unique").on(table.campaignId, table.customerId),
+  index("marketing_deliveries_status_idx").on(table.status, table.createdAt),
 ]);
 
 export const artworkLikes = sqliteTable("artwork_likes", {

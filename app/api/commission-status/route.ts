@@ -21,6 +21,10 @@ type RequestRow = {
   membership_plan_code: string | null;
   membership_discount_percent: number;
   benefit_snapshot_at: string | null;
+  pricing_discount_code: string | null;
+  pricing_discount_label: string | null;
+  pricing_discount_kind: string | null;
+  pricing_discount_value: number | null;
   client_response: string | null;
   client_message: string | null;
   client_responded_at: string | null;
@@ -96,6 +100,10 @@ function publicRequest(row: RequestRow) {
     membershipPlanCode: row.membership_plan_code,
     membershipDiscountPercent: row.membership_discount_percent ?? 0,
     benefitSnapshotAt: row.benefit_snapshot_at,
+    pricingDiscountCode: row.pricing_discount_code,
+    pricingDiscountLabel: row.pricing_discount_label,
+    pricingDiscountKind: row.pricing_discount_kind,
+    pricingDiscountValue: row.pricing_discount_value,
     clientResponse: row.client_response,
     clientMessage: row.client_message,
     clientRespondedAt: row.client_responded_at,
@@ -131,7 +139,7 @@ export async function POST(request: Request) {
   await ensureCommissionBenefitColumns(runtime.DB);
   let row = await runtime.DB.prepare(`SELECT id, reference_code, name, category, package_name, intended_use,
     ideal_deadline, status, quote_base_cents, quote_discount_cents, quote_cents, deposit_cents,
-    membership_plan_code, membership_discount_percent, benefit_snapshot_at,
+    membership_plan_code, membership_discount_percent, benefit_snapshot_at, pricing_discount_code, pricing_discount_label, pricing_discount_kind, pricing_discount_value,
     client_response, client_message, client_responded_at, quote_terms_accepted_at, quote_terms_version, created_at, updated_at
     FROM commission_requests WHERE reference_code = ? AND lower(email) = ?`)
     .bind(referenceCode, email).first<RequestRow>();
@@ -162,7 +170,7 @@ export async function POST(request: Request) {
   if (action !== "lookup") {
     row = await runtime.DB.prepare(`SELECT id, reference_code, name, category, package_name, intended_use,
       ideal_deadline, status, quote_base_cents, quote_discount_cents, quote_cents, deposit_cents,
-      membership_plan_code, membership_discount_percent, benefit_snapshot_at,
+      membership_plan_code, membership_discount_percent, benefit_snapshot_at, pricing_discount_code, pricing_discount_label, pricing_discount_kind, pricing_discount_value,
       client_response, client_message, client_responded_at, quote_terms_accepted_at, quote_terms_version, created_at, updated_at
       FROM commission_requests WHERE id = ?`).bind(row.id).first<RequestRow>();
   }

@@ -2,7 +2,9 @@ import { env } from "@/lib/netlifyRuntime";
 
 import { ensureArtCommunityTables } from "@/lib/artCommunityServer";
 import { automaticArtworkDeliveryReady, getAutomaticArtworkDelivery } from "@/lib/automaticArtworkDelivery";
+import { catalogArtworks } from "@/lib/artCatalog";
 import { ensureCommerceTables } from "@/lib/commerceServer";
+import { getHorrorArtworkBundle } from "@/lib/horrorArtworkBundles";
 import { localAccountProfile, netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
@@ -21,11 +23,16 @@ type EntitlementRow = {
   resource_type: string; resource_code: string; status: string; download_limit: number | null;
   download_count: number; expires_at: string | null; created_at: string; title: string | null;
   delivery_status: string | null; delivery_filename: string | null; delivery_version: string | null; order_status: string | null;
+  order_product_code: string | null; order_reference_code: string | null;
 };
 type CommissionRow = {
   reference_code: string; category: string; package_name: string; status: string; quote_base_cents: number | null;
   quote_discount_cents: number | null; quote_cents: number | null; membership_plan_code: string | null;
   membership_discount_percent: number;
+  pricing_discount_code: string | null;
+  pricing_discount_label: string | null;
+  pricing_discount_kind: string | null;
+  pricing_discount_value: number | null;
   created_at: string; updated_at: string;
 };
 
@@ -96,7 +103,8 @@ export async function GET() {
         entitlements.created_at, order_items.title,
         COALESCE(artwork_delivery_files.status, game_delivery_files.status, manual_deliveries.status) AS delivery_status,
         COALESCE(artwork_delivery_files.filename, game_delivery_files.filename) AS delivery_filename,
-        game_delivery_files.version AS delivery_version, orders.status AS order_status
+        game_delivery_files.version AS delivery_version, orders.status AS order_status,
+        order_items.product_code AS order_product_code, orders.reference_code AS order_reference_code
         FROM entitlements LEFT JOIN order_items ON order_items.id = entitlements.order_item_id
         LEFT JOIN orders ON orders.id = order_items.order_id
         LEFT JOIN manual_deliveries ON manual_deliveries.order_id = orders.id
@@ -114,7 +122,8 @@ export async function GET() {
         WHERE subscriptions.customer_id = ? ORDER BY subscription_invoices.created_at DESC LIMIT 24`)
         .bind(user.id).all<{ stripe_invoice_id: string; amount_paid_cents: number; currency: string; status: string; period_start: string | null; period_end: string | null; paid_at: string | null }>(),
       database.prepare(`SELECT reference_code, category, package_name, status, quote_base_cents,
-        quote_discount_cents, quote_cents, membership_plan_code, membership_discount_percent, created_at, updated_at
+        quote_discount_cents, quote_cents, membership_plan_code, membership_discount_percent,
+        pricing_discount_code, pricing_discount_label, pricing_discount_kind, pricing_discount_value, created_at, updated_at
         FROM commission_requests WHERE customer_id = ? OR (customer_id IS NULL AND LOWER(email) = LOWER(?))
         ORDER BY created_at DESC LIMIT 12`)
         .bind(user.id, customer.email).all<CommissionRow>(),
@@ -137,12 +146,16 @@ export async function GET() {
         : false;
       const automaticDelivery = automatic ? getAutomaticArtworkDelivery(item.resource_code) : null;
       const deliveryStatus = automatic ? "approved" : item.delivery_status;
+      const collection = item.order_product_code ? getHorrorArtworkBundle(item.order_product_code) : null;
+      const artwork = isArtwork ? catalogArtworks.find((entry) => entry.code === item.resource_code) : null;
       return {
-        resourceType: item.resource_type, resourceCode: item.resource_code, title: item.title || item.resource_code,
+        resourceType: item.resource_type, resourceCode: item.resource_code, title: artwork?.title || item.title || item.resource_code,
         status: item.status, downloadLimit: item.download_limit, downloadCount: Number(item.download_count),
         expiresAt: item.expires_at, createdAt: item.created_at,
         deliveryStatus, deliveryFilename: automaticDelivery?.filename ?? item.delivery_filename,
         deliveryVersion: item.delivery_version,
+        orderProductCode: item.order_product_code, orderReferenceCode: item.order_reference_code,
+        collectionCode: collection?.code ?? null, collectionTitle: collection?.title ?? null,
         certificateAvailable: isArtwork && /^LW-ART-\d{3}$/.test(item.resource_code) && item.order_status === "paid" && deliveryStatus === "approved",
       };
     }));
@@ -179,6 +192,8 @@ export async function GET() {
         status: commission.status, quoteBaseCents: commission.quote_base_cents ?? commission.quote_cents,
         quoteDiscountCents: commission.quote_discount_cents ?? 0, quoteCents: commission.quote_cents,
         membershipPlanCode: commission.membership_plan_code, membershipDiscountPercent: commission.membership_discount_percent ?? 0,
+        pricingDiscountCode: commission.pricing_discount_code, pricingDiscountLabel: commission.pricing_discount_label,
+        pricingDiscountKind: commission.pricing_discount_kind, pricingDiscountValue: commission.pricing_discount_value,
         createdAt: commission.created_at, updatedAt: commission.updated_at,
       })),
       supportTickets: supportTickets.results.map((ticket) => ({ referenceCode: ticket.reference_code, category: ticket.category, subject: ticket.subject, status: ticket.status, priority: ticket.priority, adminNotes: ticket.admin_notes, createdAt: ticket.created_at, updatedAt: ticket.updated_at })),

@@ -53,6 +53,23 @@ export type GameNarrativeFeature = {
   closingLine?: string;
 };
 
+export type GameProtagonistReveal = {
+  eyebrow: string;
+  title: string;
+  introduction: string;
+  image: string;
+  imageAlt: string;
+  characters: Array<{
+    name: string;
+    faction: string;
+    calling: string;
+    image: string;
+    imageAlt: string;
+    tone: "dawn" | "shadow";
+  }>;
+  closing: string;
+};
+
 export type GameFreeAccess = {
   availability: string;
   description: string;
@@ -92,6 +109,7 @@ export type GameProjectRecord = {
   releaseArchive?: GameReleaseUpdate[];
   developmentRoadmap?: GameDevelopmentItem[];
   narrativeFeature?: GameNarrativeFeature;
+  protagonistReveal?: GameProtagonistReveal;
   freeAccess?: GameFreeAccess;
   passBenefits?: string[];
   publicUrl?: string;
@@ -297,131 +315,116 @@ export const gameProjects: GameProjectRecord[] = [
     slug: "demon-match-three",
     code: "GS-GAME-003",
     title: "Demon Match Three",
-    subtitle: "Horror match-3 RPG rituale",
+    subtitle: "Match-3 RPG fantasy per Android",
     studio: "GiWise Studio",
     status: "In sviluppo",
     statusTone: "development",
-    kind: "Match-3 horror · RPG strategico",
-    version: "Versione di sviluppo 2.1.0",
+    kind: "Match-3 fantasy · RPG strategico mobile",
+    version: "Android nativo 0.1.0-native",
     languages: ["Italiano · interfaccia e contenuti"],
-    platforms: ["Browser · sviluppo locale", "Windows · edizione pianificata", "Android · nuova build da verificare"],
-    access: "Build privata · profilo locale disponibile",
-    price: "Prezzo previsto €5,99 · futuro €7,99",
-    heroImage: "/games/demon-match-three/hero-ritual-chapel-v1.jpg",
-    heroAlt: "Cappella rituale oscura attraversata da luce rossa e ciano nel mondo di Demon Match Three",
-    catalogCoverImage: "/games/demon-match-three/hero-ritual-chapel-v1.jpg",
-    catalogCoverAlt: "Cappella gotica dell’Ospite Senza Volto, ambientazione di Demon Match Three",
+    platforms: ["Android · smartphone e tablet"],
+    access: "Sviluppo privato · demo gratuita in arrivo",
+    price: "Demo gratuita Android in arrivo",
+    heroImage: "/games/demon-match-three/gameplay-portal-backdrop-v1.webp",
+    heroAlt: "Portale fantasy tra energia celeste e infernale sopra una griglia di gemme match-3",
+    mobileHeroImage: "/games/demon-match-three/gameplay-portal-backdrop-v1.webp",
+    catalogCoverImage: "/games/demon-match-three/gameplay-portal-backdrop-v1.webp",
+    catalogCoverAlt: "Scenario di gameplay di Demon Match Three con portale, cristalli e griglia di gemme",
     logoImage: "/games/demon-match-three/logo-official-v2.webp",
-    summary: "Un match-3 horror nel quale ogni combinazione alimenta combattimento, rituali, corruzione, sanità mentale e progressione persistente attraverso venti Atti.",
+    summary: "Un match-3 RPG mobile in cui combinazioni, fusioni e cascate alimentano combattimento, poteri e progressione attraverso una campagna fantasy per Android.",
     description: [
-      "Demon Match Three unisce il nucleo immediato del match-3 a un combattimento RPG nel quale Vita, Energia, Barriera, Difesa e Sanità mentale cambiano a ogni turno.",
-      "Row, Column, Bomb e Void possono fondersi in entrambi gli ordini, innescare reazioni a catena e alimentare obiettivi rituali. Gli avversari dichiarano il prossimo intento mentre Corruzione, Sigilli e Terrore modificano la griglia.",
-      "La versione 2.1.0 amplia il percorso con Leggi degli Atti, boss in tre fasi, Cicatrici narrative, Maestria, Memorie laterali, sfida giornaliera, Discesa, Archivio, Emporio e Camera degli Incubi.",
+      "Demon Match Three viene ricostruito come esperienza Android nativa, pensata fin dall’inizio per smartphone e tablet. La griglia resta il cuore del gioco, con controlli touch, fusioni, cascate e combattimenti leggibili sullo schermo verticale.",
+      "Il viaggio nasce da una frattura tra due forze opposte. Il giocatore sceglie un richiamo e attraversa un prologo dedicato, ma identità, motivazioni e svolte narrative restano protette nell’anteprima riservata dell’Area VIP.",
+      "La campagna, la progressione e le modalità del progetto precedente vengono reinterpretate nella nuova applicazione mobile senza riutilizzare il vecchio runtime web. Una demo gratuita per Android è in preparazione.",
     ],
     features: [
-      "Match-3 con cascate, rimescolamento e mosse valide garantite",
-      "Power-up Row, Column, Bomb e Void con matrice completa delle fusioni",
-      "Combattimento con Vita, Energia, Barriera, Sanità, Terrore e intenti nemici",
-      "Venti Atti con Leggi, boss, Memorie laterali e Maestria per stanza",
-      "Tre rituali alternativi in un unico slot attivo",
-      "Cicatrici narrative persistenti con beneficio e peso",
-      "Sfida giornaliera UTC e modalità progressiva La Discesa",
-      "Archivio, Emporio, equipaggiamento, missioni e progressione persistente",
-      "Simboli aggiuntivi, contrasto elevato e feedback aptico configurabile",
+      "Applicazione Android nativa per telefono e tablet",
+      "Scelta iniziale tra due forze contrapposte",
+      "Prologo distinto in base al percorso selezionato",
+      "Match-3 con fusioni, cascate, hint e rimescolamento",
+      "Combattimento RPG con obiettivi, poteri e ricompense",
+      "Campagna progettata su cento missioni e scontri con boss",
+      "Progressione e salvataggio separati per Demon Match Three",
+      "Interfaccia verticale con controlli touch adatti al mobile",
     ],
     playFlow: [
       {
         number: "01",
-        title: "Entra nella Casa",
-        description: "Dal menu principale scegli il percorso: la campagna dei venti Atti, il Reliquiario, la Camera degli Incubi, l’Archivio o il profilo del Portatore. Il gioco può iniziare subito con un profilo locale, senza obbligo di email.",
-        image: "/games/demon-match-three/gameplay-current-menu.webp",
-        imageAlt: "Menu principale desktop di Demon Match Three con logo, ingresso nella Casa e sezioni Mappa, Reliquiario, Incubi, Archivio, Emporio e Portatore",
+        title: "Scegli la prossima missione",
+        description: "La mappa dell’Atto I organizza il viaggio in tappe leggibili: ogni nodo apre una nuova sfida e rende chiaro l’avanzamento della campagna senza anticiparne gli eventi.",
+        image: "/games/demon-match-three/gameplay-map-act-1-v1.webp",
+        imageAlt: "Schermata mobile della mappa dell’Atto I con i nodi delle missioni",
       },
       {
         number: "02",
-        title: "Attraversa venti Atti",
-        description: "La mappa della Casa organizza stanze rituali, Memorie laterali e Presenze maggiori. Ogni Atto introduce una Legge che modifica il modo di affrontare gli obiettivi.",
-        image: "/games/demon-match-three/gameplay-current-map.webp",
-        imageAlt: "Mappa desktop della campagna di Demon Match Three con i venti Atti della Ferita, stanze rituali e percorso verso Baphomet",
+        title: "Studia obiettivo, mosse e ricompense",
+        description: "Prima di entrare nella griglia, il briefing dichiara la condizione da completare, il numero di mosse disponibili e ciò che la missione può assegnare. Così ogni partita parte da una scelta consapevole.",
+        image: "/games/demon-match-three/gameplay-mission-4-brief-v1.webp",
+        imageAlt: "Briefing mobile della Missione 4 Altare Cremisi con obiettivo, mosse e ricompense",
       },
       {
         number: "03",
-        title: "Combatti sulla griglia rituale",
-        description: "Forma combinazioni, genera cascate e usa i Boost mentre controlli Vita, Sanità, Energia, Barriera, mosse e obiettivi. La stanza e il nemico trasformano continuamente le regole della griglia.",
-        image: "/games/demon-match-three/gameplay-current-battle.webp",
-        imageAlt: "Battaglia match-3 desktop di Demon Match Three con griglia rituale, obiettivi, risorse del Portatore e pannello dei Boost",
+        title: "Prepara una fusione sulla griglia",
+        description: "Scambia tessere adiacenti per creare combinazioni di almeno tre simboli. Allineamenti più forti generano potenziamenti riconoscibili che possono essere avvicinati e preparati per una fusione.",
+        image: "/games/demon-match-three/gameplay-powerup-ready-v1.webp",
+        imageAlt: "Griglia match-3 mobile con due potenziamenti pronti per essere fusi",
       },
       {
         number: "04",
-        title: "Conserva il lascito",
-        description: "Alla fine della stanza il risultato diventa progressione: esperienza, Frammenti e Memorie vengono incisi nel profilo e il cammino può continuare senza perdere ciò che è stato conquistato.",
-        image: "/games/demon-match-three/gameplay-current-reward.webp",
-        imageAlt: "Schermata di vittoria di Demon Match Three con ricordo preservato, ricompense e pulsante per continuare la campagna",
+        title: "Attiva l’Onda Cremisi",
+        description: "La fusione combina gli effetti dei potenziamenti e attraversa la plancia con un’unica azione spettacolare. Il risultato serve a liberare spazio, colpire più bersagli e accelerare l’obiettivo.",
+        image: "/games/demon-match-three/gameplay-crimson-wave-v1.webp",
+        imageAlt: "Schermata di gameplay mobile durante l’attivazione della fusione Onda Cremisi",
       },
       {
         number: "05",
-        title: "Incidi le Reliquie",
-        description: "Nel Reliquiario i Frammenti diventano modificatori permanenti. Reliquie, rami di abilità, arsenale e consumabili costruiscono una strategia che resta oltre la singola stanza.",
-        image: "/games/demon-match-three/gameplay-current-reliquary.webp",
-        imageAlt: "Reliquiario desktop di Demon Match Three con reliquie permanenti, costi in Frammenti e sezioni Abilità, Arsenale e Boost",
-      },
-      {
-        number: "06",
-        title: "Affronta gli Incubi",
-        description: "La Camera degli Incubi apre due percorsi distinti: una Stanza del Giorno condivisa e La Discesa persistente, dove difficoltà e Custodi aumentano con la profondità.",
-        image: "/games/demon-match-three/gameplay-current-nightmare.webp",
-        imageAlt: "Camera degli Incubi di Demon Match Three con scelta tra Stanza del Giorno e modalità persistente La Discesa",
-      },
-      {
-        number: "07",
-        title: "Costruisci il Portatore",
-        description: "Il Portatore raccoglie il segno delle stanze attraversate: aspetto, Sigillo, esperienza e lasciti compongono un’identità persistente legata alla campagna.",
-        image: "/games/demon-match-three/gameplay-current-porter.webp",
-        imageAlt: "Figura completa del Portatore di Demon Match Three davanti a un trono gotico con Sigillo Corrotto, esperienza e lasciti",
+        title: "Leggi la cascata e continua",
+        description: "Dopo l’effetto speciale, nuove tessere riempiono la griglia e possono innescare combinazioni successive. Leggere la nuova disposizione permette di pianificare la mossa seguente senza sprecare il limite disponibile.",
+        image: "/games/demon-match-three/gameplay-after-cascade-v1.webp",
+        imageAlt: "Griglia match-3 mobile ricomposta dopo una cascata di combinazioni",
       },
     ],
     narrativeFeature: {
-      eyebrow: "La Casa osserva",
-      title: "Ogni combinazione è un rituale. Ogni vittoria lascia una cicatrice.",
+      eyebrow: "Atmosfera e sistema",
+      title: "Due energie dividono il mondo. La griglia decide il tuo avanzamento.",
       description: [
-        "La griglia non è un rompicapo separato dal combattimento: ogni tessera rimossa modifica risorse, difese, condizioni e obiettivi della stanza.",
-        "Le scelte persistono oltre lo scontro. Cicatrici, rituali e Maestria costruiscono il profilo del Portatore attraverso la Casa.",
+        "La componente narrativa e il match-3 fanno parte dello stesso viaggio mobile: il percorso selezionato modifica atmosfera e introduzione, mentre obiettivi e poteri trasformano ogni missione.",
+        "Il dossier pubblico racconta regole, ritmo e sviluppo Android. Volti, nomi e motivazioni dei protagonisti restano custoditi nell’Area VIP.",
       ],
-      image: "/games/demon-match-three/faceless-guest-banner-v1.jpg",
-      imageAlt: "L’Ospite Senza Volto emerge in una camera rossa e ciano di Demon Match Three",
-      closingLine: "La Casa ricorda ogni tessera che hai mosso.",
+      image: "/games/demon-match-three/gameplay-map-act-1-v1.webp",
+      imageAlt: "Mappa mobile della campagna di Demon Match Three mostrata senza spoiler sui protagonisti",
+      closingLine: "Combina. Potenzia. Attraversa il portale.",
     },
     latestUpdate: {
-      version: "2.1.0",
+      version: "0.1.0-native",
       languages: ["Italiano"],
-      date: "17 agosto 2026",
-      title: "La Casa diventa un sistema persistente",
-      summary: "La versione locale corrente conserva il nucleo match-3 e introduce nuovi livelli di progressione, modalità e superfici di gioco senza sostituire le regole verificate.",
-      highlights: ["60/60 scenari gameplay superati", "Copertura delle schermate 22/22", "Audit del bilanciamento su 100 livelli", "Archivio, Emporio e Camera degli Incubi ridisegnati come scene di gioco"],
+      date: "26 agosto 2026",
+      title: "La nuova esperienza Android entra nella prima fase giocabile",
+      summary: "Il progetto attuale è una ricostruzione Android nativa per smartphone e tablet. Scelta iniziale, prologhi e prime missioni match-3 sono già presenti nella build privata di sviluppo.",
+      highlights: ["Prime missioni match-3 integrate", "Due percorsi introduttivi selezionabili", "Interfaccia verticale ottimizzata per il touch", "Prima build Android di sviluppo generata"],
     },
     releaseArchive: [],
     developmentRoadmap: [
-      { title: "Verifica visiva desktop della 2.1.0", status: "Documentata", description: "Sette catture reali della versione corrente mostrano menu, campagna, combattimento, progressione, Reliquiario, Incubi e Portatore nel loro rapporto originale." },
-      { title: "Build Android 2.1.0", status: "Da ricompilare", description: "La precedente APK 0.1.8 non rappresenta la versione attuale; la toolchain dovrà usare un JDK compatibile senza reinstallare Android Studio o SDK." },
-      { title: "Account e servizi cloud", status: "Facoltativi · da collaudare", description: "Il profilo locale consente di giocare senza email; registrazione, recupero e sincronizzazione cloud richiedono ancora verifica nell’ambiente di distribuzione." },
-      { title: "Distribuzione LoreWise", status: "Canale approvato · non attivo", description: "EXE e APK saranno pubblicati nel catalogo LoreWise soltanto dopo verifica di firma, integrità, installazione e aggiornamenti. Gli store esterni verranno valutati dopo il collaudo pubblico del gioco completo." },
+      { title: "Esperienza Android nativa", status: "In sviluppo attivo", description: "Interfaccia verticale, controlli touch e adattamento tra smartphone e tablet stanno costruendo la nuova identità mobile del gioco." },
+      { title: "Campagna e percorsi narrativi", status: "Prime missioni presenti", description: "Scelta iniziale, prologhi e primi scontri sono giocabili nella build privata; il resto del viaggio continuerà a crescere senza anticipazioni narrative." },
+      { title: "Demo gratuita Android", status: "In preparazione", description: "La demo sarà resa disponibile quando stabilità, leggibilità e installazione saranno state verificate sui dispositivi previsti." },
+      { title: "Progressi LoreWise ID", status: "In collaudo", description: "Il gioco conserva progressi propri e prepara la continuità con il LoreWise ID senza mescolarli con gli altri titoli." },
     ],
     androidOffer: {
-      edition: "Edizione Android",
-      availability: "In preparazione",
-      description: "La base Capacitor è presente, ma la versione Android 2.1.0 non è ancora stata compilata e provata su un dispositivo fisico. L’APK ufficiale sarà distribuito direttamente dal catalogo LoreWise.",
-      requirements: ["APK ufficiale GiWise Studio dal catalogo LoreWise", "Android 7.0 o successivo previsto", "Profilo locale o account cloud facoltativo", "Telemetria tecnica attiva", "Dimensione e firma da verificare sulla nuova build"],
+      edition: "Demo Android",
+      availability: "Gratuita · presto in arrivo",
+      description: "Una prima build Android nativa è già in sviluppo. La demo pubblica arriverà dopo il collaudo su smartphone e tablet e sarà accompagnata da versione e requisiti chiari.",
+      requirements: ["Android 7.0 o successivo previsto", "Interfaccia verticale per smartphone e tablet", "Controlli touch e immagini sempre proporzionate", "Download pubblico non ancora disponibile"],
     },
-    releasePlan: "Completare il collaudo account e cloud, preparare le edizioni EXE e APK, verificarle su sistemi e dispositivi reali e pubblicarle inizialmente soltanto nel catalogo LoreWise. Eventuali store esterni saranno valutati dopo l’uscita completa e una fase di gioco pubblico verificata.",
-    commercialNote: "Prezzo di lancio approvato: €5,99, con prezzo ordinario futuro previsto di €7,99. Il gioco sarà incluso senza costo aggiuntivo per gli abbonati con piano attivo; i non abbonati potranno acquistare una licenza permanente. Vendita e download resteranno disattivati fino al completamento dei collaudi.",
-    updateNote: "Versione 2.1.0 attiva nel progetto locale; distribuzione pubblica e nuova APK non ancora approvate.",
+    releasePlan: "Completare le prime missioni, verificare l’esperienza su dispositivi Android reali e aprire una demo gratuita quando installazione, leggibilità e stabilità saranno pronte per il pubblico.",
+    commercialNote: "La demo Android sarà gratuita. Formula e prezzo dell’edizione completa non sono ancora annunciati; seguire l’Area VIP permette di ricevere le prossime novità senza trasformare l’abbonamento in un requisito per la demo.",
+    updateNote: "Ricostruzione Android nativa 0.1.0-native in sviluppo; demo pubblica non ancora disponibile.",
     knownIssues: [
-      "Le nuove catture documentano la versione desktop 2.1.0; la resa mobile e il comportamento su un dispositivo fisico restano da verificare.",
-      "Le APK disponibili nell’archivio arrivano alla 0.1.8 e non devono essere presentate come pacchetto della versione 2.1.0.",
-      "La compilazione Android della 2.1.0 richiede un JDK compatibile con Gradle 8.14.3; JDK 25 produce un errore di versione delle classi.",
-      "Credenziali Supabase, acquisti opzionali e comportamento su dispositivo fisico restano da verificare esternamente.",
+      "La demo gratuita non è ancora disponibile al download.",
+      "Interfaccia, bilanciamento, dialoghi e contenuti possono cambiare durante lo sviluppo.",
+      "La compatibilità finale sarà dichiarata dopo le prove sui dispositivi Android previsti.",
     ],
-    mediaNote: "Il dossier usa sette catture desktop reali della versione 2.1.0. Le immagini sono presentate nel rapporto originale, senza ritagli, deformazioni o sostituzioni con scene generate.",
+    mediaNote: "Il dossier pubblico usa uno scenario originale senza personaggi e materiali di gameplay della build Android: portale, griglia, altare missione e arene. Ogni immagine è mostrata integralmente nel proprio rapporto originale, senza ritagli.",
   },
 ];
 

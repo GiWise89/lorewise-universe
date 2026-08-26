@@ -8,6 +8,12 @@ test("renders distinct commercial messages with the correct destination", () => 
   assert.match(purchase.html, /Il tuo acquisto è nella Libreria/);
   assert.match(purchase.html, /account\/ordini\/LW-20260820-ABC123/);
 
+  const collection = renderTransactionalEmail("order_paid", { referenceCode: "LW-HALLOWEEN-002", title: "Collezione horror · Incubi Interiori", amountLabel: "24,90 €", collectionSize: 3, detailUrl: "https://lorewisenexus.it/account/ordini/LW-HALLOWEEN-002" });
+  assert.match(collection.subject, /Collezione confermata/);
+  assert.match(collection.html, /3 pacchetti protetti/);
+  assert.match(collection.html, /licenza personale per ogni opera/);
+  assert.match(collection.html, /Apri i download della collezione/);
+
   const pass = renderTransactionalEmail("subscription_activated", { planLabel: "Universe Pass Collector", accountUrl: "https://lorewisenexus.it/account" });
   assert.match(pass.subject, /Universe Pass attivo/);
   assert.match(pass.html, /crediti, sconti e accessi/i);

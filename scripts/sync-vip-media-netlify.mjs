@@ -1,13 +1,19 @@
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { getStore } from "@netlify/blobs";
-import { Miniflare } from "miniflare";
+import { VIP_WALLPAPERS_PRIVATE } from "../data/vip-downloads.ts";
 
 const SITE_ID = "11a8e4a6-d1a6-4bbd-ae2e-8e823786e760";
 const STORE_NAME = "lorewise-private-deliveries";
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const previewRoot = path.join(root, "tmp", "vip-wallpaper-previews");
 const execute = process.argv.includes("--execute");
-const root = path.resolve(new URL("..", import.meta.url).pathname.replace(/^\/(?:([A-Za-z]:))/, "$1"));
+const collection = process.argv.find((argument) => argument.startsWith("--collection="))?.slice(13);
+
+if (collection !== "cyber-nexus") throw new Error("Per questo trasferimento indica --collection=cyber-nexus.");
 
 function readNetlifyToken() {
   const configPath = path.join(os.homedir(), "AppData", "Roaming", "netlify", "Config", "config.json");
@@ -18,53 +24,59 @@ function readNetlifyToken() {
   return token;
 }
 
-const miniflare = new Miniflare({
-  resourcePersistencePath: path.join(root, ".wrangler", "state", "v3"),
-  workers: [{
-    config: {
-      name: "lorewise-vip-media-sync",
-      type: "worker",
-      compatibilityDate: "2026-08-21",
-      manifest: {
-        mainModule: "index.js",
-        modules: { "index.js": { type: "esm", contents: "export default { async fetch() { return new Response('LoreWise VIP sync'); } }" } },
-      },
-      env: { COMMISSION_UPLOADS: { type: "r2", name: "site-creator-r2" } },
-    },
-  }],
+function sha256(bytes) {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+function safeRead(relativePath, allowedRoot) {
+  const absolutePath = path.resolve(root, relativePath);
+  if (!absolutePath.startsWith(allowedRoot + path.sep) || !fs.existsSync(absolutePath)) throw new Error(`File locale non valido: ${relativePath}`);
+  return fs.readFileSync(absolutePath);
+}
+
+const cyberWallpapers = VIP_WALLPAPERS_PRIVATE.filter((wallpaper) => wallpaper.mediaId.startsWith("cyber-nexus-"));
+if (cyberWallpapers.length !== 6) throw new Error(`Attesi 6 sfondi Cyber Nexus, trovati ${cyberWallpapers.length}.`);
+
+const files = cyberWallpapers.flatMap((wallpaper) => {
+  const originalBytes = safeRead(wallpaper.sourcePath, path.join(root, "campaign", "cyber-nexus", "delivery"));
+  const previewPath = path.join(previewRoot, `${wallpaper.previewId}.webp`);
+  if (!previewPath.startsWith(previewRoot + path.sep) || !fs.existsSync(previewPath)) throw new Error(`Anteprima protetta non trovata: ${wallpaper.previewId}.`);
+  const previewBytes = fs.readFileSync(previewPath);
+  return [
+    { id: wallpaper.mediaId, key: wallpaper.originalKey, bytes: originalBytes, contentType: "image/png", role: "original-private" },
+    { id: wallpaper.previewId, key: wallpaper.previewKey, bytes: previewBytes, contentType: "image/webp", role: "protected-preview" },
+  ];
 });
 
-try {
-  const source = await miniflare.getR2Bucket("COMMISSION_UPLOADS");
-  const remote = getStore({ name: STORE_NAME, siteID: SITE_ID, token: readNetlifyToken(), consistency: "strong" });
-  const listed = await source.list({ prefix: "vip-zone/" });
-  const sourceKeys = listed.objects.map((object) => object.key).sort();
-  const remoteList = await remote.list({ prefix: "vip-zone/" });
-  const remoteKeys = new Set(remoteList.blobs.map((blob) => blob.key));
-  const missing = sourceKeys.filter((key) => !remoteKeys.has(key));
+const prepared = files.map((file) => ({ id: file.id, key: file.key, role: file.role, size: file.bytes.length, sha256: sha256(file.bytes) }));
 
-  console.log(JSON.stringify({ mode: execute ? "execute" : "audit", source: sourceKeys.length, remote: remoteKeys.size, missing: missing.length }, null, 2));
-  if (!execute) {
-    if (missing.length) console.log(missing.slice(0, 12).join("\n"));
-    process.exit(0);
+if (!execute) {
+  console.log(JSON.stringify({ mode: "dry-run", collection, files: prepared.length, prepared }, null, 2));
+} else {
+  const store = getStore({ name: STORE_NAME, siteID: SITE_ID, token: readNetlifyToken(), consistency: "strong" });
+  const uploaded = [];
+  for (const file of files) {
+    const localSha256 = sha256(file.bytes);
+    const metadata = { size: file.bytes.length, contentType: file.contentType, customMetadata: { collection, mediaid: file.id, role: file.role, sha256: localSha256, visibility: "private" } };
+    await store.set(file.key, file.bytes, { metadata });
+    await store.setJSON(`__metadata__/${file.key}.json`, metadata);
+    const remote = await store.get(file.key, { type: "arrayBuffer", consistency: "strong" });
+    if (!remote) throw new Error(`Oggetto remoto assente dopo il caricamento: ${file.key}`);
+    const remoteBytes = Buffer.from(remote);
+    const remoteSha256 = sha256(remoteBytes);
+    if (remoteBytes.length !== file.bytes.length || remoteSha256 !== localSha256) throw new Error(`Verifica remota fallita per ${file.key}.`);
+    uploaded.push({ key: file.key, role: file.role, size: remoteBytes.length, sha256: remoteSha256, verified: true });
   }
-
-  let uploaded = 0;
-  for (const key of sourceKeys) {
-    const object = await source.get(key);
-    if (!object) throw new Error(`File locale non trovato durante il trasferimento: ${key}`);
-    const bytes = await object.arrayBuffer();
-    const contentType = object.httpMetadata?.contentType ?? "application/octet-stream";
-    const customMetadata = object.customMetadata ?? {};
-    await remote.set(key, bytes, { metadata: { size: bytes.byteLength, contentType, customMetadata } });
-    await remote.setJSON(`__metadata__/${key}.json`, { size: bytes.byteLength, contentType, customMetadata });
-    const verified = await remote.getMetadata(key, { consistency: "strong" });
-    if (!verified) throw new Error(`Verifica remota fallita: ${key}`);
-    uploaded += 1;
-  }
-
-  const finalList = await remote.list({ prefix: "vip-zone/" });
-  console.log(JSON.stringify({ uploaded, remoteAfter: finalList.blobs.length, verified: uploaded === sourceKeys.length }, null, 2));
-} finally {
-  await miniflare.dispose();
+  const remoteOriginals = await store.list({ prefix: "vip-zone/downloads/cyber-nexus/" });
+  const remotePreviews = await store.list({ prefix: "vip-zone/downloads/previews/cyber-nexus" });
+  console.log(JSON.stringify({
+    mode: "execute",
+    store: STORE_NAME,
+    collection,
+    uploaded: uploaded.length,
+    originalsPresent: remoteOriginals.blobs.length,
+    previewsPresent: remotePreviews.blobs.length,
+    verified: uploaded.length === 12 && remoteOriginals.blobs.length === 6 && remotePreviews.blobs.length === 6,
+    files: uploaded,
+  }, null, 2));
 }

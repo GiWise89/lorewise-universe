@@ -54,6 +54,7 @@ test("publishes the prepared Nexus chronicles automatically at Italian midnight"
 test("keeps every approved weekly announcement in the prepared calendar", () => {
   for (const marker of [
     'publishedAt: "2026-08-24"',
+    'publishedAt: "2026-08-26"',
     'publishedAt: "2026-08-31"',
     'publishedAt: "2026-09-07"',
     'publishedAt: "2026-09-14"',
@@ -80,9 +81,10 @@ test("keeps every approved weekly announcement in the prepared calendar", () => 
     "Night City non concede una seconda prima impressione.",
     "La strada verso la vittoria attraversa il Nexus.",
     "La squadra dei sogni entra nell’Atlante.",
+    "Le identità del nuovo conflitto sono state svelate nell’Area VIP.",
   ]) assert.match(source, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
 
-  assert.equal([...source.matchAll(/makeWeeklyChronicle\(\{/g)].length, 4);
+  assert.equal([...source.matchAll(/makeWeeklyChronicle\(\{/g)].length, 5);
   assert.match(source, /La prossima guida verrà annunciata qui/);
   assert.doesNotMatch(source, /verifica editoriale|completa e approvata|prima della loro approvazione/);
   assert.match(source, /halloweenChroniclePromotion\("active"\)/);
@@ -99,6 +101,9 @@ test("keeps every approved weekly announcement in the prepared calendar", () => 
 test("uses only public, existing images in scheduled public announcements", async () => {
   const images = [
     "../public/brand/icons/dove-nascono-i-mondi-concept-v1.webp",
+    "../public/games/demon-match-three/gameplay-portal-backdrop-v1.webp",
+    "../public/games/demon-match-three/gameplay-map-act-1-v1.webp",
+    "../public/games/demon-match-three/gameplay-powerup-ready-v1.webp",
     "../public/creative-journal/previews/lw-wip-010-preview.jpg",
     "../public/brand/icons/lorewise-vip-official-v1.webp",
     "../public/brand/icons/arte-concept-v1.webp",
@@ -135,6 +140,18 @@ test("evaluates the calendar on every visit and switches archived issues without
   assert.doesNotMatch(feedSource, /chronicles\.map\(\(chronicle, index\) => <ChronicleStory/);
 });
 
+test("organizes every Nexus novelty into one visible chapter at a time", () => {
+  assert.match(feedSource, /type ChroniclePanel = "overview" \| "signals" \| "studio" \| "promotion" \| "guides" \| "benefits"/);
+  assert.match(feedSource, /useState<ChroniclePanel>\("overview"\)/);
+  for (const panel of ["overview", "signals", "studio", "promotion", "guides", "benefits"]) {
+    assert.match(feedSource, new RegExp(`hidden=\\{activePanel !== "${panel}"\\}`));
+  }
+  assert.match(feedSource, /studio-panel[\s\S]*<StudioWorkInProgress \/>/);
+  assert.match(globalStyles, /\.nexus-chronicle-story \[role="tabpanel"\]\[hidden\] \{ display:none !important; \}/);
+  assert.match(globalStyles, /\.nexus-edition-switcher \.nexus-section-tabs \{[^}]*display:flex;[^}]*overflow-x:auto;/s);
+  assert.match(globalStyles, /\.nexus-section-tabs \{[^}]*grid-template-columns:repeat\(6,minmax\(0,1fr\)\);/s);
+});
+
 test("never crops images in Nexus announcements, guide previews or Atlas galleries", () => {
   for (const selector of [
     ".nexus-signal-image img",
@@ -148,8 +165,18 @@ test("never crops images in Nexus announcements, guide previews or Atlas galleri
     assert.doesNotMatch(globalStyles.slice(start, end), /object-fit:cover/);
   }
   assert.match(globalStyles, /\.nexus-chronicle-story\.is-games \.nexus-chronicle-visual img \{[^}]*width:100%;[^}]*object-fit:contain;/s);
-  assert.match(globalStyles, /\.nexus-chronicle-story\.is-games \.nexus-signal-image \{[^}]*min-height:clamp\(260px,24vw,390px\);/s);
+  assert.match(globalStyles, /\.nexus-chronicle-story\.is-games \.nexus-signal-image \{[^}]*min-height:clamp\(520px,58vw,800px\);/s);
   assert.match(globalStyles, /\.nexus-promotion-visual img \{[^}]*object-fit:contain;/s);
+});
+
+test("keeps the Demon Match reveal usable on narrow mobile screens", () => {
+  assert.match(globalStyles, /\.game-dossier-demon-match \.game-dossier-hero-art \{[^}]*object-fit:contain;/s);
+  assert.match(globalStyles, /\.vip-demon-match-art img \{[^}]*object-fit:contain;/s);
+  assert.match(globalStyles, /\.vip-demon-match-dossiers img \{[^}]*object-fit:contain;/s);
+  assert.match(globalStyles, /@media \(max-width:760px\) \{[\s\S]*\.game-protagonist-pair,\.vip-demon-match-dossiers \{ grid-template-columns:1fr; \}/);
+  assert.match(globalStyles, /@media \(max-width:520px\) \{[\s\S]*\.game-protagonist-intro > div > a,[\s\S]*\.nexus-vip-location > a \{ width:100%; \}/);
+  assert.match(globalStyles, /@media \(max-width:520px\) \{[\s\S]*\.vip-demon-match-development li \{ grid-template-columns:36px minmax\(0,1fr\);/);
+  assert.match(globalStyles, /@media \(max-width:520px\) \{[\s\S]*\.pass-game-demon \{ min-height:500px; \}/);
 });
 
 test("renders every promotion as a themed premium screen", () => {
@@ -185,6 +212,7 @@ test("keeps a permanent premium register with every declared Pass event", () => 
     "VIP-DOWNLOADS",
     "TWR-ROGO",
     "FUORI-TRAMA-PARTICIPATION",
+    "DEMON-MATCH-ANDROID-DEMO",
     "COMMISSIONS-OPENING",
     "HALLOWEEN-HORROR-COLLECTIONS",
   ]) assert.match(source, new RegExp(`code: "${code}"`));
