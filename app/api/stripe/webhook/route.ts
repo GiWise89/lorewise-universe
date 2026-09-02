@@ -5,6 +5,11 @@ import { ensureCommerceTables } from "@/lib/commerceServer";
 import { grantPaidInvoiceCredits, revokeUnusedInvoiceBenefits } from "@/lib/benefitEngine";
 import { queueAndAttemptTransactionalEmail, type TransactionalTemplate } from "@/lib/transactionalEmail";
 import { getHorrorArtworkBundle } from "@/lib/horrorArtworkBundles";
+import { applyFamiliarTimePassage } from "@/lib/nexusFamiliar";
+import { sanitizeFamiliarCloudState } from "@/lib/nexusFamiliarCloud";
+import { ensureFamiliarEconomyTables, recordFamiliarEconomyEvent, recordFamiliarSyncEvent } from "@/lib/nexusFamiliarEconomyServer";
+import { FAMILIAR_GADGETS } from "@/lib/nexusFamiliarGadgets";
+import { FAMILIAR_SHOP_OFFERS } from "@/lib/nexusFamiliarWorld";
 
 type RuntimeEnv = StripeRuntimeEnv & { DB?: D1Database; RESEND_API_KEY?: string; LOREWISE_EMAIL_SENDER_NAME?: string; LOREWISE_EMAIL_SENDER_ADDRESS?: string; LOREWISE_EMAIL_REPLY_TO?: string };
 type StripeCheckoutSession = {
@@ -17,6 +22,102 @@ type StripeCheckoutSession = {
   lines?: { data?: Array<{ period?: { start?: number; end?: number } | null }> } | null;
 };
 type StripeEvent = { id?: string; type?: string; data?: { object?: StripeCheckoutSession } };
+
+async function fulfillFamiliarOffer(database: D1Database, customerId: string, orderId: string, offerId: string, eventId: string) {
+  const offer = FAMILIAR_SHOP_OFFERS.find((entry) => entry.id === offerId && entry.priceCents);
+  if (!offer) return false;
+  await ensureFamiliarEconomyTables(database);
+  const sourceKey = `payment:${eventId}:${offer.id}`;
+  const alreadyFulfilled = await database.prepare("SELECT id FROM nexus_familiar_economy_events WHERE customer_id = ? AND source_key = ? LIMIT 1")
+    .bind(customerId, sourceKey).first<{ id: string }>();
+  if (alreadyFulfilled) return true;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const row = await database.prepare("SELECT state_json, revision FROM nexus_familiars WHERE customer_id = ?")
+      .bind(customerId).first<{ state_json: string; revision: number }>();
+    if (!row) return false;
+    const checked = sanitizeFamiliarCloudState(JSON.parse(row.state_json));
+    if (!checked.ok) return false;
+    const now = new Date();
+    let next = applyFamiliarTimePassage(checked.state, now);
+    const grantedThemeIds: string[] = [];
+    const grantedGadgetIds: string[] = [];
+    if (offer.kind === "gadget") {
+      grantedGadgetIds.push(...(!next.den.unlockedGadgets.includes(offer.id) ? [offer.id] : []));
+      next = { ...next, den: { ...next.den, unlockedGadgets: [...new Set([...next.den.unlockedGadgets, offer.id])] } };
+    }
+    if (offer.bundleCategory === "themes") {
+      const allThemeIds = FAMILIAR_SHOP_OFFERS.flatMap((entry) => entry.themeId ? [entry.themeId] : []);
+      grantedThemeIds.push(...allThemeIds.filter((themeId) => !next.den.unlockedThemes.includes(themeId)));
+      next = { ...next, den: { ...next.den, unlockedThemes: [...new Set([...next.den.unlockedThemes, ...allThemeIds])] } };
+    }
+    if (offer.bundleCategory === "gadgets") {
+      const allGadgetIds = FAMILIAR_GADGETS.filter((entry) => entry.priceCoins).map((entry) => entry.id);
+      grantedGadgetIds.push(...allGadgetIds.filter((gadgetId) => !next.den.unlockedGadgets.includes(gadgetId)));
+      next = { ...next, den: { ...next.den, unlockedGadgets: [...new Set([...next.den.unlockedGadgets, ...allGadgetIds])] } };
+    }
+    if (offer.bundleCategory === "premium-gadgets") {
+      const premiumGadgetIds = FAMILIAR_GADGETS.filter((entry) => entry.priceCents).map((entry) => entry.id);
+      grantedGadgetIds.push(...premiumGadgetIds.filter((gadgetId) => !next.den.unlockedGadgets.includes(gadgetId)));
+      next = { ...next, den: { ...next.den, unlockedGadgets: [...new Set([...next.den.unlockedGadgets, ...premiumGadgetIds])] } };
+    }
+    const revision = Math.max(0, Number(row.revision) || 0) + 1;
+    const updated = await database.prepare("UPDATE nexus_familiars SET state_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP WHERE customer_id = ? AND revision = ?")
+      .bind(JSON.stringify(next), revision, customerId, row.revision).run();
+    if (!updated.meta.changes) continue;
+    await Promise.all([
+      recordFamiliarEconomyEvent(database, { customerId, eventType: "paid_bundle", sourceKey, before: checked.state, after: next, metadata: { orderId, offerId: offer.id, grantedThemeIds, grantedGadgetIds } }),
+      recordFamiliarSyncEvent(database, { customerId, familiarId: next.familiarId, action: "paid_fulfillment", revisionBefore: row.revision, revisionAfter: revision }),
+    ]);
+    return true;
+  }
+  return false;
+}
+
+async function revokeFamiliarOffer(database: D1Database, customerId: string, orderId: string, eventId: string) {
+  const history = await database.prepare(`SELECT metadata_json FROM nexus_familiar_economy_events
+    WHERE customer_id = ? AND event_type = 'paid_bundle' ORDER BY created_at DESC LIMIT 100`)
+    .bind(customerId).all<{ metadata_json: string | null }>();
+  const metadata = history.results.flatMap((row) => {
+    try {
+      const parsed = JSON.parse(row.metadata_json ?? "{}") as { orderId?: unknown; offerId?: unknown; grantedThemeIds?: unknown; grantedGadgetIds?: unknown };
+      return parsed.orderId === orderId && typeof parsed.offerId === "string" ? [parsed] : [];
+    } catch {
+      return [];
+    }
+  }).at(0);
+  if (!metadata) return false;
+  const grantedThemeIds = Array.isArray(metadata.grantedThemeIds) ? metadata.grantedThemeIds.filter((entry): entry is string => typeof entry === "string") : [];
+  const grantedGadgetIds = Array.isArray(metadata.grantedGadgetIds) ? metadata.grantedGadgetIds.filter((entry): entry is string => typeof entry === "string") : [];
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const row = await database.prepare("SELECT state_json, revision FROM nexus_familiars WHERE customer_id = ?")
+      .bind(customerId).first<{ state_json: string; revision: number }>();
+    if (!row) return true;
+    const checked = sanitizeFamiliarCloudState(JSON.parse(row.state_json));
+    if (!checked.ok) return false;
+    const nextThemes = checked.state.den.unlockedThemes.filter((themeId) => !grantedThemeIds.includes(themeId));
+    const nextGadgets = checked.state.den.unlockedGadgets.filter((gadgetId) => !grantedGadgetIds.includes(gadgetId));
+    const next = {
+      ...checked.state,
+      den: {
+        ...checked.state.den,
+        theme: nextThemes.includes(checked.state.den.theme) ? checked.state.den.theme : "rifugio-iniziale",
+        unlockedThemes: [...new Set(["rifugio-iniziale", ...nextThemes])],
+        equippedGadget: checked.state.den.equippedGadget && nextGadgets.includes(checked.state.den.equippedGadget) ? checked.state.den.equippedGadget : null,
+        unlockedGadgets: nextGadgets,
+      },
+    };
+    const revision = Math.max(0, Number(row.revision) || 0) + 1;
+    const updated = await database.prepare("UPDATE nexus_familiars SET state_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP WHERE customer_id = ? AND revision = ?")
+      .bind(JSON.stringify(next), revision, customerId, row.revision).run();
+    if (!updated.meta.changes) continue;
+    await Promise.all([
+      recordFamiliarEconomyEvent(database, { customerId, eventType: "paid_refund", sourceKey: `refund:${eventId}:${metadata.offerId}`, before: checked.state, after: next, metadata: { orderId, offerId: metadata.offerId } }),
+      recordFamiliarSyncEvent(database, { customerId, familiarId: next.familiarId, action: "paid_refund", revisionBefore: row.revision, revisionAfter: revision }),
+    ]);
+    return true;
+  }
+  return false;
+}
 
 async function notifyOrder(database: D1Database, runtime: RuntimeEnv, orderId: string, template: TransactionalTemplate, suffix: string, extra: Record<string, string> = {}) {
   const row = await database.prepare(`SELECT orders.id, orders.reference_code, orders.total_cents, orders.currency,
@@ -190,6 +291,12 @@ export async function POST(request: Request) {
         .first<{ id: string; order_type: string }>();
     }
     if (!order) return Response.json({ error: "Pagamento non associato a un ordine LoreWise." }, { status: 409 });
+    if (order.order_type === "merchandise") {
+      const customer = await runtime.DB.prepare("SELECT customer_id FROM orders WHERE id = ? LIMIT 1").bind(order.id).first<{ customer_id: string }>();
+      if (!customer || !await revokeFamiliarOffer(runtime.DB, customer.customer_id, order.id, event.id!)) {
+        return Response.json({ error: "I vantaggi del Famiglio non sono stati revocati in sicurezza." }, { status: 409 });
+      }
+    }
     const nextStatus = disputeCreated ? "disputed" : "refunded";
     const refundId = event.type === "refund.updated" ? event.data?.object?.id ?? null : null;
     if (order.order_type === "subscription") {
@@ -325,15 +432,20 @@ export async function POST(request: Request) {
     });
     return Response.json({ received: true, commissionPaymentRecorded: true, phase: payment.phase });
   }
-  let metadata: { resourceType?: string; downloadLimit?: number; deliveryMode?: string; bundleMembers?: string[] } = {};
+  let metadata: { resourceType?: string; downloadLimit?: number; deliveryMode?: string; bundleMembers?: string[]; familiarOfferId?: string } = {};
   try { metadata = JSON.parse(item.metadata_json || "{}") as typeof metadata; }
   catch { return Response.json({ error: "Metadati della licenza non validi." }, { status: 409 }); }
+  if (item.product_type === "merchandise") {
+    if (!metadata.familiarOfferId || !await fulfillFamiliarOffer(runtime.DB, order.customer_id, order.id, metadata.familiarOfferId, event.id!)) {
+      return Response.json({ error: "Ricompensa del Famiglio non associata o non consegnata." }, { status: 409 });
+    }
+  }
   const expectedResourceType = item.product_type === "artwork" ? "artwork" : item.product_type === "game" ? "game" : item.product_type;
   const resourceType = metadata.resourceType === expectedResourceType ? metadata.resourceType : expectedResourceType;
   const requestedLimit = Number(metadata.downloadLimit);
   const downloadLimit = Number.isInteger(requestedLimit) && requestedLimit > 0 && requestedLimit <= 20
     ? requestedLimit
-    : item.product_type === "game" ? 5 : 3;
+    : item.product_type === "game" ? 5 : item.product_type === "merchandise" ? 1 : 3;
   const bundle = item.product_type === "artwork" ? getHorrorArtworkBundle(item.product_code) : null;
   const entitlementCodes = bundle ? [...bundle.artworkCodes] : [item.product_code];
 

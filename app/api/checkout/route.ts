@@ -7,6 +7,9 @@ import { createStripeCheckoutSession, getStripeConfiguration, type StripeRuntime
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser } from "@/lib/supabase/server";
 import { calculatePurchaseBenefit, discountPercentForProduct, getActiveUniversePass, type DiscountableProductType } from "@/lib/universePass";
+import { bestFamiliarDiscount, familiarLevelForCustomer } from "@/lib/nexusFamiliarBenefits";
+import { purchasedPremiumFamiliarIds } from "@/lib/nexusFamiliarCommerce";
+import { FAMILIAR_SHOP_OFFERS } from "@/lib/nexusFamiliarWorld";
 import { getHorrorArtworkBundle, isHorrorArtworkBundleActive } from "@/lib/horrorArtworkBundles";
 
 type RuntimeEnv = StripeRuntimeEnv & { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket; LOREWISE_MANUAL_DELIVERY_APPROVED?: string };
@@ -37,7 +40,10 @@ export async function GET(request: Request) {
     const saleWindowActive = bundle ? isHorrorArtworkBundleActive() : true;
     let deliveryReady: boolean | null = null;
     let deliveryMode: "automatic" | "manual" | null = null;
-    if (product && runtime.DB) {
+    if (product?.productType === "merchandise") {
+      deliveryReady = true;
+      deliveryMode = "automatic";
+    } else if (product && runtime.DB) {
       try {
         await ensureCommerceTables(runtime.DB);
         if (product.productType === "artwork") {
@@ -118,9 +124,14 @@ export async function POST(request: Request) {
       .bind(user.id).first<{ id: string; email: string; display_name: string | null; status: string }>();
     if (!customer || customer.status !== "active") return Response.json({ error: "Questo account non può effettuare acquisti." }, { status: 403 });
     const activePass = await getActiveUniversePass(runtime.DB, customer.id);
-    const discountPercent = product.productType === "subscription" || product.discountEligible === false
+    const passDiscountPercent = product.productType === "subscription" || product.discountEligible === false
       ? 0
       : discountPercentForProduct(activePass, product.productType as DiscountableProductType);
+    const familiarLevel = await familiarLevelForCustomer(runtime.DB, customer.id);
+    const discountPercent = product.productType === "subscription" || product.discountEligible === false
+      ? 0
+      : bestFamiliarDiscount(familiarLevel, "giwise-shop", passDiscountPercent);
+    const benefitPlanCode = discountPercent > passDiscountPercent ? `LW-FAMILIAR-L${familiarLevel}` : activePass.code;
     const pricing = calculatePurchaseBenefit(product.amountCents, discountPercent);
     const checkoutProduct = { ...product, amountCents: pricing.finalCents };
     const approvedDelivery = product.productType === "artwork"
@@ -133,7 +144,8 @@ export async function POST(request: Request) {
             AND install_test_status = 'passed' AND update_test_status IN ('passed', 'deferred_first_release')
           LIMIT 1`).bind(product.code).first<{ id: string }>()
         : null;
-    const automaticDelivery = Boolean(approvedDelivery) && (stripe.testMode || Boolean(runtime.COMMISSION_UPLOADS));
+    const automaticDelivery = product.productType === "merchandise"
+      || (Boolean(approvedDelivery) && (stripe.testMode || Boolean(runtime.COMMISSION_UPLOADS)));
     const manualDelivery = enabled(runtime.LOREWISE_MANUAL_DELIVERY_APPROVED);
     if (["artwork", "game"].includes(product.productType) && !automaticDelivery && !manualDelivery) {
       return Response.json({ error: "La consegna privata di questo prodotto non è ancora configurata." }, { status: 409 });
@@ -149,7 +161,18 @@ export async function POST(request: Request) {
     const entitlement = await runtime.DB.prepare(`SELECT COUNT(*) AS owned FROM entitlements
       WHERE customer_id = ? AND resource_type = ? AND resource_code IN (${placeholders}) AND status = 'active'`)
       .bind(customer.id, product.resourceType, ...entitlementCodes).first<{ owned: number }>();
-    if (product.productType !== "subscription" && Number(entitlement?.owned) === entitlementCodes.length) return Response.json({ error: "Questo contenuto è già presente nella tua libreria." }, { status: 409 });
+    if (product.productType !== "subscription" && Number(entitlement?.owned) === entitlementCodes.length) {
+      return Response.json({ error: "Questo contenuto è già presente nella tua libreria." }, { status: 409 });
+    }
+    if (product.productType === "merchandise" && product.familiarOfferId) {
+      const offer = FAMILIAR_SHOP_OFFERS.find((entry) => entry.id === product.familiarOfferId);
+      if (offer?.kind === "familiar" && offer.appearanceId) {
+        const purchasedAppearances = await purchasedPremiumFamiliarIds(runtime.DB, customer.id);
+        if (purchasedAppearances.includes(offer.appearanceId)) {
+          return Response.json({ error: "Questo Famiglio è già disponibile nel tuo LoreWise ID." }, { status: 409 });
+        }
+      }
+    }
 
     const orderId = crypto.randomUUID();
     const orderItemId = crypto.randomUUID();
@@ -159,7 +182,7 @@ export async function POST(request: Request) {
         subtotal_cents, discount_cents, total_cents, benefit_plan_code, benefit_discount_percent, created_at, updated_at)
         VALUES (?, ?, ?, ?, 'pending', 'EUR', ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`)
         .bind(orderId, orderReference, customer.id, product.productType, pricing.baseCents, pricing.discountCents,
-          pricing.finalCents, activePass.code, pricing.discountPercent),
+          pricing.finalCents, benefitPlanCode, pricing.discountPercent),
       runtime.DB.prepare(`INSERT INTO order_items (id, order_id, product_code, product_type, title, quantity,
         unit_amount_cents, license_type, metadata_json, created_at) VALUES (?, ?, ?, ?, ?, 1, ?, ?, ?, CURRENT_TIMESTAMP)`)
         .bind(orderItemId, orderId, product.code, product.productType, product.title, pricing.finalCents,
@@ -168,12 +191,13 @@ export async function POST(request: Request) {
             downloadLimit: product.downloadLimit,
             baseAmountCents: pricing.baseCents,
             discountCents: pricing.discountCents,
-            benefitPlanCode: activePass.code,
+            benefitPlanCode,
             benefitDiscountPercent: pricing.discountPercent,
             licenseHolderName: customer.display_name?.trim() || customer.email,
             licenseHolderEmail: customer.email,
             deliveryMode: automaticDelivery ? "automatic" : manualDelivery ? "manual" : "none",
             bundleMembers: product.bundleMembers,
+            familiarOfferId: product.familiarOfferId,
           })),
     ]);
 

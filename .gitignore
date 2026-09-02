@@ -52,6 +52,14 @@ next-env.d.ts
 /artifacts/
 /android/
 /android-shell/
+/famiglio-nexus-android/.gradle/
+/famiglio-nexus-android/app/build/
+/famiglio-nexus-android/build/
+/famiglio-nexus-webview-android/.gradle/
+/famiglio-nexus-webview-android/app/build/
+/famiglio-nexus-webview-android/build/
+/famiglio-nexus-webview-android/qa-emulator.*.log
+/.gradle-famiglio-webview/
 
 # Originali, bozze e materiale di lavorazione: mai nel repository pubblico
 /Vetrina Disegni/

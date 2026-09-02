@@ -128,15 +128,15 @@ export default function CreativeJournalPage() {
         </article>
       </section>
         ) },
-        { id: "reinterpretazioni", label: "Reinterpretazioni", eyebrow: "02", content: (
+        { id: "reinterpretazioni", label: "Fan art", eyebrow: "02", content: (
       <section id="reinterpretazioni" className="diary-chapter diary-chapter-dark" aria-labelledby="reinterpretations-title">
         <header className="shell diary-chapter-title">
-          <span>Capitolo 02</span><h2 id="reinterpretations-title">Reinterpretazioni</h2><p>Personaggi conosciuti ridisegnati con il mio tratto. Lavori personali e non ufficiali.</p>
+          <span>Capitolo 02</span><h2 id="reinterpretations-title">Fan art e reinterpretazioni</h2><p>Personaggi e immaginari conosciuti ridisegnati con il mio tratto. Lavori personali e non ufficiali.</p>
         </header>
         <div className="diary-entry-grid shell">
           {allReinterpretations.map((entry, index) => (
             <article className="diary-entry-card" key={entry.id}>
-              <CreativeJournalPhoto image={entry.processImages[0]} caption="Fotografia durante la lavorazione" />
+              <CreativeJournalPhoto image={entry.processImages[entry.heroImageIndex ?? 0]} caption="Una fase significativa della lavorazione" />
               <div className="diary-entry-card-copy">
                 <span className="diary-entry-number">{String(index + 1).padStart(2, "0")}</span>
                 <p className="diary-hand">{entry.label}</p>

@@ -19,9 +19,9 @@ test("publishes the three authentic Obsession drawing stages as one work in prog
 
 test("keeps the public preview copies byte-identical to the user source screenshots", async () => {
   const pairs = [
-    ["../bozze progetti/obsession/Screenshot 2026-08-25 235909.png", "../public/novita/obsession/nikki-linea-iniziale.png"],
-    ["../bozze progetti/obsession/Screenshot 2026-08-26 011112.png", "../public/novita/obsession/nikki-ritratto-completo.png"],
-    ["../bozze progetti/obsession/Screenshot 2026-08-26 014647.png", "../public/novita/obsession/nikki-presenza-emersa.png"],
+    ["../bozze progetti/obsession/Screenshot 2026-08-25 235909.png", "../public/novita/obsession/nikki-linea-iniziale.webp"],
+    ["../bozze progetti/obsession/Screenshot 2026-08-26 011112.png", "../public/novita/obsession/nikki-ritratto-completo.webp"],
+    ["../bozze progetti/obsession/Screenshot 2026-08-26 014647.png", "../public/novita/obsession/nikki-presenza-emersa.webp"],
   ];
   for (const [source, preview] of pairs) {
     assert.deepEqual(await readFile(new URL(source, import.meta.url)), await readFile(new URL(preview, import.meta.url)));

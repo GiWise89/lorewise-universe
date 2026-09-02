@@ -19,7 +19,7 @@ const curatedRoutes = ["/enciclopedia/nhevara-madreferita", "/enciclopedia/kharv
 const staticRoutes = [
   "/", "/arte", "/abbonamento", "/commissioni", "/commissioni/condizioni", "/commissioni/stato",
   "/giochi", "/assistenza-giochi", "/condizioni-vendita-giochi", "/licenza-arte", "/licenza-gioco",
-  "/contatti", "/community", "/enciclopedia", "/enciclopedia/originali-giwise", "/privacy", "/shop", "/account",
+  "/contatti", "/community", "/enciclopedia", "/enciclopedia/originali-giwise", "/privacy", "/shop", "/famiglio", "/account",
   "/account/password", "/gestione-community-simulazione", "/gestione-consegne-giochi",
 ];
 const routes = [...new Set([...staticRoutes, ...curatedRoutes, ...originalRoutes, ...thirdPartyRoutes, ...aliasRoutes])];

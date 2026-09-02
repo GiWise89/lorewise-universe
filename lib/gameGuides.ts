@@ -13,6 +13,9 @@ import theWitcher3GuideJson from "@/data/the-witcher-3-guide.json";
 import cyberpunk2077GuideJson from "@/data/cyberpunk-2077-guide.json";
 import inazumaElevenVictoryRoadGuideJson from "@/data/inazuma-eleven-victory-road-guide.json";
 import theMortuaryAssistantGuideJson from "@/data/the-mortuary-assistant-guide.json";
+import southParkScontriDiRettiGuideJson from "@/data/south-park-scontri-di-retti-guide.json";
+import stardewValleyGuideJson from "@/data/stardew-valley-guide.json";
+import theWoundRemembersGuideJson from "@/data/the-wound-remembers-guide.json";
 import { getScheduledGuideEditorialNews } from "@/lib/guideEditorial";
 
 export type GameGuideImage = { src: string; alt: string; caption: string; sourceUrl?: string };
@@ -48,7 +51,7 @@ export type GameGuideSection = {
 export type GameGuide = {
   id: string; slug: string; code: string; game: string; title: string; subtitle: string;
   description: string; versionLabel: string; updatedAt: string; vipFrom: string; publicAt: string;
-  theme?: "baldurs-gate" | "animal-crossing" | "minecraft" | "skyrim" | "world-of-warcraft" | "the-witcher-3" | "cyberpunk-2077" | "inazuma-eleven-victory-road" | "the-mortuary-assistant" | "atlas";
+  theme?: "baldurs-gate" | "animal-crossing" | "minecraft" | "skyrim" | "world-of-warcraft" | "the-witcher-3" | "cyberpunk-2077" | "inazuma-eleven-victory-road" | "the-mortuary-assistant" | "south-park-scontri-di-retti" | "stardew-valley" | "the-wound-remembers" | "atlas";
   cover: GameGuideImage; storeUrl: string; storeLabel: string; chapters: GameGuideChapter[];
   sections?: GameGuideSection[];
   sources: Array<{ label: string; href: string }>;
@@ -80,6 +83,9 @@ const theWitcher3Guide = theWitcher3GuideJson as GameGuide;
 const cyberpunk2077Guide = cyberpunk2077GuideJson as GameGuide;
 const inazumaElevenVictoryRoadGuide = inazumaElevenVictoryRoadGuideJson as GameGuide;
 const theMortuaryAssistantGuide = theMortuaryAssistantGuideJson as GameGuide;
+const southParkScontriDiRettiGuide = southParkScontriDiRettiGuideJson as GameGuide;
+const stardewValleyGuide = stardewValleyGuideJson as GameGuide;
+const theWoundRemembersGuide = theWoundRemembersGuideJson as GameGuide;
 
 export const GAME_GUIDES: GameGuide[] = [animalCrossingGuide, {
   id: "bg3-complete-guide-01",
@@ -435,7 +441,7 @@ export const GAME_GUIDES: GameGuide[] = [animalCrossingGuide, {
     { label: "Larian · Steam Deck nativo e Hotfix 34", href: "https://baldursgate3.game/news/hotfix-34-now-live_144" },
     { label: "Larian · archivio aggiornamenti fino all’Hotfix 36", href: "https://baldursgate3.game/news" },
   ],
-}, minecraftGuide, skyrimGuide, worldOfWarcraftGuide, hogwartsLegacyGuide, zeldaTearsGuide, theSims4Guide, redDeadRedemption2Guide, monsterHunterWildsGuide, theMortuaryAssistantGuide, diablo4Guide, pokemonPokopiaGuide, theWitcher3Guide, cyberpunk2077Guide, inazumaElevenVictoryRoadGuide];
+}, minecraftGuide, skyrimGuide, worldOfWarcraftGuide, hogwartsLegacyGuide, zeldaTearsGuide, theSims4Guide, redDeadRedemption2Guide, monsterHunterWildsGuide, theMortuaryAssistantGuide, diablo4Guide, pokemonPokopiaGuide, theWitcher3Guide, cyberpunk2077Guide, inazumaElevenVictoryRoadGuide, southParkScontriDiRettiGuide, stardewValleyGuide, theWoundRemembersGuide];
 
 export function isGuideVipNow(guide: GameGuide, now = new Date()) {
   const instant = now.getTime();

@@ -4,6 +4,7 @@ import { requireCommissionAdminApi } from "@/lib/commissionAdminAuth";
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { ensureCommissionBenefitColumns, getActiveUniversePass, universePassBenefitFromCode } from "@/lib/universePass";
 import { commissionDiscountForSubmission, getCommissionPromotionForSubmission } from "@/lib/commissionPromotion";
+import { bestFamiliarDiscount, familiarLevelForCustomer } from "@/lib/nexusFamiliarBenefits";
 import { queueAndAttemptTransactionalEmail } from "@/lib/transactionalEmail";
 import { calculateBestCommissionDiscount, ensureWelcomeCommissionOfferSchema, getWelcomeCommissionOfferForRequest, markWelcomeCommissionOfferRedeemed } from "@/lib/welcomeCommissionOffer";
 
@@ -223,15 +224,18 @@ export async function PATCH(request: Request) {
     return Response.json({ error: "Prezzo, sconto e acconto restano bloccati dopo l’accettazione del preventivo." }, { status: 409 });
   }
   const currentPass = await getActiveUniversePass(runtime.DB, existing.customer_id);
-  const currentDiscountPercent = commissionDiscountForSubmission({
+  const membershipOrPromotionDiscount = commissionDiscountForSubmission({
     planCode: currentPass.code,
     ordinaryDiscountPercent: currentPass.commissionDiscountPercent,
     submittedAt: existing.created_at,
     packageName: existing.package_name,
   });
+  const familiarLevel = existing.customer_id ? await familiarLevelForCustomer(runtime.DB, existing.customer_id) : 1;
+  const currentDiscountPercent = bestFamiliarDiscount(familiarLevel, "commissioni", membershipOrPromotionDiscount);
   const promotion = getCommissionPromotionForSubmission(existing.package_name, existing.created_at);
-  const percentageCode = promotion?.id ?? currentPass.code;
-  const percentageLabel = promotion?.label ?? (currentPass.active ? `Universe Pass ${currentPass.name}` : "Visitatore");
+  const familiarWins = currentDiscountPercent > membershipOrPromotionDiscount;
+  const percentageCode = familiarWins ? `LW-FAMILIAR-L${familiarLevel}` : promotion?.id ?? currentPass.code;
+  const percentageLabel = familiarWins ? `Vantaggio Famiglio · livello ${familiarLevel}` : promotion?.label ?? (currentPass.active ? `Universe Pass ${currentPass.name}` : "Visitatore");
   const welcomeOffer = await getWelcomeCommissionOfferForRequest(runtime.DB, existing.id);
   const preserveSnapshot = quoteBaseCents !== null && quoteBaseCents === existing.quote_base_cents && Boolean(existing.benefit_snapshot_at);
   const pricing = quoteBaseCents === null ? null : preserveSnapshot ? {

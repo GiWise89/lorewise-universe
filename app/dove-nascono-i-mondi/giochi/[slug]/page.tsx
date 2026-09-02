@@ -23,14 +23,14 @@ export default async function GameJournalPage({ params }: { params: Promise<{ sl
   if (!game) notFound();
 
   return (
-    <main className="game-journal-detail">
+    <main className={`game-journal-detail game-journal-detail-${game.id}`}>
       <nav className="shell journal-detail-nav" aria-label="Navigazione del diario">
         <Link href="/dove-nascono-i-mondi">← Torna a Dove nascono i mondi</Link>
         <span>Diario di sviluppo</span>
       </nav>
 
       <header className="game-journal-hero">
-        <Image src={game.gallery[0].src} alt="" fill sizes="100vw" priority unoptimized />
+        <Image src={(game.heroImage ?? game.gallery[0]).src} alt="" fill sizes="100vw" priority unoptimized />
         <div className="game-journal-overlay" />
         <div className="shell game-journal-hero-copy">
           <p className="diary-hand">{game.label}</p><h1>{game.title}</h1><p>{game.summary}</p><strong>{game.status}</strong>

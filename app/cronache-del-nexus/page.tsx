@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { NexusChroniclesFeed } from "@/components/NexusChroniclesFeed";
-import { getNexusChronicles } from "@/lib/nexusChronicles";
+import { NexusNewsSpotlight } from "@/components/NexusNewsSpotlight";
+import { chroniclePanelFromQuery } from "@/lib/nexusChroniclePanels";
+import { getNexusChronicles, nexusChronicleCategoryFromQuery, nexusChronicleCategories } from "@/lib/nexusChronicles";
 
 export const metadata: Metadata = {
   title: "Cronache del Nexus",
@@ -11,13 +13,33 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default async function NexusChroniclesPage({ searchParams }: { searchParams: Promise<{ anteprima?: string }> }) {
+type NexusNewsArea = "evidenza" | "archivio" | "categorie";
+
+function newsAreaFromQuery(value?: string): NexusNewsArea {
+  return value === "archivio" || value === "categorie" ? value : "evidenza";
+}
+
+export default async function NexusChroniclesPage({ searchParams }: { searchParams: Promise<{ anteprima?: string; sezione?: string; novita?: string; categoria?: string; cronaca?: string; vista?: string }> }) {
   const params = await searchParams;
   const localCalendarPreview = params.anteprima === "tutte"
     && (process.env.NODE_ENV !== "production" || process.env.LOREWISE_LOCAL_CALENDAR_PREVIEW === "true");
   const editorialDate = localCalendarPreview ? new Date("2026-12-07T12:00:00+01:00") : new Date();
-  const nexusChronicles = getNexusChronicles(editorialDate);
+  const releasedChronicles = getNexusChronicles(editorialDate);
+  const nexusChronicles = localCalendarPreview
+    ? releasedChronicles.map((chronicle) => chronicle.promotion.theme === "holiday"
+      ? {
+          ...chronicle,
+          promotion: {
+            ...chronicle.promotion,
+            href: `${chronicle.promotion.href}${chronicle.promotion.href.includes("?") ? "&" : "?"}anteprima=feste`,
+          },
+        }
+      : chronicle)
+    : releasedChronicles;
   const currentChronicle = nexusChronicles[0];
+  const initialPanel = chroniclePanelFromQuery(params.sezione);
+  const initialCategory = nexusChronicleCategoryFromQuery(params.categoria);
+  const activeArea = newsAreaFromQuery(params.vista);
   return <main className="nexus-chronicles-page">
     <section className="nexus-chronicles-hero" aria-labelledby="nexus-chronicles-title">
       <div className="shell nexus-chronicles-hero-inner">
@@ -31,12 +53,23 @@ export default async function NexusChroniclesPage({ searchParams }: { searchPara
       </div>
     </section>
 
-    <section className="nexus-chronicles-archive shell" aria-labelledby="nexus-archive-title">
+    <nav className="nexus-news-directory shell" aria-label="Indice delle Novità dal Nexus">
+      <header><p className="eyebrow">Indice delle Novità</p><h2>Scegli cosa vuoi scoprire.</h2><p>Le storie in evidenza, tutte le Cronache e i singoli argomenti sono raccolti in percorsi distinti e facili da ritrovare.</p></header>
+      <div>
+        <Link href="/cronache-del-nexus?vista=evidenza#novita-in-primo-piano" aria-current={activeArea === "evidenza" ? "page" : undefined}><span>01</span><strong>In evidenza</strong><small>Famiglio, vantaggi e giochi</small></Link>
+        <Link href="/cronache-del-nexus?vista=archivio#archivio-cronache" aria-current={activeArea === "archivio" ? "page" : undefined}><span>02</span><strong>Tutte le Cronache</strong><small>Dalla più recente alla prima</small></Link>
+        <Link href="/cronache-del-nexus?vista=categorie#archivio-cronache" aria-current={activeArea === "categorie" ? "page" : undefined}><span>03</span><strong>Categorie</strong><small>{nexusChronicleCategories.length - 1} percorsi tematici</small></Link>
+      </div>
+    </nav>
+
+    {activeArea === "evidenza" ? <NexusNewsSpotlight panel={params.novita} /> : null}
+
+    {activeArea !== "evidenza" ? <section className="nexus-chronicles-archive shell" id="archivio-cronache" aria-labelledby="nexus-archive-title">
       <header>
-        <div><p className="eyebrow">Archivio in espansione</p><h2 id="nexus-archive-title">Cosa sta accadendo nel Nexus.</h2></div>
+        <div><p className="eyebrow">{activeArea === "categorie" ? "Percorsi tematici" : "Archivio ordinato"}</p><h2 id="nexus-archive-title">{activeArea === "categorie" ? "Scegli un argomento." : "Tutte le Cronache del Nexus."}</h2><p>{activeArea === "categorie" ? "Apri una categoria e consulta soltanto le notizie che ne fanno parte." : "Scegli un’edizione dalla più recente alla prima e leggine una alla volta."}</p></div>
       </header>
-      <NexusChroniclesFeed chronicles={nexusChronicles} />
-    </section>
+      <NexusChroniclesFeed chronicles={nexusChronicles} initialPanel={initialPanel} initialCategory={activeArea === "categorie" ? initialCategory : "all"} initialChronicleId={params.cronaca} showCategories={activeArea === "categorie"} />
+    </section> : null}
 
     <section className="nexus-chronicles-membership" aria-labelledby="nexus-membership-title">
       <div className="shell">

@@ -1,0 +1,1102 @@
+{
+  "id": "south-park-scontri-di-retti-complete-guide-01",
+  "code": "LW-ATLAS-SPDR-001",
+  "game": "South Park: Scontri Di-Retti",
+  "title": "Il dossier di Coon & Friends",
+  "subtitle": "Una guida tattica e irriverente per costruire il tuo eroe, dominare la griglia ed esplorare ogni angolo di South Park.",
+  "description": "Sedici capitoli e quarantotto schede pratiche su impostazioni, origini, classi, artefatti, crafting, griglia, status, compagni, esplorazione, collezionabili, campagna, DLC e completamento.",
+  "versionLabel": "Edizione completa · verifica 26 agosto 2026",
+  "updatedAt": "26 agosto 2026",
+  "vipFrom": "2026-12-07T00:00:00+01:00",
+  "publicAt": "2026-12-14T00:00:00+01:00",
+  "theme": "south-park-scontri-di-retti",
+  "storeUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole",
+  "storeLabel": "Scopri Scontri Di-Retti",
+  "slug": "south-park-scontri-di-retti",
+  "cover": {
+    "src": "/atlas/south-park-scontri-di-retti/cover.webp",
+    "alt": "Scena ufficiale con gli eroi di South Park",
+    "caption": "South Park: Scontri Di-Retti · immagine ufficiale mostrata integralmente",
+    "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+  },
+  "chapters": [
+    {
+      "id": "editions-settings",
+      "number": "01",
+      "label": "Edizioni e impostazioni",
+      "estimatedRead": "10–14 min",
+      "spoiler": "No spoiler",
+      "title": "Preparare una partita comoda prima di indossare il mantello",
+      "introduction": "Scontri Di-Retti unisce esplorazione, umorismo esplicito e combattimento tattico: scegli piattaforma, difficoltà e impostazioni pensando al ritmo che vuoi.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/01.webp",
+          "alt": "Scena ufficiale con gli eroi di South Park",
+          "caption": "Edizioni e impostazioni · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Scontri Di-Retti unisce esplorazione, umorismo esplicito e combattimento tattico: scegli piattaforma, difficoltà e impostazioni pensando al ritmo che vuoi.",
+          "steps": [
+            "Controlla piattaforma, DLC inclusi e spazio di salvataggio",
+            "Regola audio, sottotitoli e luminosità",
+            "Scegli una difficoltà che lasci tempo per leggere la griglia"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Le impostazioni migliori sono quelle che rendono leggibili turni, indicatori e dialoghi.",
+          "tips": [
+            "Separa la difficoltà narrativa da quella del combattimento",
+            "Usa i sottotitoli se vuoi seguire battute e obiettivi insieme",
+            "Conserva più salvataggi prima di missioni lunghe"
+          ],
+          "mistakes": [
+            "Alzare la difficoltà prima di conoscere gli status",
+            "Saltare i tutorial della griglia"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Perdo passaggi nei dialoghi",
+              "answer": "Attiva sottotitoli e riduci gli effetti sonori senza togliere le voci"
+            },
+            {
+              "problem": "Il combattimento sembra caotico",
+              "answer": "Riduci la difficoltà e concentra l’attenzione su posizione, portata e ordine dei turni"
+            }
+          ],
+          "warning": "Il gioco contiene linguaggio, violenza e temi volutamente irriverenti."
+        }
+      ]
+    },
+    {
+      "id": "origin-new-kid",
+      "number": "02",
+      "label": "Origine dell’eroe",
+      "estimatedRead": "12–16 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Costruire il Nuovo Ragazzo attorno a un piano semplice",
+      "introduction": "L’origine definisce il tono del personaggio; l’efficacia nasce invece dall’abbinamento tra poteri, artefatti e compagni.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/02.webp",
+          "alt": "Il Nuovo Ragazzo e i supereroi in una scena ufficiale",
+          "caption": "Origine dell’eroe · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "L’origine definisce il tono del personaggio; l’efficacia nasce invece dall’abbinamento tra poteri, artefatti e compagni.",
+          "steps": [
+            "Completa l’origine senza cercare la scelta perfetta",
+            "Scegli un primo ruolo leggibile",
+            "Prova ogni potere nel tutorial prima di cambiare assetto"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Identità e build possono evolvere separatamente: non sei bloccato dalla prima fantasia.",
+          "tips": [
+            "Dai al protagonista un compito principale",
+            "Tieni almeno un potere utile a più bersagli",
+            "Abbina un compagno che copra la debolezza del ruolo"
+          ],
+          "mistakes": [
+            "Scegliere solo in base all’animazione",
+            "Cambiare tutto dopo una singola sconfitta"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Faccio poco danno",
+              "answer": "Controlla Might, artefatti e area reale dei poteri"
+            },
+            {
+              "problem": "Vengo circondato",
+              "answer": "Porta mobilità, spinta o un alleato capace di occupare la prima linea"
+            }
+          ],
+          "warning": "Le origini contengono battute e situazioni che possono non piacere a tutti."
+        }
+      ]
+    },
+    {
+      "id": "difficulty-first-hours",
+      "number": "03",
+      "label": "Prime ore",
+      "estimatedRead": "12–16 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Imparare città e interfaccia senza inseguire ogni icona",
+      "introduction": "Le prime ore servono a capire telefoni, mappa, inventario, missioni e accessi bloccati; molti segreti diventano raggiungibili più avanti.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/03.webp",
+          "alt": "Esplorazione ufficiale delle strade innevate di South Park",
+          "caption": "Prime ore · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Le prime ore servono a capire telefoni, mappa, inventario, missioni e accessi bloccati; molti segreti diventano raggiungibili più avanti.",
+          "steps": [
+            "Segui la missione principale fino a sbloccare gli strumenti base",
+            "Apri mappa e telefono dopo ogni obiettivo",
+            "Segna mentalmente gli accessi che richiedono un potere futuro"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Avanzare un poco nella storia rende l’esplorazione successiva più produttiva.",
+          "tips": [
+            "Completa prima le attività vicine",
+            "Parla con i personaggi contrassegnati",
+            "Vendi solo ciò che non serve a creare"
+          ],
+          "mistakes": [
+            "Voler pulire subito tutta la mappa",
+            "Ignorare i messaggi del telefono"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Non raggiungo un oggetto",
+              "answer": "Probabilmente manca un potere di esplorazione: annota il luogo e torna più avanti"
+            },
+            {
+              "problem": "Non trovo il prossimo obiettivo",
+              "answer": "Apri diario e mappa, poi seleziona manualmente la missione"
+            }
+          ],
+          "warning": "Alcune zone cambiano tra giorno e notte."
+        }
+      ]
+    },
+    {
+      "id": "classes-powers",
+      "number": "04",
+      "label": "Classi e poteri",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Creare una rotazione che funzioni sulla griglia",
+      "introduction": "Ogni potere ha portata, area, spostamento e tempo di recupero: una build coerente offre danno, controllo e una risposta d’emergenza.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/04.webp",
+          "alt": "Poteri di classe in un combattimento ufficiale",
+          "caption": "Classi e poteri · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Ogni potere ha portata, area, spostamento e tempo di recupero: una build coerente offre danno, controllo e una risposta d’emergenza.",
+          "steps": [
+            "Scegli un attacco affidabile",
+            "Aggiungi un potere di controllo o spostamento",
+            "Chiudi con un’opzione ad area o difensiva"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "La forma dell’area spesso conta più del numero di danno mostrato.",
+          "tips": [
+            "Prova il potere contro file e colonne diverse",
+            "Valuta spinta e attrazione come danno indiretto",
+            "Mantieni una distanza coerente con i compagni"
+          ],
+          "mistakes": [
+            "Usare quattro poteri con la stessa area",
+            "Ignorare il tempo di recupero"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Non posso colpire nessuno",
+              "answer": "Ti manca una portata complementare: inserisci una linea lunga o mobilità"
+            },
+            {
+              "problem": "Sposto i nemici nel posto sbagliato",
+              "answer": "Controlla la freccia di movimento prima di confermare"
+            }
+          ],
+          "warning": "Le classi aggiuntive ampliano le combinazioni: non serve ricominciare la partita."
+        }
+      ]
+    },
+    {
+      "id": "artifacts-might",
+      "number": "05",
+      "label": "Artefatti e Might",
+      "estimatedRead": "12–16 min",
+      "spoiler": "No spoiler",
+      "title": "Far crescere la squadra senza inseguire un solo numero",
+      "introduction": "Gli artefatti aumentano il Might e possono modificare il modo in cui funzionano poteri, status e recuperi.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/05.webp",
+          "alt": "Interfaccia e squadra in materiale ufficiale Ubisoft",
+          "caption": "Artefatti e Might · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Gli artefatti aumentano il Might e possono modificare il modo in cui funzionano poteri, status e recuperi.",
+          "steps": [
+            "Equipaggia gli artefatti con Might adeguato",
+            "Leggi i bonus secondari",
+            "Rivedi la configurazione dopo ogni nuovo slot"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Un bonus coerente con la rotazione vale più di un aumento marginale generico.",
+          "tips": [
+            "Confronta il risultato in battaglia",
+            "Distribuisci i bonus tra danno e sopravvivenza",
+            "Conserva alternative per boss e gruppi"
+          ],
+          "mistakes": [
+            "Guardare solo il colore della rarità",
+            "Dimenticare di equipaggiare nuovi slot"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Il livello consigliato è rosso",
+              "answer": "Aumenta Might con artefatti e attività secondarie"
+            },
+            {
+              "problem": "La squadra regge ma non chiude",
+              "answer": "Sposta i bonus verso danno, critici o status coerenti"
+            }
+          ],
+          "warning": "Might non sostituisce posizione e ordine dei turni."
+        }
+      ]
+    },
+    {
+      "id": "crafting-costumes",
+      "number": "06",
+      "label": "Creazione e costumi",
+      "estimatedRead": "11–15 min",
+      "spoiler": "No spoiler",
+      "title": "Usare il crafting come supporto, non come magazzino",
+      "introduction": "Ricette e componenti trasformano il bottino in consumabili, artefatti e oggetti utili; i costumi restano soprattutto espressione visiva.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/06.webp",
+          "alt": "Costumi e materiali in una scena ufficiale",
+          "caption": "Creazione e costumi · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Ricette e componenti trasformano il bottino in consumabili, artefatti e oggetti utili; i costumi restano soprattutto espressione visiva.",
+          "steps": [
+            "Controlla le ricette dopo ogni esplorazione",
+            "Conserva componenti rari",
+            "Crea consumabili prima delle missioni lunghe"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Il crafting funziona meglio quando risponde a un bisogno concreto.",
+          "tips": [
+            "Mantieni una scorta minima di cure",
+            "Completa ricette che alzano davvero il Might",
+            "Cambia costume liberamente senza temere di rovinare la build"
+          ],
+          "mistakes": [
+            "Vendere tutti i componenti",
+            "Creare tutto appena disponibile"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Manca un ingrediente",
+              "answer": "Controlla negozi, contenitori e ricompense delle secondarie"
+            },
+            {
+              "problem": "Il costume non aumenta le statistiche",
+              "answer": "È normale: separa estetica e artefatti"
+            }
+          ],
+          "warning": "Non consumare materiali rari per oggetti che non userai."
+        }
+      ]
+    },
+    {
+      "id": "grid-positioning",
+      "number": "07",
+      "label": "Griglia e posizione",
+      "estimatedRead": "15–20 min",
+      "spoiler": "No spoiler",
+      "title": "Vincere lo spazio prima dei punti ferita",
+      "introduction": "La griglia trasforma ogni turno in una scelta di distanza, corsia e occupazione: spingere un nemico può aprire un attacco migliore del colpo diretto.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/07.webp",
+          "alt": "Combattimento tattico ufficiale sulla griglia",
+          "caption": "Griglia e posizione · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "La griglia trasforma ogni turno in una scelta di distanza, corsia e occupazione: spingere un nemico può aprire un attacco migliore del colpo diretto.",
+          "steps": [
+            "Leggi tutte le aree nemiche",
+            "Scegli il bersaglio che può perdere il turno",
+            "Termina in una casella protetta"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Posizione, spinta e ostacoli moltiplicano il valore dei poteri.",
+          "tips": [
+            "Concentra il danno",
+            "Usa gli alleati come linea e non come mucchio",
+            "Prepara il bersaglio per il turno successivo"
+          ],
+          "mistakes": [
+            "Sparpagliare danni su tutti",
+            "Bloccare la linea di tiro di un compagno"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Non raggiungo il bersaglio principale",
+              "answer": "Sposta prima un alleato o usa un potere che avanza"
+            },
+            {
+              "problem": "Il nemico colpisce tutto il gruppo",
+              "answer": "Distribuisci la squadra su file diverse"
+            }
+          ],
+          "warning": "Controlla sempre dove finirà ogni unità dopo una spinta."
+        }
+      ]
+    },
+    {
+      "id": "turns-status",
+      "number": "08",
+      "label": "Turni e status",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere l’intenzione avversaria e interromperla",
+      "introduction": "Ordine dei turni, status, protezioni e tempi di recupero permettono di decidere se eliminare, controllare o ignorare temporaneamente un nemico.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/08.webp",
+          "alt": "Effetto di potere in una battaglia ufficiale",
+          "caption": "Turni e status · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Ordine dei turni, status, protezioni e tempi di recupero permettono di decidere se eliminare, controllare o ignorare temporaneamente un nemico.",
+          "steps": [
+            "Controlla la timeline",
+            "Applica lo status prima dell’attacco che lo sfrutta",
+            "Conserva una cura o protezione per il turno critico"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Un nemico controllato è spesso equivalente a un nemico eliminato per un round.",
+          "tips": [
+            "Fai agire prima chi prepara la combo",
+            "Sfrutta sanguinamento, shock e altri status con coerenza",
+            "Proteggi chi ha il turno decisivo più tardi"
+          ],
+          "mistakes": [
+            "Usare la cura quando basta riposizionarsi",
+            "Applicare status a bersagli quasi sconfitti"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "La combo parte nell’ordine sbagliato",
+              "answer": "Guarda la timeline e scegli un altro bersaglio o un potere autonomo"
+            },
+            {
+              "problem": "Gli status sembrano inutili",
+              "answer": "Abbinali ad artefatti e compagni che li amplificano"
+            }
+          ],
+          "warning": "Boss e nemici speciali possono resistere a parte del controllo."
+        }
+      ]
+    },
+    {
+      "id": "allies-synergy",
+      "number": "09",
+      "label": "Compagni",
+      "estimatedRead": "14–18 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Formare un trio che si apra spazio a vicenda",
+      "introduction": "I compagni funzionano quando le loro aree si completano: prima linea, controllo, danno e supporto devono poter agire senza ostacolarsi.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/09.webp",
+          "alt": "Coon and Friends riuniti in materiale ufficiale",
+          "caption": "Compagni · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "I compagni funzionano quando le loro aree si completano: prima linea, controllo, danno e supporto devono poter agire senza ostacolarsi.",
+          "steps": [
+            "Scegli chi occupa la prima linea",
+            "Aggiungi una fonte di controllo o cura",
+            "Completa con danno a distanza o ad area"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "La squadra migliore cambia con la forma del campo e il numero dei nemici.",
+          "tips": [
+            "Ruota i compagni nelle secondarie",
+            "Prova una battaglia prima di giudicare",
+            "Abbina spinte e aree persistenti"
+          ],
+          "mistakes": [
+            "Usare sempre gli stessi due",
+            "Portare tre ruoli identici"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "I compagni si bloccano",
+              "answer": "Sostituisci un corto raggio con una linea lunga o mobilità"
+            },
+            {
+              "problem": "Manca sopravvivenza",
+              "answer": "Aggiungi protezione, cura o controllo invece di altro danno"
+            }
+          ],
+          "warning": "Alcuni compagni arrivano con la storia: proteggi gli spoiler."
+        }
+      ]
+    },
+    {
+      "id": "time-space-powers",
+      "number": "10",
+      "label": "Tempo e spazio",
+      "estimatedRead": "13–17 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Usare i poteri speciali nel momento che cambia lo scontro",
+      "introduction": "I poteri del Nuovo Ragazzo alterano posizione e sequenza: il valore massimo arriva quando negano una minaccia o costruiscono una combo.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/10.webp",
+          "alt": "Poteri temporali in una schermata ufficiale",
+          "caption": "Tempo e spazio · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "I poteri del Nuovo Ragazzo alterano posizione e sequenza: il valore massimo arriva quando negano una minaccia o costruiscono una combo.",
+          "steps": [
+            "Identifica il turno nemico più pericoloso",
+            "Valuta se spostare, interrompere o recuperare",
+            "Usa il potere quando cambia davvero l’esito"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Le abilità speciali sono strumenti tattici, non pulsanti da premere appena disponibili.",
+          "tips": [
+            "Conservale per boss e ondate",
+            "Combinale con status già applicati",
+            "Prevedi la nuova posizione della squadra"
+          ],
+          "mistakes": [
+            "Sprecarle su un nemico minore",
+            "Dimenticare che cambiano l’ordine"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Il potere non salva la situazione",
+              "answer": "Usalo prima che la squadra sia già compromessa"
+            },
+            {
+              "problem": "Non capisco l’effetto",
+              "answer": "Leggi anteprima, caselle e timeline prima di confermare"
+            }
+          ],
+          "warning": "Alcuni poteri si sbloccano narrativamente."
+        }
+      ]
+    },
+    {
+      "id": "town-day-night",
+      "number": "11",
+      "label": "Città di giorno e notte",
+      "estimatedRead": "13–17 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Esplorare South Park come una rete di accessi",
+      "introduction": "Case, tetti, vicoli e interni nascondono percorsi che richiedono compagni o poteri specifici; la notte modifica incontri e disponibilità.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/11.webp",
+          "alt": "Strada e quartieri di South Park in immagine ufficiale",
+          "caption": "Città di giorno e notte · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Case, tetti, vicoli e interni nascondono percorsi che richiedono compagni o poteri specifici; la notte modifica incontri e disponibilità.",
+          "steps": [
+            "Esplora per isolati",
+            "Interagisci con ogni indicatore leggibile",
+            "Torna sui blocchi dopo nuovi poteri"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "La mappa si completa a strati, non in una sola pulizia.",
+          "tips": [
+            "Usa viaggio rapido quando disponibile",
+            "Controlla sopra e dietro gli edifici",
+            "Fotografa i luoghi da ricordare se necessario"
+          ],
+          "mistakes": [
+            "Cercare per ore un accesso non ancora sbloccato",
+            "Ignorare gli interni"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Una porta resta chiusa",
+              "answer": "Avanza nella storia o cerca un ingresso alternativo"
+            },
+            {
+              "problem": "La mappa sembra vuota",
+              "answer": "Cambia fascia narrativa e completa le missioni attive"
+            }
+          ],
+          "warning": "Il passaggio alla notte accompagna eventi di storia."
+        }
+      ]
+    },
+    {
+      "id": "collectibles-toilets",
+      "number": "12",
+      "label": "Collezionabili e sfide",
+      "estimatedRead": "12–16 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Raccogliere con un percorso, non con l’ansia da checklist",
+      "introduction": "Selfie, bagni, opere Yaoi e altri collezionabili premiano attenzione e ritorni mirati; molti richiedono strumenti acquisiti più avanti.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/12.webp",
+          "alt": "Ambiente esplorabile e oggetti in una scena ufficiale",
+          "caption": "Collezionabili e sfide · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Selfie, bagni, opere Yaoi e altri collezionabili premiano attenzione e ritorni mirati; molti richiedono strumenti acquisiti più avanti.",
+          "steps": [
+            "Completa prima l’accesso alla zona",
+            "Controlla ogni stanza una volta",
+            "Segna ciò che richiede un potere futuro"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Dividi la raccolta per quartiere e categoria.",
+          "tips": [
+            "Fai i selfie quando incontri il personaggio",
+            "Affronta i bagni con calma e sequenza",
+            "Chiudi le raccolte dopo aver ottenuto tutti i poteri"
+          ],
+          "mistakes": [
+            "Ripetere lo stesso percorso senza nuovi strumenti",
+            "Confondere decorazioni e oggetti interattivi"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Manca un collezionabile in zona",
+              "answer": "Controlla piano superiore, tetto o accesso con compagno"
+            },
+            {
+              "problem": "Una sfida del bagno fallisce",
+              "answer": "Osserva la sequenza dei comandi e riprova senza accelerare"
+            }
+          ],
+          "warning": "La raccolta completa può richiedere il post-storia."
+        }
+      ]
+    },
+    {
+      "id": "main-story",
+      "number": "13",
+      "label": "Franchise principale",
+      "estimatedRead": "16–22 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Seguire la storia senza perdere il controllo della build",
+      "introduction": "La campagna alterna indagine, satira e battaglie; mantieni aggiornati artefatti e squadra prima delle missioni con più fasi.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/13.webp",
+          "alt": "Missione della campagna in materiale ufficiale Ubisoft",
+          "caption": "Franchise principale · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "La campagna alterna indagine, satira e battaglie; mantieni aggiornati artefatti e squadra prima delle missioni con più fasi.",
+          "steps": [
+            "Completa le secondarie vicine",
+            "Aggiorna artefatti e consumabili",
+            "Crea un salvataggio prima della missione"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "La preparazione tra una missione e l’altra evita picchi improvvisi.",
+          "tips": [
+            "Porta ruoli complementari",
+            "Leggi obiettivi e ambiente",
+            "Conserva le risorse speciali per la fase difficile"
+          ],
+          "mistakes": [
+            "Entrare con Might troppo basso",
+            "Saltare il rifornimento"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Una missione sembra troppo lunga",
+              "answer": "Fermati al checkpoint e riorganizza inventario se consentito"
+            },
+            {
+              "problem": "Un boss annulla la mia strategia",
+              "answer": "Cambia compagni e forma delle aree, non soltanto il danno"
+            }
+          ],
+          "warning": "I dettagli narrativi restano chiusi nelle sezioni spoiler della guida."
+        }
+      ]
+    },
+    {
+      "id": "bosses-side-quests",
+      "number": "14",
+      "label": "Boss e secondarie",
+      "estimatedRead": "15–20 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Trasformare ogni sconfitta in informazione utile",
+      "introduction": "Boss e missioni opzionali verificano meccaniche specifiche: osserva schema, area minacciata e bersagli secondari prima di cambiare tutta la build.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/14.webp",
+          "alt": "Scontro con più bersagli in screenshot ufficiale",
+          "caption": "Boss e secondarie · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Boss e missioni opzionali verificano meccaniche specifiche: osserva schema, area minacciata e bersagli secondari prima di cambiare tutta la build.",
+          "steps": [
+            "Analizza il primo round",
+            "Elimina supporti e oggetti pericolosi",
+            "Conserva controllo e cure per il picco"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Una risposta mirata vale più di un aumento generale di Might.",
+          "tips": [
+            "Cambia un compagno alla volta",
+            "Usa consumabili senza paura",
+            "Riprova con una posizione iniziale diversa"
+          ],
+          "mistakes": [
+            "Ripetere la stessa apertura",
+            "Ignorare gli elementi del campo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Il boss agisce troppo spesso",
+              "answer": "Usa controllo, poteri temporali o abbatti i supporti"
+            },
+            {
+              "problem": "Finisco le cure",
+              "answer": "Riduci danno ricevuto con posizione e interruzioni"
+            }
+          ],
+          "warning": "Le soluzioni dettagliate ai boss sono protette da apertura volontaria."
+        }
+      ]
+    },
+    {
+      "id": "dlc-path",
+      "number": "15",
+      "label": "DLC narrativi",
+      "estimatedRead": "13–18 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Inserire Casa Bonita e Bring the Crunch nel momento giusto",
+      "introduction": "I DLC aggiungono ambientazioni, alleati e classi; affrontali quando conosci già griglia, status e gestione della squadra.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/15.webp",
+          "alt": "Copertine ufficiali di From Dusk Till Casa Bonita e Bring the Crunch",
+          "caption": "Casa Bonita e Bring the Crunch · i due DLC narrativi ufficiali mostrati integralmente",
+          "sourceUrl": "https://store.ubisoft.com/us/south-park-the-fractured-but-whole-dlc?lang=en_US"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "I DLC aggiungono ambientazioni, alleati e classi; affrontali quando conosci già griglia, status e gestione della squadra.",
+          "steps": [
+            "Verifica che il DLC sia installato",
+            "Controlla livello e Might consigliati",
+            "Crea un salvataggio separato prima di entrare"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "I DLC rendono meglio dopo aver consolidato la build di base.",
+          "tips": [
+            "Prova i nuovi poteri in scontri minori",
+            "Conserva un assetto precedente",
+            "Esplora gli ambienti senza correre"
+          ],
+          "mistakes": [
+            "Entrare senza consumabili",
+            "Cambiare tutta la build insieme"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Il DLC non appare",
+              "answer": "Controlla proprietà dell’edizione e installazione"
+            },
+            {
+              "problem": "La difficoltà sale troppo",
+              "answer": "Torna alle secondarie, aumenta Might e rivedi la squadra"
+            }
+          ],
+          "warning": "La guida non anticipa finali o rivelazioni dei DLC."
+        }
+      ]
+    },
+    {
+      "id": "completion-danger-deck",
+      "number": "16",
+      "label": "Completamento",
+      "estimatedRead": "14–19 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Chiudere il gioco senza trasformarlo in lavoro",
+      "introduction": "Danger Deck, collezionabili, sfide e contenuti residui funzionano meglio con obiettivi brevi e una build dedicata.",
+      "images": [
+        {
+          "src": "/atlas/south-park-scontri-di-retti/chapters/16.webp",
+          "alt": "Copertina ufficiale del DLC Danger Deck",
+          "caption": "Danger Deck · le sfide avanzate ufficiali mostrate integralmente",
+          "sourceUrl": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole/dlcs/danger-deck"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Danger Deck, collezionabili, sfide e contenuti residui funzionano meglio con obiettivi brevi e una build dedicata.",
+          "steps": [
+            "Dividi il completamento per categoria",
+            "Prepara un assetto per le sfide",
+            "Chiudi un quartiere o una raccolta alla volta"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Il completamento è una seconda lettura del sistema, non un obbligo.",
+          "tips": [
+            "Usa salvataggi distinti",
+            "Controlla ciò che manca prima di partire",
+            "Alterna sfide e raccolta"
+          ],
+          "mistakes": [
+            "Cercare tutto senza elenco",
+            "Usare la build narrativa per ogni prova"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Una sfida sembra impossibile",
+              "answer": "Cambia sinergie e artefatti pensando alla regola specifica"
+            },
+            {
+              "problem": "Manca un ultimo oggetto",
+              "answer": "Ricontrolla accessi notturni e poteri dei compagni"
+            }
+          ],
+          "warning": "Scegli il livello di completamento che resta divertente."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "start",
+      "label": "Indossa il mantello",
+      "summary": "Edizioni, origine e prime ore senza confusione.",
+      "icon": {
+        "src": "/atlas/south-park-scontri-di-retti/chapters/01.webp",
+        "alt": "Scena ufficiale con gli eroi di South Park",
+        "caption": "Indossa il mantello"
+      },
+      "generatedIcon": {
+        "src": "/atlas/south-park-scontri-di-retti/generated-icons-v1/01-orientamento.webp",
+        "alt": "Maschera e mappa innevata",
+        "caption": "Indossa il mantello · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "editions-settings",
+        "origin-new-kid",
+        "difficulty-first-hours"
+      ]
+    },
+    {
+      "id": "hero",
+      "label": "Costruisci l’eroe",
+      "summary": "Classi, Might, artefatti e creazione.",
+      "icon": {
+        "src": "/atlas/south-park-scontri-di-retti/chapters/04.webp",
+        "alt": "Poteri di classe in un combattimento ufficiale",
+        "caption": "Costruisci l’eroe"
+      },
+      "generatedIcon": {
+        "src": "/atlas/south-park-scontri-di-retti/generated-icons-v1/02-eroe.webp",
+        "alt": "Cintura da supereroe artigianale",
+        "caption": "Costruisci l’eroe · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "classes-powers",
+        "artifacts-might",
+        "crafting-costumes"
+      ]
+    },
+    {
+      "id": "combat",
+      "label": "Domina la griglia",
+      "summary": "Posizione, turni, status, compagni e tempo.",
+      "icon": {
+        "src": "/atlas/south-park-scontri-di-retti/chapters/07.webp",
+        "alt": "Combattimento tattico ufficiale sulla griglia",
+        "caption": "Domina la griglia"
+      },
+      "generatedIcon": {
+        "src": "/atlas/south-park-scontri-di-retti/generated-icons-v1/03-combattimento.webp",
+        "alt": "Griglia tattica con pedine",
+        "caption": "Domina la griglia · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "grid-positioning",
+        "turns-status",
+        "allies-synergy",
+        "time-space-powers"
+      ]
+    },
+    {
+      "id": "explore",
+      "label": "Esplora la città",
+      "summary": "Giorno, notte, accessi e collezionabili.",
+      "icon": {
+        "src": "/atlas/south-park-scontri-di-retti/chapters/11.webp",
+        "alt": "Strada e quartieri di South Park in immagine ufficiale",
+        "caption": "Esplora la città"
+      },
+      "generatedIcon": {
+        "src": "/atlas/south-park-scontri-di-retti/generated-icons-v1/04-esplorazione.webp",
+        "alt": "Kit di esplorazione della città",
+        "caption": "Esplora la città · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "town-day-night",
+        "collectibles-toilets"
+      ]
+    },
+    {
+      "id": "story",
+      "label": "Segui il franchise",
+      "summary": "Campagna, boss e secondarie con spoiler protetti.",
+      "icon": {
+        "src": "/atlas/south-park-scontri-di-retti/chapters/13.webp",
+        "alt": "Missione della campagna in materiale ufficiale Ubisoft",
+        "caption": "Segui il franchise"
+      },
+      "generatedIcon": {
+        "src": "/atlas/south-park-scontri-di-retti/generated-icons-v1/05-storia.webp",
+        "alt": "Fumetto con percorsi narrativi",
+        "caption": "Segui il franchise · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "main-story",
+        "bosses-side-quests"
+      ]
+    },
+    {
+      "id": "complete",
+      "label": "Chiudi il caso",
+      "summary": "DLC, Danger Deck e completamento.",
+      "icon": {
+        "src": "/atlas/south-park-scontri-di-retti/chapters/15.webp",
+        "alt": "Contenuto aggiuntivo ufficiale di Scontri Di-Retti",
+        "caption": "Chiudi il caso"
+      },
+      "generatedIcon": {
+        "src": "/atlas/south-park-scontri-di-retti/generated-icons-v1/06-completamento.webp",
+        "alt": "Emblema di DLC e completamento",
+        "caption": "Chiudi il caso · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "dlc-path",
+        "completion-danger-deck"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Ubisoft · pagina ufficiale",
+      "href": "https://www.ubisoft.com/en-us/games/south-park-the-fractured-but-whole"
+    },
+    {
+      "label": "South Park Studios · lancio ufficiale",
+      "href": "https://www.southparkstudios.com/news/ejrvbx/south-park-the-fractured-but-whole-is-available-now"
+    },
+    {
+      "label": "Ubisoft News · classi e combattimento",
+      "href": "https://news.ubisoft.com/en-us/article/7AYgu7uLPc0fAJV1XlFXE6/south-park-the-fractured-but-whole-october-17-release-date-announced"
+    }
+  ]
+}

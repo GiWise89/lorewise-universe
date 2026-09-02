@@ -8,7 +8,7 @@ import { HashTargetFocus } from "@/components/HashTargetFocus";
 import { HalloweenCountdown } from "@/components/HalloweenCountdown";
 import { UniverseGuide } from "@/components/UniverseGuide";
 import { commissionContentRules } from "@/lib/commissionTerms";
-import { CORRUPTED_PORTRAIT_PACKAGE, corruptedPortraitPromotion, getActiveCommissionPromotion, type CommissionPromotion } from "@/lib/commissionPromotion";
+import { CORRUPTED_PORTRAIT_PACKAGE, corruptedPortraitPromotion, getActiveCommissionPromotion, holidayNexusPromotion, type CommissionPromotion } from "@/lib/commissionPromotion";
 import { getLoreWiseUser } from "@/lib/supabase/server";
 import {
   carolineProject,
@@ -163,7 +163,7 @@ function CorruptedPromotionDetails({ promotion, requestHref }: { promotion: Comm
   </section>;
 }
 
-function CommissionPricingCards({ promotion, packages = pricingPackages }: { promotion: CommissionPromotion | null; packages?: readonly (typeof pricingPackages[number] | typeof corruptedPortraitPackage)[] }) {
+function CommissionPricingCards({ promotion, packages = pricingPackages, previewQuery = "" }: { promotion: CommissionPromotion | null; packages?: readonly (typeof pricingPackages[number] | typeof corruptedPortraitPackage)[]; previewQuery?: string }) {
   return <div className="commission-price-grid">
     {packages.map((item) => (
       <article key={item.name}>
@@ -177,7 +177,7 @@ function CommissionPricingCards({ promotion, packages = pricingPackages }: { pro
           <em>{item.idealFor}</em>
           <ul>{item.includes.map((entry) => <li key={entry}>{entry}</li>)}</ul>
           <span>{item.timing}</span>
-          <Link href={`/commissioni?request=preventivo&package=${encodeURIComponent(item.name)}#richiesta`}>Scegli questo percorso →</Link>
+          <Link href={`/commissioni?request=preventivo&package=${encodeURIComponent(item.name)}${previewQuery ? `&anteprima=${encodeURIComponent(previewQuery)}` : ""}#richiesta`}>Scegli questo percorso →</Link>
         </div>
       </article>
     ))}
@@ -199,11 +199,12 @@ function CommissionPromotionBanner({ promotion }: { promotion: CommissionPromoti
   </aside>;
 }
 
-function CommissionPromotionFocus({ promotion }: { promotion: CommissionPromotion }) {
+function CommissionPromotionFocus({ promotion, previewQuery = "" }: { promotion: CommissionPromotion; previewQuery?: string }) {
   const promotionPackages = promotion.eligiblePackage ? [corruptedPortraitPackage] : pricingPackages;
+  const previewSuffix = previewQuery ? `&anteprima=${encodeURIComponent(previewQuery)}` : "";
   const requestHref = promotion.eligiblePackage
-    ? `/commissioni?request=preventivo&package=${encodeURIComponent(promotion.eligiblePackage)}#richiesta`
-    : "/commissioni?request=preventivo#richiesta";
+    ? `/commissioni?request=preventivo&package=${encodeURIComponent(promotion.eligiblePackage)}${previewSuffix}#richiesta`
+    : `/commissioni?request=preventivo${previewSuffix}#richiesta`;
   const isCorruptedPortrait = Boolean(promotion.eligiblePackage);
   return <main className={`commission-page commission-promotion-focus-page${isCorruptedPortrait ? " is-corrupted-portrait" : ""}`}>
     {isCorruptedPortrait ? <CorruptedPromoRails promotion={promotion} /> : null}
@@ -234,7 +235,7 @@ function CommissionPromotionFocus({ promotion }: { promotion: CommissionPromotio
           <CorruptedPromotionDetails promotion={promotion} requestHref={requestHref} />
         </> : <>
           <CommissionPromotionBanner promotion={promotion} />
-          <CommissionPricingCards promotion={promotion} packages={promotionPackages} />
+          <CommissionPricingCards promotion={promotion} packages={promotionPackages} previewQuery={previewQuery} />
         </>}
         <nav className="commission-promotion-focus-actions" aria-label="Continua nelle Commissioni">
           <Link href={requestHref}>Richiedi il ritratto <span aria-hidden="true">→</span></Link>
@@ -368,12 +369,12 @@ function CommissionRequestSection({ user, promotion, initialPackage, initialRefe
   </section>;
 }
 
-function CommissionRequestFocus({ user, promotion, initialPackage, initialReference }: { user: CommissionUser; promotion: CommissionPromotion | null; initialPackage: string; initialReference: string }) {
+function CommissionRequestFocus({ user, promotion, initialPackage, initialReference, previewQuery = "" }: { user: CommissionUser; promotion: CommissionPromotion | null; initialPackage: string; initialReference: string; previewQuery?: string }) {
   const isCorruptedPortrait = initialPackage === CORRUPTED_PORTRAIT_PACKAGE;
-  const backHref = isCorruptedPortrait && promotion
-    ? `/commissioni?focus=${encodeURIComponent(promotion.focusId)}`
+  const backHref = promotion
+    ? `/commissioni?focus=${encodeURIComponent(promotion.focusId)}${previewQuery ? `&anteprima=${encodeURIComponent(previewQuery)}` : ""}`
     : "/commissioni";
-  return <main className={`commission-page commission-request-focus-page${isCorruptedPortrait ? " is-corrupted-request" : ""}`}>
+  return <main className={`commission-page commission-request-focus-page${isCorruptedPortrait ? " is-corrupted-request" : ""}${promotion ? " has-promotion-summary" : ""}`}>
     <HashTargetFocus targetId="richiesta" active />
     <header className="commission-request-focus-intro">
       <div className="shell">
@@ -383,6 +384,7 @@ function CommissionRequestFocus({ user, promotion, initialPackage, initialRefere
         <p>{isCorruptedPortrait ? "Il percorso horror è già selezionato. Compila i dati, descrivi la trasformazione e allega i riferimenti del volto." : "Compila il modulo per ricevere una valutazione completa prima dell’inizio del lavoro."}</p>
       </div>
     </header>
+    {promotion ? <div className="shell commission-request-promotion-summary"><CommissionPromotionBanner promotion={promotion} /></div> : null}
     <CommissionRequestSection user={user} promotion={promotion} initialPackage={initialPackage} initialReference={initialReference} />
   </main>;
 }
@@ -395,15 +397,20 @@ export default async function CommissionsPage({ searchParams }: { searchParams?:
   const activeChapter: CommissionChapter = commissionChapters.some((chapter) => chapter.id === requestedChapter)
     ? requestedChapter as CommissionChapter
     : "panoramica";
-  const promotion = process.env.LOREWISE_LOCAL_HALLOWEEN_PREVIEW === "true"
-    ? corruptedPortraitPromotion
-    : getActiveCommissionPromotion();
+  const localHolidayPreview = query?.anteprima === "feste"
+    && (process.env.NODE_ENV !== "production" || process.env.LOREWISE_LOCAL_CALENDAR_PREVIEW === "true");
+  const promotion = localHolidayPreview
+    ? holidayNexusPromotion
+    : process.env.LOREWISE_LOCAL_HALLOWEEN_PREVIEW === "true"
+      ? corruptedPortraitPromotion
+      : getActiveCommissionPromotion();
   const promotionFocusId = promotion?.focusId ?? "";
   const focusPromotion = Boolean(promotion) && query?.focus === promotionFocusId;
-  if (focusPromotion && promotion) return <CommissionPromotionFocus promotion={promotion} />;
+  const previewQuery = localHolidayPreview ? "feste" : "";
+  if (focusPromotion && promotion) return <CommissionPromotionFocus promotion={promotion} previewQuery={previewQuery} />;
   const user = await getLoreWiseUser();
   const requestFocus = query?.request === "preventivo";
-  if (requestFocus) return <CommissionRequestFocus user={user} promotion={promotion} initialPackage={initialPackage} initialReference={initialReference} />;
+  if (requestFocus) return <CommissionRequestFocus user={user} promotion={promotion} initialPackage={initialPackage} initialReference={initialReference} previewQuery={previewQuery} />;
   return (
     <main className={`commission-page commission-hub-page is-${activeChapter}`}>
       {promotion ? <HashTargetFocus targetId={promotionFocusId} active={focusPromotion} /> : null}

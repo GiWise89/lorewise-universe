@@ -29,6 +29,7 @@ export type CreativeGameJournalEntry = {
   title: string;
   label: string;
   summary: string;
+  heroImage?: CreativeJournalImage;
   currentWork: string[];
   creativeFocus: string[];
   gallery: CreativeJournalImage[];
@@ -227,6 +228,68 @@ export const commissionStories: CreativeJournalEntry[] = [
 ];
 
 export const reinterpretationStories: CreativeJournalEntry[] = [
+  {
+    id: "obsession-fan-art",
+    title: "Obsession",
+    shortTitle: "Obsession",
+    kind: "reinterpretazione",
+    label: "Fan art horror · reinterpretazione personale non ufficiale",
+    summary: "Otto passaggi mostrano la nascita di una composizione corale: dal primo volto isolato alle tre presenze unite da linee nere, rossi profondi e un’atmosfera sempre più inquieta.",
+    story: [
+      "La tavola comincia dal volto in primo piano. L’espressione chiusa e i grandi neri dei capelli fissano subito il centro emotivo del disegno, mentre il resto dello spazio resta ancora completamente aperto.",
+      "La composizione cresce per presenze successive: prima la figura alle spalle, poi il grande volto laterale. Ogni inserimento cambia il peso della scena, ma lo sguardo continua a tornare sulla figura centrale.",
+      "Dopo la line art arrivano il rosso, le campiture della pelle e i riflessi freddi. Il fondo sfocato completa il passaggio da studio di figure separate a immagine unica, costruita come un incontro tra ossessione, minaccia e memoria horror.",
+    ],
+    process: [
+      "Costruzione del volto centrale e delle grandi masse nere dei capelli.",
+      "Completamento della figura in primo piano, dell’abito e della collana.",
+      "Inserimento della presenza alle spalle per creare profondità e tensione.",
+      "Apertura del lato sinistro con un terzo volto in scala monumentale.",
+      "Definizione dell’espressione laterale e dei primi dettagli rossi.",
+      "Pulizia dell’inchiostrazione e bilanciamento delle tre silhouette.",
+      "Prime campiture della pelle, delle ombre e dei contrasti cromatici.",
+      "Rifinitura dei colori prima dell’atmosfera e dello sfondo finali.",
+    ],
+    facts: [
+      { label: "Tipo", value: "Fan art personale non ufficiale" },
+      { label: "Tecnica", value: "Illustrazione digitale, line art e campiture" },
+      { label: "Composizione", value: "Tre presenze sovrapposte in formato verticale" },
+      { label: "Palette", value: "Nero, rosso sangue, incarnato e blu ardesia" },
+      { label: "Documentazione", value: "Otto fasi di lavorazione e tavola finale" },
+      { label: "Stato", value: "Progetto completo" },
+    ],
+    tags: ["fan art", "horror", "ritratto", "processo creativo", "line art", "colore"],
+    processImages: [
+      wip("lw-wip-013-1-preview.webp", "Prima fase protetta di Obsession: nasce il volto centrale", 704, 966),
+      wip("lw-wip-013-2-preview.webp", "Seconda fase protetta di Obsession: la figura centrale è completa", 649, 920),
+      wip("lw-wip-013-3-preview.webp", "Terza fase protetta di Obsession: compare una presenza alle spalle", 472, 681),
+      wip("lw-wip-013-4-preview.webp", "Quarta fase protetta di Obsession: le tre figure trovano la composizione", 564, 804),
+      wip("lw-wip-013-5-preview.webp", "Quinta fase protetta di Obsession: si definisce il grande volto laterale", 621, 875),
+      wip("lw-wip-013-6-preview.webp", "Sesta fase protetta di Obsession: entrano i primi dettagli rossi", 592, 837),
+      wip("lw-wip-013-7-preview.webp", "Settima fase protetta di Obsession: iniziano le campiture della pelle", 584, 824),
+      wip("lw-wip-013-8-preview.webp", "Ottava fase protetta di Obsession: la colorazione è quasi completa", 588, 841),
+    ],
+    processCaptions: [
+      "01 · Il primo sguardo",
+      "02 · La figura centrale",
+      "03 · Una presenza alle spalle",
+      "04 · Tre volti, una composizione",
+      "05 · Il volto laterale prende forma",
+      "06 · Il rosso rompe il bianco e nero",
+      "07 · Le prime campiture",
+      "08 · Il colore prima dello sfondo",
+    ],
+    image: {
+      src: "/creative-journal/previews/lw-wip-013-complete-preview.webp",
+      alt: "Risultato completo protetto della fan art horror Obsession",
+      width: 1273,
+      height: 1800,
+    },
+    finalCaption: "09 · Obsession · tavola completa",
+    heroImageIndex: 3,
+    artworkHref: "/arte/lw-art-080",
+    status: "completo",
+  },
   {
     id: "michael-jackson-thriller",
     title: "Michael Jackson · Thriller",
@@ -433,22 +496,23 @@ export const gameJournalEntries: CreativeGameJournalEntry[] = [
   {
     id: "demon-match-three",
     title: "Demon Match Three",
-    label: "Match-3 horror RPG",
-    summary: "Mesi di sviluppo per trasformare una griglia match-3 in un RPG horror con mappa, battaglie, creature, ricompense e progressione.",
-    currentWork: ["Controlli sulla progressione e sulle battaglie.", "Preparazione delle edizioni Windows e Android.", "Distribuzione ancora non attiva."],
-    creativeFocus: ["La griglia deve essere leggibile senza perdere l’atmosfera horror.", "Custodi, nemici, reliquie e ambienti hanno funzioni visive e di gioco differenti.", "Colori, simboli ed effetti devono far capire immediatamente cosa accade dopo ogni combinazione."],
+    label: "Match-3 RPG fantasy · Android nativo",
+    summary: "Demon Match Three rinasce come gioco Android nativo per smartphone e tablet: una campagna verticale in cui missioni, combinazioni, power-up, fusioni e cascate fanno avanzare lo stesso viaggio.",
+    heroImage: { src: "/games/demon-match-three/gameplay-portal-backdrop-v1.webp", alt: "Santuario del portale della nuova versione Android nativa di Demon Match Three", width: 768, height: 1365 },
+    currentWork: ["Prima fase giocabile Android con mappa dell’Atto I e missioni iniziali già integrate.", "HUD, tessere, power-up, fusioni e boost ridisegnati come interfaccia nativa verticale.", "Collaudo su smartphone e tablet prima della futura demo gratuita."],
+    creativeFocus: ["Ogni schermata nasce come scena di gioco illustrata, non come una pagina web composta da riquadri.", "I power-up creati sulla griglia restano distinti dai boost disponibili nell’inventario.", "Tessere, simboli, effetti e controlli touch devono restare leggibili senza ritagliare le illustrazioni."],
     gallery: [
-      { src: "/games/demon-match-three/gameplay-current-menu.webp", alt: "Menu principale di Demon Match Three", width: 2000, height: 1250 },
-      { src: "/games/demon-match-three/gameplay-current-map.webp", alt: "Mappa di progressione di Demon Match Three", width: 2000, height: 1250 },
-      { src: "/games/demon-match-three/gameplay-current-battle.webp", alt: "Schermata reale di una battaglia di Demon Match Three", width: 2000, height: 1250 },
-      { src: "/games/demon-match-three/gameplay-current-reliquary.webp", alt: "Reliquiario di Demon Match Three", width: 2000, height: 1250 },
-      { src: "/games/demon-match-three/gameplay-current-reward.webp", alt: "Ricompensa dopo una battaglia di Demon Match Three", width: 2000, height: 1250 },
+      { src: "/games/demon-match-three/gameplay-map-act-1-v1.webp", alt: "Mappa verticale dell’Atto I La Soglia Caprina nella build Android attuale", width: 1344, height: 2992 },
+      { src: "/games/demon-match-three/gameplay-mission-4-brief-v1.webp", alt: "Briefing illustrato della Missione 4 Altare Cremisi", width: 1344, height: 2992 },
+      { src: "/games/demon-match-three/gameplay-powerup-ready-v1.webp", alt: "Griglia della Missione 4 con due power-up pronti per la fusione", width: 1344, height: 2992 },
+      { src: "/games/demon-match-three/gameplay-crimson-wave-v1.webp", alt: "Attivazione della fusione Onda Cremisi sulla griglia", width: 1344, height: 2992 },
+      { src: "/games/demon-match-three/gameplay-after-cascade-v1.webp", alt: "Griglia ricomposta dopo la fusione e la cascata di tessere", width: 1344, height: 2992 },
     ],
     code: {
-      title: "Risoluzione della griglia",
-      file: "src/game/board.ts",
-      language: "TypeScript",
-      snippet: "export function resolveBoard(board, groups, options = {}) {\n  const size = board.length\n  const next = cloneBoard(board)\n  const resolvedGroups = options.fusionTrigger ? [] : groups\n  const clear = new Map()\n  const powerHits = new Set()\n\n  resolvedGroups.flatMap(group => group.cells)\n    .forEach(position =>\n      clear.set(positionKey(position), position)\n    )\n\n  const activated = new Set()\n  const fusionName = options.fusionTrigger\n    ? applyFusion(board, options.fusionTrigger, clear, activated)\n    : undefined\n}",
+      title: "Attivazione di una fusione",
+      file: "app/src/main/java/com/giwise/demonmatch3/ui/TutorialBoardView.java",
+      language: "Java · Android nativo",
+      snippet: "private void resolveFusion(Position first, Position second) {\n  Board beforeResolution = board;\n  BoardResolution resolution = BoardEngine.resolve(\n    board, List.of(), ResolveOptions.fusion(first, second)\n  );\n\n  cascadeDepth = 1;\n  cascadeRemoved = resolution.removedTiles().size();\n  advanceProgressAndBoss(resolution);\n  prepareDropRows(resolution.board());\n\n  activeFusionName = resolution.fusionName();\n  activeFusionFirst = first;\n  activeFusionSecond = second;\n  board = resolution.board();\n\n  listener.onInstruction(\"FUSIONE · \" + activeFusionName);\n  animateSpecialActivation(resolution);\n}",
     },
     href: "/giochi/demon-match-three",
     status: "In sviluppo",

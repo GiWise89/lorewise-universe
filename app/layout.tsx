@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Cinzel_Decorative, Fraunces, Manrope } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteAnalyticsTracker } from "@/components/SiteAnalyticsTracker";
 import { ProfileCompletionGate } from "@/components/ProfileCompletionGate";
+import { NexusFamiliarCompanion } from "@/components/NexusFamiliarCompanion";
 import { SiteJsonLd } from "@/components/SeoJsonLd";
 import "./site.css";
 
@@ -53,10 +55,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${display.variable} ${body.variable} ${loreDisplay.variable}`}>
         <SiteJsonLd />
         <a className="skip-link" href="#contenuto">Vai al contenuto</a>
-        <SiteAnalyticsTracker />
+        <Suspense fallback={null}>
+          <SiteAnalyticsTracker />
+        </Suspense>
         <ProfileCompletionGate />
         <SiteHeader />
         <div id="contenuto">{children}</div>
+        <NexusFamiliarCompanion />
         <SiteFooter />
       </body>
     </html>

@@ -139,12 +139,12 @@ test("groups every destination into the approved responsive navigation", async (
 });
 
 test("keeps the Demon Match Three protagonist reveal protected inside the VIP area", async () => {
-  const response = await render("/cronache-del-nexus");
+  const response = await render("/cronache-del-nexus?vista=archivio&cronaca=demon-match-android-development");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Le identità del nuovo conflitto sono state svelate nell’Area VIP/);
   assert.match(html, /gameplay-portal-backdrop-v1\.webp/);
-  assert.match(html, /La griglia alimenta ogni battaglia/);
+  assert.match(html, /La griglia, le fusioni e le prime missioni/);
   assert.doesNotMatch(html, /Nora|Varek|nora-order|varek-shadow|nora-varek-duality/);
   assert.match(html, /Demo gratuita Android in arrivo/);
   assert.match(html, /Abbonati all’Area VIP/);
@@ -204,12 +204,25 @@ test("renders the GiWise creative journal with originals and clearly separated r
   assert.match(html, /lw-wip-007-preview\.jpg/);
   assert.match(html, /Il mio diario creativo/);
   assert.match(html, /Creazioni originali/);
-  assert.match(html, /Reinterpretazioni/);
+  assert.match(html, /Fan art e reinterpretazioni/);
+  assert.match(html, /Obsession/);
   assert.match(html, /Qualcosa di me/);
   assert.match(html, /Mondi in costruzione/);
   assert.doesNotMatch(html, /Scorri per vedere tutto/);
   assert.doesNotMatch(html, /La storia del personaggio|La chiamavano Terza/);
   assert.match(html, /href="\/dove-nascono-i-mondi\/scappa-finche-puoi"/);
+});
+
+test("gives Obsession a complete protected fan-art sequence", async () => {
+  const response = await render("/dove-nascono-i-mondi/obsession-fan-art");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Obsession/);
+  assert.match(html, /Fan art personale non ufficiale/);
+  assert.match(html, /Otto fasi di lavorazione e tavola finale/);
+  for (let index = 1; index <= 8; index += 1) assert.match(html, new RegExp(`lw-wip-013-${index}-preview\\.webp`));
+  assert.match(html, /lw-wip-013-complete-preview\.webp/);
+  assert.match(html, /09 · Obsession · tavola completa/);
 });
 
 test("gives the portrait a complete protected commission sequence without a personal name", async () => {
@@ -459,6 +472,7 @@ test("renders the protected art catalog without deriving public titles from file
   const response = await render("/arte");
   assert.equal(response.status, 200);
   const html = await response.text();
+  const catalogSource = await readFile(new URL("../components/ArtCatalog.tsx", import.meta.url), "utf8");
   assert.match(html, /LW-ART-001/);
   assert.match(html, /Art the Clown/);
   assert.doesNotMatch(html, /Titolo da assegnare/);
@@ -466,28 +480,26 @@ test("renders the protected art catalog without deriving public titles from file
   assert.match(html, /originali saranno acquistabili singolarmente oppure tramite i crediti mensili/);
   assert.match(html, /Indice della collezione/);
   assert.match(html, /Esplora l’archivio/);
-  assert.match(html, /Titolo o codice/);
+  assert.match(catalogSource, /Titolo o codice/);
   assert.match(html, />2025</);
   assert.match(html, />2026</);
-  assert.match(html, /Tutti i generi/);
-  assert.match(html, /Horror e dark art/);
-  assert.match(html, /Anime e manga/);
-  assert.match(html, /Contenuti per adulti/);
-  assert.match(html, /Fascia di prezzo/);
+  assert.match(catalogSource, /Tutti i generi/);
+  assert.match(catalogSource, /artworkGenreLabels/);
+  assert.match(catalogSource, /Fascia di prezzo/);
   assert.match(html, /Opere Originali in Vendita/);
   assert.match(html, /Fan art e originali custoditi online/);
   assert.match(html, /originals-emblem-v1\.webp/);
   assert.match(html, /fanart-emblem-v1\.webp/);
   assert.match(html, /Ordina/);
   assert.match(html, /Apri il capitolo successivo/);
-  assert.match(html, /Visualizzate[\s\S]*6[\s\S]*74 opere/);
+  assert.match(html, /Visualizzate[\s\S]*6[\s\S]*75 opere/);
   assert.match(html, /Originale autorizzata/);
-  assert.match(html, /Fascia Essenziale/);
-  assert.match(html, /Fascia Dettagliata/);
-  assert.match(html, /Fascia Premium/);
-  assert.match(html, /8,90/);
-  assert.match(html, /12,90/);
-  assert.match(html, /17,90/);
+  assert.match(catalogSource, /Fascia Essenziale/);
+  assert.match(catalogSource, /Fascia Dettagliata/);
+  assert.match(catalogSource, /Fascia Premium/);
+  assert.match(catalogSource, /8,90/);
+  assert.match(catalogSource, /12,90/);
+  assert.match(catalogSource, /17,90/);
   assert.match(html, /Solo esposizione/);
   assert.match(html, /Opera sigillata[\s\S]*18\+/);
   assert.match(html, /adult-cover-v2\.webp/);
@@ -705,7 +717,7 @@ test("renders the approved metadata and adult warning for LW-ART-006", async () 
   const html = await response.text();
   assert.match(html, /Frutto Proibito/);
   assert.match(html, /2026/);
-  assert.match(html, /Pop art provocatoria/);
+  assert.match(html, /Pop art adulta/);
   assert.match(html, /sessualmente esplicito/i);
   assert.match(html, /Confermo di avere almeno 18 anni/);
   assert.match(html, /adult-cover-v2\.webp/);
@@ -860,6 +872,29 @@ test("renders the complete protected commission portfolio", async () => {
   assert.match(html, /Il mio ritratto verrà pubblicato/);
   assert.doesNotMatch(html, /Invio in preparazione/);
   assert.doesNotMatch(html, /Acquista l’opera|download disponibile/i);
+});
+
+test("keeps Obsession in the protected exhibition without commercial actions", async () => {
+  const catalogResponse = await render("/arte");
+  const catalogHtml = await catalogResponse.text();
+  assert.equal(catalogResponse.status, 200);
+  assert.match(catalogHtml, /Obsession[^<]{0,8}Il volto di Nikki/);
+  assert.match(catalogHtml, /Nuova in vetrina/);
+  assert.match(catalogHtml, /Cinema horror indipendente[^<]{0,8}Fan art/);
+
+  const response = await render("/arte/lw-art-080");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Obsession · Il volto di Nikki/);
+  assert.match(html, /Curry Barker/);
+  assert.match(html, /Fan art · Solo esposizione/);
+  assert.match(html, /Tributo non commerciale/);
+  assert.match(html, /lw-art-080-preview\.jpg/);
+  assert.doesNotMatch(html, /Acquisto protetto|Acquisisci l’opera|PNG appiattito senza filigrana/);
+
+  const checkout = await render("/api/checkout?productType=artwork&productCode=LW-ART-080", { headers: { accept: "application/json" } });
+  assert.equal(checkout.status, 200);
+  assert.equal((await checkout.json()).productAvailable, false);
 });
 
 test("keeps each commission chapter focused instead of rebuilding the long page", async () => {
@@ -1118,6 +1153,21 @@ test("renders the current native Android Demon Match Three gameplay without expo
   assert.match(html, /Distribuzione e disponibilità/);
   assert.match(html, /Gratuita · presto in arrivo/);
   assert.doesNotMatch(html, /Acquista ora|Download APK disponibile/);
+});
+
+test("keeps the Demon Match Three creative journal aligned with the native Android rebuild", async () => {
+  const response = await render("/dove-nascono-i-mondi/giochi/demon-match-three");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Match-3 RPG fantasy/);
+  assert.match(html, /Android nativo/);
+  assert.match(html, /gameplay-map-act-1-v1\.webp/);
+  assert.match(html, /gameplay-mission-4-brief-v1\.webp/);
+  assert.match(html, /gameplay-powerup-ready-v1\.webp/);
+  assert.match(html, /gameplay-crimson-wave-v1\.webp/);
+  assert.match(html, /gameplay-after-cascade-v1\.webp/);
+  assert.match(html, /TutorialBoardView\.java/);
+  assert.doesNotMatch(html, /gameplay-current-menu\.webp|gameplay-current-reliquary\.webp|src\/game\/board\.ts/);
 });
 
 test("uses only the gameplay backdrop and official logo for Demon Match Three on public entry pages", async () => {

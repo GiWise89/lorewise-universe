@@ -72,5 +72,6 @@
   { "code": "LW-ART-076", "file": "Nuove Cronache/Rock Lee1.png" },
   { "code": "LW-ART-077", "file": "Nuove Cronache/se mi lasci ti cancello.jpeg" },
   { "code": "LW-ART-078", "file": "Nuove Cronache/Sheldon Cooper1.png" },
-  { "code": "LW-ART-079", "file": "bozze progetti/cyborg/cyborg1.png", "root": "project" }
+  { "code": "LW-ART-079", "file": "bozze progetti/cyborg/cyborg1.png", "root": "project" },
+  { "code": "LW-ART-080", "file": "bozze progetti/obsession/obsession1.png", "root": "project" }
 ]

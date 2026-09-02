@@ -18,6 +18,7 @@ const navIcons: Record<string, string> = {
   "/enciclopedia": "/brand/icons/enciclopedia-concept-v1.webp",
   "/shop": "/brand/navigation/shop.webp",
   "/account": "/brand/navigation/account.webp",
+  "/famiglio": "/famiglio/navigation/tana-v1.webp",
   "/cronache-del-nexus": "/brand/navigation/lorewise-wax-seal.webp",
   "/community": "/brand/icons/social-assistenza-concept-v1.webp",
   "/contatti": "/brand/navigation/account.webp",
@@ -69,6 +70,7 @@ const mobilePrimaryLinks = [
   { label: "LoreWise VIP", href: "/vip" },
   { label: "GiWise Shop", href: "/shop" },
   { label: "Account", href: "/account" },
+  { label: "Famiglio", href: "/famiglio" },
 ] as const;
 
 const desktopGroupIcons = {
@@ -171,6 +173,9 @@ export function SiteHeader() {
           </ul>
         </nav>
         <div className="header-actions">
+        <Link className={isCurrentRoute(pathname, "/famiglio") ? "header-familiar is-active" : "header-familiar"} href="/famiglio" aria-label="Apri il mio Famiglio del Nexus" title="Il mio Famiglio">
+          <Image src="/famiglio/navigation/tana-v1.webp" alt="" width={112} height={112} unoptimized />
+        </Link>
         <Link className={isCurrentRoute(pathname, "/cerca") ? "header-search is-active" : "header-search"} href="/cerca" aria-label="Cerca in LoreWise Universe" title="Cerca nell’universo">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg>
         </Link>

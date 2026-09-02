@@ -1,0 +1,1110 @@
+{
+  "id": "stardew-valley-complete-guide-01",
+  "code": "LW-ATLAS-SDV-001",
+  "game": "Stardew Valley",
+  "title": "Un anno nella valle",
+  "subtitle": "Una guida accogliente e concreta per far crescere fattoria, relazioni e avventure senza trasformare ogni giornata in una corsa.",
+  "description": "Sedici capitoli e quarantotto schede pratiche su prima settimana, tempo, colture, irrigazione, animali, amicizie, festival, Centro Sociale, pesca, miniere, artigianato, multiplayer, Caverna del Teschio, Isola Zenzero e perfezione.",
+  "versionLabel": "Versione 1.6 · verifica 26 agosto 2026",
+  "updatedAt": "26 agosto 2026",
+  "vipFrom": "2026-12-14T00:00:00+01:00",
+  "publicAt": "2026-12-21T00:00:00+01:00",
+  "theme": "stardew-valley",
+  "storeUrl": "https://www.stardewvalley.net/",
+  "storeLabel": "Visita Stardew Valley",
+  "slug": "stardew-valley",
+  "cover": {
+    "src": "/atlas/stardew-valley/cover.webp",
+    "alt": "Fattoria di Stardew Valley in schermata ufficiale",
+    "caption": "Stardew Valley · immagine ufficiale mostrata integralmente",
+    "sourceUrl": "https://www.stardewvalley.net/media/"
+  },
+  "chapters": [
+    {
+      "id": "edition-farm-map",
+      "number": "01",
+      "label": "Prima della fattoria",
+      "estimatedRead": "11–15 min",
+      "spoiler": "No spoiler",
+      "title": "Scegliere mappa, opzioni e obiettivi senza ricominciare",
+      "introduction": "La mappa della fattoria cambia spazio e priorità, ma tutte permettono una partita completa: scegli la fantasia quotidiana che vuoi vivere.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/01.webp",
+          "alt": "Fattoria di Stardew Valley in schermata ufficiale",
+          "caption": "Prima della fattoria · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "La mappa della fattoria cambia spazio e priorità, ma tutte permettono una partita completa: scegli la fantasia quotidiana che vuoi vivere.",
+          "steps": [
+            "Scegli una mappa coerente con il tuo interesse",
+            "Configura margine di profitto e multiplayer",
+            "Crea il personaggio senza cercare vantaggi nascosti"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "La fattoria standard è la scelta più leggibile; le altre valorizzano attività specifiche.",
+          "tips": [
+            "Usa la descrizione della mappa come bussola",
+            "Mantieni le opzioni predefinite alla prima partita",
+            "Scegli un nome che riconoscerai nei salvataggi"
+          ],
+          "mistakes": [
+            "Ricreare la partita per pochi spazi",
+            "Scegliere una mappa solo perché sembra più difficile"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "La fattoria sembra stretta",
+              "answer": "Organizza per zone e sposta gli edifici più avanti"
+            },
+            {
+              "problem": "Ho scelto la mappa sbagliata",
+              "answer": "Adatta la produzione al terreno; non esiste una mappa senza sbocchi"
+            }
+          ],
+          "warning": "Le opzioni avanzate cambiano ritmo ed economia."
+        }
+      ]
+    },
+    {
+      "id": "first-week",
+      "number": "02",
+      "label": "Prima settimana",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Trasformare sette giorni in fondamenta, non in una corsa",
+      "introduction": "La prima settimana serve a seminare, incontrare il paese, raccogliere risorse e capire energia e orari.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/02.webp",
+          "alt": "Prime coltivazioni in una fattoria ufficiale",
+          "caption": "Prima settimana · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "La prima settimana serve a seminare, incontrare il paese, raccogliere risorse e capire energia e orari.",
+          "steps": [
+            "Pianta e annaffia la pastinaca iniziale",
+            "Raccogli legna, pietra e fibre senza esaurirti",
+            "Visita Pelican Town e controlla il calendario"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Una routine corta e ripetibile vale più di una giornata perfetta.",
+          "tips": [
+            "Conserva qualche esemplare di ogni risorsa",
+            "Costruisci una cassa presto",
+            "Rientra prima di mezzanotte finché impari i percorsi"
+          ],
+          "mistakes": [
+            "Tagliare tutta la fattoria subito",
+            "Spendere ogni moneta in semi"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Finisco energia a metà giornata",
+              "answer": "Riduci il disboscamento e usa il tempo residuo per esplorare"
+            },
+            {
+              "problem": "Non trovo gli abitanti",
+              "answer": "Controlla orari e luoghi abituali invece di girare a caso"
+            }
+          ],
+          "warning": "Non serve completare tutto nella prima primavera."
+        }
+      ]
+    },
+    {
+      "id": "time-energy-weather",
+      "number": "03",
+      "label": "Tempo ed energia",
+      "estimatedRead": "12–16 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere il giorno come una piccola agenda flessibile",
+      "introduction": "Energia, orario, meteo e fortuna quotidiana influenzano quali attività rendono meglio.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/03.webp",
+          "alt": "Valle e ciclo giornaliero in immagine ufficiale",
+          "caption": "Tempo ed energia · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Energia, orario, meteo e fortuna quotidiana influenzano quali attività rendono meglio.",
+          "steps": [
+            "Guarda TV e meteo al mattino",
+            "Scegli una priorità principale",
+            "Lascia un margine per il rientro"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Pianifica per blocchi: fattoria, viaggio, attività, ritorno.",
+          "tips": [
+            "Usa giorni di pioggia per miniera o pesca",
+            "Porta cibo nelle attività lunghe",
+            "Tieni gli strumenti necessari nello zaino"
+          ],
+          "mistakes": [
+            "Portare tutto ogni giorno",
+            "Ignorare i tempi di viaggio"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Svenisco spesso",
+              "answer": "Imposta un orario di rientro e usa Minecart o Totem quando disponibili"
+            },
+            {
+              "problem": "Non concludo nulla",
+              "answer": "Scegli un solo obiettivo grande per giornata"
+            }
+          ],
+          "warning": "Il ritmo non penalizza chi gioca lentamente."
+        }
+      ]
+    },
+    {
+      "id": "crops-seasons",
+      "number": "04",
+      "label": "Colture e stagioni",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Piantare solo ciò che può maturare in tempo",
+      "introduction": "Ogni coltura ha costo, giorni di crescita, ricrescita e stagione: il calendario evita investimenti che appassiscono al cambio stagione.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/04.webp",
+          "alt": "Campo coltivato in screenshot ufficiale",
+          "caption": "Colture e stagioni · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Ogni coltura ha costo, giorni di crescita, ricrescita e stagione: il calendario evita investimenti che appassiscono al cambio stagione.",
+          "steps": [
+            "Conta i giorni rimasti",
+            "Calcola semi, spaventapasseri e irrigazione",
+            "Conserva prodotti per bundle, regali e ricette"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Una miscela di reddito rapido e colture a ricrescita rende stabile la stagione.",
+          "tips": [
+            "Compra semi in lotti gestibili",
+            "Usa fertilizzante sugli obiettivi di qualità",
+            "Prepara il terreno prima del primo giorno"
+          ],
+          "mistakes": [
+            "Piantare troppo per l’energia disponibile",
+            "Dimenticare il cambio stagione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Le colture non matureranno",
+              "answer": "Concentrati su varietà più rapide o conserva i semi"
+            },
+            {
+              "problem": "Annaffiare occupa tutto il giorno",
+              "answer": "Riduci il campo e investi in irrigazione"
+            }
+          ],
+          "warning": "Quasi tutte le colture stagionali muoiono al cambio stagione."
+        }
+      ]
+    },
+    {
+      "id": "tools-sprinklers",
+      "number": "05",
+      "label": "Attrezzi e irrigazione",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Comprare tempo con potenziamenti ben programmati",
+      "introduction": "Attrezzi migliori e irrigatori trasformano energia manuale in tempo libero per miniere, pesca, relazioni e isola.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/05.webp",
+          "alt": "Lavoro nei campi in materiale ufficiale",
+          "caption": "Attrezzi e irrigazione · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Attrezzi migliori e irrigatori trasformano energia manuale in tempo libero per miniere, pesca, relazioni e isola.",
+          "steps": [
+            "Scegli l’attrezzo che usi di più",
+            "Controlla meteo e durata del potenziamento",
+            "Posiziona irrigatori su una griglia semplice"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Il miglior potenziamento è quello che libera una routine quotidiana.",
+          "tips": [
+            "Porta l’annaffiatoio prima di pioggia o inverno",
+            "Passa presto agli irrigatori di qualità",
+            "Lascia corridoi per raccolta e spaventapasseri"
+          ],
+          "mistakes": [
+            "Consegnare un attrezzo prima di usarlo",
+            "Creare campi più grandi degli irrigatori"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Clint tiene l’attrezzo nel giorno sbagliato",
+              "answer": "Controlla calendario e feste prima della consegna"
+            },
+            {
+              "problem": "Gli irrigatori saltano caselle",
+              "answer": "Verifica il raggio e riprogetta a moduli"
+            }
+          ],
+          "warning": "Gli attrezzi restano indisponibili durante il potenziamento."
+        }
+      ]
+    },
+    {
+      "id": "animals-buildings",
+      "number": "06",
+      "label": "Animali ed edifici",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Espandere la fattoria quando puoi sostenerla ogni giorno",
+      "introduction": "Stalla, pollaio e animali producono bene con cibo, riparo, cura e trasformazione artigianale.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/06.webp",
+          "alt": "Edifici rurali e animali nella valle",
+          "caption": "Animali ed edifici · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Stalla, pollaio e animali producono bene con cibo, riparo, cura e trasformazione artigianale.",
+          "steps": [
+            "Costruisci silo prima di tagliare tutta l’erba",
+            "Prepara edificio e scorta di fieno",
+            "Aggiungi macchine per trasformare i prodotti"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Un gruppo piccolo e curato rende più di una stalla enorme trascurata.",
+          "tips": [
+            "Accarezza gli animali",
+            "Apri l’uscita con bel tempo",
+            "Trasforma latte, uova e lana"
+          ],
+          "mistakes": [
+            "Comprare animali senza fieno",
+            "Dimenticare il riscaldatore in inverno"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Gli animali sono scontenti",
+              "answer": "Controlla cibo, porta, meteo e carezze"
+            },
+            {
+              "problem": "I prodotti valgono poco",
+              "answer": "Costruisci pressa, macchina per maionese o telaio"
+            }
+          ],
+          "warning": "Gli edifici possono essere spostati: non serve una disposizione definitiva subito."
+        }
+      ]
+    },
+    {
+      "id": "villagers-friendship",
+      "number": "07",
+      "label": "Abitanti e amicizia",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Costruire relazioni senza memorizzare un’enciclopedia",
+      "introduction": "Parlare, completare richieste e fare regali graditi aumenta amicizia; compleanni e routine rendono il percorso più rapido.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/07.webp",
+          "alt": "Abitante di Pelican Town in scena ufficiale",
+          "caption": "Abitanti e amicizia · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Parlare, completare richieste e fare regali graditi aumenta amicizia; compleanni e routine rendono il percorso più rapido.",
+          "steps": [
+            "Parla quando incontri qualcuno",
+            "Impara uno o due regali affidabili",
+            "Controlla i compleanni sul calendario"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Le relazioni crescono meglio integrate nel percorso quotidiano.",
+          "tips": [
+            "Porta una piccola selezione di regali",
+            "Completa richieste accessibili",
+            "Visita il Saloon nelle sere affollate"
+          ],
+          "mistakes": [
+            "Inseguire tutti ogni giorno",
+            "Regalare oggetti casuali costosi"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Non trovo un abitante",
+              "answer": "Consulta orario, stagione e meteo"
+            },
+            {
+              "problem": "L’amicizia scende",
+              "answer": "Riprendi conversazioni e regali senza trasformarli in obbligo"
+            }
+          ],
+          "warning": "Eventi cuore richiedono condizioni e luoghi specifici."
+        }
+      ]
+    },
+    {
+      "id": "festivals-quests",
+      "number": "08",
+      "label": "Festival e richieste",
+      "estimatedRead": "12–16 min",
+      "spoiler": "No spoiler",
+      "title": "Usare il calendario come invito, non come pressione",
+      "introduction": "Festival, bacheche e missioni speciali offrono ricompense, relazioni e attività uniche.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/08.webp",
+          "alt": "Evento comunitario in screenshot ufficiale",
+          "caption": "Festival e richieste · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Festival, bacheche e missioni speciali offrono ricompense, relazioni e attività uniche.",
+          "steps": [
+            "Controlla calendario e posta",
+            "Prepara gli oggetti richiesti in anticipo",
+            "Arriva al luogo entro l’orario indicato"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Le richieste migliori sono quelle compatibili con i tuoi piani correnti.",
+          "tips": [
+            "Conserva una cassa per missioni",
+            "Leggi la durata prima di accettare",
+            "Partecipa ai festival almeno una volta"
+          ],
+          "mistakes": [
+            "Accettare tutto",
+            "Dimenticare che il tempo cambia durante alcuni festival"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Ho perso un festival",
+              "answer": "Tornerà l’anno successivo"
+            },
+            {
+              "problem": "La richiesta scade",
+              "answer": "Valuta se puoi completarla senza sacrificare la stagione"
+            }
+          ],
+          "warning": "Alcuni negozi chiudono durante festival ed eventi."
+        }
+      ]
+    },
+    {
+      "id": "community-center-joja",
+      "number": "09",
+      "label": "Centro Sociale o Joja",
+      "estimatedRead": "16–21 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Scegliere il percorso della valle con consapevolezza",
+      "introduction": "I bundle premiano varietà ed esplorazione; Joja trasforma gli sblocchi in obiettivi economici. Entrambi conducono ai servizi principali con ritmi diversi.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/09.webp",
+          "alt": "Centro Sociale e valle in immagine ufficiale",
+          "caption": "Centro Sociale o Joja · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "I bundle premiano varietà ed esplorazione; Joja trasforma gli sblocchi in obiettivi economici. Entrambi conducono ai servizi principali con ritmi diversi.",
+          "steps": [
+            "Esamina i bundle prima di vendere",
+            "Conserva prodotti stagionali e qualità",
+            "Decidi il percorso solo dopo aver capito quale stile preferisci"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Il Centro Sociale è una checklist del mondo; Joja è una checklist del denaro.",
+          "tips": [
+            "Usa casse separate per bundle",
+            "Completa le stanze che sbloccano mobilità",
+            "Non scegliere per paura di perdere efficienza"
+          ],
+          "mistakes": [
+            "Vendere un oggetto stagionale raro",
+            "Trasformare i bundle in una corsa"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Manca un oggetto fuori stagione",
+              "answer": "Controlla mercante itinerante o attendi l’anno successivo"
+            },
+            {
+              "problem": "I bundle bloccano la fattoria",
+              "answer": "Completa per priorità, non in ordine visivo"
+            }
+          ],
+          "warning": "La scelta Joja è importante: leggi la conferma prima di procedere."
+        }
+      ]
+    },
+    {
+      "id": "fishing",
+      "number": "10",
+      "label": "Pesca",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Trasformare il minigioco in ritmo e previsione",
+      "introduction": "La pesca migliora con livello, canna, esche, accessori e scelta del luogo; le prime catture difficili non definiscono la tua abilità.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/10.webp",
+          "alt": "Pesca in un paesaggio ufficiale di Stardew Valley",
+          "caption": "Pesca · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "La pesca migliora con livello, canna, esche, accessori e scelta del luogo; le prime catture difficili non definiscono la tua abilità.",
+          "steps": [
+            "Inizia con pesci facili",
+            "Mantieni la barra sotto il pesce con tocchi brevi",
+            "Aggiorna canna e usa cibo da pesca"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Prevedi la direzione invece di inseguire ogni scatto.",
+          "tips": [
+            "Pesca nei luoghi e orari giusti",
+            "Usa galleggiante adatto al problema",
+            "Completa catture perfette sui pesci semplici"
+          ],
+          "mistakes": [
+            "Tenere premuto troppo a lungo",
+            "Provare subito i leggendari"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Il pesce sfugge verso il fondo",
+              "answer": "Rilascia prima e frena con tocchi brevi"
+            },
+            {
+              "problem": "Non abbocca ciò che cerco",
+              "answer": "Controlla stagione, meteo, orario e zona"
+            }
+          ],
+          "warning": "Alcuni pesci compaiono solo in condizioni specifiche."
+        }
+      ]
+    },
+    {
+      "id": "mines-combat",
+      "number": "11",
+      "label": "Miniere e combattimento",
+      "estimatedRead": "15–20 min",
+      "spoiler": "No spoiler",
+      "title": "Scendere con una soglia di sicurezza",
+      "introduction": "Le miniere richiedono cibo, spazio, arma adeguata e una decisione chiara su quando cercare la scala e quando raccogliere.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/11.webp",
+          "alt": "Miniera e avventura in schermata ufficiale",
+          "caption": "Miniere e combattimento · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Le miniere richiedono cibo, spazio, arma adeguata e una decisione chiara su quando cercare la scala e quando raccogliere.",
+          "steps": [
+            "Porta cibo e svuota lo zaino",
+            "Cerca ascensori a intervalli utili",
+            "Rientra prima che salute o tempo diventino critici"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Ogni discesa ha un obiettivo: piani, minerale o mostri.",
+          "tips": [
+            "Rompi rocce in gruppi efficienti",
+            "Blocca o arretra invece di subire",
+            "Migliora piccone e arma in fasi separate"
+          ],
+          "mistakes": [
+            "Restare per un ultimo piano",
+            "Portare oggetti preziosi inutili"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Non trovo la scala",
+              "answer": "Elimina mostri e rompi rocce iniziando dalle zone dense"
+            },
+            {
+              "problem": "Subisco troppi danni",
+              "answer": "Migliora arma, porta cibo e non farti chiudere contro il muro"
+            }
+          ],
+          "warning": "Svenire può costare denaro e oggetti."
+        }
+      ]
+    },
+    {
+      "id": "foraging-crafting-cooking",
+      "number": "12",
+      "label": "Raccolta, creazione e cucina",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Trasformare materiali comuni in autonomia",
+      "introduction": "Foraging, ricette e cucina sostengono energia, regali, bundle e macchine: conservare una base di risorse riduce le giornate sprecate.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/12.webp",
+          "alt": "Raccolta nella valle in materiale ufficiale",
+          "caption": "Raccolta, creazione e cucina · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Foraging, ricette e cucina sostengono energia, regali, bundle e macchine: conservare una base di risorse riduce le giornate sprecate.",
+          "steps": [
+            "Fai un giro di raccolta settimanale",
+            "Conserva legna, pietra, carbone e fibra",
+            "Cucina bonus adatti all’attività"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Le scorte minime valgono più di una cassa piena di doppioni inutili.",
+          "tips": [
+            "Usa tapper e alberi dedicati",
+            "Crea scale e bombe solo quando servono",
+            "Impara ricette da TV e amicizie"
+          ],
+          "mistakes": [
+            "Vendere tutto il foraging",
+            "Consumare cibo raro per poca energia"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Manca sempre carbone",
+              "answer": "Usa fornace, polverini e percorsi minerari adatti"
+            },
+            {
+              "problem": "Le ricette restano bloccate",
+              "answer": "Controlla TV, amicizie, abilità e negozi"
+            }
+          ],
+          "warning": "Alcune risorse sono stagionali o legate a zone specifiche."
+        }
+      ]
+    },
+    {
+      "id": "artisan-economy",
+      "number": "13",
+      "label": "Economia artigianale",
+      "estimatedRead": "15–19 min",
+      "spoiler": "No spoiler",
+      "title": "Far crescere il valore senza perdere il controllo della fattoria",
+      "introduction": "Barili, vasetti, formaggi e altri prodotti artigianali convertono tempo e materia prima in margine; la capacità delle macchine deve seguire la produzione.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/13.webp",
+          "alt": "Produzione agricola in screenshot ufficiale",
+          "caption": "Economia artigianale · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Barili, vasetti, formaggi e altri prodotti artigianali convertono tempo e materia prima in margine; la capacità delle macchine deve seguire la produzione.",
+          "steps": [
+            "Scegli una filiera principale",
+            "Costruisci macchine in base al raccolto reale",
+            "Conserva liquidità per semi ed edifici"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Non tutto deve essere trasformato: vendi una parte per finanziare il ciclo successivo.",
+          "tips": [
+            "Calcola il collo di bottiglia",
+            "Usa capanni per le macchine",
+            "Mantieni una riserva di prodotti per richieste"
+          ],
+          "mistakes": [
+            "Bloccare tutto per settimane",
+            "Costruire macchine senza materie prime"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Ho prodotti ma poche macchine",
+              "answer": "Aumenta gradualmente capacità o vendi l’eccesso"
+            },
+            {
+              "problem": "Guadagno ma non ho liquidità",
+              "answer": "Scagliona raccolti e vendite"
+            }
+          ],
+          "warning": "La crescita più stabile lascia sempre un fondo operativo."
+        }
+      ]
+    },
+    {
+      "id": "home-family-multiplayer",
+      "number": "14",
+      "label": "Casa, famiglia e multiplayer",
+      "estimatedRead": "13–18 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Condividere la valle senza dividere il divertimento",
+      "introduction": "Miglioramenti della casa, relazioni e multiplayer aggiungono obiettivi comuni; ruoli flessibili evitano che una persona diventi responsabile di tutto.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/14.webp",
+          "alt": "Casa e vita sociale in scena ufficiale",
+          "caption": "Casa, famiglia e multiplayer · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Miglioramenti della casa, relazioni e multiplayer aggiungono obiettivi comuni; ruoli flessibili evitano che una persona diventi responsabile di tutto.",
+          "steps": [
+            "Concorda denaro e priorità",
+            "Dividi routine, non proprietà",
+            "Lascia spazio a progetti personali"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Una fattoria condivisa funziona con comunicazione e margine di libertà.",
+          "tips": [
+            "Usa casse nominate o aree riconoscibili",
+            "Sincronizza festival e miniere",
+            "Cambia ruoli tra le stagioni"
+          ],
+          "mistakes": [
+            "Spendere fondi senza avvisare",
+            "Assegnare sempre la stessa mansione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "La giornata finisce prima per qualcuno",
+              "answer": "Concordate l’orario e usate la pausa quando disponibile"
+            },
+            {
+              "problem": "I progetti si sovrappongono",
+              "answer": "Create zone e una breve lista comune"
+            }
+          ],
+          "warning": "Le opzioni economiche multiplayer dipendono dalla configurazione iniziale."
+        }
+      ]
+    },
+    {
+      "id": "skull-cavern",
+      "number": "15",
+      "label": "Deserto e Caverna del Teschio",
+      "estimatedRead": "16–22 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Preparare una discesa profonda, non una visita casuale",
+      "introduction": "La Caverna del Teschio premia velocità, fortuna, bombe, scale, cibo e una giornata dedicata.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/15.webp",
+          "alt": "Esplorazione sotterranea e combattimento in uno screenshot ufficiale",
+          "caption": "Caverna del Teschio · preparazione alle discese e ai combattimenti",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "La Caverna del Teschio premia velocità, fortuna, bombe, scale, cibo e una giornata dedicata.",
+          "steps": [
+            "Scegli una giornata fortunata",
+            "Porta bombe, scale e due tipi di cibo",
+            "Parti presto con un trasporto rapido"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "L’obiettivo è scendere: combatti e raccogli solo quando conviene.",
+          "tips": [
+            "Usa bombe sui gruppi di rocce",
+            "Mangia prima di essere in pericolo",
+            "Conserva scale per piani lenti o infestati"
+          ],
+          "mistakes": [
+            "Rompere ogni roccia a mano",
+            "Portare poca cura"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Non scendo abbastanza",
+              "answer": "Aumenta bombe, scale e velocità di arrivo"
+            },
+            {
+              "problem": "Perdo oggetti preziosi",
+              "answer": "Riduci rischi, usa anelli e prepara un rientro d’emergenza"
+            }
+          ],
+          "warning": "Lascia a casa gli oggetti che non servono alla spedizione."
+        }
+      ]
+    },
+    {
+      "id": "ginger-mastery-perfection",
+      "number": "16",
+      "label": "Isola Zenzero e perfezione",
+      "estimatedRead": "18–24 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Aprire l’endgame come un nuovo arcipelago di obiettivi",
+      "introduction": "L’isola aggiunge esplorazione, colture, noci, vulcano e nuovi sistemi; maestria e perfezione collegano attività che puoi completare nel tuo ordine.",
+      "images": [
+        {
+          "src": "/atlas/stardew-valley/chapters/16.webp",
+          "alt": "Area tropicale o traguardo avanzato in screenshot ufficiale",
+          "caption": "Isola Zenzero e perfezione · immagine ufficiale mostrata integralmente",
+          "sourceUrl": "https://www.stardewvalley.net/media/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "L’isola aggiunge esplorazione, colture, noci, vulcano e nuovi sistemi; maestria e perfezione collegano attività che puoi completare nel tuo ordine.",
+          "steps": [
+            "Esplora per zone",
+            "Registra gli indizi e le noci mancanti",
+            "Alterna isola e fattoria principale"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "L’endgame è una rete di obiettivi, non una linea retta.",
+          "tips": [
+            "Sblocca prima trasporti e accessi",
+            "Porta strumenti e cibo adeguati",
+            "Usa il tracciamento della perfezione come orientamento"
+          ],
+          "mistakes": [
+            "Cercare tutte le noci senza metodo",
+            "Abbandonare completamente la fattoria"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Non trovo nuove noci",
+              "answer": "Segui indizi, aree non esplorate e attività dell’isola"
+            },
+            {
+              "problem": "La perfezione sembra lontana",
+              "answer": "Scegli una categoria alla volta e continua a giocare ciò che ti piace"
+            }
+          ],
+          "warning": "I dettagli su isola e traguardi restano protetti da spoiler."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "start",
+      "label": "Metti radici",
+      "summary": "Mappa, prima settimana, tempo ed energia.",
+      "icon": {
+        "src": "/atlas/stardew-valley/chapters/01.webp",
+        "alt": "Fattoria di Stardew Valley in schermata ufficiale",
+        "caption": "Metti radici"
+      },
+      "generatedIcon": {
+        "src": "/atlas/stardew-valley/generated-icons-v1/01-inizio.webp",
+        "alt": "Cartello della fattoria al sorgere del sole",
+        "caption": "Metti radici · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "edition-farm-map",
+        "first-week",
+        "time-energy-weather"
+      ]
+    },
+    {
+      "id": "farm",
+      "label": "Coltiva la fattoria",
+      "summary": "Stagioni, strumenti, irrigazione, animali ed edifici.",
+      "icon": {
+        "src": "/atlas/stardew-valley/chapters/04.webp",
+        "alt": "Campo coltivato in screenshot ufficiale",
+        "caption": "Coltiva la fattoria"
+      },
+      "generatedIcon": {
+        "src": "/atlas/stardew-valley/generated-icons-v1/02-fattoria.webp",
+        "alt": "Campo, irrigatore e attrezzi",
+        "caption": "Coltiva la fattoria · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "crops-seasons",
+        "tools-sprinklers",
+        "animals-buildings"
+      ]
+    },
+    {
+      "id": "community",
+      "label": "Vivi la valle",
+      "summary": "Amicizie, festival, richieste e percorso comunitario.",
+      "icon": {
+        "src": "/atlas/stardew-valley/chapters/07.webp",
+        "alt": "Abitante di Pelican Town in scena ufficiale",
+        "caption": "Vivi la valle"
+      },
+      "generatedIcon": {
+        "src": "/atlas/stardew-valley/generated-icons-v1/03-comunita.webp",
+        "alt": "Bacheca, cuore e bundle",
+        "caption": "Vivi la valle · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "villagers-friendship",
+        "festivals-quests",
+        "community-center-joja"
+      ]
+    },
+    {
+      "id": "skills",
+      "label": "Impara facendo",
+      "summary": "Pesca, miniere, raccolta, creazione e cucina.",
+      "icon": {
+        "src": "/atlas/stardew-valley/chapters/10.webp",
+        "alt": "Pesca in un paesaggio ufficiale di Stardew Valley",
+        "caption": "Impara facendo"
+      },
+      "generatedIcon": {
+        "src": "/atlas/stardew-valley/generated-icons-v1/04-abilita.webp",
+        "alt": "Cresta delle abilità della valle",
+        "caption": "Impara facendo · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "fishing",
+        "mines-combat",
+        "foraging-crafting-cooking"
+      ]
+    },
+    {
+      "id": "growth",
+      "label": "Fai crescere il progetto",
+      "summary": "Economia artigianale, casa, famiglia e multiplayer.",
+      "icon": {
+        "src": "/atlas/stardew-valley/chapters/13.webp",
+        "alt": "Produzione agricola in screenshot ufficiale",
+        "caption": "Fai crescere il progetto"
+      },
+      "generatedIcon": {
+        "src": "/atlas/stardew-valley/generated-icons-v1/05-crescita.webp",
+        "alt": "Botte, formaggio e casa condivisa",
+        "caption": "Fai crescere il progetto · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "artisan-economy",
+        "home-family-multiplayer"
+      ]
+    },
+    {
+      "id": "endgame",
+      "label": "Oltre la valle",
+      "summary": "Deserto, Caverna, Isola, maestria e perfezione.",
+      "icon": {
+        "src": "/atlas/stardew-valley/chapters/15.webp",
+        "alt": "Deserto o area avanzata in immagine ufficiale",
+        "caption": "Oltre la valle"
+      },
+      "generatedIcon": {
+        "src": "/atlas/stardew-valley/generated-icons-v1/06-endgame.webp",
+        "alt": "Cristallo, isola e stella del traguardo",
+        "caption": "Oltre la valle · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "skull-cavern",
+        "ginger-mastery-perfection"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "Stardew Valley · sito ufficiale",
+      "href": "https://www.stardewvalley.net/"
+    },
+    {
+      "label": "Stardew Valley · media ufficiali",
+      "href": "https://www.stardewvalley.net/media/"
+    },
+    {
+      "label": "Stardew Valley Wiki · guida iniziale",
+      "href": "https://stardewvalleywiki.com/Getting_Started"
+    },
+    {
+      "label": "Stardew Valley Wiki · Centro Sociale",
+      "href": "https://stardewvalleywiki.com/Community_Center"
+    },
+    {
+      "label": "Stardew Valley Wiki · Isola Zenzero",
+      "href": "https://stardewvalleywiki.com/Ginger_Island"
+    }
+  ]
+}

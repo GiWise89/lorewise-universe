@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BlackFridayCountdown } from "@/components/BlackFridayCountdown";
 import { blackFridayCampaign, blackFridayTeaser, getBlackFridayCampaignPhase, isBlackFridayTeaserActive } from "@/lib/blackFridayTeaser";
-import { getActiveCommissionPromotion, type CommissionPromotion } from "@/lib/commissionPromotion";
+import { getActiveCommissionPromotion, holidayNexusPromotion, type CommissionPromotion } from "@/lib/commissionPromotion";
 
-export function CurrentDiscountRibbon({ initialPromotion = null, previewBlackFriday = false, previewCampaign = false }: { initialPromotion?: CommissionPromotion | null; previewBlackFriday?: boolean; previewCampaign?: boolean }) {
+export function CurrentDiscountRibbon({ initialPromotion = null, previewBlackFriday = false, previewCampaign = false, previewHoliday = false }: { initialPromotion?: CommissionPromotion | null; previewBlackFriday?: boolean; previewCampaign?: boolean; previewHoliday?: boolean }) {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -45,7 +45,17 @@ export function CurrentDiscountRibbon({ initialPromotion = null, previewBlackFri
     </aside>
   );
 
-  const promotion = now ? getActiveCommissionPromotion(now) : initialPromotion;
+  const promotion = previewHoliday ? holidayNexusPromotion : now ? getActiveCommissionPromotion(now) : initialPromotion;
+  if (promotion?.id === holidayNexusPromotion.id) return (
+    <aside className="studio-ribbon holiday-home-ribbon" aria-label="Promozione Feste nel Nexus 2026">
+      <Link className="holiday-home-ribbon-link" href={`/feste-nel-nexus${previewHoliday ? "?anteprima=feste" : ""}`}>
+        <Image className="holiday-home-ribbon-decoration" src="/promotions/holiday/christmas-garland-divider-v1.webp" alt="" width={2172} height={724} unoptimized />
+        <span className="holiday-home-ribbon-copy"><small>1 dicembre 2026 · 1 gennaio 2027</small><strong>Feste nel Nexus</strong><span>Regala un mondo. O comincia il tuo.</span></span>
+        <span className="holiday-home-ribbon-rates"><b>−{holidayNexusPromotion.rates.visitor}%</b><b>−{holidayNexusPromotion.rates.supporter}%</b><b>−{holidayNexusPromotion.rates.collector}%</b></span>
+        <span className="holiday-home-ribbon-action">Scopri la promozione <b aria-hidden="true">→</b></span>
+      </Link>
+    </aside>
+  );
   const rates = promotion
     ? [
         { audience: "Visitatori", discount: `−${promotion.rates.visitor}%` },

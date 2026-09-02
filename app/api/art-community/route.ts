@@ -9,10 +9,13 @@ import { createUserNotification } from "@/lib/userNotifications";
 import { profileCompletion } from "@/lib/profileCompletion";
 import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { localArtCommunityPayload, updateLocalArtCommunity } from "@/lib/localArtCommunity";
+import { meaningfulMissionComment } from "@/lib/nexusFamiliarMissionCatalog";
+import { recordFamiliarMissionActivity } from "@/lib/nexusFamiliarMissionServer";
+import { familiarCommunityTitle } from "@/lib/nexusFamiliarBenefits";
 
 type RuntimeEnv = { DB?: D1Database; LOREWISE_ADMIN_EMAILS?: string };
 type Viewer = { id: string; canParticipate: boolean };
-type CommentRow = { id: string; user_id: string; parent_comment_id: string | null; body: string; display_name: string | null; username: string | null; avatar_object_key: string | null; profile_visibility: string; created_at: string; updated_at: string; membership_badge: string | null; like_count: number; viewer_liked: number };
+type CommentRow = { id: string; user_id: string; parent_comment_id: string | null; body: string; display_name: string | null; username: string | null; avatar_object_key: string | null; profile_visibility: string; created_at: string; updated_at: string; membership_badge: string | null; familiar_level: number | null; like_count: number; viewer_liked: number };
 
 function selectedArtwork(request: Request) {
   const code = (new URL(request.url).searchParams.get("artwork") ?? "").toUpperCase();
@@ -29,12 +32,13 @@ async function payload(database: D1Database, artworkCode: string, viewer?: Viewe
   const rows = await database.prepare(`SELECT c.id, c.user_id, c.parent_comment_id, c.body, c.created_at, c.updated_at,
       u.display_name, u.username, u.avatar_object_key, u.profile_visibility,
       (SELECT CASE s.plan_code WHEN 'LW-PASS-COLLECTOR' THEN 'Collector' WHEN 'LW-PASS-SUPPORTER' THEN 'Supporter' END FROM subscriptions s WHERE s.customer_id = c.user_id AND s.status IN ('active','trialing') AND (s.current_period_end IS NULL OR datetime(s.current_period_end) > CURRENT_TIMESTAMP) ORDER BY s.created_at DESC LIMIT 1) membership_badge,
+      (SELECT CAST(json_extract(f.state_json, '$.level') AS INTEGER) FROM nexus_familiars f WHERE f.customer_id = c.user_id LIMIT 1) familiar_level,
       (SELECT COUNT(*) FROM artwork_comment_likes l WHERE l.comment_id = c.id) like_count,
       (SELECT COUNT(*) FROM artwork_comment_likes l WHERE l.comment_id = c.id AND l.user_id = ?) viewer_liked
     FROM artwork_comments c JOIN customers u ON u.id = c.user_id
     WHERE c.artwork_code = ? AND c.status = 'visible' ORDER BY c.created_at ASC LIMIT 120`).bind(viewer?.id ?? "", artworkCode).all<CommentRow>();
-  type Serialized = { id: string; name: string; username: string | null; avatarUrl: string | null; body: string; createdAt: string; edited: boolean; ownedByViewer: boolean; membershipBadge: string | null; likeCount: number; viewerLiked: boolean; replies: Serialized[] };
-  const serialize = (row: CommentRow): Serialized => ({ id: row.id, ...publicAuthor(row), body: row.body, createdAt: row.created_at, edited: row.updated_at !== row.created_at, ownedByViewer: row.user_id === viewer?.id, membershipBadge: row.membership_badge, likeCount: Number(row.like_count), viewerLiked: Boolean(row.viewer_liked), replies: [] });
+  type Serialized = { id: string; name: string; username: string | null; avatarUrl: string | null; body: string; createdAt: string; edited: boolean; ownedByViewer: boolean; membershipBadge: string | null; familiarBadge: string | null; likeCount: number; viewerLiked: boolean; replies: Serialized[] };
+  const serialize = (row: CommentRow): Serialized => ({ id: row.id, ...publicAuthor(row), body: row.body, createdAt: row.created_at, edited: row.updated_at !== row.created_at, ownedByViewer: row.user_id === viewer?.id, membershipBadge: row.membership_badge, familiarBadge: familiarCommunityTitle(Number(row.familiar_level ?? 1)), likeCount: Number(row.like_count), viewerLiked: Boolean(row.viewer_liked), replies: [] });
   const comments = rows.results.filter((row) => !row.parent_comment_id).map(serialize);
   const byId = new Map(comments.map((comment) => [comment.id, comment]));
   for (const row of rows.results.filter((item) => item.parent_comment_id)) byId.get(row.parent_comment_id!)?.replies.push(serialize(row));
@@ -88,7 +92,10 @@ export async function POST(request: Request) {
     if (action === "toggle_like") {
       const exists = await database.prepare("SELECT 1 FROM artwork_likes WHERE artwork_code = ? AND user_id = ?").bind(artwork.code, user.id).first();
       if (exists) await database.prepare("DELETE FROM artwork_likes WHERE artwork_code = ? AND user_id = ?").bind(artwork.code, user.id).run();
-      else await database.prepare("INSERT INTO artwork_likes(user_id, artwork_code) VALUES(?, ?)").bind(user.id, artwork.code).run();
+      else {
+        await database.prepare("INSERT INTO artwork_likes(user_id, artwork_code) VALUES(?, ?)").bind(user.id, artwork.code).run();
+        await recordFamiliarMissionActivity(database, { customerId: user.id, activity: "artwork_like", sourceKey: artwork.code });
+      }
       return Response.json(await payload(database, artwork.code, viewer));
     }
     if (action === "comment") {
@@ -105,6 +112,9 @@ export async function POST(request: Request) {
       }
       const id = crypto.randomUUID();
       await database.prepare("INSERT INTO artwork_comments(id,user_id,artwork_code,parent_comment_id,body) VALUES(?,?,?,?,?)").bind(id, user.id, artwork.code, parentId, text).run();
+      if (meaningfulMissionComment(text)) {
+        await recordFamiliarMissionActivity(database, { customerId: user.id, activity: "meaningful_comment", sourceKey: artwork.code, qualityScore: text.length });
+      }
       if (recipient) await createUserNotification(database, { userId: recipient, actorUserId: user.id, type: "reply", artworkCode: artwork.code, commentId: id, title: "Nuova risposta al tuo commento", message: `${artwork.title || "Un'opera"}: qualcuno ha risposto alla conversazione.`, targetUrl: `/arte/${artwork.slug}#community-${artwork.code}`, groupKey: `reply:${id}` });
       return Response.json(await payload(database, artwork.code, viewer), { status: 201 });
     }
@@ -117,6 +127,7 @@ export async function POST(request: Request) {
       if (exists) await database.prepare("DELETE FROM artwork_comment_likes WHERE user_id = ? AND comment_id = ?").bind(user.id, commentId).run();
       else {
         await database.prepare("INSERT INTO artwork_comment_likes(user_id,comment_id) VALUES(?,?)").bind(user.id, commentId).run();
+        if (target.user_id !== user.id) await recordFamiliarMissionActivity(database, { customerId: user.id, activity: "comment_like", sourceKey: commentId });
         await createUserNotification(database, { userId: target.user_id, actorUserId: user.id, type: "comment_like", artworkCode: artwork.code, commentId, title: "Il tuo commento è piaciuto", message: `Una nuova reazione su ${artwork.title || "un'opera"}.`, targetUrl: `/arte/${artwork.slug}#community-${artwork.code}`, groupKey: `comment-like:${commentId}` });
       }
       return Response.json(await payload(database, artwork.code, viewer));

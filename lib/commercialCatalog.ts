@@ -1,6 +1,7 @@
 import { catalogArtworks } from "./artCatalog.ts";
 import { VIP_ARTWORKS_PRIVATE } from "../data/vip-artworks.ts";
 import { getHorrorArtworkBundle } from "./horrorArtworkBundles.ts";
+import { FAMILIAR_SHOP_OFFERS } from "./nexusFamiliarWorld.ts";
 
 const artworkPrices = { essential: 890, detailed: 1290, premium: 1790 } as const;
 
@@ -49,7 +50,27 @@ export type CommercialProduct = {
   downloadLimit: number;
   bundleMembers?: string[];
   discountEligible?: boolean;
+  familiarOfferId?: string;
 };
+
+export function resolveFamiliarProduct(code: string): CommercialProduct | null {
+  const offer = FAMILIAR_SHOP_OFFERS.find((entry) => entry.priceCents && `LW-FAM-${entry.id.toUpperCase()}` === code);
+  if (!offer?.priceCents) return null;
+  return {
+    code,
+    slug: "famiglio",
+    title: offer.name,
+    description: offer.description,
+    productType: "merchandise",
+    resourceType: "merchandise",
+    amountCents: offer.priceCents,
+    currency: "eur",
+    licenseType: "personal-digital",
+    downloadLimit: 0,
+    discountEligible: false,
+    familiarOfferId: offer.id,
+  };
+}
 
 export function resolveArtworkProduct(code: string): CommercialProduct | null {
   const bundle = getHorrorArtworkBundle(code);
@@ -141,6 +162,7 @@ export function resolveCommercialProduct(productType: CommercialProductType, cod
   if (productType === "artwork") return resolveArtworkProduct(code);
   if (productType === "game") return resolveGameProduct(code);
   if (productType === "subscription") return resolveSubscriptionProduct(code);
+  if (productType === "merchandise") return resolveFamiliarProduct(code);
   return null;
 }
 

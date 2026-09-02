@@ -8,6 +8,9 @@ import { codexEntryBySlug } from "@/lib/codex";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser } from "@/lib/supabase/server";
 import { STUDIO_POLLS, UNIVERSE_PASS_OPPORTUNITIES, getActiveUniversePass, pollIsOpen } from "@/lib/universePass";
+import { FAMILIAR_LEVEL_BENEFITS, familiarLevelDiscount, familiarLevelForCustomer } from "@/lib/nexusFamiliarBenefits";
+import { familiarEconomyHistory } from "@/lib/nexusFamiliarEconomyServer";
+import { familiarNextMilestone } from "@/lib/nexusFamiliarProgression";
 
 type RuntimeEnv = { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket };
 
@@ -28,6 +31,10 @@ async function context() {
 async function snapshot(database: D1Database, customerId: string) {
   await expireBenefits(database, customerId);
   const pass = await getActiveUniversePass(database, customerId);
+  const familiarLevel = await familiarLevelForCustomer(database, customerId);
+  const familiarBenefit = [...FAMILIAR_LEVEL_BENEFITS].reverse().find((entry) => familiarLevel >= entry.level) ?? null;
+  const familiarNext = familiarNextMilestone(familiarLevel);
+  const familiarHistory = await familiarEconomyHistory(database, customerId, 20);
   await grantPermanentCollectorCredits(database, customerId);
   const [ledger, events, claims, bookmarks, votes, pollTotals] = await Promise.all([
     database.prepare(`SELECT id, benefit_type, amount, remaining, status, assigned_at, expires_at, used_at, resource_code
@@ -58,9 +65,17 @@ async function snapshot(database: D1Database, customerId: string) {
       assignedAt: row.assigned_at, expiresAt: row.expires_at, usedAt: row.used_at, resourceCode: row.resource_code,
     })) },
     discounts: {
-      commissions: pass.commissionDiscountPercent,
-      games: pass.gameDiscountPercent,
-      digitalProducts: pass.digitalDiscountPercent,
+      commissions: Math.max(pass.commissionDiscountPercent, familiarLevelDiscount(familiarLevel, "commissioni")),
+      games: Math.max(pass.gameDiscountPercent, familiarLevelDiscount(familiarLevel, "giwise-shop")),
+      digitalProducts: Math.max(pass.digitalDiscountPercent, familiarLevelDiscount(familiarLevel, "giwise-shop")),
+    },
+    familiar: {
+      level: familiarLevel,
+      title: familiarBenefit?.title ?? "Primo legame",
+      benefit: familiarBenefit?.benefit ?? "Continua a prendertene cura per sbloccare il primo riconoscimento.",
+      nextLevel: familiarNext?.level ?? null,
+      nextTitle: familiarNext?.title ?? null,
+      economyHistory: familiarHistory,
     },
     opportunities: UNIVERSE_PASS_OPPORTUNITIES.map((item) => ({
       ...item, available: pass.active,

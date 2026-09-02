@@ -140,8 +140,8 @@ export default function GamesPage() {
 
       <section className="studio-app-download-callout" aria-labelledby="studio-app-download-title">
         <div className="shell">
-          <div><p className="eyebrow">LoreWise per Android</p><h2 id="studio-app-download-title"><span>L’universo</span><br />in una sola app.</h2></div>
-          <div><p>Versione, requisiti, stato del collaudo e file ufficiale saranno raccolti in una pagina dedicata.</p><Link href="/download-app">Apri il centro download <span aria-hidden="true">→</span></Link></div>
+          <div><p className="eyebrow">App Android del Famiglio</p><h2 id="studio-app-download-title"><span>Il Famiglio</span><br />sempre con te.</h2></div>
+          <div><p>Porta la sua Tana sullo smartphone e ricevi avvisi discreti quando torna da un’uscita o ha davvero bisogno di te.</p><Link href="/download-app">Scopri l’app e scarica l’APK <span aria-hidden="true">→</span></Link></div>
         </div>
       </section>
 

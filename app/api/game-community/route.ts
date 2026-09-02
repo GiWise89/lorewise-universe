@@ -6,6 +6,7 @@ import { gameProjects } from "@/lib/gameCatalog";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient } from "@/lib/supabase/server";
 import { ensureCommerceTables } from "@/lib/commerceServer";
+import { familiarCommunityTitle } from "@/lib/nexusFamiliarBenefits";
 
 type RuntimeEnv = { DB?: D1Database };
 type Viewer = { id: string; canParticipate: boolean };
@@ -19,6 +20,7 @@ type ReviewRow = {
   created_at: string;
   updated_at: string;
   membership_badge: string | null;
+  familiar_level: number | null;
 };
 
 async function runtimeDatabase() {
@@ -45,6 +47,7 @@ async function payload(database: D1Database, gameCode: string, viewer?: Viewer) 
        AND subscriptions.status IN ('active', 'trialing')
        AND (subscriptions.current_period_end IS NULL OR datetime(subscriptions.current_period_end) > CURRENT_TIMESTAMP)
        ORDER BY subscriptions.created_at DESC LIMIT 1) AS membership_badge
+      ,(SELECT CAST(json_extract(f.state_json, '$.level') AS INTEGER) FROM nexus_familiars f WHERE f.customer_id = comments.user_id LIMIT 1) AS familiar_level
     FROM game_ratings AS ratings
     JOIN artwork_comments AS comments ON comments.id = ratings.comment_id
     JOIN customers ON customers.id = comments.user_id
@@ -66,6 +69,7 @@ async function payload(database: D1Database, gameCode: string, viewer?: Viewer) 
       id: review.comment_id,
       author: review.display_name?.trim() || "Membro LoreWise",
       membershipBadge: review.membership_badge,
+      familiarBadge: familiarCommunityTitle(Number(review.familiar_level ?? 1)),
       body: review.body,
       rating: Number(review.rating),
       version: review.game_version,

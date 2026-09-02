@@ -63,7 +63,7 @@ export function buildLivingGuideNotification(snapshot: LivingGuideSnapshot) {
     category: "living-guide",
     severity: "medium",
     title: `${guideTitle}: novità da verificare`,
-    message: "Il controllo mensile ha rilevato cambiamenti nelle fonti ufficiali. Controlla le novitÃ  e decidi se aggiornare la Guida Viva: nessun contenuto Ã¨ stato pubblicato automaticamente.",
+    message: "Il controllo mensile ha rilevato cambiamenti nelle fonti ufficiali. Controlla le novità e decidi se aggiornare la Guida Viva: nessun contenuto è stato pubblicato automaticamente.",
     referenceCode: `LW-LIVE-${snapshot.guideSlug.toUpperCase().replace(/[^A-Z0-9]+/g, "-")}-${shortFingerprint.toUpperCase()}`,
     targetUrl: monitor?.notificationTarget ?? "/notifiche",
     sourceCreatedAt: snapshot.checkedAt,

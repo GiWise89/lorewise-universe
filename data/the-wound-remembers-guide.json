@@ -1,0 +1,1098 @@
+{
+  "id": "the-wound-remembers-complete-guide-01",
+  "code": "LW-ATLAS-TWR-001",
+  "game": "The Wound Remembers",
+  "title": "L’Archivio della Ferita",
+  "subtitle": "La guida ufficiale GiWise Studio per costruire il Patto, leggere le tre corsie e attraversare Campagna e Spedizione.",
+  "description": "Sedici capitoli e quarantotto schede pratiche su profilo, collezione, Patti, mazzo da venti carte, campagna in dieci atti, tre corsie, Essenza, stati, Nemesi, Spedizione, reliquie, Forgia, Fusioni, Evoluzioni, Famigli, Habitat, Arena e Bestiario.",
+  "versionLabel": "Versione web 1.0.0 · verifica 26 agosto 2026",
+  "updatedAt": "26 agosto 2026",
+  "vipFrom": "2026-12-21T00:00:00+01:00",
+  "publicAt": "2026-12-28T00:00:00+01:00",
+  "theme": "the-wound-remembers",
+  "storeUrl": "https://thewoundremembers.com/",
+  "storeLabel": "Gioca a The Wound Remembers",
+  "slug": "the-wound-remembers",
+  "cover": {
+    "src": "/atlas/the-wound-remembers/cover.webp",
+    "alt": "Kharvoss e i draghi nel key art ufficiale GiWise Studio",
+    "caption": "The Wound Remembers · immagine ufficiale mostrata integralmente",
+    "sourceUrl": "https://thewoundremembers.com/"
+  },
+  "chapters": [
+    {
+      "id": "first-access",
+      "number": "01",
+      "label": "Primo accesso",
+      "estimatedRead": "12–16 min",
+      "spoiler": "No spoiler",
+      "title": "Entrare nella Ferita con un profilo riconoscibile",
+      "introduction": "The Wound Remembers è un card RPG PvE persistente: il profilo conserva collezione, mazzi, campagna e progressi tra le sessioni.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/01.webp",
+          "alt": "Santuario e stato del viaggio nell’interfaccia reale di The Wound Remembers",
+          "caption": "Primo accesso · il Santuario reale con viaggio, mazzo e Nemesi in evidenza",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "The Wound Remembers è un card RPG PvE persistente: il profilo conserva collezione, mazzi, campagna e progressi tra le sessioni.",
+          "steps": [
+            "Accedi con il LoreWise ID corretto",
+            "Completa il tutorial contestuale",
+            "Controlla che il profilo mostri i progressi iniziali"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Impara una schermata alla volta: collezione, mazzo, mappa e battaglia.",
+          "tips": [
+            "Leggi le descrizioni delle carte",
+            "Mantieni un solo profilo principale",
+            "Usa la versione web per familiarizzare"
+          ],
+          "mistakes": [
+            "Saltare il tutorial",
+            "Confondere profilo locale e cloud"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "I progressi non compaiono",
+              "answer": "Verifica account e connessione prima di iniziare una nuova partita"
+            },
+            {
+              "problem": "L’interfaccia sembra densa",
+              "answer": "Segui il flusso Campagna, Mazzo, Battaglia senza aprire tutti i sistemi"
+            }
+          ],
+          "warning": "I servizi cloud richiedono connessione attiva."
+        }
+      ]
+    },
+    {
+      "id": "collection-basics",
+      "number": "02",
+      "label": "Collezione",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere una carta prima di inserirla nel Patto",
+      "introduction": "Ogni carta combina costo, ruolo, statistiche, affiliazione e capacità; la collezione serve a trovare risposte, non a mostrare tutto insieme.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/02.webp",
+          "alt": "Collezione completa nel Costruttore di mazzi reale di The Wound Remembers",
+          "caption": "Collezione · carte possedute, filtri e quantità disponibili",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Ogni carta combina costo, ruolo, statistiche, affiliazione e capacità; la collezione serve a trovare risposte, non a mostrare tutto insieme.",
+          "steps": [
+            "Filtra per fazione e costo",
+            "Leggi ruolo e capacità",
+            "Confronta carte che occupano lo stesso spazio nel piano"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Una carta è forte quando completa la curva e la condizione di vittoria.",
+          "tips": [
+            "Ordina per costo quando costruisci",
+            "Conserva rimozione e protezione",
+            "Distingui creature, magie e ambienti"
+          ],
+          "mistakes": [
+            "Valutare solo Attacco",
+            "Inserire ogni carta rara"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "La mano è sempre costosa",
+              "answer": "Riduci carte alte e aggiungi giocate iniziali"
+            },
+            {
+              "problem": "Pesco risposte sbagliate",
+              "answer": "Stringi il piano e taglia le carte situazionali"
+            }
+          ],
+          "warning": "Le descrizioni prevalgono sulle impressioni visive."
+        }
+      ]
+    },
+    {
+      "id": "pacts-factions",
+      "number": "03",
+      "label": "Patti e fazioni",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Scegliere una memoria che sostenga il tuo stile",
+      "introduction": "I Patti orientano identità e sinergie: capirne pressione, resistenza, controllo e sacrificio rende più facile scegliere le carte.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/03.webp",
+          "alt": "Fazioni del mazzo nel Costruttore reale di The Wound Remembers",
+          "caption": "Patti e fazioni · Sangue Cavo, Tomba Affamata, Coro Inverso e Ferro Impuro",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "I Patti orientano identità e sinergie: capirne pressione, resistenza, controllo e sacrificio rende più facile scegliere le carte.",
+          "steps": [
+            "Scegli una fazione principale",
+            "Individua due sinergie ricorrenti",
+            "Costruisci una condizione di vittoria leggibile"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Il Patto deve produrre turni coerenti anche senza la carta migliore.",
+          "tips": [
+            "Prova una fazione per più battaglie",
+            "Usa il Bestiario per capire il contesto",
+            "Cambia poche carte dopo ogni test"
+          ],
+          "mistakes": [
+            "Mescolare sinergie incompatibili",
+            "Cambiare Patto dopo una sola mano"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Il mazzo parte lento",
+              "answer": "Riduci la curva e aumenta carte che preparano le corsie"
+            },
+            {
+              "problem": "Manca una chiusura",
+              "answer": "Aggiungi una minaccia o combo capace di convertire il vantaggio"
+            }
+          ],
+          "warning": "Le fazioni esprimono temi oscuri diversi: scegli anche per affinità."
+        }
+      ]
+    },
+    {
+      "id": "deck-twenty",
+      "number": "04",
+      "label": "Mazzo da venti carte",
+      "estimatedRead": "16–20 min",
+      "spoiler": "No spoiler",
+      "title": "Costruire un Patto compatto e ripetibile",
+      "introduction": "Il mazzo da venti carte deve aprire, stabilizzare e chiudere senza dipendere da una sola pescata.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/04.webp",
+          "alt": "Mazzo completo da venti carte nel Costruttore reale",
+          "caption": "Mazzo da venti carte · collezione, curva, copie e lista attiva nella stessa schermata",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Il mazzo da venti carte deve aprire, stabilizzare e chiudere senza dipendere da una sola pescata.",
+          "steps": [
+            "Definisci la condizione di vittoria",
+            "Distribuisci costi bassi, medi e alti",
+            "Aggiungi risposte a creature e stati"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Ogni carta deve avere un ruolo riconoscibile nella sequenza.",
+          "tips": [
+            "Conta le giocate iniziali",
+            "Limita le carte che richiedono una situazione rara",
+            "Salva versioni del mazzo prima dei cambi"
+          ],
+          "mistakes": [
+            "Riempire fino a venti senza tagliare",
+            "Usare troppe chiusure"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Non gioco nei primi turni",
+              "answer": "Aggiungi carte economiche e riduci costi alti"
+            },
+            {
+              "problem": "Finisco risorse",
+              "answer": "Inserisci pescata, valore persistente o riciclo coerente"
+            }
+          ],
+          "warning": "Testa più mani prima di giudicare la curva."
+        }
+      ]
+    },
+    {
+      "id": "campaign-ten-acts",
+      "number": "05",
+      "label": "Campagna",
+      "estimatedRead": "15–20 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Attraversare dieci atti senza perdere il filo tattico",
+      "introduction": "La campagna in dieci atti introduce incontri e richieste crescenti; alterna avanzamento, revisione del mazzo e miglioramenti.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/05.webp",
+          "alt": "Mappa dei dieci atti nella Campagna reale di The Wound Remembers",
+          "caption": "Campagna · atti, nodi, obiettivo e Nemesi della storia",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "La campagna in dieci atti introduce incontri e richieste crescenti; alterna avanzamento, revisione del mazzo e miglioramenti.",
+          "steps": [
+            "Leggi il nodo prima di entrare",
+            "Adatta poche carte all’incontro",
+            "Rivedi ricompense e collezione dopo la vittoria"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Ogni atto verifica una capacità già introdotta, poi la combina con una nuova pressione.",
+          "tips": [
+            "Mantieni un mazzo principale stabile",
+            "Conserva una variante per incontri specifici",
+            "Usa i checkpoint come momenti di revisione"
+          ],
+          "mistakes": [
+            "Cambiare tutto tra due nodi",
+            "Ignorare la curva per una singola risposta"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Un nodo blocca il percorso",
+              "answer": "Identifica la meccanica dominante e sostituisci due o tre carte"
+            },
+            {
+              "problem": "La difficoltà cresce troppo",
+              "answer": "Completa attività parallele e migliora collezione e Forgia"
+            }
+          ],
+          "warning": "I dettagli dei dieci atti restano protetti da spoiler."
+        }
+      ]
+    },
+    {
+      "id": "lanes-intent",
+      "number": "06",
+      "label": "Tre corsie",
+      "estimatedRead": "15–19 min",
+      "spoiler": "No spoiler",
+      "title": "Leggere la Nemesi prima di giocare la prima carta",
+      "introduction": "Le tre corsie trasformano il mazzo in posizione: intenzione nemica, opposti e spazi disponibili indicano dove investire Essenza.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/06.webp",
+          "alt": "Campo di battaglia reale con le tre corsie chiaramente visibili",
+          "caption": "Tre corsie · schieramento, mano e intenzione della Nemesi",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Le tre corsie trasformano il mazzo in posizione: intenzione nemica, opposti e spazi disponibili indicano dove investire Essenza.",
+          "steps": [
+            "Leggi l’intenzione della Nemesi",
+            "Controlla tutte e tre le corsie",
+            "Gioca dove la carta crea più valore"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Una corsia vinta può liberare risorse per proteggere le altre.",
+          "tips": [
+            "Concentra pressione quando puoi chiudere",
+            "Lascia spazio alle carte che richiedono un opposto",
+            "Prepara il turno successivo"
+          ],
+          "mistakes": [
+            "Riempire ogni corsia subito",
+            "Ignorare l’ordine degli effetti"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "La Nemesi domina una corsia",
+              "answer": "Decidi se contestarla o vincere più velocemente altrove"
+            },
+            {
+              "problem": "Una carta non attiva la capacità",
+              "answer": "Controlla posizione, opposto e condizione descritta"
+            }
+          ],
+          "warning": "Anteprima e testo della carta vanno letti insieme."
+        }
+      ]
+    },
+    {
+      "id": "essence-tempo",
+      "number": "07",
+      "label": "Essenza e ritmo",
+      "estimatedRead": "13–17 min",
+      "spoiler": "No spoiler",
+      "title": "Spendere quanto basta per conservare il turno seguente",
+      "introduction": "L’Essenza limita la sequenza: una giocata efficiente crea campo senza svuotare le risposte.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/07.webp",
+          "alt": "Essenza, velocità e fine turno nella battaglia reale",
+          "caption": "Essenza e ritmo · risorsa disponibile, velocità e sequenza del turno",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "L’Essenza limita la sequenza: una giocata efficiente crea campo senza svuotare le risposte.",
+          "steps": [
+            "Conta il costo della sequenza",
+            "Gioca prima gli effetti che generano valore",
+            "Conserva Essenza se serve una risposta"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Il tempo del mazzo dipende da quando trasforma Essenza in vantaggio reale.",
+          "tips": [
+            "Preferisci curve flessibili",
+            "Evita sovrapposizioni di costo",
+            "Valuta una carta anche quando giocata fuori curva"
+          ],
+          "mistakes": [
+            "Spendere tutto per abitudine",
+            "Tenere carte senza un piano"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Resto senza risposta",
+              "answer": "Riduci la sequenza e conserva una carta reattiva"
+            },
+            {
+              "problem": "Avanzo troppo lentamente",
+              "answer": "Aggiungi minacce economiche o generazione di valore"
+            }
+          ],
+          "warning": "Non ogni turno richiede di esaurire l’Essenza."
+        }
+      ]
+    },
+    {
+      "id": "status-signatures",
+      "number": "08",
+      "label": "Stati e firme",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Combinare Bruciatura, Veleno, Silenzio e altre cicatrici",
+      "introduction": "Gli stati modificano il valore delle corsie nel tempo; le firme legano identità della creatura e risultato tattico.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/08.webp",
+          "alt": "Carte, effetti e dettagli d’intento nella battaglia reale",
+          "caption": "Stati e firme · effetti delle carte e comportamento dichiarato dell’avversario",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Gli stati modificano il valore delle corsie nel tempo; le firme legano identità della creatura e risultato tattico.",
+          "steps": [
+            "Applica lo stato al bersaglio giusto",
+            "Calcola quando produrrà valore",
+            "Proteggi la carta che mantiene la pressione"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Gli stati rendono quando il mazzo li applica e li sfrutta con continuità.",
+          "tips": [
+            "Abbina carte della stessa direzione",
+            "Usa Silenzio contro abilità centrali",
+            "Non sprecare danno nel tempo su bersagli già risolti"
+          ],
+          "mistakes": [
+            "Inserire uno stato isolato",
+            "Dimenticare durata e bersaglio"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Lo stato incide poco",
+              "answer": "Aumenta densità e carte che lo premiano"
+            },
+            {
+              "problem": "Il nemico annulla la combo",
+              "answer": "Distribuisci le fonti su più carte o cambia corsia"
+            }
+          ],
+          "warning": "Controlla sempre il testo aggiornato della carta."
+        }
+      ]
+    },
+    {
+      "id": "nemeses-bosses",
+      "number": "09",
+      "label": "Nemesi",
+      "estimatedRead": "16–21 min",
+      "spoiler": "Spoiler protetti",
+      "title": "Affrontare un’intenzione, non soltanto molti punti ferita",
+      "introduction": "Le Nemesi impongono regole, picchi e bersagli prioritari: il primo tentativo serve a riconoscere il ritmo.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/09.webp",
+          "alt": "Orveth Incisore come Nemesi nella battaglia reale",
+          "caption": "Nemesi · tenacia, fase, intento e obiettivo dello scontro",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Le Nemesi impongono regole, picchi e bersagli prioritari: il primo tentativo serve a riconoscere il ritmo.",
+          "steps": [
+            "Osserva il primo ciclo",
+            "Identifica la minaccia che abilita il resto",
+            "Conserva la chiusura per la finestra utile"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Una Nemesi diventa leggibile quando separi pressione costante e picco.",
+          "tips": [
+            "Porta risposte specifiche",
+            "Accetta un primo tentativo esplorativo",
+            "Cambia poche carte alla volta"
+          ],
+          "mistakes": [
+            "Attaccare sempre il bersaglio più grande",
+            "Usare tutte le risorse nel primo turno"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Il boss scala troppo",
+              "answer": "Aumenta pressione iniziale o interrompi il motore"
+            },
+            {
+              "problem": "Le corsie crollano insieme",
+              "answer": "Stabilizza una corsia e sacrifica temporaneamente quella meno importante"
+            }
+          ],
+          "warning": "Le soluzioni dettagliate restano dietro spoiler volontari."
+        }
+      ]
+    },
+    {
+      "id": "expedition-route",
+      "number": "10",
+      "label": "Spedizione",
+      "estimatedRead": "16–20 min",
+      "spoiler": "No spoiler",
+      "title": "Scegliere un percorso che il mazzo possa sostenere",
+      "introduction": "La Spedizione roguelite attraversa dieci profondità con bivi, rischi e ricompense dedicate.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/10.webp",
+          "alt": "Percorso reale della Spedizione nelle Profondità",
+          "caption": "Spedizione · profondità, bivio, ricompensa e rischio della discesa",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "La Spedizione roguelite attraversa dieci profondità con bivi, rischi e ricompense dedicate.",
+          "steps": [
+            "Leggi i prossimi nodi",
+            "Valuta salute, risorse e ricompensa",
+            "Scegli il rischio che migliora davvero il mazzo"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Il percorso migliore non è sempre quello con la ricompensa più rara.",
+          "tips": [
+            "Mantieni un piano di recupero",
+            "Scegli reliquie coerenti",
+            "Evita due rischi alti consecutivi senza risorse"
+          ],
+          "mistakes": [
+            "Inseguire ogni ricompensa",
+            "Ignorare la profondità successiva"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Arrivo debole al fondo",
+              "answer": "Prendi nodi di recupero e valore stabile prima del picco"
+            },
+            {
+              "problem": "Il mazzo cambia identità",
+              "answer": "Rifiuta ricompense che non sostengono il piano"
+            }
+          ],
+          "warning": "Una run fallita produce comunque conoscenza utile."
+        }
+      ]
+    },
+    {
+      "id": "relics-events",
+      "number": "11",
+      "label": "Reliquie ed Eventi",
+      "estimatedRead": "13–17 min",
+      "spoiler": "Spoiler leggeri",
+      "title": "Far lavorare ogni ricompensa nella stessa direzione",
+      "introduction": "Reliquie ed Eventi possono cambiare curva, resistenza e condizioni delle corsie; scegli ciò che migliora più turni, non una sola combinazione.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/11.webp",
+          "alt": "Reliquie attive ed eventi lungo il percorso della Spedizione",
+          "caption": "Reliquie ed Eventi · stato della discesa, tappe e modificatori persistenti",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Reliquie ed Eventi possono cambiare curva, resistenza e condizioni delle corsie; scegli ciò che migliora più turni, non una sola combinazione.",
+          "steps": [
+            "Leggi effetto e condizione",
+            "Confronta con il piano del mazzo",
+            "Valuta il costo dell’evento prima di accettare"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Una reliquia affidabile vale più di una potente ma inattiva.",
+          "tips": [
+            "Cerca sinergie con la curva",
+            "Proteggi salute e risorse",
+            "Usa gli eventi per correggere una debolezza"
+          ],
+          "mistakes": [
+            "Scegliere solo per rarità",
+            "Accumulare effetti contraddittori"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "La reliquia non si attiva",
+              "answer": "Controlla condizione, corsia e momento"
+            },
+            {
+              "problem": "Un evento costa troppo",
+              "answer": "Rifiutalo se compromette la profondità successiva"
+            }
+          ],
+          "warning": "Alcuni Eventi hanno conseguenze permanenti per la run."
+        }
+      ]
+    },
+    {
+      "id": "forge-fusions",
+      "number": "12",
+      "label": "Forgia e Fusioni",
+      "estimatedRead": "15–19 min",
+      "spoiler": "No spoiler",
+      "title": "Investire materiali nelle carte che userai davvero",
+      "introduction": "La Forgia e le Fusioni convertono risorse in potenza e nuove forme; pianifica attorno a un mazzo stabile.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/12.webp",
+          "alt": "Varkhul, il fabbro demoniaco della Forgia di The Wound Remembers",
+          "caption": "Forgia e Fusioni · il custode della lavorazione e dei potenziamenti",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "La Forgia e le Fusioni convertono risorse in potenza e nuove forme; pianifica attorno a un mazzo stabile.",
+          "steps": [
+            "Scegli il mazzo principale",
+            "Individua le carte centrali",
+            "Conserva materiali prima di una fusione importante"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Migliora prima le carte che compaiono in più sequenze vincenti.",
+          "tips": [
+            "Confronta miglioramento e costo",
+            "Mantieni una copia utile quando necessario",
+            "Verifica i requisiti della fusione"
+          ],
+          "mistakes": [
+            "Spendere su carte provvisorie",
+            "Fondere senza controllare la collezione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Mancano materiali",
+              "answer": "Completa attività che li rilasciano e riduci spese minori"
+            },
+            {
+              "problem": "La fusione non entra nel mazzo",
+              "answer": "Ricorda che alcune forme nascono soltanto durante specifiche condizioni"
+            }
+          ],
+          "warning": "Le Fusioni possono avere regole proprie: leggi la scheda completa."
+        }
+      ]
+    },
+    {
+      "id": "evolutions-crafting",
+      "number": "13",
+      "label": "Evoluzioni",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Portare una creatura oltre la sua forma iniziale",
+      "introduction": "Le 31 Evoluzioni verificate ampliano identità e ruolo delle carte; scegli quelle che consolidano il Patto.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/13.webp",
+          "alt": "Potenziale evolutivo mostrato nel Costruttore di mazzi reale",
+          "caption": "Evoluzioni · copie, requisiti e potenziale evolutivo verificati nella collezione",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Le 31 Evoluzioni verificate ampliano identità e ruolo delle carte; scegli quelle che consolidano il Patto.",
+          "steps": [
+            "Controlla i requisiti",
+            "Valuta quale ruolo cambia",
+            "Testa l’Evoluzione nel mazzo reale"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Una forma evoluta deve migliorare la sequenza, non soltanto il valore isolato.",
+          "tips": [
+            "Prioritizza carte frequenti",
+            "Conserva un confronto con la versione base",
+            "Rivedi la curva dopo l’Evoluzione"
+          ],
+          "mistakes": [
+            "Evolvere per collezione soltanto",
+            "Ignorare il nuovo costo"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Il mazzo diventa più lento",
+              "answer": "Compensa con giocate iniziali o scegli un’altra Evoluzione"
+            },
+            {
+              "problem": "Non vedo la nuova forma",
+              "answer": "Controlla condizione, disponibilità e versione del profilo"
+            }
+          ],
+          "warning": "Le Evoluzioni sono parte della progressione persistente."
+        }
+      ]
+    },
+    {
+      "id": "familiars-habitat",
+      "number": "14",
+      "label": "Famigli e Habitat",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Sviluppare un alleato senza separarlo dal resto del profilo",
+      "introduction": "I Famigli collegano Habitat, crescita e vantaggi dedicati; trattali come un percorso parallelo, non come una decorazione.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/14.webp",
+          "alt": "Tre Famigli reali riuniti nel loro ambiente di The Wound Remembers",
+          "caption": "Famigli e Habitat · compagni, crescita e identità visiva del rifugio",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "I Famigli collegano Habitat, crescita e vantaggi dedicati; trattali come un percorso parallelo, non come una decorazione.",
+          "steps": [
+            "Scegli il Famiglio da sviluppare",
+            "Controlla bisogni e progressione nell’Habitat",
+            "Raccogli le ricompense prima di cambiare obiettivo"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "La costanza nell’Habitat produce più valore di cambi frequenti.",
+          "tips": [
+            "Concentra le risorse",
+            "Leggi i bonus prima dell’investimento",
+            "Abbina il percorso alle attività che giochi"
+          ],
+          "mistakes": [
+            "Dividere tutto tra troppi Famigli",
+            "Ignorare i tempi dell’Habitat"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "La crescita è lenta",
+              "answer": "Focalizza un Famiglio e completa le attività collegate"
+            },
+            {
+              "problem": "Il bonus non aiuta il mazzo",
+              "answer": "Scegli un compagno coerente con il tuo obiettivo corrente"
+            }
+          ],
+          "warning": "Habitat e progressione sono salvati nel profilo."
+        }
+      ]
+    },
+    {
+      "id": "arena-bestiary",
+      "number": "15",
+      "label": "Arena e Bestiario",
+      "estimatedRead": "14–18 min",
+      "spoiler": "No spoiler",
+      "title": "Usare ogni incontro per capire creature e regole",
+      "introduction": "Arena e Bestiario collegano sfida e conoscenza: studiare capacità e affiliazioni prepara meglio delle statistiche nude.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/15.webp",
+          "alt": "Battaglia reale con Nemesi e creature del Bestiario schierate",
+          "caption": "Arena e Bestiario · avversario, creature, carte e campo dello scontro",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Arena e Bestiario collegano sfida e conoscenza: studiare capacità e affiliazioni prepara meglio delle statistiche nude.",
+          "steps": [
+            "Consulta il Bestiario",
+            "Scegli una squadra o un mazzo coerente",
+            "Rivedi l’incontro dopo il risultato"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "Conoscere la firma di una creatura riduce le sorprese in Arena e Campagna.",
+          "tips": [
+            "Confronta fazioni e stati",
+            "Usa l’Arena per test controllati",
+            "Annota quali risposte funzionano"
+          ],
+          "mistakes": [
+            "Entrare senza leggere l’avversario",
+            "Cambiare più sistemi insieme"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "Perdo sempre dallo stesso effetto",
+              "answer": "Porta Silenzio, rimozione o una corsia alternativa"
+            },
+            {
+              "problem": "Il Bestiario sembra solo narrativo",
+              "answer": "Usa lore, affiliazione e capacità per prevedere il comportamento"
+            }
+          ],
+          "warning": "Il Bestiario non sostituisce il testo della carta in battaglia."
+        }
+      ]
+    },
+    {
+      "id": "cloud-live-game",
+      "number": "16",
+      "label": "Profilo e gioco vivo",
+      "estimatedRead": "12–16 min",
+      "spoiler": "No spoiler",
+      "title": "Proteggere i progressi e tornare dopo gli aggiornamenti",
+      "introduction": "Profilo locale e cloud mantengono collezione, campagne, Famigli e sistemi collegati; controlla sempre l’identità prima di iniziare.",
+      "images": [
+        {
+          "src": "/atlas/the-wound-remembers/chapters/16.webp",
+          "alt": "Santuario reale con profilo, risorse e stato del viaggio",
+          "caption": "Profilo e gioco vivo · identità, progressi e mazzo attivo nello stesso Santuario",
+          "sourceUrl": "https://thewoundremembers.com/"
+        }
+      ],
+      "blocks": [
+        {
+          "label": "Procedura",
+          "title": "Cosa fare, in ordine",
+          "text": "Profilo locale e cloud mantengono collezione, campagne, Famigli e sistemi collegati; controlla sempre l’identità prima di iniziare.",
+          "steps": [
+            "Accedi con lo stesso LoreWise ID",
+            "Attendi la conferma del salvataggio",
+            "Verifica versione e note del gioco prima di riprendere"
+          ]
+        },
+        {
+          "label": "Decisioni",
+          "title": "Le scelte che cambiano il risultato",
+          "text": "La continuità del profilo è parte del gioco quanto il mazzo.",
+          "tips": [
+            "Mantieni connessione stabile durante salvataggi",
+            "Chiudi la sessione dalla schermata sicura",
+            "Conserva le credenziali del profilo"
+          ],
+          "mistakes": [
+            "Creare profili duplicati",
+            "Chiudere durante una sincronizzazione"
+          ]
+        },
+        {
+          "label": "Diagnosi",
+          "title": "Se qualcosa non funziona",
+          "text": "Individua il problema osservabile e correggi una variabile alla volta.",
+          "scenarios": [
+            {
+              "problem": "I dati sembrano precedenti",
+              "answer": "Non sovrascrivere: verifica account, rete e dispositivo"
+            },
+            {
+              "problem": "Una carta è cambiata",
+              "answer": "Rileggi testo e rivedi la curva del mazzo"
+            }
+          ],
+          "warning": "Gli aggiornamenti possono modificare bilanciamento e testi."
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "wound",
+      "label": "Entra nella Ferita",
+      "summary": "Profilo, collezione e fondamenti del mondo.",
+      "icon": {
+        "src": "/atlas/the-wound-remembers/chapters/01.webp",
+        "alt": "Kharvoss e i draghi nel key art ufficiale GiWise Studio",
+        "caption": "Entra nella Ferita"
+      },
+      "generatedIcon": {
+        "src": "/atlas/the-wound-remembers/generated-icons-v1/01-ferita.webp",
+        "alt": "Porta ferita e lanterna del Custode",
+        "caption": "Entra nella Ferita · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "first-access",
+        "collection-basics"
+      ]
+    },
+    {
+      "id": "pact",
+      "label": "Costruisci il Patto",
+      "summary": "Fazioni, mazzo da venti carte e campagna.",
+      "icon": {
+        "src": "/atlas/the-wound-remembers/chapters/03.webp",
+        "alt": "Mappa della campagna ufficiale di The Wound Remembers",
+        "caption": "Costruisci il Patto"
+      },
+      "generatedIcon": {
+        "src": "/atlas/the-wound-remembers/generated-icons-v1/02-patto.webp",
+        "alt": "Carte unite dal sigillo del Patto",
+        "caption": "Costruisci il Patto · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "pacts-factions",
+        "deck-twenty",
+        "campaign-ten-acts"
+      ]
+    },
+    {
+      "id": "battle",
+      "label": "Domina le corsie",
+      "summary": "Posizione, Essenza, stati e Nemesi.",
+      "icon": {
+        "src": "/atlas/the-wound-remembers/chapters/06.webp",
+        "alt": "Arconte della Ferita, opera ufficiale GiWise Studio",
+        "caption": "Domina le corsie"
+      },
+      "generatedIcon": {
+        "src": "/atlas/the-wound-remembers/generated-icons-v1/03-battaglia.webp",
+        "alt": "Campo di battaglia a tre corsie",
+        "caption": "Domina le corsie · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "lanes-intent",
+        "essence-tempo",
+        "status-signatures",
+        "nemeses-bosses"
+      ]
+    },
+    {
+      "id": "expedition",
+      "label": "Scendi in Spedizione",
+      "summary": "Bivi, profondità, reliquie ed Eventi.",
+      "icon": {
+        "src": "/atlas/the-wound-remembers/chapters/10.webp",
+        "alt": "Caldaia Vivente, creatura ufficiale del gioco",
+        "caption": "Scendi in Spedizione"
+      },
+      "generatedIcon": {
+        "src": "/atlas/the-wound-remembers/generated-icons-v1/04-spedizione.webp",
+        "alt": "Mappa della Spedizione incisa nella pietra",
+        "caption": "Scendi in Spedizione · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "expedition-route",
+        "relics-events"
+      ]
+    },
+    {
+      "id": "forge",
+      "label": "Incidi la Forgia",
+      "summary": "Fusioni, materiali ed Evoluzioni.",
+      "icon": {
+        "src": "/atlas/the-wound-remembers/chapters/12.webp",
+        "alt": "Angelo Senza Altare, creatura ufficiale del gioco",
+        "caption": "Incidi la Forgia"
+      },
+      "generatedIcon": {
+        "src": "/atlas/the-wound-remembers/generated-icons-v1/05-forgia.webp",
+        "alt": "Incudine e carte in fusione",
+        "caption": "Incidi la Forgia · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "forge-fusions",
+        "evolutions-crafting"
+      ]
+    },
+    {
+      "id": "familiars",
+      "label": "Conserva la memoria",
+      "summary": "Famigli, Habitat, Arena, Bestiario e profilo vivo.",
+      "icon": {
+        "src": "/atlas/the-wound-remembers/chapters/14.webp",
+        "alt": "Alfiere della Piaga, creatura ufficiale del Bestiario",
+        "caption": "Conserva la memoria"
+      },
+      "generatedIcon": {
+        "src": "/atlas/the-wound-remembers/generated-icons-v1/06-famigli.webp",
+        "alt": "Famiglio e tomo del Bestiario",
+        "caption": "Conserva la memoria · icona originale generata per la guida"
+      },
+      "chapterIds": [
+        "familiars-habitat",
+        "arena-bestiary",
+        "cloud-live-game"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "The Wound Remembers · sito ufficiale",
+      "href": "https://thewoundremembers.com/"
+    },
+    {
+      "label": "LoreWise Universe · pagina del gioco",
+      "href": "https://lorewisenexus.it/giochi/the-wound-remembers"
+    }
+  ]
+}

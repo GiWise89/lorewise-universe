@@ -15,6 +15,8 @@ const newGuideSlugs = ["hogwarts-legacy", "zelda-tears-of-the-kingdom", "the-sim
 const newGuides = await Promise.all(newGuideSlugs.map(async (slug) => JSON.parse(await readFile(new URL(`../data/${slug}-guide.json`, import.meta.url), "utf8"))));
 const agreedGuideSlugs = ["the-mortuary-assistant", "cyberpunk-2077", "inazuma-eleven-victory-road"];
 const agreedGuides = await Promise.all(agreedGuideSlugs.map(async (slug) => JSON.parse(await readFile(new URL(`../data/${slug}-guide.json`, import.meta.url), "utf8"))));
+const yearEndGuideSlugs = ["south-park-scontri-di-retti", "stardew-valley", "the-wound-remembers"];
+const yearEndGuides = await Promise.all(yearEndGuideSlugs.map(async (slug) => JSON.parse(await readFile(new URL(`../data/${slug}-guide.json`, import.meta.url), "utf8"))));
 const baldursGate = source.slice(source.indexOf('id: "bg3-complete-guide-01"'), source.indexOf("export function isGuideVipNow"));
 
 test("keeps navigation artwork lightweight without replacing source originals", async () => {
@@ -189,6 +191,42 @@ test("keeps the three agreed guides complete with official uncropped chapter ima
   }
 });
 
+test("delivers the three year-end guides as complete, themed and uncropped experiences", async () => {
+  assert.deepEqual(yearEndGuides.map((guide) => [guide.slug, guide.vipFrom, guide.publicAt]), [
+    ["south-park-scontri-di-retti", "2026-12-07T00:00:00+01:00", "2026-12-14T00:00:00+01:00"],
+    ["stardew-valley", "2026-12-14T00:00:00+01:00", "2026-12-21T00:00:00+01:00"],
+    ["the-wound-remembers", "2026-12-21T00:00:00+01:00", "2026-12-28T00:00:00+01:00"],
+  ]);
+  for (const guide of yearEndGuides) {
+    assert.equal(guide.chapters.length, 16, `${guide.slug} chapters`);
+    assert.equal(guide.sections.length, 6, `${guide.slug} sections`);
+    assert.equal(guide.chapters.reduce((total, chapter) => total + chapter.blocks.length, 0), 48, `${guide.slug} blocks`);
+    assert.ok(guide.chapters.every((chapter) => chapter.images[0]?.src), `${guide.slug} chapter images`);
+    assert.equal(new Set(guide.sections.map((section) => section.generatedIcon?.src)).size, 6, `${guide.slug} generated icons`);
+    assert.ok(guide.chapters.every((chapter) => chapter.blocks.some((block) => block.steps) && chapter.blocks.some((block) => block.tips) && chapter.blocks.some((block) => block.scenarios)));
+    assert.equal(guide.theme, guide.slug);
+    assert.doesNotMatch(JSON.stringify(guide), /approvazione editoriale|monitoraggio delle fonti|processo tecnico|funzionamento interno/i);
+    for (const chapter of guide.chapters) {
+      const imageFile = new URL(`../public${chapter.images[0].src}`, import.meta.url);
+      const metadata = await sharp(await readFile(imageFile)).metadata();
+      assert.equal(metadata.width, 1600);
+      assert.equal(metadata.height, 900);
+      assert.ok((await stat(imageFile)).size < 3 * 1024 * 1024);
+    }
+    for (const section of guide.sections) {
+      const iconFile = new URL(`../public${section.generatedIcon.src}`, import.meta.url);
+      const metadata = await sharp(await readFile(iconFile)).metadata();
+      assert.equal(metadata.width, 512);
+      assert.equal(metadata.height, 512);
+      assert.equal(metadata.hasAlpha, true);
+      assert.ok((await stat(iconFile)).size < 320 * 1024);
+    }
+  }
+  assert.match(experienceSource, /south-park-scontri-di-retti/);
+  assert.match(experienceSource, /stardew-valley/);
+  assert.match(experienceSource, /the-wound-remembers/);
+});
+
 test("keeps every Inazuma image tied to the subject of its chapter", () => {
   const inazuma = agreedGuides.find((guide) => guide.slug === "inazuma-eleven-victory-road");
   assert.ok(inazuma);
@@ -214,6 +252,35 @@ test("keeps every Inazuma image tied to the subject of its chapter", () => {
   };
   for (const chapter of inazuma.chapters) {
     assert.match(chapter.images[0].sourceUrl, expectedSources[chapter.id], chapter.id);
+  }
+  const southPark = yearEndGuides.find((guide) => guide.slug === "south-park-scontri-di-retti");
+  assert.match(southPark.chapters.find((chapter) => chapter.id === "dlc-path").images[0].alt, /Casa Bonita.*Bring the Crunch/i);
+  assert.match(southPark.chapters.find((chapter) => chapter.id === "completion-danger-deck").images[0].alt, /Danger Deck/i);
+
+});
+
+test("keeps every The Wound Remembers image tied to the system explained by its chapter", () => {
+  const wound = yearEndGuides.find((guide) => guide.slug === "the-wound-remembers");
+  const expectedSubjects = {
+    "first-access": /Santuario.*stato del viaggio/i,
+    "collection-basics": /Collezione.*Costruttore/i,
+    "pacts-factions": /Fazioni del mazzo/i,
+    "deck-twenty": /Mazzo completo da venti carte/i,
+    "campaign-ten-acts": /Mappa dei dieci atti/i,
+    "lanes-intent": /tre corsie/i,
+    "essence-tempo": /Essenza.*velocità.*fine turno/i,
+    "status-signatures": /Carte.*effetti.*intento/i,
+    "nemeses-bosses": /Orveth Incisore.*Nemesi/i,
+    "expedition-route": /Spedizione nelle Profondità/i,
+    "relics-events": /Reliquie attive.*eventi/i,
+    "forge-fusions": /Varkhul.*Forgia/i,
+    "evolutions-crafting": /Potenziale evolutivo/i,
+    "familiars-habitat": /Tre Famigli reali/i,
+    "arena-bestiary": /battaglia reale/i,
+    "cloud-live-game": /Santuario.*profilo.*stato del viaggio/i,
+  };
+  for (const chapter of wound.chapters) {
+    assert.match(chapter.images[0].alt, expectedSubjects[chapter.id], chapter.id);
   }
 });
 

@@ -30,7 +30,22 @@ export const corruptedPortraitPromotion = {
   eligiblePackage: CORRUPTED_PORTRAIT_PACKAGE,
 } as const;
 
-export type CommissionPromotion = typeof commissionOpeningPromotion | typeof corruptedPortraitPromotion;
+export const holidayNexusPromotion = {
+  id: "nexus-holidays-2026",
+  focusId: "feste-nel-nexus",
+  label: "Feste nel Nexus",
+  shortLabel: "Feste nel Nexus · fino a −20%",
+  title: "Regala un mondo. O comincia il tuo.",
+  description: "Le richieste di commissione inviate durante le Feste nel Nexus ricevono una tariffa dedicata sul preventivo finale, anche quando la lavorazione prosegue dopo il 1° gennaio.",
+  startsAt: "2026-12-01T00:00:00+01:00",
+  endsAt: "2027-01-01T23:59:59.999+01:00",
+  period: "Dal 1° dicembre 2026 al 1° gennaio 2027",
+  deadlineLabel: "Richieste complete inviate entro il 1° gennaio 2027",
+  rates: { visitor: 10, supporter: 15, collector: 20 },
+  eligiblePackage: null,
+} as const;
+
+export type CommissionPromotion = typeof commissionOpeningPromotion | typeof corruptedPortraitPromotion | typeof holidayNexusPromotion;
 
 function isPromotionActive(promotion: CommissionPromotion, at: Date | string = new Date()) {
   const timestamp = at instanceof Date ? at.getTime() : Date.parse(at);
@@ -47,9 +62,14 @@ export function isCorruptedPortraitPromotionActive(at: Date | string = new Date(
   return isPromotionActive(corruptedPortraitPromotion, at);
 }
 
+export function isHolidayNexusPromotionActive(at: Date | string = new Date()) {
+  return isPromotionActive(holidayNexusPromotion, at);
+}
+
 export function getActiveCommissionPromotion(at: Date | string = new Date()): CommissionPromotion | null {
   if (isCommissionOpeningPromotionActive(at)) return commissionOpeningPromotion;
   if (isCorruptedPortraitPromotionActive(at)) return corruptedPortraitPromotion;
+  if (isHolidayNexusPromotionActive(at)) return holidayNexusPromotion;
   return null;
 }
 

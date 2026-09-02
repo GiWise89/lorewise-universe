@@ -15,6 +15,7 @@ type CommunityComment = {
   edited: boolean;
   ownedByViewer: boolean;
   membershipBadge: string | null;
+  familiarBadge: string | null;
   likeCount: number;
   viewerLiked: boolean;
   replies: CommunityComment[];
@@ -113,6 +114,7 @@ export function ArtworkCommunity({ artworkCode, artworkTitle }: { artworkCode: s
       <div className="community-comment-content">
         <div className="community-comment-meta">
           {entry.membershipBadge ? <span className={`community-member-badge is-${entry.membershipBadge.toLowerCase()}`}>{entry.membershipBadge}</span> : null}
+          {entry.familiarBadge ? <span className="community-member-badge is-familiar">{entry.familiarBadge}</span> : null}
           <time>{europeanDate(entry.createdAt)}</time>{entry.edited ? <small>Modificato</small> : null}
         </div>
         {editingId === entry.id ? <form className="art-community-edit" onSubmit={(event) => void saveEdit(event, entry.id)}>

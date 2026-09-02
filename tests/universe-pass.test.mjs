@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { calculateArtworkCreditGrant, calculateCommissionBenefit, calculatePurchaseBenefit, discountPercentForProduct, isPermanentCollectorEmail, pollIsOpen, universePassBenefitFromCode } from "../lib/universePass.ts";
-import { CORRUPTED_PORTRAIT_PACKAGE, commissionDiscountForSubmission, getCommissionPromotionForSubmission, isCommissionOpeningPromotionActive, isCorruptedPortraitPromotionActive } from "../lib/commissionPromotion.ts";
+import { CORRUPTED_PORTRAIT_PACKAGE, commissionDiscountForSubmission, getCommissionPromotionForSubmission, isCommissionOpeningPromotionActive, isCorruptedPortraitPromotionActive, isHolidayNexusPromotionActive } from "../lib/commissionPromotion.ts";
 
 test("recognizes the automatic commission discount for every Universe Pass", () => {
   assert.equal(universePassBenefitFromCode(null).commissionDiscountPercent, 0);
@@ -31,6 +32,30 @@ test("applies the Halloween 15/20/25 rates only to La mia versione corrotta duri
   assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-SUPPORTER", ordinaryDiscountPercent: 5, packageName: CORRUPTED_PORTRAIT_PACKAGE, submittedAt: "2026-10-31T12:00:00Z" }), 20);
   assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-COLLECTOR", ordinaryDiscountPercent: 10, packageName: CORRUPTED_PORTRAIT_PACKAGE, submittedAt: "2026-10-31T12:00:00Z" }), 25);
   assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-COLLECTOR", ordinaryDiscountPercent: 10, packageName: "Ritratto Completo", submittedAt: "2026-10-31T12:00:00Z" }), 10);
+});
+
+test("applies the Feste nel Nexus rates from 1 December through 1 January", () => {
+  assert.equal(isHolidayNexusPromotionActive("2026-11-30T22:59:59Z"), false);
+  assert.equal(isHolidayNexusPromotionActive("2026-11-30T23:00:00Z"), true);
+  assert.equal(isHolidayNexusPromotionActive("2027-01-01T22:59:59Z"), true);
+  assert.equal(isHolidayNexusPromotionActive("2027-01-01T23:00:00Z"), false);
+  assert.equal(getCommissionPromotionForSubmission("Ritratto Completo", "2026-12-20T12:00:00Z")?.label, "Feste nel Nexus");
+  assert.equal(commissionDiscountForSubmission({ planCode: null, ordinaryDiscountPercent: 0, packageName: "Ritratto Completo", submittedAt: "2026-12-20T12:00:00Z" }), 10);
+  assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-SUPPORTER", ordinaryDiscountPercent: 5, packageName: "Ritratto Completo", submittedAt: "2026-12-20T12:00:00Z" }), 15);
+  assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-COLLECTOR", ordinaryDiscountPercent: 10, packageName: "Opera Narrativa", submittedAt: "2027-01-01T12:00:00Z" }), 20);
+  assert.equal(commissionDiscountForSubmission({ planCode: "LW-PASS-COLLECTOR", ordinaryDiscountPercent: 10, packageName: "Opera Narrativa", submittedAt: "2027-01-02T12:00:00Z" }), 10);
+});
+
+test("offers a local-only commission preview for the Feste nel Nexus campaign", () => {
+  const source = readFileSync(new URL("../app/commissioni/page.tsx", import.meta.url), "utf8");
+  const chroniclePage = readFileSync(new URL("../app/cronache-del-nexus/page.tsx", import.meta.url), "utf8");
+  assert.match(source, /query\?\.anteprima === "feste"/);
+  assert.match(source, /holidayNexusPromotion/);
+  assert.match(source, /LOREWISE_LOCAL_CALENDAR_PREVIEW/);
+  assert.match(source, /previewQuery=\{previewQuery\}/);
+  assert.match(source, /&anteprima=\$\{encodeURIComponent\(previewQuery\)\}/);
+  assert.match(source, /commission-request-promotion-summary/);
+  assert.match(chroniclePage, /anteprima=feste/);
 });
 
 test("reserves the permanent Collector grant for the LoreWise owner email", () => {

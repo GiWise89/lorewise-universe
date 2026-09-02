@@ -1,13 +1,31 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { familiarVisitActivity } from "@/lib/nexusFamiliarMissionCatalog";
 
 const excludedPrefixes = ["/admin", "/account", "/auth", "/api", "/gestione-"];
 
 export function SiteAnalyticsTracker() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const search = searchParams.toString();
   const sessionId = useRef("");
+
+  useEffect(() => {
+    const missionActivity = familiarVisitActivity(search ? `${pathname}?${search}` : pathname);
+    if (!missionActivity) return;
+    const timer = window.setTimeout(() => {
+      void fetch("/api/famiglio/activity", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(missionActivity),
+        keepalive: true,
+      }).catch(() => undefined);
+    }, 7000);
+    return () => window.clearTimeout(timer);
+  }, [pathname, search]);
 
   useEffect(() => {
     if (window.location.hostname !== "lorewisenexus.it" && window.location.hostname !== "www.lorewisenexus.it") return;

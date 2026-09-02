@@ -12,11 +12,13 @@ type ArtCatalogProps = {
 };
 
 type SortMode = "archive" | "newest" | "oldest" | "price-asc" | "price-desc";
+type FilterPanel = "search" | "genre" | "price" | "sort";
 
 const adultCover = "/brand/art-portals/adult-cover-v2.webp";
 const originalSeal = "/brand/art-portals/originals-seal-card-v1.webp";
 const fanartSeal = "/brand/art-portals/fanart-seal-card-v1.webp";
 const pageSize = 6;
+const featuredArchiveCodes = ["LW-ART-080"] as const;
 const curatedChapters = [
   ["Capitolo I", "Origini e metamorfosi"],
   ["Capitolo II", "Icone, incubi e memoria"],
@@ -33,7 +35,7 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
   const [priceTier, setPriceTier] = useState("all");
   const [sortMode, setSortMode] = useState<SortMode>("archive");
   const [visibleCount, setVisibleCount] = useState(pageSize);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [openPanel, setOpenPanel] = useState<FilterPanel | null>(null);
   const [revealedAdultArtworks, setRevealedAdultArtworks] = useState<string[]>([]);
   const purchasableCount = artworks.filter((artwork) => artwork.access === "commercial-original").length;
   const exhibitionCount = artworks.filter((artwork) => artwork.access === "exhibition-only").length;
@@ -63,6 +65,13 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
         const rightPrice = right.priceTier ? prices[right.priceTier] : noPrice;
         return sortMode === "price-asc" ? leftPrice - rightPrice : rightPrice - leftPrice;
       }
+      const leftFeatured = featuredArchiveCodes.indexOf(left.code as (typeof featuredArchiveCodes)[number]);
+      const rightFeatured = featuredArchiveCodes.indexOf(right.code as (typeof featuredArchiveCodes)[number]);
+      if (leftFeatured !== rightFeatured) {
+        if (leftFeatured === -1) return 1;
+        if (rightFeatured === -1) return -1;
+        return leftFeatured - rightFeatured;
+      }
       return left.code.localeCompare(right.code, "it");
     });
   }, [artworks, availability, genre, priceTier, query, sortMode, year]);
@@ -83,6 +92,7 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
     setPriceTier("all");
     setSortMode("archive");
     setVisibleCount(pageSize);
+    setOpenPanel(null);
   }
 
   function selectEntrance(access: ArtworkAccess) {
@@ -99,6 +109,11 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
       setYear(nextYear);
       setAvailability(nextAvailability);
     });
+    setOpenPanel(null);
+  }
+
+  function togglePanel(panel: FilterPanel) {
+    setOpenPanel((current) => current === panel ? null : panel);
   }
 
   function revealAdultArtwork(code: string) {
@@ -145,25 +160,24 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
           <button type="button" aria-pressed={availability === "exhibition-only"} onClick={() => selectQuickView("all", "exhibition-only")}>Esposizione</button>
           <button type="button" aria-pressed={year === "2025" && availability === "all"} onClick={() => selectQuickView("2025", "all")}>2025</button>
           <button type="button" aria-pressed={year === "2026" && availability === "all"} onClick={() => selectQuickView("2026", "all")}>2026</button>
-          <button type="button" aria-expanded={searchOpen} onClick={() => setSearchOpen((current) => !current)}>Cerca</button>
-          <details>
-            <summary>Genere</summary>
-            <label><span>Seleziona genere</span><select value={genre} onChange={(event) => updateFilter(() => setGenre(event.target.value))}><option value="all">Tutti i generi</option>{artworkGenreLabels.map((label) => <option value={label} key={label}>{label}</option>)}</select></label>
-          </details>
-          <details>
-            <summary>Fascia</summary>
-            <label><span>Fascia di prezzo</span><select value={priceTier} onChange={(event) => updateFilter(() => setPriceTier(event.target.value))}><option value="all">Tutte le fasce</option><option value="essential">Fascia Essenziale · 8,90 €</option><option value="detailed">Fascia Dettagliata · 12,90 €</option><option value="premium">Fascia Premium · 17,90 €</option></select></label>
-          </details>
-          <details>
-            <summary>Ordina</summary>
-            <label><span>Ordina le opere</span><select value={sortMode} onChange={(event) => updateFilter(() => setSortMode(event.target.value as SortMode))}><option value="archive">Codice archivio</option><option value="newest">Più recenti</option><option value="oldest">Più vecchie</option><option value="price-asc">Prezzo crescente</option><option value="price-desc">Prezzo decrescente</option></select></label>
-          </details>
+          <button type="button" aria-expanded={openPanel === "search"} aria-controls="art-filter-panel" onClick={() => togglePanel("search")}>Cerca</button>
+          <button type="button" aria-expanded={openPanel === "genre"} aria-controls="art-filter-panel" onClick={() => togglePanel("genre")}>Genere</button>
+          <button type="button" aria-expanded={openPanel === "price"} aria-controls="art-filter-panel" onClick={() => togglePanel("price")}>Fascia</button>
+          <button type="button" aria-expanded={openPanel === "sort"} aria-controls="art-filter-panel" onClick={() => togglePanel("sort")}>Ordina</button>
         </nav>
 
-        <div className="art-index-search" hidden={!searchOpen}>
-          <label htmlFor="artwork-search">Titolo o codice</label>
-          <input id="artwork-search" value={query} onChange={(event) => updateFilter(() => setQuery(event.target.value))} placeholder="Cerca un titolo o LW-ART-014" />
-        </div>
+        {openPanel ? <section className="art-filter-panel" id="art-filter-panel" aria-label="Pannello filtri dell’archivio">
+            <header>
+              <div><small>Filtri archivio</small><strong>{openPanel === "search" ? "Cerca un’opera" : openPanel === "genre" ? "Scegli il genere" : openPanel === "price" ? "Scegli la fascia" : "Ordina le opere"}</strong></div>
+              <button type="button" onClick={() => setOpenPanel(null)}>Chiudi filtri <span aria-hidden="true">×</span></button>
+            </header>
+            <div className="art-filter-panel-control">
+              {openPanel === "search" ? <label htmlFor="artwork-search"><span>Titolo o codice</span><input id="artwork-search" value={query} onChange={(event) => updateFilter(() => setQuery(event.target.value))} placeholder="Cerca un titolo o LW-ART-014" /></label> : null}
+              {openPanel === "genre" ? <label><span>Seleziona genere</span><select value={genre} onChange={(event) => updateFilter(() => setGenre(event.target.value))}><option value="all">Tutti i generi</option>{artworkGenreLabels.map((label) => <option value={label} key={label}>{label}</option>)}</select></label> : null}
+              {openPanel === "price" ? <label><span>Fascia di prezzo</span><select value={priceTier} onChange={(event) => updateFilter(() => setPriceTier(event.target.value))}><option value="all">Tutte le fasce</option><option value="essential">Fascia Essenziale · 8,90 €</option><option value="detailed">Fascia Dettagliata · 12,90 €</option><option value="premium">Fascia Premium · 17,90 €</option></select></label> : null}
+              {openPanel === "sort" ? <label><span>Ordina le opere</span><select value={sortMode} onChange={(event) => updateFilter(() => setSortMode(event.target.value as SortMode))}><option value="archive">Codice archivio</option><option value="newest">Più recenti</option><option value="oldest">Più vecchie</option><option value="price-asc">Prezzo crescente</option><option value="price-desc">Prezzo decrescente</option></select></label> : null}
+            </div>
+          </section> : null}
         {!isCuratedOrder ? <button className="art-index-reset" type="button" onClick={resetFilters}>Ripristina l’intero archivio</button> : null}
       </section>
 
@@ -191,10 +205,11 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
                     <div className="draft-artwork-copy">
                       <div className="artwork-card-identity">
                         <Image src={artwork.kindLabel === "Arte originale" ? originalSeal : fanartSeal} alt="" width={96} height={96} loading="lazy" unoptimized />
-                        <small>{artwork.code}</small>
+                        <small>{artwork.code}{artwork.code === "LW-ART-080" ? <span className="artwork-featured-label">Nuova in vetrina</span> : null}</small>
                       </div>
                       <h3><Link href={`/arte/${artwork.slug}`}>{artwork.title}</Link></h3>
                       <p className="artwork-taxonomy">{artwork.year} · {artwork.genre}</p>
+                      <p className="artwork-category">{artwork.category}</p>
                       <p className="artwork-card-status">{artwork.priceLabel ? `${artwork.priceLabel} · Licenza personale` : "Solo esposizione · Nessun download"}</p>
                     </div>
                   </article>

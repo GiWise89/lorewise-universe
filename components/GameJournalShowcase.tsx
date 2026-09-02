@@ -44,7 +44,7 @@ export function GameJournalShowcase({ games }: { games: CreativeGameJournalEntry
         ))}
       </div>
 
-      <article id={`game-panel-${instanceId}-${game.id}`} role="tabpanel" aria-labelledby={`game-tab-${instanceId}-${game.id}`} className="diary-game-dossier" key={game.id}>
+      <article id={`game-panel-${instanceId}-${game.id}`} role="tabpanel" aria-labelledby={`game-tab-${instanceId}-${game.id}`} className={`diary-game-dossier diary-game-dossier-${game.id}`} key={game.id}>
         <header>
           <div><p className="diary-hand">{game.label}</p><h3>{game.title}</h3><p>{game.summary}</p></div>
           <aside><span>Dietro questa schermata</span><strong>Mesi di progettazione, disegno, codice e prove.</strong></aside>

@@ -17,19 +17,19 @@ export type AppRelease = {
 export const lorewiseAndroidRelease: AppRelease = {
   platform: "Android",
   format: "APK",
-  version: "0.3.0",
-  versionCode: 4,
-  status: "verification",
-  minimumSystem: "Android 7.0 o successivo",
+  version: "1.1.0",
+  versionCode: 3,
+  status: "available",
+  minimumSystem: "Android 8.0 o successivo",
   connection: "Connessione internet richiesta",
-  publishedAt: null,
-  fileSize: null,
-  sha256: null,
-  downloadHref: null,
+  publishedAt: "2 settembre 2026",
+  fileSize: "162 KB",
+  sha256: "4ce0f05425a2f3de3d09b4e5709a1c1c97b797e3905771d3f5c0cb25568a077d",
+  downloadHref: "/downloads/Famiglio-del-Nexus-Android-1.1.0.apk",
 };
 
 export const appReleaseStatusLabels: Record<AppReleaseStatus, string> = {
   verification: "COMING SOON",
-  available: "Beta Android disponibile",
+  available: "APK Android pronta",
   suspended: "Download sospeso",
 };

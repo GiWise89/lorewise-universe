@@ -30,7 +30,7 @@ export function GameGuideExperience({ guide, context }: GameGuideExperienceProps
   const artworkPageSize = 6;
   const artworkPages = Math.max(1, Math.ceil((activeChapter.artworkGallery?.length ?? 0) / artworkPageSize));
   const visibleArtworks = activeChapter.artworkGallery?.slice(artworkPage * artworkPageSize, (artworkPage + 1) * artworkPageSize) ?? [];
-  const hasGameIdentity = ["cyberpunk-2077", "inazuma-eleven-victory-road", "the-mortuary-assistant"].includes(guide.theme ?? "");
+  const hasGameIdentity = ["cyberpunk-2077", "inazuma-eleven-victory-road", "the-mortuary-assistant", "south-park-scontri-di-retti", "stardew-valley", "the-wound-remembers"].includes(guide.theme ?? "");
 
   return <article className={`game-guide-experience is-${context} theme-${guide.theme ?? "baldurs-gate"}`}>
     <header className="game-guide-hero">

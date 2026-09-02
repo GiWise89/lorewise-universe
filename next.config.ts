@@ -15,6 +15,7 @@ const noIndexHeaders = [
 }));
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["127.0.0.1", "localhost", "192.168.1.7"],
   experimental: {
     serverActions: {
       // Le consegne Arte sono ZIP privati, verificati dall'API e limitati a 50 MB.

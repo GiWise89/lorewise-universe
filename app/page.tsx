@@ -32,6 +32,7 @@ export default async function Home({ searchParams }: { searchParams?: Promise<Re
   const localCalendarPreview = process.env.NODE_ENV !== "production" || process.env.LOREWISE_LOCAL_CALENDAR_PREVIEW === "true";
   const previewBlackFriday = query?.anteprima === "black-friday" && localCalendarPreview;
   const previewBlackFridayCampaign = query?.anteprima === "black-friday-campaign" && localCalendarPreview;
+  const previewHoliday = query?.anteprima === "feste" && localCalendarPreview;
   const previewWelcomeOffer = query?.anteprima === "benvenuto" && localCalendarPreview;
   const initialPromotion = process.env.LOREWISE_LOCAL_HALLOWEEN_PREVIEW === "true"
     ? corruptedPortraitPromotion
@@ -64,7 +65,7 @@ export default async function Home({ searchParams }: { searchParams?: Promise<Re
         </div>
       </section>
 
-      <CurrentDiscountRibbon initialPromotion={initialPromotion} previewBlackFriday={previewBlackFriday} previewCampaign={previewBlackFridayCampaign} />
+      <CurrentDiscountRibbon initialPromotion={initialPromotion} previewBlackFriday={previewBlackFriday} previewCampaign={previewBlackFridayCampaign} previewHoliday={previewHoliday} />
 
       <section className="home-story art-story shell" aria-labelledby="art-story-title">
         <div className="home-art-preview" aria-label="Tre opere protette in fase di catalogazione">

@@ -14,7 +14,7 @@ const genreGroups: Array<{ genre: ArtworkGenre; numbers: number[] }> = [
   { genre: "Contenuti per adulti", numbers: [6, 32, 37, 38, 54, 55] },
   { genre: "Religioso oscuro", numbers: [13, 28, 30, 35, 36, 50, 56, 57, 65, 67] },
   { genre: "Anime e manga", numbers: [14, 15, 21, 22, 27, 29, 34, 42, 43, 44, 76] },
-  { genre: "Cinema e serie", numbers: [1, 9, 12, 18, 19, 23, 26, 45, 47, 66, 74, 75, 77, 78] },
+  { genre: "Cinema e serie", numbers: [1, 9, 12, 18, 19, 23, 26, 45, 47, 66, 74, 75, 77, 78, 80] },
   { genre: "Cartoon e cultura pop", numbers: [7, 8, 10, 11, 25, 40, 69] },
   { genre: "Fantasy e surreale", numbers: [16, 31, 33, 46, 48, 52, 53, 63, 64, 70, 72] },
   { genre: "Horror e dark art", numbers: [2, 3, 4, 5, 17, 20, 24, 39, 41, 49, 51, 58, 59, 60, 61, 62, 68, 71, 73, 79] },
@@ -23,6 +23,84 @@ const genreGroups: Array<{ genre: ArtworkGenre; numbers: number[] }> = [
 const genreByArtworkNumber = new Map<number, ArtworkGenre>(
   genreGroups.flatMap(({ genre, numbers }) => numbers.map((number) => [number, genre] as const)),
 );
+
+export const artworkCategories: Record<number, string> = {
+  1: "Cinema horror · Slasher",
+  2: "Fiaba oscura · Horror narrativo",
+  3: "Dark fantasy · Horror romantico",
+  6: "Pop art adulta · Umorismo provocatorio",
+  7: "Crossover cartoon · Horror pop",
+  8: "Cartoon horror · Macabro pop",
+  9: "Supereroi · Serie TV",
+  10: "Cartoon vintage · Pin-up pop",
+  11: "Cartoon gotico · Commedia macabra",
+  12: "Cinema comico · Ritratto pop",
+  13: "Horror spirituale · Body horror",
+  14: "Anime · Fantascienza",
+  15: "Anime · Ritratto pop",
+  16: "Horror surreale · Dark fantasy",
+  17: "Fiaba oscura · Horror narrativo",
+  18: "Cinema muto · Fantascienza pop",
+  19: "Cinema horror · Bambole maledette",
+  20: "Horror psicologico · Incubo botanico",
+  21: "Anime · Dramma interiore",
+  22: "Anime · Reinterpretazione pop",
+  23: "Cinema horror · Slasher",
+  25: "Cartoon grottesco · Satira pop",
+  26: "Cinema horror · Clown mostruoso",
+  27: "Anime · Dramma ninja",
+  28: "Horror occulto · Iconografia religiosa",
+  29: "Anime · Arti marziali",
+  30: "Horror rituale · Espressionismo",
+  31: "Fantasy videoludico · Ritratto",
+  32: "Pin-up adulta · Fan art cartoon",
+  33: "Dark fantasy · Simbolismo",
+  34: "Anime horror · Body horror",
+  35: "Horror spirituale · Visione spettrale",
+  36: "Horror occulto · Rituale di sangue",
+  37: "Body horror adulto · Dark fantasy",
+  38: "Pin-up adulta · Fan art videoludica",
+  39: "Body horror · Horror romantico",
+  40: "Crossover anime-cartoon · Commedia pop",
+  41: "Horror psicologico · Body horror",
+  42: "Anime · Ritratto atmosferico",
+  43: "Anime · Ritratto narrativo",
+  44: "Anime · Dark fantasy",
+  45: "Cinema horror · Slasher",
+  46: "Dark fantasy · Ritratto regale",
+  47: "Cinema comico · Ritratto classico",
+  48: "Surrealismo pop · Grottesco",
+  50: "Horror spirituale · Iconografia mariana",
+  51: "Horror emotivo · Lutto",
+  52: "Surrealismo tossico · Body horror",
+  53: "Fantascienza oscura · Occulto",
+  54: "Horror erotico · Arte adulta",
+  55: "Horror religioso adulto · Body horror",
+  56: "Horror occulto · Cosmic horror",
+  57: "Horror religioso · Ritratto grottesco",
+  59: "Horror psicologico · Costrizione",
+  60: "Horror infantile · Non morto",
+  61: "Horror kawaii · Slasher pop",
+  62: "Horror emotivo · Lutto",
+  63: "Fantasy pop · Simbolismo",
+  64: "Fantasy surreale · Doppia identità",
+  65: "Horror religioso · Non morto",
+  66: "Cinema horror · Clown mostruoso",
+  67: "Horror religioso · Lutto",
+  68: "Supereroi horror · Fan art",
+  69: "Supereroi · Crossover comico",
+  70: "Fantasy videoludico · Ritratto di gruppo",
+  71: "Horror anatomico · Maternità oscura",
+  72: "Fantasy videoludico · Romance",
+  73: "Cinema horror · Incubo slasher",
+  74: "Videogiochi horror · Survival horror",
+  75: "Cinema · Ritratto iconico",
+  76: "Anime · Dramma sportivo",
+  77: "Cinema romantico · Memoria",
+  78: "Serie TV · Commedia scientifica",
+  79: "Horror fantascientifico · Distopia",
+  80: "Cinema horror indipendente · Fan art",
+};
 
 const monochromeTechniqueNumbers = new Set([20, 44, 45, 47, 50, 51, 71]);
 const popTechniqueNumbers = new Set([6, 7, 8, 10, 11, 12, 15, 16, 25, 32, 38, 40, 48, 52, 60, 61, 63, 64, 66, 69, 73, 75, 76, 78]);
@@ -81,6 +159,12 @@ export function getArtworkGenre(artworkNumber: number): ArtworkGenre {
   const genre = genreByArtworkNumber.get(artworkNumber);
   if (!genre) throw new Error(`Genere mancante per LW-ART-${String(artworkNumber).padStart(3, "0")}`);
   return genre;
+}
+
+export function getArtworkCategory(artworkNumber: number): string {
+  const category = artworkCategories[artworkNumber];
+  if (!category) throw new Error(`Categoria mancante per LW-ART-${String(artworkNumber).padStart(3, "0")}`);
+  return category;
 }
 
 export function getArtworkTechnique(artworkNumber: number): string {

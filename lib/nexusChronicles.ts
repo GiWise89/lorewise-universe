@@ -1,8 +1,9 @@
-import { commissionOpeningPromotion, corruptedPortraitPromotion } from "@/lib/commissionPromotion";
+import { commissionOpeningPromotion, corruptedPortraitPromotion, holidayNexusPromotion, isHolidayNexusPromotionActive } from "@/lib/commissionPromotion";
 import { editorialReleaseInstant, getReleasedEditorialEntries } from "@/lib/editorialCalendar";
 import { GAME_GUIDES, getGuideEditorialNews, type GameGuide } from "@/lib/gameGuides";
 
 export type NexusChronicleCategory = "art" | "games" | "codex" | "worlds" | "vip";
+export type NexusChronicleCategoryFilter = "all" | NexusChronicleCategory;
 
 export type NexusChronicleSignal = {
   label: string;
@@ -32,7 +33,7 @@ export type NexusChronicleBenefitEvent = {
 };
 
 export type NexusChroniclePromotion = {
-  theme: "opening" | "halloween" | "ended" | "standard";
+  theme: "opening" | "halloween" | "holiday" | "ended" | "standard";
   label: string;
   title: string;
   period: string;
@@ -59,6 +60,11 @@ export type NexusChronicleUpcoming = {
     imageAlt: string;
     tags: string[];
   }>;
+  visual?: {
+    image: string;
+    imageAlt: string;
+    caption: string;
+  };
   featuredGame?: {
     title: string;
     kicker: string;
@@ -464,6 +470,29 @@ function halloweenChroniclePromotion(status: "preview" | "active" | "ended"): Ne
   };
 }
 
+const holidayChroniclePromotion: NexusChroniclePromotion = {
+  theme: "holiday",
+  label: "Feste nel Nexus · promozione attiva",
+  title: holidayNexusPromotion.title,
+  period: holidayNexusPromotion.period,
+  description: "Un ritratto può diventare un regalo, un ricordo o l’inizio di un nuovo mondo. La tariffa delle Feste viene calcolata direttamente sul preventivo e resta acquisita dopo la scadenza.",
+  visual: "/brand/icons/commissioni-concept-v1.webp",
+  visualAlt: "Emblema illustrato delle commissioni GiWise Studio",
+  rates: [
+    { audience: "Visitatori", discount: `−${holidayNexusPromotion.rates.visitor}%` },
+    { audience: "Supporter", discount: `−${holidayNexusPromotion.rates.supporter}%` },
+    { audience: "Collector", discount: `−${holidayNexusPromotion.rates.collector}%` },
+  ],
+  terms: [
+    "Valida per Ritratto Essenziale, Ritratto Completo e Opera Narrativa.",
+    "La richiesta completa deve essere inviata entro il 1° gennaio 2027.",
+    "La tariffa resta acquisita anche quando lavorazione e consegna proseguono dopo la scadenza.",
+    "Lo sconto sostituisce quello ordinario del Pass e non si somma ad altre offerte.",
+  ],
+  href: "/feste-nel-nexus",
+  action: "Scopri le Feste nel Nexus",
+};
+
 const demonMatchRevealChronicle = makeWeeklyChronicle({
   id: "demon-match-android-development",
   issue: "Novità Games 001",
@@ -605,6 +634,11 @@ const guideCalendarChronicles = guideChronicleEditorial.map((entry) => {
       status: `${guide.game} · pubblico dal ${guideDate(guide.publicAt)}`,
       description: "La guida raggiunge le altre uscite nell’Atlante dei Giochi e resta disponibile per tutti.",
       features: ["17 Cronache da sfogliare", "Guide pubbliche permanenti", "Sezioni dedicate a ogni gioco", "Nuovi percorsi in arrivo"],
+      visual: {
+        image: guide.cover.src,
+        imageAlt: guide.cover.alt,
+        caption: "INAZUMA ELEVEN: Victory Road · guida pubblica completa",
+      },
       featuredGame: null,
     } : undefined,
     href: "/giochi/guide",
@@ -861,11 +895,13 @@ function chronicleWithScheduledGuide(chronicle: NexusChronicle): NexusChronicle 
 }
 
 export function getNexusChronicles(now = new Date()): NexusChronicle[] {
-  return getReleasedEditorialEntries(nexusChronicles, now)
+  const released = getReleasedEditorialEntries(nexusChronicles, now)
     .map(chronicleWithScheduledGuide);
+  if (!released.length || !isHolidayNexusPromotionActive(now)) return released;
+  return released.map((chronicle, index) => index === 0 ? { ...chronicle, promotion: holidayChroniclePromotion } : chronicle);
 }
 
-export const nexusChronicleCategories: Array<{ value: "all" | NexusChronicleCategory; label: string }> = [
+export const nexusChronicleCategories: Array<{ value: NexusChronicleCategoryFilter; label: string }> = [
   { value: "all", label: "Tutte" },
   { value: "art", label: "Arte" },
   { value: "games", label: "Giochi" },
@@ -873,3 +909,7 @@ export const nexusChronicleCategories: Array<{ value: "all" | NexusChronicleCate
   { value: "worlds", label: "Dove nascono i mondi" },
   { value: "vip", label: "LoreWise VIP" },
 ];
+
+export function nexusChronicleCategoryFromQuery(value: string | null | undefined): NexusChronicleCategoryFilter {
+  return nexusChronicleCategories.some((category) => category.value === value) ? value as NexusChronicleCategoryFilter : "all";
+}

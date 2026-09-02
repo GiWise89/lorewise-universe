@@ -1,6 +1,7 @@
 import { artworkEditorialCopy } from "./artworkEditorial.ts";
 import {
   additionalArtworkWarnings,
+  getArtworkCategory,
   getArtworkGenre,
   getArtworkTechnique,
   type ArtworkGenre,
@@ -42,7 +43,7 @@ const vipOnlyArtworkNumbers = new Set([4, 5, 24, 49]);
 const removedArtworkNumbers = new Set([58]);
 const fanArtNumbers = new Set([
   1, 7, 8, 9, 10, 11, 12, 14, 15, 18, 19, 21, 22, 23, 25, 26, 27, 29, 31, 32,
-  34, 38, 40, 42, 43, 44, 45, 47, 66, 68, 69, 70, 72, 73, 74, 75, 76, 77, 78,
+  34, 38, 40, 42, 43, 44, 45, 47, 66, 68, 69, 70, 72, 73, 74, 75, 76, 77, 78, 80,
 ]);
 const adultContentNumbers = new Set([6, 32, 37, 38, 54, 55]);
 const essentialNumbers = new Set([6, 16, 33, 39]);
@@ -56,6 +57,7 @@ const nativeResolutionOverrides: Record<number, string> = {
   75: "1127 × 1600 px",
   77: "1131 × 1599 px",
   79: "2480 × 3508 px",
+  80: "2480 × 3508 px",
 };
 
 const approvedArtworkDetails: Record<number, {
@@ -138,6 +140,14 @@ const approvedArtworkDetails: Record<number, {
     category: "Horror psicologico · Incubo botanico",
     contentWarning: "Figura mostruosa, soffocamento simbolico e forte tensione emotiva.",
   },
+  80: {
+    title: "Obsession · Il volto di Nikki",
+    year: "2026",
+    description: "Fan art horror ispirata a Obsession di Curry Barker. Nikki resta al centro della composizione mentre due presenze alle sue spalle trasformano il ritratto in una scena dominata da minaccia, memoria e tensione.",
+    technique: "Illustrazione digitale, line art ad alto contrasto, campiture piatte e fondale atmosferico.",
+    category: "Fan art horror · Cinema indipendente",
+    contentWarning: "Sangue, volti inquietanti e atmosfera horror.",
+  },
 };
 
 const pricing: Record<ArtworkPriceTier, { label: string; price: string; membership: string }> = {
@@ -146,7 +156,7 @@ const pricing: Record<ArtworkPriceTier, { label: string; price: string; membersh
   premium: { label: "Fascia Premium", price: "17,90 €", membership: "Collector · Supporter + 5 €" },
 };
 
-export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 79 }, (_, index) => index + 1)
+export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 80 }, (_, index) => index + 1)
   .filter((artworkNumber) => !vipOnlyArtworkNumbers.has(artworkNumber) && !removedArtworkNumbers.has(artworkNumber))
   .map((artworkNumber) => {
   const number = String(artworkNumber).padStart(3, "0");
@@ -171,7 +181,7 @@ export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 79 }, (_, 
     year: editorialCopy?.year ?? approvedDetails?.year ?? null,
     description: editorialCopy?.description ?? approvedDetails?.description ?? null,
     technique: approvedDetails?.technique ?? getArtworkTechnique(artworkNumber),
-    category: approvedDetails?.category ?? genre,
+    category: getArtworkCategory(artworkNumber),
     contentWarning: approvedDetails?.contentWarning ?? additionalArtworkWarnings[artworkNumber] ?? null,
     nativeResolution: nativeResolutionOverrides[artworkNumber] ?? (largeNativeNumbers.has(artworkNumber)
       ? "2480 × 3508 px"
