@@ -863,3 +863,20 @@
   .awayNoticeCopy strong { font-size: .92rem; }
   .awayNoticeCopy span { font-size: .67rem; }
 }
+
+/* Direct Android download and compact, collision-free mobile controls. */
+.managementActions a,.mobileUtilityActions a{border:1px solid #f2c66a55;padding:.3rem .48rem;color:#f5ead8;background:#ffffff08;font:800 .5rem var(--font-body);cursor:pointer;text-decoration:none}
+.managementActions a:hover,.managementActions a:focus-visible,.mobileUtilityActions a:focus-visible{border-color:#f2c66a;background:#f2c66a15;outline:0}
+
+@media (max-width: 640px) {
+  .mobileDrawerGuide { right: 3.65rem; left: auto; background: #0b0815f5; }
+  .mobileDenOverview > .mobileUtilityActions { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .18rem; }
+  .mobileUtilityActions button, .mobileUtilityActions a { min-width: 0; min-height: 48px; padding: .24rem .08rem; display: grid; grid-template-columns: 1fr; place-items: center; place-content: center; gap: .08rem; border-color: #f2c66a45; background: linear-gradient(145deg, #ffffff0b, #ffffff03); }
+  .mobileUtilityActions button > img, .mobileUtilityActions a > img { width: 23px; height: 23px; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(0 3px 3px #0008); }
+  .mobileUtilityActions button > strong, .mobileUtilityActions a > strong { max-width: 100%; overflow: hidden; color: #fff2db; font-size: .42rem; line-height: 1.05; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+  .need { grid-template-columns: 1fr; grid-template-rows: 25px minmax(0, 1fr); justify-items: center; align-content: center; gap: .08rem; }
+  .needData { width: 100%; min-width: 0; }
+  .needData > div:first-child { min-width: 0; margin-bottom: .12rem; flex-direction: column; justify-content: center; align-items: center; line-height: 1; }
+  .need span { max-width: 100%; overflow: hidden; font-size: .41rem; text-overflow: ellipsis; white-space: nowrap; }
+  .need strong { margin-top: .08rem; font-size: .56rem; }
+}

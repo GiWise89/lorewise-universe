@@ -79,6 +79,8 @@ test("mobile diary opens as a closable full-screen portrait page", () => {
   assert.match(mobile, /\.diaryReaderBackdrop\s*\{[^}]*width:\s*100vw[^}]*height:\s*100dvh[^}]*overflow:\s*hidden/s);
   assert.match(mobile, /\.diaryReader\s*\{[^}]*width:\s*100vw[^}]*height:\s*100dvh/s);
   assert.match(mobile, /\.diaryReaderClose\s*\{[^}]*position:\s*fixed[^}]*z-index:\s*4/s);
+  assert.match(mobile, /\.diaryReaderParchment\s*\{[^}]*width:\s*100%[^}]*height:\s*100%[^}]*object-fit:\s*fill/s);
+  assert.match(mobile, /\.diaryReaderCopy\s*\{[^}]*width:\s*min\(72vw, 420px\)[^}]*overflow:\s*hidden/s);
 });
 
 test("mobile rewards use normal document flow without overlapping the milestone list", () => {

@@ -6,7 +6,7 @@ import { lorewiseAndroidRelease } from "../lib/appReleases.ts";
 
 test("the Famiglio Android download points to the signed local release artifact", () => {
   assert.equal(lorewiseAndroidRelease.status, "available");
-  assert.equal(lorewiseAndroidRelease.version, "1.1.0");
+  assert.equal(lorewiseAndroidRelease.version, "1.1.1");
   assert.match(lorewiseAndroidRelease.downloadHref ?? "", /^\/downloads\/Famiglio-del-Nexus-Android-/);
   const relative = lorewiseAndroidRelease.downloadHref?.replace(/^\//, "") ?? "";
   const file = new URL(`../public/${relative}`, import.meta.url);

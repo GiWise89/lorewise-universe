@@ -88,6 +88,7 @@ const NAV_ICONS = {
   notifications: "/famiglio/navigation/avvisi-v1.svg",
   tutorial: "/famiglio/navigation/guida-v1.svg",
   change: "/famiglio/navigation/cambia-v1.svg",
+  apk: "/brand/icons/vip-downloads-v1.webp",
 } as const;
 
 const MOBILE_ITEM_LABELS: Record<FamiliarItemKey, string> = {
@@ -1771,7 +1772,7 @@ export function NexusFamiliarExperience({ initialLegacyView }: { initialLegacyVi
                     : "Salvataggio locale attivo · sincronizzazione da riprovare"}
           </p>
           {cloudStatus === "error" ? <button type="button" className={styles.cloudRetry} onClick={() => setCloudCheckNonce((current) => current + 1)}>Riprova sincronizzazione</button> : null}
-          <div className={styles.managementActions} data-tutorial-target="utilities"><button type="button" onClick={toggleSound} aria-pressed={soundEnabled}>{soundEnabled ? "Suoni attivi" : "Suoni disattivati"}</button><button type="button" onClick={toggleNeedNotifications} aria-pressed={notificationsEnabled}>{notificationsEnabled ? "Avvisi attivi" : "Attiva avvisi"}</button><button type="button" onClick={openTutorialForCurrentSection}>Guida</button><button type="button" onClick={() => { setRosterOpen(true); void loadFamiliarSlots(); }}>I miei Famigli</button><button type="button" onClick={() => setResetStep(1)}>Cambia Famiglio</button></div>
+          <div className={styles.managementActions} data-tutorial-target="utilities"><button type="button" onClick={toggleSound} aria-pressed={soundEnabled}>{soundEnabled ? "Suoni attivi" : "Suoni disattivati"}</button><button type="button" onClick={toggleNeedNotifications} aria-pressed={notificationsEnabled}>{notificationsEnabled ? "Avvisi attivi" : "Attiva avvisi"}</button><button type="button" onClick={openTutorialForCurrentSection}>Guida</button><button type="button" onClick={() => { setRosterOpen(true); void loadFamiliarSlots(); }}>I miei Famigli</button><button type="button" onClick={() => setResetStep(1)}>Cambia Famiglio</button><a href="/downloads/Famiglio-del-Nexus-Android-1.1.1.apk" download>APK</a></div>
         </div>
         </header>
 
@@ -1877,7 +1878,7 @@ export function NexusFamiliarExperience({ initialLegacyView }: { initialLegacyVi
                     <article><img src={NAV_ICONS.shop} alt="" /><span>Per la tana</span><strong>{state.nexusCoins} monete</strong></article>
                   </div>
                   <button type="button" onClick={() => setMobilePanel("actions")}><img src={NEED_ICONS.happiness} alt="" /> Prenditene cura</button>
-                  <div className={styles.mobileUtilityActions} data-tutorial-target="utilities"><button type="button" onClick={toggleSound} aria-pressed={soundEnabled}><img src={NAV_ICONS.sound} alt="" /><strong>{soundEnabled ? "Suono attivo" : "Suono spento"}</strong></button><button type="button" onClick={toggleNeedNotifications} aria-pressed={notificationsEnabled}><img src={NAV_ICONS.notifications} alt="" /><strong>{notificationsEnabled ? "Avvisi attivi" : "Attiva avvisi"}</strong></button><button type="button" onClick={openTutorialForCurrentSection}><img src={NAV_ICONS.tutorial} alt="" /><strong>Guida</strong></button><button type="button" onClick={() => { setRosterOpen(true); void loadFamiliarSlots(); }}><img src={NAV_ICONS.den} alt="" /><strong>Famigli</strong></button><button type="button" onClick={() => setResetStep(1)}><img src={NAV_ICONS.change} alt="" /><strong>Cambia</strong></button></div>
+                  <div className={styles.mobileUtilityActions} data-tutorial-target="utilities"><button type="button" onClick={toggleSound} aria-pressed={soundEnabled}><img src={NAV_ICONS.sound} alt="" /><strong>{soundEnabled ? "Suono attivo" : "Suono spento"}</strong></button><button type="button" onClick={toggleNeedNotifications} aria-pressed={notificationsEnabled}><img src={NAV_ICONS.notifications} alt="" /><strong>{notificationsEnabled ? "Avvisi attivi" : "Attiva avvisi"}</strong></button><button type="button" onClick={openTutorialForCurrentSection}><img src={NAV_ICONS.tutorial} alt="" /><strong>Guida</strong></button><button type="button" onClick={() => { setRosterOpen(true); void loadFamiliarSlots(); }}><img src={NAV_ICONS.den} alt="" /><strong>Famigli</strong></button><button type="button" onClick={() => setResetStep(1)}><img src={NAV_ICONS.change} alt="" /><strong>Cambia</strong></button><a href="/downloads/Famiglio-del-Nexus-Android-1.1.1.apk" download><img src={NAV_ICONS.apk} alt="" /><strong>APK</strong></a></div>
                 </section>
               </div>
               <section id="mobile-outside-drawer" className={`${styles.featurePanel} ${activeDashboardView === "outside" ? styles.desktopViewActive : ""} ${mobilePanel === "outside" ? styles.mobileDrawerOpen : ""}`} aria-label="Fuori casa" aria-hidden={mobilePanel !== "outside" && activeDashboardView !== "outside"} data-tutorial-target="outside">

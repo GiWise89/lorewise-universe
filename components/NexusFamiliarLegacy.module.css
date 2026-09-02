@@ -192,3 +192,12 @@
 @media (prefers-reduced-motion: reduce) {
   .diaryReaderBackdrop, .diaryReader { animation: none; }
 }
+
+@media (max-width: 640px) {
+  .diaryReader picture { inset: 0; display: block; }
+  .diaryReaderParchment { width: 100%; height: 100%; object-fit: fill; }
+  .diaryReaderCopy { top: 43%; width: min(72vw, 420px); max-height: 52%; padding: 0 .35rem; box-sizing: border-box; overflow: hidden; }
+  .diaryReaderCopy > * { max-width: 100%; overflow-wrap: anywhere; }
+  .diaryReaderCopy h3 { margin: .8rem 0 .65rem; font-size: clamp(1.8rem, 8.2vw, 3rem); line-height: 1; }
+  .diaryReaderCopy blockquote { font-size: clamp(.94rem, 4.2vw, 1.22rem); line-height: 1.38; }
+}

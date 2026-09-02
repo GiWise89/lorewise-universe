@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { bestFamiliarDiscount, familiarLevelDiscount, FAMILIAR_LEVEL_BENEFITS } from "../lib/nexusFamiliarBenefits.ts";
 import { completedGuestCareActions, FAMILIAR_CONTEXT_TIP_STORAGE_PREFIX, FAMILIAR_CONTEXTUAL_TIPS, FAMILIAR_CONTEXTUAL_TUTORIALS, FAMILIAR_GUEST_ACTION_LIMIT, FAMILIAR_GUIDED_TUTORIAL_STEPS, FAMILIAR_ID_ADVANTAGES, shouldRequireLoreWiseIdForNextCare, shouldShowLoreWiseIdPrompt } from "../lib/nexusFamiliarOnboarding.ts";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 test("guest LoreWise ID gate appears only after two completed real care actions", () => {
   assert.equal(FAMILIAR_GUEST_ACTION_LIMIT, 2);
@@ -24,6 +26,14 @@ test("initial tutorial stays limited to three essential, focused steps", () => {
   assert.match(playerCopy, /vive, esplora e riposa/);
   assert.match(playerCopy, /Ogni gesto rafforza il vostro legame/);
   assert.match(playerCopy, /altri due Famigli/);
+});
+
+test("the new-bond prompt gives both choices equal usable space", () => {
+  const component = readFileSync(join(process.cwd(), "components", "NexusFamiliarCompanion.tsx"), "utf8");
+  const styles = readFileSync(join(process.cwd(), "components", "NexusFamiliarCompanion.module.css"), "utf8");
+  assert.match(component, /className=\{styles\.adoptionActions\}/);
+  assert.match(styles, /\.adoption>\.adoptionActions\{[^}]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/s);
+  assert.match(styles, /\.adoptionActions>a,\.adoptionActions>button\{[^}]*min-height:48px/s);
 });
 
 test("secondary sections are introduced through contextual first-use tips", () => {

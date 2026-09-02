@@ -282,6 +282,11 @@ test("mobile becomes a no-scroll Tamagotchi console with side drawers and real i
   assert.match(mobile, /\.guidedTutorialCoach footer\s*\{[^}]*grid-template-columns:\s*1\.18fr 1fr 1fr/s);
   assert.match(component, /tutorialCoachRef\.current\.scrollTop = 0/);
   assert.match(component, /className=\{styles\.mobileDenOverview\}/);
+  assert.match(component, /href="\/downloads\/Famiglio-del-Nexus-Android-1\.1\.1\.apk" download/);
+  assert.match(component, /<strong>APK<\/strong>/);
+  assert.match(styles, /\.mobileDrawerGuide\s*\{[^}]*right:\s*3\.65rem;[^}]*left:\s*auto/s);
+  assert.match(styles, /\.mobileDenOverview\s*>\s*\.mobileUtilityActions\s*\{[^}]*grid-template-columns:\s*repeat\(6,/s);
+  assert.match(styles, /\.needData\s*>\s*div:first-child\s*\{[^}]*flex-direction:\s*column/s);
   assert.match(component, /function openGuidedTutorial\(kind: TutorialKind\)/);
   assert.match(component, /function openTutorialForCurrentSection\(\)/);
   assert.match(component, /showContextualTip\(view === "progress" \? "missions"/);

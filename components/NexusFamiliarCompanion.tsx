@@ -177,8 +177,10 @@ export function NexusFamiliarCompanion() {
   if (adoptionPrompt && !familiar) return <aside className={styles.adoption} role="dialog" aria-labelledby="familiar-adoption-title">
     <Image src="/famiglio/navigation/tana-v1.webp" alt="" width={72} height={72} />
     <div><span>UN NUOVO LEGAME</span><strong id="familiar-adoption-title">Il Nexus ha un compagno per te.</strong><p>Scegli ora il tuo Famiglio oppure fallo più tardi, senza perdere l&apos;accesso al sito.</p></div>
-    <Link href="/famiglio">Scegli il Famiglio</Link>
-    <button type="button" onClick={() => { window.sessionStorage.setItem("lorewise:familiar-adoption-later", "1"); setAdoptionPrompt(false); }}>Più tardi</button>
+    <div className={styles.adoptionActions}>
+      <Link href="/famiglio">Scegli il Famiglio</Link>
+      <button type="button" onClick={() => { window.sessionStorage.setItem("lorewise:familiar-adoption-later", "1"); setAdoptionPrompt(false); }}>Più tardi</button>
+    </div>
   </aside>;
 
   if (!familiar || !dressedAppearance) return null;
