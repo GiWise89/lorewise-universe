@@ -6,9 +6,10 @@ import { getLoreWiseUser } from "@/lib/supabase/server";
 
 type RuntimeEnv = { DB?: D1Database };
 type NotificationRow = { id: string; type: string; title: string; message: string; target_url: string; created_at: string; read_at: string | null };
+type LoreWiseUser = NonNullable<Awaited<ReturnType<typeof getLoreWiseUser>>>;
 
-async function authenticated() {
-  const user = await getLoreWiseUser();
+async function authenticated(existingUser?: LoreWiseUser) {
+  const user = existingUser ?? await getLoreWiseUser();
   if (!user) return { response: Response.json({ error: "Accedi per vedere le notifiche." }, { status: 401 }) };
   const database = (env as unknown as RuntimeEnv).DB;
   if (!database) return { response: Response.json({ error: "Centro notifiche non disponibile." }, { status: 503 }) };
@@ -21,7 +22,11 @@ async function authenticated() {
 
 export async function GET() {
   try {
-    const auth = await authenticated();
+    const user = await getLoreWiseUser();
+    if (!user) {
+      return Response.json({ authenticated: false, notifications: [], unreadCount: 0 }, { headers: { "Cache-Control": "private, no-store" } });
+    }
+    const auth = await authenticated(user);
     if ("response" in auth) return auth.response;
     const personal = await auth.database.prepare(`SELECT id, type, title, message, target_url, created_at, read_at
       FROM user_notifications WHERE user_id = ? AND dismissed_at IS NULL ORDER BY created_at DESC LIMIT 100`)
@@ -39,6 +44,7 @@ export async function GET() {
       ...admin.map((item) => ({ ...item, scope: "admin" as const })),
     ].sort((left, right) => right.created_at.localeCompare(left.created_at));
     return Response.json({
+      authenticated: true,
       notifications: notifications.map((item) => ({ id: item.id, scope: item.scope, type: item.type, title: item.title, message: item.message, targetUrl: item.target_url, createdAt: item.created_at, readAt: item.read_at })),
       unreadCount: notifications.filter((item) => !item.read_at).length,
     }, { headers: { "Cache-Control": "private, no-store" } });

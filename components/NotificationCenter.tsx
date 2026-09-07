@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import styles from "./NotificationCenter.module.css";
 
 type Item = { id: string; scope: "personal" | "admin"; type: string; title: string; message: string; targetUrl: string; createdAt: string; readAt: string | null };
+type NotificationPayload = { authenticated?: boolean; notifications?: Item[]; unreadCount?: number; error?: string };
 
 function date(value: string) {
   const normalized = /Z$|[+-]\d\d:\d\d$/.test(value) ? value : `${value.replace(" ", "T")}Z`;
@@ -20,23 +21,23 @@ export function NotificationCenter() {
 
   const load = useCallback(async () => {
     const response = await fetch("/api/notifications", { cache: "no-store", headers: { accept: "application/json" } });
-    const body = await response.json() as { notifications?: Item[]; unreadCount?: number; error?: string };
+    const body = await response.json() as NotificationPayload;
     if (!response.ok) throw new Error(body.error || "Notifiche non disponibili.");
     setItems(body.notifications ?? []);
     setUnread(body.unreadCount ?? 0);
-    setMessage("");
+    setMessage(body.authenticated === false ? "Accedi al tuo LoreWise ID per vedere le notifiche." : "");
   }, []);
 
   useEffect(() => {
     let active = true;
     void fetch("/api/notifications", { cache: "no-store", headers: { accept: "application/json" } })
       .then(async (response) => {
-        const body = await response.json() as { notifications?: Item[]; unreadCount?: number; error?: string };
+        const body = await response.json() as NotificationPayload;
         if (!response.ok) throw new Error(body.error || "Notifiche non disponibili.");
         if (active) {
           setItems(body.notifications ?? []);
           setUnread(body.unreadCount ?? 0);
-          setMessage("");
+          setMessage(body.authenticated === false ? "Accedi al tuo LoreWise ID per vedere le notifiche." : "");
         }
       })
       .catch((error: Error) => { if (active) setMessage(error.message); });

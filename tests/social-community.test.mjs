@@ -73,6 +73,9 @@ test("le notifiche possono essere lette e rimosse in modo persistente", () => {
   for (const action of ["read", "read_all", "dismiss", "dismiss_read"]) assert.ok(api.includes(action));
   assert.ok(api.includes("dismissed_at IS NULL"));
   assert.ok(api.includes("new Date().toISOString()"));
+  assert.ok(api.includes("const user = await getLoreWiseUser();"));
+  assert.ok(api.includes("authenticated: false, notifications: [], unreadCount: 0"));
+  assert.ok(api.includes("const auth = await authenticated();"));
   assert.ok(adminApi.includes("new Date().toISOString()"));
   assert.doesNotMatch(api, /COALESCE\([^\n]*CURRENT_TIMESTAMP/);
   assert.doesNotMatch(adminApi, /COALESCE\([^\n]*CURRENT_TIMESTAMP/);
