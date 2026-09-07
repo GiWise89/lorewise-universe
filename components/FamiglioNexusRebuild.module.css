@@ -4846,3 +4846,84 @@
     box-shadow: inset 0 -5px 0 rgba(27, 14, 43, .3), 0 0 0 2px rgba(255, 212, 93, .36);
   }
 }
+
+/* Riposo e salute: foglio compatto, leggibile e senza sovrapporre i comandi. */
+.restChoiceBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(8, 4, 15, .78);
+  backdrop-filter: blur(5px);
+}
+.restChoiceSheet {
+  width: min(34rem, 100%);
+  border: 2px solid #e6c567;
+  border-radius: 1rem;
+  background: linear-gradient(160deg, #302044, #160d25 72%);
+  box-shadow: 0 1.2rem 3rem rgba(0,0,0,.58), inset 0 0 1.8rem rgba(145,92,188,.18);
+  padding: .9rem;
+  color: #fff4cf;
+}
+.restChoiceSheet > header { display: flex; align-items: start; justify-content: space-between; gap: 1rem; margin-bottom: .7rem; }
+.restChoiceSheet h3 { margin: .18rem 0 0; font: 900 clamp(1rem, 3vw, 1.35rem)/1.2 var(--font-pixel), monospace; }
+.restChoiceSheet header small { color: #f4cf63; text-transform: uppercase; }
+.restChoiceSheet header button { width: 2.4rem; height: 2.4rem; border: 1px solid #a97fc0; border-radius: .6rem; background: #432858; color: #fff; font-size: 1.4rem; }
+.restChoiceSheet > div { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .55rem; }
+.restChoiceSheet > div > button { min-width: 0; min-height: 7.2rem; display: grid; grid-template-rows: auto 1fr auto; gap: .45rem; text-align: left; border: 1px solid #8e68a4; border-radius: .8rem; background: linear-gradient(180deg,#4b2c61,#2c193c); color: #fff4d0; padding: .75rem; }
+.restChoiceSheet > div > button:hover,.restChoiceSheet > div > button:focus-visible { border-color: #ffe06d; transform: translateY(-2px); }
+.restChoiceSheet > div strong { font: 800 .72rem/1.2 var(--font-pixel), monospace; }
+.restChoiceSheet > div span { color: #ddcfe5; font-size: .8rem; }
+.restChoiceSheet > div b { justify-self: end; color: #ffe06d; }
+.homeSceneCure {
+  position: absolute;
+  z-index: 8;
+  left: .7rem;
+  bottom: .65rem;
+  min-width: 7.2rem;
+  min-height: 2.8rem;
+  display: grid;
+  grid-template-columns: 2.1rem auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: .35rem;
+  border: 1px solid #f0cf68;
+  border-radius: .58rem;
+  background: linear-gradient(180deg,#4c2d61,#291739);
+  color: #fff4d0;
+  box-shadow: inset 0 -4px #170d23, 0 3px 0 #09050e, 0 0 0 2px #633d78;
+  padding: .24rem .52rem .38rem .35rem;
+  cursor: pointer;
+}
+.homeSceneCureIcon { grid-row: 1 / 3; width: 2.1rem; height: 2.1rem; background: url("/famiglio/rebuild/ui/cure-potion-v1.png") center / contain no-repeat; image-rendering: pixelated; }
+.homeSceneCure strong { align-self: end; font: 900 .58rem/1 var(--font-pixel),monospace; text-transform: uppercase; }
+.homeSceneCure small { align-self: start; color: #e7d9ef; font-size: .52rem; }
+.homeSceneCure:disabled { opacity: .6; filter: grayscale(.4); }
+
+@media (max-width: 620px) {
+  .restChoiceBackdrop { place-items: end center; padding: 0; }
+  .restChoiceSheet { border-radius: 1.15rem 1.15rem 0 0; padding: .8rem; }
+  .restChoiceSheet > div { grid-template-columns: 1fr; }
+  .restChoiceSheet > div > button { min-height: 4.6rem; grid-template-columns: minmax(0,1fr) auto; grid-template-rows: auto auto; }
+  .restChoiceSheet > div > button span { grid-column: 1; }
+  .restChoiceSheet > div > button b { grid-column: 2; grid-row: 1 / 3; align-self: center; }
+  .homeSceneCure { left: .38rem; bottom: .38rem; min-width: 2.65rem; min-height: 2.65rem; grid-template-columns: 1fr; grid-template-rows: 1fr; padding: .2rem; border-radius: .52rem; }
+  .homeSceneCureIcon { grid-row: 1; width: 2.1rem; height: 2.1rem; }
+  .homeSceneCure strong { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .homeSceneCure small { position: absolute; top: .12rem; right: .12rem; min-width: .9rem; height: .9rem; display: grid; place-items: center; border: 1px solid #4a2c5c; border-radius: 50%; background: #ffe06d; color: #261431; font: 900 .38rem/1 var(--font-pixel),monospace; box-shadow: 0 1px 0 #140a1e; }
+}
+
+.levelUpBackdrop { position: fixed; inset: 0; z-index: 130; display: grid; place-items: center; padding: 1rem; background: radial-gradient(circle at 50% 42%, rgba(118,70,165,.52), rgba(7,4,14,.92) 64%); backdrop-filter: blur(6px); }
+.levelUpSheet { position: relative; width: min(29rem,100%); overflow: hidden; display: grid; justify-items: center; gap: .62rem; border: 2px solid #ffe06d; border-radius: 1.25rem; background: radial-gradient(circle at 50% 0,#684385 0,#2b193d 42%,#140b21 100%); box-shadow: 0 1.5rem 4rem #000a, inset 0 0 2.5rem #d69cff26; color: #fff3ca; padding: 1.2rem; text-align: center; }
+.levelUpSheet::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle,#fff4a8 0 1px,transparent 2px); background-size: 2.4rem 2.4rem; opacity: .25; }
+.levelUpEmblem { position: relative; width: 4.4rem; height: 4.4rem; display: grid; place-items: center; border: 2px solid #ffe06d; border-radius: 50%; background: #512e69; color: #fff1a0; font-size: 2.2rem; box-shadow: 0 0 1.5rem #ffe06d8a; }
+.levelUpSheet > small { position: relative; color: #f0c65d; font: 800 .6rem/1 var(--font-pixel),monospace; letter-spacing: .12em; text-transform: uppercase; }
+.levelUpSheet h3 { position: relative; margin: 0; color: #fff8da; font: 900 clamp(1.5rem,7vw,2.5rem)/1 var(--font-pixel),monospace; text-shadow: 0 .2rem #4c285e; }
+.levelUpSheet > strong { position: relative; font-size: 1rem; }
+.levelUpSheet ul { position: relative; width: 100%; display: grid; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+.levelUpSheet li { border: 1px solid #8c66a0; border-radius: .55rem; background: #160c24d9; padding: .48rem; color: #e9dcec; }
+.levelUpSheet li::before { content: "✦ "; color: #ffe06d; }
+.levelUpSheet button { position: relative; width: 100%; min-height: 3rem; border: 1px solid #fff0a4; border-radius: .65rem; background: linear-gradient(#ffdf68,#efb63f); color: #281532; font-weight: 900; }
+@media (max-width:620px) { .levelUpBackdrop { padding: .65rem; } .levelUpSheet { max-height: calc(100dvh - 1.3rem); padding: .9rem; } }

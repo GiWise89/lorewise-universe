@@ -196,6 +196,38 @@ export const FAMILIAR_EXPEDITION_EVENTS: readonly FamiliarExpeditionEvent[] = [
     { id: "segui-orme", label: "Segui le orme", description: "Il tragitto e lungo, ma i reperti sono preziosi.", outcome: "Il Famiglio trova un deposito d'ambra fossile.", rewardMultiplier: 1.4, timeDeltaMinutes: 4 },
     { id: "osserva-distanza", label: "Osserva da lontano", description: "Raccoglie informazioni senza allungare il viaggio.", outcome: "Le osservazioni rendono il sentiero più sicuro.", rewardMultiplier: 1.12, timeDeltaMinutes: 0 },
   ] },
+  { id: "canto-nel-muschio", dungeonId: "twilight-woods", title: "Canto nel muschio", prompt: "Una melodia tenue arriva da una radura che non compare sulle mappe.", choices: [
+    { id: "cerca-cantore", label: "Cerca il cantore", description: "Esplora la radura e segui l'eco tra gli alberi.", outcome: "Una creatura luminosa affida al Famiglio un piccolo tesoro.", rewardMultiplier: 1.3, timeDeltaMinutes: 2 },
+    { id: "rispondi-canto", label: "Rispondi al canto", description: "Resta sul sentiero e crea un richiamo amichevole.", outcome: "Il bosco risponde e indica una scorciatoia nascosta.", rewardMultiplier: 1.08, timeDeltaMinutes: -1 },
+  ] },
+  { id: "ponte-di-rugiada", dungeonId: "twilight-woods", title: "Ponte di rugiada", prompt: "Gocce sospese formano un ponte sopra un torrente d'ombra.", choices: [
+    { id: "attraversa-ponte", label: "Attraversa", description: "Passaggio rapido, ma richiede coraggio.", outcome: "Il ponte regge e conduce a un nido di Monete Nexus.", rewardMultiplier: 1.22, timeDeltaMinutes: 0 },
+    { id: "costeggia-torrente", label: "Costeggia il torrente", description: "Un percorso più lungo, ricco di indizi.", outcome: "Seguendo l'acqua il Famiglio scopre tracce di un antico Custode.", rewardMultiplier: 1.18, timeDeltaMinutes: 2 },
+  ] },
+  { id: "pioggia-di-stelle", dungeonId: "astral-gardens", title: "Pioggia di stelle", prompt: "Schegge di luce cadono lente sulle terrazze astrali.", choices: [
+    { id: "raccogli-schegge", label: "Raccogli le schegge", description: "Attendi che la luce si stabilizzi.", outcome: "Le schegge si trasformano in frammenti puri del Nexus.", rewardMultiplier: 1.34, timeDeltaMinutes: 2 },
+    { id: "danza-tra-stelle", label: "Danza tra le stelle", description: "Attraversa la pioggia seguendone il ritmo.", outcome: "Il Famiglio supera la terrazza con un balzo perfetto.", rewardMultiplier: 1.15, timeDeltaMinutes: -1 },
+  ] },
+  { id: "serra-capovolta", dungeonId: "astral-gardens", title: "Serra capovolta", prompt: "Un giardino fluttua a testa in giù sopra il sentiero.", choices: [
+    { id: "salta-isole", label: "Salta tra le isole", description: "Un percorso difficile verso i fiori più rari.", outcome: "Un fiore stellare riconosce il Legame e lascia cadere il suo nettare.", rewardMultiplier: 1.38, timeDeltaMinutes: 3 },
+    { id: "attiva-gravita", label: "Attiva le rune", description: "Riporta lentamente la serra al suo orientamento.", outcome: "Le rune aprono una via stabile tra i cristalli.", rewardMultiplier: 1.12, timeDeltaMinutes: 1 },
+  ] },
+  { id: "biblioteca-muta", dungeonId: "memory-crypt", title: "Biblioteca muta", prompt: "Libri senza parole circondano una fiamma color lavanda.", choices: [
+    { id: "sfiora-fiamma", label: "Sfiora la fiamma", description: "Lascia che sia il Legame a risvegliare una pagina.", outcome: "Una memoria perduta prende forma e ricompensa il Famiglio.", rewardMultiplier: 1.4, timeDeltaMinutes: 3 },
+    { id: "ordina-volumi", label: "Ordina i volumi", description: "Ricostruisci il simbolo inciso sui dorsi.", outcome: "Il simbolo completo rivela un vano segreto.", rewardMultiplier: 1.2, timeDeltaMinutes: 1 },
+  ] },
+  { id: "custode-di-cera", dungeonId: "memory-crypt", title: "Custode di cera", prompt: "Una piccola statua tende una lanterna spenta al Famiglio.", choices: [
+    { id: "accendi-lanterna", label: "Accendi la lanterna", description: "Condividi una scintilla del Legame.", outcome: "La statua si anima e accompagna il Famiglio oltre le tombe.", rewardMultiplier: 1.28, timeDeltaMinutes: 1 },
+    { id: "lascia-sigillo", label: "Lascia un sigillo", description: "Offri un segno del passaggio del Custode.", outcome: "La Cripta accetta il dono e apre un percorso silenzioso.", rewardMultiplier: 1.16, timeDeltaMinutes: 0 },
+  ] },
+  { id: "uovo-di-ambra", dungeonId: "fossil-valley", title: "Uovo d'ambra", prompt: "Un fossile intatto vibra sotto una parete appena crollata.", choices: [
+    { id: "libera-fossile", label: "Libera il fossile", description: "Scava con cautela tra le rocce instabili.", outcome: "Il fossile custodiva frammenti e una rara memoria primordiale.", rewardMultiplier: 1.45, timeDeltaMinutes: 4 },
+    { id: "segna-posizione", label: "Segna la posizione", description: "Proteggi il reperto e prosegui senza rischi.", outcome: "La mappa del Nexus registra il ritrovamento e premia la prudenza.", rewardMultiplier: 1.18, timeDeltaMinutes: 0 },
+  ] },
+  { id: "tempesta-di-sabbia", dungeonId: "fossil-valley", title: "Tempesta di sabbia", prompt: "Una nube dorata cancella il sentiero e scopre ossa gigantesche.", choices: [
+    { id: "riparo-costole", label: "Riparo tra le costole", description: "Attendi osservando ciò che la tempesta rivela.", outcome: "Tra le ossa affiora una reliquia protetta dalla sabbia.", rewardMultiplier: 1.36, timeDeltaMinutes: 3 },
+    { id: "corri-cresta", label: "Corri sulla cresta", description: "Supera la nube prima che chiuda il passaggio.", outcome: "Il Famiglio raggiunge la valle interna prima della tempesta.", rewardMultiplier: 1.16, timeDeltaMinutes: -1 },
+  ] },
 ] as const;
 
 export function familiarExpeditionEvent(state: FamiliarAdventureState) {
@@ -369,7 +401,8 @@ export function startFamiliarExpedition(
   if (!dungeonIsUnlocked(progress.stage, dungeon)) {
     return { ok: false as const, state, error: `${dungeon.name} richiede lo stadio ${dungeon.minimumStage}.` };
   }
-  const event = FAMILIAR_EXPEDITION_EVENTS.find((entry) => entry.dungeonId === dungeonId)!;
+  const eventPool = FAMILIAR_EXPEDITION_EVENTS.filter((entry) => entry.dungeonId === dungeonId);
+  const event = eventPool[(progress.expeditions + expeditionsToday + idSeed(familiarId)) % eventPool.length];
   const expedition: FamiliarExpedition = {
     familiarId,
     dungeonId,

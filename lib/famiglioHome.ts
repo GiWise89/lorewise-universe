@@ -2,9 +2,11 @@ import { NIGHT_MARKET_OFFERS } from "./famiglioMarketExpansion.ts";
 
 export type FamiliarNeedId = "hunger" | "energy" | "happiness" | "hygiene" | "affection";
 export type FamiliarHomeAction = "feed" | "play" | "clean" | "care" | "rest";
+export type FamiliarRestPresetId = "nap" | "restorative" | "deep";
+export type FamiliarHealthStatus = "healthy" | "sick";
 export type FamiliarMoodId = "radiant" | "content" | "restless" | "sad" | "exhausted";
 export type FamiliarGrowthStage = "cucciolo" | "giovane" | "adulto";
-export type FamiliarInventoryItemId = "moon-meal" | "blue-ball" | "cleansing-tonic" | "bond-lantern" | "purple-bed" | "comet-ball" | "emerald-ball" | "ribbon-star" | "moon-moth" | "heart-brush" | "cuddle-cushion" | "moon-mat" | "cloud-mat" | "arcane-gramophone" | "prism-lantern" | "energy-biscuit" | "comfort-balm" | "magic-feather" | "crystal-orb" | "traveler-katana" | "moon-compass" | "sigil-pouch" | "phoenix-feather" | "memory-crown" | "runic-tablet" | "soul-gem" | "memory-hourglass";
+export type FamiliarInventoryItemId = "moon-meal" | "blue-ball" | "mission-ball" | "cleansing-tonic" | "bond-lantern" | "purple-bed" | "comet-ball" | "emerald-ball" | "ribbon-star" | "moon-moth" | "heart-brush" | "cuddle-cushion" | "moon-mat" | "cloud-mat" | "arcane-gramophone" | "prism-lantern" | "energy-biscuit" | "comfort-balm" | "magic-feather" | "crystal-orb" | "traveler-katana" | "moon-compass" | "sigil-pouch" | "phoenix-feather" | "memory-crown" | "runic-tablet" | "soul-gem" | "memory-hourglass";
 export type FamiliarDeviceCoverId = "nexus-violet" | "midnight-blue" | "jade-green" | "ember-red" | "aurora-pink" | "ivory-gold" | "obsidian-black" | "lagoon-cyan" | "sunset-orange" | "mint-frost" | "pearl-white" | "retro-yellow" | "amethyst-purple" | "coral-reef" | "forest-moss" | "copper-bronze" | "arctic-blue" | "lime-neon" | "magenta-pulse" | "laser-cyan" | "solar-yellow" | "ultraviolet-flare" | "orange-blaze";
 
 export type FamiliarNeeds = Record<FamiliarNeedId, number>;
@@ -86,7 +88,7 @@ export type FamiliarInventoryItem = {
 };
 
 export type FamiliarMarketOffer = {
-  id: "pantry-refill" | "cleansing-refill" | "pantry-feast" | "care-kit" | "energy-biscuit" | "comfort-balm" | "comet-ball" | "emerald-ball" | "ribbon-star" | "moon-moth" | "heart-brush" | "cuddle-cushion" | "moon-mat" | "cloud-mat" | "arcane-gramophone" | "arcane-prism" | "magic-feather" | "crystal-orb";
+  id: "pantry-refill" | "cleansing-refill" | "pantry-feast" | "care-kit" | "energy-biscuit" | "comfort-balm" | "medicine-stock" | "comet-ball" | "emerald-ball" | "ribbon-star" | "moon-moth" | "heart-brush" | "cuddle-cushion" | "moon-mat" | "cloud-mat" | "arcane-gramophone" | "arcane-prism" | "magic-feather" | "crystal-orb";
   itemId: FamiliarInventoryItemId;
   name: string;
   description: string;
@@ -100,6 +102,7 @@ export type FamiliarMarketOffer = {
 export type FamiliarHomeState = {
   needs: FamiliarNeeds;
   toilet: FamiliarToiletState;
+  health: { status: FamiliarHealthStatus; sickSince: number | null; lastCheckAt: number };
   activeAction: FamiliarHomeAction | null;
   roomAction: FamiliarHomeAction | null;
   actionEndsAt: number | null;
@@ -122,6 +125,12 @@ export type FamiliarHomeState = {
   activeItemId: FamiliarInventoryItemId | null;
   diary: FamiliarDiaryEntry[];
 };
+
+export const FAMILIAR_REST_PRESETS: ReadonlyArray<{ id: FamiliarRestPresetId; name: string; description: string; durationMs: number; energyBonus: number }> = [
+  { id: "nap", name: "Pisolino", description: "Una pausa breve per riprendere fiato.", durationMs: 60_000, energyBonus: 8 },
+  { id: "restorative", name: "Riposo ristoratore", description: "Quindici minuti di quiete e recupero.", durationMs: 15 * 60_000, energyBonus: 24 },
+  { id: "deep", name: "Sonno profondo", description: "Mezz'ora di riposo completo.", durationMs: 30 * 60_000, energyBonus: 42 },
+] as const;
 
 export const HOME_ACTIONS: ReadonlyArray<{
   id: FamiliarHomeAction;
@@ -217,6 +226,17 @@ export const FAMILIAR_ITEM_CATALOG: ReadonlyArray<FamiliarInventoryItem> = [
     startingQuantity: 1,
     bonus: { happiness: 9, affection: 2 },
     outcome: "Ha inseguito la Palla azzurra con entusiasmo.",
+  },
+  {
+    id: "mission-ball",
+    action: "play",
+    name: "Pallina premio",
+    description: "Un gioco consumabile ricevuto dalle Missioni del Nexus.",
+    assetSrc: "/famiglio/rebuild/inventory/blue-ball.png",
+    consumable: true,
+    startingQuantity: 0,
+    bonus: { happiness: 9, affection: 2 },
+    outcome: "Ha giocato con la Pallina premio conquistata in missione.",
   },
   {
     id: "cleansing-tonic",
@@ -335,9 +355,9 @@ export const FAMILIAR_ITEM_CATALOG: ReadonlyArray<FamiliarInventoryItem> = [
   {
     id: "comfort-balm",
     action: "care",
-    name: "Balsamo del conforto",
-    description: "Un balsamo delicato e universale per una cura rassicurante.",
-    assetSrc: "/famiglio/rebuild/market/items/comfort-balm-transparent.png",
+    name: "Medicina di Nora",
+    description: "Una medicina delicata da usare soltanto quando il Famiglio si ammala.",
+    assetSrc: "/famiglio/rebuild/ui/cure-potion-v1.png",
     consumable: true,
     startingQuantity: 0,
     bonus: { affection: 8, hygiene: 4 },
@@ -471,12 +491,22 @@ export const FAMILIAR_MARKET_OFFERS: ReadonlyArray<FamiliarMarketOffer> = [
   {
     id: "comfort-balm",
     itemId: "comfort-balm",
-    name: "Balsamo del conforto",
-    description: "Due applicazioni delicate per affetto e igiene.",
-    quantity: 2,
-    priceCoins: 28,
+    name: "Medicina di Nora",
+    description: "Una dose da conservare per curare il Famiglio quando si ammala.",
+    quantity: 1,
+    priceCoins: 12,
     stall: "daily",
-    unlockStage: "adulto",
+    unlockStage: "cucciolo",
+  },
+  {
+    id: "medicine-stock",
+    itemId: "comfort-balm",
+    name: "Scorta medicina x5",
+    description: "Cinque dosi di medicina di Nora a prezzo ridotto.",
+    quantity: 5,
+    priceCoins: 48,
+    stall: "daily",
+    unlockStage: "cucciolo",
   },
   { id: "comet-ball", itemId: "comet-ball", name: "Palla Cometa cremisi", description: "Pallina permanente rossa con una breve scia dorata.", quantity: 1, priceCoins: 12, stall: "arcane", unlockStage: "cucciolo" },
   { id: "emerald-ball", itemId: "emerald-ball", name: "Palla Stella smeraldo", description: "Pallina permanente verde, leggera e luminosa.", quantity: 1, priceCoins: 14, stall: "arcane", unlockStage: "cucciolo" },
@@ -567,9 +597,11 @@ const ACTION_DURATION_MS: Record<FamiliarHomeAction, number> = {
   // Il pasto animato dura 4,8 secondi: questo margine mantiene sincronizzati
   // azione e ultimo fotogramma senza mostrare un ambiguo timer da 30 secondi.
   feed: 6_000,
-  play: 5_500,
-  clean: 4_500,
-  care: 4_500,
+  // Comprendono anche l'avvicinamento all'oggetto: su telefoni più lenti
+  // la sequenza non deve terminare prima di aver mostrato tutti i fotogrammi.
+  play: 8_500,
+  clean: 7_500,
+  care: 7_500,
   rest: 12_000,
 };
 
@@ -711,6 +743,7 @@ export function createFamiliarHomeState(now = Date.now()): FamiliarHomeState {
   return {
     needs: { hunger: 82, energy: 78, happiness: 84, hygiene: 88, affection: 76 },
     toilet: { urgency: 18, wasteCount: 0, lastEventAt: null },
+    health: { status: "healthy", sickSince: null, lastCheckAt: now },
     activeAction: null,
     roomAction: null,
     actionEndsAt: null,
@@ -776,6 +809,15 @@ export function advanceFamiliarHome(state: FamiliarHomeState, now = Date.now()):
     affection: clampNeed(state.needs.affection - elapsedHours * .55),
   };
   const finished = Boolean(state.actionEndsAt && state.actionEndsAt <= now);
+  const previousHealth = state.health ?? { status: "healthy" as const, sickSince: null, lastCheckAt: state.lastUpdatedAt };
+  const healthCheckWindow = 6 * 60 * 60 * 1_000;
+  const shouldCheckHealth = previousHealth.status === "healthy" && now - previousHealth.lastCheckAt >= healthCheckWindow;
+  const healthRisk = needs.hygiene < 30 || needs.energy < 18 || needs.hunger < 18;
+  const healthRoll = Math.abs(Math.floor(now / healthCheckWindow) * 31 + Math.round(state.growth.bondXp) * 17 + toilet.wasteCount * 13) % 100;
+  const becameSick = shouldCheckHealth && healthRisk && healthRoll < 24;
+  const health = previousHealth.status === "sick"
+    ? previousHealth
+    : { status: becameSick ? "sick" as const : "healthy" as const, sickSince: becameSick ? now : null, lastCheckAt: shouldCheckHealth ? now : previousHealth.lastCheckAt };
   const actionCooldowns = Object.fromEntries(Object.entries(state.actionCooldowns ?? {}).filter(([, until]) => Number(until) > now)) as Partial<Record<FamiliarHomeAction, number>>;
   const recovered = Boolean(state.lastActionAt && now - state.lastActionAt >= HOME_ACTION_COOLDOWN_MS);
   const xpDayKey = localDayKey(now);
@@ -784,6 +826,8 @@ export function advanceFamiliarHome(state: FamiliarHomeState, now = Date.now()):
     needs,
     toilet,
     activeAction: finished ? null : state.activeAction,
+    // La stanza dell'ultima azione resta visibile anche dopo la conclusione.
+    roomAction: state.roomAction,
     activeItemId: finished ? null : state.activeItemId,
     actionEndsAt: finished ? null : state.actionEndsAt,
     actionBurstCount: recovered ? 0 : state.actionBurstCount ?? 0,
@@ -793,7 +837,8 @@ export function advanceFamiliarHome(state: FamiliarHomeState, now = Date.now()):
     actionXpDayKey: xpDayKey,
     actionXpEarned: state.actionXpDayKey === xpDayKey ? Math.max(0, state.actionXpEarned ?? 0) : 0,
     lastUpdatedAt: now,
-    lastOutcome: newWaste > 0 ? "Il Famiglio ha fatto i bisogni. Usa Pulisci per sistemare la Casa." : state.lastOutcome,
+    lastOutcome: becameSick ? "Il Famiglio non si sente bene. Nora prepara la medicina adatta." : newWaste > 0 ? "Il Famiglio ha fatto i bisogni. Usa Pulisci per sistemare la Casa." : state.lastOutcome,
+    health,
     routine: currentRoutine(state.routine, now),
     wish: currentWish(state.wish, now),
   };
@@ -804,6 +849,7 @@ export function performHomeAction(
   action: FamiliarHomeAction,
   now = Date.now(),
   preferredItemId: FamiliarInventoryItemId | null = null,
+  restPresetId: FamiliarRestPresetId = "nap",
 ): FamiliarHomeState {
   const current = advanceFamiliarHome(state, now);
   const availability = homeActionAvailability(current, action, now);
@@ -851,11 +897,13 @@ export function performHomeAction(
     needs.happiness = clampNeed(needs.happiness + 4);
   }
   if (action === "rest") {
+    const restPreset = FAMILIAR_REST_PRESETS.find((preset) => preset.id === restPresetId) ?? FAMILIAR_REST_PRESETS[0];
     if (needs.energy >= 92) {
       earnedXp = 3;
       outcome = "Non ha molto sonno, ma si rilassa accanto a te.";
     }
-    needs.energy = clampNeed(needs.energy + 3);
+    needs.energy = clampNeed(needs.energy + restPreset.energyBonus);
+    outcome = `${restPreset.name} iniziato. ${restPreset.description}`;
   }
 
   const routine = currentRoutine(current.routine, now);
@@ -905,7 +953,8 @@ export function performHomeAction(
     ));
   }
 
-  const actionEndsAt = now + ACTION_DURATION_MS[action];
+  const restDuration = FAMILIAR_REST_PRESETS.find((preset) => preset.id === restPresetId)?.durationMs ?? FAMILIAR_REST_PRESETS[0].durationMs;
+  const actionEndsAt = now + (action === "rest" ? restDuration : ACTION_DURATION_MS[action]);
   const actionBurstCount = current.actionBurstAction === action ? Math.min(HOME_ACTION_REPEAT_LIMIT, current.actionBurstCount + 1) : 1;
   const repeatedLimitReached = actionBurstCount >= HOME_ACTION_REPEAT_LIMIT;
   const actionCooldowns = repeatedLimitReached
@@ -953,10 +1002,35 @@ export function performHomeAction(
   };
 }
 
+export function cureFamiliarHome(state: FamiliarHomeState, now = Date.now()): FamiliarHomeState {
+  const current = advanceFamiliarHome(state, now);
+  if (current.health.status !== "sick") return { ...current, lastOutcome: "Il Famiglio sta già bene." };
+  const medicineId: FamiliarInventoryItemId = "comfort-balm";
+  const quantity = current.inventory.quantities[medicineId] ?? 0;
+  if (quantity <= 0) return { ...current, lastOutcome: "La medicina è terminata. Puoi acquistarla da Nora." };
+  return {
+    ...current,
+    health: { status: "healthy", sickSince: null, lastCheckAt: now },
+    activeAction: "care",
+    roomAction: "care",
+    activeItemId: medicineId,
+    actionEndsAt: now + 7_500,
+    needs: { ...current.needs, energy: clampNeed(current.needs.energy + 12), affection: clampNeed(current.needs.affection + 6) },
+    inventory: {
+      ...current.inventory,
+      quantities: { ...current.inventory.quantities, [medicineId]: quantity - 1 },
+      totalItemsUsed: current.inventory.totalItemsUsed + 1,
+    },
+    lastOutcome: "La medicina di Nora ha funzionato. Il Famiglio sta di nuovo bene.",
+    diary: appendDiary(current.diary, [diaryEntry("mission", now, "Di nuovo in salute", "Una dose della medicina di Nora ha curato il Famiglio.")]),
+  };
+}
+
 export function applyFamiliarInventoryItem(
   state: FamiliarHomeState,
   itemId: FamiliarInventoryItemId,
   now = Date.now(),
+  restPresetId: FamiliarRestPresetId = "nap",
 ): FamiliarHomeState {
   const item = FAMILIAR_ITEM_CATALOG.find((candidate) => candidate.id === itemId);
   if (!item) return state;
@@ -966,7 +1040,7 @@ export function applyFamiliarInventoryItem(
   }
   const nightRelic = NIGHT_MARKET_OFFERS.find((offer) => offer.itemId === itemId);
   if (nightRelic) return equipNightMarketRelic(state, nightRelic.id);
-  const actionState = performHomeAction(state, item.action, now, item.id);
+  const actionState = performHomeAction(state, item.action, now, item.id, restPresetId);
   if (actionState.lastActionAt !== now) return actionState;
   const needs = { ...actionState.needs };
   for (const [need, bonus] of Object.entries(item.bonus) as Array<[FamiliarNeedId, number]>) {
@@ -986,20 +1060,26 @@ export function applyFamiliarInventoryItem(
 
 export function grantFamiliarHomeMissionReward(
   state: FamiliarHomeState,
-  reward: { title: string; coins: number; experience: number },
+  reward: { title: string; coins: number; experience: number; item?: "food" | "soap" | "medicine" | "toy"; quantity?: number },
   now = Date.now(),
+  claimId?: string,
 ): FamiliarHomeState {
+  const diaryId = claimId ? `mission-claim-${claimId}` : `mission-${now}`;
+  if (claimId && state.diary.some((entry) => entry.id === diaryId)) return state;
   const coins = Math.max(0, Math.round(reward.coins));
   const memoryCrownBonus = state.wallet.equippedNightRelicId === "memory-crown";
   const experience = Math.max(0, Math.round(reward.experience * (memoryCrownBonus ? 1.2 : 1)));
   const bondXp = clampXp(state.growth.bondXp + experience);
   const stage = growthStageForXp(bondXp);
-  const additions = [diaryEntry(
-    "mission",
-    now,
-    "Missione completata",
-    `${reward.title}: +${coins} monete Nexus e +${experience} XP legame.`,
-  )];
+  const additions = [{
+    ...diaryEntry(
+      "mission",
+      now,
+      "Missione completata",
+      `${reward.title}: +${coins} monete Nexus e +${experience} XP legame.`,
+    ),
+    id: diaryId,
+  }];
   if (stage !== state.growth.stage) {
     additions.push(diaryEntry(
       "growth",
@@ -1009,6 +1089,16 @@ export function grantFamiliarHomeMissionReward(
     ));
   }
   const sigilPouchBonus = state.wallet.equippedNightRelicId === "sigil-pouch" ? 1 : 0;
+  const missionItemId = reward.item ? ({
+    food: "moon-meal",
+    soap: "cleansing-tonic",
+    medicine: "comfort-balm",
+    toy: "mission-ball",
+  } as const)[reward.item] : null;
+  const missionItemQuantity = Math.max(0, Math.round(Number(reward.quantity) || 0));
+  const quantities = missionItemId && missionItemQuantity > 0
+    ? { ...state.inventory.quantities, [missionItemId]: state.inventory.quantities[missionItemId] + missionItemQuantity }
+    : state.inventory.quantities;
   return {
     ...state,
     lastOutcome: `${reward.title} completata: ricompensa riscossa.${sigilPouchBonus ? " Borsa dei sigilli: +1 Sigillo Notturno." : ""}${memoryCrownBonus ? " Corona delle memorie: +20% XP missione." : ""}`,
@@ -1021,6 +1111,7 @@ export function grantFamiliarHomeMissionReward(
       nightRewards: state.wallet.nightRewards,
       equippedNightRelicId: state.wallet.equippedNightRelicId,
     },
+    inventory: { ...state.inventory, quantities },
     diary: appendDiary(state.diary, additions),
   };
 }
@@ -1223,6 +1314,11 @@ export function restoreFamiliarHome(value: unknown, now = Date.now()): FamiliarH
       urgency: clampNeed(Number(rawToilet.urgency ?? base.toilet.urgency)),
       wasteCount: Math.max(0, Math.min(FAMILIAR_TOILET_MAX_WASTE, Math.round(Number(rawToilet.wasteCount ?? 0)))),
       lastEventAt: Number.isFinite(rawToilet.lastEventAt) ? Number(rawToilet.lastEventAt) : null,
+    },
+    health: {
+      status: candidate.health?.status === "sick" ? "sick" : "healthy",
+      sickSince: candidate.health?.status === "sick" && Number.isFinite(candidate.health?.sickSince) ? Number(candidate.health?.sickSince) : null,
+      lastCheckAt: Number.isFinite(candidate.health?.lastCheckAt) ? Number(candidate.health?.lastCheckAt) : now,
     },
     activeAction: restoredActiveAction,
     roomAction: HOME_ACTIONS.some((action) => action.id === candidate.roomAction) ? candidate.roomAction! : null,

@@ -47,6 +47,8 @@ test("API routes keep economy changes behind revision-checked server operations"
   assert.match(saveRoute, /preserveAuthoritativeFamiliarState/);
   assert.match(commandRoute, /WHERE customer_id = \? AND revision = \?/);
   assert.match(commandRoute, /"care", "outing-start", "outing-claim", "theme", "gadget"/);
-  assert.match(missionRoute, /grantMissionRewardToFamiliar/);
-  assert.match(missionRoute, /claimed_at = NULL/);
+  assert.match(missionRoute, /grantMissionRewardToRebuildSave/);
+  assert.match(missionRoute, /nexus_pet_rebuild_saves/);
+  assert.match(missionRoute, /WHERE customer_id = \? AND revision = \?/);
+  assert.doesNotMatch(missionRoute, /claimed_at = NULL/);
 });

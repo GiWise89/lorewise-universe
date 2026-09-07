@@ -6529,3 +6529,93 @@
 @media (prefers-reduced-motion: reduce) {
   .campaignMap button[data-state="current"] { animation: none; }
 }
+
+/* Mobile Arena V6: un flusso da gioco a schermate, senza pannelli da back-office. */
+@media (max-width: 620px) {
+  .combat[data-battle="false"] { gap: .32rem; }
+  .combat[data-battle="false"] > .header { min-height: 2.7rem; padding: .35rem .5rem; }
+  .combat[data-battle="false"] > .header > div:first-child small,
+  .combat[data-battle="false"] > .header > div:first-child p { display: none; }
+  .combat[data-battle="false"] > .header h2 { margin: 0; font-size: .9rem; }
+  .combat[data-battle="false"] > .progressRibbon {
+    min-height: 2.8rem;
+    display: flex;
+    gap: .25rem;
+    overflow-x: auto;
+    padding: .25rem;
+    scroll-snap-type: x mandatory;
+  }
+  .combat[data-battle="false"] > .progressRibbon > div {
+    flex: 0 0 8rem;
+    min-height: 2.25rem;
+    scroll-snap-align: start;
+    border-radius: .55rem;
+    background: #160b24e8;
+    padding: .3rem .42rem;
+  }
+  .combat[data-battle="false"] > .selectionViewport { border-radius: .78rem; padding: .32rem; }
+  .combat[data-battle="false"] .setupGuide {
+    position: sticky;
+    top: 0;
+    z-index: 35;
+    min-height: 3rem;
+    border-color: #9f75b2;
+    background: #12091df5;
+  }
+  .combat[data-battle="false"] .setupGuide ol { justify-content: center; gap: .24rem; }
+  .combat[data-battle="false"] .setupGuide li span { width: 1.8rem; height: 1.8rem; }
+  .combat[data-battle="false"] .setupGuide li[data-current="true"] span { transform: translateY(-2px); filter: drop-shadow(0 0 .45rem #ffe06d); }
+  .combat[data-battle="false"] .setupHome { min-width: 3.4rem; min-height: 2.45rem; border-radius: .55rem; }
+  .combat[data-battle="false"] .playerSelector,
+  .combat[data-battle="false"] .opponentSelector,
+  .combat[data-battle="false"] .modeSetup,
+  .combat[data-battle="false"] .campaignSetup,
+  .combat[data-battle="false"] .combatDossiers,
+  .combat[data-battle="false"] .selectionGrid,
+  .combat[data-battle="false"] .circuitRail {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+  .combat[data-battle="false"] .setupHeading { border-bottom: 1px solid #ffe06d55; padding: .35rem .15rem .45rem; }
+  .combat[data-battle="false"] .setupHeading h3 { font-size: .82rem; }
+  .combat[data-battle="false"] .setupContinue { min-height: 3.15rem; border-radius: .7rem; font-size: .72rem; }
+  .combat[data-battle="false"] .familiarPickerLayout > .playerChoiceCard,
+  .combat[data-battle="false"] .opponentCard,
+  .combat[data-battle="false"] .combatDossiers > article {
+    border: 1px solid #a779ba;
+    border-radius: .85rem;
+    background: linear-gradient(145deg,#2e1940e8,#130a20ee);
+    box-shadow: 0 .45rem 1rem #0008;
+  }
+  .combat[data-battle="false"] .playerChoicePortrait,
+  .combat[data-battle="false"] .opponentPortrait { min-height: 9.5rem; }
+  .combat[data-battle="false"] .opponentPortraitCanvas { max-height: 10rem; }
+
+  .resultOverlay { overflow-x: hidden; overflow-y: auto; align-items: start; padding: .5rem; }
+  .resultScreen {
+    width: 100%;
+    min-height: 0;
+    max-height: none;
+    grid-template-rows: auto auto auto 10.5rem auto auto;
+    gap: .35rem;
+    margin: auto 0;
+    padding: .65rem;
+    overflow: visible;
+  }
+  .resultFamiliar { width: 100%; min-height: 10.5rem; height: 10.5rem; background-position: center; background-size: cover; }
+  .resultFamiliarCanvas { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+  .resultDialogue { width: 100%; grid-template-columns: 3.4rem minmax(0,1fr); gap: .35rem; }
+  .resultNpcCanvas { width: 3.4rem; height: 3.4rem; }
+  .resultScreen .comicBubble { min-width: 0; padding: .42rem .5rem; }
+  .resultScreen .comicBubble p { overflow-wrap: anywhere; font-size: .58rem; line-height: 1.25; }
+  .resultRewards { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .resultActions { grid-template-columns: 1fr; }
+  .resultActions button { min-height: 2.85rem; }
+}
+
+@media (max-width: 380px), (max-height: 700px) and (max-width: 620px) {
+  .resultScreen { grid-template-rows: auto auto auto 8.5rem auto auto; }
+  .resultFamiliar { min-height: 8.5rem; height: 8.5rem; }
+}

@@ -53,6 +53,8 @@ const modules = [
   { code: "12", title: "Comunicazioni GiWise Studio", description: "Bozze, anteprime, pubblico consenziente, prove e invii delle novità facoltative.", href: "/gestione-comunicazioni", icon: "/brand/icons/social-assistenza-concept-v1.webp", tone: "rose" },
 ];
 
+const famiglioCustodiansModule = { code: "13", title: "Custodi dei Famigli", description: "Account LoreWise ID che hanno schiuso un Famiglio, email, Case attive e ultima sincronizzazione.", href: "#admin-famiglio-custodians", icon: "/famiglio/rebuild/nexus-pet-emblem-v2.png", tone: "gold" };
+
 const actionLabels: Record<string, string> = { set_role: "Ruolo modificato", set_status: "Stato account modificato", grant_art_credit: "Credito Arte assegnato" };
 const notificationLabels: Record<string, string> = { user: "Nuovo utente", purchase: "Acquisto", commission: "Preventivo", refund: "Rimborso", support: "Assistenza", payment: "Pagamento", community: "Community", delivery: "Controllo qualità", email: "Email transazionale" };
 
@@ -213,6 +215,7 @@ export function AdminControlCenter() {
   const visibleNotifications = overview?.notifications.filter((item) => (notificationCategory === "all" || item.category === notificationCategory) && (notificationSeverity === "all" || item.severity === notificationSeverity)) ?? [];
   const analyticsPeak = Math.max(1, ...(overview?.analytics.daily.map((entry) => entry.views) ?? [0]));
   const number = new Intl.NumberFormat("it-IT");
+  const visibleModules = famiglioCustodians ? [famiglioCustodiansModule, ...modules] : modules;
 
   if (!overview) return <section className="admin-center-state"><Image src="/brand/lorewise-universe-logo-concept-c.webp" alt="" width={1536} height={1024} unoptimized /><strong>Centro Admin LoreWise</strong><p>{message}</p><Link href="/account">Torna all’account</Link></section>;
 
@@ -259,7 +262,7 @@ export function AdminControlCenter() {
       {visibleNotifications.length ? <ol>{visibleNotifications.map((item) => <li key={item.id} className={`${item.readAt ? "is-read" : "is-unread"} severity-${item.severity}`}><span className="admin-notification-signal" aria-hidden="true" /><div><small>{notificationLabels[item.category] || item.category} · {date(item.createdAt)}</small><strong>{item.title}</strong><p>{item.message}</p>{item.referenceCode ? <code>{item.referenceCode}</code> : null}</div><div><Link href={item.targetUrl} onClick={(event) => item.readAt ? undefined : void openNotification(event, item.id, item.targetUrl)}>Apri gestione →</Link>{!item.readAt ? <button type="button" disabled={busy} onClick={() => void readNotification(item.id)}>Segna letta</button> : <span>Letta</span>}<button type="button" disabled={busy} onClick={() => void dismissNotification(item.id)}>Rimuovi</button></div></li>)}</ol> : <p className="admin-notification-empty">Nessuna notifica corrisponde ai filtri selezionati.</p>}
     </section>
 
-    <section className="admin-module-grid" aria-labelledby="admin-modules-title"><header><p className="eyebrow">Aree di gestione</p><h2 id="admin-modules-title">Un solo centro, dodici archivi.</h2></header><div>{modules.map((module) => <Link className={`admin-module tone-${module.tone}`} href={module.href} key={module.code}><span>{module.code}</span><Image src={module.icon} alt="" width={1224} height={1285} unoptimized /><div><strong>{module.title}</strong><p>{module.description}</p><b>Apri la gestione →</b></div></Link>)}</div></section>
+    <section className="admin-module-grid" aria-labelledby="admin-modules-title"><header><p className="eyebrow">Aree di gestione</p><h2 id="admin-modules-title">Un solo centro, {visibleModules.length} archivi.</h2></header><div>{visibleModules.map((module) => <Link className={`admin-module tone-${module.tone}`} href={module.href} key={module.code}><span>{module.code}</span><Image src={module.icon} alt="" width={1224} height={1285} unoptimized /><div><strong>{module.title}</strong><p>{module.description}</p><b>Apri la gestione →</b></div></Link>)}</div></section>
 
     <section id="admin-users" className="admin-users" aria-labelledby="admin-users-title">
       <header><div><p className="eyebrow">LoreWise ID</p><h2 id="admin-users-title">Gestione utenti.</h2><p>Ruoli, stato, piano, crediti e diritti vengono letti dallo stesso profilo. Ogni modifica amministrativa resta nel registro attività.</p></div><strong>{users.length}<span>profili visualizzati</span></strong></header>

@@ -5,6 +5,7 @@ import test from "node:test";
 import sharp from "sharp";
 import {
   FAMILIAR_DUNGEONS,
+  FAMILIAR_EXPEDITION_EVENTS,
   claimFamiliarAdventureReward,
   completeFamiliarExpedition,
   createFamiliarAdventureState,
@@ -71,6 +72,14 @@ test("the four dungeon timers remain real and stage-gated", () => {
   assert.equal(dungeonIsUnlocked("giovane", FAMILIAR_DUNGEONS[2]), true);
   assert.equal(dungeonIsUnlocked("giovane", FAMILIAR_DUNGEONS[3]), false);
   assert.equal(dungeonIsUnlocked("adulto", FAMILIAR_DUNGEONS[3]), true);
+});
+
+test("every destination rotates among three distinct narrative events", () => {
+  for (const dungeon of FAMILIAR_DUNGEONS) {
+    const events = FAMILIAR_EXPEDITION_EVENTS.filter((event) => event.dungeonId === dungeon.id);
+    assert.equal(events.length, 3);
+    assert.equal(new Set(events.flatMap((event) => event.choices.map((choice) => choice.id))).size, 6);
+  }
 });
 
 test("an adult familiar can start each of the four expedition choices", () => {

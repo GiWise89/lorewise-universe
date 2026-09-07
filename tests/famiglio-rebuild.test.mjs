@@ -22,6 +22,7 @@ import {
   FAMILIAR_ITEM_CATALOG,
   FAMILIAR_MARKET_OFFERS,
   FAMILIAR_DEVICE_COVERS,
+  FAMILIAR_REST_PRESETS,
   availableFamiliarDeviceCovers,
   availableFamiliarMarketOffers,
   availableSeasonalPremiumCovers,
@@ -39,6 +40,7 @@ import {
   purchaseFamiliarDeviceCover,
   equipFamiliarDeviceCover,
   exchangeNightMarketOffer,
+  cureFamiliarHome,
 } from "../lib/famiglioHome.ts";
 import {
   FAMILIAR_BUNDLES,
@@ -83,6 +85,46 @@ test("feeding reserves travel time and clears the action from the arrival-based 
   assert.match(component, /currentAction === "feed" && mealProgress.finished/);
   assert.match(component, /mealFinishedRef.current\(\)/);
   assert.match(component, /const displayFacing = spriteAction === "feed" \? -1/);
+});
+
+test("rest offers three real durations and keeps its room visible when complete", () => {
+  assert.deepEqual(FAMILIAR_REST_PRESETS.map((preset) => [preset.name, preset.durationMs]), [
+    ["Pisolino", 60_000],
+    ["Riposo ristoratore", 900_000],
+    ["Sonno profondo", 1_800_000],
+  ]);
+  const base = { ...createFamiliarHomeState(1_000), needs: { ...createFamiliarHomeState(1_000).needs, energy: 20 } };
+  const deep = performHomeAction(base, "rest", 1_000, null, "deep");
+  assert.equal(deep.actionEndsAt, 1_801_000);
+  assert.ok(deep.needs.energy >= 62);
+  const finished = advanceFamiliarHome(deep, 1_801_001);
+  assert.equal(finished.activeAction, null);
+  assert.equal(finished.roomAction, "rest");
+});
+
+test("home actions keep enough time for travel and the complete mobile animation", () => {
+  const start = createFamiliarHomeState(1_000);
+  assert.equal(performHomeAction(start, "play", 1_000).actionEndsAt, 9_500);
+  assert.equal(performHomeAction(start, "clean", 1_000).actionEndsAt, 8_500);
+  assert.equal(performHomeAction(start, "care", 1_000).actionEndsAt, 8_500);
+});
+
+test("neglect can cause deterministic illness and Nora medicine cures exactly once", () => {
+  const base = createFamiliarHomeState(1_000);
+  let sick = { ...base, needs: { ...base.needs, hygiene: 5, energy: 5 }, health: { status: "healthy", sickSince: null, lastCheckAt: 0 } };
+  for (let index = 1; index <= 100 && sick.health.status !== "sick"; index += 1) {
+    sick = advanceFamiliarHome({ ...sick, health: { ...sick.health, lastCheckAt: 0 } }, index * 6 * 60 * 60 * 1_000);
+  }
+  assert.equal(sick.health.status, "sick");
+  const stocked = { ...sick, inventory: { ...sick.inventory, quantities: { ...sick.inventory.quantities, "comfort-balm": 2 } } };
+  const cured = cureFamiliarHome(stocked, sick.lastUpdatedAt + 1);
+  assert.equal(cured.health.status, "healthy");
+  assert.equal(cured.activeAction, "care");
+  assert.equal(cured.activeItemId, "comfort-balm");
+  assert.equal(cured.actionEndsAt, sick.lastUpdatedAt + 7_501);
+  assert.equal(cured.inventory.quantities["comfort-balm"], 1);
+  assert.equal(cureFamiliarHome(cured, sick.lastUpdatedAt + 2).inventory.quantities["comfort-balm"], 1);
+  assert.deepEqual(FAMILIAR_MARKET_OFFERS.filter((offer) => offer.itemId === "comfort-balm").map((offer) => offer.quantity), [1, 5]);
 });
 
 function pngDimensions(path) {
@@ -337,7 +379,7 @@ test("the shared home scene keeps each action paired with its own object", () =>
   assert.match(component, /now - sceneOpenedAtRef\.current >= 4_000/);
 });
 
-test("the home uses twenty generated time-of-day rooms and purchased interaction objects", async () => {
+test("the home uses twenty regular rooms and five generated 03:00 variants", async () => {
   const component = readFileSync(join(process.cwd(), "components", "FamiglioNexusRebuild.tsx"), "utf8");
   for (const room of ["home", "feed", "clean", "play", "rest"]) {
     for (const phase of ["morning", "afternoon", "evening", "night"]) {
@@ -347,9 +389,17 @@ test("the home uses twenty generated time-of-day rooms and purchased interaction
       assert.equal(stats.isOpaque, true, `${room}-${phase} must decode completely without truncated pixels`);
     }
   }
+  for (const room of ["home", "feed", "clean", "play", "rest"]) {
+    const metadata = await sharp(join(process.cwd(), "public", "famiglio", "rebuild", "rooms", `${room}-witching.webp`)).metadata();
+    assert.deepEqual({ width: metadata.width, height: metadata.height }, { width: 512, height: 288 }, `${room}-witching`);
+    const stats = await sharp(join(process.cwd(), "public", "famiglio", "rebuild", "rooms", `${room}-witching.webp`)).stats();
+    assert.equal(stats.isOpaque, true, `${room}-witching must decode completely without truncated pixels`);
+  }
   assert.match(component, /HOME_DAY_PHASES/);
   assert.match(component, /\$\{room\}-\$\{phase\}\.webp/);
-  assert.match(component, /assets\[`\$\{roomId\}-\$\{roomDayPhase\(date\)\}`\]/);
+  assert.match(component, /isWitchingHalfHour\(date\)/);
+  assert.match(component, /date\.getHours\(\) === 3 && date\.getMinutes\(\) < 30/);
+  assert.match(component, /assets\[`\$\{roomId\}-witching`\]/);
   assert.doesNotMatch(component, /drawRoomDayLighting/);
   assert.match(component, /drawInventoryObject/);
   assert.match(component, /displayedItemId/);
@@ -368,18 +418,19 @@ test("generated market objects have real transparent padding instead of square b
 });
 
 test("the starter inventory and unlocked Mirra accessories use verified transparent pixel assets", async () => {
-  assert.equal(FAMILIAR_ITEM_CATALOG.length, 27);
+  assert.equal(FAMILIAR_ITEM_CATALOG.length, 28);
   assert.deepEqual(new Set(FAMILIAR_ITEM_CATALOG.map((item) => item.action)), new Set(["feed", "play", "clean", "care", "rest"]));
   const expectedDimensions = {
     "moon-meal": { width: 16, height: 16 },
     "blue-ball": { width: 20, height: 16 },
+    "mission-ball": { width: 20, height: 16 },
     "cleansing-tonic": { width: 32, height: 32 },
     "bond-lantern": { width: 32, height: 32 },
     "purple-bed": { width: 50, height: 28 },
     "arcane-gramophone": { width: 64, height: 64 },
     "prism-lantern": { width: 32, height: 32 },
     "energy-biscuit": { width: 96, height: 96 },
-    "comfort-balm": { width: 96, height: 96 },
+    "comfort-balm": { width: 64, height: 64 },
     "magic-feather": { width: 96, height: 96 },
     "crystal-orb": { width: 96, height: 96 },
   };
@@ -451,15 +502,15 @@ test("home actions cannot overlap, cool down only the repeated action and respec
   assert.equal(busy.growth.bondXp, first.growth.bondXp);
   assert.equal(restoreFamiliarHome(first, 2_000).activeAction, "care");
 
-  const second = performHomeAction(first, "care", 6_000);
+  const second = performHomeAction(first, "care", 9_000);
   assert.equal(second.actionBurstCount, 2);
-  assert.equal(second.actionCooldowns.care, 130_500);
-  const repeatedBlocked = performHomeAction(second, "care", 11_000);
+  assert.equal(second.actionCooldowns.care, 136_500);
+  const repeatedBlocked = performHomeAction(second, "care", 17_000);
   assert.equal(repeatedBlocked.activeAction, null);
   assert.match(repeatedBlocked.lastOutcome, /ripetuto/i);
-  const otherAction = performHomeAction(second, "rest", 11_000);
+  const otherAction = performHomeAction(second, "rest", 17_000);
   assert.equal(otherAction.activeAction, "rest");
-  assert.equal(performHomeAction(repeatedBlocked, "care", 130_501).activeAction, "care");
+  assert.equal(performHomeAction(repeatedBlocked, "care", 136_501).activeAction, "care");
 
   const lowEnergy = { ...createFamiliarHomeState(20_000), needs: { ...createFamiliarHomeState(20_000).needs, energy: 4 } };
   assert.equal(performHomeAction(lowEnergy, "play", 20_000).activeAction, null);
@@ -729,6 +780,31 @@ test("mission rewards update the new home wallet, bond and diary exactly once pe
   assert.match(rewarded.diary[0].detail, /\+6 monete Nexus e \+15 XP/);
 });
 
+test("retrying the same mission claim never duplicates its reward", () => {
+  const start = createFamiliarHomeState(1_000);
+  const reward = { title: "Passeggiata in galleria", coins: 6, experience: 15, item: "toy", quantity: 2 };
+  const once = grantFamiliarHomeMissionReward(start, reward, 2_000, "2026-09-07:explore-art-2");
+  const retried = grantFamiliarHomeMissionReward(once, reward, 3_000, "2026-09-07:explore-art-2");
+  assert.equal(retried, once);
+  assert.equal(retried.wallet.nexusCoins, start.wallet.nexusCoins + 6);
+  assert.equal(retried.growth.bondXp, start.growth.bondXp + 15);
+  assert.equal(retried.inventory.quantities["mission-ball"], 2);
+});
+
+test("every displayed mission material maps to a usable rebuilt inventory item", () => {
+  const mappings = [
+    ["food", "moon-meal"],
+    ["soap", "cleansing-tonic"],
+    ["medicine", "comfort-balm"],
+    ["toy", "mission-ball"],
+  ];
+  for (const [item, inventoryId] of mappings) {
+    const start = createFamiliarHomeState(1_000);
+    const rewarded = grantFamiliarHomeMissionReward(start, { title: "Missione", coins: 0, experience: 0, item, quantity: 2 }, 2_000, `claim-${item}`);
+    assert.equal(rewarded.inventory.quantities[inventoryId], start.inventory.quantities[inventoryId] + 2);
+  }
+});
+
 test("the Nexus market spends earned coins and places purchased supplies in the backpack", () => {
   const base = createFamiliarHomeState(1_000);
   const funded = { ...base, wallet: { ...base.wallet, nexusCoins: 20, totalEarned: 20 } };
@@ -753,9 +829,9 @@ test("merchant catalogues expand at Giovane and Adulto without exposing everythi
   assert.equal(availableFamiliarMarketOffers("arcane", "adulto").length, 12);
   const initial = createFamiliarHomeState(1_000);
   assert.ok(availableFamiliarMarketOffers("arcane", "cucciolo").every((offer) => initial.inventory.quantities[offer.itemId] === 0));
-  assert.equal(availableFamiliarMarketOffers("daily", "cucciolo").length, 2);
-  assert.equal(availableFamiliarMarketOffers("daily", "giovane").length, 4);
-  assert.equal(availableFamiliarMarketOffers("daily", "adulto").length, 6);
+  assert.equal(availableFamiliarMarketOffers("daily", "cucciolo").length, 4);
+  assert.equal(availableFamiliarMarketOffers("daily", "giovane").length, 6);
+  assert.equal(availableFamiliarMarketOffers("daily", "adulto").length, 7);
   assert.equal(availableFamiliarDeviceCovers("cucciolo").length, 11);
   assert.equal(availableFamiliarDeviceCovers("giovane").length, 17);
   assert.equal(availableFamiliarDeviceCovers("adulto").length, 23);
@@ -962,9 +1038,15 @@ test("the autonomous director turns every critical need into a visible intention
     ["seek-food", "sleep", "seek-play", "seek-affection", "groom"],
   );
   assert.equal(hungry.signal, "food");
+  assert.equal(tired.signal, "energy");
   assert.equal(bored.signal, "play");
   assert.equal(lonely.signal, "affection");
+  assert.equal(dirty.signal, "hygiene");
+  assert.equal(chooseAutonomousDecision("cat", { ...healthy, hunger: 21 }, "idle", .5).signal, null);
   assert.ok(tired.movementSpeed < FAMILIAR_PERSONALITIES.golden.movementSpeed);
+  const component = readFileSync(join(process.cwd(), "components", "FamiglioNexusRebuild.tsx"), "utf8");
+  assert.match(component, /buttonIcon = HOME_ACTIONS\.find/);
+  assert.match(component, /food: "feed"[\s\S]*energy: "rest"[\s\S]*play: "play"[\s\S]*hygiene: "clean"[\s\S]*affection: "care"/);
 });
 
 test("every idle familiar uses the autonomous behavior director", () => {
@@ -1183,7 +1265,7 @@ test("missions fund the night market and exchanges are deterministic and permane
   assert.equal(pouchReward.wallet.nightSigils, 2);
 });
 
-test("the last selected room remains visible after its action ends", () => {
+test("a completed action keeps the last action room visible", () => {
   const finished = advanceFamiliarHome(performHomeAction(createFamiliarHomeState(1_000), "play", 1_000), 20_000);
   assert.equal(finished.activeAction, null);
   assert.equal(finished.roomAction, "play");
@@ -1265,7 +1347,7 @@ test("play and cuddle objects animate in front while sleeping surfaces stay behi
   assert.match(component, /const isCleaningSupply = item\?\.action === "clean" && item\.consumable/);
   assert.match(component, /const isPlayObject = item\?\.action === "play"/);
   assert.match(component, /shadowBlur = 7 \+ Math\.abs\(Math\.sin/);
-  assert.match(component, /const ballItems:[^\n]*\["blue-ball", "comet-ball", "emerald-ball"\]/);
+  assert.match(component, /const ballItems:[^\n]*\["blue-ball", "mission-ball", "comet-ball", "emerald-ball"\]/);
   assert.match(component, /const floatingToys:[^\n]*\["ribbon-star", "moon-moth"\]/);
   assert.match(component, /const sleepMats:[^\n]*\["cuddle-cushion", "moon-mat", "cloud-mat"\]/);
   assert.match(component, /const animatedMirraItems:[^\n]*"cloud-mat"/);

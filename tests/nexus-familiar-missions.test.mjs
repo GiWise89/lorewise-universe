@@ -103,3 +103,13 @@ test("daily missions expose exactly one refresh reservation per Rome day", () =>
   assert.match(component, /Aggiornate oggi/);
   assert.match(component, /MISSION_REFRESH_KEY_PREFIX/);
 });
+
+test("mission claims reward the rebuilt cloud save before marking the mission claimed", () => {
+  const route = readFileSync(join(process.cwd(), "app", "api", "famiglio", "missions", "route.ts"), "utf8");
+  assert.match(route, /grantMissionRewardToRebuildSave/);
+  assert.match(route, /nexus_pet_rebuild_saves/);
+  assert.match(route, /prepareFamiliarMissionClaim/);
+  assert.match(route, /markFamiliarMissionClaimed/);
+  assert.ok(route.indexOf("grantMissionRewardToRebuildSave(database") < route.indexOf("markFamiliarMissionClaimed(database"));
+  assert.match(route, /la missione resta riscuotibile e puoi riprovare/);
+});

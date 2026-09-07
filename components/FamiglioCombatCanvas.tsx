@@ -298,7 +298,7 @@ export function FamiglioCombatPreviewCanvas({
       if (image) {
         const frameCount = spriteFrameCount(image);
         const frame = reducedMotion ? Math.min(1, frameCount - 1) : Math.floor((now - startedAt) / (1000 / fps)) % frameCount;
-        drawStripFrame(context, image, frame, canvas.width / 2, canvas.height - 12, 160 * previewScale, flip);
+        drawStripFrame(context, image, frame, canvas.width / 2, canvas.height * .94, canvas.height * .83 * previewScale, flip);
       }
       if (!reducedMotion) {
         window.clearTimeout(frameTimer);
@@ -343,11 +343,11 @@ export function FamiglioCombatPreviewCanvas({
     };
   }, [flip, fps, previewScale, src]);
 
-  return <canvas ref={canvasRef} className={className} width="192" height="192" role="img" aria-label={label} />;
+  return <canvas ref={canvasRef} className={className} width="320" height="320" role="img" aria-label={label} />;
 }
 
 function battleLayout(width: number, height: number, playerScale: number, opponentScale: number): BattleLayout {
-  const baseSize = height * .36;
+  const baseSize = height * .44;
   const playerSize = baseSize * playerScale;
   const opponentSize = baseSize * opponentScale;
   const edgePadding = width * .045;

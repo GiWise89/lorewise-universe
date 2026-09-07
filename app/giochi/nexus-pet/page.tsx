@@ -62,6 +62,7 @@ export default function NexusPetGuidePage() {
         </ul>
         <p>Ogni giorno può apparire un Desiderio quotidiano. Nella Casa trovi anche Zaino, Diario del Legame, routine, portafoglio delle valute e oggetti dedicati alla cura.</p>
         <p>Il Famiglio vive la Casa anche in autonomia. Quando deve fare i bisogni raggiunge il bagno; al termine il comando Pulisci richiama la tua attenzione. Le azioni hanno animazioni dedicate, timer visibili e rispettano sempre la specie e il colore scelto.</p>
+        <p>Per il sonno puoi scegliere tra <strong>Pisolino</strong> da 1 minuto, <strong>Riposo ristoratore</strong> da 15 minuti e <strong>Sonno profondo</strong> da 30 minuti. Una scia verde segnala un’igiene troppo bassa; trascurare a lungo i bisogni può far ammalare il Famiglio e rende disponibile il comando Cura.</p>
         <p>Accedendo con il LoreWise ID, le Case e i progressi dei Famigli restano disponibili anche passando da un dispositivo all’altro.</p>
       </div>
     </div></section>
@@ -71,7 +72,7 @@ export default function NexusPetGuidePage() {
       <div className={styles.copy}><p className={styles.number}>03 · Crescere insieme</p><h2>La costanza conta più della fretta.</h2>
         <p>Ogni attenzione e giornata condivisa alimenta il Legame. Le evoluzioni richiedono punti e giorni reali di cura.</p>
         <ol className={styles.growth}><li><strong>Cucciolo</strong><span>Comincia a conoscere il suo Custode.</span></li><li><strong>Giovane</strong><span>900 PE Legame e 14 giorni di cura.</span></li><li><strong>Adulto</strong><span>3.500 PE Legame e 35 giorni di cura.</span></li></ol>
-        <p>Il Livello Legame arriva fino a 50. Il Livello Combattimento è separato e cresce con allenamenti e sfide.</p>
+        <p>Il Livello Legame arriva fino a 50. Esplorazione e Combattimento seguono progressioni separate. Ogni passaggio di livello viene annunciato con i miglioramenti ottenuti: mosse, ricompense, traguardi o sconti.</p>
       </div>
     </div></section>
 
@@ -82,6 +83,7 @@ export default function NexusPetGuidePage() {
         <GuideImage src="/giochi/nexus-pet/05-atelier-famigli.webp" alt="Atelier di Medusa" caption="Iris, Mirra e Medusa · colori, giochi, cover, Famigli speciali e nuove Case." />
         <GuideImage src="/giochi/nexus-pet/06-mercato-notturno.webp" alt="Mercato Notturno" caption="Dalle 21:00 alle 06:00 Ronin e Lich aprono il Mercato Notturno." />
       </div>
+      <p>Nora prepara anche la medicina: puoi acquistare una dose singola oppure una scorta conveniente da cinque dosi e conservarla nello Zaino finché serve.</p>
       <div className={styles.facts}><p><strong>53 Famigli</strong><span>Creature reali, magiche e preistoriche.</span></p><p><strong>12 preistorici</strong><span>Una collezione dedicata al passato.</span></p><p><strong>Mercato Notturno</strong><span>Sigilli, frammenti e reliquie particolari.</span></p></div>
     </div></section>
 
@@ -92,13 +94,13 @@ export default function NexusPetGuidePage() {
 
     <section className={`${styles.chapter} ${styles.paper}`} id="spedizioni"><div className={`shell ${styles.grid} ${styles.reverse}`}>
       <GuideImage src="/giochi/nexus-pet/08-spedizioni.webp" alt="Famiglio in spedizione nel Bosco del Crepuscolo" caption="Il viaggio continua anche quando lasci la pagina." />
-      <div className={styles.copy}><p className={styles.number}>06 · Spedizioni del Nexus</p><h2>Oltre i confini della Casa.</h2><p>Puoi avviare fino a tre Spedizioni al giorno. In viaggio possono emergere incontri e scelte; i bisogni restano sospesi fino al ritorno.</p>
+      <div className={styles.copy}><p className={styles.number}>06 · Spedizioni del Nexus</p><h2>Oltre i confini della Casa.</h2><p>Puoi avviare fino a tre Spedizioni al giorno. Ogni destinazione alterna tre imprevisti narrativi e sei scelte possibili, così l’inizio del viaggio non ripete sempre la stessa scena. I bisogni restano sospesi fino al ritorno.</p>
         <div className={styles.destinations}><p><strong>Boschi del Crepuscolo</strong><span>5 min · Cucciolo</span></p><p><strong>Giardini Astrali</strong><span>10 min · Giovane</span></p><p><strong>Cripta della Memoria</strong><span>15 min · Giovane</span></p><p><strong>Valle dei Fossili</strong><span>20 min · Adulto</span></p></div>
       </div>
     </div></section>
 
     <section className={styles.final} id="arena"><div className="shell">
-      <header className={styles.heading}><p className={styles.number}>07 · Arena e Torre del Nexus</p><h2>Il Legame dà forza.<br />L’allenamento insegna a usarla.</h2><p>In Arena combatti soltanto con i Famigli che possiedi, conservando specie, crescita e colore scelto. Prepari fino a quattro mosse e amministri energia, utilizzi, ricariche, stati ed efficacia elementale.</p></header>
+      <header className={styles.heading}><p className={styles.number}>07 · Arena e Torre del Nexus</p><h2>Il Legame dà forza.<br />L’allenamento insegna a usarla.</h2><p>In Arena combatti soltanto con i Famigli che possiedi, conservando specie, crescita e colore scelto. Prepari fino a quattro mosse e amministri energia, utilizzi, ricariche, stati ed efficacia elementale. Un attacco può occasionalmente mancare: la scritta MISS conferma la schivata e nessun danno viene applicato.</p></header>
       <div className={styles.dual}><GuideImage src="/giochi/nexus-pet/10-arena-combattimento.webp" alt="Battaglia nell’Arena dei Famigli" caption="Arena · prepara le mosse e affronta avversari sempre diversi." /><GuideImage src="/giochi/nexus-pet/09-torre-del-nexus.webp" alt="Percorso della Torre del Nexus" caption="Torre del Nexus · dieci piani di difficoltà crescente." /></div>
       <div className={styles.facts}><p><strong>6 circuiti</strong><span>Arene e avversari con progressione distinta.</span></p><p><strong>4 comandi</strong><span>Mosse fisiche, magiche, di stato e recupero.</span></p><p><strong>Effetti elementali</strong><span>Fuoco, ghiaccio, fulmine, vento, natura, acqua, arcano, terra e veleno.</span></p></div>
       <div className={styles.tower}><span>01–03<small>Avversari</small></span><span>04<small>Mini-boss</small></span><span>05–07<small>Ascesa</small></span><span>08<small>Mini-boss</small></span><span>09<small>Élite</small></span><span>10<small>Boss finale</small></span></div>

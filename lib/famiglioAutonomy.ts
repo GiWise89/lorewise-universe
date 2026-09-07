@@ -11,7 +11,7 @@ export type AutonomousFamiliarBehavior =
   | "seek-play"
   | "seek-affection";
 
-export type AutonomousNeedSignal = "food" | "play" | "affection" | null;
+export type AutonomousNeedSignal = "food" | "energy" | "play" | "hygiene" | "affection" | null;
 
 export type FamiliarPersonality = {
   title: string;
@@ -76,10 +76,14 @@ const BEHAVIOR_TARGETS: Partial<Record<AutonomousFamiliarBehavior, number>> = {
   sleep: .58,
 };
 
-const BEHAVIOR_SIGNALS: Partial<Record<AutonomousFamiliarBehavior, AutonomousNeedSignal>> = {
-  "seek-food": "food",
-  "seek-play": "play",
-  "seek-affection": "affection",
+const CRITICAL_NEED_SIGNAL_THRESHOLD = 20;
+
+const NEED_SIGNALS: Record<FamiliarNeedId, Exclude<AutonomousNeedSignal, null>> = {
+  hunger: "food",
+  energy: "energy",
+  happiness: "play",
+  hygiene: "hygiene",
+  affection: "affection",
 };
 
 function mostUrgentNeed(needs: FamiliarNeeds): FamiliarNeedId | null {
@@ -138,7 +142,11 @@ export function chooseAutonomousDecision(
     target: BEHAVIOR_TARGETS[behavior] ?? null,
     durationMs: baseDuration * personality.patience,
     movementSpeed: personality.movementSpeed * lowEnergyFactor,
-    signal: BEHAVIOR_SIGNALS[behavior] ?? null,
+    // Il fumetto non accompagna i normali comportamenti autonomi: compare
+    // soltanto quando il bisogno più urgente è davvero critico.
+    signal: urgentNeed && needs[urgentNeed] <= CRITICAL_NEED_SIGNAL_THRESHOLD
+      ? NEED_SIGNALS[urgentNeed]
+      : null,
     reaction: autonomousReactionText(species, behavior),
   };
 }

@@ -32,6 +32,16 @@ test("il Centro Admin mostra numero, email e Famigli soltanto quando autorizzato
   assert.ok(ui.includes("famiglioCustodians.totalCustodians"));
 });
 
+test("il registro dei Custodi e raggiungibile dal Centro Admin", () => {
+  const ui = read("components/AdminControlCenter.tsx");
+  const page = read("app/admin/page.tsx");
+  assert.ok(ui.includes('title: "Custodi dei Famigli"'));
+  assert.ok(ui.includes('href: "#admin-famiglio-custodians"'));
+  assert.ok(page.includes('href="#admin-famiglio-custodians"'));
+  assert.ok(ui.includes("famiglioCustodians ? [famiglioCustodiansModule, ...modules] : modules"));
+  assert.ok(page.includes("isOwner ?"));
+});
+
 test("le opzioni del selettore avversario restano leggibili sul menu chiaro", () => {
   const styles = read("components/FamiglioCombatArena.module.css");
   assert.match(styles, /\.opponentDropdown select option\s*\{[^}]*background:\s*#fffaf0;[^}]*color:\s*#24102d;/s);

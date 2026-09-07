@@ -130,7 +130,7 @@ test("la selezione di prova espone tutti i 52 rivali in una tendina e una scheda
   assert.match(arena, /preview\.moves\.slice\(0, 4\)\.map/);
 
   const canvas = await source("components/FamiglioCombatCanvas.tsx");
-  assert.match(canvas, /width="192" height="192"/);
+  assert.match(canvas, /width="320" height="320"/);
 });
 
 test("i sei circuiti usano schede compatte con anteprima 16:9 completa", async () => {

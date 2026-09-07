@@ -27,6 +27,7 @@ import {
   DAILY_WISHES,
   DAILY_WISH_REWARD_COINS,
   FAMILIAR_DEVICE_COVERS,
+  FAMILIAR_REST_PRESETS,
   FAMILIAR_ITEM_CATALOG,
   HOME_ACTIONS,
   HOME_NEEDS,
@@ -50,7 +51,9 @@ import {
   equipFamiliarDeviceCover,
   exchangeNightMarketOffer,
   equipNightMarketRelic,
+  cureFamiliarHome,
   type FamiliarHomeAction,
+  type FamiliarRestPresetId,
   type FamiliarDeviceCoverId,
   type FamiliarInventoryItemId,
   type FamiliarNeeds,
@@ -85,6 +88,8 @@ import {
 import { FamiglioGuideOverlay } from "./FamiglioGuideOverlay";
 import { familiarActivityGate, familiarCombatNeedBonus } from "@/lib/famiglioWellbeing";
 import { familiarDailyMoment, familiarReturnGreeting } from "@/lib/famiglioDailyMoments";
+import { familiarLevelForExperience } from "@/lib/nexusFamiliar";
+import { FAMILIAR_MILESTONES } from "@/lib/nexusFamiliarProgression";
 
 const FamiglioAdventure = dynamic(() => import("./FamiglioAdventure").then((module) => module.FamiglioAdventure), {
   ssr: false,
@@ -112,10 +117,13 @@ import {
   familiarCombatOpponents,
   restoreFamiliarCombatState,
   startFamiliarCombatBattle,
+  combatLevelForXp,
   type FamiliarCombatDifficulty,
   type FamiliarCombatReward,
   type FamiliarCombatState,
 } from "@/lib/famiglioCombat";
+
+type FamiliarLevelUpNotice = { track: "Legame" | "Esplorazione" | "Combattimento"; level: number; title: string; benefits: string[] };
 import {
   dailyFamiliarMissions,
   previousRomeDateKey,
@@ -160,8 +168,10 @@ const FAMILIAR_SAVE_KEY = "lorewise.famiglio-rebuild.v1";
 const MISSION_REFRESH_KEY_PREFIX = "lorewise.famiglio-mission-refresh.v1";
 const DIARY_PAGE_SIZE = 3;
 type RoomDayPhase = "morning" | "afternoon" | "evening" | "night";
+type RoomPreviewPhase = RoomDayPhase | "witching";
 type HomeRoomId = "home" | "feed" | "clean" | "play" | "rest";
 type HomeAssetKey = `${HomeRoomId}-${RoomDayPhase}`;
+type WitchingAssetKey = `${HomeRoomId}-witching`;
 type LocalHouseSnapshot = {
   rebuild: RebuildState;
   home: FamiliarHomeState;
@@ -171,10 +181,16 @@ type LocalHouseSnapshot = {
 };
 const HOME_ROOM_IDS: readonly HomeRoomId[] = ["home", "feed", "clean", "play", "rest"];
 const HOME_DAY_PHASES: readonly RoomDayPhase[] = ["morning", "afternoon", "evening", "night"];
-const HOME_ASSET_SOURCES = Object.fromEntries(HOME_ROOM_IDS.flatMap((room) => HOME_DAY_PHASES.map((phase) => [
-  `${room}-${phase}`,
-  `/famiglio/rebuild/rooms/${room}-${phase}.webp`,
-]))) as Record<HomeAssetKey, string>;
+const HOME_ASSET_SOURCES = Object.fromEntries([
+  ...HOME_ROOM_IDS.flatMap((room) => HOME_DAY_PHASES.map((phase) => [
+    `${room}-${phase}`,
+    `/famiglio/rebuild/rooms/${room}-${phase}.webp`,
+  ])),
+  ...HOME_ROOM_IDS.map((room) => [
+    `${room}-witching`,
+    `/famiglio/rebuild/rooms/${room}-witching.webp`,
+  ]),
+]) as Record<HomeAssetKey | WitchingAssetKey, string>;
 const HOME_ACTION_TARGETS: Record<FamiliarHomeAction, number> = {
   feed: .3,
   play: .62,
@@ -525,7 +541,10 @@ type DailyMissionResponse = {
   missions?: DailyMissionView[];
   localPreview?: boolean;
   error?: string;
-  reward?: { coins: number; experience: number };
+  reward?: { coins: number; experience: number; item: "food" | "soap" | "medicine" | "toy"; quantity: number };
+  home?: unknown;
+  revision?: number;
+  alreadyClaimed?: boolean;
   refreshUsed?: boolean;
 };
 
@@ -1064,7 +1083,11 @@ function NexusCanvas({ state, egg }: { state: RebuildState; egg: StarterEgg }) {
   return <canvas ref={canvasRef} className={styles.nexusCanvas} aria-label={`${egg.egg}, ${egg.familiar}`} />;
 }
 
-type HomeAssets = Record<HomeAssetKey, HTMLImageElement>;
+type HomeAssets = Record<HomeAssetKey | WitchingAssetKey, HTMLImageElement>;
+
+function isWitchingHalfHour(date: Date) {
+  return date.getHours() === 3 && date.getMinutes() < 30;
+}
 
 function drawPurchasedHome(
   context: CanvasRenderingContext2D,
@@ -1077,7 +1100,9 @@ function drawPurchasedHome(
   date = new Date(),
 ) {
   const roomId: HomeRoomId = action === "feed" || action === "clean" || action === "play" || action === "rest" ? action : "home";
-  const room = assets[`${roomId}-${roomDayPhase(date)}`];
+  const room = isWitchingHalfHour(date)
+    ? assets[`${roomId}-witching`]
+    : assets[`${roomId}-${roomDayPhase(date)}`];
   context.imageSmoothingEnabled = false;
   context.drawImage(room, x, y, width, height);
 }
@@ -1094,6 +1119,7 @@ function roomDayPhase(date = new Date()): RoomDayPhase {
 function drawHomeActionEffect(
   context: CanvasRenderingContext2D,
   action: FamiliarHomeAction | null,
+  itemId: FamiliarInventoryItemId | null,
   centerX: number,
   groundY: number,
   petSize: number,
@@ -1117,13 +1143,20 @@ function drawHomeActionEffect(
       context.strokeRect(centerX + petSize * offsetX, groundY + petSize * offsetY + bob, 7, 7);
     }
   } else if (action === "care") {
-    context.fillStyle = "#ff79bb";
+    const medicine = itemId === "comfort-balm";
+    context.fillStyle = medicine ? "#7df2a0" : "#ff79bb";
     for (let index = 0; index < 3; index += 1) {
       const lift = (phase * 18 + index * 17) % 48;
       const x = centerX + petSize * (.2 + index * .14);
       const y = groundY - petSize * .55 - lift;
       context.fillRect(x, y, 8, 6);
       context.fillRect(x + 2, y + 6, 4, 3);
+    }
+    if (medicine) {
+      context.fillStyle = "#efffd7";
+      const pulse = 1 + Math.floor(Math.abs(Math.sin(phase * 3)) * 2);
+      context.fillRect(centerX - pulse, groundY - petSize * .86, pulse * 2 + 2, 10);
+      context.fillRect(centerX - 4, groundY - petSize * .86 + 4 - pulse, 10, pulse * 2 + 2);
     }
   }
   context.restore();
@@ -1179,7 +1212,7 @@ function drawInventoryObject(
   elapsedPresence = elapsedInteraction,
 ) {
   const item = FAMILIAR_ITEM_CATALOG.find((candidate) => candidate.id === itemId);
-  const ballItems: FamiliarInventoryItemId[] = ["blue-ball", "comet-ball", "emerald-ball"];
+  const ballItems: FamiliarInventoryItemId[] = ["blue-ball", "mission-ball", "comet-ball", "emerald-ball"];
   const floatingToys: FamiliarInventoryItemId[] = ["ribbon-star", "moon-moth"];
   const sleepMats: FamiliarInventoryItemId[] = ["cuddle-cushion", "moon-mat", "cloud-mat"];
   const animatedMirraItems: FamiliarInventoryItemId[] = ["comet-ball", "emerald-ball", "ribbon-star", "moon-moth", "heart-brush", "cuddle-cushion", "moon-mat", "cloud-mat"];
@@ -1342,9 +1375,9 @@ function drawAutonomousNeedCue(
   petSize: number,
 ) {
   if (!signal) return;
-  const unit = Math.max(2, Math.round(petSize / 42));
-  const x = Math.round(centerX + petSize * .24);
-  const y = Math.round(groundY - petSize * 1.05);
+  const unit = Math.max(3, Math.min(5, Math.round(petSize / 24)));
+  const x = Math.round(centerX + petSize * .2);
+  const y = Math.round(groundY - petSize * 1.22);
   context.save();
   context.imageSmoothingEnabled = false;
   context.fillStyle = "rgba(30, 18, 48, .9)";
@@ -1352,24 +1385,18 @@ function drawAutonomousNeedCue(
   context.fillStyle = "#fff8d8";
   context.fillRect(x, y, unit * 8, unit * 7);
   context.fillRect(x + unit, y + unit * 7, unit * 2, unit * 2);
-  if (signal === "food") {
-    context.fillStyle = "#e85c67";
-    context.fillRect(x + unit * 2, y + unit * 3, unit * 4, unit * 3);
-    context.fillRect(x + unit * 3, y + unit * 2, unit * 2, unit);
-    context.fillStyle = "#4a8b5d";
-    context.fillRect(x + unit * 5, y + unit, unit, unit * 2);
-  } else if (signal === "play") {
-    context.fillStyle = "#5bc9dc";
-    context.fillRect(x + unit * 2, y + unit * 2, unit * 4, unit * 4);
-    context.fillStyle = "#6a4094";
-    context.fillRect(x + unit * 3, y + unit * 3, unit * 2, unit * 2);
-  } else {
-    context.fillStyle = "#e65ca5";
-    context.fillRect(x + unit * 2, y + unit * 2, unit * 2, unit * 2);
-    context.fillRect(x + unit * 5, y + unit * 2, unit * 2, unit * 2);
-    context.fillRect(x + unit * 2, y + unit * 3, unit * 5, unit * 2);
-    context.fillRect(x + unit * 3, y + unit * 5, unit * 3, unit);
-  }
+  const actionBySignal: Record<Exclude<AutonomousNeedSignal, null>, FamiliarHomeAction> = {
+    food: "feed",
+    energy: "rest",
+    play: "play",
+    hygiene: "clean",
+    affection: "care",
+  };
+  const buttonIcon = HOME_ACTIONS.find((action) => action.id === actionBySignal[signal])?.icon ?? "";
+  context.font = `${Math.round(unit * 5.2)}px "Segoe UI Emoji", "Apple Color Emoji", sans-serif`;
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.fillText(buttonIcon, x + unit * 4, y + unit * 3.65);
   context.restore();
 }
 
@@ -1384,6 +1411,7 @@ function FamiliarHomeCanvas({
   equippedRestItemId,
   needs,
   toilet,
+  sick,
   growthScale,
   growthStage,
   away,
@@ -1401,6 +1429,7 @@ function FamiliarHomeCanvas({
   equippedRestItemId: FamiliarInventoryItemId;
   needs: FamiliarNeeds;
   toilet: FamiliarToiletState;
+  sick: boolean;
   growthScale: number;
   growthStage: "cucciolo" | "giovane" | "adulto";
   away: boolean;
@@ -1504,6 +1533,7 @@ function FamiliarHomeCanvas({
     let assets: HomeAssets | null = null;
     let inventoryAssets: InventoryAssets | null = null;
     let wasteAsset: HTMLImageElement | null = null;
+    let hygieneTrailAsset: HTMLImageElement | null = null;
     const spriteImages = new Map<HomeSpriteAction, HTMLImageElement>();
     const spriteFrameCenters = new Map<HomeSpriteAction, Array<{ x: number; y: number }>>();
     const spriteSet = FAMILIAR_SPRITE_ROSTER[egg.id];
@@ -1605,7 +1635,7 @@ function FamiliarHomeCanvas({
       const centerX = minCenter + (maxCenter - minCenter) * positionRef.current;
       const roomGroundRatio = HOME_ROOM_GROUND_RATIOS[roomRef.current ?? "home"];
       const groundY = roomY + roomHeight * roomGroundRatio;
-      const actionAnchor = currentAction ?? (autonomousBehavior === "seek-food" ? "feed" : null);
+      const actionAnchor = currentAction;
       const fixedObjectCenterX = actionAnchor === "feed"
         ? roomX + roomWidth * HOME_OBJECT_ANCHORS.feed
         : actionAnchor
@@ -1627,7 +1657,7 @@ function FamiliarHomeCanvas({
         ? requestedItem.id
         : null;
       const displayedItemId = actionItemId
-        ?? ((currentAction === "feed" || autonomousBehavior === "seek-food")
+        ?? (currentAction === "feed"
           ? "moon-meal"
           : currentAction === "play"
             ? "blue-ball"
@@ -1668,7 +1698,31 @@ function FamiliarHomeCanvas({
       );
       context.restore();
 
-      drawHomeActionEffect(context, moving ? null : currentAction, centerX, familiarGroundY, petSize, elapsedInteraction);
+      if (needsRef.current.hygiene <= 20 && hygieneTrailAsset && currentAction !== "clean") {
+        const trailFrameWidth = hygieneTrailAsset.naturalWidth / 16;
+        const trailFrame = Math.floor(simulationTime / 115) % 16;
+        const trailSize = petSize * .62;
+        context.save();
+        context.globalAlpha = .72;
+        context.imageSmoothingEnabled = false;
+        context.drawImage(hygieneTrailAsset, trailFrame * trailFrameWidth, 0, trailFrameWidth, hygieneTrailAsset.naturalHeight, centerX - trailSize * .55, familiarGroundY - petSize * .9, trailSize, trailSize);
+        context.restore();
+      }
+
+      if (sick) {
+        const crossSize = Math.max(2, Math.round(petSize * .045));
+        const crossX = Math.round(centerX + petSize * .32);
+        const crossY = Math.round(familiarGroundY - petSize * .98);
+        context.save();
+        context.fillStyle = "rgba(24, 14, 39, .82)";
+        context.fillRect(crossX - crossSize * 2, crossY - crossSize * 2, crossSize * 5, crossSize * 5);
+        context.fillStyle = "#9af0a1";
+        context.fillRect(crossX, crossY - crossSize, crossSize, crossSize * 3);
+        context.fillRect(crossX - crossSize, crossY, crossSize * 3, crossSize);
+        context.restore();
+      }
+
+      drawHomeActionEffect(context, moving ? null : currentAction, activeItemIdRef.current, centerX, familiarGroundY, petSize, elapsedInteraction);
       if (displayedItemId && displayedItemId !== "purple-bed" && displayedItemId !== "moon-meal" && requestedItem?.action !== "rest" && inventoryAssets?.[displayedItemId]) {
         drawInventoryObject(context, inventoryAssets[displayedItemId], displayedItemId, fixedObjectCenterX, groundY, petSize, elapsedInteraction, elapsedAction);
       }
@@ -1746,7 +1800,7 @@ function FamiliarHomeCanvas({
       frameRequest = requestAnimationFrame(animate);
     };
 
-    const assetEntries = Object.entries(HOME_ASSET_SOURCES) as Array<[HomeAssetKey, string]>;
+    const assetEntries = Object.entries(HOME_ASSET_SOURCES) as Array<[HomeAssetKey | WitchingAssetKey, string]>;
     void Promise.all(assetEntries.map(async ([key, src]) => [key, await loadImageAsset(src)] as const)).then((loaded) => {
       if (!cancelled) assets = Object.fromEntries(loaded) as HomeAssets;
     });
@@ -1758,6 +1812,9 @@ function FamiliarHomeCanvas({
     });
     void loadImageAsset("/famiglio/rebuild/effects/cute-toilet-waste-v1.png").then((loaded) => {
       if (!cancelled) wasteAsset = loaded;
+    });
+    void loadImageAsset("/famiglio/rebuild/combat/vfx/status-poison.png").then((loaded) => {
+      if (!cancelled) hygieneTrailAsset = loaded;
     });
     void Promise.all(HOME_SPRITE_ACTIONS.map(async (spriteAction) => {
       const src = collectionFamiliar
@@ -1779,7 +1836,7 @@ function FamiliarHomeCanvas({
       cancelled = true;
       cancelAnimationFrame(frameRequest);
     };
-  }, [egg, collectionFamiliar, collectionVisual, colorVariant, growthScale, growthStage, personality.movementSpeed, personality.patience, away]);
+  }, [egg, collectionFamiliar, collectionVisual, colorVariant, growthScale, growthStage, personality.movementSpeed, personality.patience, away, sick]);
 
   return <canvas ref={canvasRef} className={styles.homeCanvas} aria-label={`Casa di ${collectionFamiliar?.name ?? egg.familiar}${toilet.wasteCount ? ", da pulire" : ""}`} />;
 }
@@ -1823,6 +1880,8 @@ export function FamiglioNexusRebuild() {
   const [autonomousPresentation, setAutonomousPresentation] = useState<AutonomousPresentation | null>(null);
   const [homePanel, setHomePanel] = useState<FamiliarHomePanel>("care");
   const [inventoryOpen, setInventoryOpen] = useState(false);
+  const [restChoiceOpen, setRestChoiceOpen] = useState(false);
+  const [levelUpNotice, setLevelUpNotice] = useState<FamiliarLevelUpNotice | null>(null);
   const [storageReady, setStorageReady] = useState(false);
   const [focusedEggIndex, setFocusedEggIndex] = useState(0);
   const [homeFamiliarIndex, setHomeFamiliarIndex] = useState(0);
@@ -1865,12 +1924,14 @@ export function FamiglioNexusRebuild() {
   const [savedHouseSnapshots, setSavedHouseSnapshots] = useState<Array<LocalHouseSnapshot | null>>([null, null, null]);
   const houseSnapshotsRef = useRef<Array<LocalHouseSnapshot | null>>([null, null, null]);
   const cloudRevisionRef = useRef(0);
+  const cloudSaveInFlightRef = useRef(false);
+  const homeActionEndsAtRef = useRef<number | null>(null);
   const [cloudSyncReady, setCloudSyncReady] = useState(false);
   const [cloudReloadToken, setCloudReloadToken] = useState(0);
   const [marketOfferPage, setMarketOfferPage] = useState(0);
   const [combatPreparedFamiliarId, setCombatPreparedFamiliarId] = useState<string | null>(null);
   const [roomClock, setRoomClock] = useState<Date | null>(null);
-  const [roomPreviewPhase, setRoomPreviewPhase] = useState<RoomDayPhase | null>(null);
+  const [roomPreviewPhase, setRoomPreviewPhase] = useState<RoomPreviewPhase | null>(null);
   const [allTestMode, setAllTestMode] = useState(false);
   const [previewSession, setPreviewSession] = useState(false);
   const previewSessionRef = useRef(false);
@@ -1944,6 +2005,10 @@ export function FamiglioNexusRebuild() {
   }, []);
 
   useEffect(() => {
+    homeActionEndsAtRef.current = homeState.actionEndsAt;
+  }, [homeState.actionEndsAt]);
+
+  useEffect(() => {
     const query = window.matchMedia("(max-width: 760px)");
     const update = () => { setCompactFamiliarCatalog(query.matches); setAtelierCatalogPage(0); setCoverCatalogPage(0); };
     update();
@@ -1962,7 +2027,9 @@ export function FamiglioNexusRebuild() {
     let previewWing: MarketWing | null = null;
     let previewAtelierCategory: "covers" | "familiars" | "bundle" | "slots" | null = null;
     let previewCollectionFamiliarId: string | null = null;
-    let previewRoomPhase: RoomDayPhase | null = null;
+    let previewRoomPhase: RoomPreviewPhase | null = null;
+    let previewRestChoice = false;
+    let previewLevelUp: FamiliarLevelUpNotice | null = null;
     let previewAllTestMode = false;
     let restoredLocalHouseTrial = false;
     let restoredHouseSnapshots: Array<LocalHouseSnapshot | null> = [null, null, null];
@@ -2063,6 +2130,17 @@ export function FamiglioNexusRebuild() {
           needs: { ...restoredHome.needs, hygiene: Math.min(restoredHome.needs.hygiene, 62) },
           lastOutcome: "Il Famiglio ha fatto i bisogni. Usa Pulisci per sistemare la Casa.",
         };
+        if (previewParams.get("sick") === "1") restoredHome = {
+          ...restoredHome,
+          health: { status: "sick", sickSince: Date.now(), lastCheckAt: Date.now() },
+          inventory: { ...restoredHome.inventory, quantities: { ...restoredHome.inventory.quantities, "comfort-balm": Math.max(1, restoredHome.inventory.quantities["comfort-balm"] ?? 0) } },
+          lastOutcome: "Il Famiglio non si sente bene. Usa Cura con la medicina di Nora.",
+        };
+        if (previewParams.get("hygiene") === "low") restoredHome = {
+          ...restoredHome,
+          needs: { ...restoredHome.needs, hygiene: 18 },
+          lastOutcome: "L'igiene è bassa: la scia verde segnala che è il momento di pulire.",
+        };
         const requestedVendor = previewParams.get("vendor");
         if (requestedVendor === "daily" || requestedVendor === "arcane" || requestedVendor === "cosmetics") previewVendor = requestedVendor;
         const requestedWing = previewParams.get("wing");
@@ -2100,15 +2178,22 @@ export function FamiglioNexusRebuild() {
           }
         }
         const requestedRoomPhase = previewParams.get("time");
-        if (requestedRoomPhase === "morning" || requestedRoomPhase === "afternoon" || requestedRoomPhase === "evening" || requestedRoomPhase === "night") previewRoomPhase = requestedRoomPhase;
+        if (requestedRoomPhase === "morning" || requestedRoomPhase === "afternoon" || requestedRoomPhase === "evening" || requestedRoomPhase === "night" || requestedRoomPhase === "witching") previewRoomPhase = requestedRoomPhase;
         const requestedRoom = previewParams.get("room");
         if (requestedRoom === "home" || requestedRoom === "feed" || requestedRoom === "clean" || requestedRoom === "play" || requestedRoom === "rest") {
           restoredHome = { ...restoredHome, roomAction: requestedRoom === "home" ? null : requestedRoom };
         }
         const requestedAction = previewParams.get("action") as FamiliarHomeAction | null;
         if (requestedAction && HOME_ACTIONS.some((entry) => entry.id === requestedAction)) {
-          restoredHome = performHomeAction(restoredHome, requestedAction);
+          const requestedRestPreset = previewParams.get("rest") as FamiliarRestPresetId | null;
+          const restPresetId = FAMILIAR_REST_PRESETS.some((preset) => preset.id === requestedRestPreset) ? requestedRestPreset! : "nap";
+          restoredHome = performHomeAction(restoredHome, requestedAction, undefined, null, restPresetId);
         }
+        previewRestChoice = previewParams.get("rest") === "choose";
+        const requestedLevelUp = previewParams.get("levelup");
+        if (requestedLevelUp === "bond") previewLevelUp = { track: "Legame", level: 10, title: "Sintonia crescente", benefits: ["Nuovo traguardo del Legame", "Sconto dell'1% nelle botteghe"] };
+        if (requestedLevelUp === "adventure") previewLevelUp = { track: "Esplorazione", level: 4, title: "Esploratore del Nexus", benefits: ["Nuove ricompense di spedizione", "Progresso registrato nel Diario"] };
+        if (requestedLevelUp === "combat") previewLevelUp = { track: "Combattimento", level: 5, title: "Tecnica migliorata", benefits: ["Una mossa può essere potenziata", "Statistiche di lotta aumentate"] };
         const requestedItem = previewParams.get("item") as FamiliarInventoryItemId | null;
         if (requestedItem && FAMILIAR_ITEM_CATALOG.some((item) => item.id === requestedItem)) {
           restoredHome = {
@@ -2149,6 +2234,8 @@ export function FamiglioNexusRebuild() {
         }
       }
       if (previewRoomPhase) setRoomPreviewPhase(previewRoomPhase);
+      if (previewRestChoice) setRestChoiceOpen(true);
+      if (previewLevelUp) setLevelUpNotice(previewLevelUp);
       setAllTestMode(previewAllTestMode);
       setLocalHouseTrial(restoredLocalHouseTrial);
       setSavedHouseSnapshots(restoredHouseSnapshots);
@@ -2198,7 +2285,10 @@ export function FamiglioNexusRebuild() {
           const requestedIndex = Math.max(0, Math.min(2, Number.isInteger(candidate.activeHouseIndex) ? Number(candidate.activeHouseIndex) : 0));
           const selectedIndex = houses[requestedIndex] ? requestedIndex : Math.max(0, houses.findIndex(Boolean));
           const active = houses[selectedIndex];
-          if (active) {
+          // Un caricamento cloud avviato all'apertura non può interrompere una
+          // cura che l'utente ha già iniziato mentre la risposta era in viaggio.
+          const localActionRunning = Boolean(homeActionEndsAtRef.current && homeActionEndsAtRef.current > Date.now());
+          if (active && !localActionRunning) {
             houseSnapshotsRef.current = houses;
             setSavedHouseSnapshots(houses);
             setActiveHouseIndex(selectedIndex);
@@ -2233,6 +2323,8 @@ export function FamiglioNexusRebuild() {
     houses[activeHouseIndex] = currentSnapshot;
     const save = { schemaVersion: 1 as const, ...currentSnapshot, houses, activeHouseIndex, updatedAt: new Date().toISOString() };
     const timeout = window.setTimeout(() => {
+      if (cloudSaveInFlightRef.current) return;
+      cloudSaveInFlightRef.current = true;
       void fetch("/api/famiglio/rebuild", {
         method: "PUT",
         credentials: "same-origin",
@@ -2246,7 +2338,8 @@ export function FamiglioNexusRebuild() {
             setCloudReloadToken((current) => current + 1);
           }
         })
-        .catch(() => undefined);
+        .catch(() => undefined)
+        .finally(() => { cloudSaveInFlightRef.current = false; });
     }, 900);
     return () => window.clearTimeout(timeout);
   }, [activeHouseIndex, adventureState, cloudSyncReady, combatState, homeFamiliarIndex, homeState, state, testCollectionFamiliarId]);
@@ -2393,9 +2486,9 @@ export function FamiglioNexusRebuild() {
   const selectedPremiumCover = displayedPremiumCoverId ? premiumCovers.find((cover) => cover.id === displayedPremiumCoverId) ?? null : null;
   const displayedRoomTime = useMemo(() => {
     if (!roomClock || !roomPreviewPhase) return roomClock;
-    const previewHour: Record<RoomDayPhase, number> = { morning: 8, afternoon: 14, evening: 19, night: 23 };
+    const previewHour: Record<RoomPreviewPhase, number> = { morning: 8, afternoon: 14, evening: 19, night: 23, witching: 3 };
     const date = new Date(roomClock);
-    date.setHours(previewHour[roomPreviewPhase], 0, 0, 0);
+    date.setHours(previewHour[roomPreviewPhase], roomPreviewPhase === "witching" ? 10 : 0, 0, 0);
     return date;
   }, [roomClock, roomPreviewPhase]);
   const interactionNow = displayedRoomTime?.getTime() ?? homeState.lastUpdatedAt;
@@ -2460,6 +2553,10 @@ export function FamiglioNexusRebuild() {
   };
 
   const receiveAdventureReward = (reward: FamiliarAdventureReward) => {
+    const previousAdventureXp = adventureState.progress[reward.familiarId]?.adventureXp ?? 0;
+    const previousAdventureLevel = Math.min(50, Math.floor(previousAdventureXp / 100) + 1);
+    const nextAdventureLevel = Math.min(50, Math.floor((previousAdventureXp + reward.adventureXp) / 100) + 1);
+    if (nextAdventureLevel > previousAdventureLevel) setLevelUpNotice({ track: "Esplorazione", level: nextAdventureLevel, title: "Nuovi sentieri riconosciuti", benefits: ["Ricompense di spedizione migliorate", "Nuove varianti di viaggio disponibili"] });
     setHomeState((current) => {
       const at = Date.now();
       return {
@@ -2484,6 +2581,10 @@ export function FamiglioNexusRebuild() {
   };
 
   const receiveCombatReward = (reward: FamiliarCombatReward) => {
+    const previousCombat = combatState.profiles[reward.familiarId];
+    const previousCombatLevel = previousCombat?.combatLevel ?? 1;
+    const nextCombatLevel = combatLevelForXp((previousCombat?.combatXp ?? 0) + reward.combatXp);
+    if (nextCombatLevel > previousCombatLevel) setLevelUpNotice({ track: "Combattimento", level: nextCombatLevel, title: "Forza del Legame aumentata", benefits: ["Statistiche di battaglia migliorate", "Controlla il Percorso per eventuali nuove mosse"] });
     setHomeState((current) => {
       const at = Date.now();
       return {
@@ -2507,14 +2608,20 @@ export function FamiglioNexusRebuild() {
     });
   };
 
-  const performActiveHomeAction = (action: FamiliarHomeAction) => {
+  const performActiveHomeAction = (action: FamiliarHomeAction, restPresetId: FamiliarRestPresetId = "nap") => {
     const previousActionAt = homeState.lastActionAt;
+    const previousBondLevel = familiarLevelForExperience(homeState.growth.bondXp);
     const equippedItemId = homeState.equippedItems?.[action];
     const equippedItem = FAMILIAR_ITEM_CATALOG.find((item) => item.id === equippedItemId && item.action === action);
     const next = equippedItem
-      ? applyFamiliarInventoryItem(homeState, equippedItem.id)
-      : performHomeAction(homeState, action);
+      ? applyFamiliarInventoryItem(homeState, equippedItem.id, undefined, restPresetId)
+      : performHomeAction(homeState, action, undefined, null, restPresetId);
     setHomeState(next);
+    const nextBondLevel = familiarLevelForExperience(next.growth.bondXp);
+    if (nextBondLevel > previousBondLevel) {
+      const milestone = FAMILIAR_MILESTONES.find((entry) => entry.level === nextBondLevel);
+      setLevelUpNotice({ track: "Legame", level: nextBondLevel, title: milestone?.title ?? "Il vostro Legame cresce", benefits: milestone ? [milestone.benefit, milestone.rewardLabel] : ["Nuova intensità del Legame", "Progressi registrati nel Diario"] });
+    }
     setAdventureState((current) => syncFamiliarAdventureGrowth(current, activeFamiliarId, next.growth.bondXp, next.growth.careStreak));
     return next.lastActionAt !== previousActionAt && next.activeAction === action;
   };
@@ -2528,8 +2635,14 @@ export function FamiglioNexusRebuild() {
 
   const applyActiveInventoryItem = (itemId: FamiliarInventoryItemId) => {
     const previousActionAt = homeState.lastActionAt;
+    const previousBondLevel = familiarLevelForExperience(homeState.growth.bondXp);
     const next = applyFamiliarInventoryItem(homeState, itemId);
     setHomeState(next);
+    const nextBondLevel = familiarLevelForExperience(next.growth.bondXp);
+    if (nextBondLevel > previousBondLevel) {
+      const milestone = FAMILIAR_MILESTONES.find((entry) => entry.level === nextBondLevel);
+      setLevelUpNotice({ track: "Legame", level: nextBondLevel, title: milestone?.title ?? "Il vostro Legame cresce", benefits: milestone ? [milestone.benefit, milestone.rewardLabel] : ["Nuova intensità del Legame", "Progressi registrati nel Diario"] });
+    }
     setAdventureState((current) => syncFamiliarAdventureGrowth(current, activeFamiliarId, next.growth.bondXp, next.growth.careStreak));
     return next.lastActionAt !== previousActionAt;
   };
@@ -2564,15 +2677,33 @@ export function FamiglioNexusRebuild() {
         body: JSON.stringify({ missionId: mission.id }),
       });
       const payload = await response.json().catch(() => ({})) as DailyMissionResponse;
+      if (response.ok && payload.alreadyClaimed && Array.isArray(payload.missions)) {
+        setMissions(payload.missions);
+        setCloudSyncReady(false);
+        setCloudReloadToken((current) => current + 1);
+        setMissionMessage(`${mission.title}: la ricompensa era già stata salvata.`);
+        return;
+      }
       if (!response.ok || !payload.reward || !Array.isArray(payload.missions)) {
         throw new Error(payload.error || "Ricompensa non disponibile.");
       }
       setMissions(payload.missions);
-      const rewardedHome = grantFamiliarHomeMissionReward(homeState, {
-        title: mission.title,
-        coins: payload.reward!.coins,
-        experience: payload.reward!.experience,
-      });
+      const rewardedHome = payload.home
+        ? restoreFamiliarHome(payload.home)
+        : grantFamiliarHomeMissionReward(homeState, {
+            title: mission.title,
+            coins: payload.reward.coins,
+            experience: payload.reward.experience,
+            item: payload.reward.item,
+            quantity: payload.reward.quantity,
+          });
+      cloudRevisionRef.current = Math.max(cloudRevisionRef.current, Math.floor(Number(payload.revision) || 0));
+      const previousBondLevel = familiarLevelForExperience(homeState.growth.bondXp);
+      const nextBondLevel = familiarLevelForExperience(rewardedHome.growth.bondXp);
+      if (nextBondLevel > previousBondLevel) {
+        const milestone = FAMILIAR_MILESTONES.find((entry) => entry.level === nextBondLevel);
+        setLevelUpNotice({ track: "Legame", level: nextBondLevel, title: milestone?.title ?? "Il vostro Legame cresce", benefits: milestone ? [milestone.benefit, milestone.rewardLabel] : ["Ricompensa della missione applicata", "Progressi registrati nel Diario"] });
+      }
       setHomeState(rewardedHome);
       setAdventureState((current) => syncFamiliarAdventureGrowth(current, activeFamiliarId, rewardedHome.growth.bondXp, rewardedHome.growth.careStreak));
       setMissionMessage(`${mission.title}: ricompensa riscossa.`);
@@ -2965,13 +3096,14 @@ export function FamiglioNexusRebuild() {
                 equippedRestItemId={homeState.equippedItems.rest ?? "purple-bed"}
                 needs={homeState.needs}
                 toilet={homeState.toilet}
+                sick={homeState.health.status === "sick"}
                 growthScale={growthMeta.scale}
                 growthStage={activeGrowth.stage}
                 away={familiarAway}
                 roomTime={displayedRoomTime}
                 onAutonomousReaction={setAutonomousPresentation}
                 onMealFinished={() => setHomeState((current) => current.activeAction === "feed"
-                  ? { ...current, activeAction: null, activeItemId: null, actionEndsAt: null }
+                  ? { ...current, activeAction: null, activeItemId: null, roomAction: "feed", actionEndsAt: null }
                   : current)}
               />
               <div className={styles.homeAudioControls} aria-label="Audio della Casa">
@@ -3006,6 +3138,18 @@ export function FamiglioNexusRebuild() {
                   />
                 </label>
               </div>
+              {homeState.health.status === "sick" ? <button
+                className={styles.homeSceneCure}
+                type="button"
+                disabled={familiarAway || Boolean(homeState.activeAction) || (homeState.inventory.quantities["comfort-balm"] ?? 0) <= 0}
+                title={(homeState.inventory.quantities["comfort-balm"] ?? 0) <= 0 ? "Acquista la medicina da Nora." : "Usa una dose della medicina di Nora."}
+                onClick={() => {
+                  const next = cureFamiliarHome(homeState);
+                  setHomeState(next);
+                  ensureHomeAudio();
+                  playFamiliarInterfaceCue("confirm", !homeAudioMuted, homeAudioVolume);
+                }}
+              ><span className={styles.homeSceneCureIcon} aria-hidden="true" /><strong>Cura</strong><small>x{homeState.inventory.quantities["comfort-balm"] ?? 0}</small></button> : null}
               <div className={styles.homeNameplate}>
                 <strong>{homeDisplayName}</strong>
                 <span>{familiarAway ? `${homeDisplayName} è sui Sentieri del Nexus. I bisogni restano sospesi.` : homeState.activeAction ? homeState.lastOutcome : toiletMessage ?? `${moodMeta.icon} ${moodMeta.label} · ${autonomousReaction} · ${dailyMoment.title}`}</span>
@@ -3091,9 +3235,10 @@ export function FamiglioNexusRebuild() {
                     const quantity = homeState.inventory.quantities[item.id];
                     const availability = homeActionAvailability(homeState, item.action);
                     const nightRelic = NIGHT_MARKET_OFFERS.some((offer) => offer.itemId === item.id);
+                    const medicine = item.id === "comfort-balm";
                     const selectable = !item.consumable && !nightRelic;
                     const equipped = selectable && homeState.equippedItems?.[item.action] === item.id;
-                    const blocked = familiarAway || quantity <= 0 || (!selectable && !availability.available);
+                    const blocked = familiarAway || quantity <= 0 || (medicine ? homeState.health.status !== "sick" : (!selectable && !availability.available));
                     return (
                       <button
                         className={equipped || homeState.activeItemId === item.id ? styles.inventoryItemActive : styles.inventoryItem}
@@ -3108,6 +3253,11 @@ export function FamiglioNexusRebuild() {
                               ensureHomeAudio();
                               playFamiliarInterfaceCue("confirm", !homeAudioMuted, homeAudioVolume);
                             }
+                          } else if (medicine) {
+                            const next = cureFamiliarHome(homeState);
+                            setHomeState(next);
+                            ensureHomeAudio();
+                            playFamiliarInterfaceCue("confirm", !homeAudioMuted, homeAudioVolume);
                           } else if (applyActiveInventoryItem(item.id)) {
                             ensureHomeAudio();
                             playFamiliarHomeActionCue(activeFamiliarId, item.action, !homeAudioMuted, homeAudioVolume);
@@ -3151,6 +3301,10 @@ export function FamiglioNexusRebuild() {
                   disabled={blocked}
                   title={blocked ? blockedReason : undefined}
                   onClick={() => {
+                    if (item.id === "rest") {
+                      setRestChoiceOpen(true);
+                      return;
+                    }
                     if (performActiveHomeAction(item.id)) {
                       ensureHomeAudio();
                       playFamiliarHomeActionCue(activeFamiliarId, item.id, !homeAudioMuted, homeAudioVolume);
@@ -3165,6 +3319,19 @@ export function FamiglioNexusRebuild() {
                 </button>;
               })}
             </div>
+            {restChoiceOpen ? <div className={styles.restChoiceBackdrop} role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setRestChoiceOpen(false); }}>
+              <section className={styles.restChoiceSheet} role="dialog" aria-modal="true" aria-labelledby="rest-choice-title">
+                <header><div><small>Routine del Famiglio</small><h3 id="rest-choice-title">Quanto deve riposare?</h3></div><button type="button" aria-label="Chiudi" onClick={() => setRestChoiceOpen(false)}>×</button></header>
+                <div>{FAMILIAR_REST_PRESETS.map((preset) => <button type="button" key={preset.id} onClick={() => {
+                  setRestChoiceOpen(false);
+                  if (performActiveHomeAction("rest", preset.id)) {
+                    ensureHomeAudio();
+                    playFamiliarHomeActionCue(activeFamiliarId, "rest", !homeAudioMuted, homeAudioVolume);
+                    void recordCareMission("rest");
+                  }
+                }}><strong>{preset.name}</strong><span>{preset.description}</span><b>{Math.round(preset.durationMs / 60_000)} min</b></button>)}</div>
+              </section>
+            </div> : null}
           </div>
         ) : null}
 
@@ -3709,6 +3876,18 @@ export function FamiglioNexusRebuild() {
               <p>Questa operazione non può essere annullata. Le altre Case e gli acquisti associati al LoreWise ID non verranno eliminati.</p>
               <div><button className={styles.restartFamiliarButton} type="button" onClick={restartActiveFamiliar}>Elimina progressi e ricomincia</button><button type="button" onClick={() => setRestartStep(0)}>Non eliminare</button></div>
             </div>}
+          </section>
+        </div>, document.body,
+      ) : null}
+      {levelUpNotice && typeof document !== "undefined" ? createPortal(
+        <div className={styles.levelUpBackdrop} role="presentation">
+          <section className={styles.levelUpSheet} role="dialog" aria-modal="true" aria-labelledby="level-up-title">
+            <span className={styles.levelUpEmblem} aria-hidden="true">✦</span>
+            <small>Livello {levelUpNotice.track}</small>
+            <h3 id="level-up-title">Livello {levelUpNotice.level}</h3>
+            <strong>{levelUpNotice.title}</strong>
+            <ul>{levelUpNotice.benefits.map((benefit) => <li key={benefit}>{benefit}</li>)}</ul>
+            <button type="button" onClick={() => setLevelUpNotice(null)}>Continua il cammino</button>
           </section>
         </div>, document.body,
       ) : null}

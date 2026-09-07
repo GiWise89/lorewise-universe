@@ -1,10 +1,10 @@
 import { env } from "@/lib/netlifyRuntime";
 import { dailyFamiliarMissionsForCount, romeDateKey } from "@/lib/nexusFamiliarMissionCatalog";
-import { claimFamiliarMission, familiarMissionPayload, refreshDailyFamiliarMissions } from "@/lib/nexusFamiliarMissionServer";
+import { familiarMissionPayload, markFamiliarMissionClaimed, prepareFamiliarMissionClaim, refreshDailyFamiliarMissions } from "@/lib/nexusFamiliarMissionServer";
+import { sanitizeFamiglioRebuildCloudSave } from "@/lib/famiglioRebuildCloud";
+import { grantFamiliarHomeMissionReward, restoreFamiliarHome } from "@/lib/famiglioHome";
 import { sanitizeFamiliarCloudState } from "@/lib/nexusFamiliarCloud";
-import { applyFamiliarTimePassage, grantFamiliarProgress, type FamiliarItemKey } from "@/lib/nexusFamiliar";
 import { familiarDailyMissionCount } from "@/lib/nexusFamiliarProgression";
-import { recordFamiliarEconomyEvent, recordFamiliarSyncEvent } from "@/lib/nexusFamiliarEconomyServer";
 import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
@@ -36,30 +36,32 @@ async function databaseLevel(database: D1Database, customerId: string) {
   }
 }
 
-async function grantMissionRewardToFamiliar(database: D1Database, customerId: string, missionId: string, reward: { item: string; quantity: number; coins: number; experience: number }) {
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    const row = await database.prepare("SELECT state_json, revision FROM nexus_familiars WHERE customer_id = ?")
-      .bind(customerId).first<{ state_json: string; revision: number }>();
+async function grantMissionRewardToRebuildSave(database: D1Database, customerId: string, missionId: string, missionDate: string, reward: { title: string; item: string; quantity: number; coins: number; experience: number }) {
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const row = await database.prepare("SELECT save_json, revision FROM nexus_pet_rebuild_saves WHERE customer_id = ?")
+      .bind(customerId).first<{ save_json: string; revision: number }>();
     if (!row) return null;
-    const checked = sanitizeFamiliarCloudState(JSON.parse(row.state_json));
-    if (!checked.ok || !["food", "soap", "medicine", "toy"].includes(reward.item)) return null;
-    const item = reward.item as FamiliarItemKey;
-    const now = new Date();
-    const next = grantFamiliarProgress(applyFamiliarTimePassage(checked.state, now), {
-      items: { [item]: reward.quantity },
-      coins: reward.coins,
-      experience: reward.experience,
-    }, now);
+    const checked = sanitizeFamiglioRebuildCloudSave(JSON.parse(row.save_json));
+    if (!checked.ok) return null;
+    const houseIndex = checked.save.activeHouseIndex;
+    const house = checked.save.houses[houseIndex];
+    if (!house || typeof house !== "object") return null;
+    const now = Date.now();
+    const home = restoreFamiliarHome(house.home, now);
+    const item = ["food", "soap", "medicine", "toy"].includes(reward.item)
+      ? reward.item as "food" | "soap" | "medicine" | "toy"
+      : undefined;
+    const rewardedHome = grantFamiliarHomeMissionReward(home, { title: reward.title, coins: reward.coins, experience: reward.experience, item, quantity: reward.quantity }, now, `${missionDate}:${missionId}`);
+    if (rewardedHome === home) return { home, revision: Math.max(0, Math.floor(Number(row.revision) || 0)) };
+    const houses = [...checked.save.houses];
+    houses[houseIndex] = { ...house, home: rewardedHome };
+    const next = { ...checked.save, home: rewardedHome, houses, updatedAt: new Date(now).toISOString() };
     const revision = Math.max(0, Math.floor(Number(row.revision) || 0)) + 1;
-    const updated = await database.prepare(`UPDATE nexus_familiars SET state_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP
+    const updated = await database.prepare(`UPDATE nexus_pet_rebuild_saves SET save_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP
       WHERE customer_id = ? AND revision = ?`)
       .bind(JSON.stringify(next), revision, customerId, row.revision).run();
     if (updated.meta.changes) {
-      await Promise.all([
-        recordFamiliarEconomyEvent(database, { customerId, eventType: "mission", sourceKey: `mission:${romeDateKey(now)}:${missionId}`, before: checked.state, after: next, metadata: { reward } }),
-        recordFamiliarSyncEvent(database, { customerId, familiarId: next.familiarId, action: "mission", revisionBefore: row.revision, revisionAfter: revision }),
-      ]).catch(() => undefined);
-      return { familiar: next, revision };
+      return { home: rewardedHome, revision };
     }
   }
   return null;
@@ -115,16 +117,21 @@ export async function POST(request: Request) {
     }
     const missionId = typeof body?.missionId === "string" ? body.missionId.slice(0, 80) : "";
     if (!missionId) return json({ error: "Missione non valida." }, 400);
-    const result = await claimFamiliarMission(database, user.id, missionId);
-    if (!result.ok) return json({ error: result.error }, result.status);
-    const saved = await grantMissionRewardToFamiliar(database, user.id, missionId, result.reward);
-    if (!saved) {
-      await database.prepare("UPDATE nexus_familiar_daily_missions SET claimed_at = NULL WHERE customer_id = ? AND mission_date = ? AND mission_id = ?")
-        .bind(user.id, romeDateKey(), missionId).run();
-      return json({ error: "Ricompensa non salvata: puoi riprovare." }, 503);
-    }
+    const missionDate = romeDateKey();
+    const result = await prepareFamiliarMissionClaim(database, user.id, missionId, missionDate);
     const missionCount = familiarDailyMissionCount(await databaseLevel(database, user.id));
-    return json({ reward: result.reward, familiar: saved.familiar, revision: saved.revision, missions: (await familiarMissionPayload(database, user.id, romeDateKey(), missionCount)).missions });
+    if (!result.ok) {
+      if ("claimed" in result && result.claimed) {
+        return json({ alreadyClaimed: true, missions: (await familiarMissionPayload(database, user.id, missionDate, missionCount)).missions });
+      }
+      return json({ error: result.error }, result.status);
+    }
+    const saved = await grantMissionRewardToRebuildSave(database, user.id, missionId, missionDate, result.reward);
+    if (!saved) return json({ error: "Ricompensa non salvata: la missione resta riscuotibile e puoi riprovare." }, 503);
+    if (!await markFamiliarMissionClaimed(database, user.id, missionId, missionDate)) {
+      return json({ error: "Ricompensa salvata, ma la conferma è in sospeso: premi di nuovo Riscuoti." }, 503);
+    }
+    return json({ reward: result.reward, home: saved.home, revision: saved.revision, missions: (await familiarMissionPayload(database, user.id, missionDate, missionCount)).missions });
   } catch {
     return json({ error: "Non è stato possibile riscuotere la ricompensa." }, 503);
   }

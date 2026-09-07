@@ -172,21 +172,36 @@ export async function refreshDailyFamiliarMissions(database: D1Database, custome
   }
 }
 
-export async function claimFamiliarMission(database: D1Database, customerId: string, missionId: string, date = romeDateKey()) {
+export async function prepareFamiliarMissionClaim(database: D1Database, customerId: string, missionId: string, date = romeDateKey()) {
   await ensureDailyFamiliarMissions(database, customerId, date);
   const row = await database.prepare(`SELECT mission_id, target_count, progress_count, reward_item, reward_quantity, claimed_at
     FROM nexus_familiar_daily_missions WHERE customer_id = ? AND mission_date = ? AND mission_id = ?`)
     .bind(customerId, date, missionId).first<MissionRow>();
   if (!row) return { ok: false as const, status: 404, error: "Missione non trovata." };
-  if (row.claimed_at) return { ok: false as const, status: 409, error: "Ricompensa gia riscattata." };
+  if (row.claimed_at) return { ok: false as const, status: 409, claimed: true as const, error: "Ricompensa già riscossa." };
   if (Number(row.progress_count) < Number(row.target_count)) return { ok: false as const, status: 409, error: "Completa prima la missione." };
-  const claimed = await database.prepare(`UPDATE nexus_familiar_daily_missions SET claimed_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP
-    WHERE customer_id = ? AND mission_date = ? AND mission_id = ? AND claimed_at IS NULL`)
-    .bind(customerId, date, missionId).run();
-  if (!claimed.meta.changes) return { ok: false as const, status: 409, error: "Ricompensa gia riscattata." };
   const definition = familiarMissionById(row.mission_id);
   const difficulty = definition?.difficulty ?? "facile";
   const coins = { facile: 6, normale: 12, difficile: 22 }[difficulty];
   const experience = { facile: 12, normale: 24, difficile: 40 }[difficulty];
-  return { ok: true as const, reward: { item: row.reward_item, quantity: Number(row.reward_quantity), coins, experience } };
+  return { ok: true as const, reward: { title: definition?.title ?? "Missione del Nexus", item: row.reward_item, quantity: Number(row.reward_quantity), coins, experience } };
+}
+
+export async function markFamiliarMissionClaimed(database: D1Database, customerId: string, missionId: string, date = romeDateKey()) {
+  const claimed = await database.prepare(`UPDATE nexus_familiar_daily_missions SET claimed_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP
+    WHERE customer_id = ? AND mission_date = ? AND mission_id = ? AND claimed_at IS NULL`)
+    .bind(customerId, date, missionId).run();
+  if (claimed.meta.changes) return true;
+  const row = await database.prepare(`SELECT claimed_at FROM nexus_familiar_daily_missions
+    WHERE customer_id = ? AND mission_date = ? AND mission_id = ?`).bind(customerId, date, missionId).first<{ claimed_at: string | null }>();
+  return Boolean(row?.claimed_at);
+}
+
+export async function claimFamiliarMission(database: D1Database, customerId: string, missionId: string, date = romeDateKey()) {
+  const prepared = await prepareFamiliarMissionClaim(database, customerId, missionId, date);
+  if (!prepared.ok) return prepared;
+  if (!await markFamiliarMissionClaimed(database, customerId, missionId, date)) {
+    return { ok: false as const, status: 503, error: "La riscossione non è stata confermata: riprova." };
+  }
+  return prepared;
 }
