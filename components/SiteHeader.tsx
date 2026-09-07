@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { createLoreWiseBrowserClient } from "@/lib/supabase/client";
 
 const navIcons: Record<string, string> = {
   "/": "/brand/navigation/lorewise-universe-logo.webp",
@@ -115,9 +116,12 @@ export function SiteHeader() {
 
   useEffect(() => {
     let active = true;
+    let authenticated = false;
     let pending = false;
     let controller: AbortController | null = null;
+    let unsubscribeFromAuth: (() => void) | null = null;
     async function refreshNotifications() {
+      if (!authenticated) return;
       if (pending) { notificationRefreshQueued.current = true; return; }
       pending = true;
       notificationRefreshQueued.current = false;
@@ -125,6 +129,7 @@ export function SiteHeader() {
       const timeout = window.setTimeout(() => controller?.abort(), 4_000);
       try {
         const response = await fetch("/api/notifications", { headers: { accept: "application/json" }, cache: "no-store", signal: controller.signal });
+        if (response.status === 401) authenticated = false;
         if (!response.ok) {
           if (active) setUnreadNotifications(null);
           return;
@@ -139,15 +144,34 @@ export function SiteHeader() {
         if (active && notificationRefreshQueued.current) void refreshNotifications();
       }
     }
-    void refreshNotifications();
+    async function initializeNotifications() {
+      const client = createLoreWiseBrowserClient();
+      if (!client) return;
+      const { data } = await client.auth.getSession();
+      if (!active) return;
+      authenticated = Boolean(data.session);
+      if (authenticated) void refreshNotifications();
+      const { data: authListener } = client.auth.onAuthStateChange((_event, session) => {
+        authenticated = Boolean(session);
+        if (!active) return;
+        if (authenticated) void refreshNotifications();
+        else {
+          controller?.abort();
+          setUnreadNotifications(null);
+        }
+      });
+      unsubscribeFromAuth = () => authListener.subscription.unsubscribe();
+    }
+    void initializeNotifications();
     const refreshAfterRead = () => void refreshNotifications();
     window.addEventListener("lorewise:notifications-updated", refreshAfterRead);
     const refresh = window.setInterval(() => {
-      if (document.visibilityState === "visible") void refreshNotifications();
+      if (authenticated && document.visibilityState === "visible") void refreshNotifications();
     }, 45_000);
     return () => {
       active = false;
       controller?.abort();
+      unsubscribeFromAuth?.();
       window.removeEventListener("lorewise:notifications-updated", refreshAfterRead);
       window.clearInterval(refresh);
     };

@@ -78,4 +78,9 @@ test("le notifiche possono essere lette e rimosse in modo persistente", () => {
   assert.doesNotMatch(adminApi, /COALESCE\([^\n]*CURRENT_TIMESTAMP/);
   assert.ok(header.includes('href="/notifiche"'));
   assert.ok(header.includes("lorewise:notifications-updated"));
+  assert.ok(header.includes("client.auth.getSession()"));
+  assert.ok(header.includes("client.auth.onAuthStateChange"));
+  assert.ok(header.includes("if (!authenticated) return;"));
+  assert.ok(header.includes("if (response.status === 401) authenticated = false;"));
+  assert.ok(header.includes('if (authenticated && document.visibilityState === "visible")'));
 });
