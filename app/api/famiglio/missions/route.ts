@@ -1,6 +1,6 @@
 import { env } from "@/lib/netlifyRuntime";
 import { dailyFamiliarMissionsForCount, romeDateKey } from "@/lib/nexusFamiliarMissionCatalog";
-import { claimFamiliarMission, familiarMissionPayload } from "@/lib/nexusFamiliarMissionServer";
+import { claimFamiliarMission, familiarMissionPayload, refreshDailyFamiliarMissions } from "@/lib/nexusFamiliarMissionServer";
 import { sanitizeFamiliarCloudState } from "@/lib/nexusFamiliarCloud";
 import { applyFamiliarTimePassage, grantFamiliarProgress, type FamiliarItemKey } from "@/lib/nexusFamiliar";
 import { familiarDailyMissionCount } from "@/lib/nexusFamiliarProgression";
@@ -81,6 +81,7 @@ export async function GET() {
           claimed: false,
         })),
         localPreview: true,
+        refreshUsed: false,
       });
     }
     const database = (env as unknown as RuntimeEnv).DB;
@@ -105,7 +106,13 @@ export async function POST(request: Request) {
     const database = (env as unknown as RuntimeEnv).DB;
     if (!database) return json({ error: "Missioni non disponibili." }, 503);
     await syncLoreWiseCustomer(user);
-    const body = await request.json().catch(() => null) as { missionId?: unknown } | null;
+    const body = await request.json().catch(() => null) as { action?: unknown; missionId?: unknown } | null;
+    if (body?.action === "refresh") {
+      const missionCount = familiarDailyMissionCount(await databaseLevel(database, user.id));
+      const refreshed = await refreshDailyFamiliarMissions(database, user.id, romeDateKey(), missionCount);
+      if (!refreshed.ok) return json({ error: refreshed.error }, refreshed.status);
+      return json(await familiarMissionPayload(database, user.id, romeDateKey(), missionCount));
+    }
     const missionId = typeof body?.missionId === "string" ? body.missionId.slice(0, 80) : "";
     if (!missionId) return json({ error: "Missione non valida." }, 400);
     const result = await claimFamiliarMission(database, user.id, missionId);

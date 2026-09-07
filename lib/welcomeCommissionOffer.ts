@@ -62,28 +62,35 @@ export function calculateBestCommissionDiscount({
   percentageCode,
   percentageLabel,
   welcomeOfferEligible,
+  fixedOffer = null,
 }: {
   baseCents: number;
   percentage: number;
   percentageCode: string | null;
   percentageLabel: string;
   welcomeOfferEligible: boolean;
+  fixedOffer?: { code: string; label: string; discountCents: number } | null;
 }): CommissionDiscountSelection {
   if (!Number.isInteger(baseCents) || baseCents < 0) throw new Error("Importo commissione non valido.");
   if (!Number.isFinite(percentage) || percentage < 0 || percentage > 100) throw new Error("Percentuale commissione non valida.");
   const percentageCents = Math.min(baseCents, Math.round(baseCents * percentage / 100));
   const welcomeCents = welcomeOfferEligible ? Math.min(baseCents, WELCOME_COMMISSION_OFFER.discountCents) : 0;
-  const useWelcomeOffer = welcomeCents > 0 && welcomeCents >= percentageCents;
-  const discountCents = useWelcomeOffer ? welcomeCents : percentageCents;
+  const eligibleFixedOffers = [
+    ...(welcomeCents > 0 ? [{ code: WELCOME_COMMISSION_OFFER.code, label: "Bonus LoreWise ID", discountCents: welcomeCents }] : []),
+    ...(fixedOffer && fixedOffer.discountCents > 0 ? [{ ...fixedOffer, discountCents: Math.min(baseCents, fixedOffer.discountCents) }] : []),
+  ].sort((left, right) => right.discountCents - left.discountCents);
+  const bestFixedOffer = eligibleFixedOffers[0] ?? null;
+  const useFixedOffer = Boolean(bestFixedOffer && bestFixedOffer.discountCents >= percentageCents);
+  const discountCents = useFixedOffer ? bestFixedOffer!.discountCents : percentageCents;
   return {
     baseCents,
-    discountPercent: useWelcomeOffer ? 0 : percentage,
+    discountPercent: useFixedOffer ? 0 : percentage,
     discountCents,
     finalCents: baseCents - discountCents,
-    code: useWelcomeOffer ? WELCOME_COMMISSION_OFFER.code : percentageCents > 0 ? percentageCode : null,
-    label: useWelcomeOffer ? "Bonus LoreWise ID" : percentageCents > 0 ? percentageLabel : "Nessuno sconto",
-    kind: useWelcomeOffer ? "fixed" : percentageCents > 0 ? "percentage" : "none",
-    value: useWelcomeOffer ? welcomeCents : percentageCents > 0 ? percentage : 0,
+    code: useFixedOffer ? bestFixedOffer!.code : percentageCents > 0 ? percentageCode : null,
+    label: useFixedOffer ? bestFixedOffer!.label : percentageCents > 0 ? percentageLabel : "Nessuno sconto",
+    kind: useFixedOffer ? "fixed" : percentageCents > 0 ? "percentage" : "none",
+    value: useFixedOffer ? bestFixedOffer!.discountCents : percentageCents > 0 ? percentage : 0,
   };
 }
 

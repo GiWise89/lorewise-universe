@@ -43,18 +43,19 @@ export function ArtworkCardSocial({ artworkCode, artworkTitle, artworkSlug }: Ar
 
   useEffect(() => {
     const controller = new AbortController();
+    let active = true;
     void fetch(endpoint, { headers: { accept: "application/json" }, cache: "no-store", credentials: "same-origin", signal: controller.signal })
       .then(async (response) => {
         const body = await response.json() as CommunityState & { error?: string };
         if (!response.ok) throw new Error(body.error || "Community non disponibile.");
         return body;
       })
-      .then((body) => { setCommunity(body); setMessage(""); })
+      .then((body) => { if (active) { setCommunity(body); setMessage(""); } })
       .catch((error: unknown) => {
-        if (!(error instanceof DOMException && error.name === "AbortError")) { setLoadFailed(true); setMessage("La Community non è disponibile in questo momento."); }
+        if (active && !(error instanceof DOMException && error.name === "AbortError")) { setLoadFailed(true); setMessage("La Community non è disponibile in questo momento."); }
       })
-      .finally(() => setLoading(false));
-    return () => controller.abort();
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; controller.abort(); };
   }, [endpoint]);
 
   useEffect(() => {
@@ -113,13 +114,13 @@ export function ArtworkCardSocial({ artworkCode, artworkTitle, artworkSlug }: Ar
   }
 
   function likeArtwork() {
-    if (!community?.authenticated) {
-      setOpen(true);
+    if (!community) {
+      setMessage("La Community non è disponibile in questo momento.");
       return;
     }
+    if (!community.authenticated) return;
     if (!community.canParticipate) {
       setMessage("Completa il profilo LoreWise prima di partecipare.");
-      setOpen(true);
       return;
     }
     void perform({ action: "toggle_like" });
@@ -127,12 +128,15 @@ export function ArtworkCardSocial({ artworkCode, artworkTitle, artworkSlug }: Ar
 
   return <>
     <div className="artwork-card-social" aria-label={`Interazioni per ${artworkTitle}`}>
-      <button type="button" className={community?.viewerLiked ? "is-liked" : undefined} aria-pressed={community?.viewerLiked ?? false} disabled={busy} onClick={likeArtwork}>
-        <span aria-hidden="true">{community?.viewerLiked ? "♥" : "♡"}</span> Mi piace <strong>{community?.likeCount ?? 0}</strong>
-      </button>
+      {community && !community.authenticated ? <Link href={`/account?next=${encodeURIComponent(`/arte/${artworkSlug}`)}`}>
+        <span aria-hidden="true">♡</span> Accedi per mettere Mi piace
+      </Link> : <button type="button" className={community?.viewerLiked ? "is-liked" : undefined} aria-pressed={community?.viewerLiked ?? false} disabled={busy || loading || loadFailed} onClick={likeArtwork}>
+        <span aria-hidden="true">{community?.viewerLiked ? "♥" : "♡"}</span> {loading ? "Caricamento" : "Mi piace"} <strong>{community ? community.likeCount : "—"}</strong>
+      </button>}
       <button type="button" aria-expanded={open} onClick={() => setOpen(true)}>
         <span aria-hidden="true">💬</span> Commenti <strong>{commentCount}</strong>
       </button>
+      {loadFailed ? <p className="artwork-card-social-message" role="status">Community temporaneamente non disponibile.</p> : message && !open ? <p className="artwork-card-social-message" role="status">{message}</p> : null}
     </div>
 
     {open && typeof document !== "undefined" ? createPortal(<div className="artwork-card-comments-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setOpen(false); }}>

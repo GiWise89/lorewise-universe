@@ -870,7 +870,7 @@
 
 @media (max-width: 640px) {
   .mobileDrawerGuide { right: 3.65rem; left: auto; background: #0b0815f5; }
-  .mobileDenOverview > .mobileUtilityActions { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .18rem; }
+  .mobileDenOverview > .mobileUtilityActions { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .18rem; }
   .mobileUtilityActions button, .mobileUtilityActions a { min-width: 0; min-height: 48px; padding: .24rem .08rem; display: grid; grid-template-columns: 1fr; place-items: center; place-content: center; gap: .08rem; border-color: #f2c66a45; background: linear-gradient(145deg, #ffffff0b, #ffffff03); }
   .mobileUtilityActions button > img, .mobileUtilityActions a > img { width: 23px; height: 23px; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(0 3px 3px #0008); }
   .mobileUtilityActions button > strong, .mobileUtilityActions a > strong { max-width: 100%; overflow: hidden; color: #fff2db; font-size: .42rem; line-height: 1.05; text-align: center; text-overflow: ellipsis; white-space: nowrap; }

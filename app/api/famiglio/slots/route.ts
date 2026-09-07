@@ -2,11 +2,11 @@ import { env } from "@/lib/netlifyRuntime";
 import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { familiarStarterStateIsTrusted } from "@/lib/nexusFamiliarAuthority";
 import { sanitizeFamiliarCloudState } from "@/lib/nexusFamiliarCloud";
-import { familiarSlotEntitlement, familiarSlotSummary, MAX_FAMILIAR_SLOT_COUNT } from "@/lib/nexusFamiliarSlots";
+import { FAMILIAR_SLOT_OFFER_IDS, familiarSlotEntitlement, familiarSlotSummary, MAX_FAMILIAR_SLOT_COUNT } from "@/lib/nexusFamiliarSlots";
 import { isPremiumFamiliarAppearance, purchasedFamiliarOfferIds, purchasedPremiumFamiliarIds } from "@/lib/nexusFamiliarCommerce";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
-import { getActiveUniversePass, isPermanentCollectorEmail, universePassBenefitFromCode } from "@/lib/universePass";
+import { getActiveUniversePass } from "@/lib/universePass";
 
 export const dynamic = "force-dynamic";
 
@@ -67,10 +67,14 @@ async function databaseSlots(database: D1Database, customerId: string) {
   });
 }
 
-function rosterResponse(current: Awaited<ReturnType<typeof databaseCurrent>>, stored: Awaited<ReturnType<typeof databaseSlots>>, passActive: boolean, purchasedAppearanceIds: string[] = [], purchasedOfferIds: string[] = []) {
+function purchasedSlotCount(purchasedOfferIds: string[]) {
+  return FAMILIAR_SLOT_OFFER_IDS.filter((id) => purchasedOfferIds.includes(id)).length;
+}
+
+function rosterResponse(current: Awaited<ReturnType<typeof databaseCurrent>>, stored: Awaited<ReturnType<typeof databaseSlots>>, purchasedAppearanceIds: string[] = [], purchasedOfferIds: string[] = []) {
   const states = [current.state ? familiarSlotSummary(current.state, true) : null, ...stored.map((entry) => familiarSlotSummary(entry.state, false))].filter(Boolean);
   return {
-    ...familiarSlotEntitlement(passActive, states.length),
+    ...familiarSlotEntitlement(purchasedSlotCount(purchasedOfferIds), states.length),
     slots: states,
     revision: current.revision,
     purchasedAppearanceIds,
@@ -78,16 +82,12 @@ function rosterResponse(current: Awaited<ReturnType<typeof databaseCurrent>>, st
   };
 }
 
-async function localPassActive(user: NonNullable<Awaited<ReturnType<typeof getLoreWiseUser>>>) {
-  return isPermanentCollectorEmail(user.email) && universePassBenefitFromCode("LW-PASS-COLLECTOR").active;
-}
-
 export async function GET() {
   try {
     const user = await getLoreWiseUser();
-    if (!user) return json({ authenticated: false, ...familiarSlotEntitlement(false, 0), slots: [] }, 401);
+    if (!user) return json({ authenticated: false, ...familiarSlotEntitlement(0, 0), slots: [] }, 401);
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
-      return json({ authenticated: true, ...rosterResponse(metadataCurrent(user), metadataSlots(user), await localPassActive(user), []), localPreview: true });
+      return json({ authenticated: true, ...rosterResponse(metadataCurrent(user), metadataSlots(user)), localPreview: true });
     }
     const database = (env as unknown as RuntimeEnv).DB;
     if (!database) return json({ error: "Archivio degli slot Famiglio temporaneamente non disponibile." }, 503);
@@ -99,7 +99,7 @@ export async function GET() {
       purchasedPremiumFamiliarIds(database, user.id),
       purchasedFamiliarOfferIds(database, user.id),
     ]);
-    return json({ authenticated: true, ...rosterResponse(current, stored, pass.active, purchasedAppearanceIds, purchasedOfferIds), passName: pass.name, passEndsAt: pass.currentPeriodEnd });
+    return json({ authenticated: true, ...rosterResponse(current, stored, purchasedAppearanceIds, purchasedOfferIds), passName: pass.name, passEndsAt: pass.currentPeriodEnd });
   } catch {
     return json({ error: "Non è stato possibile controllare gli slot Famiglio." }, 503);
   }
@@ -112,20 +112,24 @@ export async function POST(request: Request) {
     const user = await getLoreWiseUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per gestire più Famigli." }, 401);
     const body = await request.json() as { action?: unknown; familiarId?: unknown; state?: unknown };
-    const action = body.action === "start" || body.action === "switch" ? body.action : null;
+    const action = body.action === "start" || body.action === "switch" || body.action === "reset" ? body.action : null;
     if (!action) return json({ error: "Operazione slot non riconosciuta." }, 400);
 
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
       const current = metadataCurrent(user);
       const stored = metadataSlots(user);
       if (!current.state) return json({ error: "Accogli prima il tuo Famiglio principale." }, 409);
-      const passActive = await localPassActive(user);
       let nextCurrent = current.state;
       let nextStored = stored;
-      if (action === "start") {
+      if (action === "reset") {
         const candidate = checkedState(body.state);
-        const entitlement = familiarSlotEntitlement(passActive, 1 + stored.length);
-        if (!entitlement.canStartPremiumSlot) return json({ error: passActive ? "Hai già occupato tutti e tre gli slot." : "Riattiva il Universe Pass per avviare un nuovo slot premium." }, 403);
+        if (!candidate || !familiarStarterStateIsTrusted(candidate)) return json({ error: "Il riavvio deve usare un Famiglio nuovo e senza progressi." }, 400);
+        if (isPremiumFamiliarAppearance(candidate.appearanceId)) return json({ error: "Gli acquisti Famiglio richiedono l’archivio commerciale attivo." }, 403);
+        nextCurrent = candidate;
+      } else if (action === "start") {
+        const candidate = checkedState(body.state);
+        const entitlement = familiarSlotEntitlement(0, 1 + stored.length);
+        if (!entitlement.canStartPremiumSlot) return json({ error: "Acquista da Medusa una nuova Casa del Famiglio prima di usarla." }, 403);
         if (!candidate || !familiarStarterStateIsTrusted(candidate)) return json({ error: "Il nuovo Famiglio deve partire da un'adozione pulita." }, 400);
         if (isPremiumFamiliarAppearance(candidate.appearanceId)) return json({ error: "Gli acquisti Famiglio richiedono l’archivio commerciale attivo." }, 403);
         nextCurrent = candidate;
@@ -148,7 +152,7 @@ export async function POST(request: Request) {
         nexus_familiar_slots: nextStored,
       } });
       if (error) return json({ error: "Non è stato possibile aggiornare gli slot Famiglio." }, 503);
-      return json({ ...rosterResponse({ state: nextCurrent, revision }, nextStored, passActive), familiar: nextCurrent, revision, localPreview: true });
+      return json({ ...rosterResponse({ state: nextCurrent, revision }, nextStored), familiar: nextCurrent, revision, localPreview: true });
     }
 
     const database = (env as unknown as RuntimeEnv).DB;
@@ -166,9 +170,18 @@ export async function POST(request: Request) {
     let nextCurrent = current.state;
     let displacedRevision = current.revision;
     let selectedId = "";
-    if (action === "start") {
-      const entitlement = familiarSlotEntitlement(pass.active, 1 + stored.length);
-      if (!entitlement.canStartPremiumSlot) return json({ error: pass.active ? "Hai già occupato tutti e tre gli slot." : "Riattiva il Universe Pass per avviare un nuovo slot premium." }, 403);
+    if (action === "reset") {
+      const candidate = checkedState(body.state);
+      if (!candidate || !familiarStarterStateIsTrusted(candidate)) return json({ error: "Il riavvio deve usare un Famiglio nuovo e senza progressi." }, 400);
+      if (isPremiumFamiliarAppearance(candidate.appearanceId) && !purchasedAppearanceIds.includes(candidate.appearanceId)) return json({ error: "Questo Famiglio non è presente nel tuo LoreWise ID." }, 403);
+      const revision = current.revision + 1;
+      const updated = await database.prepare(`UPDATE nexus_familiars SET state_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP
+        WHERE customer_id = ? AND revision = ?`).bind(JSON.stringify(candidate), revision, user.id, current.revision).run();
+      if (!updated.meta.changes) return json({ error: "Il Famiglio è stato aggiornato altrove. Riprova." }, 409);
+      return json({ ...rosterResponse({ state: candidate, revision }, stored, purchasedAppearanceIds, purchasedOfferIds), familiar: candidate, revision, passName: pass.name, passEndsAt: pass.currentPeriodEnd });
+    } else if (action === "start") {
+      const entitlement = familiarSlotEntitlement(purchasedSlotCount(purchasedOfferIds), 1 + stored.length);
+      if (!entitlement.canStartPremiumSlot) return json({ error: "Acquista da Medusa la Casa successiva oppure libera uno slot." }, 403);
       const candidate = checkedState(body.state);
       if (!candidate || !familiarStarterStateIsTrusted(candidate)) return json({ error: "Il nuovo Famiglio deve partire da un'adozione pulita." }, 400);
       if (isPremiumFamiliarAppearance(candidate.appearanceId) && !purchasedAppearanceIds.includes(candidate.appearanceId)) {
@@ -198,7 +211,7 @@ export async function POST(request: Request) {
     const results = await database.batch(statements);
     if (!results.every((result) => result.success)) return json({ error: "Cambio Famiglio non completato; nessun progresso è stato eliminato." }, 409);
     const refreshed = await databaseSlots(database, user.id);
-    return json({ ...rosterResponse({ state: nextCurrent, revision }, refreshed, pass.active, purchasedAppearanceIds, purchasedOfferIds), familiar: nextCurrent, revision, passName: pass.name, passEndsAt: pass.currentPeriodEnd });
+    return json({ ...rosterResponse({ state: nextCurrent, revision }, refreshed, purchasedAppearanceIds, purchasedOfferIds), familiar: nextCurrent, revision, passName: pass.name, passEndsAt: pass.currentPeriodEnd });
   } catch {
     return json({ error: "Non è stato possibile aggiornare gli slot Famiglio." }, 503);
   }

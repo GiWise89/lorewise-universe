@@ -18,11 +18,11 @@ test("growth preserves the same pet and only scales progressively", () => {
   assert.ok(familiarGrowthScale(20) > familiarGrowthScale(10));
 });
 
-test("the seven site milestones unlock at their exact levels", () => {
-  assert.deepEqual(FAMILIAR_MILESTONES.map((entry) => entry.level), [5, 10, 20, 23, 35, 40, 50]);
+test("the eight site milestones unlock at their exact levels", () => {
+  assert.deepEqual(FAMILIAR_MILESTONES.map((entry) => entry.level), [5, 10, 20, 23, 30, 35, 40, 50]);
   assert.equal(familiarUnlockedMilestones(4).length, 0);
   assert.equal(familiarUnlockedMilestones(23).length, 4);
-  assert.equal(familiarUnlockedMilestones(50).length, 7);
+  assert.equal(familiarUnlockedMilestones(50).length, 8);
   assert.equal(familiarDailyMissionCount(9), 3);
   assert.equal(familiarDailyMissionCount(10), 4);
 });

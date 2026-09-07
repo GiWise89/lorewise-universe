@@ -2,14 +2,27 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
-import { dailyFamiliarMissions, dailyFamiliarMissionsForCount, familiarVisitActivity, meaningfulMissionComment, romeDateKey } from "../lib/nexusFamiliarMissionCatalog.ts";
+import { dailyFamiliarMissions, dailyFamiliarMissionsForCount, familiarVisitActivity, meaningfulMissionComment, previousRomeDateKey, romeDateKey } from "../lib/nexusFamiliarMissionCatalog.ts";
 
-test("assigns one logical mission per group and keeps it stable for the day", () => {
+test("assigns one mission per difficulty and keeps it stable for the day", () => {
   const first = dailyFamiliarMissions("user-a", "2026-08-27");
   const second = dailyFamiliarMissions("user-a", "2026-08-27");
   assert.deepEqual(first, second);
-  assert.deepEqual(first.map((mission) => mission.group), ["explore", "connect", "care"]);
+  assert.deepEqual(first.map((mission) => mission.difficulty), ["facile", "normale", "difficile"]);
   assert.equal(new Set(first.map((mission) => mission.id)).size, 3);
+});
+
+test("includes battle, expedition and Tower missions with scaled rewards", () => {
+  const seen = new Map();
+  for (let day = 1; day <= 31; day += 1) {
+    for (const mission of dailyFamiliarMissionsForCount("mission-roster", `2026-09-${String(day).padStart(2, "0")}`, [], 20)) seen.set(mission.id, mission);
+  }
+  assert.ok([...seen.values()].some((mission) => mission.activity === "familiar_battle"));
+  assert.ok([...seen.values()].some((mission) => mission.activity === "familiar_expedition"));
+  assert.ok([...seen.values()].some((mission) => mission.activity === "familiar_tower_floor" && mission.target === 5));
+  const easy = [...seen.values()].find((mission) => mission.difficulty === "facile");
+  const hard = [...seen.values()].find((mission) => mission.difficulty === "difficile");
+  assert.ok(hard.reward.quantity >= easy.reward.quantity);
 });
 
 test("level 10 can add a fourth distinct daily mission", () => {
@@ -48,6 +61,14 @@ test("maps only meaningful destination pages to visit activities", () => {
 
 test("uses the Europe Rome calendar day", () => {
   assert.equal(romeDateKey(new Date("2026-08-27T22:30:00.000Z")), "2026-08-28");
+  assert.equal(previousRomeDateKey("2026-03-01"), "2026-02-28");
+});
+
+test("the activity endpoint accepts every new home care action", () => {
+  const route = readFileSync(join(process.cwd(), "app", "api", "famiglio", "activity", "route.ts"), "utf8");
+  for (const action of ["feed", "play", "clean", "care", "rest"]) {
+    assert.match(route, new RegExp(`careSources[\\s\\S]*\\"${action}\\"`));
+  }
 });
 
 test("records progress for every mission slot unlocked by the current Famiglio level", () => {
@@ -68,4 +89,17 @@ test("completed missions produce one persistent accessible announcement and refr
   assert.match(component, /void loadMissionsRef\.current\(\)/);
   assert.match(component, /Apri missioni/);
   assert.match(styles, /\.missionAnnouncement\s*\{/);
+});
+
+test("daily missions expose exactly one refresh reservation per Rome day", () => {
+  const server = readFileSync(join(process.cwd(), "lib", "nexusFamiliarMissionServer.ts"), "utf8");
+  const route = readFileSync(join(process.cwd(), "app", "api", "famiglio", "missions", "route.ts"), "utf8");
+  const component = readFileSync(join(process.cwd(), "components", "FamiglioNexusRebuild.tsx"), "utf8");
+  assert.match(server, /nexus_familiar_mission_refreshes/);
+  assert.match(server, /PRIMARY KEY \(customer_id, mission_date\)/);
+  assert.match(server, /ON CONFLICT\(customer_id, mission_date\) DO NOTHING/);
+  assert.match(route, /action === "refresh"/);
+  assert.match(component, /Aggiorna missioni/);
+  assert.match(component, /Aggiornate oggi/);
+  assert.match(component, /MISSION_REFRESH_KEY_PREFIX/);
 });

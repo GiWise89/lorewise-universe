@@ -53,6 +53,8 @@ export default async function Home({ searchParams }: { searchParams?: Promise<Re
           <div className="universe-logo">
             <Image src="/brand/lorewise-universe-logo-concept-c.webp" alt="LoreWise Universe, by GiWise Studio" width={1536} height={1024} priority unoptimized />
             <h1>Scegli il tuo ingresso</h1>
+            <p className="universe-value">Arte originale, storie e giochi nati nello stesso universo creativo.</p>
+            <div className="universe-primary-actions"><Link href="/enciclopedia">Inizia dal Codex</Link><Link href="/arte">Scopri le opere</Link></div>
           </div>
           <nav className="home-portal-gallery" aria-label="Sei aree principali di LoreWise Universe">
             {portals.map((portal, index) => (

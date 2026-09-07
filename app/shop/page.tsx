@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { shopCatalogVerifiedOn, shopCollections, shopProducts, shopSupportLinks } from "@/lib/shop-catalog";
+import { shopCollections, shopProducts, shopSupportLinks } from "@/lib/shop-catalog";
 import { UniverseGuide } from "@/components/UniverseGuide";
 
 export const metadata: Metadata = {
@@ -22,9 +22,9 @@ export default function ShopPage() {
             <p>Una selezione reale di abbigliamento, oggetti per il setup, stampe e prodotti personalizzabili. LoreWise presenta le collezioni; GiWiseShop.it gestisce produzione, pagamento e consegna.</p>
             <div className="giwise-shop-hero-actions">
               <a href="https://giwiseshop.it/collections/nuovi-arrivi" {...externalLinkProps}>Scopri i nuovi arrivi <span aria-hidden="true">→</span></a>
-              <Link href="/shop/catalogo">Esplora il catalogo verificato</Link>
+              <Link href="/shop/catalogo">Esplora il catalogo</Link>
             </div>
-            <p className="giwise-shop-verification">Catalogo e prezzi verificati sul negozio il {shopCatalogVerifiedOn}.</p>
+            <p className="giwise-shop-verification">103 creazioni collegate allo shop ufficiale, con prezzo e disponibilità mostrati nella pagina del prodotto.</p>
           </div>
           <div className="giwise-shop-hero-visual" aria-label="Anteprima delle collezioni GiWise Shop">
             <Image className="giwise-shop-hero-emblem" src="/brand/icons/shop-concept-v1.webp" alt="Emblema GiWise Shop" width={1224} height={1285} priority unoptimized />
@@ -64,7 +64,7 @@ export default function ShopPage() {
               </article>
             ))}
           </div>
-          <Link className="giwise-shop-all-products" href="/shop/catalogo">Consulta i 103 prodotti verificati in LoreWise <span aria-hidden="true">→</span></Link>
+          <Link className="giwise-shop-all-products" href="/shop/catalogo">Consulta i 103 prodotti in LoreWise <span aria-hidden="true">→</span></Link>
         </div>
       </section>
 

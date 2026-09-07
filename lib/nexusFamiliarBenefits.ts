@@ -4,7 +4,7 @@ import { sanitizeFamiliarCloudState } from "./nexusFamiliarCloud.ts";
 export type FamiliarCommercialScope = "commissioni" | "giwise-shop";
 
 export type FamiliarLevelBenefit = {
-  level: 5 | 10 | 20 | 23 | 35 | 40 | 50;
+  level: 5 | 10 | 20 | 23 | 30 | 35 | 40 | 50;
   title: string;
   benefit: string;
   discountPercent: 0 | 1 | 1.5 | 2 | 2.5 | 3;
@@ -15,10 +15,11 @@ export const FAMILIAR_LEVEL_BENEFITS: FamiliarLevelBenefit[] = [
   { level: 5, title: "Compagno riconosciuto", benefit: "Sigillo del Famiglio nel LoreWise ID.", discountPercent: 0, scopes: [] },
   { level: 10, title: "Custode quotidiano", benefit: "1% su commissioni e GiWise Shop, più una missione giornaliera.", discountPercent: 1, scopes: ["commissioni", "giwise-shop"] },
   { level: 20, title: "Legame esperto", benefit: "Titolo Community e sconto Famiglio dell'1,5%.", discountPercent: 1.5, scopes: ["commissioni", "giwise-shop"] },
-  { level: 23, title: "Passo oltre la soglia", benefit: "Ricompense Fuori casa migliorate e sconto Famiglio dell'1,5%.", discountPercent: 1.5, scopes: ["commissioni", "giwise-shop"] },
-  { level: 35, title: "Custode dell'Archivio", benefit: "Archivio dei ricordi e sconto Famiglio del 2%.", discountPercent: 2, scopes: ["commissioni", "giwise-shop"] },
+  { level: 23, title: "Passo oltre la soglia", benefit: "Ricompense Fuori casa migliorate.", discountPercent: 0, scopes: [] },
+  { level: 30, title: "Legame profondo", benefit: "Sconto Famiglio del 2% su commissioni e GiWise Shop.", discountPercent: 2, scopes: ["commissioni", "giwise-shop"] },
+  { level: 35, title: "Custode dell'Archivio", benefit: "Archivio dei ricordi e pagine rare del diario.", discountPercent: 0, scopes: [] },
   { level: 40, title: "Legame raro", benefit: "Emblema raro e sconto Famiglio del 2,5%.", discountPercent: 2.5, scopes: ["commissioni", "giwise-shop"] },
-  { level: 50, title: "Custode leggendario", benefit: "Titolo massimo e sconto Famiglio del 3%.", discountPercent: 3, scopes: ["commissioni", "giwise-shop"] },
+  { level: 50, title: "Custode leggendario", benefit: "Sconto Famiglio del 3% e buono da 15 € su una commissione, utilizzabile una sola volta.", discountPercent: 3, scopes: ["commissioni", "giwise-shop"] },
 ];
 
 export const FAMILIAR_DISCOUNT_EXCLUSIONS = ["abbonamenti", "spedizione", "promozione-migliore"] as const;

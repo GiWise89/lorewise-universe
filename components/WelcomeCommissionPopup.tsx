@@ -11,8 +11,28 @@ export function WelcomeCommissionPopup({ preview = false }: { preview?: boolean 
   useEffect(() => {
     if (!preview && !isWelcomeCommissionOfferActive()) return;
     if (!preview && window.localStorage.getItem(WELCOME_COMMISSION_OFFER.dismissalKey) === "true") return;
-    const frame = window.requestAnimationFrame(() => setVisible(true));
-    return () => window.cancelAnimationFrame(frame);
+    if (preview) {
+      const frame = window.requestAnimationFrame(() => setVisible(true));
+      return () => window.cancelAnimationFrame(frame);
+    }
+    const impressionKey = `${WELCOME_COMMISSION_OFFER.dismissalKey}-shown`;
+    if (window.sessionStorage.getItem(impressionKey) === "true") return;
+    const reveal = () => {
+      window.sessionStorage.setItem(impressionKey, "true");
+      setVisible(true);
+      window.removeEventListener("scroll", handleScroll);
+      window.clearTimeout(timer);
+    };
+    const handleScroll = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollable > 0 && window.scrollY / scrollable >= .3) reveal();
+    };
+    const timer = window.setTimeout(reveal, 18_000);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.clearTimeout(timer);
+    };
   }, [preview]);
 
   function closePopup() {

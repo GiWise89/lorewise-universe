@@ -29,6 +29,25 @@ test("l'archivio usa la stessa community con barra compatta e profilo obbligator
   assert.ok(profileApi.includes("profileCompletion"));
 });
 
+test("il Mi piace resta separato dai commenti e la community base non dipende dalle tabelle opzionali", () => {
+  const api = read("app/api/art-community/route.ts");
+  const compact = read("components/ArtworkCardSocial.tsx");
+  const likeStart = compact.indexOf("function likeArtwork");
+  const likeHandler = compact.slice(likeStart, compact.indexOf("return <>", likeStart));
+  assert.doesNotMatch(likeHandler, /setOpen\(true\)/);
+  assert.ok(compact.includes("Accedi per mettere Mi piace"));
+  assert.ok(compact.includes("Community temporaneamente non disponibile."));
+  assert.ok(compact.includes("disabled={busy || loading || loadFailed}"));
+  assert.ok(compact.includes("let active = true"));
+  assert.ok(compact.includes("if (active) setLoading(false)"));
+  assert.ok(compact.includes('loading ? "Caricamento" : "Mi piace"'));
+  assert.doesNotMatch(api, /ensureCommerceTables/);
+  assert.ok(api.includes("optionalBadgeSelects"));
+  assert.ok(api.includes('names.has("subscriptions")'));
+  assert.ok(api.includes('names.has("nexus_familiars")'));
+  assert.ok(api.includes('export const dynamic = "force-dynamic"'));
+});
+
 test("profili pubblici e avatar hanno privacy e validazione", () => {
   const profile = read("app/api/account/profile/route.ts");
   const avatar = read("app/api/account/avatar/route.ts");

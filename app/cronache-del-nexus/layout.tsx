@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./news.css";
 
 export const metadata: Metadata = { alternates: { canonical: "/cronache-del-nexus" } };
 

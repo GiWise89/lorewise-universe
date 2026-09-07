@@ -34,6 +34,7 @@ const requiredTables = [
   "marketing_consent_events", "marketing_campaigns", "marketing_deliveries",
   "commission_offer_entitlements",
   "nexus_familiars",
+  "nexus_pet_rebuild_saves",
   "nexus_familiar_daily_missions", "nexus_familiar_activity_events",
 ];
 const tables = new Set(database.prepare("SELECT name FROM sqlite_master WHERE type = 'table'").all().map((row) => row.name));
@@ -66,7 +67,7 @@ for (const index of ["subscriptions_order_id_unique", "orders_stripe_refund_id_u
   "customers_username_unique", "artwork_comment_likes_comment_idx", "user_notifications_inbox_idx", "user_notifications_group_unique", "admin_notifications_unread_idx",
   "marketing_consent_customer_idx", "marketing_campaigns_status_idx", "marketing_delivery_recipient_unique", "marketing_deliveries_status_idx",
   "commission_offer_entitlements_customer_offer_unique", "commission_offer_entitlements_customer_idx", "commission_offer_entitlements_expiry_idx",
-  "nexus_familiars_updated_idx", "nexus_familiar_daily_missions_status_idx", "nexus_familiar_activity_events_customer_idx"]) {
+  "nexus_familiars_updated_idx", "nexus_pet_rebuild_saves_updated_idx", "nexus_familiar_daily_missions_status_idx", "nexus_familiar_activity_events_customer_idx"]) {
   assert.ok(indexes.has(index), `Indice finale mancante: ${index}`);
 }
 

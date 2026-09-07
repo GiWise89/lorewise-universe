@@ -21,7 +21,7 @@ export const FAMILIAR_ID_ADVANTAGES = [
 export const FAMILIAR_GUIDED_TUTORIAL_STEPS = [
   { title: "Vive nella sua tana", copy: "Qui il tuo Famiglio vive, esplora e riposa. Osserva i suoi bisogni e scopri come cambia il suo umore durante la giornata.", target: "habitat", view: "den" },
   { title: "Prenditene cura", copy: "Offrigli del cibo, lavalo, gioca con lui, curalo e lascialo riposare. Ogni gesto rafforza il vostro legame.", target: "care", view: "den", panel: "actions" },
-  { title: "Il legame continua", copy: "Accompagnalo nelle uscite, completa le Missioni e raccogli i ricordi del vostro Legame. Con il Universe Pass puoi accogliere altri due Famigli.", target: "utilities", view: "den" },
+  { title: "Il legame continua", copy: "Accompagnalo nelle uscite, completa le Missioni e raccogli i ricordi del vostro Legame. Puoi aggiungere fino a due Case separate per crescere tre Famigli senza perdere i loro progressi.", target: "utilities", view: "den" },
 ] as const;
 
 export const FAMILIAR_CONTEXTUAL_TIPS = {
@@ -56,7 +56,7 @@ export const FAMILIAR_CONTEXTUAL_TUTORIALS = {
   ],
   missions: [
     { title: "Missioni, Presenze e Desiderio", copy: "Queste tre schede raccolgono gli obiettivi del giorno, il ritorno settimanale e la preferenza quotidiana del Famiglio.", target: "missions-tabs", view: "progress", panel: "missions" },
-    { title: "Completa azioni reali", copy: "Ogni Missione indica obiettivo, progresso e ricompensa. Quando la completi ricevi un annuncio e puoi riscuotere il premio dalla sua scheda.", target: "mission-list", view: "progress", panel: "missions" },
+    { title: "Completa azioni reali", copy: "Ogni giorno ricevi una Missione facile, una normale e una difficile tra LoreWise, cura, lotte e spedizioni. Quando la completi puoi riscuotere il premio dalla sua scheda.", target: "mission-list", view: "progress", panel: "missions" },
     { title: "Cresci senza punizioni", copy: "Le Presenze non azzerano la sequenza se salti un giorno e il Desiderio si completa solo con l'azione richiesta. I traguardi mostrano i prossimi vantaggi.", target: "growth", view: "progress", panel: "missions" },
   ],
 } as const;

@@ -26,7 +26,6 @@ const schedule = [
 const source = await readFile(new URL("../lib/nexusChronicles.ts", import.meta.url), "utf8");
 const pageSource = await readFile(new URL("../app/cronache-del-nexus/page.tsx", import.meta.url), "utf8");
 const feedSource = await readFile(new URL("../components/NexusChroniclesFeed.tsx", import.meta.url), "utf8");
-const panelSource = await readFile(new URL("../lib/nexusChroniclePanels.ts", import.meta.url), "utf8");
 const globalStyles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
 test("publishes the prepared Nexus chronicles automatically at Italian midnight", () => {
@@ -145,61 +144,34 @@ test("evaluates the calendar on every visit and switches archived issues without
   assert.doesNotMatch(feedSource, /chronicles\.map\(\(chronicle, index\) => <ChronicleStory/);
 });
 
-test("organizes every Nexus novelty into one visible chapter at a time", () => {
-  assert.match(panelSource, /type ChroniclePanel = "overview" \| "signals" \| "studio" \| "promotion" \| "guides" \| "benefits"/);
-  assert.match(feedSource, /useState<ChroniclePanel>\(initialPanel\)/);
-  assert.match(pageSource, /chroniclePanelFromQuery\(params\.sezione\)/);
-  assert.match(pageSource, /initialPanel=\{initialPanel\}/);
-  for (const path of ["in-primo-piano", "aggiornamenti", "laboratorio", "promozione", "guide-demo", "area-vip"]) {
-    assert.match(panelSource, new RegExp(`query: "${path}"`));
-    assert.match(feedSource, new RegExp(`id="${path}"`));
+test("organizes the Nexus into five finite editorial sections", async () => {
+  const newsStyles = await readFile(new URL("../app/cronache-del-nexus/news.css", import.meta.url), "utf8");
+  for (const section of ["novita", "giochi", "arte", "promozioni", "in-arrivo"]) {
+    assert.match(pageSource, new RegExp(`id="${section}"`));
+    assert.match(pageSource, new RegExp(`id: "${section}"`));
+    assert.match(pageSource, new RegExp(`activeSection === "${section}"`));
   }
-  assert.match(feedSource, /window\.history\.replaceState/);
-  assert.match(globalStyles, /\.nexus-panel-anchor \{[^}]*position:absolute;[^}]*width:0;[^}]*height:0;/s);
-  assert.match(globalStyles, /\.nexus-promotion-heading \{[^}]*grid-column:2;[^}]*grid-row:1;/s);
-  assert.match(globalStyles, /\.nexus-promotion-visual \{[^}]*grid-column:1;[^}]*grid-row:1;/s);
-  assert.match(globalStyles, /@media \(max-width: 980px\) \{[\s\S]*\.nexus-promotion-heading \{ grid-column:1; grid-row:2; \}/);
-  for (const panel of ["overview", "signals", "studio", "promotion", "guides", "benefits"]) {
-    assert.match(feedSource, new RegExp(`hidden=\\{activePanel !== "${panel}"\\}`));
-  }
-  assert.match(feedSource, /studio-panel[\s\S]*<StudioWorkInProgress \/>/);
-  assert.match(feedSource, /nexus-guide-status-visual/);
+  assert.doesNotMatch(pageSource, /chroniclePanelFromQuery|NexusChroniclesFeed|vista=archivio/);
+  assert.match(pageSource, /sezione=\$\{item\.id\}/);
+  assert.match(newsStyles, /\.nexus-edition-index/);
+  assert.match(newsStyles, /a\[aria-current="page"\]/);
+  assert.match(newsStyles, /scroll-margin-top:90px/);
+});
+
+test("uses the release calendar only to select the latest visible news", () => {
+  assert.match(pageSource, /getNexusChronicles\(editorialDate\)/);
+  assert.match(pageSource, /const latest = chronicles\[0\]/);
+  assert.match(pageSource, /latest\?\.signals\?\.slice\(0, 2\)/);
+  assert.match(pageSource, /params\.anteprima === "tutte"/);
   assert.match(source, /caption: "INAZUMA ELEVEN: Victory Road · guida pubblica completa"/);
-  assert.match(globalStyles, /\.nexus-chronicle-story \[role="tabpanel"\]\[hidden\] \{ display:none !important; \}/);
-  assert.match(globalStyles, /\.nexus-chronicles-list \{[^}]*grid-template-columns:minmax\(0,1fr\);[^}]*min-width:0;[^}]*max-width:100%;/s);
-  assert.match(globalStyles, /\.nexus-section-switcher \{[^}]*min-width:0;[^}]*max-width:100%;[^}]*overflow:hidden;/s);
-  assert.match(globalStyles, /\.nexus-section-tabs \{[^}]*grid-template-columns:repeat\(6,minmax\(0,1fr\)\);/s);
 });
 
-test("catalogues every released novelty by category, date and direct address", () => {
-  assert.match(pageSource, /Indice delle Novità/);
-  assert.match(pageSource, /id="archivio-cronache"/);
-  assert.match(pageSource, /initialCategory=\{activeArea === "categorie" \? initialCategory : "all"\}/);
-  assert.match(pageSource, /initialChronicleId=\{params\.cronaca\}/);
-  assert.match(source, /nexusChronicleCategoryFromQuery/);
-  assert.match(feedSource, /nexusChronicleCategories\.map/);
-  assert.match(feedSource, /activeCategory/);
-  assert.match(feedSource, /visibleChronicles\.map/);
-  assert.match(feedSource, /url\.searchParams\.set\("cronaca", chronicleId\)/);
-  assert.match(feedSource, /url\.searchParams\.set\("categoria", category\)/);
-  assert.match(feedSource, /Notizie ordinate dalla più recente/);
-  assert.match(feedSource, /nexus-edition-controls/);
-  assert.match(globalStyles, /\.nexus-edition-catalog \{[^}]*max-height:390px;[^}]*overflow-y:auto;/s);
-  assert.match(globalStyles, /@media \(max-width:640px\) \{[\s\S]*\.nexus-edition-catalog \{[^}]*display:flex;[^}]*overflow-x:auto;[^}]*overflow-y:hidden;/s);
-  assert.match(globalStyles, /\.nexus-news-directory/);
-});
-
-test("keeps highlights, chronological archive and categories on separate views", () => {
-  assert.match(pageSource, /type NexusNewsArea = "evidenza" \| "archivio" \| "categorie"/);
-  assert.match(pageSource, /newsAreaFromQuery\(params\.vista\)/);
-  assert.match(pageSource, /vista=evidenza#novita-in-primo-piano/);
-  assert.match(pageSource, /vista=archivio#archivio-cronache/);
-  assert.match(pageSource, /vista=categorie#archivio-cronache/);
-  assert.match(pageSource, /activeArea === "evidenza" \? <NexusNewsSpotlight/);
-  assert.match(pageSource, /activeArea !== "evidenza" \? <section className="nexus-chronicles-archive/);
-  assert.match(feedSource, /showCategories = true/);
-  assert.match(feedSource, /\{showCategories \? <div className="nexus-chronicles-filters"/);
-  assert.match(globalStyles, /\.nexus-news-directory a\[aria-current="page"\]/);
+test("keeps games, art and promotions in distinct reader-facing sections", () => {
+  assert.match(pageSource, /gameProjects\.slice\(0, 3\)/);
+  assert.match(pageSource, /catalogArtworks\.slice\(-3\)\.reverse\(\)/);
+  assert.match(pageSource, /getActiveCommissionPromotion\(editorialDate\)/);
+  assert.match(pageSource, /WELCOME_COMMISSION_OFFER/);
+  assert.match(pageSource, /nexus-next-paths/);
 });
 
 test("never crops images in Nexus announcements, guide previews or Atlas galleries", () => {

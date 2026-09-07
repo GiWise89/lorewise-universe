@@ -1,0 +1,42 @@
+:root {
+  --lorewise-body-size: clamp(.98rem, .24vw + .91rem, 1.1rem);
+  --lorewise-reading-leading: 1.68;
+}
+
+:where(.universe-home,.art-page,.worlds-page,.vip-page,.giwise-shop-page,.commission-page,.codex-home) :where(p,li,dd) {
+  font-size: max(.95rem, var(--lorewise-body-size));
+  line-height: var(--lorewise-reading-leading);
+}
+
+:where(.universe-home,.art-page,.worlds-page,.vip-page,.giwise-shop-page,.commission-page,.codex-home) :where(.eyebrow,small) {
+  line-height: 1.45;
+}
+
+:where(.universe-home,.art-page,.worlds-page,.vip-page,.giwise-shop-page,.commission-page,.codex-home) h1 {
+  font-size: clamp(3rem, 6vw, 7.5rem);
+  text-wrap: balance;
+}
+
+.universe-value { max-width: 44ch; margin: 10px auto 0; color: rgba(255,255,255,.82); text-align: center; }
+.universe-primary-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:18px; }
+.universe-primary-actions a { display:inline-flex; min-height:44px; align-items:center; padding:11px 16px; color:#fff; border:1px solid rgba(255,255,255,.58); background:rgba(22,8,35,.66); font-size:.72rem; font-weight:900; letter-spacing:.04em; text-decoration:none; text-transform:uppercase; backdrop-filter:blur(8px); }
+.universe-primary-actions a:first-child { color:#35142f; border-color:#f4d58b; background:#f4d58b; }
+.universe-primary-actions a:hover,.universe-primary-actions a:focus-visible { outline:3px solid #fff; outline-offset:3px; transform:translateY(-1px); }
+
+.nexus-archive-loading { min-height:240px; display:grid; place-items:center; color:#66455e; }
+.codex-loading { padding:28px; color:var(--codex-muted); text-align:center; }
+
+@media (min-width:1800px) {
+  :where(.universe-home,.art-page,.worlds-page,.vip-page,.giwise-shop-page,.commission-page,.codex-home) :where(p,li,dd) { font-size:1.08rem; }
+  :where(.universe-home,.art-page,.worlds-page,.vip-page,.giwise-shop-page,.commission-page,.codex-home) .shell { max-width:1560px; }
+}
+
+@media (max-width:640px) {
+  .universe-value { padding-inline:18px; font-size:.95rem; line-height:1.55; }
+  .universe-primary-actions { padding-inline:18px; }
+  .universe-primary-actions a { flex:1 1 145px; justify-content:center; }
+  .welcome-commission-popup { max-height:44dvh; overflow:auto; grid-template-columns:1fr; padding:18px 48px 18px 18px; bottom:max(10px,env(safe-area-inset-bottom)); }
+  .welcome-commission-emblem { display:none; }
+  .welcome-commission-copy h2 { font-size:clamp(1.3rem,6.2vw,1.7rem); }
+  .welcome-commission-copy p { font-size:.78rem; line-height:1.5; }
+}

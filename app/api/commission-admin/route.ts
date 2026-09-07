@@ -7,6 +7,7 @@ import { commissionDiscountForSubmission, getCommissionPromotionForSubmission } 
 import { bestFamiliarDiscount, familiarLevelForCustomer } from "@/lib/nexusFamiliarBenefits";
 import { queueAndAttemptTransactionalEmail } from "@/lib/transactionalEmail";
 import { calculateBestCommissionDiscount, ensureWelcomeCommissionOfferSchema, getWelcomeCommissionOfferForRequest, markWelcomeCommissionOfferRedeemed } from "@/lib/welcomeCommissionOffer";
+import { FAMILIAR_LEVEL_50_COMMISSION_REWARD, getFamiliarCommissionRewardForRequest, markFamiliarCommissionRewardRedeemed, releaseFamiliarCommissionReward } from "@/lib/familiarCommissionReward";
 
 type RuntimeEnv = {
   DB?: D1Database;
@@ -237,6 +238,7 @@ export async function PATCH(request: Request) {
   const percentageCode = familiarWins ? `LW-FAMILIAR-L${familiarLevel}` : promotion?.id ?? currentPass.code;
   const percentageLabel = familiarWins ? `Vantaggio Famiglio · livello ${familiarLevel}` : promotion?.label ?? (currentPass.active ? `Universe Pass ${currentPass.name}` : "Visitatore");
   const welcomeOffer = await getWelcomeCommissionOfferForRequest(runtime.DB, existing.id);
+  const familiarCommissionReward = await getFamiliarCommissionRewardForRequest(runtime.DB, existing.id);
   const preserveSnapshot = quoteBaseCents !== null && quoteBaseCents === existing.quote_base_cents && Boolean(existing.benefit_snapshot_at);
   const pricing = quoteBaseCents === null ? null : preserveSnapshot ? {
     baseCents: quoteBaseCents,
@@ -253,6 +255,11 @@ export async function PATCH(request: Request) {
     percentageCode,
     percentageLabel,
     welcomeOfferEligible: Boolean(welcomeOffer),
+    fixedOffer: familiarCommissionReward ? {
+      code: familiarCommissionReward.reward_code,
+      label: FAMILIAR_LEVEL_50_COMMISSION_REWARD.label,
+      discountCents: familiarCommissionReward.discount_cents,
+    } : null,
   });
   const membershipPlanCode = preserveSnapshot ? existing.membership_plan_code : currentPass.code;
   const membershipDiscountPercent = preserveSnapshot ? existing.membership_discount_percent : currentDiscountPercent;
@@ -274,6 +281,11 @@ export async function PATCH(request: Request) {
 
   if (status === "quoted" && pricing?.kind === "fixed" && pricing.code === welcomeOffer?.offer_code) {
     await markWelcomeCommissionOfferRedeemed(runtime.DB, existing.id);
+  }
+  if (status === "quoted" && pricing?.kind === "fixed" && pricing.code === familiarCommissionReward?.reward_code) {
+    await markFamiliarCommissionRewardRedeemed(runtime.DB, existing.id);
+  } else if (status === "quoted" && familiarCommissionReward) {
+    await releaseFamiliarCommissionReward(runtime.DB, existing.id);
   }
 
   if (status === "quoted" && pricing) {

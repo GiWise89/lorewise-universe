@@ -86,7 +86,7 @@ test("refuses unavailable or unnecessary objects", () => {
   assert.equal(useFamiliarItem({ ...initial, needs: { ...initial.needs, hunger: 95 } }, "food", born).ok, false);
 });
 
-test("caps daily care experience without blocking necessary care", () => {
+test("keeps daily care experience restrained without blocking necessary care", () => {
   const initial = createNexusFamiliar(born, "familiar-care-cap");
   const needy = { ...initial, needs: { hunger: 10, hygiene: 10, energy: 10, happiness: 10, health: 40 } };
   const fed = useFamiliarItem(needy, "food", born);
@@ -94,8 +94,8 @@ test("caps daily care experience without blocking necessary care", () => {
   const played = useFamiliarItem(washed.state, "toy", born);
   const rested = restFamiliar(played.state, born);
   assert.equal(rested.ok, true);
-  assert.equal(rested.state.dailyProgress.careExperience, 80);
-  assert.equal(rested.state.experience, 80);
+  assert.equal(rested.state.dailyProgress.careExperience, 27);
+  assert.equal(rested.state.experience, 27);
   const nextDay = applyFamiliarTimePassage(rested.state, new Date("2026-08-28T08:00:00.000Z"));
   assert.deepEqual(nextDay.dailyProgress, { date: "2026-08-28", careExperience: 0, outingsStarted: 0 });
 });

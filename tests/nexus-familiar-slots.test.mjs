@@ -1,58 +1,37 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { familiarSlotEntitlement, MAX_FAMILIAR_SLOT_COUNT, UNIVERSE_PASS_EXTRA_FAMILIAR_SLOTS } from "../lib/nexusFamiliarSlots.ts";
+import { FAMILIAR_SLOT_OFFER_IDS, familiarSlotEntitlement, MAX_FAMILIAR_SLOT_COUNT, PURCHASABLE_EXTRA_FAMILIAR_SLOTS } from "../lib/nexusFamiliarSlots.ts";
+import { DEFAULT_FAMILIAR_IDS, MEDUSA_FAMILIAR_CATALOG } from "../lib/famiglioMarketExpansion.ts";
+import { FAMILIAR_SHOP_OFFERS } from "../lib/nexusFamiliarWorld.ts";
 
-test("Universe Pass adds exactly two server-managed Famiglio slots", () => {
-  assert.equal(UNIVERSE_PASS_EXTRA_FAMILIAR_SLOTS, 2);
+test("Medusa sells two independent 0.99 euro Houses up to three Famigli", () => {
+  assert.equal(PURCHASABLE_EXTRA_FAMILIAR_SLOTS, 2);
   assert.equal(MAX_FAMILIAR_SLOT_COUNT, 3);
-  assert.deepEqual(familiarSlotEntitlement(true, 1), {
-    passActive: true,
-    slotLimit: 3,
-    preservedSlotCount: 1,
-    canStartPremiumSlot: true,
-    status: "active",
-  });
+  assert.deepEqual(familiarSlotEntitlement(0, 1), { purchasedExtraSlots: 0, slotLimit: 1, preservedSlotCount: 1, canStartPremiumSlot: false, status: "standard" });
+  assert.equal(familiarSlotEntitlement(1, 1).slotLimit, 2);
+  assert.equal(familiarSlotEntitlement(2, 2).canStartPremiumSlot, true);
+  assert.equal(familiarSlotEntitlement(2, 3).canStartPremiumSlot, false);
+  const offers = FAMILIAR_SHOP_OFFERS.filter((offer) => FAMILIAR_SLOT_OFFER_IDS.includes(offer.id));
+  assert.equal(offers.length, 2);
+  assert.ok(offers.every((offer) => offer.kind === "slot" && offer.priceCents === 99));
 });
 
-test("expiration preserves raised Famigli while blocking only new premium slots", () => {
-  const expired = familiarSlotEntitlement(false, 3);
-  assert.equal(expired.status, "expired-preserved");
-  assert.equal(expired.preservedSlotCount, 3);
-  assert.equal(expired.canStartPremiumSlot, false);
-  assert.equal(expired.slotLimit, 1);
+test("starter Famigli are free choices and never appear in Medusa catalog or bundles", () => {
+  assert.equal(DEFAULT_FAMILIAR_IDS.size, 8);
+  assert.ok(MEDUSA_FAMILIAR_CATALOG.every((entry) => !DEFAULT_FAMILIAR_IDS.has(entry.id)));
 });
 
-test("reactivation restores creation until all three slots are occupied", () => {
-  assert.equal(familiarSlotEntitlement(true, 2).canStartPremiumSlot, true);
-  assert.equal(familiarSlotEntitlement(true, 3).canStartPremiumSlot, false);
-});
-
-test("slot API verifies Universe Pass on the server and permits preserved switching", async () => {
+test("slot API derives the limit from purchased Medusa entitlements", async () => {
   const source = await readFile(new URL("../app/api/famiglio/slots/route.ts", import.meta.url), "utf8");
-  assert.match(source, /getActiveUniversePass\(database, user\.id\)/);
-  assert.match(source, /if \(action === "start"\)/);
-  assert.match(source, /familiarSlotEntitlement\(pass\.active/);
-  assert.match(source, /purchasedPremiumFamiliarIds\(database, user\.id\)/);
+  assert.match(source, /FAMILIAR_SLOT_OFFER_IDS/);
+  assert.match(source, /purchasedSlotCount\(purchasedOfferIds\)/);
   assert.match(source, /purchasedFamiliarOfferIds\(database, user\.id\)/);
   assert.match(source, /isPremiumFamiliarAppearance\(candidate\.appearanceId\)/);
-  assert.match(source, /else \{\s*const familiarId/);
   assert.doesNotMatch(source, /body\.(?:passActive|subscriptionActive)/);
 });
 
-test("paid Famigli become adoptable only through active LoreWise entitlements", async () => {
-  const commerce = await readFile(new URL("../lib/nexusFamiliarCommerce.ts", import.meta.url), "utf8");
-  const familiarApi = await readFile(new URL("../app/api/famiglio/route.ts", import.meta.url), "utf8");
-  const experience = await readFile(new URL("../components/NexusFamiliarExperience.tsx", import.meta.url), "utf8");
-  assert.match(commerce, /resource_type = 'merchandise' AND status = 'active'/);
-  assert.match(commerce, /bundleCategory === "familiars"/);
-  assert.match(familiarApi, /canAdoptFamiliarAppearance/);
-  assert.match(experience, /purchasedPremiumFamiliars/);
-  assert.match(experience, /slotAdoptionCandidates/);
-  assert.match(experience, /paidOwned \? "Disponibile" : "Acquista"/);
-});
-
-test("slot storage is isolated per LoreWise ID and Familiar", async () => {
+test("slot storage stays isolated per LoreWise ID and Familiar", async () => {
   const migration = await readFile(new URL("../drizzle/0031_nexus_familiar_slots.sql", import.meta.url), "utf8");
   assert.match(migration, /PRIMARY KEY \(customer_id, familiar_id\)/);
   assert.match(migration, /REFERENCES customers\(id\)/);

@@ -19,6 +19,10 @@ function collect(directory) {
 for (const file of sourceRoots.flatMap((directory) => collect(path.join(root, directory)))) {
   const text = fs.readFileSync(file, "utf8");
   for (const match of text.matchAll(/\/(?:[A-Za-z0-9_+.%-]+\/)*[A-Za-z0-9_+.%-]+\.(?:png|jpe?g|webp|svg)/gi)) {
+    // A suffix such as `${species}/house/walk.png` is not a standalone public
+    // path: the complete variants are validated by the dedicated Famiglio
+    // roster audits. Do not report the dynamic suffix as a missing root asset.
+    if (match.index != null && text.slice(Math.max(0, match.index - 1), match.index) === "}") continue;
     const publicPath = match[0];
     const diskPath = path.join(root, "public", publicPath.slice(1));
     if (!fs.existsSync(diskPath)) failures.push(`${path.relative(root, file)}: risorsa assente ${publicPath}`);

@@ -67,7 +67,7 @@ export default function ShopCatalogExplorer({ products, initialCategory }: Props
 
       <div className="shop-catalog-result-line" aria-live="polite">
         <span>{String(filteredProducts.length).padStart(3, "0")}</span>
-        <p>{filteredProducts.length === 1 ? "prodotto verificato" : "prodotti verificati"}</p>
+        <p>{filteredProducts.length === 1 ? "prodotto" : "prodotti"}</p>
         <small>Pagina {safePage} di {pageCount}</small>
       </div>
 

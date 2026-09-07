@@ -87,7 +87,7 @@ export function NexusNewsSpotlight({ panel }: { panel?: string }) {
         <p>Adotta il tuo compagno preferito, accoglilo nella tana e prenditene cura nel tempo. Il Famiglio reagisce alle tue attenzioni, cresce con te e trasforma le visite nel LoreWise Universe in una piccola avventura condivisa.</p>
         <div className={styles.actions}>
           <Link href="/famiglio">Entra nel Santuario <span aria-hidden="true">→</span></Link>
-          <Link href={panelHref("benefits")}>Scopri i vantaggi</Link>
+          <Link href="/giochi/nexus-pet">Leggi la guida completa</Link>
         </div>
       </div>
     </article>}

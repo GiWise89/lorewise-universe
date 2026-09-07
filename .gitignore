@@ -60,6 +60,16 @@ next-env.d.ts
 /famiglio-nexus-webview-android/build/
 /famiglio-nexus-webview-android/qa-emulator.*.log
 /.gradle-famiglio-webview/
+/.gradle-rebuild/
+
+# Materiali di produzione privati: non sono sorgente pubblica del portale
+/campaign/
+/discord-assets/
+/social-assets/
+/source-assets/
+/Discord LoreWise/
+/immagini atlante giochi/
+/tamagochi asset/
 
 # Originali, bozze e materiale di lavorazione: mai nel repository pubblico
 /Vetrina Disegni/

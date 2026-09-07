@@ -11,6 +11,7 @@ import { STUDIO_POLLS, UNIVERSE_PASS_OPPORTUNITIES, getActiveUniversePass, pollI
 import { FAMILIAR_LEVEL_BENEFITS, familiarLevelDiscount, familiarLevelForCustomer } from "@/lib/nexusFamiliarBenefits";
 import { familiarEconomyHistory } from "@/lib/nexusFamiliarEconomyServer";
 import { familiarNextMilestone } from "@/lib/nexusFamiliarProgression";
+import { FAMILIAR_LEVEL_50_COMMISSION_REWARD, getFamiliarCommissionRewardForCustomer, syncFamiliarCommissionReward } from "@/lib/familiarCommissionReward";
 
 type RuntimeEnv = { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket };
 
@@ -32,6 +33,8 @@ async function snapshot(database: D1Database, customerId: string) {
   await expireBenefits(database, customerId);
   const pass = await getActiveUniversePass(database, customerId);
   const familiarLevel = await familiarLevelForCustomer(database, customerId);
+  await syncFamiliarCommissionReward(database, customerId, familiarLevel);
+  const familiarCommissionReward = await getFamiliarCommissionRewardForCustomer(database, customerId);
   const familiarBenefit = [...FAMILIAR_LEVEL_BENEFITS].reverse().find((entry) => familiarLevel >= entry.level) ?? null;
   const familiarNext = familiarNextMilestone(familiarLevel);
   const familiarHistory = await familiarEconomyHistory(database, customerId, 20);
@@ -75,6 +78,11 @@ async function snapshot(database: D1Database, customerId: string) {
       benefit: familiarBenefit?.benefit ?? "Continua a prendertene cura per sbloccare il primo riconoscimento.",
       nextLevel: familiarNext?.level ?? null,
       nextTitle: familiarNext?.title ?? null,
+      commissionReward: {
+        amountCents: FAMILIAR_LEVEL_50_COMMISSION_REWARD.discountCents,
+        unlocked: familiarLevel >= FAMILIAR_LEVEL_50_COMMISSION_REWARD.requiredLevel,
+        status: familiarCommissionReward?.status ?? "locked",
+      },
       economyHistory: familiarHistory,
     },
     opportunities: UNIVERSE_PASS_OPPORTUNITIES.map((item) => ({

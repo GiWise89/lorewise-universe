@@ -7,6 +7,7 @@ import {
   type NexusFamiliarState,
 } from "./nexusFamiliar.ts";
 import { FAMILIAR_GADGETS } from "./nexusFamiliarGadgets.ts";
+import { FAMILIAR_BUNDLES, MEDUSA_FAMILIAR_CATALOG, PREMIUM_COVERS } from "./famiglioMarketExpansion.ts";
 import { recordFamiliarOutingLegacy } from "./nexusFamiliarLegacy.ts";
 import { fulfillFamiliarDailyWish } from "./nexusFamiliarRituals.ts";
 
@@ -28,9 +29,11 @@ export type FamiliarShopOffer = {
   icon: string;
   priceCoins?: number;
   priceCents?: number;
-  kind: "theme" | "gadget" | "familiar" | "bundle";
+  kind: "theme" | "gadget" | "familiar" | "bundle" | "slot" | "cover";
   themeId?: string;
   appearanceId?: string;
+  appearanceIds?: string[];
+  coverId?: string;
   compatibleFamilies?: string[];
   bundleCategory?: "themes" | "gadgets" | "premium-gadgets" | "familiars";
   status: "preview" | "active";
@@ -66,6 +69,37 @@ export const FAMILIAR_SHOP_OFFERS: FamiliarShopOffer[] = [
     kind: "gadget" as const,
     status: gadget.priceCents ? "active" as const : "preview" as const,
   })),
+  ...PREMIUM_COVERS.map((cover) => ({
+    id: `cover-${cover.id}`,
+    name: cover.name,
+    description: cover.description,
+    icon: cover.artDesktop,
+    priceCents: 99,
+    kind: "cover" as const,
+    coverId: cover.id,
+    status: "active" as const,
+  })),
+  ...MEDUSA_FAMILIAR_CATALOG.filter((entry) => entry.rarity !== "leggendario").map((entry) => ({
+    id: `catalog-${entry.id}`,
+    name: entry.name,
+    description: `Famiglio ${entry.rarity} con aspetto, crescita, azioni e combattimento dedicati.`,
+    icon: `${entry.spriteBase}/preview.webp`,
+    priceCents: Math.round(entry.priceEuro * 100),
+    kind: "familiar" as const,
+    appearanceId: entry.id,
+    status: "active" as const,
+  })),
+  ...FAMILIAR_BUNDLES.filter((bundle) => bundle.id !== "legendary").map((bundle) => ({
+    id: `bundle-${bundle.id}`,
+    name: bundle.name,
+    description: bundle.description,
+    icon: bundle.familiars[0]?.spriteBase ? `${bundle.familiars[0].spriteBase}/preview.webp` : "/famiglio/navigation/shop-v1.webp",
+    priceCents: Math.round(bundle.priceEuro * 100),
+    kind: "bundle" as const,
+    bundleCategory: "familiars" as const,
+    appearanceIds: bundle.familiars.map((entry) => entry.id),
+    status: "active" as const,
+  })),
   { id: "famiglio-drago-tascabile", name: "Tartaruga delle maree", description: "Famiglio pixel art con camminata, guscio, salto e riposo reali.", icon: "/famiglio/navigation/shop-v1.webp", priceCents: 200, kind: "familiar", appearanceId: "pocket-dragon", status: "active" },
   { id: "famiglio-panda-rosso", name: "Gallina delle stelle", description: "Famiglio pixel art che cammina, becchetta, si siede e dorme.", icon: "/famiglio/navigation/shop-v1.webp", priceCents: 200, kind: "familiar", appearanceId: "ember-red-panda", status: "active" },
   { id: "famiglio-cerbiatto-astrale", name: "Pappagallo astrale", description: "Famiglio pixel art con passi, volo, posa e sonno dedicati.", icon: "/famiglio/navigation/shop-v1.webp", priceCents: 200, kind: "familiar", appearanceId: "astral-fawn", status: "active" },
@@ -73,6 +107,8 @@ export const FAMILIAR_SHOP_OFFERS: FamiliarShopOffer[] = [
   { id: "bundle-famigli-premium", name: "Collezione Famigli del Nexus", description: "Tartaruga, gallina, pappagallo e orsetto insieme in un unico bundle.", icon: "/famiglio/navigation/shop-v1.webp", priceCents: 499, kind: "bundle", bundleCategory: "familiars", status: "active" },
   { id: "bundle-dimore", name: "Bundle Dimore complete", description: "Sblocca insieme tutti gli sfondi della tana presenti nel catalogo.", icon: "/famiglio/navigation/tana-v1.webp", priceCents: 399, kind: "bundle", bundleCategory: "themes", status: "active" },
   { id: "bundle-gadget", name: "Collezione Look premium", description: "Sblocca insieme i sette look premium, precomposti per ogni Famiglio, colore e azione.", icon: "/famiglio/navigation/shop-v1.webp", priceCents: 499, kind: "bundle", bundleCategory: "premium-gadgets", status: "active" },
+  { id: "slot-famiglio-2", name: "Seconda Casa del Famiglio", description: "Apre una seconda Casa indipendente e permette di alternare due Famigli.", icon: "/famiglio/rebuild/market/medusa-idle-v1.png", priceCents: 99, kind: "slot", status: "active" },
+  { id: "slot-famiglio-3", name: "Terza Casa del Famiglio", description: "Apre la terza Casa indipendente. Il limite complessivo resta di tre Famigli.", icon: "/famiglio/rebuild/market/medusa-idle-v1.png", priceCents: 99, kind: "slot", status: "active" },
 ];
 
 export function startFamiliarOuting(state: NexusFamiliarState, destinationId: string, now = new Date()): FamiliarActionResult {

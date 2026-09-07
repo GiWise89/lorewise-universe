@@ -1,6 +1,7 @@
 import "server-only";
 
 import { PREMIUM_FAMILIARS } from "./nexusFamiliarCatalog.ts";
+import { MEDUSA_FAMILIAR_CATALOG } from "./famiglioMarketExpansion.ts";
 import { FAMILIAR_SHOP_OFFERS } from "./nexusFamiliarWorld.ts";
 
 export function familiarProductCode(offerId: string) {
@@ -13,7 +14,10 @@ export function premiumFamiliarIdsForProductCodes(productCodes: Iterable<string>
   for (const offer of FAMILIAR_SHOP_OFFERS) {
     if (!offer.priceCents || !codes.has(familiarProductCode(offer.id))) continue;
     if (offer.kind === "familiar" && offer.appearanceId) unlocked.add(offer.appearanceId);
-    if (offer.bundleCategory === "familiars") PREMIUM_FAMILIARS.forEach((appearance) => unlocked.add(appearance.id));
+    if (offer.bundleCategory === "familiars") {
+      const appearanceIds = offer.appearanceIds ?? PREMIUM_FAMILIARS.map((appearance) => appearance.id);
+      appearanceIds.forEach((appearanceId) => unlocked.add(appearanceId));
+    }
   }
   return [...unlocked];
 }
@@ -40,7 +44,8 @@ export async function purchasedFamiliarOfferIds(database: D1Database, customerId
 }
 
 export function isPremiumFamiliarAppearance(appearanceId: string) {
-  return PREMIUM_FAMILIARS.some((appearance) => appearance.id === appearanceId);
+  return PREMIUM_FAMILIARS.some((appearance) => appearance.id === appearanceId)
+    || MEDUSA_FAMILIAR_CATALOG.some((appearance) => appearance.id === appearanceId);
 }
 
 export async function canAdoptFamiliarAppearance(database: D1Database, customerId: string, appearanceId: string) {

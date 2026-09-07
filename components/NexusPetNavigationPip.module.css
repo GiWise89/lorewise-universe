@@ -1,0 +1,36 @@
+.pip { position: fixed; z-index: 850; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); font-family: var(--font-body), sans-serif; }
+.trigger { min-width: 118px; min-height: 64px; display: grid; grid-template-columns: 32px 44px auto; align-items: center; gap: 5px; padding: 6px 10px 6px 7px; color: #fff7df; background: rgba(11,36,49,.96); border: 2px solid #67dcef; border-radius: 18px; box-shadow: 0 10px 30px rgba(7,4,16,.42), inset 0 -4px 0 #031a24; cursor: pointer; }
+.trigger > img { width: 30px; height: 30px; object-fit: contain; }
+.trigger > span { width: 44px; height: 44px; display: grid; place-items: center; overflow: hidden; border-radius: 11px; background: #18283b; }
+.trigger > span > img { width: 42px; height: 42px; object-fit: contain; image-rendering: pixelated; }
+.trigger .spriteFrame { width: 42px; height: 42px; }
+.trigger b { max-width: 96px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .76rem; }
+.trigger:focus-visible,.card button:focus-visible,.card a:focus-visible { outline: 3px solid #ffd45b; outline-offset: 3px; }
+.card { width: min(292px, calc(100vw - 24px)); overflow: hidden; color: #fff7df; background: #092c37; border: 2px solid #67dcef; border-radius: 18px; box-shadow: 0 18px 46px rgba(4,2,12,.58), inset 0 0 0 2px rgba(255,212,91,.12); }
+.card header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 13px 9px; border-bottom: 1px solid rgba(103,220,239,.32); }
+.card header span { min-width: 0; display: grid; gap: 2px; }
+.card header small { color: #ffd45b; font-size: .62rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.card header strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-display),serif; font-size: 1.15rem; }
+.card header button { width: 34px; height: 34px; flex: 0 0 34px; padding: 0; color: #fff; background: #0b4553; border: 1px solid #67dcef; border-radius: 9px; font-size: 1.3rem; cursor: pointer; }
+.companion { display: grid; grid-template-columns: 92px minmax(0,1fr); align-items: center; gap: 10px; padding: 10px 13px; }
+.companion > img,.companion > .spriteFrame { width: 92px; height: 82px; object-fit: contain; image-rendering: pixelated; }
+.companion p { min-width: 0; display: grid; gap: 5px; margin: 0; }
+.companion p b { color: #fff0ae; font-size: .82rem; text-transform: uppercase; }
+.companion p span { color: #d2e9e7; font-size: .72rem; line-height: 1.35; }
+.card > a { display: flex; justify-content: space-between; padding: 10px 13px; color: #281736; background: #ffd45b; font-size: .78rem; font-weight: 900; text-decoration: none; text-transform: uppercase; }
+.spriteFrame { display: block; flex: 0 0 auto; background-repeat: no-repeat; image-rendering: pixelated; }
+
+@media (max-width: 640px) {
+  .pip { right: max(9px, env(safe-area-inset-right)); bottom: max(9px, env(safe-area-inset-bottom)); }
+  .trigger { min-width: 64px; min-height: 58px; grid-template-columns: 24px 36px; padding: 5px 7px; border-radius: 15px; }
+  .trigger > img { width: 24px; height: 24px; }
+  .trigger > span { width: 36px; height: 36px; }
+  .trigger > span > img { width: 34px; height: 34px; }
+  .trigger .spriteFrame { width: 34px; height: 34px; }
+  .trigger > b { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .card { width: min(272px, calc(100vw - 18px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,.card { scroll-behavior: auto; }
+}

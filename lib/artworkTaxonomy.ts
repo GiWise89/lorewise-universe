@@ -13,7 +13,7 @@ export type ArtworkGenre = (typeof artworkGenreLabels)[number];
 const genreGroups: Array<{ genre: ArtworkGenre; numbers: number[] }> = [
   { genre: "Contenuti per adulti", numbers: [6, 32, 37, 38, 54, 55] },
   { genre: "Religioso oscuro", numbers: [13, 28, 30, 35, 36, 50, 56, 57, 65, 67] },
-  { genre: "Anime e manga", numbers: [14, 15, 21, 22, 27, 29, 34, 42, 43, 44, 76] },
+  { genre: "Anime e manga", numbers: [14, 15, 21, 22, 27, 29, 34, 42, 43, 44, 76, 81] },
   { genre: "Cinema e serie", numbers: [1, 9, 12, 18, 19, 23, 26, 45, 47, 66, 74, 75, 77, 78, 80] },
   { genre: "Cartoon e cultura pop", numbers: [7, 8, 10, 11, 25, 40, 69] },
   { genre: "Fantasy e surreale", numbers: [16, 31, 33, 46, 48, 52, 53, 63, 64, 70, 72] },
@@ -100,10 +100,11 @@ export const artworkCategories: Record<number, string> = {
   78: "Serie TV · Commedia scientifica",
   79: "Horror fantascientifico · Distopia",
   80: "Cinema horror indipendente · Fan art",
+  81: "Anime · Fan art pop",
 };
 
 const monochromeTechniqueNumbers = new Set([20, 44, 45, 47, 50, 51, 71]);
-const popTechniqueNumbers = new Set([6, 7, 8, 10, 11, 12, 15, 16, 25, 32, 38, 40, 48, 52, 60, 61, 63, 64, 66, 69, 73, 75, 76, 78]);
+const popTechniqueNumbers = new Set([6, 7, 8, 10, 11, 12, 15, 16, 25, 32, 38, 40, 48, 52, 60, 61, 63, 64, 66, 69, 73, 75, 76, 78, 81]);
 const narrativeTechniqueNumbers = new Set([2, 3, 5, 13, 17, 19, 24, 28, 30, 33, 41, 49, 58, 62, 65, 67, 68, 70, 72, 74, 77, 79]);
 
 export const additionalArtworkWarnings: Partial<Record<number, string>> = {

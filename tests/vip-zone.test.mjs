@@ -27,7 +27,7 @@ test("never disguises a missing VIP preview as the VIP product logo", async () =
 });
 
 test("translates SQLite table discovery before querying Netlify Postgres", async () => {
-  const source = await readFile(new URL("../lib/netlifyRuntime.ts", import.meta.url), "utf8");
+  const source = await readFile(new URL("../lib/netlifySql.ts", import.meta.url), "utf8");
   assert.match(source, /FROM\\s\+sqlite_master/);
   assert.match(source, /information_schema\.tables/);
   assert.match(source, /SELECT table_name AS name FROM information_schema\.tables/);
@@ -42,7 +42,10 @@ test("keeps art entrance titles inside their responsive columns", async () => {
 });
 
 test("never splits diary and Codex portal titles inside a word", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const css = (await Promise.all([
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../app/enciclopedia/codex.css", import.meta.url), "utf8"),
+  ])).join("\n");
   assert.match(css, /\.diary-entry-card-copy h3[^}]*overflow-wrap:normal;[^}]*word-break:normal;[^}]*hyphens:none;/s);
   assert.match(css, /\.codex-library-portals \.codex-library-copy strong[^}]*overflow-wrap: normal;[^}]*word-break: normal;[^}]*hyphens: none;/s);
   assert.match(css, /@media \(max-width:\s*1180px\)[\s\S]*?\.codex-library-portals > \.codex-library-routes \{ grid-template-columns: 1fr;/);

@@ -22,13 +22,6 @@ export type GameWindowsOffer = {
   readiness: Array<{ label: string; status: "ready" | "pending"; note: string }>;
 };
 
-export type GameAndroidOffer = {
-  edition: string;
-  availability: string;
-  description: string;
-  requirements: string[];
-};
-
 export type GameReleaseUpdate = {
   version: string;
   languages?: string[];
@@ -104,7 +97,6 @@ export type GameProjectRecord = {
   features: string[];
   playFlow?: GamePlayStep[];
   windowsOffer?: GameWindowsOffer;
-  androidOffer?: GameAndroidOffer;
   latestUpdate?: GameReleaseUpdate;
   releaseArchive?: GameReleaseUpdate[];
   developmentRoadmap?: GameDevelopmentItem[];
@@ -190,12 +182,6 @@ export const gameProjects: GameProjectRecord[] = [
         { label: "Aggiornamenti", status: "pending", note: "La prima uscita userà aggiornamenti manuali finché il canale automatico non sarà collaudato con una versione successiva valida." },
       ],
     },
-    androidOffer: {
-      edition: "APK Android",
-      availability: "Prossimamente",
-      description: "Una versione mobile dedicata, distribuita direttamente dalla sezione ufficiale del gioco quando i controlli su installazione, aggiornamenti e dispositivi saranno conclusi.",
-      requirements: ["Pacchetto APK ufficiale GiWise Studio", "Account LoreWise obbligatorio", "Connessione internet richiesta", "Data di uscita ancora da definire"],
-    },
     latestUpdate: {
       version: "1.0.0",
       date: "18 agosto 2026",
@@ -206,7 +192,7 @@ export const gameProjects: GameProjectRecord[] = [
     releaseArchive: [],
     developmentRoadmap: [
       { title: "Edizione Windows", status: "Build 1.0.2 verificata", description: "Installer, runtime e rimozione sono superati; restano archivio privato grande file e collaudo commerciale." },
-      { title: "APK Android", status: "In preparazione", description: "Adattamento mobile e controlli su dispositivi reali prima della distribuzione ufficiale." },
+      { title: "Edizione Android", status: "In preparazione", description: "Adattamento mobile e controlli su dispositivi reali prima della distribuzione ufficiale." },
       { title: "Gioco vivo", status: "Continuativo", description: "Bilanciamento, manutenzione, nuove carte e contenuti saranno annunciati soltanto quando confermati." },
     ],
     releasePlan: "Verificare nuovamente impronta e dimensione dell’installer Windows x64 1.0.2 prima del lancio, quindi attivare Stripe live e la consegna privata tracciata soltanto con l’autorizzazione finale alla pubblicazione.",
@@ -410,12 +396,6 @@ export const gameProjects: GameProjectRecord[] = [
       { title: "Demo gratuita Android", status: "In preparazione", description: "La demo sarà resa disponibile quando stabilità, leggibilità e installazione saranno state verificate sui dispositivi previsti." },
       { title: "Progressi LoreWise ID", status: "In collaudo", description: "Il gioco conserva progressi propri e prepara la continuità con il LoreWise ID senza mescolarli con gli altri titoli." },
     ],
-    androidOffer: {
-      edition: "Demo Android",
-      availability: "Gratuita · presto in arrivo",
-      description: "Una prima build Android nativa è già in sviluppo. La demo pubblica arriverà dopo il collaudo su smartphone e tablet e sarà accompagnata da versione e requisiti chiari.",
-      requirements: ["Android 7.0 o successivo previsto", "Interfaccia verticale per smartphone e tablet", "Controlli touch e immagini sempre proporzionate", "Download pubblico non ancora disponibile"],
-    },
     releasePlan: "Completare le prime missioni, verificare l’esperienza su dispositivi Android reali e aprire una demo gratuita quando installazione, leggibilità e stabilità saranno pronte per il pubblico.",
     commercialNote: "La demo Android sarà gratuita. Formula e prezzo dell’edizione completa non sono ancora annunciati; seguire l’Area VIP permette di ricevere le prossime novità senza trasformare l’abbonamento in un requisito per la demo.",
     updateNote: "Ricostruzione Android nativa 0.1.0-native in sviluppo; demo pubblica non ancora disponibile.",

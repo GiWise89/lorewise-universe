@@ -1,0 +1,16 @@
+.lab { min-height: 100vh; padding: clamp(1rem, 3vw, 2.5rem); color: #f9efcd; background: #0b0714; }
+.lab > header { max-width: 72rem; margin: 0 auto 1.2rem; }
+.lab small { color: #f6cc5a; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.lab h1 { margin: .35rem 0; font-size: clamp(1.7rem, 4vw, 3rem); }
+.lab p { max-width: 54rem; color: #d8cce7; line-height: 1.6; }
+.summary { display: flex; flex-wrap: wrap; gap: .65rem; max-width: 90rem; margin: 0 auto 1rem; }
+.summary > * { padding: .55rem .8rem; border: 1px solid #705188; border-radius: 999px; background: #1b1029; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: .8rem; max-width: 90rem; margin: auto; }
+.grid article { min-width: 0; padding: .75rem; border: 1px solid #5e4471; border-radius: 1rem; background: #180d26; }
+.preview { display: grid; min-height: 8rem; place-items: center; overflow: hidden; border-radius: .7rem; background: radial-gradient(circle, #332044, #100919 70%); }
+.preview img { display: block; width: 100%; height: auto; object-fit: contain; image-rendering: pixelated; }
+.grid h2 { margin: .7rem 0 .5rem; color: #ffdc70; font-size: 1rem; }
+.grid dl { display: grid; gap: .3rem; margin: 0; }
+.grid dl div { display: flex; justify-content: space-between; gap: .7rem; }
+.grid dt { color: #a994bc; }
+.grid dd { margin: 0; overflow-wrap: anywhere; text-align: right; }

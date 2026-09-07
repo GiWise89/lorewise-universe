@@ -60,14 +60,17 @@ test("the shop stays cosmetic and never sells fundamental care supplies", () => 
   assert.ok(themes.every((offer) => offer.themeId && offer.priceCoins && !offer.priceCents));
   assert.ok(FAMILIAR_SHOP_OFFERS.every((offer) => !Object.hasOwn(offer, "items")));
   assert.ok(FAMILIAR_SHOP_OFFERS.every((offer) => offer.kind !== "decoration"));
-  assert.ok(FAMILIAR_SHOP_OFFERS.every((offer) => ["theme", "gadget", "familiar", "bundle"].includes(offer.kind)));
+  assert.ok(FAMILIAR_SHOP_OFFERS.every((offer) => ["theme", "gadget", "familiar", "bundle", "slot", "cover"].includes(offer.kind)));
   assert.ok(themes.every((offer) => FAMILIAR_HABITAT_THEMES.some((theme) => theme.id === offer.themeId)));
 });
 
 test("every real-money Famiglio offer is explicitly active", () => {
   const paidOffers = FAMILIAR_SHOP_OFFERS.filter((offer) => offer.priceCents);
   assert.equal(PREMIUM_FAMILIAR_LOOKS.length, 7);
-  assert.equal(paidOffers.length, 14);
+  assert.equal(FAMILIAR_SHOP_OFFERS.filter((offer) => offer.kind === "cover" && offer.priceCents === 99).length, 15);
+  assert.equal(FAMILIAR_SHOP_OFFERS.filter((offer) => offer.id.startsWith("catalog-") && offer.kind === "familiar").length, 36);
+  assert.equal(FAMILIAR_SHOP_OFFERS.filter((offer) => offer.id.startsWith("bundle-") && offer.bundleCategory === "familiars").length, 4);
+  assert.equal(paidOffers.length, 70);
   assert.ok(paidOffers.every((offer) => offer.status === "active"));
   assert.ok(PREMIUM_FAMILIAR_LOOKS.every((look) => paidOffers.some((offer) => offer.id === look.id && offer.kind === "gadget")));
 });

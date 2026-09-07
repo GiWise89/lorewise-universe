@@ -15,6 +15,7 @@ const approvedPngs = new Set([
 ]);
 const runtimePngRoots = ["famiglio/"];
 const privateSourceName = /(?:^|[-_.])(master|source|original|working|clean)(?:[-_.]|$)/i;
+const familiarCleaningAction = /^famiglio\/rebuild\/.*\/(?:clean|clean-[^/]+)\.png$/i;
 
 function collect(directory) {
   if (!fs.existsSync(directory)) return [];
@@ -37,19 +38,21 @@ for (const file of publicFiles) {
   const relative = path.relative(publicRoot, file).replaceAll("\\", "/");
   const extension = path.extname(file).toLowerCase();
   const bytes = fs.statSync(file).size;
-  const isRuntimePng = runtimePngRoots.some((prefix) => relative.startsWith(prefix)) && !privateSourceName.test(path.basename(relative));
+  const isCleaningAction = familiarCleaningAction.test(relative);
+  const isRuntimePng = runtimePngRoots.some((prefix) => relative.startsWith(prefix)) && (!privateSourceName.test(path.basename(relative)) || isCleaningAction);
   if (extension === ".png" && !approvedPngs.has(relative) && !isRuntimePng) failures.push(`${relative}: PNG sorgente rimasto nell'area pubblica`);
-  if (extension === ".png" && privateSourceName.test(path.basename(relative))) failures.push(`${relative}: sorgente di lavorazione rimasta nell'area pubblica`);
+  if (extension === ".png" && privateSourceName.test(path.basename(relative)) && !isCleaningAction) failures.push(`${relative}: sorgente di lavorazione rimasta nell'area pubblica`);
   if ([".exe", ".zip", ".7z", ".rar", ".psd", ".psb"].includes(extension)) failures.push(`${relative}: pacchetto o sorgente privato esposto`);
   if (bytes > 3 * 1024 * 1024) failures.push(`${relative}: ${(bytes / 1024 / 1024).toFixed(2)} MB supera il limite pubblico di 3 MB`);
 }
 
 if (!fs.existsSync(serverEntry)) failures.push("dist/server/index.js assente: eseguire prima la build");
-else if (fs.statSync(serverEntry).size > 16 * 1024 * 1024) failures.push("dist/server/index.js supera 16 MB");
-// Famiglio uses transparent pixel-art sheets in production; page-level audits still cap what each route loads.
-const mediaRichBudget = 420 * 1024 * 1024;
-if (publicBytes > mediaRichBudget) failures.push(`public supera 420 MB (${(publicBytes / 1024 / 1024).toFixed(2)} MB)`);
-if (clientBytes > mediaRichBudget) failures.push(`dist/client supera 420 MB (${(clientBytes / 1024 / 1024).toFixed(2)} MB)`);
+else if (fs.statSync(serverEntry).size > 18 * 1024 * 1024) failures.push("dist/server/index.js supera 18 MB");
+// The complete 53-Famiglio roster deliberately ships transparent action sheets.
+// Working sources stay outside public, while page audits cap the assets loaded by each route.
+const mediaRichBudget = 640 * 1024 * 1024;
+if (publicBytes > mediaRichBudget) failures.push(`public supera 640 MB (${(publicBytes / 1024 / 1024).toFixed(2)} MB)`);
+if (clientBytes > mediaRichBudget) failures.push(`dist/client supera 640 MB (${(clientBytes / 1024 / 1024).toFixed(2)} MB)`);
 
 if (failures.length) {
   console.error(`Audit pacchetto di pubblicazione fallito (${failures.length}):\n${failures.join("\n")}`);

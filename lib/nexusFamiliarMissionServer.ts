@@ -41,6 +41,12 @@ export async function ensureFamiliarMissionTables(database: D1Database) {
     UNIQUE (customer_id, mission_date, mission_id)
   )`).run();
   await database.prepare("CREATE INDEX IF NOT EXISTS nexus_familiar_daily_missions_status_idx ON nexus_familiar_daily_missions(customer_id, mission_date, claimed_at)").run();
+  await database.prepare(`CREATE TABLE IF NOT EXISTS nexus_familiar_mission_refreshes (
+    customer_id TEXT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+    mission_date TEXT NOT NULL,
+    refreshed_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (customer_id, mission_date)
+  )`).run();
   await database.prepare(`CREATE TABLE IF NOT EXISTS nexus_familiar_activity_events (
     customer_id TEXT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
     activity_date TEXT NOT NULL,
@@ -115,14 +121,18 @@ export async function familiarMissionPayload(database: D1Database, customerId: s
   const rows = await database.prepare(`SELECT mission_id, slot, target_count, progress_count, reward_item, reward_quantity, claimed_at
     FROM nexus_familiar_daily_missions WHERE customer_id = ? AND mission_date = ? ORDER BY slot`)
     .bind(customerId, date).all<MissionRow>();
+  const refresh = await database.prepare("SELECT refreshed_at FROM nexus_familiar_mission_refreshes WHERE customer_id = ? AND mission_date = ?")
+    .bind(customerId, date).first<{ refreshed_at: string }>();
   return {
     date,
+    refreshUsed: Boolean(refresh),
     missions: rows.results.flatMap((row) => {
       const definition = familiarMissionById(row.mission_id);
       if (!definition) return [];
       return [{
         id: definition.id,
         group: definition.group,
+        difficulty: definition.difficulty,
         title: definition.title,
         description: definition.description,
         href: definition.href,
@@ -134,6 +144,32 @@ export async function familiarMissionPayload(database: D1Database, customerId: s
       }];
     }),
   };
+}
+
+export async function refreshDailyFamiliarMissions(database: D1Database, customerId: string, date = romeDateKey(), missionCount = 3) {
+  await ensureDailyFamiliarMissions(database, customerId, date, missionCount);
+  const reserved = await database.prepare(`INSERT INTO nexus_familiar_mission_refreshes (customer_id, mission_date)
+    VALUES (?, ?) ON CONFLICT(customer_id, mission_date) DO NOTHING`).bind(customerId, date).run();
+  if (!reserved.meta.changes) return { ok: false as const, status: 409, error: "Le missioni di oggi sono già state aggiornate." };
+
+  try {
+    const current = await database.prepare("SELECT mission_id FROM nexus_familiar_daily_missions WHERE customer_id = ? AND mission_date = ? ORDER BY slot")
+      .bind(customerId, date).all<{ mission_id: string }>();
+    const previous = await database.prepare("SELECT mission_id FROM nexus_familiar_daily_missions WHERE customer_id = ? AND mission_date = ? ORDER BY slot")
+      .bind(customerId, previousDateKey(date)).all<{ mission_id: string }>();
+    const excluded = [...current.results, ...previous.results].map((row) => row.mission_id);
+    const missions = dailyFamiliarMissionsForCount(customerId, `${date}:refresh`, excluded, missionCount);
+    await database.prepare("DELETE FROM nexus_familiar_daily_missions WHERE customer_id = ? AND mission_date = ?").bind(customerId, date).run();
+    for (const [slot, mission] of missions.entries()) {
+      await database.prepare(`INSERT INTO nexus_familiar_daily_missions
+        (customer_id, mission_date, slot, mission_id, activity_type, target_count, reward_item, reward_quantity)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`).bind(customerId, date, slot, mission.id, mission.activity, mission.target, mission.reward.item, mission.reward.quantity).run();
+    }
+    return { ok: true as const };
+  } catch (error) {
+    await database.prepare("DELETE FROM nexus_familiar_mission_refreshes WHERE customer_id = ? AND mission_date = ?").bind(customerId, date).run().catch(() => undefined);
+    throw error;
+  }
 }
 
 export async function claimFamiliarMission(database: D1Database, customerId: string, missionId: string, date = romeDateKey()) {
@@ -149,7 +185,8 @@ export async function claimFamiliarMission(database: D1Database, customerId: str
     .bind(customerId, date, missionId).run();
   if (!claimed.meta.changes) return { ok: false as const, status: 409, error: "Ricompensa gia riscattata." };
   const definition = familiarMissionById(row.mission_id);
-  const coins = definition?.group === "connect" ? 8 : definition?.group === "explore" ? 6 : 5;
-  const experience = 15 + Math.max(0, Math.min(2, Number(row.target_count) - 1)) * 10;
+  const difficulty = definition?.difficulty ?? "facile";
+  const coins = { facile: 6, normale: 12, difficile: 22 }[difficulty];
+  const experience = { facile: 12, normale: 24, difficile: 40 }[difficulty];
   return { ok: true as const, reward: { item: row.reward_item, quantity: Number(row.reward_quantity), coins, experience } };
 }

@@ -1,0 +1,383 @@
+{
+  "mode": "built-in image_gen",
+  "sharedRequirements": "Four distinct lateral right-facing full-body pixel-art feeding frames: reach, bite, chew, swallow. Preserve the canonical identity, palette, anatomy and bone dimensions. No embedded food, bowls or objects. Transparent background. Source-specific edge-connected matte cleanup and uniform scale applied by prepare-famiglio-feeding-v3.mjs.",
+  "assets": [
+    {
+      "id": "panda",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/panda.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-c30f2699-e6f4-4550-9c09-042f45ff76a7.png",
+      "mode": "built-in image_gen",
+      "prompt": "panda — Panda — sits naturally with paws reaching forward/down and brings its empty paw to the mouth to chew bamboo (bamboo is separately rendered; do not draw bamboo). Preserve same round black ears, eye patches, cream belly and black limbs."
+    },
+    {
+      "id": "brachiosaurus",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/brachiosaurus.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-ddedd2a5-3575-4356-9152-09e526362480.png",
+      "mode": "built-in image_gen",
+      "prompt": "brachiosaurus — Brachiosaurus — keeps all four feet planted; bends its LONG neck downward to graze, opens mouth near ground, chews with neck still curved down, then slightly lifts muzzle. Preserve lime green body, cream underside, purple head crest/spines and purple toes. Do NOT stand upright or sit."
+    },
+    {
+      "id": "cat",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/cat.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-883f3709-5064-4fae-a628-959bb877d205.png",
+      "mode": "built-in image_gen",
+      "prompt": "cat — Cat — keeps four paws planted, lowers muzzle toward a ground-level bowl that is NOT drawn, opens jaw, closes jaw to chew, licks lips slightly. Preserve beige-gray coat, dark brown ears/face/tail tip, pink inner ears and BLUE collar."
+    },
+    {
+      "id": "schnauzer",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/schnauzer.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-179aeacb-9569-45e2-b3f4-618330ebe82a.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Edit target: the referenced existing pixel-art dog sheet. Replace its idle poses with a real FOUR-frame feeding action. Keep EXACT same dog identity, fur markings, colors, ear shape, muzzle, tail and body proportions as reference. Four full-body frames in one horizontal row, four equal-width cells, generous transparent margins. ALL facing RIGHT, lateral 2D view. Frame1: stands on four planted paws and bends neck/muzzle down to eat; frame2: same lowered head, opens mouth to take a bite; frame3: closes jaw and chews with cheek/jaw movement; frame4: small tongue lick/swallow with head still lowered. No sitting, no idle blinking-only frames. Body, paws and tail keep same size and position in every frame; only articulated head and jaw change. Same low-resolution crisp pixel-art style/dark outlines as reference, no smooth illustration. GENUINE transparent RGBA background, not a drawn checkerboard. NO bowl, food, hand, utensils, symbols, floor, shadow, text, or additional objects. Complete paws, tails and ears in ALL cells."
+    },
+    {
+      "id": "husky",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/husky.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-5f7fbe05-6b12-424d-9d44-e6e095e2c9eb.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Edit target: the referenced existing pixel-art dog sheet. Replace its idle poses with a real FOUR-frame feeding action. Keep EXACT same dog identity, fur markings, colors, ear shape, muzzle, tail and body proportions as reference. Four full-body frames in one horizontal row, four equal-width cells, generous transparent margins. ALL facing RIGHT, lateral 2D view. Frame1: stands on four planted paws and bends neck/muzzle down to eat; frame2: same lowered head, opens mouth to take a bite; frame3: closes jaw and chews with cheek/jaw movement; frame4: small tongue lick/swallow with head still lowered. No sitting, no idle blinking-only frames. Body, paws and tail keep same size and position in every frame; only articulated head and jaw change. Same low-resolution crisp pixel-art style/dark outlines as reference, no smooth illustration. GENUINE transparent RGBA background, not a drawn checkerboard. NO bowl, food, hand, utensils, symbols, floor, shadow, text, or additional objects. Complete paws, tails and ears in ALL cells."
+    },
+    {
+      "id": "rabbit",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/rabbit.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-eeb0a5a1-8e8f-4382-8036-acbd77658929.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact existing pet identity reference. Create its FOUR-frame feeding animation as ONE horizontal strip with FOUR equal-width cells. Rabbit lowers its head to nibble greens then visibly chews, long ears and all four paws intact. Frame1 reach food, 2 take bite, 3 chew, 4 swallow. ALL frames face RIGHT in lateral 2D. Same animal markings, face, palette, appendages, proportions and low-resolution PIXEL ART refinement as reference. Body bones keep same dimensions, feet remain planted on the SAME baseline; only head/neck/jaw articulate. Four DISTINCT eating poses, no mere idle blinking. Full anatomy in every cell with generous padding, no cropped tails/ears/feet. GENUINE transparent alpha background. NO food, bowl, utensils, hand, particles, floor, shadow, checkerboard artwork or text; only the animal."
+    },
+    {
+      "id": "fox",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/fox.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-fa8b97c1-1a02-4aef-b79b-b0884c7a9ec8.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact existing pet identity reference. Create its FOUR-frame feeding animation as ONE horizontal strip with FOUR equal-width cells. Fox plants four paws, lowers muzzle, opens jaw for a bite, closes jaw chewing, licks muzzle. Frame1 reach food, 2 take bite, 3 chew, 4 swallow. ALL frames face RIGHT in lateral 2D. Same animal markings, face, palette, appendages, proportions and low-resolution PIXEL ART refinement as reference. Body bones keep same dimensions, feet remain planted on the SAME baseline; only head/neck/jaw articulate. Four DISTINCT eating poses, no mere idle blinking. Full anatomy in every cell with generous padding, no cropped tails/ears/feet. GENUINE transparent alpha background. NO food, bowl, utensils, hand, particles, floor, shadow, checkerboard artwork or text; only the animal."
+    },
+    {
+      "id": "turtle",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/turtle.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-c42c95b6-ea41-4b64-a4ef-d200d046cce1.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact existing pet identity reference. Create its FOUR-frame feeding animation as ONE horizontal strip with FOUR equal-width cells. Turtle stretches its neck down and forward to bite greens, opens/closes beak to chew, retracts slightly. Preserve full shell and four limbs. Frame1 reach food, 2 take bite, 3 chew, 4 swallow. ALL frames face RIGHT in lateral 2D. Same animal markings, face, palette, appendages, proportions and low-resolution PIXEL ART refinement as reference. Body bones keep same dimensions, feet remain planted on the SAME baseline; only head/neck/jaw articulate. Four DISTINCT eating poses, no mere idle blinking. Full anatomy in every cell with generous padding, no cropped tails/ears/feet. GENUINE transparent alpha background. NO food, bowl, utensils, hand, particles, floor, shadow, checkerboard artwork or text; only the animal."
+    },
+    {
+      "id": "horse",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/horse.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-b67f24b6-729d-4c76-b3b8-da84546adaf9.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact existing pet identity reference. Create its FOUR-frame feeding animation as ONE horizontal strip with FOUR equal-width cells. Horse stands on four hooves, lowers its long head and neck to graze, opens/closes lips chewing, raises muzzle a little. Preserve exact gray/dun coat and dark mane. Frame1 reach food, 2 take bite, 3 chew, 4 swallow. ALL frames face RIGHT in lateral 2D. Same animal markings, face, palette, appendages, proportions and low-resolution PIXEL ART refinement as reference. Body bones keep same dimensions, feet remain planted on the SAME baseline; only head/neck/jaw articulate. Four DISTINCT eating poses, no mere idle blinking. Full anatomy in every cell with generous padding, no cropped tails/ears/feet. GENUINE transparent alpha background. NO food, bowl, utensils, hand, particles, floor, shadow, checkerboard artwork or text; only the animal."
+    },
+    {
+      "id": "polar-bear",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/polar-bear.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-089d1ece-61c9-4db7-9a06-da786b56732e.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact existing pet identity reference. Create its FOUR-frame feeding animation as ONE horizontal strip with FOUR equal-width cells. Polar bear plants four paws and bends head down for food, opens/closes jaw with cheek motion, licks lips; do not merely sit and blink. Frame1 reach food, 2 take bite, 3 chew, 4 swallow. ALL frames face RIGHT in lateral 2D. Same animal markings, face, palette, appendages, proportions and low-resolution PIXEL ART refinement as reference. Body bones keep same dimensions, feet remain planted on the SAME baseline; only head/neck/jaw articulate. Four DISTINCT eating poses, no mere idle blinking. Full anatomy in every cell with generous padding, no cropped tails/ears/feet. GENUINE transparent alpha background. NO food, bowl, utensils, hand, particles, floor, shadow, checkerboard artwork or text; only the animal."
+    },
+    {
+      "id": "brown-bear",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/brown-bear.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-00c68316-6168-4505-9ebf-81887a35d184.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact existing pet identity reference. Create its FOUR-frame feeding animation as ONE horizontal strip with FOUR equal-width cells. Brown bear plants four paws and bends head down for food, opens/closes jaw with cheek motion, licks lips; do not merely sit and blink. Frame1 reach food, 2 take bite, 3 chew, 4 swallow. ALL frames face RIGHT in lateral 2D. Same animal markings, face, palette, appendages, proportions and low-resolution PIXEL ART refinement as reference. Body bones keep same dimensions, feet remain planted on the SAME baseline; only head/neck/jaw articulate. Four DISTINCT eating poses, no mere idle blinking. Full anatomy in every cell with generous padding, no cropped tails/ears/feet. GENUINE transparent alpha background. NO food, bowl, utensils, hand, particles, floor, shadow, checkerboard artwork or text; only the animal."
+    },
+    {
+      "id": "golden",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/golden.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-ac028447-d62f-4e4d-b7de-bd8fa0842d94.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Edit target: the referenced existing pixel-art dog sheet. Replace its idle poses with a real FOUR-frame feeding action. Keep EXACT same dog identity, fur markings, colors, ear shape, muzzle, tail and body proportions as reference. Four full-body frames in one horizontal row, four equal-width cells, generous transparent margins. ALL facing RIGHT, lateral 2D view. Frame1: stands on four planted paws and bends neck/muzzle down to eat; frame2: same lowered head, opens mouth to take a bite; frame3: closes jaw and chews with cheek/jaw movement; frame4: small tongue lick/swallow with head still lowered. No sitting, no idle blinking-only frames. Body, paws and tail keep same size and position in every frame; only articulated head and jaw change. Same low-resolution crisp pixel-art style/dark outlines as reference, no smooth illustration. GENUINE transparent RGBA background, not a drawn checkerboard. NO bowl, food, hand, utensils, symbols, floor, shadow, text, or additional objects. Complete paws, tails and ears in ALL cells."
+    },
+    {
+      "id": "akita",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/akita.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-4badefa4-1597-4efd-9116-1089ce1cac29.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Edit target: the referenced existing pixel-art dog sheet. Replace its idle poses with a real FOUR-frame feeding action. Keep EXACT same dog identity, fur markings, colors, ear shape, muzzle, tail and body proportions as reference. Four full-body frames in one horizontal row, four equal-width cells, generous transparent margins. ALL facing RIGHT, lateral 2D view. Frame1: stands on four planted paws and bends neck/muzzle down to eat; frame2: same lowered head, opens mouth to take a bite; frame3: closes jaw and chews with cheek/jaw movement; frame4: small tongue lick/swallow with head still lowered. No sitting, no idle blinking-only frames. Body, paws and tail keep same size and position in every frame; only articulated head and jaw change. Same low-resolution crisp pixel-art style/dark outlines as reference, no smooth illustration. GENUINE transparent RGBA background, not a drawn checkerboard. NO bowl, food, hand, utensils, symbols, floor, shadow, text, or additional objects. Complete paws, tails and ears in ALL cells."
+    },
+    {
+      "id": "great-dane",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/great-dane.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-3162f793-f8dd-4a4e-bdb7-e9c9e4c63414.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Edit target: the referenced existing pixel-art dog sheet. Replace its idle poses with a real FOUR-frame feeding action. Keep EXACT same dog identity, fur markings, colors, ear shape, muzzle, tail and body proportions as reference. Four full-body frames in one horizontal row, four equal-width cells, generous transparent margins. ALL facing RIGHT, lateral 2D view. Frame1: stands on four planted paws and bends neck/muzzle down to eat; frame2: same lowered head, opens mouth to take a bite; frame3: closes jaw and chews with cheek/jaw movement; frame4: small tongue lick/swallow with head still lowered. No sitting, no idle blinking-only frames. Body, paws and tail keep same size and position in every frame; only articulated head and jaw change. Same low-resolution crisp pixel-art style/dark outlines as reference, no smooth illustration. GENUINE transparent RGBA background, not a drawn checkerboard. NO bowl, food, hand, utensils, symbols, floor, shadow, text, or additional objects. Complete paws, tails and ears in ALL cells."
+    },
+    {
+      "id": "saint-bernard",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/saint-bernard.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-1e6e54c3-380a-4e66-9948-32d139984837.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Edit target: the referenced existing pixel-art dog sheet. Replace its idle poses with a real FOUR-frame feeding action. Keep EXACT same dog identity, fur markings, colors, ear shape, muzzle, tail and body proportions as reference. Four full-body frames in one horizontal row, four equal-width cells, generous transparent margins. ALL facing RIGHT, lateral 2D view. Frame1: stands on four planted paws and bends neck/muzzle down to eat; frame2: same lowered head, opens mouth to take a bite; frame3: closes jaw and chews with cheek/jaw movement; frame4: small tongue lick/swallow with head still lowered. No sitting, no idle blinking-only frames. Body, paws and tail keep same size and position in every frame; only articulated head and jaw change. Same low-resolution crisp pixel-art style/dark outlines as reference, no smooth illustration. GENUINE transparent RGBA background, not a drawn checkerboard. NO bowl, food, hand, utensils, symbols, floor, shadow, text, or additional objects. Complete paws, tails and ears in ALL cells."
+    },
+    {
+      "id": "parrot",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/parrot.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-5254b70f-9f9a-491f-b3c5-e1996ad9488c.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference is the existing pet identity. Replace idle sheet with FOUR distinct feeding animation frames in ONE horizontal strip of FOUR equal cells. Red macaw parrot, retain blue/yellow wing markings. Keep both feet planted, tilt head DOWN to peck seeds, open beak, close beak to crack seed, swallow. All face RIGHT in lateral 2D. Preserve identical body dimensions, markings, colors, accessories, anatomy and crisp low-resolution pixel art style throughout. Real head/beak/jaw articulation, not just blinking. Full animal visible inside every cell, generous blank padding around all feet/ears/tail/wings. Same foot baseline. GENUINE TRANSPARENT RGBA background (no drawn checkerboard). No food, bowls, floor, shadows, hands, utensils, particles, symbols or text."
+    },
+    {
+      "id": "bird",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/bird.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-632f7580-112b-49ff-b22e-7d21a684c356.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference is the existing pet identity. Replace idle sheet with FOUR distinct feeding animation frames in ONE horizontal strip of FOUR equal cells. Dark blue raven-like small bird, same plumage and feet. Keep both feet planted, bend to peck ground seeds, open and close beak, swallow. All face RIGHT in lateral 2D. Preserve identical body dimensions, markings, colors, accessories, anatomy and crisp low-resolution pixel art style throughout. Real head/beak/jaw articulation, not just blinking. Full animal visible inside every cell, generous blank padding around all feet/ears/tail/wings. Same foot baseline. GENUINE TRANSPARENT RGBA background (no drawn checkerboard). No food, bowls, floor, shadows, hands, utensils, particles, symbols or text."
+    },
+    {
+      "id": "chicken",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/chicken.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-e26cb94e-54cb-4688-bcb3-461597159fb3.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference is the existing pet identity. Replace idle sheet with FOUR distinct feeding animation frames in ONE horizontal strip of FOUR equal cells. Cream hen/chick with red comb and yellow feet/beak. Peck down to ground, open beak to pick grain, close beak, swallow. Feet planted. All face RIGHT in lateral 2D. Preserve identical body dimensions, markings, colors, accessories, anatomy and crisp low-resolution pixel art style throughout. Real head/beak/jaw articulation, not just blinking. Full animal visible inside every cell, generous blank padding around all feet/ears/tail/wings. Same foot baseline. GENUINE TRANSPARENT RGBA background (no drawn checkerboard). No food, bowls, floor, shadows, hands, utensils, particles, symbols or text."
+    },
+    {
+      "id": "wolf",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/wolf.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-6257409a-8c34-4a73-908d-2d5254038352.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference is the existing pet identity. Replace idle sheet with FOUR distinct feeding animation frames in ONE horizontal strip of FOUR equal cells. IMPORTANT this fantasy wolf is dark VIOLET with blue star markings, not a gray realistic wolf! Preserve exact starry-purple pup from reference. On four planted paws bend muzzle down, take bite, chew, lick lips. All face RIGHT in lateral 2D. Preserve identical body dimensions, markings, colors, accessories, anatomy and crisp low-resolution pixel art style throughout. Real head/beak/jaw articulation, not just blinking. Full animal visible inside every cell, generous blank padding around all feet/ears/tail/wings. Same foot baseline. GENUINE TRANSPARENT RGBA background (no drawn checkerboard). No food, bowls, floor, shadows, hands, utensils, particles, symbols or text."
+    },
+    {
+      "id": "fairy-rabbit",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/fairy-rabbit.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-15944a39-0ab2-4b73-95cd-9c0f11ad3499.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference is the existing pet identity. Replace idle sheet with FOUR distinct feeding animation frames in ONE horizontal strip of FOUR equal cells. White magical rabbit with long ears, cyan eye and pink ears. Lower head to nibble, open mouth a little, visibly chew, swallow. Keep feet grounded, no leaping. All face RIGHT in lateral 2D. Preserve identical body dimensions, markings, colors, accessories, anatomy and crisp low-resolution pixel art style throughout. Real head/beak/jaw articulation, not just blinking. Full animal visible inside every cell, generous blank padding around all feet/ears/tail/wings. Same foot baseline. GENUINE TRANSPARENT RGBA background (no drawn checkerboard). No food, bowls, floor, shadows, hands, utensils, particles, symbols or text."
+    },
+    {
+      "id": "demon-rabbit",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/demon-rabbit.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-ef8ac3da-856c-47d9-825f-91715872a7f7.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference is the existing pet identity. Replace idle sheet with FOUR distinct feeding animation frames in ONE horizontal strip of FOUR equal cells. White rabbit with cyan tail, blue eye, pink inner ears and dark outline exactly as reference (do NOT invent demonic accessories). Lower head to nibble, open jaw slightly, chew, swallow; feet grounded. All face RIGHT in lateral 2D. Preserve identical body dimensions, markings, colors, accessories, anatomy and crisp low-resolution pixel art style throughout. Real head/beak/jaw articulation, not just blinking. Full animal visible inside every cell, generous blank padding around all feet/ears/tail/wings. Same foot baseline. GENUINE TRANSPARENT RGBA background (no drawn checkerboard). No food, bowls, floor, shadows, hands, utensils, particles, symbols or text."
+    },
+    {
+      "id": "faerie-dragon",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/faerie-dragon.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-da2cb349-d827-4e7f-9808-021e8b74fc0f.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference image is exact canonical game creature. Create FOUR feeding frames in ONE horizontal row, FOUR equal-width cells. Turquoise fairy dragon with cream belly/muzzle, MAGENTA horns and dark purple/pink wings. Keep same sprite identity. Lean neck and muzzle down, open jaws for a bite, close jaws chewing, lick lips; legs planted, wings tucked. RIGHT-facing lateral 2D game view in every cell. Preserve identity, palette, proportions and accessories, same crisp pixel-art resolution/refinement and dark outlines as reference. Frame progression reach/take bite/chew/swallow, real jaw/neck action not sitting and blinking. Constant body dimensions and foot baseline. Full anatomy in every frame, with generous transparent padding. GENUINE transparent RGBA background, not a painted checkerboard. No food, bowls, utensils, floor, shadow, effects, floating dots, text or additional objects."
+    },
+    {
+      "id": "blue-wyrmling",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/blue-wyrmling.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-3fe98143-e6c1-467f-869a-323bf3b35885.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference image is exact canonical game creature. Create FOUR feeding frames in ONE horizontal row, FOUR equal-width cells. Small round blue/cyan baby dragon with cream belly/muzzle, pink cheeks and blue horns from reference. Lean down for food, open jaw, close jaw chewing, swallow; no transformation. RIGHT-facing lateral 2D game view in every cell. Preserve identity, palette, proportions and accessories, same crisp pixel-art resolution/refinement and dark outlines as reference. Frame progression reach/take bite/chew/swallow, real jaw/neck action not sitting and blinking. Constant body dimensions and foot baseline. Full anatomy in every frame, with generous transparent padding. GENUINE transparent RGBA background, not a painted checkerboard. No food, bowls, utensils, floor, shadow, effects, floating dots, text or additional objects."
+    },
+    {
+      "id": "young-green-dragon",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/young-green-dragon.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-9916340b-7f9c-4546-a32e-5d64186c9be2.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference image is exact canonical game creature. Create FOUR feeding frames in ONE horizontal row, FOUR equal-width cells. Green dragon with golden-yellow wing membranes, dark teal horns and yellow belly. Keep four legs planted and wings tucked, lower muzzle, take bite, chew, swallow. RIGHT-facing lateral 2D game view in every cell. Preserve identity, palette, proportions and accessories, same crisp pixel-art resolution/refinement and dark outlines as reference. Frame progression reach/take bite/chew/swallow, real jaw/neck action not sitting and blinking. Constant body dimensions and foot baseline. Full anatomy in every frame, with generous transparent padding. GENUINE transparent RGBA background, not a painted checkerboard. No food, bowls, utensils, floor, shadow, effects, floating dots, text or additional objects."
+    },
+    {
+      "id": "owlbear",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/owlbear.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-9b9fb000-fb9c-48b0-875e-99df13df22ea.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference image is exact canonical game creature. Create FOUR feeding frames in ONE horizontal row, FOUR equal-width cells. Same round brown owl-bear with tawny chest and small orange beak. Lean head and beak downward to pick up food, open beak, close beak and chew, swallow; both feet grounded. RIGHT-facing lateral 2D game view in every cell. Preserve identity, palette, proportions and accessories, same crisp pixel-art resolution/refinement and dark outlines as reference. Frame progression reach/take bite/chew/swallow, real jaw/neck action not sitting and blinking. Constant body dimensions and foot baseline. Full anatomy in every frame, with generous transparent padding. GENUINE transparent RGBA background, not a painted checkerboard. No food, bowls, utensils, floor, shadow, effects, floating dots, text or additional objects."
+    },
+    {
+      "id": "griffin",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/griffin.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-e78b7afa-ecf3-43b1-8500-0c1a0c5c1c32.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference image is exact canonical game creature. Create FOUR feeding frames in ONE horizontal row, FOUR equal-width cells. Same golden-brown gryphon with dark tuft/mane, dark paws and feathered wings. Lean beak down, open it for food, close/chew, swallow, feet grounded wings tucked. RIGHT-facing lateral 2D game view in every cell. Preserve identity, palette, proportions and accessories, same crisp pixel-art resolution/refinement and dark outlines as reference. Frame progression reach/take bite/chew/swallow, real jaw/neck action not sitting and blinking. Constant body dimensions and foot baseline. Full anatomy in every frame, with generous transparent padding. GENUINE transparent RGBA background, not a painted checkerboard. No food, bowls, utensils, floor, shadow, effects, floating dots, text or additional objects."
+    },
+    {
+      "id": "elder-snail",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/elder-snail.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-7c18b8fc-8041-42ce-a967-7be96b473092.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Reference image is exact canonical game creature. Create FOUR feeding frames in ONE horizontal row, FOUR equal-width cells. Same PINK snail with deep indigo spiral shell and long pink eyestalks with dark tips. Keep shell/foot anchored on ground, stretch small mouth forward/down to graze, open mouth, chew, retract head slightly; do not resize shell. RIGHT-facing lateral 2D game view in every cell. Preserve identity, palette, proportions and accessories, same crisp pixel-art resolution/refinement and dark outlines as reference. Frame progression reach/take bite/chew/swallow, real jaw/neck action not sitting and blinking. Constant body dimensions and foot baseline. Full anatomy in every frame, with generous transparent padding. GENUINE transparent RGBA background, not a painted checkerboard. No food, bowls, utensils, floor, shadow, effects, floating dots, text or additional objects."
+    },
+    {
+      "id": "fiddle-dog",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/fiddle-dog.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-31ce0e40-7a72-4d2c-9b21-e3ece5f9fedf.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Create a FOUR-frame feeding sprite strip for the EXACT referenced creature. Dark burgundy dog with cream face/muzzle/paws, tall ears, teal collar and cream tailtip. Use the intact face from reference. Four paws planted; bend head down to eat, open mouth, chew, lick lips. Do not sit, do not omit face or paws. Four equal-width cells in ONE horizontal row, ALL facing RIGHT in lateral 2D. Distinct reach/bite/chew/swallow poses. Keep body/bone dimensions, palette, markings and pixel-art refinement exactly consistent with reference and between frames. No idle-blink substitute. Full creature including all feet, ears, wings/tail inside each cell with generous transparent margins; shared ground baseline. GENUINE transparent alpha background. No food, bowls, hands, utensils, particles, shadows, floor, text or drawn checkerboard."
+    },
+    {
+      "id": "guardian-rabbit",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/guardian-rabbit.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-7b3c7ba7-7a9f-488f-97d7-9f52fc95bba1.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Create a FOUR-frame feeding sprite strip for the EXACT referenced creature. Small white rabbit guardian wearing dark teal tunic/cape with gold shoulder clasp, pink ears and cheeks. Keep same outfit. Crouch and lean head down, take bite with small open mouth, close jaw/chew, swallow. No weapons movement. Four equal-width cells in ONE horizontal row, ALL facing RIGHT in lateral 2D. Distinct reach/bite/chew/swallow poses. Keep body/bone dimensions, palette, markings and pixel-art refinement exactly consistent with reference and between frames. No idle-blink substitute. Full creature including all feet, ears, wings/tail inside each cell with generous transparent margins; shared ground baseline. GENUINE transparent alpha background. No food, bowls, hands, utensils, particles, shadows, floor, text or drawn checkerboard."
+    },
+    {
+      "id": "slime",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/slime.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-53da6d7f-da62-4e9b-81df-b074fbbcdeff.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Create a FOUR-frame feeding sprite strip for the EXACT referenced creature. Same translucent lime-green slime blob with dark teal border/base and two eyes. Keep ground footprint and body volume constant; form a small visible mouth on RIGHT lower face, lean that side toward food, open mouth, close mouth with small cheek bulge/chew, swallow. No new limbs. Four equal-width cells in ONE horizontal row, ALL facing RIGHT in lateral 2D. Distinct reach/bite/chew/swallow poses. Keep body/bone dimensions, palette, markings and pixel-art refinement exactly consistent with reference and between frames. No idle-blink substitute. Full creature including all feet, ears, wings/tail inside each cell with generous transparent margins; shared ground baseline. GENUINE transparent alpha background. No food, bowls, hands, utensils, particles, shadows, floor, text or drawn checkerboard."
+    },
+    {
+      "id": "kappa",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/kappa.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-587922d2-4759-4e54-b434-3ab3c51c30ea.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Create a FOUR-frame feeding sprite strip for the EXACT referenced creature. Same small green kappa with yellow belly, orange beak and yellow head dish. Feet planted; lean beak down, open to take bite, close chewing, swallow. Four equal-width cells in ONE horizontal row, ALL facing RIGHT in lateral 2D. Distinct reach/bite/chew/swallow poses. Keep body/bone dimensions, palette, markings and pixel-art refinement exactly consistent with reference and between frames. No idle-blink substitute. Full creature including all feet, ears, wings/tail inside each cell with generous transparent margins; shared ground baseline. GENUINE transparent alpha background. No food, bowls, hands, utensils, particles, shadows, floor, text or drawn checkerboard."
+    },
+    {
+      "id": "nexus-bat",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/nexus-bat.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-c121ecac-4178-4289-b570-933b8e1bc602.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Create a FOUR-frame feeding sprite strip for the EXACT referenced creature. Same brown/pink bat with dark teal lower body and big pink ears. Landed on both feet, wings folded or slightly out. Lower head to food, open small mouth, close and chew, swallow; NOT flying. Four equal-width cells in ONE horizontal row, ALL facing RIGHT in lateral 2D. Distinct reach/bite/chew/swallow poses. Keep body/bone dimensions, palette, markings and pixel-art refinement exactly consistent with reference and between frames. No idle-blink substitute. Full creature including all feet, ears, wings/tail inside each cell with generous transparent margins; shared ground baseline. GENUINE transparent alpha background. No food, bowls, hands, utensils, particles, shadows, floor, text or drawn checkerboard."
+    },
+    {
+      "id": "frost-salamander",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/frost-salamander.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-52b60534-6e82-4962-96b2-6c906f265484.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Create a FOUR-frame feeding sprite strip for the EXACT referenced creature. Same cyan salamander with dark blue spines, light belly and glowing cyan tailtip. All four feet grounded; lower head to bite, open mouth, close mouth chewing, lick lips. Preserve entire tail. Four equal-width cells in ONE horizontal row, ALL facing RIGHT in lateral 2D. Distinct reach/bite/chew/swallow poses. Keep body/bone dimensions, palette, markings and pixel-art refinement exactly consistent with reference and between frames. No idle-blink substitute. Full creature including all feet, ears, wings/tail inside each cell with generous transparent margins; shared ground baseline. GENUINE transparent alpha background. No food, bowls, hands, utensils, particles, shadows, floor, text or drawn checkerboard."
+    },
+    {
+      "id": "adult-red-dragon",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/adult-red-dragon.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-e6cc3ae7-e436-46f7-a554-07b6fd181673.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact canonical pixel-art creature, NOT a species redesign. Create FOUR distinct eating action frames in ONE horizontal row with FOUR equal cells. Same RED dragon with peach belly, dark purple horns/spines and red wings. Keep legs planted and wings tucked, lower muzzle, open jaw for a bite, close chewing, swallow. No fire. All face RIGHT in lateral 2D. Maintain face/markings/palette/accessories and identical body dimensions. Real mouth/neck articulation in reach/bite/chew/swallow progression, not idle blinking. Same pixel-art resolution/refinement as reference, crisp pixel edges, dark outline. Full anatomy and generous transparent margins in every frame, feet on one baseline. GENUINELY transparent RGBA background, no checkerboard drawing, bowl, food, utensils, hand, floor, shadows, particles, effects or text."
+    },
+    {
+      "id": "ancient-black-dragon",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/ancient-black-dragon.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-64b75aa9-f106-4f89-aea1-deca2623ae2a.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact canonical pixel-art creature, NOT a species redesign. Create FOUR distinct eating action frames in ONE horizontal row with FOUR equal cells. Same dark purple/brown dragon with tan belly bands and tan inner wing membranes. Feet planted, wings folded, lower muzzle, open and close jaw to eat, swallow. No roaring or flying. All face RIGHT in lateral 2D. Maintain face/markings/palette/accessories and identical body dimensions. Real mouth/neck articulation in reach/bite/chew/swallow progression, not idle blinking. Same pixel-art resolution/refinement as reference, crisp pixel edges, dark outline. Full anatomy and generous transparent margins in every frame, feet on one baseline. GENUINELY transparent RGBA background, no checkerboard drawing, bowl, food, utensils, hand, floor, shadows, particles, effects or text."
+    },
+    {
+      "id": "displacer-beast",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/displacer-beast.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-090253df-aadf-490d-85a4-975b2bbdd3ea.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact canonical pixel-art creature, NOT a species redesign. Create FOUR distinct eating action frames in ONE horizontal row with FOUR equal cells. Same cute dark slate-purple feline with ORANGE eyes and orange inner-ear accents; preserve exact reference features, do not invent extra tentacles. Four paws planted, bend head down, bite, chew, lick lips. All face RIGHT in lateral 2D. Maintain face/markings/palette/accessories and identical body dimensions. Real mouth/neck articulation in reach/bite/chew/swallow progression, not idle blinking. Same pixel-art resolution/refinement as reference, crisp pixel edges, dark outline. Full anatomy and generous transparent margins in every frame, feet on one baseline. GENUINELY transparent RGBA background, no checkerboard drawing, bowl, food, utensils, hand, floor, shadows, particles, effects or text."
+    },
+    {
+      "id": "ice-golem",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/ice-golem.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-08997da0-9da7-45cd-aa1d-e275bb592315.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact canonical pixel-art creature, NOT a species redesign. Create FOUR distinct eating action frames in ONE horizontal row with FOUR equal cells. Same small cyan icy creature with dark blue outline, pointed icy ears/crest, black rectangular eyes, two stubby feet. Lean head and torso toward ground food, open a small mouth, close chewing, swallow; keep ice silhouette and feet grounded, no particles. All face RIGHT in lateral 2D. Maintain face/markings/palette/accessories and identical body dimensions. Real mouth/neck articulation in reach/bite/chew/swallow progression, not idle blinking. Same pixel-art resolution/refinement as reference, crisp pixel edges, dark outline. Full anatomy and generous transparent margins in every frame, feet on one baseline. GENUINELY transparent RGBA background, no checkerboard drawing, bowl, food, utensils, hand, floor, shadows, particles, effects or text."
+    },
+    {
+      "id": "hellhound",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/hellhound.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-7a615b27-d36a-48a3-8413-7368a1bbfea3.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact canonical pixel-art creature, NOT a species redesign. Create FOUR distinct eating action frames in ONE horizontal row with FOUR equal cells. Same brown canine with tan muzzle/chest, pink inner ears, small dark eyes and brown tail from reference. Four paws planted, lower muzzle, bite, chew, lick; no flames. All face RIGHT in lateral 2D. Maintain face/markings/palette/accessories and identical body dimensions. Real mouth/neck articulation in reach/bite/chew/swallow progression, not idle blinking. Same pixel-art resolution/refinement as reference, crisp pixel edges, dark outline. Full anatomy and generous transparent margins in every frame, feet on one baseline. GENUINELY transparent RGBA background, no checkerboard drawing, bowl, food, utensils, hand, floor, shadows, particles, effects or text."
+    },
+    {
+      "id": "imp",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/imp.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-08cc436a-5b7d-4fa3-ae91-1faab824994a.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the exact canonical pixel-art creature, NOT a species redesign. Create FOUR distinct eating action frames in ONE horizontal row with FOUR equal cells. Same orange/red round face, yellow forehead glow, purple horns/crest and dark teal body. Both feet planted, lean face down, small mouth opens for bite, closes chewing, swallows. No new wings or fire. All face RIGHT in lateral 2D. Maintain face/markings/palette/accessories and identical body dimensions. Real mouth/neck articulation in reach/bite/chew/swallow progression, not idle blinking. Same pixel-art resolution/refinement as reference, crisp pixel edges, dark outline. Full anatomy and generous transparent margins in every frame, feet on one baseline. GENUINELY transparent RGBA background, no checkerboard drawing, bowl, food, utensils, hand, floor, shadows, particles, effects or text."
+    },
+    {
+      "id": "beholder",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/beholder.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-d6da773c-524f-4fdb-9faa-0464ea89267b.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Exact creature identity from the reference. Create FOUR distinct feeding frames in ONE horizontal row, FOUR equal-width cells. Same ROUND PURPLE puffer-like creature with small tan triangular spikes, tiny eyes and pink mouth. Preserve shape and all spikes, do not invent giant eye. Lean face RIGHT/down, open mouth, close mouth with cheeks chewing, swallow; base grounded. All facing RIGHT in a lateral 2D game view, unchanged palette, markings, accessories, face and body dimensions, same pixel-art style/refinement as reference. Actual reach/bite/chew/swallow articulation, not idle blinking. Stable ground baseline and full anatomy inside every cell with generous transparent margins. GENUINE transparent RGBA background, no drawn checkerboard, no food, bowl, utensils, floor, shadows, effects, particles or text."
+    },
+    {
+      "id": "bulette",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/bulette.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-35abf956-ef0e-4267-8bcf-3b2b74814bac.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Exact creature identity from the reference. Create FOUR distinct feeding frames in ONE horizontal row, FOUR equal-width cells. Same cream-and-brown small creature with white face, red eyes and brown armored/ear tufts from reference. Keep exact design, no generic shark. Lean muzzle down, open mouth, chew, swallow, feet planted. All facing RIGHT in a lateral 2D game view, unchanged palette, markings, accessories, face and body dimensions, same pixel-art style/refinement as reference. Actual reach/bite/chew/swallow articulation, not idle blinking. Stable ground baseline and full anatomy inside every cell with generous transparent margins. GENUINE transparent RGBA background, no drawn checkerboard, no food, bowl, utensils, floor, shadows, effects, particles or text."
+    },
+    {
+      "id": "purple-worm",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/purple-worm.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-c05fb030-3c94-41a1-bfbf-4f8a0e245ad1.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Exact creature identity from the reference. Create FOUR distinct feeding frames in ONE horizontal row, FOUR equal-width cells. Same coiled violet segmented worm with tan/orange mouth rim and pink cheek. Keep coil/base planted; bend segmented upper neck RIGHT/down toward food, open mouth, close chewing, swallow. Preserve thick body volume and segment pattern. All facing RIGHT in a lateral 2D game view, unchanged palette, markings, accessories, face and body dimensions, same pixel-art style/refinement as reference. Actual reach/bite/chew/swallow articulation, not idle blinking. Stable ground baseline and full anatomy inside every cell with generous transparent margins. GENUINE transparent RGBA background, no drawn checkerboard, no food, bowl, utensils, floor, shadows, effects, particles or text."
+    },
+    {
+      "id": "tyrannosaurus",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/tyrannosaurus.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-8593fee9-391c-40e9-b4d6-4d4c45b0d897.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Exact creature identity from the reference. Create FOUR distinct feeding frames in ONE horizontal row, FOUR equal-width cells. Same olive-green cute T rex with purple spines and cream underside. Stand on both feet, bend neck/head to ground food, open jaw, close chewing, swallow; keep tiny forearms and entire tail. All facing RIGHT in a lateral 2D game view, unchanged palette, markings, accessories, face and body dimensions, same pixel-art style/refinement as reference. Actual reach/bite/chew/swallow articulation, not idle blinking. Stable ground baseline and full anatomy inside every cell with generous transparent margins. GENUINE transparent RGBA background, no drawn checkerboard, no food, bowl, utensils, floor, shadows, effects, particles or text."
+    },
+    {
+      "id": "triceratops",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/triceratops.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-b3a166c5-0ad0-43c6-ba3d-9b74644299c1.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Exact creature identity from the reference. Create FOUR distinct feeding frames in ONE horizontal row, FOUR equal-width cells. Same TEAL triceratops with cream horns and orange studs around frill, cream belly. Four feet planted, lower horned head to graze, open mouth, close chewing, swallow. Full frill and all horns retained. All facing RIGHT in a lateral 2D game view, unchanged palette, markings, accessories, face and body dimensions, same pixel-art style/refinement as reference. Actual reach/bite/chew/swallow articulation, not idle blinking. Stable ground baseline and full anatomy inside every cell with generous transparent margins. GENUINE transparent RGBA background, no drawn checkerboard, no food, bowl, utensils, floor, shadows, effects, particles or text."
+    },
+    {
+      "id": "velociraptor",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/velociraptor.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-06c34f10-38cd-4a42-8834-b804f1fbabeb.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Exact creature identity from the reference. Create FOUR distinct feeding frames in ONE horizontal row, FOUR equal-width cells. Same refined orange feathered raptor with white feathered belly, purple crest and white/purple tail feathers. Both feet planted, lean neck/head downward, take bite, close jaw chewing, swallow. Preserve entire feathered tail, feathers and limbs. All facing RIGHT in a lateral 2D game view, unchanged palette, markings, accessories, face and body dimensions, same pixel-art style/refinement as reference. Actual reach/bite/chew/swallow articulation, not idle blinking. Stable ground baseline and full anatomy inside every cell with generous transparent margins. GENUINE transparent RGBA background, no drawn checkerboard, no food, bowl, utensils, floor, shadows, effects, particles or text."
+    },
+    {
+      "id": "stegosaurus",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/stegosaurus.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-96208bce-2082-463e-b0e2-1662e698cbbe.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the EXACT game dinosaur identity reference. Create FOUR distinct feeding animation frames in ONE horizontal row of FOUR equal-width cells. Same GREEN stegosaurus with large GOLDEN back plates and purple tail spikes, cream belly. All four feet planted, lower head to graze, open jaw, close chewing, swallow; preserve every plate and full tail. All facing RIGHT, lateral 2D game perspective, same bone/body dimensions, palette, markings, features and refined pixel-art style as reference. Reach/bite/chew/swallow with actual articulated head and jaw, not just idle blinking. Stable ground baseline. Entire creature in every cell; generous transparent margins around feet, tail, crest and spikes. GENUINE transparent RGBA background, no checkerboard picture. No food, bowl, hands, utensils, floor, shadow, particles, effects or text."
+    },
+    {
+      "id": "ankylosaurus",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/ankylosaurus.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-6c215578-f8cf-434b-844f-8195cd5a569a.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the EXACT game dinosaur identity reference. Create FOUR distinct feeding animation frames in ONE horizontal row of FOUR equal-width cells. Same blue-gray ankylosaurus with GOLDEN armor spikes and gold tail club, cream jaw. All four feet planted, lower head to graze, open jaw, close chewing, swallow. Entire club tail and spikes retained. All facing RIGHT, lateral 2D game perspective, same bone/body dimensions, palette, markings, features and refined pixel-art style as reference. Reach/bite/chew/swallow with actual articulated head and jaw, not just idle blinking. Stable ground baseline. Entire creature in every cell; generous transparent margins around feet, tail, crest and spikes. GENUINE transparent RGBA background, no checkerboard picture. No food, bowl, hands, utensils, floor, shadow, particles, effects or text."
+    },
+    {
+      "id": "spinosaurus",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/spinosaurus.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-abc62528-242b-4a89-960b-1323d7d295c7.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the EXACT game dinosaur identity reference. Create FOUR distinct feeding animation frames in ONE horizontal row of FOUR equal-width cells. Same TEAL spinosaurus with RED/ORANGE back sail and cream belly. Stand on two hindfeet, bend neck/head down, bite, chew, swallow; preserve sail and long tail. All facing RIGHT, lateral 2D game perspective, same bone/body dimensions, palette, markings, features and refined pixel-art style as reference. Reach/bite/chew/swallow with actual articulated head and jaw, not just idle blinking. Stable ground baseline. Entire creature in every cell; generous transparent margins around feet, tail, crest and spikes. GENUINE transparent RGBA background, no checkerboard picture. No food, bowl, hands, utensils, floor, shadow, particles, effects or text."
+    },
+    {
+      "id": "parasaurolophus",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/parasaurolophus.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-357b8f63-3596-43fb-87d3-86f9d6eacc6f.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the EXACT game dinosaur identity reference. Create FOUR distinct feeding animation frames in ONE horizontal row of FOUR equal-width cells. Same turquoise/green parasaurolophus with long GOLDEN curved backward crest and cream underside. Stand naturally on hindfeet or all four, lower muzzle to graze, open jaw, chew, swallow. Keep long crest and tail intact. All facing RIGHT, lateral 2D game perspective, same bone/body dimensions, palette, markings, features and refined pixel-art style as reference. Reach/bite/chew/swallow with actual articulated head and jaw, not just idle blinking. Stable ground baseline. Entire creature in every cell; generous transparent margins around feet, tail, crest and spikes. GENUINE transparent RGBA background, no checkerboard picture. No food, bowl, hands, utensils, floor, shadow, particles, effects or text."
+    },
+    {
+      "id": "pteranodon",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/pteranodon.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-66d301d4-b28e-4030-a506-c5f2a0abbd2a.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the EXACT game dinosaur identity reference. Create FOUR distinct feeding animation frames in ONE horizontal row of FOUR equal-width cells. Same BLUE and lavender pteranodon with long PURPLE pointed crest, peach beak/belly and pink wing accents. Landed, both feet grounded, wings folded. Lower beak down to take bite, open beak, close/chew, swallow. Full crest and wings retained. All facing RIGHT, lateral 2D game perspective, same bone/body dimensions, palette, markings, features and refined pixel-art style as reference. Reach/bite/chew/swallow with actual articulated head and jaw, not just idle blinking. Stable ground baseline. Entire creature in every cell; generous transparent margins around feet, tail, crest and spikes. GENUINE transparent RGBA background, no checkerboard picture. No food, bowl, hands, utensils, floor, shadow, particles, effects or text."
+    },
+    {
+      "id": "dilophosaurus",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/dilophosaurus.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-7428f7c3-9254-4c23-bdd6-71c0bb9717e3.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the EXACT game dinosaur identity reference. Create FOUR distinct feeding animation frames in ONE horizontal row of FOUR equal-width cells. Same GOLDEN/YELLOW dinosaur with twin orange head crests and purple spines/tail. Both feet grounded, bend head down, open jaw, close chewing, swallow; preserve both crests and long tail. All facing RIGHT, lateral 2D game perspective, same bone/body dimensions, palette, markings, features and refined pixel-art style as reference. Reach/bite/chew/swallow with actual articulated head and jaw, not just idle blinking. Stable ground baseline. Entire creature in every cell; generous transparent margins around feet, tail, crest and spikes. GENUINE transparent RGBA background, no checkerboard picture. No food, bowl, hands, utensils, floor, shadow, particles, effects or text."
+    },
+    {
+      "id": "carnotaurus",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/carnotaurus.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-2d90a1a9-1138-4c82-84ae-ab1367ba7051.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the EXACT game dinosaur identity reference. Create FOUR distinct feeding animation frames in ONE horizontal row of FOUR equal-width cells. Same RED/ORANGE carnotaurus with dark horns, dark dorsal spikes, cream throat, tiny arms and long tail. Both feet planted, lean head down, open jaw, chew, swallow, no roar. All facing RIGHT, lateral 2D game perspective, same bone/body dimensions, palette, markings, features and refined pixel-art style as reference. Reach/bite/chew/swallow with actual articulated head and jaw, not just idle blinking. Stable ground baseline. Entire creature in every cell; generous transparent margins around feet, tail, crest and spikes. GENUINE transparent RGBA background, no checkerboard picture. No food, bowl, hands, utensils, floor, shadow, particles, effects or text."
+    },
+    {
+      "id": "pachycephalosaurus",
+      "source": "famigli-del-nexus/source-assets/generated-actions/feeding-v3/pachycephalosaurus.png",
+      "generatedPath": "C:\\Users\\Luigi\\.codex\\generated_images\\01a06408-8a28-7243-8a3e-59d40e99f53f\\exec-c89bc1fb-ba8a-4787-8c25-e12e73083226.png",
+      "mode": "built-in image_gen",
+      "prompt": "Use case: identity-preserve. Input is the EXACT game dinosaur identity reference. Create FOUR distinct feeding animation frames in ONE horizontal row of FOUR equal-width cells. Same olive-green pachycephalosaurus with large shiny ORANGE domed head, purple knobs/spines and tan belly. Both feet planted, bend neck/muzzle down to graze, open mouth, close chewing, swallow; do not change dome shape or omit tail. All facing RIGHT, lateral 2D game perspective, same bone/body dimensions, palette, markings, features and refined pixel-art style as reference. Reach/bite/chew/swallow with actual articulated head and jaw, not just idle blinking. Stable ground baseline. Entire creature in every cell; generous transparent margins around feet, tail, crest and spikes. GENUINE transparent RGBA background, no checkerboard picture. No food, bowl, hands, utensils, floor, shadow, particles, effects or text."
+    }
+  ],
+  "additionalMotion": {
+    "id": "fiddle-dog",
+    "source": "famigli-del-nexus/source-assets/generated-actions/fiddle-dog-motion-v3.png",
+    "prompt": "Use case: identity-preserve. Production sprite atlas correcting missing faces during walking/idle. Image 1 is exact identity reference: small dark burgundy dog, CREAM face/muzzle/paws, teal collar, tall ears, cream tailtip. Create ONE sprite sheet, FOUR columns and TWO rows (eight frames), same body dimensions, feet baseline per row, all facing RIGHT. TOP ROW: four standing idle frames, eyes open / blink / eyes open / relaxed, all four paws on ground, no headless frames. BOTTOM ROW: four distinct full lateral 2D walk-cycle phases, alternate diagonal leg pairs in contact/passing/contact/passing, visible complete legs and face in each frame. Exact same creature/refinement as reference, crisp pixel art, NOT redesigned realistic dog. Full anatomy generously padded inside every cell, no torso scaling, no paw/ear/tail cutoffs. GENUINE transparent RGBA background, no checkerboard artwork, no food/bowl, no floor, no effects or text.",
+    "backgroundEdit": "Replace backdrop with flat white, preserve all eight sprites. Edge-connected matte removal is applied by the normalizer."
+  }
+}

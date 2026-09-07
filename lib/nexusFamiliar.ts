@@ -72,7 +72,7 @@ export type FamiliarActionResult =
 
 const HOUR_MS = 60 * 60 * 1000;
 const MAX_OFFLINE_HOURS = 72;
-export const MAX_DAILY_CARE_EXPERIENCE = 80;
+export const MAX_DAILY_CARE_EXPERIENCE = 35;
 const NEED_DECAY_PER_HOUR: Omit<FamiliarNeeds, "health"> = {
   hunger: 1.25,
   hygiene: 0.75,
@@ -81,10 +81,10 @@ const NEED_DECAY_PER_HOUR: Omit<FamiliarNeeds, "health"> = {
 };
 
 const ITEM_EFFECTS: Record<FamiliarItemKey, { needs: Partial<FamiliarNeeds>; experience: number; label: string }> = {
-  food: { needs: { hunger: 30, health: 2 }, experience: 20, label: "Razione del Nexus" },
-  soap: { needs: { hygiene: 38, health: 1 }, experience: 20, label: "Sapone rituale" },
-  medicine: { needs: { health: 48 }, experience: 15, label: "Medicina del Custode" },
-  toy: { needs: { happiness: 34, energy: -5 }, experience: 25, label: "Giocattolo del Nexus" },
+  food: { needs: { hunger: 30, health: 2 }, experience: 7, label: "Razione del Nexus" },
+  soap: { needs: { hygiene: 38, health: 1 }, experience: 7, label: "Sapone rituale" },
+  medicine: { needs: { health: 48 }, experience: 5, label: "Medicina del Custode" },
+  toy: { needs: { happiness: 34, energy: -5 }, experience: 8, label: "Giocattolo del Nexus" },
 };
 
 const STARTER_DECORATIONS: string[] = [];
@@ -328,7 +328,7 @@ export function restFamiliar(state: NexusFamiliarState, now = new Date()): Famil
   const progress = withCareExperience({
     ...current,
     needs: { ...current.needs, energy: clamp(current.needs.energy + 42), happiness: clamp(current.needs.happiness + 3) },
-  }, 15, now);
+  }, 5, now);
   return { ok: true, state: fulfillFamiliarDailyWish(recordFamiliarCareLegacy(progress.state, "rest", now), "rest", now), message: progress.earned
     ? `Il Famiglio ha riposato nella sua tana: +${progress.earned} PE.`
     : "Il Famiglio ha riposato. I PE giornalieri delle cure sono già al massimo." };

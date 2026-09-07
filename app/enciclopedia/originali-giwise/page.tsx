@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CodexIndex } from "@/components/CodexIndex";
 import { codexEntries } from "@/lib/codex";
-import { createCodexIndexEntries } from "@/lib/codexIndex";
+import { createCodexIndexEntries, createCodexIndexFacets } from "@/lib/codexIndex";
 
 export const metadata: Metadata = {
   title: "Originali GiWise · LoreWise Codex",
@@ -25,6 +25,6 @@ export default function GiWiseOriginalsPage() {
         <figure><Image src="/codex/seals/giwise-original-seal-v1.webp" alt="Sigillo GiWise Original" width={360} height={360} priority /><figcaption>Canone originale · GiWise Studio</figcaption></figure>
       </div>
     </section>
-    <div className="shell"><CodexIndex entries={indexEntries} eyebrow="Canone originale" title="Personaggi GiWise Studio." description={`${entries.length} dossier originali, con lore, relazioni, cronologia e materiali del progetto separati dagli universi di terzi.`} /></div>
+    <div className="shell"><CodexIndex entries={indexEntries} totalEntries={indexEntries.length} originalTotal={indexEntries.length} documentedTotal={0} facets={createCodexIndexFacets(indexEntries)} eyebrow="Canone originale" title="Personaggi GiWise Studio." description={`${entries.length} dossier originali, con lore, relazioni, cronologia e materiali del progetto separati dagli universi di terzi.`} /></div>
   </main>;
 }

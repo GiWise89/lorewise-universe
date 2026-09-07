@@ -8,7 +8,7 @@ type Benefits = {
   pass: { active: boolean; name: string; code: string | null; currentPeriodEnd: string | null; communityBadge: string | null };
   wallet: { availableCredits: number; usedCredits: number; entries: Array<{ id: string; amount: number; remaining: number; status: string; assignedAt: string; expiresAt: string | null; resourceCode: string | null }> };
   discounts: { commissions: number; games: number; digitalProducts: number };
-  familiar: { level: number; title: string; benefit: string; nextLevel: number | null; nextTitle: string | null; economyHistory: Array<{ eventType: string; coinDelta: number; balanceAfter: number; experienceDelta: number; createdAt: string }> };
+  familiar: { level: number; title: string; benefit: string; nextLevel: number | null; nextTitle: string | null; commissionReward: { amountCents: number; unlocked: boolean; status: "locked" | "eligible" | "claimed" | "redeemed" }; economyHistory: Array<{ eventType: string; coinDelta: number; balanceAfter: number; experienceDelta: number; createdAt: string }> };
   opportunities: Array<{ code: string; title: string; description: string; available: boolean; claim: { status: string } | null }>;
   collectorDossiers: Array<{ slug: string; title: string; concept: string; developmentFacts: Array<{ label: string; value: string }> }>;
   redeemableArtworks: Array<{ code: string; title: string }>;
@@ -92,6 +92,7 @@ export function BenefitsCenter() {
     <section className="benefit-panel familiar-benefit-panel" aria-labelledby="familiar-benefit-title">
       <div><small>Legame con il Famiglio · livello {data.familiar.level}</small><h4 id="familiar-benefit-title">{data.familiar.title}</h4><p>{data.familiar.benefit}</p></div>
       <div>{data.familiar.nextLevel ? <><small>Prossimo traguardo</small><strong>Livello {data.familiar.nextLevel}</strong><span>{data.familiar.nextTitle}</span></> : <><small>Traguardo massimo</small><strong>Livello 50</strong><span>Custode leggendario</span></>}</div>
+      <div><small>Premio commissione</small><strong>15 €</strong><span>{data.familiar.commissionReward.status === "redeemed" ? "Utilizzato" : data.familiar.commissionReward.status === "claimed" ? "Riservato alla richiesta inviata" : data.familiar.commissionReward.unlocked ? "Disponibile una sola volta" : "Si sblocca al livello 50"}</span></div>
       <Link href="/famiglio">Apri il Famiglio</Link>
     </section>
 

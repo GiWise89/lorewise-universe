@@ -7,7 +7,8 @@ import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 
 type RuntimeEnv = { DB?: D1Database };
 const visitActivities = new Set<FamiliarMissionActivity>(["artwork_visit", "guide_visit", "chronicle_visit", "project_visit"]);
-const careSources = new Set(["food", "soap", "medicine", "toy", "rest"]);
+const careSources = new Set(["food", "soap", "medicine", "toy", "rest", "feed", "play", "clean", "care"]);
+const gameActivities = new Set<FamiliarMissionActivity>(["familiar_battle", "familiar_expedition", "familiar_tower_floor"]);
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
     if (!mapped || mapped.activity !== activity || mapped.sourceKey !== sourceKey.toLocaleLowerCase("it")) {
       return Response.json({ error: "Percorso non valido." }, { status: 400 });
     }
-  } else if (activity !== "familiar_care" || !careSources.has(sourceKey)) {
+  } else if (activity === "familiar_care" ? !careSources.has(sourceKey) : !gameActivities.has(activity) || !/^[a-z0-9:_-]{3,180}$/i.test(sourceKey)) {
     return Response.json({ error: "Attivita non ammessa." }, { status: 400 });
   }
 

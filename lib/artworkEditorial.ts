@@ -400,4 +400,9 @@ export const artworkEditorialCopy: Record<number, ArtworkEditorialCopy> = {
     year: "2026",
     description: "Un cyborg incappucciato emerge da un ambiente industriale segnato dal pericolo. La maschera scheletrica e gli innesti meccanici trasformano il corpo in una presenza costruita per sopravvivere, mentre l’arancio di sicurezza diventa il suo unico segnale riconoscibile.",
   },
+  81: {
+    title: "Team Rocket · Jessie in scena",
+    year: "2026",
+    description: "Jessie posa con sicurezza in un ritratto dai colori netti e luminosi. Il rosso dei capelli, il simbolo della squadra e i riflessi lucidi dei guanti trasformano la scena in una fan art pop costruita attorno al suo carattere teatrale.",
+  },
 };

@@ -42,7 +42,7 @@ if (FAMILIAR_LEVEL_BENEFITS.at(-1)?.level !== 50 || FAMILIAR_LEVEL_BENEFITS.at(-
 for (const relative of [
   "app/api/famiglio/route.ts", "app/api/famiglio/command/route.ts", "app/api/famiglio/missions/route.ts",
   "app/api/famiglio/activity/route.ts", "app/api/checkout/route.ts", "app/api/stripe/webhook/route.ts",
-  "lib/nexusFamiliarEngagement.ts", "components/NexusFamiliarCompanion.tsx", "components/NexusFamiliarLegacy.tsx",
+  "lib/nexusFamiliarEngagement.ts", "components/FamiglioNexusRebuild.tsx", "components/FamiglioGuideOverlay.tsx",
   "drizzle/0030_nexus_familiar_economy.sql", "netlify/database/migrations/202608300001_nexus_familiar_economy/migration.sql",
 ]) await requireFile(relative);
 
@@ -51,14 +51,6 @@ for (const token of ["Notification.requestPermission", "openPaidFamiliarCheckout
   if (!component.includes(token)) failures.push(`Funzione interfaccia mancante: ${token}`);
 }
 
-const companion = await readFile(join(root, "components", "NexusFamiliarCompanion.tsx"), "utf8");
-for (const token of ["familiarReactionForPath", "familiarSmartAlerts", "mission-reward", "FAMILIAR_NOTIFICATIONS_STORAGE_KEY"]) {
-  if (!companion.includes(token)) failures.push(`Sistema PIP o avvisi incompleto: ${token}`);
-}
-const legacy = await readFile(join(root, "components", "NexusFamiliarLegacy.tsx"), "utf8");
-for (const token of ["CENTRO RICOMPENSE NEXUS", "Monete disponibili", "Prossimo vantaggio", "rewardTimeline"]) {
-  if (!legacy.includes(token)) failures.push(`Centro ricompense incompleto: ${token}`);
-}
 const missionCatalog = await readFile(join(root, "lib", "nexusFamiliarMissionCatalog.ts"), "utf8");
 if (missionCatalog.includes('href: "/guide"')) failures.push("Collegamento missione guide non valido.");
 

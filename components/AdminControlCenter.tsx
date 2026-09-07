@@ -23,6 +23,21 @@ type UserRow = {
   planCode: string | null; planStatus: string | null; credits: number; orders: number; libraryItems: number; owner: boolean;
 };
 
+type FamiglioCustodianSummary = {
+  totalCustodians: number;
+  totalFamiliars: number;
+  custodians: Array<{
+    customerId: string;
+    email: string;
+    displayName: string;
+    accountStatus: string;
+    revision: number;
+    createdAt: string;
+    updatedAt: string;
+    familiars: Array<{ speciesId: string; speciesName: string; familiarName: string }>;
+  }>;
+};
+
 const modules = [
   { code: "01", title: "Utenti", description: "Profili, ruoli, stato, crediti e diritti collegati al LoreWise ID.", href: "#admin-users", icon: "/brand/icons/social-assistenza-concept-v1.webp", tone: "cyan" },
   { code: "02", title: "Abbonamenti e vantaggi", description: "Piani, rinnovi, crediti, sconti e accessi assegnati dal motore vantaggi.", href: "#admin-users", icon: "/brand/lorewise-universe-logo-concept-c.webp", tone: "violet" },
@@ -66,6 +81,7 @@ async function readApiResponse<T>(response: Response): Promise<T & { error?: str
 
 export function AdminControlCenter() {
   const [overview, setOverview] = useState<Overview | null>(null);
+  const [famiglioCustodians, setFamiglioCustodians] = useState<FamiglioCustodianSummary | null>(null);
   const [users, setUsers] = useState<UserRow[]>([]);
   const [selectedId, setSelectedId] = useState("");
   const [search, setSearch] = useState("");
@@ -94,16 +110,24 @@ export function AdminControlCenter() {
     setSelectedId((current) => body.users?.some((user) => user.id === current) ? current : (body.users?.[0]?.id ?? ""));
   }, []);
 
+  const loadFamiglioCustodians = useCallback(async () => {
+    const response = await fetch("/api/admin/famigli", { headers: { accept: "application/json" } });
+    if (response.status === 403) { setFamiglioCustodians(null); return; }
+    const body = await readApiResponse<FamiglioCustodianSummary>(response);
+    if (!response.ok || !body.custodians) throw new Error(body.error || "Registro dei Custodi non disponibile.");
+    setFamiglioCustodians(body);
+  }, []);
+
   useEffect(() => {
     let active = true;
     const timer = window.setTimeout(() => {
-      void Promise.all([loadOverview(), loadUsers("", "all")]).then(() => active && setMessage("")).catch((error: Error) => active && setMessage(error.message));
+      void Promise.all([loadOverview(), loadUsers("", "all"), loadFamiglioCustodians()]).then(() => active && setMessage("")).catch((error: Error) => active && setMessage(error.message));
     }, 0);
     const refresh = window.setInterval(() => {
       if (document.visibilityState === "visible") void loadOverview().catch(() => undefined);
     }, 45_000);
     return () => { active = false; window.clearTimeout(timer); window.clearInterval(refresh); };
-  }, [loadOverview, loadUsers]);
+  }, [loadFamiglioCustodians, loadOverview, loadUsers]);
 
   useEffect(() => {
     if (!overview) return;
@@ -205,6 +229,12 @@ export function AdminControlCenter() {
         <article className={overview.summary.pendingEmails ? "needs-attention" : ""}><small>Email</small><strong>{overview.summary.pendingEmails}</strong><span>in coda o da riprovare</span></article>
       </div>
     </section>
+
+    {famiglioCustodians ? <section id="admin-famiglio-custodians" className="admin-famiglio-custodians" aria-labelledby="admin-famiglio-custodians-title">
+      <header><div><p className="eyebrow">Nexus Pet · archivio proprietario</p><h2 id="admin-famiglio-custodians-title">Custodi dei Famigli.</h2><p>Riepilogo privato degli account LoreWise che hanno completato almeno una schiusa e sincronizzato una Casa.</p></div><div className="admin-famiglio-totals"><span><strong>{number.format(famiglioCustodians.totalCustodians)}</strong>Custodi</span><span><strong>{number.format(famiglioCustodians.totalFamiliars)}</strong>Famigli</span></div></header>
+      {famiglioCustodians.custodians.length ? <div className="admin-famiglio-table" role="region" aria-label="Elenco privato dei Custodi" tabIndex={0}><table><thead><tr><th>Custode</th><th>Email</th><th>Famigli</th><th>Ultima sincronizzazione</th><th>Stato</th></tr></thead><tbody>{famiglioCustodians.custodians.map((custodian) => <tr key={custodian.customerId}><td><strong>{custodian.displayName || "Profilo LoreWise"}</strong><small>{custodian.familiars.length} {custodian.familiars.length === 1 ? "Casa attiva" : "Case attive"}</small></td><td><a href={`mailto:${custodian.email}`}>{custodian.email}</a></td><td><ul>{custodian.familiars.map((familiar, index) => <li key={`${familiar.speciesId}-${index}`}><strong>{familiar.familiarName}</strong><span>{familiar.speciesName}</span></li>)}</ul></td><td><time dateTime={custodian.updatedAt}>{date(custodian.updatedAt)}</time></td><td><span className={`admin-famiglio-status is-${custodian.accountStatus}`}>{custodian.accountStatus}</span></td></tr>)}</tbody></table></div> : <p className="admin-famiglio-empty">Nessun account ha ancora sincronizzato un Famiglio schiuso.</p>}
+      <p className="admin-famiglio-privacy">Visibile esclusivamente all’account proprietario. I salvataggi anonimi presenti soltanto sul dispositivo non contengono un’email e non compaiono qui.</p>
+    </section> : null}
 
     <section id="admin-analytics" className="admin-analytics" aria-labelledby="admin-analytics-title">
       <header><div><p className="eyebrow">Statistiche del dominio pubblico</p><h2 id="admin-analytics-title">Quanto viene esplorato LoreWise.</h2><p>Rilevazione proprietaria attiva soltanto su <strong>{overview.analytics.configuredHost}</strong>. Non vengono salvati IP, email, cookie pubblicitari o cronologia personale.</p></div><span>Ultimo aggiornamento<strong>adesso</strong></span></header>

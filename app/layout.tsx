@@ -5,8 +5,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteAnalyticsTracker } from "@/components/SiteAnalyticsTracker";
 import { ProfileCompletionGate } from "@/components/ProfileCompletionGate";
-import { NexusFamiliarCompanion } from "@/components/NexusFamiliarCompanion";
 import { SiteJsonLd } from "@/components/SeoJsonLd";
+import { NexusPetNavigationPip } from "@/components/NexusPetNavigationPip";
 import "./site.css";
 
 const display = Fraunces({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600", "700"] });
@@ -61,7 +61,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ProfileCompletionGate />
         <SiteHeader />
         <div id="contenuto">{children}</div>
-        <NexusFamiliarCompanion />
+        <NexusPetNavigationPip />
         <SiteFooter />
       </body>
     </html>

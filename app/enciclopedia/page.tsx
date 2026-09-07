@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CodexIndex } from "@/components/CodexIndex";
 import { codexEntries } from "@/lib/codex";
-import { createCodexIndexEntries } from "@/lib/codexIndex";
+import { createCodexIndexEntries, createCodexIndexFacets } from "@/lib/codexIndex";
 import { UniverseGuide } from "@/components/UniverseGuide";
 
 const description = "LoreWise Codex: dossier di personaggi e universi con identità, biografie, relazioni, continuità e fonti, separando il canone GiWise dagli universi documentati.";
@@ -25,7 +25,8 @@ export const metadata: Metadata = {
 };
 
 export default function EncyclopediaPage() {
-  const indexEntries = createCodexIndexEntries(codexEntries);
+  const indexEntries = createCodexIndexEntries(codexEntries)
+    .sort((first, second) => first.displayTitle.localeCompare(second.displayTitle, "it", { sensitivity: "base" }));
   const originalCount = codexEntries.filter((entry) => entry.catalog.origin === "giwise-original").length;
   const documentedCount = codexEntries.length - originalCount;
 
@@ -42,7 +43,7 @@ export default function EncyclopediaPage() {
         <aside className="codex-home-signature">
           <Image className="codex-home-scene" src="/backgrounds/codex-archive-convergences-scene-v1.webp" alt="Archivio delle Convergenze, con il grande Codex aperto fra biblioteche, astri e correnti luminose" width={1833} height={858} priority unoptimized />
           <Image className="codex-home-emblem" src="/codex/seals/lorewise-codex-emblem-v1.webp" alt="Emblema LoreWise Codex con libro aperto e simbolo triangolare GiWise" width={1206} height={1305} priority unoptimized />
-          <div className="codex-home-manifesto" aria-label="Principi editoriali del LoreWise Codex">
+          <div className="codex-home-manifesto" aria-label="Cosa trovi nel LoreWise Codex">
             <span>01</span><strong>Lore originale dichiarata.</strong>
             <span>02</span><strong>Spoiler sotto controllo.</strong>
             <span>03</span><strong>Fonti collegate ai fatti.</strong>
@@ -51,13 +52,13 @@ export default function EncyclopediaPage() {
       </div>
     </section>
 
-    <div id="indice-codex" className="shell codex-index-stage"><CodexIndex entries={indexEntries} description={`${originalCount} dossier originali · ${documentedCount} dossier documentati · sei risultati per pagina.`} /></div>
+    <div id="indice-codex" className="shell codex-index-stage"><CodexIndex entries={indexEntries.slice(0, 6)} totalEntries={indexEntries.length} originalTotal={originalCount} documentedTotal={documentedCount} facets={createCodexIndexFacets(indexEntries)} description={`${originalCount} dossier originali · ${documentedCount} dossier documentati · sei risultati per pagina.`} /></div>
 
     <section className="shell codex-secondary-paths" aria-labelledby="codex-secondary-title">
       <header><p className="eyebrow">Percorsi specialistici</p><h2 id="codex-secondary-title">Quando vuoi entrare più a fondo.</h2></header>
       <div>
         <Link href="/enciclopedia/originali-giwise"><Image src="/codex/seals/giwise-original-seal-v1.webp" alt="" width={320} height={320} /><span><small>Archivio autonomo</small><strong>Originali GiWise</strong><span>Esplora soltanto personaggi, fazioni e lore creati da GiWise Studio.</span><b>Apri l’archivio d’autore →</b></span></Link>
-        <Link href="/enciclopedia/proposte-vip"><Image src="/brand/icons/lorewise-vip-official-v1.webp" alt="" width={1024} height={1024} unoptimized /><span><small>Partecipazione riservata</small><strong>Proposte VIP</strong><span>Suggerisci un futuro dossier senza interrompere la consultazione principale.</span><b>Apri lo strumento editoriale →</b></span></Link>
+        <Link href="/enciclopedia/proposte-vip"><Image src="/brand/icons/lorewise-vip-official-v1.webp" alt="" width={1024} height={1024} unoptimized /><span><small>Partecipazione riservata</small><strong>Proposte VIP</strong><span>Suggerisci un futuro dossier senza interrompere la consultazione principale.</span><b>Apri lo spazio proposte →</b></span></Link>
       </div>
     </section>
 

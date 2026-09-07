@@ -99,6 +99,8 @@ test("uses a scenic desktop constellation and a safe responsive grid", async () 
   const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   assert.match(css, /Desktop scenografico: costellazione orbitale/);
   assert.match(css, /@media \(min-width:1281px\)[\s\S]*?\.home-portal-gallery\s*\{[\s\S]*?position:absolute/);
+  assert.match(css, /Mantiene il nucleo centrale separato dai portali superiore e VIP[\s\S]{0,90}min-height:1000px/);
+  assert.match(css, /\.universe-home \.art-story\s*\{[\s\S]{0,120}max-width:none;[\s\S]{0,120}box-sizing:border-box;/);
   assert.match(css, /@media \(max-width:700px\)[\s\S]*?grid-template-columns:repeat\(auto-fit,minmax\(min\(100%,160px\),1fr\)\)/);
 });
 
@@ -138,16 +140,16 @@ test("groups every destination into the approved responsive navigation", async (
   assert.match(html, /href="\/contatti"/);
 });
 
-test("keeps the Demon Match Three protagonist reveal protected inside the VIP area", async () => {
-  const response = await render("/cronache-del-nexus?vista=archivio&cronaca=demon-match-android-development");
+test("keeps the Demon Match Three protagonist reveal protected in the finite games section", async () => {
+  const response = await render("/cronache-del-nexus?sezione=giochi");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Le identità del nuovo conflitto sono state svelate nell’Area VIP/);
-  assert.match(html, /gameplay-portal-backdrop-v1\.webp/);
-  assert.match(html, /La griglia, le fusioni e le prime missioni/);
+  assert.match(html, /giochi-crocevia-v1\.webp/);
+  assert.match(html, /Tre mondi, tre modi di giocare/);
   assert.doesNotMatch(html, /Nora|Varek|nora-order|varek-shadow|nora-varek-duality/);
-  assert.match(html, /Demo gratuita Android in arrivo/);
-  assert.match(html, /Abbonati all’Area VIP/);
+  assert.match(html, /Demon Match Three/);
+  assert.match(html, /Apri il gioco/);
   assert.doesNotMatch(html, /nel finale|tradisce|muore|boss finale/i);
 });
 
@@ -159,6 +161,15 @@ test("applies the global browser security policy", async () => {
   assert.equal(response.headers.get("x-frame-options"), "DENY");
   assert.equal(response.headers.get("referrer-policy"), "strict-origin-when-cross-origin");
   assert.match(response.headers.get("permissions-policy") ?? "", /camera=\(\)/);
+});
+
+test("keeps HTTP assets available on private-LAN previews without weakening public HTTPS", async () => {
+  const lanResponse = await render("/famiglio", { headers: { host: "192.168.1.7:3017" } });
+  assert.equal(lanResponse.status, 200);
+  assert.doesNotMatch(lanResponse.headers.get("content-security-policy") ?? "", /upgrade-insecure-requests/);
+  const proxySource = await readFile(new URL("../proxy.ts", import.meta.url), "utf8");
+  assert.match(proxySource, /isHttpLocalPreview/);
+  assert.match(proxySource, /isDevelopment \|\| isHttpLocalPreview \? \[\] : \["upgrade-insecure-requests"\]/);
 });
 
 test("publishes robots, manifest and a dynamic public sitemap", async () => {
@@ -285,7 +296,7 @@ test("routes the verified shop catalog through LoreWise product dossiers", async
   const response = await render("/shop/catalogo");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /103[\s\S]{0,80}prodotti verificati/);
+  assert.match(html, /103[\s\S]{0,80}prodotti/);
   assert.match(html, /href="\/shop\/catalogo\/gs-001"/);
   assert.match(html, /Esplora la scheda LoreWise/);
 });
@@ -322,7 +333,7 @@ test("renders a detailed encyclopedia entry", async () => {
   assert.match(html, /Identità/);
   assert.match(html, /Data di nascita/);
   assert.match(html, /Relazioni/);
-  assert.match(html, /Fonti e controllo editoriale/);
+  assert.match(html, /Approfondisci opere e riferimenti/);
   assert.match(html, /Cripta delle Sette Vene/);
   assert.match(html, /Lore originale sviluppata per LoreWise Codex/);
   assert.match(html, /Spoiler protetti/);
@@ -336,7 +347,7 @@ test("renders one intuitive Codex index while keeping origins explicitly switcha
   const response = await render("/enciclopedia");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.ok(Buffer.byteLength(html) < 1_000_000, "L'indice non deve serializzare i dossier completi nel browser");
+  assert.ok(Buffer.byteLength(html) < 450_000, "L'indice iniziale deve serializzare soltanto la prima pagina");
   assert.match(html, /665[\s\S]{0,80}dossier/);
   assert.match(html, /Da dove vuoi iniziare\?/);
   assert.match(html, /Come consultare il LoreWise Codex/);
@@ -345,20 +356,26 @@ test("renders one intuitive Codex index while keeping origins explicitly switcha
   assert.match(html, /Esplora tutto/);
   assert.match(html, /Originali GiWise/);
   assert.match(html, /Universi documentati/);
-  assert.match(html, /Pennywise, il Clown Danzante/);
   assert.doesNotMatch(html, /href="\/enciclopedia\/pennywise-(?:modern|1990)"/);
-  assert.match(html, /Nhevara, Madreferita/);
-  assert.match(html, /Elyra, Voce Negata/);
   assert.match(html, /Tutte le categorie/);
   assert.match(html, /Tutti gli universi/);
-  assert.match(html, /Stato editoriale/);
-  assert.match(html, /Tutti gli stati/);
+  assert.match(html, /Completezza del dossier/);
+  assert.match(html, /Tutti i dossier/);
   assert.match(html, /codex-archive-convergences-scene-v1\.webp/);
   assert.match(html, /lorewise-codex-emblem-v1\.webp/);
   assert.match(html, /Filtri avanzati/);
   assert.match(html, /Azzera tutto/);
   assert.match(html, /Pagine dei risultati/);
   assert.doesNotMatch(html, /Mostra altri dossier/);
+});
+
+test("loads the complete Codex index from the cached public endpoint", async () => {
+  const response = await render("/api/codex-index");
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("cache-control") || "", /s-maxage=86400/);
+  const payload = await response.json();
+  assert.equal(payload.entries.length, 665);
+  assert.match(payload.entries.map((entry) => entry.displayTitle).join("\n"), /Pennywise, il Clown Danzante/);
 });
 
 test("renders the separate GiWise Originals archive", async () => {
@@ -492,7 +509,7 @@ test("renders the protected art catalog without deriving public titles from file
   assert.match(html, /fanart-emblem-v1\.webp/);
   assert.match(html, /Ordina/);
   assert.match(html, /Apri il capitolo successivo/);
-  assert.match(html, /Visualizzate[\s\S]*6[\s\S]*75 opere/);
+  assert.match(html, /Visualizzate[\s\S]*6[\s\S]*76 opere/);
   assert.match(html, /Originale autorizzata/);
   assert.match(catalogSource, /Fascia Essenziale/);
   assert.match(catalogSource, /Fascia Dettagliata/);
@@ -1071,8 +1088,7 @@ test("renders The Wound Remembers as a live evolving game with a verified but un
   assert.match(html, /prezzo ordinario futuro previsto di €9,99/);
   assert.match(html, /Edizione Windows/);
   assert.match(html, /Distribuzione ufficiale GiWise Studio/);
-  assert.match(html, /APK Android/);
-  assert.match(html, /Download APK non ancora disponibile/);
+  assert.doesNotMatch(html, /APK Android|Download APK/i);
   assert.match(html, /Aggiornamenti ufficiali/);
   assert.match(html, /18 agosto 2026/);
   assert.match(html, /276 carte verificate e 31 Evoluzioni/);
@@ -1151,8 +1167,7 @@ test("renders the current native Android Demon Match Three gameplay without expo
   assert.match(html, /Demo gratuita Android in arrivo/);
   assert.match(html, /senza ritagli/);
   assert.match(html, /Distribuzione e disponibilità/);
-  assert.match(html, /Gratuita · presto in arrivo/);
-  assert.doesNotMatch(html, /Acquista ora|Download APK disponibile/);
+  assert.doesNotMatch(html, /Acquista ora|Download APK/i);
 });
 
 test("keeps the Demon Match Three creative journal aligned with the native Android rebuild", async () => {

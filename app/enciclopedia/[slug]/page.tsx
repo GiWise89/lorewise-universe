@@ -154,13 +154,13 @@ export default async function CharacterPage({ params }: { params: Promise<{ slug
           <p className="eyebrow">LoreWise Codex · {dossierCode}</p>
           <h1>{entry.displayTitle}</h1>
           <p>{entry.narrative[1]?.value} · {entry.narrative[4]?.value}</p>
-          <div className="codex-document-state"><strong>{entry.editorial.verificationLabel}</strong><span>Ultima revisione: {entry.editorial.lastReviewed}</span><StatusSeal status="verified" /></div>
+          <div className="codex-document-state"><strong>{entry.catalog.origin === "giwise-original" ? "Originale GiWise" : "Universo documentato"}</strong><span>Aggiornato il {entry.editorial.lastReviewed}</span><StatusSeal status="verified" /></div>
           <blockquote>{conciseText(entry.summary.value)}<SourceMarks sourceIds={entry.summary.sourceIds} /></blockquote>
         </header>
       </article>
       <div className="codex-character-dossier">
         <CodexChapterTabs chapters={dossierChapters}>
-        <section id="identita" className="codex-chapter"><ChapterHeader number="01" eyebrow="Identità" title={`Profilo verificato di ${entry.name}.`} /><div className="codex-chapter-reading codex-opening-chapter"><FactGroup title="Dati distintivi" description="Nomi, natura e provenienza documentati senza ripetere il riepilogo introduttivo." facts={identityCore} /><FactGroup title="Ruolo e profilo operativo" description="La funzione concreta del personaggio e gli eventuali dati registrati nel progetto." facts={identityOperational} /></div></section>
+        <section id="identita" className="codex-chapter"><ChapterHeader number="01" eyebrow="Identità" title={`Conosci ${entry.name}.`} /><div className="codex-chapter-reading codex-opening-chapter"><FactGroup title="Dati distintivi" description="Nomi, natura e provenienza per orientarti subito nel dossier." facts={identityCore} /><FactGroup title="Ruolo nella storia" description="La funzione del personaggio, le sue capacità e ciò che lo rende riconoscibile." facts={identityOperational} /></div></section>
         <section id="appartenenza" className="codex-chapter"><ChapterHeader number="02" eyebrow="Canone e contesto" title="Dove agisce e perché conta." /><div className="codex-chapter-reading codex-opening-chapter"><FactGroup title="Cornice dell’opera" description="Opera, formato, continuità e responsabilità creativa della versione descritta nel dossier." facts={narrativeContext} /><FactGroup title="Funzione nella storia e nel gioco" description="Informazioni specifiche sul contributo narrativo o ludico, senza duplicare identità e affiliazioni già indicate." facts={narrativeFunction} /></div></section>
 
         <section id="biografia" className="codex-chapter"><ChapterHeader number="03" eyebrow="Presentazione e biografia" title="Origine, viaggio e trasformazioni." />
@@ -187,10 +187,9 @@ export default async function CharacterPage({ params }: { params: Promise<{ slug
           </div>
         </section>
 
-        <section id="fonti" className="codex-chapter codex-editorial"><ChapterHeader number="08" eyebrow="Fonti e controllo editoriale" title="Come è stata costruita la scheda." />
-          <div className="codex-chapter-reading"><div className="codex-editorial-meta"><p><strong>Revisione</strong>{entry.editorial.lastReviewed}</p><p><strong>Responsabile</strong>{entry.editorial.editor}</p>{entry.editorial.researchScope && <p><strong>Perimetro verificato</strong>{entry.editorial.researchScope}</p>}{entry.editorial.sourcePolicy && <p><strong>Metodo delle fonti</strong>{entry.editorial.sourcePolicy}</p>}{entry.editorial.contentWarnings.length > 0 && <p><strong>Avvisi</strong>{entry.editorial.contentWarnings.join(" · ")}</p>}</div>
+        <section id="fonti" className="codex-chapter codex-editorial"><ChapterHeader number="08" eyebrow="Fonti" title="Approfondisci opere e riferimenti." />
+          <div className="codex-chapter-reading">{entry.editorial.contentWarnings.length > 0 && <div className="codex-editorial-meta"><p><strong>Avvisi sui contenuti</strong>{entry.editorial.contentWarnings.join(" · ")}</p></div>}
             <ol className="codex-sources">{entry.editorial.sources.map((source, index) => <li id={`source-${source.id}`} key={source.id}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{source.title}</strong><small>{source.kind} · <SourceLocation location={source.location} /></small><p>{source.note}</p></div></li>)}</ol>
-            {entry.editorial.missingFields.length > 0 && <div className="codex-missing"><strong>Campi ancora da decidere insieme</strong><ul>{entry.editorial.missingFields.map((field) => <li key={field}>{field}</li>)}</ul></div>}
           </div>
         </section>
         </CodexChapterTabs>

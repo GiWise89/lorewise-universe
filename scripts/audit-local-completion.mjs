@@ -6,8 +6,10 @@ if (!npmCli) {
   process.exit(1);
 }
 const steps = [
+  ["Pulizia copie locali delle variabili", ["run", "sanitize:generated-env"]],
   ["Test applicazione", ["test"]],
   ["Lint", ["run", "lint"]],
+  ["Workspace", ["run", "audit:workspace"]],
   ["Database", ["run", "audit:database"]],
   ["Segreti", ["run", "audit:secrets"]],
   ["Consegna gioco", ["run", "audit:game-delivery"]],
@@ -16,6 +18,9 @@ const steps = [
   ["Risorse pubbliche", ["run", "audit:assets"]],
   ["Pacchetto pubblico", ["run", "audit:release"]],
   ["Catalogo Shop", ["run", "audit:shop"]],
+  ["Area VIP", ["run", "audit:vip-downloads"]],
+  ["Bilanciamento Famiglio", ["run", "audit:famiglio-balance"]],
+  ["Pacchetto Famiglio", ["run", "audit:famiglio-release"]],
   ["LoreWise Codex", ["run", "codex:audit"]],
   ["Consegne Arte", ["run", "audit:artwork-deliveries"]],
 ];

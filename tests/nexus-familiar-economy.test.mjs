@@ -3,7 +3,9 @@ import test from "node:test";
 import { createNexusFamiliar, grantFamiliarProgress, useFamiliarItem } from "../lib/nexusFamiliar.ts";
 import { familiarLevelDiscount } from "../lib/nexusFamiliarBenefits.ts";
 import { familiarExperienceForLevel } from "../lib/nexusFamiliarProgression.ts";
-import { claimFamiliarOuting, purchaseFamiliarThemeWithCoins, startFamiliarOuting } from "../lib/nexusFamiliarWorld.ts";
+import { resolveFamiliarProduct } from "../lib/commercialCatalog.ts";
+import { DEFAULT_FAMILIAR_IDS, FAMILIAR_BUNDLES, MEDUSA_FAMILIAR_CATALOG, PREMIUM_COVERS } from "../lib/famiglioMarketExpansion.ts";
+import { claimFamiliarOuting, FAMILIAR_SHOP_OFFERS, purchaseFamiliarThemeWithCoins, startFamiliarOuting } from "../lib/nexusFamiliarWorld.ts";
 
 const start = new Date("2026-08-29T08:00:00.000Z");
 
@@ -13,7 +15,7 @@ test("completes the real care, mission, outing, shop and commercial-benefit loop
 
   const cared = useFamiliarItem(state, "food", start);
   assert.equal(cared.ok, true);
-  assert.equal(cared.state.experience, 20);
+  assert.equal(cared.state.experience, 7);
   assert.equal(cared.state.inventory.food, 4);
 
   const missionRewarded = grantFamiliarProgress(cared.state, { items: { soap: 2 }, coins: 6, experience: 25 }, start);
@@ -25,7 +27,7 @@ test("completes the real care, mission, outing, shop and commercial-benefit loop
   const returned = claimFamiliarOuting(departed.state, new Date(start.getTime() + 10 * 60_000));
   assert.equal(returned.ok, true);
   assert.equal(returned.state.nexusCoins, 54);
-  assert.equal(returned.state.experience, 105);
+  assert.equal(returned.state.experience, 92);
 
   const preparedForShop = { ...returned.state, nexusCoins: 100 };
   const purchased = purchaseFamiliarThemeWithCoins(preparedForShop, "tema-giardino-lucciole", new Date(start.getTime() + 11 * 60_000));
@@ -95,6 +97,34 @@ test("paid Famiglio offers use protected checkout and idempotent fulfillment", a
   assert.match(webhook, /paid_refund/);
   assert.match(migration, /UNIQUE\s*\(customer_id, source_key\)/);
   assert.match(benefits, /familiarEconomyHistory/);
+});
+
+test("every active Famiglio payment maps to one coherent commercial product", () => {
+  const paidOffers = FAMILIAR_SHOP_OFFERS.filter((offer) => offer.status === "active" && offer.priceCents);
+  const paidCodes = paidOffers.map((offer) => `LW-FAM-${offer.id.toUpperCase()}`);
+  assert.equal(new Set(paidCodes).size, paidCodes.length);
+
+  for (const offer of paidOffers) {
+    const product = resolveFamiliarProduct(`LW-FAM-${offer.id.toUpperCase()}`);
+    assert.ok(product, `Prodotto mancante per ${offer.id}`);
+    assert.equal(product.amountCents, offer.priceCents);
+    assert.equal(product.familiarOfferId, offer.id);
+    assert.equal(product.productType, "merchandise");
+  }
+
+  const paidFamiliarIds = new Set(paidOffers.flatMap((offer) => offer.kind === "familiar" && offer.appearanceId ? [offer.appearanceId] : []));
+  for (const starterId of DEFAULT_FAMILIAR_IDS) assert.equal(paidFamiliarIds.has(starterId), false);
+  for (const legendary of MEDUSA_FAMILIAR_CATALOG.filter((entry) => entry.rarity === "leggendario")) {
+    assert.equal(paidFamiliarIds.has(legendary.id), false);
+  }
+
+  for (const cover of PREMIUM_COVERS) {
+    assert.equal(paidOffers.filter((offer) => offer.kind === "cover" && offer.coverId === cover.id).length, 1);
+  }
+  for (const bundle of FAMILIAR_BUNDLES) {
+    const matchingOffers = paidOffers.filter((offer) => offer.bundleCategory === "familiars" && offer.appearanceIds?.includes(bundle.familiars[0]?.id));
+    assert.equal(matchingOffers.length, bundle.id === "legendary" ? 0 : 1);
+  }
 });
 
 test("Famiglio recognition reaches public community profiles without replacing subscription badges", async () => {

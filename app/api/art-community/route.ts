@@ -2,7 +2,6 @@ import { env } from "@/lib/netlifyRuntime";
 import { ART_COMMENT_LIMITS, ART_REPORT_REASONS } from "@/lib/artCommunity";
 import { ensureArtCommunityTables } from "@/lib/artCommunityServer";
 import { catalogArtworks } from "@/lib/artCatalog";
-import { ensureCommerceTables } from "@/lib/commerceServer";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 import { createUserNotification } from "@/lib/userNotifications";
@@ -17,6 +16,8 @@ type RuntimeEnv = { DB?: D1Database; LOREWISE_ADMIN_EMAILS?: string };
 type Viewer = { id: string; canParticipate: boolean };
 type CommentRow = { id: string; user_id: string; parent_comment_id: string | null; body: string; display_name: string | null; username: string | null; avatar_object_key: string | null; profile_visibility: string; created_at: string; updated_at: string; membership_badge: string | null; familiar_level: number | null; like_count: number; viewer_liked: number };
 
+export const dynamic = "force-dynamic";
+
 function selectedArtwork(request: Request) {
   const code = (new URL(request.url).searchParams.get("artwork") ?? "").toUpperCase();
   return catalogArtworks.find((artwork) => artwork.code === code) ?? null;
@@ -27,12 +28,30 @@ function publicAuthor(row: CommentRow) {
   return { name: row.display_name?.trim() || row.username || "Membro LoreWise", username: publicProfile ? row.username : null, avatarUrl: publicProfile && row.avatar_object_key ? `/api/profile-avatar/${encodeURIComponent(row.username!)}` : null };
 }
 
+async function optionalBadgeSelects(database: D1Database) {
+  try {
+    const tables = await database.prepare("SELECT name FROM sqlite_master WHERE type = 'table'").all<{ name: string }>();
+    const names = new Set(tables.results.map((row) => row.name));
+    return {
+      membership: names.has("subscriptions")
+        ? `(SELECT CASE s.plan_code WHEN 'LW-PASS-COLLECTOR' THEN 'Collector' WHEN 'LW-PASS-SUPPORTER' THEN 'Supporter' END FROM subscriptions s WHERE s.customer_id = c.user_id AND s.status IN ('active','trialing') AND (s.current_period_end IS NULL OR datetime(s.current_period_end) > CURRENT_TIMESTAMP) ORDER BY s.created_at DESC LIMIT 1) membership_badge`
+        : "NULL AS membership_badge",
+      familiar: names.has("nexus_familiars")
+        ? `(SELECT CAST(json_extract(f.state_json, '$.level') AS INTEGER) FROM nexus_familiars f WHERE f.customer_id = c.user_id LIMIT 1) familiar_level`
+        : "NULL AS familiar_level",
+    };
+  } catch {
+    return { membership: "NULL AS membership_badge", familiar: "NULL AS familiar_level" };
+  }
+}
+
 async function payload(database: D1Database, artworkCode: string, viewer?: Viewer) {
   const likes = await database.prepare("SELECT COUNT(*) AS total FROM artwork_likes WHERE artwork_code = ?").bind(artworkCode).first<{ total: number }>();
+  const badges = await optionalBadgeSelects(database);
   const rows = await database.prepare(`SELECT c.id, c.user_id, c.parent_comment_id, c.body, c.created_at, c.updated_at,
       u.display_name, u.username, u.avatar_object_key, u.profile_visibility,
-      (SELECT CASE s.plan_code WHEN 'LW-PASS-COLLECTOR' THEN 'Collector' WHEN 'LW-PASS-SUPPORTER' THEN 'Supporter' END FROM subscriptions s WHERE s.customer_id = c.user_id AND s.status IN ('active','trialing') AND (s.current_period_end IS NULL OR datetime(s.current_period_end) > CURRENT_TIMESTAMP) ORDER BY s.created_at DESC LIMIT 1) membership_badge,
-      (SELECT CAST(json_extract(f.state_json, '$.level') AS INTEGER) FROM nexus_familiars f WHERE f.customer_id = c.user_id LIMIT 1) familiar_level,
+      ${badges.membership},
+      ${badges.familiar},
       (SELECT COUNT(*) FROM artwork_comment_likes l WHERE l.comment_id = c.id) like_count,
       (SELECT COUNT(*) FROM artwork_comment_likes l WHERE l.comment_id = c.id AND l.user_id = ?) viewer_liked
     FROM artwork_comments c JOIN customers u ON u.id = c.user_id
@@ -64,8 +83,8 @@ export async function GET(request: Request) {
   }
   const database = (env as unknown as RuntimeEnv).DB;
   if (!database) return Response.json({ error: "Community non disponibile." }, { status: 503 });
-  try { await ensureCommerceTables(database); await ensureArtCommunityTables(database); const { viewer } = await viewerFor(database); return Response.json(await payload(database, artwork.code, viewer), { headers: { "Cache-Control": "private, no-store" } }); }
-  catch { return Response.json({ error: "Non è stato possibile caricare la Community." }, { status: 503 }); }
+  try { await ensureArtCommunityTables(database); const { viewer } = await viewerFor(database); return Response.json(await payload(database, artwork.code, viewer), { headers: { "Cache-Control": "private, no-store" } }); }
+  catch (error) { console.error("[art-community] GET failed", error); return Response.json({ error: "Non è stato possibile caricare la Community." }, { status: 503 }); }
 }
 
 export async function POST(request: Request) {
@@ -83,7 +102,6 @@ export async function POST(request: Request) {
   const database = (env as unknown as RuntimeEnv).DB;
   if (!database) return Response.json({ error: "Community non disponibile." }, { status: 503 });
   try {
-    await ensureCommerceTables(database);
     await ensureArtCommunityTables(database);
     const { user, viewer } = await viewerFor(database);
     if (!user) return Response.json({ error: "Accedi al tuo LoreWise ID per partecipare." }, { status: 401 });
@@ -154,5 +172,5 @@ export async function POST(request: Request) {
       return Response.json({ message: "Segnalazione ricevuta." });
     }
     return Response.json({ error: "Azione non valida." }, { status: 400 });
-  } catch { return Response.json({ error: "Operazione non completata. Riprova più tardi." }, { status: 503 }); }
+  } catch (error) { console.error("[art-community] POST failed", error); return Response.json({ error: "Operazione non completata. Riprova più tardi." }, { status: 503 }); }
 }

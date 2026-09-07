@@ -43,7 +43,7 @@ const vipOnlyArtworkNumbers = new Set([4, 5, 24, 49]);
 const removedArtworkNumbers = new Set([58]);
 const fanArtNumbers = new Set([
   1, 7, 8, 9, 10, 11, 12, 14, 15, 18, 19, 21, 22, 23, 25, 26, 27, 29, 31, 32,
-  34, 38, 40, 42, 43, 44, 45, 47, 66, 68, 69, 70, 72, 73, 74, 75, 76, 77, 78, 80,
+  34, 38, 40, 42, 43, 44, 45, 47, 66, 68, 69, 70, 72, 73, 74, 75, 76, 77, 78, 80, 81,
 ]);
 const adultContentNumbers = new Set([6, 32, 37, 38, 54, 55]);
 const essentialNumbers = new Set([6, 16, 33, 39]);
@@ -58,6 +58,7 @@ const nativeResolutionOverrides: Record<number, string> = {
   77: "1131 × 1599 px",
   79: "2480 × 3508 px",
   80: "2480 × 3508 px",
+  81: "2480 × 3508 px",
 };
 
 const approvedArtworkDetails: Record<number, {
@@ -156,7 +157,7 @@ const pricing: Record<ArtworkPriceTier, { label: string; price: string; membersh
   premium: { label: "Fascia Premium", price: "17,90 €", membership: "Collector · Supporter + 5 €" },
 };
 
-export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 80 }, (_, index) => index + 1)
+export const catalogArtworks: CatalogArtwork[] = Array.from({ length: 81 }, (_, index) => index + 1)
   .filter((artworkNumber) => !vipOnlyArtworkNumbers.has(artworkNumber) && !removedArtworkNumbers.has(artworkNumber))
   .map((artworkNumber) => {
   const number = String(artworkNumber).padStart(3, "0");

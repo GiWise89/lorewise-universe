@@ -2,40 +2,49 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const component = await readFile(new URL("../components/NexusNewsSpotlight.tsx", import.meta.url), "utf8");
-const styles = await readFile(new URL("../components/NexusNewsSpotlight.module.css", import.meta.url), "utf8");
 const page = await readFile(new URL("../app/cronache-del-nexus/page.tsx", import.meta.url), "utf8");
+const styles = await readFile(new URL("../app/cronache-del-nexus/news.css", import.meta.url), "utf8");
 
-test("Novità dal Nexus presents both requested editorial stories", () => {
-  assert.match(page, /<NexusNewsSpotlight panel=\{params\.novita\} \/>/);
-  assert.match(component, /Famiglio del Nexus/);
-  assert.match(component, /due Famigli extra inclusi/i);
-  assert.match(component, /nuova espansione di <em>The Wound Remembers<\/em>/i);
-  assert.match(component, /Versione web accessibile/);
-  assert.match(component, /Versione PC inclusa/);
+test("organizes Novità dal Nexus into five finite editorial sections", () => {
+  for (const section of ["novita", "giochi", "arte", "promozioni", "in-arrivo"]) {
+    assert.match(page, new RegExp(`id="${section}"`));
+    assert.match(page, new RegExp(`id: "${section}"`));
+    assert.match(page, new RegExp(`activeSection === "${section}"`));
+  }
+  assert.match(page, /sezione=\$\{item\.id\}/);
+  assert.match(page, /aria-current=\{activeSection === item\.id \? "page" : undefined\}/);
+  assert.doesNotMatch(page, /NexusNewsSpotlight|NexusChroniclesFeed|vista=archivio|infinite/i);
+  assert.equal((page.match(/nexus-edition-section/g) ?? []).length, 5);
 });
 
-test("the news showcase opens one numbered chapter at a time", () => {
-  assert.doesNotMatch(component, /^"use client";/);
-  assert.match(component, /function panelFromQuery/);
-  assert.match(component, /\?novita=\$\{panel\}#novita-in-primo-piano/);
-  assert.equal((component.match(/role="tab"/g) ?? []).length, 1, "the four tabs should come from one mapped template");
-  assert.equal((component.match(/role="tabpanel"/g) ?? []).length, 4);
-  assert.match(component, /activePanel === "famiglio" &&/);
-  assert.match(component, /activePanel === "benefits" &&/);
-  assert.match(component, /activePanel === "vip" &&/);
-  assert.match(component, /activePanel === "wound" &&/);
-  assert.match(component, /href=\{panelHref\(panel\.id\)\}/);
-  assert.match(styles, /\.chapterTabs a/);
-  assert.match(styles, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
-});
-
-test("the news showcase uses real illustrations without cropping and adapts to mobile", () => {
-  assert.match(component, /\/novita\/famiglio\/famiglio-del-nexus-spot-v2\.png/);
-  assert.match(component, /gatto, cane, lupo, coniglio e volpe/);
-  assert.match(component, /\/games\/the-wound-remembers\/key-art-scene-4k-v3\.webp/);
+test("uses five dedicated generated illustrations and protected artwork previews without cropping", async () => {
+  const images = ["nexus-hero-v1.webp", "novita-famigli-v1.webp", "giochi-crocevia-v1.webp", "arte-atelier-v1.webp", "promozioni-invito-v1.webp"];
+  for (const image of images) {
+    assert.match(page, new RegExp(image.replace(".", "\\.")));
+    const bytes = await readFile(new URL(`../public/novita/nexus-sections/${image}`, import.meta.url));
+    assert.ok(bytes.length > 100_000);
+  }
+  assert.match(styles, /object-fit:contain/);
   assert.doesNotMatch(styles, /object-fit:\s*cover/);
-  assert.match(styles, /object-fit:\s*contain/);
-  assert.match(styles, /@media \(max-width: 680px\)/);
-  assert.match(styles, /\.familiarFeature, \.familiarBenefits, \.woundFeature \{ grid-template-columns: 1fr; \}/);
+  assert.match(styles, /\.nexus-art-frame img \{ object-fit:contain!important;/);
+});
+
+test("keeps typography readable and layouts non-overlapping on mobile", () => {
+  assert.match(styles, /font-size:clamp\(1rem/);
+  assert.match(styles, /font:700 clamp\(3rem,6vw,5\.6rem\)/);
+  assert.match(styles, /font-size:\.9rem/);
+  assert.match(styles, /\.nexus-edition-hero-copy \{ width:min\(1180px,calc\(100% - 40px\)\); margin-inline:auto;/);
+  assert.match(styles, /@media \(max-width:620px\)/);
+  assert.match(styles, /\.nexus-edition-split,.nexus-art-intro,.nexus-edition-heading \{ grid-template-columns:1fr; \}/);
+  assert.match(styles, /\.nexus-art-ribbon > a \{ grid-template-columns:1fr;/);
+});
+
+test("shows current games, latest art, promotions and direct next paths", () => {
+  assert.match(page, /gameProjects\.slice\(0, 3\)/);
+  assert.match(page, /catalogArtworks\.slice\(-3\)\.reverse\(\)/);
+  assert.match(page, /getActiveCommissionPromotion/);
+  assert.match(page, /WELCOME_COMMISSION_OFFER/);
+  assert.match(page, /LoreWise Codex/);
+  assert.match(page, /Dove nascono i mondi/);
+  assert.match(page, /LoreWise VIP/);
 });

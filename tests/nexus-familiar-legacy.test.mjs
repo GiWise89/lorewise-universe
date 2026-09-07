@@ -62,12 +62,10 @@ test("premium legacy layouts use final raster assets and dedicated interactions"
   ]) assert.equal(existsSync(new URL(`../${path}`, import.meta.url)), true, path);
 });
 
-test("the three premium sections have stable direct URLs", () => {
+test("the public Famiglio route mounts the rebuild while the legacy archive stays isolated", () => {
   const page = readFileSync(join(process.cwd(), "app", "famiglio", "page.tsx"), "utf8");
-  assert.match(page, /diario:\s*"diary"/);
-  assert.match(page, /personalita:\s*"personality"/);
-  assert.match(page, /scoperte:\s*"discoveries"/);
-  assert.match(page, /searchParams:\s*Promise<\{ sezione\?: string \| string\[\] \}>/);
+  assert.match(page, /FamiglioNexusRebuild/);
+  assert.doesNotMatch(page, /NexusFamiliarLegacy/);
 });
 
 test("mobile diary opens as a closable full-screen portrait page", () => {

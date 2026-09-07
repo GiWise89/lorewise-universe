@@ -11,7 +11,7 @@ test("keeps the art filters in one closable responsive panel", async () => {
   assert.match(source, /Chiudi filtri/);
   assert.match(source, /setOpenPanel\(\(current\) => current === panel \? null : panel\)/);
   assert.doesNotMatch(source, /<details>|<summary>/);
-  assert.match(source, /featuredArchiveCodes = \["LW-ART-080"\]/);
+  assert.match(source, /featuredArchiveCodes = \["LW-ART-081", "LW-ART-080"\]/);
   assert.match(source, /Nuova in vetrina/);
 
   assert.match(css, /\.art-filter-panel \{ display: grid;/);

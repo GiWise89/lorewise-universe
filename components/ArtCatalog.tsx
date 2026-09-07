@@ -18,7 +18,7 @@ const adultCover = "/brand/art-portals/adult-cover-v2.webp";
 const originalSeal = "/brand/art-portals/originals-seal-card-v1.webp";
 const fanartSeal = "/brand/art-portals/fanart-seal-card-v1.webp";
 const pageSize = 6;
-const featuredArchiveCodes = ["LW-ART-080"] as const;
+const featuredArchiveCodes = ["LW-ART-081", "LW-ART-080"] as const;
 const curatedChapters = [
   ["Capitolo I", "Origini e metamorfosi"],
   ["Capitolo II", "Icone, incubi e memoria"],
@@ -205,7 +205,7 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
                     <div className="draft-artwork-copy">
                       <div className="artwork-card-identity">
                         <Image src={artwork.kindLabel === "Arte originale" ? originalSeal : fanartSeal} alt="" width={96} height={96} loading="lazy" unoptimized />
-                        <small>{artwork.code}{artwork.code === "LW-ART-080" ? <span className="artwork-featured-label">Nuova in vetrina</span> : null}</small>
+                        <small>{artwork.code}{featuredArchiveCodes.includes(artwork.code as (typeof featuredArchiveCodes)[number]) ? <span className="artwork-featured-label">Nuova in vetrina</span> : null}</small>
                       </div>
                       <h3><Link href={`/arte/${artwork.slug}`}>{artwork.title}</Link></h3>
                       <p className="artwork-taxonomy">{artwork.year} · {artwork.genre}</p>

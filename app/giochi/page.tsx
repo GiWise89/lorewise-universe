@@ -43,8 +43,8 @@ export default function GamesPage() {
           <a href="#diario"><span>02</span>Diario</a>
           <a href="#accesso"><span>03</span>Accesso</a>
           <a href="#community"><span>04</span>Community</a>
-          <Link href="/download-app"><span>05</span>Scarica l’app</Link>
-          <Link href="/giochi/guide"><span>06</span>Guide</Link>
+          <Link href="/giochi/guide"><span>05</span>Guide</Link>
+          <Link href="/giochi/nexus-pet"><span>06</span>Famigli del Nexus</Link>
         </div>
       </nav>
 
@@ -58,6 +58,20 @@ export default function GamesPage() {
             <strong>Prima nell’area VIP. Poi disponibile qui per tutti.</strong>
             <p>La guida della settimana arriva in anteprima per gli abbonati e, il lunedì successivo, passa automaticamente nella raccolta pubblica di Giochi.</p>
             <Link href="/giochi/guide">Apri le guide <span aria-hidden="true">→</span></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="studio-guides-callout" aria-labelledby="nexus-pet-guide-title">
+        <div className="shell">
+          <div>
+            <p className="eyebrow">Nuova esperienza interattiva</p>
+            <h2 id="nexus-pet-guide-title">Famigli<br />del Nexus.</h2>
+          </div>
+          <div>
+            <strong>Casa, crescita, missioni, spedizioni e battaglie.</strong>
+            <p>Scopri come scegliere il primo Uovo, costruire il Legame e accompagnare il tuo Famiglio fino alla Torre del Nexus.</p>
+            <Link href="/giochi/nexus-pet">Apri la guida completa <span aria-hidden="true">→</span></Link>
           </div>
         </div>
       </section>
@@ -138,18 +152,11 @@ export default function GamesPage() {
         </aside>
       </section>
 
-      <section className="studio-app-download-callout" aria-labelledby="studio-app-download-title">
-        <div className="shell">
-          <div><p className="eyebrow">App Android del Famiglio</p><h2 id="studio-app-download-title"><span>Il Famiglio</span><br />sempre con te.</h2></div>
-          <div><p>Porta la sua Tana sullo smartphone e ricevi avvisi discreti quando torna da un’uscita o ha davvero bisogno di te.</p><Link href="/download-app">Scopri l’app e scarica l’APK <span aria-hidden="true">→</span></Link></div>
-        </div>
-      </section>
-
       <section className="studio-games-next" aria-labelledby="studio-next-title">
         <div className="shell">
           <p className="eyebrow">Distribuzione GiWise Studio</p>
           <h2 id="studio-next-title">Prima nel nostro catalogo.</h2>
-          <p>Le edizioni EXE e APK dei giochi GiWise Studio saranno distribuite inizialmente da LoreWise Universe, con versione, integrità e requisiti verificati. Gli store esterni verranno valutati soltanto dopo il completamento e il collaudo reale di ogni titolo.</p>
+          <p>Le edizioni digitali dei giochi GiWise Studio saranno distribuite inizialmente da LoreWise Universe, con versione, integrità e requisiti verificati. Gli store esterni verranno valutati soltanto dopo il completamento e il collaudo reale di ogni titolo.</p>
           <Link href="/contatti">Assistenza Giochi e App <span aria-hidden="true">→</span></Link>
         </div>
       </section>

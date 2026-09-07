@@ -4,6 +4,7 @@
  * riutilizzi una versione precedente della coda CSS.
  */
 @import "./globals.css";
+@import "./foundation.css";
 
 :root {
   --lorewise-style-revision: 20260823-bg3-premium-guide-v3;
