@@ -298,13 +298,19 @@ test("the familiar naturally soils the room and Pulisci removes the waste", () =
   assert.match(cleaned.lastOutcome, /pulito i bisogni/i);
 });
 
+test("pending bathroom waste never interrupts another home action", () => {
+  const component = readFileSync(join(process.cwd(), "components", "FamiglioNexusRebuild.tsx"), "utf8");
+  assert.match(component, /room=\{homeState\.roomAction\}/);
+  assert.doesNotMatch(component, /room=\{homeState\.toilet\.wasteCount > 0 \? "clean"/);
+});
+
 test("natural waste stays in the bathroom, uses generated animation and makes Pulisci blink", async () => {
   const component = readFileSync(join(process.cwd(), "components", "FamiglioNexusRebuild.tsx"), "utf8");
   const css = readFileSync(join(process.cwd(), "components", "FamiglioNexusRebuild.module.css"), "utf8");
   const asset = join(process.cwd(), "public", "famiglio", "rebuild", "effects", "cute-toilet-waste-v1.png");
   const metadata = await sharp(asset).metadata();
   assert.deepEqual({ width: metadata.width, height: metadata.height, alpha: metadata.hasAlpha }, { width: 512, height: 128, alpha: true });
-  assert.match(component, /homeState\.toilet\.wasteCount > 0 \? "clean" : homeState\.roomAction/);
+  assert.match(component, /room=\{homeState\.roomAction\}/);
   assert.match(component, /cute-toilet-waste-v1\.png/);
   assert.match(component, /data-alert-phase/);
   assert.match(css, /@media \(max-width: 620px\)[\s\S]*?\.homeActionWasteAlert\[data-alert-phase="1"\]/);

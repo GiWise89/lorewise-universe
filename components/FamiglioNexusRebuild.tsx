@@ -2959,7 +2959,7 @@ export function FamiglioNexusRebuild() {
                 collectionFamiliar={activeCollectionFamiliar}
                 colorVariant={state.colorVariant}
                 action={homeState.activeAction}
-                room={homeState.toilet.wasteCount > 0 ? "clean" : homeState.roomAction}
+                room={homeState.roomAction}
                 actionEndsAt={homeState.actionEndsAt}
                 activeItemId={homeState.activeItemId}
                 equippedRestItemId={homeState.equippedItems.rest ?? "purple-bed"}
