@@ -57,8 +57,9 @@ export async function GET() {
     return Response.json({ error: "Accesso riservato al proprietario LoreWise." }, { status: 403, headers: privateHeaders });
   }
 
-  const table = await auth.database.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'nexus_pet_rebuild_saves'")
-    .first<{ name: string }>();
+  const table = await auth.database.prepare("SELECT 1 AS found FROM sqlite_master WHERE type = 'table' AND name = ? LIMIT 1")
+    .bind("nexus_pet_rebuild_saves")
+    .first<{ found: number }>();
   if (!table) return Response.json({ totalCustodians: 0, totalFamiliars: 0, custodians: [] }, { headers: privateHeaders });
 
   const result = await auth.database.prepare(`SELECT saves.customer_id, customers.email, customers.display_name,

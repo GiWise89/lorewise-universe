@@ -20,6 +20,8 @@ test("il registro collega salvataggi, email e sole informazioni riepilogative", 
   assert.ok(api.includes("totalCustodians"));
   assert.ok(api.includes("totalFamiliars"));
   assert.ok(api.includes("summarizeSave"));
+  assert.ok(api.includes("SELECT 1 AS found FROM sqlite_master WHERE type = 'table' AND name = ? LIMIT 1"));
+  assert.ok(api.includes('.bind("nexus_pet_rebuild_saves")'));
   assert.doesNotMatch(api, /Response\.json\([^)]*save_json/s);
 });
 
