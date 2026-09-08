@@ -13,6 +13,10 @@
   border-radius: 18px;
 }
 
+.screen[data-focused="true"]{grid-template-rows:auto auto minmax(0,1fr)}
+.screen[data-focused="true"] .summary{display:none}
+.screen{background:#181031}
+
 .journeyArt { position: absolute; inset: 0; z-index: -2; display: grid; place-items: center; overflow: hidden; }
 .journeyArt img { width: 100%; height: 100%; object-fit: contain; object-position: center; opacity: .58; }
 .screen::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(3, 17, 24, .97) 0%, rgba(3, 17, 24, .76) 52%, rgba(3, 17, 24, .42) 100%); pointer-events: none; }
@@ -28,7 +32,7 @@
 .summary small { color: #9ccbd2; font: 700 .6rem ui-monospace, monospace; text-transform: uppercase; }
 .summary strong { color: #fff5cf; font-size: clamp(.94rem, 1.5vw, 1.2rem); }
 .summary span { min-width: 0; overflow-wrap: anywhere; color: #d3e4e6; font-size: .72rem; }
-.trackTabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.trackTabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
 .trackTabs button { min-width: 0; min-height: 54px; display: grid; gap: 2px; padding: 9px 12px; color: #d8e7e9; text-align: left; background: #102d37; border: 1px solid #315a65; border-radius: 8px; cursor: pointer; }
 .trackTabs button[aria-pressed="true"] { color: #102029; background: #ffd45b; border-color: #fff0a3; box-shadow: 0 4px 0 #a37818; }
 .trackTabs strong { font-size: .9rem; }
@@ -59,6 +63,15 @@
 .pager button:last-child { justify-self: end; }
 .pager span { color: #ffe180; font: 800 .7rem ui-monospace, monospace; }
 .pager button:disabled { opacity: .35; cursor: not-allowed; }
+.weeklyMap { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:0; padding:12px 0; list-style:none; }
+.weeklyMap li { min-height:96px; display:grid; place-items:center; align-content:center; gap:7px; border:2px solid #4d6570; border-radius:12px; background:#111d27e8; text-align:center; }
+.weeklyMap li > span { width:2.2rem;height:2.2rem;display:grid;place-items:center;border:2px solid #627984;border-radius:50%;font:900 .85rem/1 ui-monospace,monospace; }
+.weeklyMap li strong { font-size:.8rem; }.weeklyMap li[data-state="complete"]{border-color:#66d9a4;background:#123c34}.weeklyMap li[data-state="complete"]>span{border-color:#8cf1be;color:#8cf1be}.weeklyMap li[data-state="next"]{border-color:#ffd45b;box-shadow:0 0 1rem #ffd45b44}.weeklyMap li[data-state="next"]>span{color:#ffe17b;border-color:#ffe17b}
+.weeklyChest { display:grid;grid-template-columns:4.5rem minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 13px;border:2px solid #96724a;border-radius:10px;background:linear-gradient(90deg,#332518,#1a1422); }
+.weeklyChest img { width:4rem;height:4rem;object-fit:contain;image-rendering:pixelated; }.weeklyChest div{display:grid;gap:3px}.weeklyChest small{color:#eecb70;text-transform:uppercase;font:800 .56rem/1 ui-monospace,monospace}.weeklyChest button,.attendanceEntry{min-height:40px;padding:8px 12px;border:1px solid #ffe095;border-radius:7px;background:#f4c851;color:#24162b;font-weight:900}.weeklyChest button:disabled{opacity:.45}.attendanceEntry{justify-self:start;background:#174c59;color:#fff4d3;border-color:#65dcec}
+.albumGrid { display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:7px;margin:0;padding:0 0 8px;list-style:none;overflow-y:auto; }
+.albumSets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.albumSets span{min-width:0;display:grid;gap:2px;padding:7px;border:1px solid #4c5f68;border-radius:6px;background:#111d26}.albumSets span[data-complete="true"]{border-color:#e2c45e;background:#3a2b20}.albumSets b{font-size:.68rem}.albumSets small{font-size:.52rem;color:#a9c4c9}
+.albumGrid li { position:relative;min-width:0;min-height:88px;display:grid;place-items:center;align-content:center;gap:2px;padding:5px;border:1px solid #3f535c;border-radius:7px;background:#111c25;filter:grayscale(1);opacity:.46;text-align:center}.albumGrid li[data-owned="true"]{border-color:#d2af56;background:#30233a;filter:none;opacity:1}.albumGrid img{width:42px;height:42px;object-fit:contain;image-rendering:pixelated}.albumGrid small{position:absolute;top:3px;left:4px;color:#83dae9;font:800 .48rem ui-monospace,monospace}.albumGrid strong{max-width:100%;font-size:.48rem;line-height:1.1;overflow-wrap:anywhere}
 
 @media (max-width: 760px) {
   .screen { gap: 8px; padding: 10px; border-radius: 12px; }
@@ -77,6 +90,7 @@
   .trackTabs button { min-height: 46px; padding: 6px 7px; text-align: center; }
   .trackTabs strong { font-size: .72rem; }
   .trackTabs small { display: none; }
+  .weeklyMap { grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:4px 0}.weeklyMap li{min-height:65px}.weeklyChest{grid-template-columns:3.3rem minmax(0,1fr);gap:7px}.weeklyChest img{width:3rem;height:3rem}.weeklyChest button{grid-column:1/-1;width:100%}.attendanceEntry{width:100%}.albumSets{grid-template-columns:repeat(2,minmax(0,1fr))}.albumGrid{grid-template-columns:repeat(4,minmax(0,1fr))}.albumGrid li{min-height:72px}.albumGrid img{width:34px;height:34px}
   .trackBody { gap: 8px; padding: 8px; }
   .nextTarget { grid-template-columns: 1fr auto; gap: 5px 8px; padding: 7px 8px; }
   .nextTarget progress { grid-column: 1 / -1; grid-row: 2; height: 10px; }
@@ -120,3 +134,38 @@
 @media (max-width: 760px) {
   .trackBody { overflow-y: auto; }
 }
+
+/* The collection and weekly tasks stay readable, with one scroll region. */
+.trackBody{overflow-y:auto;overscroll-behavior:contain;align-content:start}
+.screen[data-focused="true"] .trackIntro{display:grid;gap:8px}
+.screen[data-focused="true"] .trackIntro strong{font-size:1.1rem}
+.screen[data-focused="true"] .trackIntro span{font-size:.85rem;text-align:left;line-height:1.5}
+.weeklyMap{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;overflow:visible}
+.weeklyMap li{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-height:160px;padding:16px}
+.weeklyMap li>span{font-size:.72rem;width:auto;height:auto;border:0;background:none}
+.weeklyMap li strong{font-size:1rem}
+.weeklyMap li p{margin:0;color:#c6d8df;font-size:.82rem;line-height:1.45}
+.weeklyMap button,.albumDetail button{margin-top:auto;min-height:44px;padding:8px 12px;border:1px solid #74cada;border-radius:7px;background:#174152;color:#f7f5e9;font-weight:700;cursor:pointer}
+.weeklyMap li[data-state="complete"]{border-color:#7ccd9e}
+.weeklyMap li[data-state="complete"]>span{color:#a2f1ba}
+.weeklyChest{grid-template-columns:auto minmax(0,1fr) auto;padding:16px;flex-shrink:0}
+.weeklyChest p{font-size:.85rem;color:#fff0ab;margin:6px 0}.weeklyChest small{font-size:.75rem;line-height:1.4}.treasureMark{color:#ffd966;font-size:40px}
+.seasonPicker{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.seasonPicker button{display:grid;gap:5px;min-height:56px;padding:10px 6px;border:1px solid #536f80;border-radius:8px;background:#142937;color:#d3e0e9;cursor:pointer}.seasonPicker button[aria-pressed="true"]{border-color:#ffe082;background:#3e3445;color:#ffeaa2}.seasonPicker span{font-size:.7rem}
+.albumDetail{display:grid;grid-template-columns:100px minmax(0,1fr);gap:18px;align-items:center;padding:16px;border:1px solid #a89868;border-radius:12px;background:#102b38}.albumDetail>img{width:100%;height:110px;object-fit:contain;image-rendering:pixelated}.albumDetail small{color:#ffe390;font-size:.78rem}.albumDetail h3{margin:6px 0;font-size:1.1rem}.albumDetail p,.collectionHint{font-size:.82rem;line-height:1.5;color:#c8dde4}.albumDetail button{margin-top:8px}.collectionHint{margin:0}
+.albumGrid{grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible;gap:10px}
+.albumGrid li{padding:0;filter:none;opacity:1;min-height:0;display:block}
+.albumGrid li button{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border:2px solid transparent;border-radius:7px;background:transparent;color:#d9e4e8;cursor:pointer}
+.albumGrid li button[aria-pressed="true"]{border-color:#ffe28d;background:#3b3247}
+.albumGrid img{width:58px;height:58px}.albumGrid small{position:static;font-size:.68rem}.albumGrid strong{font-size:.76rem;line-height:1.3}.albumGrid span{font-size:.66rem;color:#becdd5}
+.albumGrid li[data-owned="true"] span{color:#b7f4b9}
+@media(max-width:760px){.weeklyMap li{padding:12px;min-height:175px}.weeklyMap li strong{font-size:.88rem}.weeklyMap li p{font-size:.76rem}.weeklyMap button{font-size:.72rem;width:100%}.seasonPicker{grid-template-columns:repeat(2,minmax(0,1fr))}.albumGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.albumDetail{grid-template-columns:65px minmax(0,1fr);padding:12px;gap:10px}.albumDetail>img{height:85px}.albumDetail h3{font-size:.95rem}.weeklyChest{grid-template-columns:35px minmax(0,1fr)}.weeklyChest button{grid-column:1/-1}.screen[data-focused="true"] .trackIntro span{font-size:.78rem}}
+
+/* Illustrated artwork supplies the visual identity; CSS only arranges controls. */
+.journeyArt{background:#100b29 url('/famiglio/rebuild/effects/minigame-cosmos-v1.png') center/contain no-repeat}.journeyArt img{display:none}.screen::after{background:#120a2428}.screen .trackBody{background:#150f2c99}.screen .header small{color:#e7bbff}.screen .header h2{color:#ffeaa1}
+.screen .trackTabs button{grid-template-columns:48px minmax(0,1fr);align-content:center;align-items:center;background:#2b1d43db;border-color:#77649c;color:#f5dcff;box-shadow:none}.screen .trackTabs button[aria-pressed="true"]{background:#634383;color:#fff3bc;border-color:#ffdf8e}.trackIcon{grid-row:1/3;width:48px;height:48px;object-fit:contain;image-rendering:pixelated}.trackTabs strong,.trackTabs small{grid-column:2}
+.lunarJourney{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,330px);gap:20px;align-items:center}.islandScene{position:relative;width:100%;max-width:720px;aspect-ratio:3/2;justify-self:center}.islandArtwork{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}.islandNodes{position:absolute;inset:0;padding:0;margin:0;list-style:none}.islandNodes li{position:absolute;transform:translate(-50%,-50%)}.islandNodes li[data-step="care"]{left:18%;top:49%}.islandNodes li[data-step="play"]{left:50%;top:24%}.islandNodes li[data-step="adventure"]{left:82%;top:49%}.islandNodes li[data-step="combat"]{left:50%;top:73%}
+.islandNodes button{min-width:76px;min-height:48px;display:flex;gap:7px;align-items:center;justify-content:center;padding:8px 10px;border:2px solid #9684c7;background:#160c32e8;border-radius:10px;color:#f9e7ff;font:700 .85rem ui-monospace,monospace;cursor:pointer}.islandNodes button[aria-pressed="true"]{background:#59407ee8;border-color:#ffe68d;color:#fff1b2}.islandNodes b{color:#ffe590}.islandNodes button:focus-visible{outline:3px solid #fff;outline-offset:4px}.journeyDetails{display:grid;gap:16px;min-width:0}.selectedIsland{padding:12px 0;border-bottom:1px solid #b38dca66}.selectedIsland small{color:#b7eccc;font-size:.8rem}.selectedIsland h3{font-size:1.35rem;color:#ffdf91;margin:8px 0}.selectedIsland p{font-size:.9rem;color:#e1cfee;line-height:1.5}.selectedIsland button,.lunarTreasure button{min-height:44px;width:100%;border:1px solid #ffdf90;background:#eac173;color:#23122c;border-radius:8px;padding:10px 12px;font-weight:800;cursor:pointer}.lunarTreasure{display:grid;grid-template-columns:80px minmax(0,1fr);align-items:center;gap:8px}.lunarTreasure img{width:80px;height:80px;object-fit:contain;image-rendering:pixelated}.lunarTreasure strong{font-size:.9rem;color:#ffe092}.lunarTreasure p{font-size:.85rem;line-height:1.5;color:#dcc5f2}.lunarTreasure button{grid-column:1/-1}.lunarTreasure button:disabled{background:#3d3054;color:#cbbad7;border-color:#796a91;cursor:default}.screen .attendanceEntry{color:#e8b9ff;background:#342343;border-color:#af79c8}.screen .summary div,.screen .nextTarget{background:#382350db;border-color:#d0a0ff}.screen .pathList li{background:#261a43e8}.screen .pathList li[data-state="complete"]{border-color:#b2eebd}.screen .albumDetail{background:#35204de8;border-color:#dba8ef}.screen .albumGrid li{background:#24183dd9;border-color:#8f72a6}.screen .albumGrid li[data-owned="true"]{background:#4a304b;border-color:#f3d086}
+@media(max-width:760px){.screen .trackTabs{gap:4px}.screen .trackTabs button{grid-template-columns:1fr;justify-items:center;padding:6px 2px;gap:4px;min-height:74px}.trackIcon{grid-row:auto;width:36px;height:36px}.screen .trackTabs strong{grid-column:1;font-size:.62rem}.lunarJourney{grid-template-columns:1fr;gap:8px}.journeyDetails{gap:12px}.islandNodes button{min-width:48px;min-height:44px;padding:5px;font-size:.68rem;flex-direction:column;gap:1px}.selectedIsland{padding:8px 0}.selectedIsland h3{font-size:1.1rem}.selectedIsland p{font-size:.83rem}.lunarTreasure{grid-template-columns:65px minmax(0,1fr)}.lunarTreasure img{width:65px;height:65px}}
+.nextAdventure{margin:0;padding:10px 12px;color:#fff0b5;background:#36214a;font-size:.85rem;line-height:1.5;border-radius:8px}.islandNodes button{flex-wrap:wrap}.islandNodes small{flex-basis:100%;font-size:.65rem;color:#e1d5f0}.islandNodes li[data-complete="true"] button{border-color:#99e8b4;background:#194836}.islandNodes li[data-complete="true"] small{color:#bcffd0}.lunarTreasure[data-ready="true"]{outline:2px solid #ffdc7c;outline-offset:8px;border-radius:8px}.seasonPicker img{width:100%;height:75px;object-fit:contain;image-rendering:pixelated}.setPrize{display:grid;grid-template-columns:130px minmax(0,1fr);gap:18px;padding:16px;background:#3d2854;border:1px solid #daba88;border-radius:12px;align-items:center}.setPrize>img{width:100%;height:130px;object-fit:contain;image-rendering:pixelated}.setPrize h3{margin:6px 0;color:#ffe399}.setPrize p{margin:5px 0;font-size:.86rem;line-height:1.5}.setPrize small,.setPrize span{font-size:.75rem;color:#e3d1ed}.albumFilters{display:flex;gap:8px}.albumFilters button,.emptyAlbum button,.setPrize button{min-height:44px;padding:8px 15px;border:1px solid #a48bb7;border-radius:8px;background:#281d40;color:#f4e8ff;cursor:pointer}.albumFilters button[aria-pressed="true"]{background:#f4d182;color:#281b32}.albumLayout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:16px;align-items:start}.albumLayout .albumGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.albumLayout .albumDetail{grid-template-columns:1fr;position:sticky;top:0;gap:10px}.albumLayout .albumDetail>img{height:130px}.albumGrid li[data-owned="false"] img{filter:brightness(0) invert(.65)}.emptyAlbum{padding:20px;line-height:1.6}.emptyAlbum button{display:block;margin-top:12px}.trackBody button:focus-visible{outline:3px solid white;outline-offset:3px}
+@media(max-width:760px){.albumLayout{grid-template-columns:1fr}.albumLayout .albumDetail{position:static;grid-row:1;grid-template-columns:70px minmax(0,1fr)}.albumLayout .albumDetail>img{height:90px}.albumLayout .albumGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.setPrize{grid-template-columns:75px minmax(0,1fr);padding:10px;gap:10px}.setPrize>img{height:90px}.setPrize h3{font-size:1rem}.seasonPicker img{height:55px}.nextAdventure{font-size:.77rem}.albumFilters button{flex:1;padding:8px 5px}.islandNodes button{flex-wrap:nowrap}.islandNodes small{font-size:.55rem}}

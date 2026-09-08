@@ -52,6 +52,7 @@ import {
   exchangeNightMarketOffer,
   equipNightMarketRelic,
   cureFamiliarHome,
+  chooseFamiliarBondMemory,
   type FamiliarHomeAction,
   type FamiliarRestPresetId,
   type FamiliarDeviceCoverId,
@@ -60,6 +61,15 @@ import {
   type FamiliarHomeState,
   type FamiliarToiletState,
 } from "@/lib/famiglioHome";
+import {
+  FAMILIAR_BOND_KEEPSAKES,
+  FAMILIAR_BOND_WEEK,
+  FAMILIAR_BOND_TRAITS,
+  dominantFamiliarBondTrait,
+  familiarBondEvent,
+  previewFamiliarBondWeek,
+  type FamiliarBondChoice,
+} from "@/lib/famiglioBondWeek";
 import {
   FAMILIAR_COLLECTION,
   MEDUSA_FAMILIAR_CATALOG,
@@ -86,10 +96,21 @@ import {
   type CombatRole,
 } from "@/lib/famiglioCombatCatalog";
 import { FamiglioGuideOverlay } from "./FamiglioGuideOverlay";
+import { FamiglioDailyMiniGame } from "./FamiglioDailyMiniGame";
 import { familiarActivityGate, familiarCombatNeedBonus } from "@/lib/famiglioWellbeing";
 import { familiarDailyMoment, familiarReturnGreeting } from "@/lib/famiglioDailyMoments";
 import { familiarLevelForExperience } from "@/lib/nexusFamiliar";
 import { FAMILIAR_MILESTONES } from "@/lib/nexusFamiliarProgression";
+import { recordFamiliarWeeklyStep, restoreFamiliarWeeklyLoopState, type FamiliarMiniGameKind } from "@/lib/famiglioWeeklyLoop";
+import {
+  FAMILIAR_ATTENDANCE_SEASONS,
+  claimFamiliarAttendanceReward,
+  familiarAttendanceRecovery,
+  familiarAttendancePosition,
+  familiarAttendanceReward,
+  familiarLocalDateKey,
+  type FamiliarAttendanceReward,
+} from "@/lib/famiglioAttendanceYear";
 
 const FamiglioAdventure = dynamic(() => import("./FamiglioAdventure").then((module) => module.FamiglioAdventure), {
   ssr: false,
@@ -147,6 +168,7 @@ import {
 import { familiarMealAsset, familiarMealProgress } from "@/lib/famiglioFoodProfiles";
 import { familiarHouseVisual } from "@/lib/famiglioHouseVisuals";
 import styles from "./FamiglioNexusRebuild.module.css";
+import attendanceMotion from "./FamiglioAttendanceMotion.module.css";
 
 const FIXED_STEP_MS = 1000 / 60;
 const HOUSE_MOVEMENT_SPEED_FACTOR = .62;
@@ -1400,6 +1422,214 @@ function drawAutonomousNeedCue(
   context.restore();
 }
 
+function drawBondMemoryAtmosphere(
+  context: CanvasRenderingContext2D,
+  day: number,
+  roomX: number,
+  roomY: number,
+  roomWidth: number,
+  roomHeight: number,
+  elapsed: number,
+) {
+  const pulse = .5 + Math.sin(elapsed / 360) * .5;
+  const pixel = Math.max(2, Math.round(roomWidth / 260));
+  const accent = ["#c78cff", "#74efff", "#ff9bd4", "#a66cff", "#ffd96b", "#70e8ff", "#ffe374"][(day - 1) % 7] ?? "#c78cff";
+  context.save();
+  context.imageSmoothingEnabled = false;
+  context.fillStyle = `rgba(18, 7, 34, ${.12 + pulse * .08})`;
+  context.fillRect(roomX, roomY, roomWidth, roomHeight);
+  context.strokeStyle = accent;
+  context.fillStyle = accent;
+  context.lineWidth = pixel;
+  context.shadowColor = accent;
+  context.shadowBlur = pixel * (4 + pulse * 4);
+
+  if (day === 1) {
+    const x = roomX + roomWidth * .16;
+    const y = roomY + roomHeight * .42;
+    for (let index = 0; index < 3; index += 1) {
+      const radius = pixel * (4 + index * 5 + pulse * 3);
+      context.globalAlpha = .85 - index * .2;
+      context.strokeRect(Math.round(x - radius), Math.round(y - radius), Math.round(radius * 2), Math.round(radius * 2));
+    }
+  } else if (day === 2) {
+    for (let index = 0; index < 5; index += 1) {
+      const x = roomX + roomWidth * (.18 + index * .11);
+      const y = roomY + roomHeight * (.72 - (index % 2) * .06);
+      context.globalAlpha = .38 + ((index + Math.floor(elapsed / 260)) % 5) * .11;
+      context.fillRect(Math.round(x), Math.round(y), pixel * 5, pixel * 8);
+      context.fillRect(Math.round(x + pixel * 6), Math.round(y - pixel * 3), pixel * 3, pixel * 3);
+    }
+  } else if (day === 3) {
+    context.font = `${Math.round(roomHeight * .1)}px serif`;
+    context.textAlign = "center";
+    for (let index = 0; index < 4; index += 1) {
+      context.globalAlpha = .45 + index * .12;
+      context.fillText(index % 2 ? "♫" : "♪", roomX + roomWidth * (.18 + index * .15), roomY + roomHeight * (.32 - Math.sin(elapsed / 420 + index) * .08));
+    }
+  } else if (day === 4) {
+    const x = roomX + roomWidth * .2;
+    const y = roomY + roomHeight * .13;
+    context.globalAlpha = .72 + pulse * .18;
+    context.fillStyle = "#14091f";
+    context.fillRect(x, y, roomWidth * .13, roomHeight * .3);
+    context.fillStyle = "#ff405f";
+    context.fillRect(x + roomWidth * .035, y + roomHeight * .09, pixel * 3, pixel * 2);
+    context.fillRect(x + roomWidth * .078, y + roomHeight * .09, pixel * 3, pixel * 2);
+  } else if (day === 5) {
+    const x = roomX + roomWidth * .18;
+    const y = roomY + roomHeight * .55;
+    context.globalAlpha = .88;
+    context.fillStyle = "#f5cf73";
+    context.fillRect(x, y, roomWidth * .2, roomHeight * .18);
+    context.strokeStyle = "#7e4568";
+    context.beginPath();
+    context.moveTo(x + roomWidth * .03, y + roomHeight * .13);
+    context.lineTo(x + roomWidth * .08, y + roomHeight * .05);
+    context.lineTo(x + roomWidth * .16, y + roomHeight * .11);
+    context.stroke();
+  } else if (day === 6) {
+    const x = roomX + roomWidth * .2;
+    const y = roomY + roomHeight * .2;
+    context.globalAlpha = .75;
+    context.strokeRect(x, y, roomWidth * .16, roomHeight * .38);
+    context.beginPath();
+    context.moveTo(x + roomWidth * .08, y);
+    context.lineTo(x + roomWidth * .06, y + roomHeight * .13);
+    context.lineTo(x + roomWidth * .11, y + roomHeight * .22);
+    context.lineTo(x + roomWidth * .07, y + roomHeight * .38);
+    context.stroke();
+  } else if (day === 8) {
+    const x = roomX + roomWidth * .19;
+    const y = roomY + roomHeight * .18;
+    context.globalAlpha = .78 + pulse * .18;
+    context.strokeRect(x, y, roomWidth * .15, roomHeight * .34);
+    context.fillRect(x + roomWidth * .115, y + roomHeight * .17, pixel * 3, pixel * 3);
+  } else if (day === 9) {
+    for (let index = 0; index < 4; index += 1) {
+      context.globalAlpha = .7 - index * .12;
+      context.beginPath();
+      context.ellipse(roomX + roomWidth * .32, roomY + roomHeight * .75, roomWidth * (.08 + index * .045 + pulse * .01), roomHeight * (.025 + index * .014), 0, 0, Math.PI * 2);
+      context.stroke();
+    }
+  } else if (day === 10) {
+    const x = roomX + roomWidth * .25;
+    const y = roomY + roomHeight * .7;
+    context.globalAlpha = .82 + pulse * .16;
+    context.fillRect(x, y - roomHeight * .12, pixel * 3, roomHeight * .12);
+    context.beginPath();
+    context.ellipse(x - pixel * 4, y - roomHeight * .1, pixel * 6, pixel * 3, -.45, 0, Math.PI * 2);
+    context.ellipse(x + pixel * 6, y - roomHeight * .075, pixel * 7, pixel * 3, .45, 0, Math.PI * 2);
+    context.fill();
+  } else if (day === 11) {
+    context.globalAlpha = .72;
+    context.beginPath();
+    context.moveTo(roomX + roomWidth * .1, roomY + roomHeight * .76);
+    context.lineTo(roomX + roomWidth * .3, roomY + roomHeight * .56);
+    context.lineTo(roomX + roomWidth * .48, roomY + roomHeight * .76);
+    context.stroke();
+    for (let index = 0; index < 7; index += 1) context.fillRect(roomX + roomWidth * (.15 + index * .045), roomY + roomHeight * (.7 - Math.sin(index * .8) * .06), pixel * 5, pixel * 2);
+  } else if (day === 12) {
+    for (let index = 0; index < 12; index += 1) {
+      const x = roomX + roomWidth * (.1 + ((index * 17) % 78) / 100);
+      const y = roomY + roomHeight * (((elapsed / 18 + index * 37) % 80) / 100);
+      context.globalAlpha = .45 + (index % 3) * .2;
+      context.fillRect(x, y, pixel * 2, pixel * 5);
+    }
+  } else if (day === 13) {
+    context.globalAlpha = .65 + pulse * .18;
+    context.fillStyle = "#11051d";
+    context.fillRect(roomX, roomY, roomWidth * .12, roomHeight);
+    context.fillRect(roomX + roomWidth * .88, roomY, roomWidth * .12, roomHeight);
+    context.strokeStyle = accent;
+    for (let index = 0; index < 4; index += 1) context.strokeRect(roomX + roomWidth * (.04 + index * .24), roomY + roomHeight * .16, roomWidth * .08, roomHeight * .2);
+  } else {
+    const points = [[.16, .32], [.25, .2], [.32, .36], [.42, .18], [.5, .34], [.6, .22], [.68, .38]];
+    context.globalAlpha = .78 + pulse * .2;
+    context.beginPath();
+    points.forEach(([px, py], index) => {
+      const x = roomX + roomWidth * px;
+      const y = roomY + roomHeight * py;
+      if (index === 0) context.moveTo(x, y); else context.lineTo(x, y);
+    });
+    context.stroke();
+    points.forEach(([px, py]) => context.fillRect(roomX + roomWidth * px - pixel, roomY + roomHeight * py - pixel, pixel * 3, pixel * 3));
+  }
+  context.restore();
+}
+
+function drawBondKeepsakes(
+  context: CanvasRenderingContext2D,
+  keepsakeIds: readonly string[],
+  roomX: number,
+  roomY: number,
+  roomWidth: number,
+  roomHeight: number,
+  familiarX: number,
+  familiarGroundY: number,
+  petSize: number,
+  elapsed: number,
+) {
+  if (!keepsakeIds.length) return;
+  const pixel = Math.max(2, Math.round(roomWidth / 300));
+  const pulse = .5 + Math.sin(elapsed / 420) * .5;
+  const auraId = [...keepsakeIds].reverse().find((id) => FAMILIAR_BOND_KEEPSAKES[id]?.kind === "aura");
+  context.save();
+  context.imageSmoothingEnabled = false;
+  if (auraId) {
+    const auraColor = auraId.includes("rose") ? "#ff91cf" : auraId.includes("violet") ? "#b278ff" : auraId.includes("star") ? "#ffe66f" : "#69e9ff";
+    context.strokeStyle = auraColor;
+    context.fillStyle = auraColor;
+    context.shadowColor = auraColor;
+    context.shadowBlur = pixel * 5;
+    context.globalAlpha = .24 + pulse * .16;
+    context.lineWidth = pixel;
+    context.beginPath();
+    context.ellipse(familiarX, familiarGroundY - petSize * .44, petSize * (.52 + pulse * .05), petSize * (.33 + pulse * .035), 0, 0, Math.PI * 2);
+    context.stroke();
+    for (let index = 0; index < 6; index += 1) {
+      const angle = elapsed / 900 + index * Math.PI / 3;
+      context.globalAlpha = .45 + (index % 2) * .2;
+      context.fillRect(familiarX + Math.cos(angle) * petSize * .5, familiarGroundY - petSize * .44 + Math.sin(angle) * petSize * .28, pixel * 2, pixel * 2);
+    }
+  }
+
+  const objectId = [...keepsakeIds].reverse().find((id) => FAMILIAR_BOND_KEEPSAKES[id]?.kind !== "aura");
+  if (objectId) {
+    const x = roomX + roomWidth * .84;
+    const y = roomY + roomHeight * .38;
+    context.globalAlpha = .9;
+    context.shadowBlur = pixel * (3 + pulse * 2);
+    context.shadowColor = objectId.includes("sprout") ? "#9dff8b" : "#ffe06b";
+    if (objectId.includes("song") || objectId.includes("sigil")) {
+      context.fillStyle = objectId.includes("song") ? "#ef9bff" : "#68ebff";
+      context.fillRect(x, y, pixel * 8, pixel * 8);
+      context.fillStyle = "#fff3a2";
+      context.fillRect(x + pixel * 3, y - pixel * 5, pixel * 2, pixel * 6);
+      context.fillRect(x + pixel * 4, y - pixel * 5, pixel * 5, pixel * 2);
+    } else if (objectId.includes("sprout")) {
+      context.fillStyle = objectId.includes("gold") ? "#ffd765" : "#6be9dc";
+      context.fillRect(x + pixel * 3, y, pixel * 2, pixel * 9);
+      context.fillRect(x - pixel, y - pixel * 2, pixel * 5, pixel * 4);
+      context.fillRect(x + pixel * 5, y + pixel, pixel * 6, pixel * 4);
+    } else if (objectId.includes("lantern") || objectId.includes("home")) {
+      context.fillStyle = "#6b3c82";
+      context.fillRect(x, y, pixel * 10, pixel * 12);
+      context.fillStyle = "#ffe46d";
+      context.fillRect(x + pixel * 3, y + pixel * 3, pixel * 4, pixel * 6);
+    } else {
+      context.strokeStyle = "#ffe46d";
+      context.lineWidth = pixel * 2;
+      context.beginPath();
+      context.arc(x + pixel * 5, y + pixel * 5, pixel * 5, 0, Math.PI * 2);
+      context.stroke();
+      context.fillStyle = "#d77cff";
+      context.fillRect(x + pixel * 4, y - pixel * 2, pixel * 2, pixel * 14);
+    }
+  }
+  context.restore();
+}
+
 function FamiliarHomeCanvas({
   egg,
   collectionFamiliar,
@@ -1416,6 +1646,10 @@ function FamiliarHomeCanvas({
   growthStage,
   away,
   roomTime,
+  bondStoryDay,
+  bondStoryActive,
+  bondStoryVisible,
+  bondKeepsakeIds,
   onAutonomousReaction,
   onMealFinished,
 }: {
@@ -1434,6 +1668,10 @@ function FamiliarHomeCanvas({
   growthStage: "cucciolo" | "giovane" | "adulto";
   away: boolean;
   roomTime: Date | null;
+  bondStoryDay: number | null;
+  bondStoryActive: boolean;
+  bondStoryVisible: boolean;
+  bondKeepsakeIds: readonly string[];
   onAutonomousReaction: (presentation: AutonomousPresentation) => void;
   onMealFinished: () => void;
 }) {
@@ -1452,6 +1690,7 @@ function FamiliarHomeCanvas({
   const roomRef = useRef(room);
   const activeItemIdRef = useRef(activeItemId);
   const equippedRestItemIdRef = useRef(equippedRestItemId);
+  const bondKeepsakeIdsRef = useRef(bondKeepsakeIds);
   const reactionCallbackRef = useRef(onAutonomousReaction);
   const mealFinishedRef = useRef(onMealFinished);
   const sceneOpenedAtRef = useRef(0);
@@ -1497,6 +1736,10 @@ function FamiliarHomeCanvas({
   }, [equippedRestItemId]);
 
   useEffect(() => {
+    bondKeepsakeIdsRef.current = bondKeepsakeIds;
+  }, [bondKeepsakeIds]);
+
+  useEffect(() => {
     reactionCallbackRef.current = onAutonomousReaction;
   }, [onAutonomousReaction]);
 
@@ -1519,6 +1762,10 @@ function FamiliarHomeCanvas({
       reactionCallbackRef.current({ species: egg.id, behavior: "idle", reaction });
     }
   }, [action, actionEndsAt, egg.id, personality.movementSpeed]);
+
+  useEffect(() => {
+    if (bondStoryActive && !actionRef.current) targetRef.current = .76;
+  }, [bondStoryActive, bondStoryDay]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -1560,6 +1807,9 @@ function FamiliarHomeCanvas({
       const roomY = (height - roomHeight) * .5;
       const currentAction = actionRef.current;
       drawPurchasedHome(context, assets, roomRef.current, roomX, roomY, roomWidth, roomHeight, roomTimeRef.current ?? new Date());
+      if (bondStoryVisible && bondStoryDay) {
+        drawBondMemoryAtmosphere(context, bondStoryDay, roomX, roomY, roomWidth, roomHeight, simulationTime);
+      }
       if (away) return;
       if (wasteAsset) drawFamiliarWaste(context, wasteAsset, toiletRef.current.wasteCount, roomX, roomY, roomWidth, roomHeight, simulationTime);
       const moving = Math.abs(targetRef.current - positionRef.current) > .008;
@@ -1578,7 +1828,7 @@ function FamiliarHomeCanvas({
                   ? "sleep-calm"
                   : autonomousBehavior === "seek-food" || autonomousBehavior === "seek-affection"
                     ? "sit"
-                  : "idle";
+                  : bondStoryActive ? "sit" : "idle";
       const sprite = spriteImages.get(spriteAction);
       if (!sprite) return;
       const starterSequence = homeSpriteSequence(egg, colorVariant, spriteAction);
@@ -1664,6 +1914,7 @@ function FamiliarHomeCanvas({
             : null);
       const configuredGroundY = groundY + roomHeight * (collectionVisual?.groundOffset ?? 0);
       const familiarGroundY = configuredGroundY;
+      drawBondKeepsakes(context, bondKeepsakeIdsRef.current, roomX, roomY, roomWidth, roomHeight, centerX, familiarGroundY, petSize, simulationTime);
       const frameCenter = spriteFrameCenters.get(spriteAction)?.[frame] ?? { x: sourceFrameWidth * .5, y: sourceFrameHeight * .5 };
       const spriteDrawY = currentAction === "rest" && !moving
         ? groundY - petSize * (HOUSE_SLEEP_SURFACE_OFFSETS[restItemId] ?? HOUSE_BED_CUSHION_CENTER_OFFSET) - petSize * (frameCenter.y / sourceFrameHeight)
@@ -1755,7 +2006,16 @@ function FamiliarHomeCanvas({
       lastTime = now;
       while (accumulator >= FIXED_STEP_MS) {
         simulationTime += FIXED_STEP_MS;
-        if (!actionRef.current) {
+        if (!actionRef.current && bondStoryActive) {
+          targetRef.current = .76;
+          autonomousRef.current = {
+            behavior: "sit",
+            endsAt: now + 1_000,
+            movementSpeed: personality.movementSpeed,
+            signal: null,
+            reaction: "Resta accanto a te e ascolta il Ricordo del Legame.",
+          };
+        } else if (!actionRef.current) {
           const autonomous = autonomousRef.current;
           const reachedTarget = Math.abs(targetRef.current - positionRef.current) <= .008;
           if (autonomous.behavior === "roam" && reachedTarget) {
@@ -1836,7 +2096,7 @@ function FamiliarHomeCanvas({
       cancelled = true;
       cancelAnimationFrame(frameRequest);
     };
-  }, [egg, collectionFamiliar, collectionVisual, colorVariant, growthScale, growthStage, personality.movementSpeed, personality.patience, away, sick]);
+  }, [egg, collectionFamiliar, collectionVisual, colorVariant, growthScale, growthStage, personality.movementSpeed, personality.patience, away, sick, bondStoryActive, bondStoryVisible, bondStoryDay]);
 
   return <canvas ref={canvasRef} className={styles.homeCanvas} aria-label={`Casa di ${collectionFamiliar?.name ?? egg.familiar}${toilet.wasteCount ? ", da pulire" : ""}`} />;
 }
@@ -1882,6 +2142,13 @@ export function FamiglioNexusRebuild() {
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [restChoiceOpen, setRestChoiceOpen] = useState(false);
   const [levelUpNotice, setLevelUpNotice] = useState<FamiliarLevelUpNotice | null>(null);
+  const [attendanceOpen, setAttendanceOpen] = useState(false);
+  const [attendanceBusy, setAttendanceBusy] = useState(false);
+  const [attendanceReveal, setAttendanceReveal] = useState<FamiliarAttendanceReward | null>(null);
+  const [attendanceAutoSuppressed, setAttendanceAutoSuppressed] = useState(false);
+  const [miniGameOpen, setMiniGameOpen] = useState(false);
+  const [bondStoryOpen, setBondStoryOpen] = useState(false);
+  const [bondStoryFeedback, setBondStoryFeedback] = useState<{ choice: FamiliarBondChoice; day: number } | null>(null);
   const [storageReady, setStorageReady] = useState(false);
   const [focusedEggIndex, setFocusedEggIndex] = useState(0);
   const [homeFamiliarIndex, setHomeFamiliarIndex] = useState(0);
@@ -1971,6 +2238,39 @@ export function FamiglioNexusRebuild() {
     }
   }, []);
 
+  const claimAttendance = useCallback(async () => {
+    if (attendanceBusy) return;
+    setAttendanceBusy(true);
+    try {
+      if (cloudSyncReady && !previewSessionRef.current) {
+        const response = await fetch("/api/famiglio/rebuild/attendance", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ houseIndex: activeHouseIndex, baseRevision: cloudRevisionRef.current }),
+        });
+        const payload = await response.json().catch(() => ({})) as { home?: unknown; reward?: FamiliarAttendanceReward; revision?: unknown; error?: string };
+        if (response.ok && payload.home && payload.reward) {
+          setHomeState(restoreFamiliarHome(payload.home));
+          cloudRevisionRef.current = Math.max(cloudRevisionRef.current, Math.floor(Number(payload.revision) || 0));
+          setAttendanceReveal(payload.reward);
+          return;
+        }
+        if (response.status !== 401) {
+          setMarketMessage(payload.error || "Il premio non \u00e8 stato consumato. Riprova.");
+          return;
+        }
+      }
+      const claimed = claimFamiliarAttendanceReward(homeState);
+      if (claimed.reward) {
+        setHomeState(claimed.state);
+        setAttendanceReveal(claimed.reward);
+      }
+    } finally {
+      setAttendanceBusy(false);
+    }
+  }, [activeHouseIndex, attendanceBusy, cloudSyncReady, homeState]);
+
   useEffect(() => {
     let cancelled = false;
     void fetch("/api/famiglio/slots", { credentials: "same-origin", cache: "no-store" })
@@ -2009,6 +2309,14 @@ export function FamiglioNexusRebuild() {
   }, [homeState.actionEndsAt]);
 
   useEffect(() => {
+    if (!storageReady || attendanceAutoSuppressed || miniGameOpen || state.stage !== "home" || homeState.attendance.claimedDates.includes(familiarLocalDateKey())) return;
+    const recovery = familiarAttendanceRecovery(homeState.attendance);
+    if (recovery.active && !recovery.next) return;
+    const timeout = window.setTimeout(() => setAttendanceOpen(true), 650);
+    return () => window.clearTimeout(timeout);
+  }, [attendanceAutoSuppressed, homeState.attendance.claimedDates, miniGameOpen, state.stage, storageReady]);
+
+  useEffect(() => {
     const query = window.matchMedia("(max-width: 760px)");
     const update = () => { setCompactFamiliarCatalog(query.matches); setAtelierCatalogPage(0); setCoverCatalogPage(0); };
     update();
@@ -2029,6 +2337,9 @@ export function FamiglioNexusRebuild() {
     let previewCollectionFamiliarId: string | null = null;
     let previewRoomPhase: RoomPreviewPhase | null = null;
     let previewRestChoice = false;
+    let previewMiniGame = false;
+    let previewAttendance = false;
+    let previewSuppressAttendance = false;
     let previewLevelUp: FamiliarLevelUpNotice | null = null;
     let previewAllTestMode = false;
     let restoredLocalHouseTrial = false;
@@ -2111,6 +2422,20 @@ export function FamiglioNexusRebuild() {
         if (previewStage === "combat" || previewStage === "battle") restoredPanel = "combat";
         if (previewStage === "progression") restoredPanel = "progression";
         const requestedGrowth = previewParams.get("growth");
+        previewMiniGame = previewParams.get("minigame") === "1";
+        const requestedGame = previewParams.get("game");
+        if (requestedGame === "light" || requestedGame === "jump" || requestedGame === "catch" || requestedGame === "memory") {
+          const weekly = restoreFamiliarWeeklyLoopState(restoredHome.weeklyLoop, new Date(), restoredHome.attendance.launchDate);
+          restoredHome = { ...restoredHome, weeklyLoop: { ...weekly, miniGame: { ...weekly.miniGame, kind: requestedGame } } };
+        }
+        previewAttendance = previewParams.get("attendance") === "1";
+        if (previewParams.get("recovery") === "ready") {
+          const today = Date.parse(`${familiarLocalDateKey()}T00:00:00Z`);
+          const dateAgo = (days: number) => new Date(today - days * 86_400_000).toISOString().slice(0, 10);
+          restoredHome.attendance = { ...restoredHome.attendance, launchDate: dateAgo(371), claimedDates: Array.from({ length: 6 }, (_, index) => dateAgo(6 - index)), lastClaimDate: dateAgo(1), streak: 6, collectibles: [] };
+          previewAttendance = true;
+        }
+        previewSuppressAttendance = previewParams.get("attendance") === "0";
         if (previewParams.get("test") === "all") {
           previewAllTestMode = true;
           const testHome = createFamiliarHomeState();
@@ -2141,6 +2466,10 @@ export function FamiglioNexusRebuild() {
           needs: { ...restoredHome.needs, hygiene: 18 },
           lastOutcome: "L'igiene è bassa: la scia verde segnala che è il momento di pulire.",
         };
+        const requestedBondDay = Number(previewParams.get("bondDay"));
+        if (Number.isInteger(requestedBondDay) && requestedBondDay >= 1 && requestedBondDay <= FAMILIAR_BOND_WEEK.length) {
+          restoredHome = { ...restoredHome, bondWeek: previewFamiliarBondWeek(requestedBondDay) };
+        }
         const requestedVendor = previewParams.get("vendor");
         if (requestedVendor === "daily" || requestedVendor === "arcane" || requestedVendor === "cosmetics") previewVendor = requestedVendor;
         const requestedWing = previewParams.get("wing");
@@ -2182,6 +2511,19 @@ export function FamiglioNexusRebuild() {
         const requestedRoom = previewParams.get("room");
         if (requestedRoom === "home" || requestedRoom === "feed" || requestedRoom === "clean" || requestedRoom === "play" || requestedRoom === "rest") {
           restoredHome = { ...restoredHome, roomAction: requestedRoom === "home" ? null : requestedRoom };
+        }
+        if (previewParams.get("needs") === "full") {
+          restoredHome = {
+            ...restoredHome,
+            needs: { hunger: 100, energy: 100, happiness: 100, hygiene: 100, affection: 100 },
+            health: { status: "healthy", sickSince: null, lastCheckAt: Date.now() },
+            toilet: { urgency: 0, wasteCount: 0, lastEventAt: null },
+            activeAction: null, actionEndsAt: null, lastActionAt: null,
+            actionCooldownUntil: null, actionCooldowns: {}, actionBurstCount: 0, actionBurstAction: null,
+            lastUpdatedAt: Date.now(),
+            inventory: { ...restoredHome.inventory, quantities: Object.fromEntries(FAMILIAR_ITEM_CATALOG.map(item => [item.id, 99])) as typeof restoredHome.inventory.quantities },
+            lastOutcome: "Anteprima pronta: bisogni a 100 e scorte per le prove. Ricarica per ripartire.",
+          };
         }
         const requestedAction = previewParams.get("action") as FamiliarHomeAction | null;
         if (requestedAction && HOME_ACTIONS.some((entry) => entry.id === requestedAction)) {
@@ -2235,6 +2577,9 @@ export function FamiglioNexusRebuild() {
       }
       if (previewRoomPhase) setRoomPreviewPhase(previewRoomPhase);
       if (previewRestChoice) setRestChoiceOpen(true);
+      if (previewMiniGame) setMiniGameOpen(true);
+      if (previewAttendance) setAttendanceOpen(true);
+      if (previewSuppressAttendance) setAttendanceAutoSuppressed(true);
       if (previewLevelUp) setLevelUpNotice(previewLevelUp);
       setAllTestMode(previewAllTestMode);
       setLocalHouseTrial(restoredLocalHouseTrial);
@@ -2322,8 +2667,12 @@ export function FamiglioNexusRebuild() {
     const houses = [...houseSnapshotsRef.current];
     houses[activeHouseIndex] = currentSnapshot;
     const save = { schemaVersion: 1 as const, ...currentSnapshot, houses, activeHouseIndex, updatedAt: new Date().toISOString() };
-    const timeout = window.setTimeout(() => {
-      if (cloudSaveInFlightRef.current) return;
+    let cancelled = false;
+    let timeout: number;
+    const retry = () => { if (!cancelled) timeout = window.setTimeout(send, 2000); };
+    const send = () => {
+      if (cancelled) return;
+      if (cloudSaveInFlightRef.current) { timeout = window.setTimeout(send, 250); return; }
       cloudSaveInFlightRef.current = true;
       void fetch("/api/famiglio/rebuild", {
         method: "PUT",
@@ -2336,12 +2685,13 @@ export function FamiglioNexusRebuild() {
           else if (response.status === 409) {
             setCloudSyncReady(false);
             setCloudReloadToken((current) => current + 1);
-          }
+          } else if (response.status >= 500 || response.status === 429) retry();
         })
-        .catch(() => undefined)
+        .catch(retry)
         .finally(() => { cloudSaveInFlightRef.current = false; });
-    }, 900);
-    return () => window.clearTimeout(timeout);
+    };
+    timeout = window.setTimeout(send, 900);
+    return () => { cancelled = true; window.clearTimeout(timeout); };
   }, [activeHouseIndex, adventureState, cloudSyncReady, combatState, homeFamiliarIndex, homeState, state, testCollectionFamiliarId]);
 
   useEffect(() => {
@@ -2477,6 +2827,9 @@ export function FamiglioNexusRebuild() {
   const completedRoutineActions = new Set(homeState.routine.completedActions).size;
   const wishCopy = DAILY_WISHES[homeState.wish.action];
   const wishAction = HOME_ACTIONS.find((item) => item.id === homeState.wish.action)!;
+  const dominantBondTraitId = dominantFamiliarBondTrait(homeState.bondWeek);
+  const dominantBondTrait = FAMILIAR_BOND_TRAITS[dominantBondTraitId];
+  const storyModalEvent = familiarBondEvent(bondStoryFeedback?.day ?? homeState.bondWeek.pendingDay);
   const displayedDeviceCoverId = homePanel === "market" && marketWing === "court" && selectedMarketVendor === "cosmetics"
     ? previewDeviceCoverId ?? homeState.deviceCover.activeId
     : homeState.deviceCover.activeId;
@@ -2569,6 +2922,7 @@ export function FamiglioNexusRebuild() {
           nightSigils: current.wallet.nightSigils + reward.nightSigils,
           relicFragments: current.wallet.relicFragments + reward.relicFragments,
         },
+        weeklyLoop: recordFamiliarWeeklyStep(current.weeklyLoop, "adventure", new Date(), current.attendance.launchDate),
         diary: [{
           id: `adventure-${reward.dungeonId}-${at}`,
           at,
@@ -2597,6 +2951,7 @@ export function FamiglioNexusRebuild() {
           nightSigils: current.wallet.nightSigils + reward.nightSigils,
           relicFragments: current.wallet.relicFragments + reward.relicFragments,
         },
+        weeklyLoop: recordFamiliarWeeklyStep(current.weeklyLoop, "combat", new Date(), current.attendance.launchDate),
         diary: [{
           id: `combat-${reward.key}-${at}`,
           at,
@@ -2616,14 +2971,56 @@ export function FamiglioNexusRebuild() {
     const next = equippedItem
       ? applyFamiliarInventoryItem(homeState, equippedItem.id, undefined, restPresetId)
       : performHomeAction(homeState, action, undefined, null, restPresetId);
-    setHomeState(next);
-    const nextBondLevel = familiarLevelForExperience(next.growth.bondXp);
+    const progressed = next.lastActionAt !== previousActionAt
+      ? { ...next, weeklyLoop: recordFamiliarWeeklyStep(next.weeklyLoop, action === "play" ? "play" : "care", new Date(), next.attendance.launchDate) }
+      : next;
+    setHomeState(progressed);
+    const nextBondLevel = familiarLevelForExperience(progressed.growth.bondXp);
     if (nextBondLevel > previousBondLevel) {
       const milestone = FAMILIAR_MILESTONES.find((entry) => entry.level === nextBondLevel);
       setLevelUpNotice({ track: "Legame", level: nextBondLevel, title: milestone?.title ?? "Il vostro Legame cresce", benefits: milestone ? [milestone.benefit, milestone.rewardLabel] : ["Nuova intensità del Legame", "Progressi registrati nel Diario"] });
     }
+    setAdventureState((current) => syncFamiliarAdventureGrowth(current, activeFamiliarId, progressed.growth.bondXp, progressed.growth.careStreak));
+    return progressed.lastActionAt !== previousActionAt && progressed.activeAction === action;
+  };
+
+  const completeDailyMiniGame = (score: number, kind: FamiliarMiniGameKind) => {
+    setHomeState((current) => {
+      const weeklyLoop = restoreFamiliarWeeklyLoopState(current.weeklyLoop, new Date(), current.attendance.launchDate);
+      const alreadyRewarded = weeklyLoop.miniGame.rewarded;
+      const previousBest = weeklyLoop.miniGame.scores?.[kind] ?? (kind === weeklyLoop.miniGame.kind ? weeklyLoop.miniGame.bestScore : 0);
+      const coins = alreadyRewarded ? 0 : 8 + Math.min(20, Math.max(0, score));
+      const played = performHomeAction(current, "play");
+      return {
+        ...played,
+        lastOutcome: alreadyRewarded ? (score > previousBest ? `Nuovo record di oggi: ${score} punti.` : `Allenamento: ${score} punti. Record di oggi: ${previousBest}.`) : `Minigioco completato: +${coins} Monete Nexus.`,
+        wallet: { ...played.wallet, nexusCoins: played.wallet.nexusCoins + coins, totalEarned: played.wallet.totalEarned + coins },
+        weeklyLoop: {
+          ...recordFamiliarWeeklyStep(weeklyLoop, "play", new Date(), current.attendance.launchDate),
+          miniGame: { ...weeklyLoop.miniGame, kind, bestScore: Math.max(score, previousBest), scores: { ...weeklyLoop.miniGame.scores, [kind]: Math.max(score, previousBest) }, rewarded: true },
+        },
+      };
+    });
+      setMiniGameOpen(false);
+      setHomePanel("care");
+      void recordCareMission("play");
+  };
+
+  const chooseBondStory = (choice: FamiliarBondChoice) => {
+    const day = homeState.bondWeek.pendingDay;
+    if (!day) return;
+    const previousBondLevel = familiarLevelForExperience(homeState.growth.bondXp);
+    const next = chooseFamiliarBondMemory(homeState, choice.id);
+    const nextBondLevel = familiarLevelForExperience(next.growth.bondXp);
+    setHomeState(next);
+    setBondStoryFeedback({ choice, day });
     setAdventureState((current) => syncFamiliarAdventureGrowth(current, activeFamiliarId, next.growth.bondXp, next.growth.careStreak));
-    return next.lastActionAt !== previousActionAt && next.activeAction === action;
+    ensureHomeAudio();
+    playFamiliarInterfaceCue("confirm", !homeAudioMuted, homeAudioVolume);
+    if (nextBondLevel > previousBondLevel) {
+      const milestone = FAMILIAR_MILESTONES.find((entry) => entry.level === nextBondLevel);
+      setLevelUpNotice({ track: "Legame", level: nextBondLevel, title: milestone?.title ?? "Il vostro Legame cresce", benefits: milestone ? [milestone.benefit, milestone.rewardLabel] : ["Un nuovo Ricordo del Legame", "La scelta è stata custodita nel Diario"] });
+    }
   };
 
   const selectActiveInventoryItem = (itemId: FamiliarInventoryItemId) => {
@@ -2868,6 +3265,12 @@ export function FamiglioNexusRebuild() {
     showMerchantReaction("medusa", "Medusa sigilla la cover sul Nexus Pet.");
   };
 
+  const attendancePosition = familiarAttendancePosition(new Date(), homeState.attendance.launchDate);
+  const attendanceRecovery = familiarAttendanceRecovery(homeState.attendance);
+  const attendanceSeason = FAMILIAR_ATTENDANCE_SEASONS.find((season) => season.id === familiarAttendanceReward(attendancePosition.dayIndex).seasonId) ?? FAMILIAR_ATTENDANCE_SEASONS[0];
+  const attendanceWeekRewards = Array.from({ length: 7 }, (_, index) => familiarAttendanceReward(Math.min(364, (attendancePosition.week - 1) * 7 + index + 1)));
+  const miniGameFamiliar = FAMILIAR_COLLECTION.find((entry) => entry.id === activeFamiliarId) ?? FAMILIAR_COLLECTION[0];
+
   return (
     <main
       className={`${styles.experience} famiglio-game-root`}
@@ -3101,11 +3504,46 @@ export function FamiglioNexusRebuild() {
                 growthStage={activeGrowth.stage}
                 away={familiarAway}
                 roomTime={displayedRoomTime}
+                bondStoryDay={storyModalEvent?.day ?? null}
+                bondStoryActive={bondStoryOpen}
+                bondStoryVisible={bondStoryOpen}
+                bondKeepsakeIds={homeState.bondWeek.keepsakeIds}
                 onAutonomousReaction={setAutonomousPresentation}
                 onMealFinished={() => setHomeState((current) => current.activeAction === "feed"
                   ? { ...current, activeAction: null, activeItemId: null, roomAction: "feed", actionEndsAt: null }
                   : current)}
               />
+              {bondStoryOpen && storyModalEvent ? (
+                <section className={styles.bondStoryScene} data-tone={storyModalEvent.tone} role="dialog" aria-modal="true" aria-labelledby="bond-story-title">
+                  <button className={styles.bondStorySceneClose} type="button" aria-label="Chiudi il ricordo" onClick={() => {
+                    setBondStoryOpen(false);
+                    setBondStoryFeedback(null);
+                  }}>×</button>
+                  <div className={styles.bondStorySceneHeading}>
+                    <span aria-hidden="true">{storyModalEvent.symbol}</span>
+                    <div><small>{storyModalEvent.eyebrow} · {storyModalEvent.day}/{FAMILIAR_BOND_WEEK.length}</small><h3 id="bond-story-title">{storyModalEvent.title}</h3></div>
+                  </div>
+                  {!bondStoryFeedback ? <>
+                    <p>{storyModalEvent.scene}</p>
+                    <strong>{storyModalEvent.question}</strong>
+                    <div className={styles.bondStorySceneChoices}>
+                      {storyModalEvent.choices.map((choice) => <button type="button" key={choice.id} onClick={() => chooseBondStory(choice)}>
+                        <span aria-hidden="true">{FAMILIAR_BOND_TRAITS[choice.trait].icon}</span>
+                        <b>{choice.label}</b>
+                      </button>)}
+                    </div>
+                  </> : <div className={styles.bondStorySceneResult}>
+                    <strong>{bondStoryFeedback.choice.memoryTitle}</strong>
+                    <p>{bondStoryFeedback.choice.response}</p>
+                    <div><b>+{bondStoryFeedback.choice.bondXp} XP</b><b>+{bondStoryFeedback.choice.coins} monete</b></div>
+                    {bondStoryFeedback.choice.keepsakeId ? <small className={styles.bondStoryReward}>Ricompensa nella Casa: {FAMILIAR_BOND_KEEPSAKES[bondStoryFeedback.choice.keepsakeId]?.label}</small> : null}
+                    <button type="button" onClick={() => {
+                      setBondStoryOpen(false);
+                      setBondStoryFeedback(null);
+                    }}>Custodisci nel Diario</button>
+                  </div>}
+                </section>
+              ) : null}
               <div className={styles.homeAudioControls} aria-label="Audio della Casa">
                 <button
                   type="button"
@@ -3214,9 +3652,9 @@ export function FamiglioNexusRebuild() {
                 <span aria-hidden="true">✦</span>
                 <small>{homeState.wish.fulfilledAt ? "Desiderio esaudito" : "Desiderio di oggi"}</small>
               </header>
-              <strong>{wishCopy.title}</strong>
-              <p>{wishCopy.description}</p>
-              <footer>
+               <strong>{wishCopy.title}</strong>
+               <p>{wishCopy.description}</p>
+               <footer>
                 <b>{homeState.wish.fulfilledAt ? `Ottenute ${DAILY_WISH_REWARD_COINS} monete Nexus` : `${wishAction.label} · +${DAILY_WISH_REWARD_COINS} monete Nexus`}</b>
                 <div className={styles.dailyButtons}>
                   <button type="button" aria-label="Apri zaino" title="Apri zaino" disabled={familiarAway} onClick={() => setInventoryOpen(true)}><span className={styles.dailyNavIcon} style={{ backgroundImage: `url(${HOME_NAVIGATION_ICONS.inventory})` }} aria-hidden="true" /><span className={styles.dailyNavLabel}>Zaino</span></button>
@@ -3301,6 +3739,10 @@ export function FamiglioNexusRebuild() {
                   disabled={blocked}
                   title={blocked ? blockedReason : undefined}
                   onClick={() => {
+                    if (item.id === "play") {
+                      setMiniGameOpen(true);
+                      return;
+                    }
                     if (item.id === "rest") {
                       setRestChoiceOpen(true);
                       return;
@@ -3378,6 +3820,15 @@ export function FamiglioNexusRebuild() {
             careDays={activeGrowth.careStreak}
             growthStage={activeGrowth.stage}
             combatState={combatState}
+            attendance={homeState.attendance}
+            weeklyLoop={homeState.weeklyLoop}
+            onOpenAttendance={() => { setAttendanceReveal(null); setAttendanceOpen(true); }}
+            onNavigateStep={(step) => {
+              if (familiarAway) { setHomePanel(combatState.activeBattle ? "combat" : "adventure"); return; }
+              if (step === "play") { setHomePanel("care"); if (!homeState.activeAction) setMiniGameOpen(true); }
+              else setHomePanel(step === "care" ? "care" : step === "combat" ? "combat" : "adventure");
+            }}
+            onClaimWeeklyChest={() => setHomeState((current) => current.weeklyLoop.steps.length < 4 || current.weeklyLoop.chestClaimed ? current : ({ ...current, lastOutcome: "Tesoro settimanale aperto: +45 Monete Nexus e +2 Frammenti di Reliquia.", wallet: { ...current.wallet, nexusCoins: current.wallet.nexusCoins + 45, totalEarned: current.wallet.totalEarned + 45, relicFragments: current.wallet.relicFragments + 2 }, weeklyLoop: { ...current.weeklyLoop, chestClaimed: true } }))}
             onReturnHome={() => setHomePanel("care")}
           />
         ) : null}
@@ -3789,10 +4240,10 @@ export function FamiglioNexusRebuild() {
               <button type="button" onClick={() => setHomePanel("care")}>Torna alla Casa</button>
             </header>
             <div className={styles.diarySummary}>
-              <div><small>Monete Nexus</small><strong>{homeState.wallet.nexusCoins}</strong></div>
-              <div><small>Giorni di cura</small><strong>{homeState.growth.careStreak}</strong></div>
-              <div><small>Crescita</small><strong>{growthMeta.label}</strong></div>
-              <div><small>Routine completa</small><strong>+{DAILY_ROUTINE_REWARD_COINS}</strong></div>
+               <div><small>Monete Nexus</small><strong>{homeState.wallet.nexusCoins}</strong></div>
+               <div><small>Giorni di cura</small><strong>{homeState.growth.careStreak}</strong></div>
+               <div><small>Crescita</small><strong>{growthMeta.label}</strong></div>
+               <div><small>Indole emersa</small><strong>{dominantBondTrait.icon} {dominantBondTrait.label}</strong></div>
             </div>
             <div className={styles.diaryEntries}>
               {visibleDiaryEntries.map((entry) => (
@@ -3888,6 +4339,73 @@ export function FamiglioNexusRebuild() {
             <strong>{levelUpNotice.title}</strong>
             <ul>{levelUpNotice.benefits.map((benefit) => <li key={benefit}>{benefit}</li>)}</ul>
             <button type="button" onClick={() => setLevelUpNotice(null)}>Continua il cammino</button>
+          </section>
+        </div>, document.body,
+      ) : null}
+      {miniGameOpen && typeof document !== "undefined" ? createPortal(
+        <FamiglioDailyMiniGame
+          kind={homeState.weeklyLoop.miniGame.kind}
+          bestScore={homeState.weeklyLoop.miniGame.bestScore}
+          scores={homeState.weeklyLoop.miniGame.scores}
+          rewarded={homeState.weeklyLoop.miniGame.rewarded}
+          familiarName={homeDisplayName}
+          familiarSprite={familiarAnimatedPreview(miniGameFamiliar)}
+          familiarVisual={homeFamiliar && activeFamiliarId === homeFamiliar.id ? <FamiliarPreview egg={homeFamiliar} colorVariant={state.colorVariant} /> : undefined}
+          onClose={() => setMiniGameOpen(false)}
+          onComplete={completeDailyMiniGame}
+        />, document.body,
+      ) : null}
+      {attendanceOpen && state.stage === "home" && typeof document !== "undefined" ? createPortal(
+        <div className={styles.attendanceBackdrop} role="presentation">
+          <section className={styles.attendanceSheet} role="dialog" aria-modal="true" aria-labelledby="attendance-title" style={{ "--attendance-accent": attendanceSeason.accent, "--attendance-cover": `url(${attendanceSeason.cover})` } as CSSProperties}>
+            <header>
+              <div><small>{attendanceRecovery.active ? "Completa la tua collezione" : `Stagione ${attendanceSeason.name} · settimana ${attendancePosition.week}/52`}</small><h2 id="attendance-title">Registro presenze</h2></div>
+              <button type="button" aria-label="Chiudi il Registro presenze" onClick={() => { setAttendanceOpen(false); setAttendanceReveal(null); }}>×</button>
+            </header>
+            {attendanceReveal ? <div className={styles.attendanceReveal}>
+              <span className={attendanceMotion.rewardPop} aria-hidden="true"><img src={attendanceReveal.icon} alt="" /></span>
+              <small>{attendanceRecovery.active && !attendanceReveal.collectibleId ? "Presenza registrata" : "Ricompensa riscossa"}</small>
+              <strong>{attendanceReveal.label}</strong>
+              <p>{attendanceReveal.collectibleId ? "Il nuovo ricordo è stato aggiunto all'Album del Legame." : attendanceRecovery.active ? "Torna domani per continuare: al settimo giorno consecutivo recuperi un ricordo mancante." : "La ricompensa è già disponibile nella tua Casa."}</p>
+              <button type="button" onClick={() => { setAttendanceOpen(false); setAttendanceReveal(null); }}>Continua</button>
+            </div> : attendanceRecovery.active ? <>
+              <div className={`${styles.attendanceReveal} ${styles.attendanceRecoveryIntro}`}>
+                {attendanceRecovery.next ? <>
+                  <img src={attendanceRecovery.next.icon} alt="" />
+                  <strong>{attendanceRecovery.next.name}</strong>
+                  <p>Sette presenze consecutive per recuperare questo ricordo. Recuperi i ricordi mancanti in ordine, senza doppioni. Se salti un giorno, la serie riparte.</p>
+                </> : <strong>Album completo! Hai raccolto tutti i 52 ricordi.</strong>}
+              </div>
+              {attendanceRecovery.next ? <>
+                <div className={styles.attendanceWeek}>
+                  {Array.from({ length: 7 }, (_, index) => <article key={index} data-claimed={index < attendanceRecovery.progress} data-current={index === attendanceRecovery.progress} data-rare={index === 6}>
+                    <small>Presenza {index + 1}</small>
+                    {index === 6 ? <img src={attendanceRecovery.next!.icon} alt="" /> : null}
+                    <strong>{index < attendanceRecovery.progress ? "Registrata" : index === 6 ? "Ricordo" : "Da registrare"}</strong>
+                  </article>)}
+                </div>
+                <footer><span>{attendanceRecovery.progress}/7 presenze consecutive</span><button type="button" disabled={attendanceBusy || attendanceRecovery.claimedToday} onClick={() => void claimAttendance()}>{attendanceBusy ? "Registro…" : attendanceRecovery.claimedToday ? "Presenza registrata" : "Registra la presenza"}</button></footer>
+              </> : null}
+            </> : <>
+              <div className={styles.attendanceWeek}>
+                {attendanceWeekRewards.map((reward) => {
+                  const dateMs = Date.parse(`${homeState.attendance.launchDate}T00:00:00Z`) + (reward.dayIndex - 1) * 86_400_000;
+                  const date = new Date(dateMs).toISOString().slice(0, 10);
+                  const claimed = homeState.attendance.claimedDates.includes(date);
+                  const current = reward.dayIndex === attendancePosition.dayIndex;
+                  return <article key={reward.dayIndex} data-current={current} data-claimed={claimed} data-rare={reward.rare}>
+                    <small>Giorno {reward.weekday}</small>
+                    <img src={reward.icon} alt="" />
+                    <strong>{reward.label}</strong>
+                    <span>{claimed ? "Riscosso" : current ? "Oggi" : "Da sbloccare"}</span>
+                  </article>;
+                })}
+              </div>
+              <footer>
+                <span><b>{homeState.attendance.streak}</b> giorni consecutivi</span>
+                <button type="button" disabled={attendanceBusy || homeState.attendance.claimedDates.includes(attendancePosition.date)} onClick={() => void claimAttendance()}>{attendanceBusy ? "Registro…" : homeState.attendance.claimedDates.includes(attendancePosition.date) ? "Già riscosso" : "Riscatta il premio"}</button>
+              </footer>
+            </>}
           </section>
         </div>, document.body,
       ) : null}

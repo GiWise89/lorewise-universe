@@ -31,11 +31,11 @@ export const FAMILIAR_GUIDES: Readonly<Record<FamiliarGuideSection, FamiliarSect
     eyebrow: "Cura quotidiana",
     iconSrc: "/famiglio/rebuild/inventory/bond-lantern.png",
     pages: [
-      { title: "Leggi i bisogni", summary: "Fame, energia, gioia, igiene e affetto descrivono lo stato reale del Famiglio.", points: ["Le barre scendono nel tempo", "Ogni azione migliora bisogni precisi", "Le attività fuori casa sospendono il consumo dei bisogni"] },
+      { title: "Leggi i bisogni", summary: "Fame, energia, gioia, igiene e affetto descrivono lo stato reale del Famiglio.", points: ["Le barre scendono nel tempo", "Ogni azione migliora bisogni precisi", "Le attività fuori casa sospendono il consumo dei bisogni; desiderio e routine premiano cure diverse"] },
       { title: "Azioni e Zaino", summary: "Puoi avviare una nuova cura solo quando quella in corso è terminata.", points: ["Nutri e Pulisci consumano le scorte corrispondenti", "Gioca e Pulisci richiedono Energia", "Il riposo può durare 1, 15 oppure 30 minuti"] },
       { title: "Igiene e salute", summary: "Una scia verde segnala che l’igiene è troppo bassa; se i bisogni restano critici il Famiglio può ammalarsi.", points: ["Il comando Cura compare soltanto durante la malattia", "Nora vende medicina singola e scorte da cinque", "La medicina non viene consumata se il Famiglio è già sano"] },
-      { title: "Desiderio e routine", summary: "Il desiderio quotidiano indica l'azione preferita, mentre la routine premia una giornata completa.", points: ["Il desiderio assegna Monete Nexus", "La routine richiede azioni diverse", "Solo la stessa azione ripetuta due volte riposa per 2 minuti; le altre restano disponibili"] },
-      { title: "Esperienza quotidiana", summary: "Le cure continuano sempre a migliorare i bisogni, mentre l'XP ottenibile dalle azioni della Casa ha un limite giornaliero.", points: ["Il limite riguarda soltanto l'XP", "Le barre possono continuare a essere curate", "Lotte, spedizioni e missioni hanno progressioni separate"] },
+      { title: "Registro presenze", summary: "Il primo accesso del giorno apre un calendario illustrato che non occupa permanentemente la Casa.", points: ["L'anno comprende quattro stagioni e 52 settimane diverse", "Il premio raro del giorno 7 richiede almeno sette presenze consecutive", "Dopo la fine dell’anno, sette nuove presenze consecutive recuperano un ricordo mancante in ordine di settimana; saltare un giorno fa ripartire la serie"] },
+      { title: "Scegli il tuo minigioco", summary: "Scegli un gioco e leggi le regole: hai 3 vite, senza limite di tempo. A zero vite la partita finisce.", points: ["Insegui la luce: lucciole e caselle da evitare. Salto tra le nuvole: salta, raccogli gemme ed evita i vuoti", "Acchiappa-oggetti: raccogli stelle ed evita spine. Memoria delle rune: ascolta le note e ripeti la sequenza", "Musica ed effetti sono disattivabili; il premio giornaliero è condiviso fra tutti i giochi e non supera 28 monete"] },
     ],
   },
   diary: {
@@ -45,7 +45,8 @@ export const FAMILIAR_GUIDES: Readonly<Record<FamiliarGuideSection, FamiliarSect
     iconSrc: "/famiglio/rebuild/nav-diary-v1.png",
     pages: [
       { title: "I momenti importanti", summary: "Il Diario conserva desideri, evoluzioni, ricompense e giornate significative.", points: ["Le memorie più recenti compaiono per prime", "Le frecce cambiano pagina", "Le azioni ordinarie non riempiono il Diario inutilmente"] },
-      { title: "Riepilogo del percorso", summary: "La testata riunisce valuta, giorni di cura, crescita e premio della routine.", points: ["Le Monete Nexus servono nel Mercato", "I giorni di cura descrivono la costanza", "Le tappe rare si sbloccano con il Legame"] },
+      { title: "Album del Legame", summary: "Nel Percorso, apri Album per vedere i 52 ricordi delle quattro stagioni.", points: ["Filtra Tutti, Ottenuti o Mancanti; tocca una sagoma per conoscere premio e data", "I ricordi non sono oggetti da usare durante le cure", "Ogni set di 13 ricordi sblocca la cover indicata"] },
+      { title: "Percorso settimanale", summary: "Cura, gioco, spedizione e combattimento formano quattro tappe di un unico viaggio.", points: ["Puoi completare le quattro tappe in qualsiasi ordine", "La mappa mostra le attività mancanti e quelle già completate", "Il tesoro contiene 45 Monete Nexus e 2 Frammenti di Reliquia"] },
     ],
   },
   missions: {
@@ -96,6 +97,8 @@ export const FAMILIAR_GUIDES: Readonly<Record<FamiliarGuideSection, FamiliarSect
     eyebrow: "Crescita e maestria",
     iconSrc: "/famiglio/rebuild/inventory/bond-lantern.png",
     pages: [
+      { title: "Dalle isole al tesoro", summary: "Seleziona una delle quattro isole per leggere l’obiettivo e raggiungere l’attività.", points: ["Cura: nutri, pulisci o coccola. Gioco: concludi un minigioco", "Spedizione: raccogli il bottino. Lotta: vinci e raccogli il premio", "Quando tutte le tappe sono complete puoi aprire il tesoro una sola volta"] },
+      { title: "Una collezione per stagione", summary: "Album distingue i ricordi ottenuti dalle sagome mancanti e mostra il premio del set.", points: ["Ogni stagione contiene 13 ricordi", "La scheda indica quando riscattare ciascun ricordo", "Il Registro presenze e il tesoro settimanale sono due premi distinti"] },
       { title: "Tre cammini collegati", summary: "Crescita, mosse e ricompense mostrano ciò che hai ottenuto e il prossimo requisito.", points: ["Legame: XP, evoluzioni e costanza", "Esplorazione: viaggi e ricompense", "Combattimento: tecniche; ogni nuovo livello annuncia i vantaggi ottenuti"] },
       { title: "Sconti e premio finale", summary: "I bonus commerciali crescono lentamente e non si sommano a vantaggi più convenienti.", points: ["1% dal livello 10", "2% dal livello 30 e 3% al livello 50", "Al livello 50: buono unico da 15 € su una commissione"] },
     ],

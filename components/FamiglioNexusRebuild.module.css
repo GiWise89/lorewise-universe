@@ -648,6 +648,47 @@
   display: block;
 }
 
+.bondStoryScene {
+  --story-accent: #c78cff;
+  position: absolute;
+  z-index: 12;
+  left: 2.2%;
+  bottom: 4%;
+  width: min(54%, 470px);
+  max-height: 76%;
+  overflow: hidden;
+  display: grid;
+  gap: 7px;
+  padding: 12px;
+  border: 2px solid var(--story-accent);
+  border-radius: 14px;
+  background: linear-gradient(150deg, rgba(45, 25, 65, .97), rgba(12, 7, 22, .97));
+  color: #f8efff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .58), inset 0 0 24px rgba(199, 140, 255, .12);
+}
+
+.bondStoryScene[data-tone="amber"] { --story-accent: #ffdc68; }
+.bondStoryScene[data-tone="cyan"] { --story-accent: #6ee9ef; }
+.bondStoryScene[data-tone="rose"] { --story-accent: #ff9bd4; }
+.bondStorySceneClose { position: absolute; top: 6px; right: 6px; width: 27px; height: 27px; display: grid; place-items: center; padding: 0; border: 1px solid #a98abc; border-radius: 50%; background: #150b21; color: #fff5ce; font-size: 18px; cursor: pointer; }
+.bondStorySceneHeading { min-width: 0; display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 8px; padding-right: 28px; }
+.bondStorySceneHeading > span { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--story-accent); border-radius: 9px; background: #160d24; color: #fff1a1; font-size: 19px; box-shadow: 0 0 12px color-mix(in srgb, var(--story-accent) 55%, transparent); }
+.bondStorySceneHeading div { min-width: 0; }
+.bondStorySceneHeading small { display: block; color: var(--story-accent); font: 900 8px/1 var(--font-pixel), ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; }
+.bondStorySceneHeading h3 { margin: 4px 0 0; color: #fff4c8; font: 900 clamp(13px, 1.45vw, 19px)/1.15 var(--font-pixel), ui-monospace, monospace; }
+.bondStoryScene > p, .bondStorySceneResult p { margin: 0; color: #eadff0; font-size: clamp(10px, 1vw, 13px); line-height: 1.35; }
+.bondStoryScene > strong { color: #ffe38e; font-size: clamp(10px, 1vw, 13px); }
+.bondStorySceneChoices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.bondStorySceneChoices button { min-width: 0; min-height: 38px; display: grid; grid-template-columns: 24px minmax(0, 1fr); align-items: center; gap: 5px; padding: 5px 7px; border: 1px solid #8c6aa0; border-radius: 8px; background: #321d45; color: #fff2bd; text-align: left; cursor: pointer; }
+.bondStorySceneChoices span { color: var(--story-accent); font-size: 15px; text-align: center; }
+.bondStorySceneChoices b { font: 900 clamp(8px, .8vw, 11px)/1.2 var(--font-pixel), ui-monospace, monospace; }
+.bondStorySceneResult { display: grid; gap: 7px; }
+.bondStorySceneResult > strong { color: #fff0a5; font: 900 clamp(11px, 1vw, 14px)/1.2 var(--font-pixel), ui-monospace, monospace; }
+.bondStorySceneResult > div { display: flex; flex-wrap: wrap; gap: 5px; }
+.bondStorySceneResult > div b { padding: 4px 6px; border: 1px solid #765786; border-radius: 6px; color: #ffe073; font-size: 10px; }
+.bondStoryReward { padding: 5px 7px; border-left: 3px solid var(--story-accent); background: rgba(255, 239, 162, .09); color: #fff1ad; font-size: 10px; line-height: 1.25; }
+.bondStorySceneResult > button { min-height: 34px; border: 1px solid #fff0a4; border-radius: 7px; background: linear-gradient(#ffe174, #eeb53e); color: #2d1938; font-weight: 900; cursor: pointer; }
+
 .homeAudioControls {
   position: absolute;
   z-index: 7;
@@ -803,6 +844,43 @@
   font-size: .62rem;
   line-height: 1.3;
 }
+
+.bondWeekHook {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 7px 8px;
+  border: 1px solid rgba(156, 114, 205, .72);
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(18, 11, 34, .88), rgba(58, 30, 83, .72));
+}
+
+.bondWeekHook[data-ready="true"] {
+  border-color: rgba(255, 220, 104, .86);
+  box-shadow: inset 3px 0 0 #ffd85f, 0 0 14px rgba(198, 127, 255, .22);
+}
+
+.bondWeekHook > span {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #a87bce;
+  border-radius: 50%;
+  background: radial-gradient(circle, #754a91, #251331 72%);
+  color: #fff09b;
+  font-size: 1rem;
+  box-shadow: 0 0 12px rgba(208, 142, 255, .48);
+}
+
+.bondWeekHook > div { min-width: 0; display: grid; gap: 2px; }
+.bondWeekHook small { color: #cdb6ed; font: 800 .46rem/1.2 ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; }
+.bondWeekHook strong { overflow: hidden; color: #fff1b7; font: 800 .58rem/1.25 ui-monospace, monospace; text-overflow: ellipsis; white-space: nowrap; }
+.bondWeekHook > button { min-height: 29px; padding: 5px 9px; border: 1px solid #fff0a4; border-radius: 6px; background: linear-gradient(#ffe175, #eab23c); color: #2c1839; font: 900 .5rem/1 ui-monospace, monospace; text-transform: uppercase; cursor: pointer; }
+.bondWeekHook > button:disabled { border-color: #715681; background: #392847; color: #9e8cac; cursor: default; }
 
 .dailyWishCard footer {
   margin-top: 3px;
@@ -1838,7 +1916,8 @@
 
   .dailyWishCard header,
   .dailyWishCard > strong,
-  .dailyWishCard > p { grid-column: 1; }
+  .dailyWishCard > p,
+  .bondWeekHook { grid-column: 1; }
 
   .dailyWishCard footer {
     grid-column: 2;
@@ -4927,3 +5006,74 @@
 .levelUpSheet li::before { content: "✦ "; color: #ffe06d; }
 .levelUpSheet button { position: relative; width: 100%; min-height: 3rem; border: 1px solid #fff0a4; border-radius: .65rem; background: linear-gradient(#ffdf68,#efb63f); color: #281532; font-weight: 900; }
 @media (max-width:620px) { .levelUpBackdrop { padding: .65rem; } .levelUpSheet { max-height: calc(100dvh - 1.3rem); padding: .9rem; } }
+
+.attendanceBackdrop { position: fixed; inset: 0; z-index: 2147483646; display: grid; place-items: center; padding: 1rem; background: rgba(5,3,12,.9); backdrop-filter: blur(7px); }
+.attendanceSheet { --attendance-accent: #77e6ff; position: relative; width: min(66rem,100%); overflow: hidden; border: 3px solid var(--attendance-accent); border-radius: 1.15rem; color: #fff5d2; background: #160d25; box-shadow: 0 1.5rem 5rem #000c, 0 0 2.2rem color-mix(in srgb,var(--attendance-accent) 40%,transparent); }
+.attendanceSheet::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(#0d0718cc,#1d1028e8),var(--attendance-cover); background-size: auto,32px 32px; image-rendering: pixelated; opacity: .92; }
+.attendanceSheet > * { position: relative; }
+.attendanceSheet > header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.1rem .8rem; border-bottom: 2px solid color-mix(in srgb,var(--attendance-accent) 55%,#4b315b); }
+.attendanceSheet header small { color: var(--attendance-accent); font: 800 .62rem/1.3 var(--font-pixel),monospace; text-transform: uppercase; }
+.attendanceSheet h2 { margin: .25rem 0 0; font: 900 clamp(1.4rem,4vw,2.2rem)/1 var(--font-pixel),monospace; }
+.attendanceSheet header button { width: 2.6rem; height: 2.6rem; border: 2px solid #a97fc0; border-radius: .55rem; color: #fff; background: #3b234f; font-size: 1.35rem; }
+.attendanceWeek { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: .55rem; padding: 1rem; }
+.attendanceWeek article { min-width: 0; min-height: 10.5rem; display: grid; grid-template-rows: auto 4.4rem minmax(2.4rem,auto) auto; place-items: center; gap: .35rem; padding: .65rem .4rem; border: 2px solid #684779; border-radius: .75rem; color: #d8c9db; background: #130b20e8; text-align: center; }
+.attendanceWeek article[data-current="true"] { border-color: var(--attendance-accent); color: #fff7d6; box-shadow: 0 0 1.2rem color-mix(in srgb,var(--attendance-accent) 52%,transparent), inset 0 0 1.4rem #ffffff0b; transform: translateY(-4px); }
+.attendanceWeek article[data-claimed="true"] { border-color: #78d08c; background: #10291ee8; }
+.attendanceWeek article[data-rare="true"] { background: linear-gradient(160deg,#41204f,#1a1027); }
+.attendanceWeek article small,.attendanceWeek article span { font: 700 .52rem/1.25 var(--font-pixel),monospace; }
+.attendanceWeek article span { color: var(--attendance-accent); }
+.attendanceWeek article strong { font-size: .76rem; line-height: 1.15; }
+.attendanceWeek img,.attendanceReveal img { width: 4rem; height: 4rem; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(0 5px 0 #0007); }
+.attendanceSheet > footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 1rem 1rem; }
+.attendanceSheet > footer span { display: flex; align-items: baseline; gap: .45rem; }
+.attendanceSheet > footer span b { color: var(--attendance-accent); font: 900 1.7rem/1 var(--font-pixel),monospace; }
+.attendanceSheet > footer button,.attendanceReveal button { min-height: 3.1rem; padding: .7rem 1.2rem; border: 2px solid #fff0a4; border-radius: .65rem; color: #261431; background: linear-gradient(#ffe174,#efb940); font-weight: 900; }
+.attendanceReveal { min-height: 24rem; display: grid; place-items: center; align-content: center; gap: .65rem; padding: 1.2rem; text-align: center; }
+.attendanceReveal > span { width: 8rem; height: 8rem; display: grid; place-items: center; border: 3px solid var(--attendance-accent); border-radius: 1rem; background: #10091be8; box-shadow: 0 0 2rem color-mix(in srgb,var(--attendance-accent) 60%,transparent); }
+.attendanceReveal img { width: 6rem; height: 6rem; }
+.attendanceReveal small { color: var(--attendance-accent); font: 800 .62rem/1 var(--font-pixel),monospace; text-transform: uppercase; }
+.attendanceReveal strong { font: 900 clamp(1.1rem,4vw,1.8rem)/1.15 var(--font-pixel),monospace; }
+.attendanceReveal p { margin: 0; color: #e3d6e8; }
+.attendanceSheet .attendanceRecoveryIntro { min-height: 0; padding: 1rem; }
+.attendanceSheet { max-height: calc(100dvh - 1rem); overflow-y: auto; }
+@media (max-width:620px) {
+  .attendanceBackdrop { padding: .45rem; }
+  .attendanceSheet { max-height: calc(100dvh - .9rem); overflow-y: auto; border-width: 2px; }
+  .attendanceSheet > header { position: sticky; z-index: 2; top: 0; padding: .7rem; background: #1b1029f5; }
+  .attendanceSheet h2 { font-size: 1.15rem; }
+  .attendanceWeek { grid-template-columns: repeat(4,minmax(0,1fr)); gap: .38rem; padding: .65rem; }
+  .attendanceWeek article { min-height: 7.2rem; grid-template-rows: auto 2.8rem minmax(1.7rem,auto) auto; gap: .2rem; padding: .4rem .2rem; border-width: 1px; }
+  .attendanceWeek article:last-child { grid-column: 2 / span 2; }
+  .attendanceWeek img { width: 2.7rem; height: 2.7rem; }
+  .attendanceWeek article small,.attendanceWeek article span { font-size: .42rem; }
+  .attendanceWeek article strong { font-size: .55rem; }
+  .attendanceSheet > footer { align-items: stretch; flex-direction: column; padding: .2rem .65rem .7rem; }
+  .attendanceSheet > footer button { width: 100%; }
+  .attendanceReveal { min-height: 21rem; }
+}
+
+
+@media (max-width: 620px) {
+  .bondStoryScene { left: 6px; bottom: 6px; width: 58%; max-height: calc(100% - 12px); gap: 4px; padding: 7px; border-radius: 9px; }
+  .bondStorySceneClose { top: 4px; right: 4px; width: 22px; height: 22px; font-size: 14px; }
+  .bondStorySceneHeading { grid-template-columns: 27px minmax(0, 1fr); gap: 5px; padding-right: 21px; }
+  .bondStorySceneHeading > span { width: 26px; height: 26px; border-radius: 6px; font-size: 13px; }
+  .bondStorySceneHeading small { font-size: 5.5px; }
+  .bondStorySceneHeading h3 { margin-top: 2px; font-size: 8px; }
+  .bondStoryScene > p, .bondStorySceneResult p { font-size: 7px; line-height: 1.22; }
+  .bondStoryScene > strong { font-size: 7px; }
+  .bondStorySceneChoices { grid-template-columns: 1fr; gap: 3px; }
+  .bondStorySceneChoices button { min-height: 25px; grid-template-columns: 17px minmax(0, 1fr); gap: 3px; padding: 3px 4px; border-radius: 5px; }
+  .bondStorySceneChoices span { font-size: 10px; }
+  .bondStorySceneChoices b { font-size: 6.5px; }
+  .bondStorySceneResult { gap: 4px; }
+  .bondStorySceneResult > strong { font-size: 8px; }
+  .bondStorySceneResult > div b { padding: 2px 4px; font-size: 6px; }
+  .bondStoryReward { padding: 3px 4px; font-size: 6px; }
+  .bondStorySceneResult > button { min-height: 24px; font-size: 7px; }
+  .bondWeekHook { grid-template-columns: 28px minmax(0, 1fr) auto; padding: 5px 6px; }
+  .bondWeekHook > span { width: 26px; height: 26px; font-size: .8rem; }
+  .bondWeekHook small { font-size: .4rem; }
+  .bondWeekHook strong { font-size: .5rem; }
+  .bondWeekHook > button { min-height: 26px; padding: 4px 6px; font-size: .43rem; }
+}

@@ -1,0 +1,586 @@
+{
+  "source": "Fantasy RPG monster pack (by Franuka)",
+  "method": "Original articulated source frames; no hue variants. Reactions compose existing source actions, not newly drawn gestures.",
+  "roster": [
+    {
+      "level": 1,
+      "name": "grin",
+      "species": "Goblin",
+      "id": "01-grin",
+      "sources": {
+        "idle": "Goblin_idle.png",
+        "command": "Goblin_attack_NOhitbox.png",
+        "walk": "Goblin_walk.png",
+        "hit": "Goblin_hit.png",
+        "defeat": "Goblin_die.png"
+      },
+      "alphaHash": "fc32c92426c7747acd536fa351a517b2f66b64a9e817ef3fda83cd959a837497",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 2,
+      "name": "murka",
+      "species": "Lizardfolk",
+      "id": "02-murka",
+      "sources": {
+        "idle": "Lizardfolk_idle.png",
+        "command": "Lizardfolk_attack_NOhitbox.png",
+        "walk": "Lizardfolk_walk.png",
+        "hit": "Lizardfolk_hit.png",
+        "defeat": "Lizardfolk_die.png"
+      },
+      "alphaHash": "252c7591f2f472bde48d28e938409e5ef5a1d8add4dcf5ee5cb83e17cd1c2722",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 3,
+      "name": "skarn",
+      "species": "Skeleton",
+      "id": "03-skarn",
+      "sources": {
+        "idle": "Skeleton_idle.png",
+        "command": "Skeleton_attack_NOhitbox.png",
+        "walk": "Skeleton_walk.png",
+        "hit": "Skeleton_hit.png",
+        "defeat": "Skeleton_die.png"
+      },
+      "alphaHash": "572931e3889cf9a1965b19ad34a8b9c0f2ce9cdce19294a1baffc41b2f28c974",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 4,
+      "name": "vorga",
+      "species": "Orc",
+      "id": "04-vorga",
+      "sources": {
+        "idle": "Orc_idle.png",
+        "command": "Orc_attack_NOhitbox.png",
+        "walk": "Orc_walk.png",
+        "hit": "Orc_hit.png",
+        "defeat": "Orc_die.png"
+      },
+      "alphaHash": "70efcbd17c21ef54f7cae3e16354f49f6f44e6eb3aeb874aa3be41f66ffcf844",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 5,
+      "name": "kaien",
+      "species": "Ronin",
+      "id": "05-kaien",
+      "sources": {
+        "idle": "Ronin_idle.png",
+        "command": "Ronin_attack_NOhitbox.png",
+        "walk": "Ronin_walk.png",
+        "hit": "Ronin_hit.png",
+        "defeat": "Ronin_die.png"
+      },
+      "alphaHash": "bb8723dcc2cf80f9d60289e6c8ada19b2a8bfac43aa66f5e9189ba6c1a1fa15d",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 6,
+      "name": "rei",
+      "species": "Samurai",
+      "id": "06-rei",
+      "sources": {
+        "idle": "Samurai_idle.png",
+        "command": "Samurai_attack_NOhitbox.png",
+        "walk": "Samurai_walk.png",
+        "hit": "Samurai_hit.png",
+        "defeat": "Samurai_die.png"
+      },
+      "alphaHash": "1f7a9bc1584fc05e1e6a7a1d7e26246ea59980a18b4a1c42accfa4ef0454d5dc",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 7,
+      "name": "jinra",
+      "species": "Tengu",
+      "id": "07-jinra",
+      "sources": {
+        "idle": "Tengu_idle.png",
+        "command": "Tengu_attack_NOhitbox.png",
+        "walk": "Tengu_fly.png",
+        "hit": "Tengu_hit.png",
+        "defeat": "Tengu_death.png"
+      },
+      "alphaHash": "2fe77292318723d3c17e89621f81333d0c0cecd64b8db584d7032b1f2d672305",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 12
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 8,
+      "name": "shirok",
+      "species": "Oni",
+      "id": "08-shirok",
+      "sources": {
+        "idle": "Oni_idle.png",
+        "command": "Oni_attack_NOhitbox.png",
+        "walk": "Oni_move.png",
+        "hit": "Oni_hit.png",
+        "defeat": "Oni_die.png"
+      },
+      "alphaHash": "69017dcda782ba5f68b6aa300daa127685b636c072b39ac628d6ce35a03099fa",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 9,
+      "name": "elyra",
+      "species": "Dryad",
+      "id": "09-elyra",
+      "sources": {
+        "idle": "Dryad_idle.png",
+        "command": "Dryad_attack.png",
+        "walk": "Dryad_walk.png",
+        "hit": "Dryad_hit.png",
+        "defeat": "Dryad_die.png"
+      },
+      "alphaHash": "350ae46ff1ae97f913926eda7c07bbdf0173568361f1ffb8adb3dd8b40ca32be",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 3,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 10,
+      "name": "maled",
+      "species": "Wizard",
+      "id": "10-maled",
+      "sources": {
+        "idle": "Wizard_idle.png",
+        "command": "Wizard_attack_NOhitbox.png",
+        "walk": "Wizard_walk.png",
+        "hit": "Wizard_hit.png",
+        "defeat": "Wizard_die.png"
+      },
+      "alphaHash": "9d3d250af53956c7577ae1fc283f578c65f00f500e12a2ae6de9f0fa6102a510",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 11,
+      "name": "sivra",
+      "species": "Medusa",
+      "id": "11-sivra",
+      "sources": {
+        "idle": "Medusa_idle.png",
+        "command": "Medusa_attack_NOhitbox.png",
+        "walk": "Medusa_walk.png",
+        "hit": "Medusa_hit.png",
+        "defeat": "Medusa_die.png"
+      },
+      "alphaHash": "b4f89619e0aae632e920e318db27a0bbd8918bdbf3a79e195bc2bd4824709933",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 12,
+      "name": "orun",
+      "species": "Paladin",
+      "id": "12-orun",
+      "sources": {
+        "idle": "Paladin_idle.png",
+        "command": "Paladin_attack_NOhitbox.png",
+        "walk": "Paladin_walk.png",
+        "hit": "Paladin_hit.png",
+        "defeat": "Paladin_die.png"
+      },
+      "alphaHash": "ed70c53e36065d3d22dd5240624e1295861742e82074ded10033882c4fe89bf4",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 13,
+      "name": "draeven",
+      "species": "AnubisWarrior",
+      "id": "13-draeven",
+      "sources": {
+        "idle": "AnubisWarrior_idle.png",
+        "command": "AnubisWarrior_attack_NOhitbox.png",
+        "walk": "AnubisWarrior_walk.png",
+        "hit": "AnubisWarrior_hit.png",
+        "defeat": "AnubisWarrior_die.png"
+      },
+      "alphaHash": "5fb520af60af46e1bf064e4de9f504aa0a08abfbabc9f60c1e56d1e5ae309b89",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 14,
+      "name": "khar",
+      "species": "Ogre",
+      "id": "14-khar",
+      "sources": {
+        "idle": "Ogre_idle.png",
+        "command": "Ogre_attack_NOhitbox.png",
+        "walk": "Ogre_walk.png",
+        "hit": "Ogre_hit.png",
+        "defeat": "Ogre_death.png"
+      },
+      "alphaHash": "c9aecf39f27329d308e4520f248032fd60d5d8d4acaf92639fbd1dd6d00724ac",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 11
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 15,
+      "name": "vael",
+      "species": "Efreet",
+      "id": "15-vael",
+      "sources": {
+        "idle": "Efreet_idle.png",
+        "command": "Efreet_attack_NOhitbox.png",
+        "walk": "Efreet_fly.png",
+        "hit": "Efreet_hit.png",
+        "defeat": "Efreet_death.png"
+      },
+      "alphaHash": "9c02624ee554f5659d1b605eefcf28b77e46d34621e5371d7ac1a7773487337c",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 11
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 16,
+      "name": "mordrek",
+      "species": "DeathKnight",
+      "id": "16-mordrek",
+      "sources": {
+        "idle": "DeathKnight_idle.png",
+        "command": "DeathKnight_attack_NOhitbox.png",
+        "walk": "DeathKnight_walk.png",
+        "hit": "DeathKnight_hit.png",
+        "defeat": "DeathKnight_death.png"
+      },
+      "alphaHash": "833ea51fe133e4f302c2d0bb793fae665e33421e5c980ccae2295f90e631b6fe",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 10
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 17,
+      "name": "nhal",
+      "species": "Vampire",
+      "id": "17-nhal",
+      "sources": {
+        "idle": "Vampire_idle.png",
+        "command": "Vampire_attack_NOhitbox.png",
+        "walk": "Vampire_walk.png",
+        "hit": "Vampire_hit.png",
+        "defeat": "Vampire_die.png"
+      },
+      "alphaHash": "c29524acf8c93c6653e9653f3f796714af0f49756d23dfd0899d0df185b6c56b",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 18,
+      "name": "sevrath",
+      "species": "Lich",
+      "id": "18-sevrath",
+      "sources": {
+        "idle": "Lich_idle.png",
+        "command": "Lich_attack_NOhitbox.png",
+        "walk": "Lich_walk.png",
+        "hit": "Lich_hit.png",
+        "defeat": "Lich_die.png"
+      },
+      "alphaHash": "57fefabf117ed144e30b40675a59e2a94cb370dc843969615c50b0857f8fbf75",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 19,
+      "name": "azrakar",
+      "species": "Demon",
+      "id": "19-azrakar",
+      "sources": {
+        "idle": "Demon_idle.png",
+        "command": "Demon_attack_NOhitbox.png",
+        "walk": "Demon_walk.png",
+        "hit": "Demon_hit.png",
+        "defeat": "Demon_die.png"
+      },
+      "alphaHash": "d6a0d5839d02526d94cfe9891415275b1f51990e6b46171330e02d993eeabae1",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 1
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    },
+    {
+      "level": 20,
+      "name": "morvane",
+      "species": "Planetar",
+      "id": "20-morvane",
+      "sources": {
+        "idle": "Planetar_idle.png",
+        "command": "Planetar_attack_NOhitbox.png",
+        "walk": "Planetar_fly.png",
+        "hit": "Planetar_hit.png",
+        "defeat": "Planetar_death.png"
+      },
+      "alphaHash": "a4f53ebd4abbcd7cbb955e1ee87c571217b9ebd762930eb235db2319717cb2c9",
+      "sourceFrameCounts": {
+        "idle": 4,
+        "command": 5,
+        "walk": 4,
+        "hit": 2,
+        "defeat": 8
+      },
+      "poses": [
+        "idle",
+        "command",
+        "cheer",
+        "anger",
+        "victory",
+        "defeat"
+      ]
+    }
+  ]
+}

@@ -103,7 +103,7 @@ export const FAMILIAR_COMBAT_CAMPAIGN: readonly FamiliarCampaignLevel[] = defini
       name: npcName,
       title: npcTitle || rankTitle[rank],
       rank,
-      spriteSrc: `/famiglio/rebuild/combat/campaign/npcs/levels/${String(index + 1).padStart(2, "0")}-${String(npcName).toLowerCase()}.png`,
+      spriteSrc: `/famiglio/rebuild/combat/campaign/npcs/distinct-v3/${String(index + 1).padStart(2, "0")}-${String(npcName).toLowerCase()}.png`,
       costumeHue: 0,
     },
     introLine,

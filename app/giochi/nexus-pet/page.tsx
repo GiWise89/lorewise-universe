@@ -15,6 +15,7 @@ const chapters = [
   ["crescita", "03", "Crescita"], ["botteghe", "04", "Botteghe"],
   ["missioni", "05", "Missioni"], ["spedizioni", "06", "Spedizioni"],
   ["arena", "07", "Arena e Torre"], ["campagna", "08", "Campagna"],
+  ["giochi-e-album", "09", "Giochi, Percorso e Album"],
 ] as const;
 
 function GuideImage({ src, alt, caption }: { src: string; alt: string; caption: string }) {
@@ -42,6 +43,25 @@ export default function NexusPetGuidePage() {
     <nav className={styles.index} aria-label="Capitoli della guida Famigli del Nexus"><div className="shell">
       {chapters.map(([id, number, label]) => <a href={`#${id}`} key={id}><span>{number}</span>{label}</a>)}
     </div></nav>
+
+    <section className={`shell ${styles.intro}`} id="giochi-e-album">
+      <p className={styles.kicker}>Ogni giorno, una nuova avventura</p>
+      <h2>Gioca, esplora e completa la tua collezione.</h2>
+      <p>Premi Gioca nella Casa e scegli un minigioco: ogni icona apre le istruzioni, con la possibilità di tornare indietro prima di iniziare.</p>
+      <ul>
+        <li><strong>Insegui la luce:</strong> cattura la lucciola prima che scompaia; evita le caselle cacca.</li>
+        <li><strong>Salto tra le nuvole:</strong> tocca per saltare, raccogli gemme ed evita i vuoti. Hai tre vite, senza limite di tempo.</li>
+        <li><strong>Acchiappa-oggetti:</strong> spostati sulle quattro corsie per raccogliere stelle ed evitare spine.</li>
+        <li><strong>Memoria delle rune:</strong> osserva e ascolta la sequenza, poi ripetila. Ogni casella ha una nota diversa.</li>
+      </ul>
+      <p>Tutti i minigiochi partono con 3 vite, senza timer generale. Perdi una vita se lasci scadere la lucciola o tocchi la cacca, cadi dalle nuvole, raccogli una spina o perdi una stella, oppure sbagli la sequenza delle rune. A zero vite la partita finisce. Le spine e le caselle cacca sottraggono anche un punto, senza portare il punteggio sotto zero.</p>
+      <p>Musica ed effetti sono disattivabili. La prima partita completata assegna il premio giornaliero, condiviso fra i quattro giochi: da 8 a 28 monete. Le successive permettono di migliorare i record, anche nelle partite più lunghe.</p>
+      <GuideImage src="/famiglio/rebuild/progression/lunar-islands-v2.png" alt="Mappa illustrata delle quattro tappe del Percorso" caption="Cura, gioco, spedizione e lotta: completa le quattro tappe nell’ordine che preferisci." />
+      <p>Nel Percorso settimanale seleziona un’isola per leggere l’obiettivo e raggiungere l’attività. Completate tutte le tappe, apri il tesoro: 45 Monete Nexus e 2 Frammenti di Reliquia.</p>
+      <p>Il Registro presenze segue un anno di quattro stagioni. Il premio raro del giorno 7 richiede almeno sette presenze consecutive. I 52 ricordi vanno nell’Album: puoi filtrare quelli ottenuti o mancanti e toccare ogni sagoma per conoscere il premio e la data di riscossione.</p>
+      <p>Dopo la fine dell’anno puoi recuperare i ricordi mancanti: registra sette nuove presenze consecutive per ottenerne uno, in ordine di settimana e senza doppioni. Se salti un giorno la serie riparte, ma i ricordi ottenuti restano tuoi. Il recupero non assegna monete o consumabili aggiuntivi.</p>
+      <p>Un set di 13 ricordi sblocca la cover indicata per il dispositivo. I ricordi sono collezionabili, non oggetti da usare durante le cure.</p>
+    </section>
 
     <section className={`shell ${styles.intro}`} id="primo-legame">
       <p className={styles.kicker}>Benvenuti nella nuova area</p>

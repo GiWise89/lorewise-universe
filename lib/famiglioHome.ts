@@ -1,4 +1,14 @@
 import { NIGHT_MARKET_OFFERS } from "./famiglioMarketExpansion.ts";
+import { createFamiliarAttendanceState, restoreFamiliarAttendanceState, type FamiliarAttendanceState } from "./famiglioAttendanceYear.ts";
+import { createFamiliarWeeklyLoopState, restoreFamiliarWeeklyLoopState, type FamiliarWeeklyLoopState } from "./famiglioWeeklyLoop.ts";
+import {
+  advanceFamiliarBondWeek,
+  createFamiliarBondWeek,
+  familiarBondEvent,
+  resolveFamiliarBondWeekChoice,
+  restoreFamiliarBondWeek,
+  type FamiliarBondWeekState,
+} from "./famiglioBondWeek.ts";
 
 export type FamiliarNeedId = "hunger" | "energy" | "happiness" | "hygiene" | "affection";
 export type FamiliarHomeAction = "feed" | "play" | "clean" | "care" | "rest";
@@ -38,7 +48,7 @@ export type FamiliarDailyWish = {
 export type FamiliarDiaryEntry = {
   id: string;
   at: number;
-  kind: "bond" | "wish" | "routine" | "growth" | "mission";
+  kind: "bond" | "wish" | "routine" | "growth" | "mission" | "story";
   title: string;
   detail: string;
 };
@@ -123,6 +133,9 @@ export type FamiliarHomeState = {
   equippedItems: FamiliarEquippedItems;
   deviceCover: FamiliarDeviceCoverState;
   activeItemId: FamiliarInventoryItemId | null;
+  bondWeek: FamiliarBondWeekState;
+  attendance: FamiliarAttendanceState;
+  weeklyLoop: FamiliarWeeklyLoopState;
   diary: FamiliarDiaryEntry[];
 };
 
@@ -764,6 +777,9 @@ export function createFamiliarHomeState(now = Date.now()): FamiliarHomeState {
     equippedItems: { play: "blue-ball", care: "bond-lantern", rest: "purple-bed" },
     deviceCover: { activeId: "nexus-violet", ownedIds: ["nexus-violet"] },
     activeItemId: null,
+    bondWeek: createFamiliarBondWeek(now),
+    attendance: createFamiliarAttendanceState(),
+    weeklyLoop: createFamiliarWeeklyLoopState(),
     diary: [diaryEntry("bond", now, "Il primo giorno", "Un nuovo legame è stato riconosciuto dal Nexus.")],
   };
 }
@@ -841,6 +857,40 @@ export function advanceFamiliarHome(state: FamiliarHomeState, now = Date.now()):
     health,
     routine: currentRoutine(state.routine, now),
     wish: currentWish(state.wish, now),
+    bondWeek: advanceFamiliarBondWeek(state.bondWeek ?? createFamiliarBondWeek(state.lastUpdatedAt), now),
+  };
+}
+
+export function chooseFamiliarBondMemory(state: FamiliarHomeState, choiceId: string, now = Date.now()): FamiliarHomeState {
+  const current = advanceFamiliarHome(state, now);
+  const resolution = resolveFamiliarBondWeekChoice(current.bondWeek, choiceId, now);
+  if (!resolution.event || !resolution.choice) return current;
+  const choice = resolution.choice;
+  const needs = { ...current.needs };
+  for (const [need, bonus] of Object.entries(choice.needs) as Array<[FamiliarNeedId, number]>) {
+    needs[need] = clampNeed(needs[need] + bonus);
+  }
+  const bondXp = clampXp(current.growth.bondXp + choice.bondXp);
+  const stage = growthStageForXp(bondXp);
+  const reward = `${choice.bondXp} XP Legame${choice.coins ? ` e ${choice.coins} monete Nexus` : ""}`;
+  const event = familiarBondEvent(resolution.event.day)!;
+  return {
+    ...current,
+    needs,
+    growth: { ...current.growth, bondXp, stage },
+    wallet: {
+      ...current.wallet,
+      nexusCoins: current.wallet.nexusCoins + choice.coins,
+      totalEarned: current.wallet.totalEarned + choice.coins,
+    },
+    bondWeek: resolution.state,
+    lastOutcome: `${choice.response} +${reward}.`,
+    diary: appendDiary(current.diary, [diaryEntry(
+      "story",
+      now,
+      choice.memoryTitle,
+      `${choice.memoryDetail} ${event.day === 7 ? "La prima settimana del Legame è completa." : event.teaser}`,
+    )]),
   };
 }
 
@@ -1241,7 +1291,7 @@ export function restoreFamiliarHome(value: unknown, now = Date.now()): FamiliarH
         entry
         && typeof entry.id === "string"
         && Number.isFinite(entry.at)
-        && ["bond", "wish", "routine", "growth", "mission"].includes(entry.kind)
+        && ["bond", "wish", "routine", "growth", "mission", "story"].includes(entry.kind)
         && typeof entry.title === "string"
         && typeof entry.detail === "string",
       )).slice(0, MAX_DIARY_ENTRIES)
@@ -1351,6 +1401,9 @@ export function restoreFamiliarHome(value: unknown, now = Date.now()): FamiliarH
     equippedItems: restoredEquippedItems,
     deviceCover: { activeId: activeCoverId, ownedIds: ownedCoverIds },
     activeItemId: restoredActiveItemId,
+    bondWeek: restoreFamiliarBondWeek(candidate.bondWeek, now),
+    attendance: restoreFamiliarAttendanceState(candidate.attendance),
+    weeklyLoop: restoreFamiliarWeeklyLoopState(candidate.weeklyLoop, new Date(now), restoreFamiliarAttendanceState(candidate.attendance).launchDate),
     diary: validDiary,
   };
   return advanceFamiliarHome(restored, now);

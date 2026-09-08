@@ -35,7 +35,8 @@ export function FamiglioCampaignNpcCanvas({ src, label, hue = 0, className, pose
         if (disposed) return;
         context.clearRect(0, 0, canvas.width, canvas.height);
         const elapsed = now - started;
-        const frame = reduced ? 0 : Math.floor(elapsed / (pose === "command" || pose === "anger" ? 105 : 135)) % columns;
+        const step = Math.floor(elapsed / (pose === "idle" ? 180 : 150));
+        const frame = reduced ? 0 : pose === "defeat" ? Math.min(columns - 1, step) : step % columns;
         const row = NPC_ROW[pose];
         const scale = Math.min((canvas.width - 12) / frameWidth, (canvas.height - 8) / frameHeight);
         const width = frameWidth * scale;
