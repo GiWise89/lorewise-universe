@@ -14,6 +14,7 @@ const navIcons: Record<string, string> = {
   "/mondi": "/brand/navigation/mondi.webp",
   "/dove-nascono-i-mondi": "/brand/navigation/mondi.webp",
   "/giochi": "/brand/navigation/giochi.webp",
+  "/giochi/the-wound-remembers": "/brand/navigation/giochi.webp",
   "/vip-zone": "/brand/navigation/vip.webp",
   "/vip": "/brand/navigation/vip.webp",
   "/enciclopedia": "/brand/icons/enciclopedia-concept-v1.webp",
@@ -26,8 +27,8 @@ const navIcons: Record<string, string> = {
 };
 
 const desktopNavigation = [
+  { label: "Gioca ora", href: "/giochi/the-wound-remembers", accent: "giochi" },
   { label: "Arte", href: "/arte", accent: "arte" },
-  { label: "Giochi", href: "/giochi", accent: "giochi" },
   {
     label: "Mondi",
     accent: "mondi",
@@ -39,20 +40,24 @@ const desktopNavigation = [
       { label: "Community & Social", description: "Canali ufficiali, Discord e partecipazione", href: "/community" },
     ],
   },
-  { label: "Commissioni", href: "/commissioni", accent: "commissioni" },
   {
-    label: "LoreWise VIP",
+    label: "Altro",
     accent: "vip",
     children: [
+      { label: "Tutti i giochi", description: "Catalogo, stato e dossier dei progetti", href: "/giochi" },
+      { label: "Commissioni", description: "Un’opera costruita intorno alla tua idea", href: "/commissioni" },
       { label: "Ingresso LoreWise VIP", description: "Scegli tra Area VIP e Universe Pass", href: "/vip" },
       { label: "Area VIP", description: "Vantaggi, eventi e contenuti riservati", href: "/vip-zone" },
       { label: "Universe Pass", description: "Piani, accessi e gestione del Pass", href: "/abbonamento" },
+      { label: "GiWise Shop", description: "Merchandising e collezioni ufficiali", href: "/shop" },
     ],
   },
-  { label: "GiWise Shop", href: "/shop", accent: "shop" },
 ] as const;
 
 const mobileExploreLinks = [
+  { label: "Tutti i giochi", href: "/giochi" },
+  { label: "Commissioni", href: "/commissioni" },
+  { label: "GiWise Shop", href: "/shop" },
   { label: "Novità dal Nexus", href: "/cronache-del-nexus", badge: "Lunedì" },
   { label: "Dove nascono i mondi", href: "/dove-nascono-i-mondi" },
   { label: "LoreWise Codex", href: "/enciclopedia" },
@@ -64,19 +69,16 @@ const mobileExploreLinks = [
 
 const mobilePrimaryLinks = [
   { label: "Home", href: "/" },
+  { label: "Gioca ora", href: "/giochi/the-wound-remembers" },
   { label: "Arte", href: "/arte" },
-  { label: "Giochi", href: "/giochi" },
   { label: "Mondi", href: "/mondi" },
-  { label: "Commissioni", href: "/commissioni" },
-  { label: "LoreWise VIP", href: "/vip" },
-  { label: "GiWise Shop", href: "/shop" },
   { label: "Account", href: "/account" },
   { label: "Famiglio", href: "/famiglio" },
 ] as const;
 
 const desktopGroupIcons = {
   Mondi: "/brand/navigation/mondi.webp",
-  "LoreWise VIP": "/brand/navigation/vip.webp",
+  Altro: "/brand/navigation/vip.webp",
 } as const;
 
 function isCurrentRoute(pathname: string, href: string) {

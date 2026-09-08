@@ -38,13 +38,10 @@ test("renders LoreWise Universe with its structured portals", async () => {
   assert.match(html, /GiWise Studio/);
   assert.match(html, /Enciclopedia/);
   assert.match(html, /Commissioni/);
-  assert.match(html, /Sconti attualmente disponibili/);
-  assert.match(html, /Promo apertura attiva|Sconti Universe Pass/);
-  assert.match(html, /Visitatori/);
-  assert.match(html, /Supporter/);
-  assert.match(html, /Collector/);
-  assert.match(html, /\/commissioni\?focus=promozione-apertura/);
-  assert.match(html, /data-focus-navigation="true"/);
+  assert.match(html, /Costruisci il tuo Patto\. Leggi la Nemesi\./);
+  assert.match(html, /href="https:\/\/thewoundremembers\.com\//);
+  assert.match(html, /Esplora il resto/);
+  assert.doesNotMatch(html, /data-welcome-offer/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
@@ -132,7 +129,8 @@ test("groups every destination into the approved responsive navigation", async (
   const html = await response.text();
   assert.match(html, /Navigazione principale/);
   assert.match(html, />Mondi<[\s\S]*Novità dal Nexus[\s\S]*Dove nascono i mondi[\s\S]*LoreWise Codex/);
-  assert.match(html, /mobile-navigation-primary[\s\S]*>Home<[\s\S]*>Arte<[\s\S]*>Giochi<[\s\S]*>Mondi<[\s\S]*>Commissioni<[\s\S]*>LoreWise VIP<[\s\S]*>GiWise Shop<[\s\S]*>Account</);
+  assert.match(html, /mobile-navigation-primary[\s\S]*>Home<[\s\S]*>Gioca ora<[\s\S]*>Arte<[\s\S]*>Mondi<[\s\S]*>Account<[\s\S]*>Famiglio</);
+  assert.match(html, /mobile-explore-links[\s\S]*>Tutti i giochi<[\s\S]*>Commissioni<[\s\S]*>GiWise Shop<[\s\S]*>Area VIP<[\s\S]*>Universe Pass</);
   assert.match(html, /Percorsi interni[\s\S]*Novit[àa] dal Nexus[\s\S]*Dove nascono i mondi[\s\S]*LoreWise Codex[\s\S]*Community &amp; Social[\s\S]*Area VIP[\s\S]*Universe Pass[\s\S]*Contatti/);
   assert.match(html, /href="\/arte"/);
   assert.match(html, /href="\/commissioni"/);
@@ -1077,12 +1075,12 @@ test("renders The Wound Remembers as a live evolving game with a verified but un
   const response = await render("/giochi/the-wound-remembers");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Dark fantasy PvE card RPG/);
+  assert.match(html, /Costruisci il tuo Patto\. Leggi la Nemesi\./);
   assert.match(html, /Versione web 1\.0\.0/);
   assert.match(html, /Italiano · interfaccia e contenuti/);
   assert.match(html, /Limiti conosciuti e materiali/);
   assert.match(html, /Windows SmartScreen/);
-  assert.match(html, /video ufficiale verrà aggiunto soltanto dopo approvazione/i);
+  assert.match(html, /gameplay-trailer-v1\.mp4/);
   assert.match(html, /Campagna narrativa articolata in dieci atti/);
   assert.match(html, /Windows €7,99 al lancio/);
   assert.match(html, /prezzo ordinario futuro previsto di €9,99/);

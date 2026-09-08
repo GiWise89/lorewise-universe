@@ -1,0 +1,33 @@
+.woundHeroCopy {
+  max-width: 1480px;
+}
+
+.visuallyHiddenTitle {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.woundHeroCopy > .woundHeroHook {
+  max-width: 680px;
+  color: #fff4de;
+  font-size: clamp(1.15rem, 1.9vw, 1.65rem);
+  font-weight: 750;
+  line-height: 1.42;
+  text-shadow: 0 4px 18px rgb(0 0 0 / 85%);
+}
+
+@media (max-width: 760px) {
+  .woundHeroCopy > .woundHeroHook {
+    max-width: 34rem;
+    margin-inline: auto;
+    font-size: clamp(1.05rem, 5vw, 1.3rem);
+  }
+}

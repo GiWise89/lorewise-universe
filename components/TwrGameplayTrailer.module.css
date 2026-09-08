@@ -1,0 +1,9 @@
+.trigger { cursor: pointer; font-family: inherit; }
+.dialog { width: min(1180px, calc(100vw - 28px)); max-width: calc(100vw - 28px); max-height: calc(100dvh - 28px); margin: auto; padding: 0; border: 1px solid #947047; background: #080a10; color: #f5e6d3; box-shadow: 0 25px 100px #000b; }
+.dialog::backdrop { background: #02040be8; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; font-size: 12px; letter-spacing: .08em; }
+.header button { flex-shrink: 0; min-width: 90px; min-height: 44px; border: 1px solid #947047; background: #16131a; color: #fff4df; cursor: pointer; }
+.video { display: block; width: 100%; max-height: calc(100dvh - 180px); aspect-ratio: 16/9; object-fit: contain; background: #000; }
+.description { margin: 0; padding: 16px 20px; font-size: 14px; line-height: 1.6; }
+.description a { color: #f4c766; margin-left: 12px; }
+@media(max-width:600px) { .header { font-size: 10px; padding: 10px; }.description { padding: 12px; }.description a { display: block; margin-left: 0; } }

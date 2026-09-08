@@ -6,6 +6,12 @@ export type SiteAnalyticsSummary = {
   daily: Array<{ day: string; views: number; sessions: number }>;
   topPages: Array<{ path: string; views: number; sessions: number }>;
   referrers: Array<{ host: string; views: number }>;
+  twrFunnel: {
+    landingViews30Days: number;
+    playClicks30Days: number;
+    landingToPlayPercent: number;
+    sources: Array<{ source: string; clicks: number }>;
+  };
 };
 
 export function normalizeRequestHost(value: string | null) {
@@ -52,19 +58,24 @@ export async function recordSitePageView(database: D1Database, input: { host: st
 
 export async function getSiteAnalyticsSummary(database: D1Database): Promise<SiteAnalyticsSummary> {
   await ensureSiteAnalyticsTable(database);
-  const [today, last7Days, last30Days, allTime, sessions30Days, daily, topPages, referrers] = await Promise.all([
-    database.prepare("SELECT COUNT(*) AS total FROM site_page_views WHERE substr(created_at, 1, 10) = substr(CAST(CURRENT_TIMESTAMP AS TEXT), 1, 10)").first<{ total: number }>(),
-    database.prepare("SELECT COUNT(*) AS total FROM site_page_views WHERE datetime(created_at) >= datetime('now', '-7 days')").first<{ total: number }>(),
-    database.prepare("SELECT COUNT(*) AS total FROM site_page_views WHERE datetime(created_at) >= datetime('now', '-30 days')").first<{ total: number }>(),
-    database.prepare("SELECT COUNT(*) AS total FROM site_page_views").first<{ total: number }>(),
-    database.prepare("SELECT COUNT(DISTINCT session_hash) AS total FROM site_page_views WHERE datetime(created_at) >= datetime('now', '-30 days')").first<{ total: number }>(),
+  const [today, last7Days, last30Days, allTime, sessions30Days, daily, topPages, referrers, funnelRows] = await Promise.all([
+    database.prepare("SELECT COUNT(*) AS total FROM site_page_views WHERE path NOT LIKE '/__funnel/%' AND substr(created_at, 1, 10) = substr(CAST(CURRENT_TIMESTAMP AS TEXT), 1, 10)").first<{ total: number }>(),
+    database.prepare("SELECT COUNT(*) AS total FROM site_page_views WHERE path NOT LIKE '/__funnel/%' AND datetime(created_at) >= datetime('now', '-7 days')").first<{ total: number }>(),
+    database.prepare("SELECT COUNT(*) AS total FROM site_page_views WHERE path NOT LIKE '/__funnel/%' AND datetime(created_at) >= datetime('now', '-30 days')").first<{ total: number }>(),
+    database.prepare("SELECT COUNT(*) AS total FROM site_page_views WHERE path NOT LIKE '/__funnel/%'").first<{ total: number }>(),
+    database.prepare("SELECT COUNT(DISTINCT session_hash) AS total FROM site_page_views WHERE path NOT LIKE '/__funnel/%' AND datetime(created_at) >= datetime('now', '-30 days')").first<{ total: number }>(),
     database.prepare(`SELECT substr(created_at, 1, 10) AS day, COUNT(*) AS views, COUNT(DISTINCT session_hash) AS sessions
-      FROM site_page_views WHERE datetime(created_at) >= datetime('now', '-14 days') GROUP BY substr(created_at, 1, 10) ORDER BY day ASC`).all<{ day: string; views: number; sessions: number }>(),
+      FROM site_page_views WHERE path NOT LIKE '/__funnel/%' AND datetime(created_at) >= datetime('now', '-14 days') GROUP BY substr(created_at, 1, 10) ORDER BY day ASC`).all<{ day: string; views: number; sessions: number }>(),
     database.prepare(`SELECT path, COUNT(*) AS views, COUNT(DISTINCT session_hash) AS sessions
-      FROM site_page_views WHERE datetime(created_at) >= datetime('now', '-30 days') GROUP BY path ORDER BY views DESC, path ASC LIMIT 10`).all<{ path: string; views: number; sessions: number }>(),
+      FROM site_page_views WHERE path NOT LIKE '/__funnel/%' AND datetime(created_at) >= datetime('now', '-30 days') GROUP BY path ORDER BY views DESC, path ASC LIMIT 10`).all<{ path: string; views: number; sessions: number }>(),
     database.prepare(`SELECT COALESCE(NULLIF(referrer_host, ''), 'Diretto o interno') AS host, COUNT(*) AS views
-      FROM site_page_views WHERE datetime(created_at) >= datetime('now', '-30 days') GROUP BY COALESCE(NULLIF(referrer_host, ''), 'Diretto o interno') ORDER BY views DESC LIMIT 8`).all<{ host: string; views: number }>(),
+      FROM site_page_views WHERE path NOT LIKE '/__funnel/%' AND datetime(created_at) >= datetime('now', '-30 days') GROUP BY COALESCE(NULLIF(referrer_host, ''), 'Diretto o interno') ORDER BY views DESC LIMIT 8`).all<{ host: string; views: number }>(),
+    database.prepare(`SELECT path, COUNT(DISTINCT session_hash) AS sessions FROM site_page_views
+      WHERE path LIKE '/__funnel/%' AND datetime(created_at) >= datetime('now', '-30 days') GROUP BY path`).all<{ path: string; sessions: number }>(),
   ]);
+  const funnel = funnelRows.results.map((row) => ({ parts: row.path.split("/"), sessions: Number(row.sessions) }));
+  const landingViews30Days = funnel.filter((row) => row.parts[2] === "landing_view").reduce((sum, row) => sum + row.sessions, 0);
+  const playClicks30Days = funnel.filter((row) => row.parts[2] === "play_cta_click").reduce((sum, row) => sum + row.sessions, 0);
   return {
     configuredHost: "lorewisenexus.it",
     totals: {
@@ -74,5 +85,11 @@ export async function getSiteAnalyticsSummary(database: D1Database): Promise<Sit
     daily: daily.results.map((row) => ({ day: row.day, views: Number(row.views), sessions: Number(row.sessions) })),
     topPages: topPages.results.map((row) => ({ path: row.path, views: Number(row.views), sessions: Number(row.sessions) })),
     referrers: referrers.results.map((row) => ({ host: row.host, views: Number(row.views) })),
+    twrFunnel: {
+      landingViews30Days,
+      playClicks30Days,
+      landingToPlayPercent: landingViews30Days ? Math.round(playClicks30Days / landingViews30Days * 100) : 0,
+      sources: funnel.filter((row) => row.parts[2] === "play_cta_click").map((row) => ({ source: row.parts[3] || "unknown", clicks: row.sessions })).sort((left, right) => right.clicks - left.clicks),
+    },
   };
 }

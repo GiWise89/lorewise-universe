@@ -204,7 +204,7 @@ export const gameProjects: GameProjectRecord[] = [
       "Profilo cloud, salvataggi e servizi online richiedono una connessione internet attiva.",
       "La versione Android non è ancora disponibile e non è stata collaudata su dispositivi pubblici.",
     ],
-    mediaNote: "La galleria usa quattro schermate reali della versione corrente. Un video ufficiale verrà aggiunto soltanto dopo approvazione e verifica della registrazione definitiva.",
+    mediaNote: "Guarda il trailer gameplay: fusioni delle carte, attacchi contro la Nemesi e Scontro dei Patti tra Famigli. La galleria accompagna il video con quattro schermate del gioco.",
   },
   {
     slug: "lorewise-fuori-trama-next",

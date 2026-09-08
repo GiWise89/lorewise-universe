@@ -13,6 +13,7 @@ type Overview = {
     daily: Array<{ day: string; views: number; sessions: number }>;
     topPages: Array<{ path: string; views: number; sessions: number }>;
     referrers: Array<{ host: string; views: number }>;
+    twrFunnel: { landingViews30Days: number; playClicks30Days: number; landingToPlayPercent: number; sources: Array<{ source: string; clicks: number }> };
   };
   notifications: Array<{ id: string; category: string; severity: string; title: string; message: string; referenceCode: string | null; targetUrl: string; createdAt: string; readAt: string | null }>;
   recentActions: Array<{ action: string; note: string | null; createdAt: string; adminEmail: string | null; targetEmail: string | null }>;
@@ -242,6 +243,8 @@ export function AdminControlCenter() {
     <section id="admin-analytics" className="admin-analytics" aria-labelledby="admin-analytics-title">
       <header><div><p className="eyebrow">Statistiche del dominio pubblico</p><h2 id="admin-analytics-title">Quanto viene esplorato LoreWise.</h2><p>Rilevazione proprietaria attiva soltanto su <strong>{overview.analytics.configuredHost}</strong>. Non vengono salvati IP, email, cookie pubblicitari o cronologia personale.</p></div><span>Ultimo aggiornamento<strong>adesso</strong></span></header>
       <div className="admin-analytics-totals">
+        <article><small>TWR · Landing</small><strong>{number.format(overview.analytics.twrFunnel.landingViews30Days)}</strong><span>sessioni · 30 giorni</span></article>
+        <article><small>TWR · Click Gioca</small><strong>{number.format(overview.analytics.twrFunnel.playClicks30Days)}</strong><span>{overview.analytics.twrFunnel.landingToPlayPercent}% dalla landing</span></article>
         <article><small>Oggi</small><strong>{number.format(overview.analytics.totals.today)}</strong><span>visualizzazioni</span></article>
         <article><small>Ultimi 7 giorni</small><strong>{number.format(overview.analytics.totals.last7Days)}</strong><span>visualizzazioni</span></article>
         <article><small>Ultimi 30 giorni</small><strong>{number.format(overview.analytics.totals.last30Days)}</strong><span>visualizzazioni</span></article>

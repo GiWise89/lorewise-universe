@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FunnelLink } from "@/components/FunnelLink";
+import { TwrGameplayTrailer } from "@/components/TwrGameplayTrailer";
 import { gameProjects, getGameProject } from "@/lib/gameCatalog";
 import { GamePurchaseButton } from "@/components/GamePurchaseButton";
 import { GameCommunityReviews } from "@/components/GameCommunityReviews";
+import styles from "./page.module.css";
 
 export function generateStaticParams() { return gameProjects.map((project) => ({ slug: project.slug })); }
 
@@ -17,6 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function GameProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const project = getGameProject((await params).slug);
   if (!project) notFound();
+  const isTheWoundRemembers = project.slug === "the-wound-remembers";
   const isFuoriTrama = project.slug === "lorewise-fuori-trama-next";
   const isDemonMatch = project.slug === "demon-match-three";
   const isDevelopmentOnly = project.statusTone === "development" && !project.freeAccess;
@@ -27,7 +31,14 @@ export default async function GameProjectPage({ params }: { params: Promise<{ sl
         <Image className="game-dossier-hero-art game-dossier-hero-art-desktop" src={project.heroImage} alt={project.heroAlt} width={3840} height={2160} priority unoptimized />
         {project.mobileHeroImage ? <Image className="game-dossier-hero-art game-dossier-hero-art-mobile" src={project.mobileHeroImage} alt={project.heroAlt} width={1440} height={2560} priority unoptimized /> : null}
         <div className="game-dossier-hero-shade" aria-hidden="true" />
-        <div className="shell game-dossier-hero-copy"><span className={`game-project-status game-project-status-${project.statusTone}`}>{project.status}</span>{project.logoImage ? <><Image className="game-dossier-logo" src={project.logoImage} alt="" width={1600} height={900} unoptimized /><h1 className="codex-visually-hidden">{project.title}</h1></> : <h1>{project.title}</h1>}<p>{project.subtitle}</p><div className="game-dossier-hero-actions">{isFuoriTrama ? <><a className="game-hero-primary" href="#come-si-gioca">Scopri come si gioca</a><a className="game-hero-secondary" href="#sviluppo">Segui lo sviluppo</a></> : isDemonMatch ? <><a className="game-hero-primary" href="#come-si-gioca">Scopri il gameplay</a><a className="game-hero-secondary" href="#edizione-windows">Stato Android</a></> : <>{project.publicUrl && project.publicAction ? <a className="game-hero-primary" href={project.publicUrl} target="_blank" rel="noopener noreferrer">{project.publicAction} <span aria-hidden="true">↗</span></a> : null}{project.windowsOffer ? <a className="game-hero-secondary" href="#edizione-windows">Edizione Windows · {project.windowsOffer.launchPrice}</a> : null}</>}</div></div>
+        <div className={`shell game-dossier-hero-copy${isTheWoundRemembers ? ` ${styles.woundHeroCopy}` : ""}`}>
+          <span className={`game-project-status game-project-status-${project.statusTone}`}>{isTheWoundRemembers ? "Giocabile ora · Browser" : project.status}</span>
+          {isTheWoundRemembers && project.logoImage ? <><Image className="game-dossier-logo" src={project.logoImage} alt="" width={1600} height={900} unoptimized /><h1 className={styles.visuallyHiddenTitle}>{project.title}</h1></> : project.logoImage ? <><Image className="game-dossier-logo" src={project.logoImage} alt="" width={1600} height={900} unoptimized /><h1 className="codex-visually-hidden">{project.title}</h1></> : <h1>{project.title}</h1>}
+          <p className={isTheWoundRemembers ? styles.woundHeroHook : undefined}>{isTheWoundRemembers ? "Costruisci il tuo Patto. Leggi la Nemesi. Sopravvivi a battaglie PvE su tre corsie." : project.subtitle}</p>
+          <div className="game-dossier-hero-actions">
+            {isTheWoundRemembers ? <>{project.publicUrl ? <FunnelLink className="game-hero-primary" href={project.publicUrl} eventName="play_cta_click" source="landing_hero">Gioca ora <span aria-hidden="true">→</span></FunnelLink> : null}<TwrGameplayTrailer className="game-hero-secondary" /></> : isFuoriTrama ? <><a className="game-hero-primary" href="#come-si-gioca">Scopri come si gioca</a><a className="game-hero-secondary" href="#sviluppo">Segui lo sviluppo</a></> : isDemonMatch ? <><a className="game-hero-primary" href="#come-si-gioca">Scopri il gameplay</a><a className="game-hero-secondary" href="#edizione-windows">Stato Android</a></> : <>{project.publicUrl && project.publicAction ? <a className="game-hero-primary" href={project.publicUrl} target="_blank" rel="noopener noreferrer">{project.publicAction} <span aria-hidden="true">↗</span></a> : null}{project.windowsOffer ? <a className="game-hero-secondary" href="#edizione-windows">Edizione Windows · {project.windowsOffer.launchPrice}</a> : null}</>}
+          </div>
+        </div>
       </header>
 
       <section className="shell game-dossier-summary" aria-labelledby="game-summary-title"><div><p className="eyebrow">Progetto GiWise Studio</p><h2 id="game-summary-title">{project.title}</h2><p>{project.summary}</p></div><dl><div><dt>Stato</dt><dd>{project.status}</dd></div><div><dt>Versione</dt><dd>{project.version}</dd></div><div><dt>Ultimo aggiornamento</dt><dd>{project.latestUpdate?.date ?? "In sviluppo · data pubblica non definita"}</dd></div><div><dt>Lingua</dt><dd>{project.languages.join(" · ")}</dd></div><div><dt>Tipo</dt><dd>{project.kind}</dd></div><div><dt>Piattaforme</dt><dd>{project.platforms.join(" · ")}</dd></div><div><dt>Accesso</dt><dd>{project.access}</dd></div><div><dt>Prezzo</dt><dd>{project.price}</dd></div></dl></section>
@@ -73,7 +84,7 @@ export default async function GameProjectPage({ params }: { params: Promise<{ sl
           <article className="game-edition game-edition-pass"><div><span>Universe Pass</span><strong>Più vicino allo studio</strong><p>L’abbonamento non compra Fuori Trama e non è necessario per scaricarlo. Offre contenuti editoriali e strumenti di partecipazione collegati al LoreWise ID.</p></div><ul>{project.passBenefits?.map((item) => <li key={item}>{item}</li>)}</ul><Link href="/account#vantaggi">Apri I miei vantaggi</Link></article>
           <article className="game-edition game-edition-beta"><div><span>Test futuri</span><strong>Beta future</strong><p>Le candidature saranno aperte dal Centro vantaggi quando esisterà una sessione reale, con periodo, requisiti e numero di posti dichiarati.</p></div><ul><li>Un’identità verificata per LoreWise ID</li><li>Nessun accesso simulato o pulsante senza destinazione</li><li>Diario pubblico disponibile anche senza abbonamento</li></ul><Link href="#sviluppo">Consulta il diario pubblico</Link></article>
         </> : null}
-        {project.publicUrl && project.publicAction ? <article className="game-edition game-edition-web"><div><span>Edizione Web</span><strong>Gioca ora</strong><p>La versione completa attualmente disponibile, sempre collegata agli aggiornamenti del progetto.</p></div><ul><li>Accesso dal browser</li><li>Profilo e progressi cloud</li><li>Account LoreWise obbligatorio</li></ul><a href={project.publicUrl} target="_blank" rel="noopener noreferrer">{project.publicAction} <span aria-hidden="true">↗</span></a></article> : null}
+        {project.publicUrl && project.publicAction ? <article className="game-edition game-edition-web"><div><span>Edizione Web</span><strong>Gioca ora</strong><p>La versione completa attualmente disponibile, sempre collegata agli aggiornamenti del progetto.</p></div><ul><li>Accesso dal browser</li><li>Profilo e progressi cloud</li><li>Account LoreWise obbligatorio</li></ul>{isTheWoundRemembers ? <FunnelLink href={project.publicUrl} eventName="play_cta_click" source="landing_web_edition">{project.publicAction} <span aria-hidden="true">→</span></FunnelLink> : <a href={project.publicUrl} target="_blank" rel="noopener noreferrer">{project.publicAction} <span aria-hidden="true">↗</span></a>}</article> : null}
         {project.windowsOffer ? <article className="game-edition game-edition-windows"><div><span>{project.windowsOffer.edition}</span><strong>{project.windowsOffer.launchPrice}</strong><small>prezzo di lancio · poi {project.windowsOffer.futurePrice}</small><p>{project.windowsOffer.delivery}</p></div><ul>{project.windowsOffer.requirements.map((requirement) => <li key={requirement}>{requirement}</li>)}</ul>{project.windowsOffer.purchaseUrl ? <a href={project.windowsOffer.purchaseUrl}>Acquista e scarica</a> : <><strong className="game-purchase-pending">{project.windowsOffer.availability}</strong><GamePurchaseButton productCode={project.windowsOffer.productCode} priceLabel={project.windowsOffer.launchPrice} /></>}<small className="game-product-code">Prodotto predisposto · {project.windowsOffer.productCode}</small></article> : null}
       </div>{project.windowsOffer ? <>
         <section className="game-windows-specification" aria-labelledby="game-windows-specification-title">

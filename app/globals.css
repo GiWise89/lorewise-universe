@@ -1156,7 +1156,7 @@
 .game-dossier-hero-copy { max-width: 1480px; }
 .game-dossier-hero-copy > p { font-size: clamp(1.05rem, 1.5vw, 1.35rem); letter-spacing: .02em; }
 .game-dossier-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
-.game-dossier-hero-actions a, .game-edition > a, .game-purchase-pending { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; padding: 14px 22px; font-size: .82rem; font-weight: 900; letter-spacing: .035em; text-decoration: none; }
+.game-dossier-hero-actions > a, .game-dossier-hero-actions > button, .game-edition > a, .game-purchase-pending { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; padding: 14px 22px; font-size: .82rem; font-weight: 900; letter-spacing: .035em; text-decoration: none; }
 .game-hero-primary { background: #f4c65d; color: #1b0b08; box-shadow: 0 12px 32px rgba(244,198,93,.2); }
 .game-hero-secondary { border: 1px solid rgba(255,241,202,.68); background: rgba(5,10,16,.58); color: #fff1ca; backdrop-filter: blur(8px); }
 .game-dossier-summary dt { font-size: .7rem; }
@@ -1227,7 +1227,7 @@
   .game-dossier-logo { width: 92%; margin-inline: auto; }
   .game-dossier-hero-copy { text-align: center; }
   .game-dossier-hero-actions { justify-content: center; }
-  .game-dossier-hero-actions a { width: 100%; }
+  .game-dossier-hero-actions > a, .game-dossier-hero-actions > button { width: 100%; }
   .game-play-flow { padding-block: 82px; background-attachment: scroll; }
   .game-play-flow > .shell::before { inset-block: -83px; }
   .game-play-flow h2 { font-size: clamp(3rem,14vw,4.2rem); }

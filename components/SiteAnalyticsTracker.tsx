@@ -42,6 +42,21 @@ export function SiteAnalyticsTracker() {
       body: JSON.stringify({ path: pathname, sessionId: sessionId.current, referrerHost }),
       keepalive: true,
     }).catch(() => undefined);
+    const funnelLandingSource = pathname === "/"
+      ? "homepage_hero"
+      : pathname === "/giochi"
+        ? "games_hero"
+        : pathname === "/giochi/the-wound-remembers"
+          ? "landing_detail"
+          : "";
+    if (funnelLandingSource) {
+      void fetch("/api/analytics/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: "landing_view", source: funnelLandingSource, sessionId: sessionId.current }),
+        keepalive: true,
+      }).catch(() => undefined);
+    }
   }, [pathname]);
 
   return null;

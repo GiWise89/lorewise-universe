@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CurrentDiscountRibbon } from "@/components/CurrentDiscountRibbon";
+import { FunnelLink } from "@/components/FunnelLink";
+import { TwrGameplayTrailer } from "@/components/TwrGameplayTrailer";
 import { WelcomeCommissionPopup } from "@/components/WelcomeCommissionPopup";
 import { corruptedPortraitPromotion, getActiveCommissionPromotion } from "@/lib/commissionPromotion";
+import styles from "./home-focus.module.css";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -42,7 +45,27 @@ export default async function Home({ searchParams }: { searchParams?: Promise<Re
 
   return (
     <main className="universe-home">
-      <WelcomeCommissionPopup preview={previewWelcomeOffer} />
+      {previewWelcomeOffer ? <WelcomeCommissionPopup preview={previewWelcomeOffer} /> : null}
+      <section className={styles.hero} aria-labelledby="twr-home-title">
+        <Image className={styles.art} src="/games/the-wound-remembers/key-art-scene-4k-v3.webp" alt="Kharvoss fra i due draghi nel santuario ferito di The Wound Remembers" width={3840} height={2160} priority unoptimized />
+        <div className={styles.shade} aria-hidden="true" />
+        <div className={styles.inner}>
+          <div className={styles.copy}>
+            <p className={styles.eyebrow}>Giocabile ora · Browser · PvE</p>
+            <h1 id="twr-home-title" className={styles.visuallyHidden}>The Wound Remembers</h1>
+            <Image className={styles.logo} src="/games/the-wound-remembers/logo-white-v2.webp" alt="The Wound Remembers" width={1600} height={900} priority unoptimized />
+            <p className={styles.hook}>Costruisci il tuo Patto. Leggi la Nemesi. Sopravvivi a battaglie PvE su tre corsie.</p>
+            <p className={styles.description}>Un card RPG dark fantasy con campagna, spedizioni e progressione persistente. La versione web è disponibile adesso.</p>
+            <div className={styles.actions}>
+              <FunnelLink className={styles.primary} href="https://thewoundremembers.com/" eventName="play_cta_click" source="homepage_hero">Gioca ora <span aria-hidden="true">→</span></FunnelLink>
+              <TwrGameplayTrailer className={styles.secondary} />
+            </div>
+            <ul className={styles.proof}><li>Versione web completa</li><li>Account gratuito richiesto</li><li>Progressi cloud</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <div className={styles.ecosystemHeading}><p>LoreWise Universe · GiWise Studio</p><h2>Esplora il resto dell’universo.</h2></div>
       <section className="universe-map" aria-label="Mappa di LoreWise Universe">
         <div id="mappa-universo" className="portal-stage shell">
           <div className="universe-orbits" aria-hidden="true">
@@ -52,7 +75,8 @@ export default async function Home({ searchParams }: { searchParams?: Promise<Re
           </div>
           <div className="universe-logo">
             <Image src="/brand/lorewise-universe-logo-concept-c.webp" alt="LoreWise Universe, by GiWise Studio" width={1536} height={1024} priority unoptimized />
-            <h1>Scegli il tuo ingresso</h1>
+            <p className="eyebrow">Altri percorsi</p>
+            <h2 className={styles.ecosystemTitle}>Scegli il tuo ingresso</h2>
             <p className="universe-value">Arte originale, storie e giochi nati nello stesso universo creativo.</p>
             <div className="universe-primary-actions"><Link href="/enciclopedia">Inizia dal Codex</Link><Link href="/arte">Scopri le opere</Link></div>
           </div>

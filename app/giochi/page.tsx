@@ -4,6 +4,7 @@ import Link from "next/link";
 import { gameProjects } from "@/lib/gameCatalog";
 import { accessModels, developmentStages, projectDossierFields } from "@/lib/gameStudio";
 import { UniverseGuide } from "@/components/UniverseGuide";
+import { FunnelLink } from "@/components/FunnelLink";
 
 export const metadata: Metadata = {
   title: "Giochi e app di GiWise Studio",
@@ -23,8 +24,8 @@ export default function GamesPage() {
           <div className="studio-games-hero-copy">
             <p className="eyebrow">GiWise Studio · Catalogo videogiochi</p>
             <h1 id="studio-games-title">Entra<br />nel gioco.</h1>
-            <p>Tre mondi, tre esperienze diverse: carte dark fantasy, avventura multiversale e un match-3 horror costruito come RPG rituale.</p>
-            <a className="studio-games-hero-action" href="#progetti">Scopri i giochi <span aria-hidden="true">↓</span></a>
+            <p><strong>The Wound Remembers è giocabile ora:</strong> costruisci un Patto, affronta Nemesi PvE e combatti su tre corsie. Gli altri progetti restano consultabili nel catalogo.</p>
+            <FunnelLink className="studio-games-hero-action" href="https://thewoundremembers.com/" eventName="play_cta_click" source="games_hero">Gioca a The Wound Remembers <span aria-hidden="true">→</span></FunnelLink>
           </div>
           <div className="studio-games-hero-titles" aria-label="Titoli in catalogo">
             {gameProjects.map((project) => (
@@ -48,34 +49,6 @@ export default function GamesPage() {
         </div>
       </nav>
 
-      <section className="studio-guides-callout" aria-labelledby="studio-guides-callout-title">
-        <div className="shell">
-          <div>
-            <p className="eyebrow">Atlante dei Giochi</p>
-            <h2 id="studio-guides-callout-title">Una nuova guida<br />ogni lunedì.</h2>
-          </div>
-          <div>
-            <strong>Prima nell’area VIP. Poi disponibile qui per tutti.</strong>
-            <p>La guida della settimana arriva in anteprima per gli abbonati e, il lunedì successivo, passa automaticamente nella raccolta pubblica di Giochi.</p>
-            <Link href="/giochi/guide">Apri le guide <span aria-hidden="true">→</span></Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="studio-guides-callout" aria-labelledby="nexus-pet-guide-title">
-        <div className="shell">
-          <div>
-            <p className="eyebrow">Nuova esperienza interattiva</p>
-            <h2 id="nexus-pet-guide-title">Famigli<br />del Nexus.</h2>
-          </div>
-          <div>
-            <strong>Casa, crescita, missioni, spedizioni e battaglie.</strong>
-            <p>Scopri come scegliere il primo Uovo, costruire il Legame e accompagnare il tuo Famiglio fino alla Torre del Nexus.</p>
-            <Link href="/giochi/nexus-pet">Apri la guida completa <span aria-hidden="true">→</span></Link>
-          </div>
-        </div>
-      </section>
-
       <section className="shell studio-real-projects" id="progetti" aria-labelledby="real-projects-title">
         <header><div><p className="eyebrow">Catalogo GiWise Studio</p><h2 id="real-projects-title">Scegli il tuo mondo.</h2></div><p>Ogni copertina presenta il vero universo del gioco, il logo originale e lo stato attuale del progetto.</p></header>
         <div className="studio-real-project-list">
@@ -93,10 +66,40 @@ export default function GamesPage() {
                 <div><span>0{index + 1} · {project.code}</span><strong className={`game-project-status game-project-status-${project.statusTone}`}>{project.status}</strong></div>
                 <p>{project.kind}</p><h3><Link href={`/giochi/${project.slug}`}>{project.title}</Link></h3><p>{project.summary}</p>
                 <dl><div><dt>Versione</dt><dd>{project.version}</dd></div><div><dt>Accesso</dt><dd>{project.access}</dd></div><div><dt>Piattaforme</dt><dd>{project.platforms.join(" · ")}</dd></div></dl>
-                <Link className="studio-real-project-link" href={`/giochi/${project.slug}`}>Apri il dossier completo <span aria-hidden="true">→</span></Link>
+                {project.slug === "the-wound-remembers" && project.publicUrl
+                  ? <><FunnelLink className="studio-real-project-link studio-real-project-play" href={project.publicUrl} eventName="play_cta_click" source="games_catalog">Gioca ora <span aria-hidden="true">→</span></FunnelLink><Link className="studio-real-project-link" href={`/giochi/${project.slug}`}>Guarda gameplay e dettagli</Link></>
+                  : <Link className="studio-real-project-link" href={`/giochi/${project.slug}`}>Apri il dossier completo <span aria-hidden="true">→</span></Link>}
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="studio-guides-callout" aria-labelledby="studio-guides-callout-title">
+        <div className="shell">
+          <div>
+            <p className="eyebrow">Atlante dei Giochi</p>
+            <h2 id="studio-guides-callout-title">Guide per continuare.</h2>
+          </div>
+          <div>
+            <strong>Approfondimenti separati dal percorso per iniziare.</strong>
+            <p>Le guide restano disponibili per chi vuole approfondire sistemi e percorsi dopo aver scoperto i giochi.</p>
+            <Link href="/giochi/guide">Apri le guide <span aria-hidden="true">→</span></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="studio-guides-callout" aria-labelledby="nexus-pet-guide-title">
+        <div className="shell">
+          <div>
+            <p className="eyebrow">Esperienza interattiva LoreWise</p>
+            <h2 id="nexus-pet-guide-title">Famigli<br />del Nexus.</h2>
+          </div>
+          <div>
+            <strong>Casa, crescita, missioni, spedizioni e battaglie.</strong>
+            <p>Scopri come scegliere il primo Uovo, costruire il Legame e accompagnare il tuo Famiglio fino alla Torre del Nexus.</p>
+            <Link href="/giochi/nexus-pet">Apri la guida completa <span aria-hidden="true">→</span></Link>
+          </div>
         </div>
       </section>
 
