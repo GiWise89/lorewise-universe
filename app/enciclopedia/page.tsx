@@ -35,7 +35,7 @@ export default function EncyclopediaPage() {
       <div className="shell codex-home-hero-grid">
         <div className="codex-home-copy">
           <p className="eyebrow">Archivio delle Convergenze</p>
-          <h1>LoreWise<br />Codex.</h1>
+          <h1>LoreWise Codex.</h1>
           <p className="codex-home-subtitle">Ogni personaggio ha una traccia.</p>
           <p>Cerca subito per nome, universo oppure opera. Il canone originale GiWise e i dossier documentati restano distinti anche quando vengono esplorati nello stesso indice.</p>
           <a className="codex-home-search-entry" href="#codex-search"><span aria-hidden="true">⌕</span><strong>Cerca nel Codex</strong><small>{codexEntries.length} dossier disponibili</small></a>
@@ -52,7 +52,7 @@ export default function EncyclopediaPage() {
       </div>
     </section>
 
-    <div id="indice-codex" className="shell codex-index-stage"><CodexIndex entries={indexEntries.slice(0, 6)} totalEntries={indexEntries.length} originalTotal={originalCount} documentedTotal={documentedCount} facets={createCodexIndexFacets(indexEntries)} description={`${originalCount} dossier originali · ${documentedCount} dossier documentati · sei risultati per pagina.`} /></div>
+    <div id="indice-codex" className="shell codex-index-stage"><CodexIndex entries={indexEntries.slice(0, 6)} totalEntries={indexEntries.length} originalTotal={originalCount} documentedTotal={documentedCount} facets={createCodexIndexFacets(indexEntries)} description={`${originalCount} dossier originali e ${documentedCount} dossier documentati, sempre riconoscibili.`} /></div>
 
     <section className="shell codex-secondary-paths" aria-labelledby="codex-secondary-title">
       <header><p className="eyebrow">Percorsi specialistici</p><h2 id="codex-secondary-title">Quando vuoi entrare più a fondo.</h2></header>

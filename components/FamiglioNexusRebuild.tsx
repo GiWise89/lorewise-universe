@@ -23,7 +23,6 @@ import {
   type StarterEgg,
 } from "@/lib/famiglioRebuild";
 import {
-  DAILY_ROUTINE_REWARD_COINS,
   DAILY_WISHES,
   DAILY_WISH_REWARD_COINS,
   FAMILIAR_DEVICE_COVERS,
@@ -188,6 +187,7 @@ const RITUAL_SKY_SRC = "/famiglio/rebuild/ritual-sky-panorama-v1.png";
 const EGG_FRAME_SIZE = 32;
 const FAMILIAR_SAVE_KEY = "lorewise.famiglio-rebuild.v1";
 const MISSION_REFRESH_KEY_PREFIX = "lorewise.famiglio-mission-refresh.v1";
+const ATTENDANCE_PROMPT_KEY_PREFIX = "lorewise.famiglio-attendance-prompt.v1";
 const DIARY_PAGE_SIZE = 3;
 type RoomDayPhase = "morning" | "afternoon" | "evening" | "night";
 type RoomPreviewPhase = RoomDayPhase | "witching";
@@ -2202,6 +2202,7 @@ export function FamiglioNexusRebuild() {
   const [allTestMode, setAllTestMode] = useState(false);
   const [previewSession, setPreviewSession] = useState(false);
   const previewSessionRef = useRef(false);
+  const previewFullNeedsRef = useRef(false);
   const familiarAway = Boolean(adventureState.expedition || combatState.activeBattle);
   const selectedEgg = useMemo(
     () => STARTER_EGGS.find((egg) => egg.id === state.selectedId) ?? null,
@@ -2309,12 +2310,19 @@ export function FamiglioNexusRebuild() {
   }, [homeState.actionEndsAt]);
 
   useEffect(() => {
-    if (!storageReady || attendanceAutoSuppressed || miniGameOpen || state.stage !== "home" || homeState.attendance.claimedDates.includes(familiarLocalDateKey())) return;
+    const today = familiarLocalDateKey();
+    const attendanceClaimedToday = homeState.attendance.claimedDates.includes(today);
+    if (!storageReady || attendanceAutoSuppressed || miniGameOpen || state.stage !== "home" || attendanceClaimedToday) return;
     const recovery = familiarAttendanceRecovery(homeState.attendance);
     if (recovery.active && !recovery.next) return;
-    const timeout = window.setTimeout(() => setAttendanceOpen(true), 650);
+    const promptKey = `${ATTENDANCE_PROMPT_KEY_PREFIX}:${today}`;
+    try { if (window.localStorage.getItem(promptKey) === "shown") return; } catch { /* Il Registro resta accessibile dal Percorso. */ }
+    const timeout = window.setTimeout(() => {
+      try { window.localStorage.setItem(promptKey, "shown"); } catch { /* Nessun blocco del gioco se lo storage non è disponibile. */ }
+      setAttendanceOpen(true);
+    }, 650);
     return () => window.clearTimeout(timeout);
-  }, [attendanceAutoSuppressed, homeState.attendance.claimedDates, miniGameOpen, state.stage, storageReady]);
+  }, [attendanceAutoSuppressed, homeState.attendance, miniGameOpen, state.stage, storageReady]);
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 760px)");
@@ -2353,6 +2361,7 @@ export function FamiglioNexusRebuild() {
       const previewParams = new URLSearchParams(window.location.search);
       const previewStage = isLocalPreview ? previewParams.get("preview") : null;
       previewSessionRef.current = Boolean(previewStage);
+      previewFullNeedsRef.current = Boolean(previewStage) && previewParams.get("needs") === "full";
       window.queueMicrotask(() => setPreviewSession(Boolean(previewStage)));
       restoredLocalHouseTrial = isLocalPreview;
       const stored = window.localStorage.getItem(FAMILIAR_SAVE_KEY);
@@ -2559,7 +2568,13 @@ export function FamiglioNexusRebuild() {
     window.requestAnimationFrame(() => {
       if (cancelled) return;
       if (restoredState) setState(restoredState);
-      setHomeState(restoredHome);
+      setHomeState(previewFullNeedsRef.current ? {
+        ...restoredHome,
+        needs: { hunger: 100, energy: 100, happiness: 100, hygiene: 100, affection: 100 },
+        health: { status: "healthy", sickSince: null, lastCheckAt: Date.now() },
+        toilet: { urgency: 0, wasteCount: 0, lastEventAt: null },
+        lastUpdatedAt: Date.now(),
+      } : restoredHome);
       setAdventureState(restoredAdventure);
       setCombatState(restoredCombat);
       setHomePanel(restoredPanel);
@@ -2715,7 +2730,13 @@ export function FamiglioNexusRebuild() {
 
   useEffect(() => {
     if (state.stage !== "home" || familiarAway) return;
-    const interval = window.setInterval(() => setHomeState((current) => advanceFamiliarHome(current)), 1_000);
+    const interval = window.setInterval(() => setHomeState((current) => {
+      const next = advanceFamiliarHome(current);
+      return previewFullNeedsRef.current ? {
+        ...next,
+        needs: { hunger: 100, energy: 100, happiness: 100, hygiene: 100, affection: 100 },
+      } : next;
+    }), 1_000);
     return () => window.clearInterval(interval);
   }, [familiarAway, state.stage]);
 
@@ -3808,6 +3829,10 @@ export function FamiglioNexusRebuild() {
             onSelectFamiliar={selectCombatFamiliar}
             onReward={receiveCombatReward}
             onMissionActivity={(activity, sourceKey) => void recordGameMission(activity, sourceKey)}
+            onBattleVictory={() => setHomeState((current) => ({
+              ...current,
+              weeklyLoop: recordFamiliarWeeklyStep(current.weeklyLoop, "combat", new Date(), current.attendance.launchDate),
+            }))}
             onReturnHome={() => setHomePanel("care")}
           />
         ) : null}

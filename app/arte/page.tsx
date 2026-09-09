@@ -31,31 +31,12 @@ export default async function ArtPage({ searchParams }: { searchParams?: Promise
       <section className="art-page-hero" aria-labelledby="art-page-title">
         <div className="shell art-page-hero-inner">
           <div>
-            <p className="eyebrow">Vetrina d’autore · GiWise Studio</p>
-            <h1 id="art-page-title">L’arte lascia tracce. Qui diventano memoria.</h1>
-            <p>Titoli, anni e descrizioni accompagnano ora ogni opera dell’archivio protetto. Le immagini pubbliche restano copie ridotte con filigrana, mentre accesso e licenza seguono le regole approvate.</p>
+            <p className="eyebrow">Arte in Vetrina · GiWise Studio</p>
+            <h1 id="art-page-title">Colleziona opere. Esplora l’archivio.</h1>
+            <p>Originali acquistabili e opere in esposizione, raccolti in una vetrina protetta.</p>
+            <Link className="art-hero-catalog-link" href="#art-index">Guarda subito le opere <span aria-hidden="true">↓</span></Link>
           </div>
           <Image src="/brand/icons/arte-concept-v1.webp" alt="Emblema della sezione Arte" width={1224} height={1285} unoptimized priority />
-        </div>
-      </section>
-
-      <section className="art-catalog-intro shell" aria-labelledby="catalog-title">
-        <div>
-          <p className="eyebrow">Archivio protetto</p>
-          <h2 id="catalog-title">Esplora le opere disponibili e quelle custodite in esposizione.</h2>
-        </div>
-        <div className="catalog-note">
-          <strong>Regola attiva</strong>
-          <p>{exhibitionOnlyArtworks.length} opere non prevedono download. Le {commercialOriginalArtworks.length} originali saranno acquistabili singolarmente oppure tramite i crediti mensili dell’abbonamento.</p>
-        </div>
-      </section>
-
-      <section className="art-identity-guide shell" aria-labelledby="art-identity-title">
-        <header><p className="eyebrow">Identità dichiarata</p><h2 id="art-identity-title">Tre etichette, tre significati precisi.</h2></header>
-        <div>
-          <article><span>01</span><h3>Originale acquistabile</h3><p>Opera ideata da GiWise Studio con prezzo e licenza personale indicati nella scheda.</p></article>
-          <article><span>02</span><h3>Originale in esposizione</h3><p>Opera d’autore custodita nell’archivio, ma non proposta per vendita o download.</p></article>
-          <article><span>03</span><h3>Fan art non ufficiale</h3><p>Reinterpretazione di personaggi riconoscibili, mostrata soltanto come anteprima protetta.</p></article>
         </div>
       </section>
 

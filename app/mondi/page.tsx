@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Mondi",
-  description: "La soglia narrativa verso le Cronache del Nexus, il diario creativo, il LoreWise Codex e la Community.",
+  description: "La soglia narrativa verso le Cronache del Nexus, il diario creativo e il LoreWise Codex.",
 };
 
 const worldPaths = [
@@ -41,17 +41,6 @@ const worldPaths = [
     image: "/codex/seals/lorewise-codex-emblem-v1.webp",
     imageAlt: "Emblema del LoreWise Codex",
   },
-  {
-    key: "community",
-    number: "04",
-    eyebrow: "Le persone nell’universo",
-    title: "Community & Social",
-    description: "Canali ufficiali, Discord, aggiornamenti e spazi sicuri per partecipare al LoreWise Universe.",
-    action: "Entra nella Community",
-    href: "/community",
-    image: "/brand/icons/social-assistenza-concept-v1.webp",
-    imageAlt: "Emblema della Community e dei canali social GiWise Studio",
-  },
 ] as const;
 
 export default function WorldsGatewayPage() {
@@ -61,11 +50,11 @@ export default function WorldsGatewayPage() {
       <div className="shell worlds-gateway-inner">
         <header className="worlds-gateway-heading">
           <Image src="/brand/navigation/mondi.webp" alt="" width={420} height={420} priority unoptimized />
-          <div><p>Archivio narrativo · GiWise Studio</p><h1 id="worlds-gateway-title">Quattro correnti.<br />Un solo universo.</h1></div>
-          <p>Scopri ciò che accade, osserva come nasce, ritrovalo nella memoria e partecipa alla Community.</p>
+          <div><p>Archivio narrativo · GiWise Studio</p><h1 id="worlds-gateway-title">Tre sentieri.<br />Un solo universo.</h1></div>
+          <p>Scopri ciò che accade nei mondi, osserva come nascono e approfondisci personaggi e legami nel Codex.</p>
         </header>
 
-        <nav className="worlds-convergence" aria-label="I quattro percorsi dell’area Mondi">
+        <nav className="worlds-convergence" aria-label="I tre percorsi dell’area Mondi">
           {worldPaths.map((path) => <Link className={`worlds-route worlds-route-${path.key}`} href={path.href} key={path.key}>
             <span className="worlds-route-orbit" aria-hidden="true" />
             <span className="worlds-route-emblem"><Image src={path.image} alt={path.imageAlt} width={560} height={560} sizes="(max-width: 760px) 34vw, 16vw" unoptimized /></span>
@@ -73,7 +62,7 @@ export default function WorldsGatewayPage() {
           </Link>)}
         </nav>
 
-        <footer className="worlds-gateway-legend"><span>Adesso</span><i aria-hidden="true" /><span>Creazione</span><i aria-hidden="true" /><span>Memoria</span><i aria-hidden="true" /><span>Community</span></footer>
+        <footer className="worlds-gateway-legend"><span>Ciò che accade</span><i aria-hidden="true" /><span>Come nasce</span><i aria-hidden="true" /><span>Come si approfondisce</span></footer>
       </div>
     </section>
   </main>;

@@ -6546,7 +6546,7 @@
     scroll-snap-type: x mandatory;
   }
   .combat[data-battle="false"] > .progressRibbon > div {
-    flex: 0 0 8rem;
+    flex: 0 0 8.75rem;
     min-height: 2.25rem;
     scroll-snap-align: start;
     border-radius: .55rem;
@@ -6618,4 +6618,127 @@
 @media (max-width: 380px), (max-height: 700px) and (max-width: 620px) {
   .resultScreen { grid-template-rows: auto auto auto 8.5rem auto auto; }
   .resultFamiliar { min-height: 8.5rem; height: 8.5rem; }
+}
+
+/* The mobile picker must never shrink the selectable companions below their content. */
+@media (max-width: 760px) {
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] > .playerSelector {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 10px;
+    gap: 10px;
+  }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .setupHeading,
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .setupContinue { flex: 0 0 auto; }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarPickerLayout {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+    gap: 10px;
+  }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarPickerLayout > .playerChoiceCard {
+    flex: 0 0 auto;
+    min-height: 210px;
+    height: auto;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterPane {
+    flex: 0 0 auto;
+    height: auto;
+    min-height: 100px;
+    grid-template-rows: auto auto;
+    overflow: visible;
+    padding: 6px;
+  }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid {
+    height: auto;
+    min-height: 84px;
+    grid-template-columns: none;
+    grid-template-rows: 84px;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(140px, 46%);
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 6px;
+  }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid button {
+    min-height: 84px;
+    height: 84px;
+    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    padding: 6px;
+    gap: 6px;
+  }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterCanvas { width: 48px; height: 60px; }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid strong { font-size: 11px; white-space: normal; line-height: 1.25; }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .playerChoiceCard .statGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .playerChoiceCard .statGrid > div dt { font-size: 11px; white-space: normal; overflow-wrap: normal; }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .playerChoiceCard .statGrid dt::after { content: none; }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .playerChoiceCard .statGrid dd { font-size: 16px; }
+}
+
+/* Mobile readability: one scrolling surface, compact controls, unobstructed arena. */
+.combat[data-battle="false"] .familiarPickerLayout[data-single="true"] { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+.combat[data-battle="false"] .familiarPickerLayout[data-single="true"] > .familiarRosterPane { display: none; }
+@media (max-width: 620px) {
+  .combat[data-battle="false"] .selectionViewport[data-step="mode"] > .modeSetup {
+    height: 100%;
+    min-height: 0;
+    grid-template-rows: auto minmax(0, 1fr);
+    align-content: start;
+    gap: 10px;
+    padding: 10px;
+  }
+  .combat[data-battle="false"] .modeSetup > .setupHeading { padding: 0 0 8px; }
+  .combat[data-battle="false"] .modeSetup > .setupHeading small { display: none; }
+  .combat[data-battle="false"] .modeSetup > .setupHeading h3 { margin: 0; font-size: 15px; line-height: 1.3; }
+  .combat[data-battle="false"] .modeSetup > .modeGrid {
+    min-height: 0;
+    height: auto;
+    grid-template-rows: none;
+    grid-auto-rows: max-content;
+    align-content: start;
+    overflow-y: auto;
+    padding: 4px 4px 12px;
+    gap: 12px;
+  }
+  .combat[data-battle="false"] .modeGrid > button {
+    min-height: 112px;
+    height: auto;
+    padding: 14px;
+    justify-content: stretch;
+    align-content: center;
+    gap: 6px;
+    text-align: left;
+    white-space: normal;
+  }
+  .combat[data-battle="false"] .modeGrid > button strong { font-size: 17px; line-height: 1.2; }
+  .combat[data-battle="false"] .modeGrid > button span { font-size: 12px; line-height: 1.4; }
+  .combat[data-battle="false"] .modeGrid > button small { font-size: 11px; line-height: 1.3; }
+  .combat[data-battle="false"] .familiarPager { grid-template-columns: 44px auto 44px; justify-content: center; }
+  .combat[data-battle="false"] .familiarPager button { min-height: 44px; padding: 4px; font-size: 20px; }
+  .combat[data-battle="false"] .familiarPager span { font-size: 12px; }
+  .combat[data-battle="false"] .playerChoiceCard .statGrid dt { font-size: 10px; white-space: normal; overflow: visible; }
+  .combat[data-battle="false"] .playerChoiceCard .statGrid > div:nth-child(n + 2) dt { font-size: 0; }
+  .combat[data-battle="false"] .playerChoiceCard .statGrid dt::after { font-size: 10px; }
+  .combat[data-battle="true"] .battleScene .arenaPlate {
+    top: 6px;
+    min-width: 0;
+    width: max-content;
+    max-width: calc(100% - 24px);
+    padding: 5px 10px;
+    gap: 6px;
+    white-space: normal;
+  }
+  .combat[data-battle="true"] .battleScene .arenaPlate small { font-size: 11px; line-height: 1.2; }
+  .combat[data-battle="true"] .battleScene .arenaPlate strong { font-size: 9px; line-height: 1.2; flex-shrink: 0; }
 }

@@ -27,6 +27,11 @@ export function FamiglioGuideOverlay({ section, ready }: { section: FamiliarGuid
     const forceTutorial = params.get("tutorial") === "on";
     if (preview && !forceTutorial) return;
     if (!forceTutorial && readSeenGuides().has(section)) return;
+    if (!forceTutorial) {
+      const seen = readSeenGuides();
+      seen.add(section);
+      try { window.localStorage.setItem(SEEN_GUIDES_KEY, JSON.stringify([...seen])); } catch { /* La guida resta riapribile manualmente. */ }
+    }
     const request = window.requestAnimationFrame(() => {
       setPage(0);
       setOpen(true);

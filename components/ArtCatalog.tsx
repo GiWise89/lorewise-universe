@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useMemo, useState } from "react";
-import type { ArtworkAccess, CatalogArtwork } from "@/lib/artCatalog";
+import { useMemo, useState } from "react";
+import type { CatalogArtwork } from "@/lib/artCatalog";
 import { artworkGenreLabels } from "@/lib/artworkTaxonomy";
 import { ArtworkCardSocial } from "@/components/ArtworkCardSocial";
 
@@ -19,13 +19,6 @@ const originalSeal = "/brand/art-portals/originals-seal-card-v1.webp";
 const fanartSeal = "/brand/art-portals/fanart-seal-card-v1.webp";
 const pageSize = 6;
 const featuredArchiveCodes = ["LW-ART-081", "LW-ART-080"] as const;
-const curatedChapters = [
-  ["Capitolo I", "Origini e metamorfosi"],
-  ["Capitolo II", "Icone, incubi e memoria"],
-  ["Capitolo III", "Riti e visioni"],
-  ["Capitolo IV", "Volti oltre il reale"],
-  ["Capitolo V", "Nuove presenze"],
-] as const;
 
 export function ArtCatalog({ artworks }: ArtCatalogProps) {
   const [query, setQuery] = useState("");
@@ -37,8 +30,6 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const [openPanel, setOpenPanel] = useState<FilterPanel | null>(null);
   const [revealedAdultArtworks, setRevealedAdultArtworks] = useState<string[]>([]);
-  const purchasableCount = artworks.filter((artwork) => artwork.access === "commercial-original").length;
-  const exhibitionCount = artworks.filter((artwork) => artwork.access === "exhibition-only").length;
 
   const filteredArtworks = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("it");
@@ -95,15 +86,6 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
     setOpenPanel(null);
   }
 
-  function selectEntrance(access: ArtworkAccess) {
-    setAvailability(access);
-    setYear("all");
-    setGenre("all");
-    setPriceTier("all");
-    setVisibleCount(pageSize);
-    document.getElementById("art-index")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
   function selectQuickView(nextYear: string, nextAvailability: string) {
     updateFilter(() => {
       setYear(nextYear);
@@ -120,36 +102,13 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
     setRevealedAdultArtworks((current) => current.includes(code) ? current : [...current, code]);
   }
 
-  function chapterFor(index: number) {
-    const chapterIndex = Math.floor(index / pageSize);
-    if (isCuratedOrder) return curatedChapters[chapterIndex] ?? ["Archivio", "Selezione d’autore"];
-    return [`Selezione ${String(chapterIndex + 1).padStart(2, "0")}`, "Percorso filtrato"] as const;
-  }
-
   return (
     <>
-      <section className="art-entrances shell" aria-labelledby="art-entrances-title">
-        <div className="art-entrances-heading">
-          <p className="eyebrow">Due percorsi distinti</p>
-          <h2 id="art-entrances-title">Scegli da quale ala della collezione entrare.</h2>
-        </div>
-        <div className="art-entrance-grid">
-          <button type="button" onClick={() => selectEntrance("commercial-original")}>
-            <Image src="/brand/art-portals/originals-emblem-v1.webp" alt="Emblema illustrato delle opere originali GiWise" width={1280} height={1280} unoptimized />
-            <span><small>{purchasableCount} opere acquistabili</small><strong>Opere Originali in Vendita</strong><em>Ideazione, disegno ed esecuzione dell’autore. Disponibili singolarmente o tramite crediti.</em><b>Entra nella collezione →</b></span>
-          </button>
-          <button type="button" onClick={() => selectEntrance("exhibition-only")}>
-            <Image src="/brand/art-portals/fanart-emblem-v1.webp" alt="Emblema illustrato della raccolta fan art" width={1280} height={1280} unoptimized />
-            <span><small>{exhibitionCount} opere senza download</small><strong>Archivio in esposizione</strong><em>Fan art e originali custoditi online come anteprime protette, senza vendita né download.</em><b>Visita l’esposizione →</b></span>
-          </button>
-        </div>
-      </section>
-
       <section className="art-catalog-tools shell" id="art-index" aria-labelledby="art-filters-title">
         <div className="art-filter-heading">
           <div>
-            <p className="eyebrow">Indice della collezione</p>
-            <h2 id="art-filters-title">Esplora l’archivio.</h2>
+            <p className="eyebrow">Collezione opere</p>
+            <h2 id="art-filters-title">Scegli ciò che vuoi vedere.</h2>
           </div>
           <p className="catalog-result-count" aria-live="polite"><strong>{filteredArtworks.length}</strong> {filteredArtworks.length === 1 ? "opera" : "opere"}</p>
         </div>
@@ -165,6 +124,8 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
           <button type="button" aria-expanded={openPanel === "price"} aria-controls="art-filter-panel" onClick={() => togglePanel("price")}>Fascia</button>
           <button type="button" aria-expanded={openPanel === "sort"} aria-controls="art-filter-panel" onClick={() => togglePanel("sort")}>Ordina</button>
         </nav>
+
+        <p className="art-access-note"><span><strong>Acquistabili</strong> · file digitale con licenza personale</span><span><strong>Esposizione</strong> · anteprima protetta, nessun download</span></p>
 
         {openPanel ? <section className="art-filter-panel" id="art-filter-panel" aria-label="Pannello filtri dell’archivio">
             <header>
@@ -184,13 +145,10 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
       {filteredArtworks.length > 0 ? (
         <>
           <section className="uniform-art-gallery shell" aria-label="Opere dell’archivio protetto">
-            {visibleArtworks.map((artwork, index) => {
+            {visibleArtworks.map((artwork) => {
               const adultRevealed = !artwork.sensitive || revealedAdultArtworks.includes(artwork.code);
-              const chapter = chapterFor(index);
               return (
-                <Fragment key={artwork.code}>
-                  {index % pageSize === 0 ? <header className="art-gallery-chapter"><small>{chapter[0]}</small><h2>{chapter[1]}</h2><span>{String(index + 1).padStart(2, "0")}—{String(Math.min(index + pageSize, filteredArtworks.length)).padStart(2, "0")}</span></header> : null}
-                  <article className={`draft-artwork artwork-${artwork.access} artwork-${artwork.orientation}`}>
+                  <article className={`draft-artwork artwork-${artwork.access} artwork-${artwork.orientation}`} key={artwork.code}>
                     {adultRevealed ? (
                       <Link className="draft-artwork-image" href={`/arte/${artwork.slug}`} aria-label={`Apri la scheda dell’opera ${artwork.code}`}>
                         <Image src={artwork.image} alt={`Anteprima protetta dell’opera ${artwork.code}, ${artwork.title}`} width={artwork.orientation === "landscape" ? 1600 : 1131} height={artwork.orientation === "landscape" ? 900 : 1600} sizes="(max-width: 640px) 92vw, (max-width: 980px) 45vw, 30vw" loading="lazy" unoptimized />
@@ -208,12 +166,9 @@ export function ArtCatalog({ artworks }: ArtCatalogProps) {
                         <small>{artwork.code}{featuredArchiveCodes.includes(artwork.code as (typeof featuredArchiveCodes)[number]) ? <span className="artwork-featured-label">Nuova in vetrina</span> : null}</small>
                       </div>
                       <h3><Link href={`/arte/${artwork.slug}`}>{artwork.title}</Link></h3>
-                      <p className="artwork-taxonomy">{artwork.year} · {artwork.genre}</p>
-                      <p className="artwork-category">{artwork.category}</p>
                       <p className="artwork-card-status">{artwork.priceLabel ? `${artwork.priceLabel} · Licenza personale` : "Solo esposizione · Nessun download"}</p>
                     </div>
                   </article>
-                </Fragment>
               );
             })}
           </section>

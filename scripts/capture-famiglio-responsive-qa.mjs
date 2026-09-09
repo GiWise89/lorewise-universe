@@ -17,6 +17,7 @@ const cliArguments = process.argv.slice(2);
 const requestedScreens = new Set(cliArguments.filter((argument) => !argument.startsWith("view:") && !argument.startsWith("mode:")));
 const requestedViews = new Set(cliArguments.filter((argument) => argument.startsWith("view:")).map((argument) => argument.slice(5)));
 const allRosterMode = !cliArguments.includes("mode:standard");
+const suppressAttendance = cliArguments.includes("mode:suppress-attendance");
 // Bootstrap the React experience at a stable desktop width, then apply mobile
 // metrics. This avoids measuring the server-rendered starter screen before the
 // local preview state has hydrated, while the final capture remains 390px wide.
@@ -653,7 +654,7 @@ try {
     const testQuery = allRosterMode ? "&test=all" : "";
     const targetUrl = preview === "site"
       ? `${previewBaseUrl}/cronache-del-nexus?sezione=arte#arte`
-      : `${previewBaseUrl}/famiglio?preview=${preview}&growth=${growth}${testQuery}${query}`;
+      : `${previewBaseUrl}/famiglio?preview=${preview}&growth=${growth}${testQuery}${query}${suppressAttendance ? "&attendance=0" : ""}`;
     await capture(`market-${screen}-${view}.png`, targetUrl, width, height, mobile, setup);
   }
   if (requestedScreens.has("home-action-timeline") || requestedScreens.has("meal-timeline")) {

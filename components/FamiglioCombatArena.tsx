@@ -70,6 +70,7 @@ type FamiglioCombatArenaProps = {
   onReturnHome: () => void;
   onReward: (reward: FamiliarCombatReward) => void;
   onMissionActivity?: (activity: "familiar_battle" | "familiar_tower_floor", sourceKey: string) => void;
+  onBattleVictory?: (battleId: string) => void;
   activityGate?: { allowed: boolean; reason: string | null; warnings: string[] };
 };
 
@@ -162,6 +163,9 @@ function spritePath(familiarId: string, growthStage: FamiliarGrowthStage, pose: 
   const baseVariants: Readonly<Record<string, string>> = { cat: "grey", rabbit: "white", parrot: "blue" };
   const baseVariant = baseVariants[familiarId];
   const variantSegment = colorVariant && baseVariant && colorVariant !== baseVariant ? `/variants/${colorVariant}` : "";
+  if (familiarId === "cat" && colorVariant === "black") {
+    return `/famiglio/rebuild/collection/cat/growth/${growthStage}/battle-v3/variants/black/${pose}.png`;
+  }
   const assetRevision = familiarId === "fiddle-dog" ? "?v=3" : "";
   return `/famiglio/rebuild/collection/${familiarId}/growth/${growthStage}/battle-v2${variantSegment}/${pose}.png${assetRevision}`;
 }
@@ -261,6 +265,7 @@ export function FamiglioCombatArena({
   onReturnHome,
   onReward,
   onMissionActivity,
+  onBattleVictory,
   activityGate,
 }: FamiglioCombatArenaProps) {
   const progress = familiarCombatProgress(state, familiarId);
@@ -636,6 +641,7 @@ export function FamiglioCombatArena({
   };
 
   const collectReward = () => {
+    if (battle?.outcome === "victory") onBattleVictory?.(battle.id);
     if (!state.pendingReward) {
       setLocalMessage(null);
       setState(closeFamiliarCombatBattle(state));
@@ -683,6 +689,7 @@ export function FamiglioCombatArena({
 
   const finishBattleAtHome = () => {
     sequenceRef.current += 1;
+    if (battle?.outcome === "victory") onBattleVictory?.(battle.id);
     let nextState = state;
     if (state.pendingReward) {
       const result = claimFamiliarCombatReward(state);
@@ -842,7 +849,7 @@ export function FamiglioCombatArena({
             {familiarOptions.map((option) => <option key={option.id} value={option.id}>{option.name} · Lv {familiarCombatProgress(state, option.id).combatLevel}</option>)}
           </select>
         </label>
-        <div className={styles.familiarPickerLayout}>
+        <div className={styles.familiarPickerLayout} data-single={familiarOptions.length === 1}>
           <div className={styles.familiarRosterPane}>
             <div className={styles.familiarRosterGrid} aria-label="Famigli selezionabili">
               {visibleFamiliarOptions.map((option) => {
@@ -854,11 +861,11 @@ export function FamiglioCombatArena({
                 </button>;
               })}
             </div>
-            <div className={styles.familiarPager}>
-              <button type="button" disabled={familiarPage <= 0} onClick={() => setFamiliarPage((page) => Math.max(0, page - 1))}>← Precedenti</button>
+            {familiarPageCount > 1 ? <div className={styles.familiarPager}>
+              <button type="button" aria-label="Famigli precedenti" disabled={familiarPage <= 0} onClick={() => setFamiliarPage((page) => Math.max(0, page - 1))}>←</button>
               <span>{familiarPage + 1} / {familiarPageCount}</span>
-              <button type="button" disabled={familiarPage >= familiarPageCount - 1} onClick={() => setFamiliarPage((page) => Math.min(familiarPageCount - 1, page + 1))}>Successivi →</button>
-            </div>
+              <button type="button" aria-label="Famigli successivi" disabled={familiarPage >= familiarPageCount - 1} onClick={() => setFamiliarPage((page) => Math.min(familiarPageCount - 1, page + 1))}>→</button>
+            </div> : null}
           </div>
           <article className={styles.playerChoiceCard}>
             <div className={styles.playerChoicePortrait}>

@@ -72,13 +72,15 @@ type AccountView = "overview" | "benefits" | "library" | "commissions" | "orders
 
 const accountViews: Array<{ id: AccountView; label: string }> = [
   { id: "overview", label: "Panoramica" },
-  { id: "benefits", label: "Vantaggi" },
-  { id: "library", label: "Libreria" },
+  { id: "benefits", label: "Universe Pass" },
+  { id: "library", label: "Acquisti e libreria" },
   { id: "commissions", label: "Commissioni" },
   { id: "orders", label: "Ordini" },
   { id: "community", label: "Community" },
   { id: "profile", label: "Profilo" },
 ];
+const primaryAccountViews = accountViews.filter((view) => !["orders", "community"].includes(view.id));
+const secondaryAccountViews = accountViews.filter((view) => ["orders", "community"].includes(view.id));
 
 function readAccountView(): AccountView {
   const requestedView = window.location.hash.replace(/^#(?:account-)?/, "") as AccountView;
@@ -279,7 +281,8 @@ export function AccountPersonalDashboard({ successfulSessionId = "", localHallow
 
     <nav className="personal-dashboard-nav" aria-label="Sezioni dell’Area personale">
       <HorizontalScrollHint className="personal-dashboard-scroll-hint" />
-      {accountViews.map((view) => <button key={view.id} type="button" aria-pressed={activeView === view.id} onClick={() => openView(view.id)}>{view.label}</button>)}
+      {primaryAccountViews.map((view) => <button key={view.id} type="button" aria-pressed={activeView === view.id} onClick={() => openView(view.id)}>{view.label}</button>)}
+      <details className="personal-dashboard-more" open={secondaryAccountViews.some((view) => view.id === activeView)}><summary>Altro</summary><div>{secondaryAccountViews.map((view) => <button key={view.id} type="button" aria-pressed={activeView === view.id} onClick={() => openView(view.id)}>{view.label}</button>)}</div></details>
       {canModerate ? <Link className="personal-dashboard-admin-switch" href={data.identity.role === "admin" ? "/admin" : "/gestione-community"}>{data.identity.role === "admin" ? "Admin" : "Moderazione"}<span aria-hidden="true">↗</span></Link> : null}
     </nav>
 

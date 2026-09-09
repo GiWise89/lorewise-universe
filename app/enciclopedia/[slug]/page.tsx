@@ -165,7 +165,7 @@ export default async function CharacterPage({ params }: { params: Promise<{ slug
 
         <section id="biografia" className="codex-chapter"><ChapterHeader number="03" eyebrow="Presentazione e biografia" title="Origine, viaggio e trasformazioni." />
           <div className="codex-chapter-reading"><div className="codex-spoiler-free"><strong>Sintesi senza spoiler</strong><VerifiedText data={{ ...entry.biography.spoilerFree, value: conciseText(entry.biography.spoilerFree.value, 650) }} /></div>
-            <div className="codex-biography-copy">{entry.biography.paragraphs.map((paragraph) => <section key={paragraph.heading}><h3>{paragraph.heading}</h3><VerifiedText data={paragraph} /></section>)}</div>
+            <details className="codex-biography-more"><summary>Leggi la biografia completa</summary><div className="codex-biography-copy">{entry.biography.paragraphs.map((paragraph) => <section key={paragraph.heading}><h3>{paragraph.heading}</h3><VerifiedText data={paragraph} /></section>)}</div></details>
             <details className="codex-chronology"><summary>Mostra la cronologia con spoiler</summary><ol>{entry.biography.chronology.map((event) => <li key={event.title}><span>{event.spoiler === "major" ? "Spoiler importante" : "Spoiler moderato"}</span><strong>{event.title}</strong><p>{event.description}<SourceMarks sourceIds={event.sourceIds} /></p></li>)}</ol></details>
           </div>
         </section>

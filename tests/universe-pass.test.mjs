@@ -55,7 +55,8 @@ test("offers a local-only commission preview for the Feste nel Nexus campaign", 
   assert.match(source, /previewQuery=\{previewQuery\}/);
   assert.match(source, /&anteprima=\$\{encodeURIComponent\(previewQuery\)\}/);
   assert.match(source, /commission-request-promotion-summary/);
-  assert.match(chroniclePage, /anteprima=feste/);
+  assert.match(chroniclePage, /holidayNexusPromotion/);
+  assert.match(chroniclePage, /promotion\.startsAt\.slice\(0, 10\)/);
 });
 
 test("reserves the permanent Collector grant for the LoreWise owner email", () => {
@@ -96,4 +97,24 @@ test("caps monthly artwork credits without duplicating the wallet balance", () =
 test("opens and closes studio polls using their declared dates", () => {
   assert.equal(pollIsOpen("2026-08-20T00:00:00Z", "2026-08-31T23:59:59Z", new Date("2026-08-20T12:00:00Z")), true);
   assert.equal(pollIsOpen("2026-08-20T00:00:00Z", "2026-08-31T23:59:59Z", new Date("2026-09-01T00:00:00Z")), false);
+});
+
+test("presenta il Pass con piani, vantaggi e percorso breve", () => {
+  const page = readFileSync(new URL("../app/abbonamento/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /Gratuito, Supporter o Collector/);
+  assert.match(page, /Cinque vantaggi per vivere LoreWise più da vicino/);
+  assert.doesNotMatch(page, /labirint|confus/i);
+  assert.match(page, /Tre passaggi\. Poi trovi tutto nel tuo spazio/);
+  assert.match(page, /The Wound Remembers resta giocabile per tutti/);
+  assert.doesNotMatch(page, /il server legge|applicato dal server|Stripe opera/);
+});
+
+test("collega i pulsanti iniziali alle sezioni della pagina con ancore native", () => {
+  const page = readFileSync(new URL("../app/abbonamento/page.tsx", import.meta.url), "utf8");
+  const styles = readFileSync(new URL("../app/abbonamento/pass-focus.module.css", import.meta.url), "utf8");
+  assert.match(page, /<a className=\{styles\.primaryButton\} href="#piani">Confronta i piani<\/a>/);
+  assert.match(page, /<a className=\{styles\.secondaryButton\} href="#vantaggi">Vedi cosa include<\/a>/);
+  assert.match(page, /id="piani"/);
+  assert.match(page, /id="vantaggi"/);
+  assert.match(styles, /\.benefits\{scroll-margin-top:88px/);
 });

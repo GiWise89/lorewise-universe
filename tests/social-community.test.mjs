@@ -66,6 +66,20 @@ test("la sincronizzazione dell'accesso non sovrascrive il nome pubblico salvato"
   assert.doesNotMatch(conflictUpdate, /display_name\s*=\s*excluded\.display_name/);
 });
 
+test("la pagina Community è un percorso di partecipazione distinto da Contatti", () => {
+  const page = read("app/community/page.tsx");
+  assert.doesNotMatch(page, /ContactsPage/);
+  assert.match(page, /Partecipa al Nexus/);
+  assert.match(page, /discord\.gg\/3SFCYTKaU/);
+  assert.match(page, /href="\/arte#art-index"/);
+  assert.match(page, /href="\/giochi"/);
+  assert.match(page, /href="\/contatti"/);
+  assert.match(page, /icon: "instagram"/);
+  assert.match(page, /icon: "tiktok"/);
+  assert.match(page, /icon: "facebook"/);
+  assert.match(page, /<SocialIcon name=\{channel\.icon\}/);
+});
+
 test("le notifiche possono essere lette e rimosse in modo persistente", () => {
   const api = read("app/api/notifications/route.ts");
   const adminApi = read("app/api/admin/notifications/route.ts");

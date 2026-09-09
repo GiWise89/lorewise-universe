@@ -1,6 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { navigation } from "@/lib/content";
+
+const footerExplore = [
+  ["Giochi", "/giochi"], ["Mondi", "/mondi"], ["Arte", "/arte"], ["Commissioni", "/commissioni"],
+  ["LoreWise Codex", "/enciclopedia"], ["GiWise Shop", "/shop"], ["Community", "/community"], ["Universe Pass", "/abbonamento"],
+] as const;
+
+const footerSupport = [
+  ["Contatti", "/contatti"], ["Assistenza giochi", "/assistenza-giochi"], ["Privacy", "/privacy"],
+  ["Condizioni commissioni", "/commissioni/condizioni"], ["Condizioni giochi", "/condizioni-vendita-giochi"],
+] as const;
 
 export function SiteFooter() {
   return (
@@ -15,8 +24,8 @@ export function SiteFooter() {
           <p className="footer-statement">The Wound Remembers è il card RPG dark fantasy di GiWise Studio, ospitato dentro LoreWise Universe.</p>
           <Link className="footer-primary-link" href="/giochi/the-wound-remembers">Scopri e gioca <span aria-hidden="true">→</span></Link>
         </div>
-        <div className="footer-column"><h2>Esplora</h2><ul>{navigation.map((item) => <li key={item.href}><Link href={item.href}>{item.label}</Link></li>)}</ul></div>
-        <div className="footer-column"><h2>Tutela e assistenza</h2><ul><li><Link href="/contatti">Contatti e informazioni</Link></li><li><Link href="/assistenza-giochi">Assistenza giochi</Link></li><li><Link href="/contatti#social">Canali social</Link></li><li><Link href="/arte#protezione">Protezione delle opere</Link></li><li><Link href="/licenza-arte">Licenza personale Arte</Link></li><li><Link href="/commissioni/condizioni">Condizioni commissioni</Link></li><li><Link href="/condizioni-vendita-giochi">Condizioni giochi digitali</Link></li><li><Link href="/privacy">Privacy e dati</Link></li></ul></div>
+        <div className="footer-column"><h2>Esplora</h2><ul>{footerExplore.map(([label, href]) => <li key={href}><Link href={href}>{label}</Link></li>)}</ul></div>
+        <div className="footer-column"><h2>Aiuto e condizioni</h2><ul>{footerSupport.map(([label, href]) => <li key={href}><Link href={href}>{label}</Link></li>)}</ul></div>
       </div>
       <div className="shell footer-bottom"><span>© {new Date().getFullYear()} GiWise Studio. Tutti i diritti riservati.</span><span>Opere originali protette e distribuite secondo licenza.</span></div>
     </footer>

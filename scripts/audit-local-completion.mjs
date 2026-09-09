@@ -16,6 +16,7 @@ const steps = [
   ["Pagine", ["run", "audit:pages"]],
   ["Navigazione", ["run", "audit:navigation"]],
   ["Risorse pubbliche", ["run", "audit:assets"]],
+  ["Calendario pubblicazioni", ["run", "audit:calendar"]],
   ["Pacchetto pubblico", ["run", "audit:release"]],
   ["Catalogo Shop", ["run", "audit:shop"]],
   ["Area VIP", ["run", "audit:vip-downloads"]],

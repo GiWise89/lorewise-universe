@@ -22,11 +22,23 @@ test("puts The Wound Remembers before the wider LoreWise ecosystem", async () =>
   const games = await readFile(new URL("../app/giochi/page.tsx", import.meta.url), "utf8");
   const header = await readFile(new URL("../components/SiteHeader.tsx", import.meta.url), "utf8");
 
-  assert.ok(home.indexOf("twr-home-title") < home.indexOf("universe-map"));
+  assert.ok(home.indexOf("twr-home-title") < home.indexOf("gamesOverview"));
+  assert.ok(home.indexOf("gamesOverview") < home.indexOf("guidedEntry"));
   assert.match(home, /source="homepage_hero">Gioca ora/);
+  assert.match(home, /gameProjects\.filter\(\(project\) => project\.slug !== "the-wound-remembers"\)\.map/);
+  assert.match(home, /title: "Scopri i mondi"/);
+  assert.match(home, /title: "Crea o colleziona"/);
+  assert.match(home, /href="\/arte">Colleziona opere/);
+  assert.match(home, /href="\/commissioni">Richiedi una commissione/);
+  assert.match(home, /title: "Partecipa al Nexus"/);
+  assert.match(home, /title: "GiWise Shop"/);
+  assert.match(home, /title: "Commissioni"/);
+  assert.match(home, /title: "LoreWise VIP"/);
+  assert.match(home, /title: "Universe Pass"/);
   assert.ok(games.indexOf("studio-real-projects") < games.indexOf("studio-guides-callout"));
   assert.match(games, /source="games_hero">Gioca a The Wound Remembers/);
-  assert.match(header, /label: "Gioca ora", href: "\/giochi\/the-wound-remembers"/);
+  assert.match(header, /label: "The Wound Remembers"[\s\S]*href: "\/giochi\/the-wound-remembers"/);
+  assert.doesNotMatch(header, /label: "Altro"/);
 });
 
 test("keeps funnel measurement proprietary and anonymous", async () => {

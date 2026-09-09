@@ -36,40 +36,38 @@ test("renders LoreWise Universe with its structured portals", async () => {
   assert.match(html, /LoreWise/);
   assert.match(html, /Universe/);
   assert.match(html, /GiWise Studio/);
-  assert.match(html, /Enciclopedia/);
+  assert.match(html, /Scopri i mondi/);
   assert.match(html, /Commissioni/);
   assert.match(html, /Costruisci il tuo Patto\. Leggi la Nemesi\./);
   assert.match(html, /href="https:\/\/thewoundremembers\.com\//);
-  assert.match(html, /Esplora il resto/);
+  assert.match(html, /Come vuoi entrare nell’universo/);
+  assert.match(html, /Scegli in base a ciò che vuoi ottenere/);
   assert.doesNotMatch(html, /data-welcome-offer/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
-test("keeps the six home entrances separated from their artwork", async () => {
+test("keeps three guided paths and four services clearly separated", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /home-portal-gallery/);
-  assert.equal((html.match(/class="portal-copy"/g) ?? []).length, 6);
-  assert.match(html, /Scegli il tuo ingresso/);
-  assert.match(html, /Arte[\s\S]*Giochi[\s\S]*Mondi[\s\S]*Commissioni[\s\S]*LoreWise VIP[\s\S]*GiWise Shop/);
-  assert.match(html, /portal-mondi/);
+  assert.match(html, /Tre modi per esplorare LoreWise Universe/);
+  assert.match(html, /Servizi e vantaggi di LoreWise Universe/);
+  assert.match(html, /Scopri i mondi[\s\S]*Crea o colleziona[\s\S]*Partecipa al Nexus/);
+  assert.match(html, /GiWise Shop[\s\S]*Commissioni[\s\S]*LoreWise VIP[\s\S]*Universe Pass/);
   assert.match(html, /href="\/mondi"/);
-  assert.doesNotMatch(html, /portal-(?:enciclopedia|social|diario)/);
+  assert.match(html, /href="\/community"/);
 });
 
-test("opens Mondi as one narrative gateway to its four structured areas", async () => {
+test("opens Mondi as one narrative gateway to its three structured areas", async () => {
   const response = await render("/mondi");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Quattro correnti/);
-  assert.match(html, /href="\/community"/);
-  assert.match(html, /Community &amp; Social/);
-  assert.equal((html.match(/class="worlds-route worlds-route-/g) ?? []).length, 4);
+  assert.match(html, /Tre sentieri/);
+  assert.equal((html.match(/class="worlds-route worlds-route-/g) ?? []).length, 3);
   assert.match(html, /href="\/cronache-del-nexus"/);
   assert.match(html, /href="\/dove-nascono-i-mondi"/);
   assert.match(html, /href="\/enciclopedia"/);
-  assert.match(html, /Nexus[\s\S]*Dove nascono i mondi[\s\S]*LoreWise Codex[\s\S]*Community &amp; Social/);
+  assert.match(html, /Novità dal Nexus[\s\S]*Dove nascono i mondi[\s\S]*LoreWise Codex/);
 });
 
 test("opens LoreWise VIP as one premium gateway to Area VIP and Universe Pass", async () => {
@@ -128,26 +126,24 @@ test("groups every destination into the approved responsive navigation", async (
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Navigazione principale/);
-  assert.match(html, />Mondi<[\s\S]*Novità dal Nexus[\s\S]*Dove nascono i mondi[\s\S]*LoreWise Codex/);
-  assert.match(html, /mobile-navigation-primary[\s\S]*>Home<[\s\S]*>Gioca ora<[\s\S]*>Arte<[\s\S]*>Mondi<[\s\S]*>Account<[\s\S]*>Famiglio</);
-  assert.match(html, /mobile-explore-links[\s\S]*>Tutti i giochi<[\s\S]*>Commissioni<[\s\S]*>GiWise Shop<[\s\S]*>Area VIP<[\s\S]*>Universe Pass</);
-  assert.match(html, /Percorsi interni[\s\S]*Novit[àa] dal Nexus[\s\S]*Dove nascono i mondi[\s\S]*LoreWise Codex[\s\S]*Community &amp; Social[\s\S]*Area VIP[\s\S]*Universe Pass[\s\S]*Contatti/);
+  assert.match(html, />Esplora<[\s\S]*Scopri i mondi[\s\S]*LoreWise Codex[\s\S]*Cronache del Nexus[\s\S]*Dove nascono i mondi/);
+  assert.match(html, /mobile-navigation-primary[\s\S]*>Gioca ora<[\s\S]*>Scopri i mondi<[\s\S]*>Arte e servizi<[\s\S]*>Community</);
+  assert.match(html, /mobile-explore-links[\s\S]*>Tutti i giochi<[\s\S]*>LoreWise Codex<[\s\S]*>Diario creativo<[\s\S]*>Commissioni<[\s\S]*>GiWise Shop<[\s\S]*>Il mio Famiglio<[\s\S]*>Universe Pass<[\s\S]*>Account</);
+  assert.match(html, />Community<[\s\S]*Entra nella Community[\s\S]*Area VIP[\s\S]*Universe Pass[\s\S]*Contatti/);
   assert.match(html, /href="\/arte"/);
   assert.match(html, /href="\/commissioni"/);
   assert.match(html, /href="\/shop"/);
   assert.match(html, /href="\/contatti"/);
 });
 
-test("keeps the Demon Match Three protagonist reveal protected in the finite games section", async () => {
+test("keeps the Demon Match Three announcement protected in the public calendar", async () => {
   const response = await render("/cronache-del-nexus?sezione=giochi");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Le identità del nuovo conflitto sono state svelate nell’Area VIP/);
-  assert.match(html, /giochi-crocevia-v1\.webp/);
-  assert.match(html, /Tre mondi, tre modi di giocare/);
+  assert.match(html, /Il calendario dei mondi/);
   assert.doesNotMatch(html, /Nora|Varek|nora-order|varek-shadow|nora-varek-duality/);
   assert.match(html, /Demon Match Three/);
-  assert.match(html, /Apri il gioco/);
+  assert.match(html, /In arrivo/);
   assert.doesNotMatch(html, /nel finale|tradisce|muore|boss finale/i);
 });
 
@@ -491,20 +487,18 @@ test("renders the protected art catalog without deriving public titles from file
   assert.match(html, /LW-ART-001/);
   assert.match(html, /Art the Clown/);
   assert.doesNotMatch(html, /Titolo da assegnare/);
-  assert.match(html, /Esplora le opere disponibili e quelle custodite in esposizione/);
-  assert.match(html, /originali saranno acquistabili singolarmente oppure tramite i crediti mensili/);
-  assert.match(html, /Indice della collezione/);
-  assert.match(html, /Esplora l’archivio/);
+  assert.match(html, /Colleziona opere[\s\S]*Esplora l/);
+  assert.match(html, /Guarda subito le opere/);
+  assert.match(html, /Collezione opere/);
+  assert.match(html, /Scegli ciò che vuoi vedere/);
   assert.match(catalogSource, /Titolo o codice/);
   assert.match(html, />2025</);
   assert.match(html, />2026</);
   assert.match(catalogSource, /Tutti i generi/);
   assert.match(catalogSource, /artworkGenreLabels/);
   assert.match(catalogSource, /Fascia di prezzo/);
-  assert.match(html, /Opere Originali in Vendita/);
-  assert.match(html, /Fan art e originali custoditi online/);
-  assert.match(html, /originals-emblem-v1\.webp/);
-  assert.match(html, /fanart-emblem-v1\.webp/);
+  assert.match(html, /file digitale con licenza personale/);
+  assert.match(html, /anteprima protetta, nessun download/);
   assert.match(html, /Ordina/);
   assert.match(html, /Apri il capitolo successivo/);
   assert.match(html, /Visualizzate[\s\S]*6[\s\S]*76 opere/);
@@ -777,29 +771,25 @@ test("renders the second approved batch of original artworks", async () => {
   }
 });
 
-test("renders the membership proposal with transparent Stripe checkout", async () => {
+test("renders the membership proposal with a concise and transparent comparison", async () => {
   const response = await render("/abbonamento");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Supporter/);
   assert.match(html, /Collector/);
-  assert.match(html, /Cataloghi pubblici, anteprime protette/);
-  assert.match(html, /opera originale autorizzata per ogni credito/i);
-  assert.match(html, /1 credito Arte ogni mese/);
-  assert.match(html, /2 crediti Arte ogni mese/);
+  assert.match(html, /Esplora mondi, giochi, opere, Codex/);
+  assert.match(html, /1 credito Arte al mese/);
+  assert.match(html, /2 crediti Arte al mese/);
   assert.match(html, /7,90/);
   assert.match(html, /13,90/);
   assert.match(html, /massimo 2/i);
   assert.match(html, /massimo 4/i);
-  assert.match(html, /5% automatico/);
-  assert.match(html, /10% automatico/);
-  assert.match(html, /giochi e prodotti digitali ammessi/i);
-  assert.match(html, /demo riservate/i);
-  assert.match(html, /Candidature alle beta/i);
-  assert.match(html, /Codex personale e badge Supporter/i);
-  assert.match(html, /Dossier originali estesi per Collector/i);
-  assert.match(html, /Pagamento trasparente/i);
-  assert.match(html, /Stripe opera in prova oppure/i);
+  assert.match(html, /5% su commissioni e prodotti digitali ammessi/i);
+  assert.match(html, /10% su commissioni e prodotti digitali ammessi/i);
+  assert.match(html, /Anteprime, candidature e badge Supporter/i);
+  assert.match(html, /dossier estesi/i);
+  assert.match(html, /Prima di confermare vedrai sempre prezzo, rinnovo mensile/i);
+  assert.doesNotMatch(html, /Stripe opera in prova oppure/i);
   assert.match(html, /id="piani" data-anchor-focus="true" tabindex="-1"/);
 });
 
@@ -827,7 +817,7 @@ test("renders the complete protected commission portfolio", async () => {
   ]);
   responses.forEach((response) => assert.equal(response.status, 200));
   const html = (await Promise.all(responses.map((response) => response.text()))).join("\n");
-  assert.match(html, /Quattro ambienti, una sola esperienza/);
+  assert.match(html, /Trova subito ci(?:ò|&#xF2;) che ti serve/);
   assert.match(html, /Trentotto richieste, sei percorsi creativi/);
   assert.match(html, /Ritratti personalizzati/);
   assert.match(html, /Coppie e legami/);
@@ -867,8 +857,8 @@ test("renders the complete protected commission portfolio", async () => {
   assert.match(html, /preventivo/i);
   assert.match(html, /acconto concordato/i);
   assert.match(html, /LoreWise ID richiesto/);
-  assert.match(html, /sconto corretto/i);
-  assert.match(html, /applicato al totale/i);
+  assert.match(html, /collegare la richiesta al tuo spazio personale/i);
+  assert.match(html, /vantaggi del tuo piano/i);
   assert.match(html, /Promo apertura attiva/i);
   assert.match(html, /id="promozione-apertura" data-anchor-focus="true" tabindex="-1"/);
   assert.match(html, /Richieste inviate entro il 30 settembre 2026/i);
@@ -922,7 +912,9 @@ test("keeps each commission chapter focused instead of rebuilding the long page"
   const [overviewHtml, pricingHtml, portfolioHtml, methodHtml] = await Promise.all([
     overview.text(), pricing.text(), portfolio.text(), method.text(),
   ]);
-  assert.match(overviewHtml, /Dal volto reale al personaggio/);
+  assert.match(overviewHtml, /Guarda lo stile\. Immagina il tuo/);
+  assert.match(overviewHtml, /Prezzi di partenza/);
+  assert.match(overviewHtml, /Tre passaggi, senza sorprese/);
   assert.doesNotMatch(overviewHtml, /Trentotto richieste, sei percorsi creativi|Tariffe di lancio 2026|Domande frequenti/);
   assert.match(pricingHtml, /Tariffe di lancio 2026/);
   assert.doesNotMatch(pricingHtml, /Trentotto richieste, sei percorsi creativi|Domande frequenti/);
@@ -1184,7 +1176,7 @@ test("keeps the Demon Match Three creative journal aligned with the native Andro
 });
 
 test("uses only the gameplay backdrop and official logo for Demon Match Three on public entry pages", async () => {
-  for (const route of ["/", "/giochi", "/abbonamento"]) {
+  for (const route of ["/giochi", "/abbonamento"]) {
     const response = await render(route);
     assert.equal(response.status, 200);
     const html = await response.text();
@@ -1199,7 +1191,7 @@ test("renders the unified LoreWise account with a safe authentication state and 
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /LoreWise ID/);
-  assert.match(html, /Tutto ciò che/);
+  assert.match(html, /Il tuo universo, sempre con te/);
   assert.match(html, /Ordini/);
   assert.match(html, /Arte e licenze/);
   assert.match(html, /Commissioni/);

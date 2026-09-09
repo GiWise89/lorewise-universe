@@ -44,7 +44,9 @@ test("uses real protected commission previews and never crops them", async () =>
   for (const code of ["LW-COM-001", "LW-COM-011", "LW-COM-015", "LW-COM-013", "LW-COM-028", "LW-COM-014"]) {
     assert.match(experience, new RegExp(code));
   }
-  const campaignStyles = styles.slice(styles.indexOf("/* Feste nel Nexus:"));
+  const campaignStart = styles.indexOf("/* Feste nel Nexus:");
+  const campaignEnd = styles.indexOf("/* The Famiglio route", campaignStart);
+  const campaignStyles = styles.slice(campaignStart, campaignEnd);
   assert.match(campaignStyles, /object-fit:contain/g);
   assert.doesNotMatch(campaignStyles, /object-fit:cover/);
   assert.doesNotMatch(campaignStyles, /::before|::after/);

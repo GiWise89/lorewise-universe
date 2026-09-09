@@ -14,6 +14,13 @@ export type GlobalSearchItem = {
 };
 
 const types = ["Tutto", "Arte", "Codex", "Giochi", "Diario", "Shop", "Servizi"] as const;
+const quickPaths = [
+  { label: "Personaggi e mondi", type: "Codex" as const },
+  { label: "Opere", type: "Arte" as const },
+  { label: "Giochi", type: "Giochi" as const },
+  { label: "Prodotti", type: "Shop" as const },
+  { label: "Servizi", type: "Servizi" as const },
+];
 
 function normalize(value: string) {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("it");
@@ -31,11 +38,14 @@ export function GlobalSearchExplorer({ items }: { items: GlobalSearchItem[] }) {
 
   return <section className="global-search-workspace" aria-labelledby="global-search-title">
     <header><p className="eyebrow">Ricerca unificata</p><h1 id="global-search-title">Trova ogni parte dell’universo.</h1><p>Personaggi, opere, giochi, prodotti e servizi in un’unica ricerca, senza mescolare contenuti originali e universi documentati.</p></header>
+    <nav className="global-search-quick-paths" aria-label="Percorsi rapidi">
+      <span>Vai subito a</span>{quickPaths.map((path) => <button type="button" key={path.type} aria-pressed={type === path.type} onClick={() => { setType(path.type); setQuery(""); setVisibleLimit(24); }}>{path.label}</button>)}
+    </nav>
     <div className="global-search-controls">
       <label><span>Cosa stai cercando?</span><input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setVisibleLimit(24); }} placeholder="Esempio: Simpson, dark fantasy, ritratto…" autoFocus /></label>
       <div role="group" aria-label="Filtra per archivio">{types.map((value) => <button type="button" aria-pressed={type === value} onClick={() => { setType(value); setVisibleLimit(24); }} key={value}>{value}</button>)}</div>
     </div>
-    <p className="global-search-count" role="status"><strong>{results.length}</strong> risultati{query ? ` per “${query}”` : " disponibili"}</p>
+    <div className="global-search-summary"><p className="global-search-count" role="status"><strong>{results.length}</strong> risultati{query ? ` per “${query}”` : type !== "Tutto" ? ` in ${type}` : " disponibili"}</p>{type !== "Tutto" || query ? <button type="button" onClick={() => { setType("Tutto"); setQuery(""); setVisibleLimit(24); }}>Mostra tutto</button> : null}</div>
     {results.length ? <><ol className="global-search-results">{visibleResults.map((item) => <li key={`${item.type}-${item.href}`}><Link href={item.href}><Image src={item.image} alt="" width={520} height={520} unoptimized /><span><small>{item.type}</small><strong>{item.title}</strong><p>{item.description}</p><b>Apri →</b></span></Link></li>)}</ol>{visibleResults.length < results.length ? <button className="global-search-more" type="button" onClick={() => setVisibleLimit((current) => current + 24)}>Mostra altri risultati <span>{results.length - visibleResults.length}</span></button> : null}</> : <div className="global-search-empty"><strong>Nessuna corrispondenza.</strong><p>Prova un nome più breve oppure seleziona “Tutto”. Le ricerche senza risultati potranno essere usate per migliorare l’archivio solo dopo l’attivazione delle statistiche con consenso.</p></div>}
   </section>;
 }

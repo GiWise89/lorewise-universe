@@ -6,6 +6,12 @@ import { accessModels, developmentStages, projectDossierFields } from "@/lib/gam
 import { UniverseGuide } from "@/components/UniverseGuide";
 import { FunnelLink } from "@/components/FunnelLink";
 
+const gamePresentation = {
+  "the-wound-remembers": { label: "Giocabile ora", tone: "available", note: "Apri la versione web e inizia subito." },
+  "demon-match-three": { label: "In sviluppo", tone: "development", note: "Segui la costruzione dell’esperienza Android." },
+  "lorewise-fuori-trama-next": { label: "In arrivo", tone: "upcoming", note: "Scopri il progetto prima della futura apertura pubblica." },
+} as const;
+
 export const metadata: Metadata = {
   title: "Giochi e app di GiWise Studio",
   description: "Giochi, applicazioni, anteprime e diari di sviluppo di GiWise Studio, raccolti nell’area interattiva di LoreWise Universe.",
@@ -31,7 +37,7 @@ export default function GamesPage() {
             {gameProjects.map((project) => (
               <Link href={`/giochi/${project.slug}`} key={project.slug}>
                 {project.logoImage ? <Image src={project.logoImage} alt={project.title} width={1200} height={600} unoptimized /> : <strong>{project.title}</strong>}
-                <span>{project.statusTone === "available" ? "Giocabile ora" : "In sviluppo"}</span>
+                <span>{gamePresentation[project.slug as keyof typeof gamePresentation]?.label ?? project.status}</span>
               </Link>
             ))}
           </div>
@@ -49,29 +55,31 @@ export default function GamesPage() {
         </div>
       </nav>
 
-      <section className="shell studio-real-projects" id="progetti" aria-labelledby="real-projects-title">
-        <header><div><p className="eyebrow">Catalogo GiWise Studio</p><h2 id="real-projects-title">Scegli il tuo mondo.</h2></div><p>Ogni copertina presenta il vero universo del gioco, il logo originale e lo stato attuale del progetto.</p></header>
-        <div className="studio-real-project-list">
-          {gameProjects.map((project, index) => (
-            <article className={`studio-real-project studio-real-project-${project.statusTone} studio-real-project-${project.slug}`} key={project.slug}>
-              <Link className="studio-real-project-visual" href={`/giochi/${project.slug}`} aria-label={`Apri la scheda di ${project.title}`}>
-                <Image src={project.catalogCoverImage ?? project.coverImage ?? project.heroImage} alt={project.catalogCoverAlt ?? project.coverAlt ?? project.heroAlt} width={2000} height={1250} unoptimized />
-                {project.logoImage ? <Image className="studio-real-project-logo" src={project.logoImage} alt="" width={1600} height={900} unoptimized /> : <strong>{project.title}</strong>}
-                <span className={`studio-real-project-state studio-real-project-state-${project.statusTone}`}>
-                  <strong>{project.statusTone === "available" ? "Giocabile ora" : "In sviluppo"}</strong>
-                  <small>{project.statusTone === "available" ? "Download Windows in preparazione" : "Accesso pubblico non ancora disponibile"}</small>
-                </span>
-              </Link>
-              <div className="studio-real-project-copy">
-                <div><span>0{index + 1} · {project.code}</span><strong className={`game-project-status game-project-status-${project.statusTone}`}>{project.status}</strong></div>
-                <p>{project.kind}</p><h3><Link href={`/giochi/${project.slug}`}>{project.title}</Link></h3><p>{project.summary}</p>
+      <section className="shell studio-game-gateway studio-real-projects studio-game-gateway-merged" id="progetti" aria-labelledby="studio-game-gateway-title">
+        <header>
+          <div><p className="eyebrow">Catalogo GiWise Studio</p><h2 id="studio-game-gateway-title">Scegli il tuo mondo.</h2></div>
+          <p>Stato, piattaforme e modalità di accesso sono visibili subito. Apri il dossier del progetto per gameplay, aggiornamenti e dettagli completi.</p>
+        </header>
+        <div className="studio-game-gateway-grid">
+          {gameProjects.map((project, index) => {
+            const presentation = gamePresentation[project.slug as keyof typeof gamePresentation];
+            return <article className={`is-${presentation?.tone ?? project.statusTone}`} key={project.slug}>
+              <div className="studio-game-gateway-visual"><Image src={project.catalogCoverImage ?? project.coverImage ?? project.heroImage} alt={project.catalogCoverAlt ?? project.coverAlt ?? project.heroAlt} fill sizes="(max-width: 760px) 100vw, 33vw" unoptimized /></div>
+              <div className="studio-game-gateway-copy">
+                <div className="studio-game-gateway-status"><span>{presentation?.label ?? project.status}</span><small>0{index + 1} · {project.code}</small></div>
+                <p className="studio-game-gateway-kind">{project.kind}</p>
+                <h3>{project.title}</h3>
+                <p className="studio-game-gateway-intro">{presentation?.note ?? project.summary}</p>
+                <p className="studio-game-gateway-summary">{project.summary.split(".")[0]}.</p>
                 <dl><div><dt>Versione</dt><dd>{project.version}</dd></div><div><dt>Accesso</dt><dd>{project.access}</dd></div><div><dt>Piattaforme</dt><dd>{project.platforms.join(" · ")}</dd></div></dl>
-                {project.slug === "the-wound-remembers" && project.publicUrl
-                  ? <><FunnelLink className="studio-real-project-link studio-real-project-play" href={project.publicUrl} eventName="play_cta_click" source="games_catalog">Gioca ora <span aria-hidden="true">→</span></FunnelLink><Link className="studio-real-project-link" href={`/giochi/${project.slug}`}>Guarda gameplay e dettagli</Link></>
-                  : <Link className="studio-real-project-link" href={`/giochi/${project.slug}`}>Apri il dossier completo <span aria-hidden="true">→</span></Link>}
+                <div className="studio-game-gateway-actions">
+                  {project.slug === "the-wound-remembers" && project.publicUrl
+                    ? <><FunnelLink className="is-primary" href={project.publicUrl} eventName="play_cta_click" source="games_gateway">Gioca ora <b aria-hidden="true">→</b></FunnelLink><Link href={`/giochi/${project.slug}`}>Gameplay e dettagli</Link></>
+                    : <Link className="is-primary" href={`/giochi/${project.slug}`}>Apri il dossier completo <b aria-hidden="true">→</b></Link>}
+                </div>
               </div>
-            </article>
-          ))}
+            </article>;
+          })}
         </div>
       </section>
 

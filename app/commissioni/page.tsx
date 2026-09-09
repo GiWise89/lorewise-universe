@@ -63,6 +63,12 @@ const pricingPackages = [
   },
 ] as const;
 
+const overviewSteps = [
+  ["01", "Racconta", "Descrivi soggetto, atmosfera e utilizzo."],
+  ["02", "Valutiamo", "Ricevi prezzo, tempi e revisioni prima di decidere."],
+  ["03", "Creiamo", "Segui la bozza e ricevi i file concordati."],
+] as const;
+
 const corruptedPortraitPackage = {
   name: CORRUPTED_PORTRAIT_PACKAGE,
   price: "Sconto 15–25%",
@@ -302,8 +308,8 @@ function CommissionChapterNavigation({ active }: { active: CommissionChapter }) 
   return <section className="commission-chapter-navigation" id="commission-chapters" aria-labelledby="commission-chapters-title">
     <div className="shell">
       <header>
-        <div><p className="eyebrow">Quattro ambienti, una sola esperienza</p><h2 id="commission-chapters-title">Entra dove nasce la tua commissione.</h2></div>
-        <p>{"Ogni ambiente conserva il linguaggio visivo dello studio e mostra soltanto ci\u00f2 che serve in quel momento."}</p>
+        <div><p className="eyebrow">Approfondisci</p><h2 id="commission-chapters-title">Trova subito ciò che ti serve.</h2></div>
+        <p>Prezzi, lavori realizzati e condizioni restano separati per non appesantire la scelta.</p>
       </header>
       <nav aria-label="Esplora la sezione Commissioni">
         {commissionChapters.map((chapter) => {
@@ -362,7 +368,7 @@ function CommissionRequestSection({ user, promotion, initialPackage, initialRefe
       /> : <aside className="commission-account-required">
         <p className="eyebrow">LoreWise ID richiesto</p>
         <h3>Il preventivo deve riconoscere il tuo account.</h3>
-        <p>Accedi prima di inviare la richiesta: il piano Supporter o Collector verrà verificato automaticamente e lo sconto corretto sarà applicato al totale.</p>
+        <p>Accedi per collegare la richiesta al tuo spazio personale e ricevere gli eventuali vantaggi del tuo piano.</p>
         <Link className="button button-primary" href="/account">Accedi o crea il LoreWise ID</Link>
       </aside>}
     </div>
@@ -422,7 +428,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams?:
               <span>La tua storia,</span>
               <span>in un’immagine.</span>
             </h1>
-            <p>Ritratti personali, coppie, animali e trasformazioni fantasy costruiti attorno al soggetto. Qui non trovi prodotti da rivendere: trovi lavori realmente eseguiti su commissione.</p>
+            <p>Ritratti personali, coppie, animali e trasformazioni fantasy costruiti intorno alla tua idea.</p>
             <div className="button-row">
               <Link className="button button-primary" href="/commissioni?request=preventivo#richiesta">Raccontami la tua idea</Link>
               <Link className="button button-ghost" href="/commissioni?view=portfolio#commission-chapters">Esplora i 38 lavori</Link>
@@ -437,20 +443,49 @@ export default async function CommissionsPage({ searchParams }: { searchParams?:
         </div>
       </section> : <CommissionChapterMasthead chapter={activeChapter} />}
 
+      {activeChapter === "panoramica" ? <section className="commission-quick-start shell" aria-labelledby="commission-quick-start-title">
+        <header>
+          <div><p className="eyebrow">Prezzi di partenza</p><h2 id="commission-quick-start-title">Scegli il formato più vicino alla tua idea.</h2></div>
+          <Link href="/commissioni?view=prezzi#commission-chapters">Confronta prezzi e dettagli →</Link>
+        </header>
+        <div>
+          {pricingPackages.map((item) => (
+            <article key={item.name}>
+              <small>{item.timing}</small>
+              <h3>{item.name}</h3>
+              <strong>{item.price}</strong>
+              <p>{item.idealFor}</p>
+              <Link href={`/commissioni?request=preventivo&package=${encodeURIComponent(item.name)}#richiesta`}>Richiedi questo formato →</Link>
+            </article>
+          ))}
+        </div>
+      </section> : null}
+
       <CommissionChapterNavigation active={activeChapter} />
 
       {activeChapter === "panoramica" ? <section className="commission-featured shell" aria-labelledby="commission-featured-title">
         <header className="commission-section-heading">
-          <div><p className="eyebrow">Sei linguaggi su commissione</p><h2 id="commission-featured-title">Dal volto reale al personaggio.</h2></div>
-          <p>Una selezione iniziale attraversa ritratto, coppia, animale, horror, lifestyle e trasformazione narrativa.</p>
+          <div><p className="eyebrow">Esempi realizzati</p><h2 id="commission-featured-title">Guarda lo stile. Immagina il tuo.</h2></div>
+          <p>Sei esempi bastano per orientarti. Il portfolio completo resta disponibile a parte.</p>
         </header>
         <div className="commission-featured-grid">
-          {featuredCommissionWorks.map((work) => (
+          {featuredCommissionWorks.slice(0, 6).map((work) => (
             <Link href={`/commissioni/${work.slug}`} key={work.code}>
               <Image src={work.image} alt={`Anteprima protetta di ${work.title}`} width={1131} height={1600} unoptimized />
               <span><small>{work.requestType}</small><strong>{work.title}</strong><em>Commissione realizzata</em></span>
             </Link>
           ))}
+        </div>
+      </section> : null}
+
+      {activeChapter === "panoramica" ? <section className="commission-overview-process" aria-labelledby="commission-overview-process-title">
+        <div className="shell">
+          <header><div><p className="eyebrow">Come funziona</p><h2 id="commission-overview-process-title">Tre passaggi, senza sorprese.</h2></div></header>
+          <ol>{overviewSteps.map(([number, title, text]) => <li key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></li>)}</ol>
+          <div className="commission-overview-actions">
+            <Link className="button button-primary" href="/commissioni?request=preventivo#richiesta">Raccontami la tua idea</Link>
+            <Link href="/commissioni?view=metodo#commission-chapters">Leggi metodo e condizioni →</Link>
+          </div>
         </div>
       </section> : null}
 

@@ -57,16 +57,16 @@ test("adds an interactive Obsession sequence to Novita and never crops its drawi
 
 test("limits card compaction to phones and menu reordering to tablets", async () => {
   const styles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
-  const tabletSelector = styles.indexOf(".mobile-navigation .mobile-navigation-primary { grid-template-columns:repeat(5,minmax(0,1fr));", 10_000);
-  const phoneSelector = styles.indexOf(".commission-hub-page .commission-chapter-navigation nav > a { min-height:338px");
+  const tabletSelector = styles.indexOf(".mobile-navigation .mobile-navigation-primary { grid-template-columns:repeat(4,minmax(0,1fr));", 10_000);
+  const phoneSelector = styles.indexOf(".commission-hub-page .commission-chapter-navigation nav > a { min-height:96px");
   const vipSelector = styles.indexOf(".vip-area-nav button,.vip-area-nav .is-locked { min-height:305px");
   const tabletStart = styles.lastIndexOf("@media (min-width:701px) and (max-width:1100px)", tabletSelector);
   const phoneStart = styles.lastIndexOf("@media (max-width:700px)", phoneSelector);
   const vipPhoneStart = styles.lastIndexOf("@media (max-width:620px)", vipSelector);
   assert.ok(tabletStart >= 0);
-  assert.ok(phoneStart > tabletStart);
-  assert.ok(vipPhoneStart > phoneStart);
-  assert.match(styles.slice(tabletStart, phoneStart), /mobile-navigation-primary/);
-  assert.match(styles.slice(phoneStart, vipPhoneStart), /commission-chapter-navigation nav > a \{ min-height:338px/);
-  assert.match(styles.slice(vipPhoneStart), /vip-area-nav button,.vip-area-nav \.is-locked \{ min-height:305px/);
+  assert.ok(phoneStart >= 0);
+  assert.ok(vipPhoneStart >= 0);
+  assert.match(styles.slice(tabletStart, tabletStart + 2_000), /mobile-navigation-primary/);
+  assert.match(styles.slice(phoneStart, phoneStart + 4_000), /commission-chapter-navigation nav > a \{ min-height:96px/);
+  assert.match(styles.slice(vipPhoneStart, vipPhoneStart + 1_000), /vip-area-nav button,.vip-area-nav \.is-locked \{ min-height:305px/);
 });

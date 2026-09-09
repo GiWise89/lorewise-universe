@@ -43,6 +43,15 @@ export default function ShopPage() {
         ))}
       </nav>
 
+      <section className="shell giwise-shop-availability" aria-labelledby="shop-availability-title">
+        <header><p className="eyebrow">Come puoi acquistare</p><h2 id="shop-availability-title">Disponibile, su richiesta o in arrivo.</h2></header>
+        <div>
+          <article className="is-live"><span>Disponibile ora</span><strong>{shopProducts.length} prodotti in evidenza</strong><p>Apri una scheda, scegli le varianti e completa l’ordine nello shop.</p><Link href="/shop/catalogo">Esplora il catalogo →</Link></article>
+          <article className="is-custom"><span>Su richiesta</span><strong>Creato per te</strong><p>Trasforma un’idea in un prodotto personalizzato dopo aver approvato il mockup.</p><a href="https://giwiseshop.it/pages/personalizza-il-tuo-prodotto" {...externalLinkProps}>Inizia la personalizzazione ↗</a></article>
+          <article className="is-future"><span>Prossime collezioni</span><strong>In arrivo</strong><p>Le nuove uscite compariranno nel calendario Novità quando saranno disponibili.</p><Link href="/cronache-del-nexus">Apri le Novità →</Link></article>
+        </div>
+      </section>
+
       <section className="giwise-shop-catalog" id="catalogo-giwise" aria-labelledby="giwise-shop-catalog-title">
         <div className="shell">
           <header className="giwise-shop-section-heading">
@@ -56,7 +65,7 @@ export default function ShopPage() {
                   <Image src={product.image} alt={product.name} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" style={{ objectFit: "contain", objectPosition: "center" }} unoptimized />
                 </a>
                 <div className="giwise-shop-product-copy">
-                  <div><span>{product.category}</span><strong>{product.price}</strong></div>
+                  <div><span>{product.category} · Disponibile</span><strong>{product.price}</strong></div>
                   <h3>{product.name}</h3>
                   <p>{product.note}</p>
                   <a href={product.href} {...externalLinkProps}>Vedi prodotto e varianti <span aria-hidden="true">→</span></a>

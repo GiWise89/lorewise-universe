@@ -128,13 +128,13 @@ export function ArtworkCardSocial({ artworkCode, artworkTitle, artworkSlug }: Ar
 
   return <>
     <div className="artwork-card-social" aria-label={`Interazioni per ${artworkTitle}`}>
-      {community && !community.authenticated ? <Link href={`/account?next=${encodeURIComponent(`/arte/${artworkSlug}`)}`}>
-        <span aria-hidden="true">♡</span> Accedi per mettere Mi piace
+      {community && !community.authenticated ? <Link href={`/account?next=${encodeURIComponent(`/arte/${artworkSlug}`)}`} aria-label={`Accedi per mettere Mi piace a ${artworkTitle}`}>
+        <span aria-hidden="true">♡</span> <span className="artwork-social-label">Mi piace</span>
       </Link> : <button type="button" className={community?.viewerLiked ? "is-liked" : undefined} aria-pressed={community?.viewerLiked ?? false} disabled={busy || loading || loadFailed} onClick={likeArtwork}>
-        <span aria-hidden="true">{community?.viewerLiked ? "♥" : "♡"}</span> {loading ? "Caricamento" : "Mi piace"} <strong>{community ? community.likeCount : "—"}</strong>
+        <span aria-hidden="true">{community?.viewerLiked ? "♥" : "♡"}</span> <span className="artwork-social-label">{loading ? "Caricamento" : "Mi piace"}</span> <strong>{community ? community.likeCount : "—"}</strong>
       </button>}
       <button type="button" aria-expanded={open} onClick={() => setOpen(true)}>
-        <span aria-hidden="true">💬</span> Commenti <strong>{commentCount}</strong>
+        <span aria-hidden="true">💬</span> <span className="artwork-social-label">Commenti</span> {commentCount > 0 ? <strong>{commentCount}</strong> : null}
       </button>
       {loadFailed ? <p className="artwork-card-social-message" role="status">Community temporaneamente non disponibile.</p> : message && !open ? <p className="artwork-card-social-message" role="status">{message}</p> : null}
     </div>

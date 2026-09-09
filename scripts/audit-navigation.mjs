@@ -85,7 +85,7 @@ async function inspect(pathname) {
   for (const match of html.matchAll(/<a\b[^>]*\bhref=["']([^"'<>]+)["'][^>]*>/gi)) {
     const url = normalize(match[1], pathname);
     if (!url) continue;
-    if (/\.(?:apk|css|gif|ico|jpe?g|js|mjs|png|svg|webp|woff2?)$/i.test(url.pathname)) continue;
+    if (/\.(?:apk|css|gif|ico|jpe?g|js|mjs|mp4|png|svg|webm|webp|woff2?)$/i.test(url.pathname)) continue;
     const target = url.pathname + url.search;
     enqueue(target);
     if (url.hash) {

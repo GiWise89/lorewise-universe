@@ -4,10 +4,10 @@ import { access, readFile } from "node:fs/promises";
 import { getReleasedEditorialEntries } from "../lib/editorialCalendar.ts";
 
 const schedule = [
-  { issue: "Cronaca 001", publishedAt: "2026-08-22" },
-  { issue: "Cronaca 002", publishedAt: "2026-08-24" },
-  { issue: "Cronaca 003", publishedAt: "2026-08-31" },
-  { issue: "Cronaca 004", publishedAt: "2026-09-07" },
+  { issue: "Cronaca 001", publishedAt: "2026-09-12" },
+  { issue: "Cronaca 002", publishedAt: "2026-10-03" },
+  { issue: "Cronaca 003", publishedAt: "2026-11-05" },
+  { issue: "Cronaca 004", publishedAt: "2026-11-19" },
   { issue: "Cronaca 005", publishedAt: "2026-09-14" },
   { issue: "Cronaca 006", publishedAt: "2026-09-21" },
   { issue: "Cronaca 007", publishedAt: "2026-09-28" },
@@ -25,27 +25,29 @@ const schedule = [
 
 const source = await readFile(new URL("../lib/nexusChronicles.ts", import.meta.url), "utf8");
 const pageSource = await readFile(new URL("../app/cronache-del-nexus/page.tsx", import.meta.url), "utf8");
+const calendarSource = await readFile(new URL("../app/cronache-del-nexus/MonthlyCalendar.tsx", import.meta.url), "utf8");
+const publicationSource = await readFile(new URL("../lib/publicationCalendar.ts", import.meta.url), "utf8");
 const feedSource = await readFile(new URL("../components/NexusChroniclesFeed.tsx", import.meta.url), "utf8");
 const globalStyles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
 test("publishes the prepared Nexus chronicles automatically at Italian midnight", () => {
   assert.deepEqual(
-    getReleasedEditorialEntries(schedule, new Date("2026-08-23T12:00:00+02:00")).map((entry) => entry.issue),
+    getReleasedEditorialEntries(schedule, new Date("2026-09-12T12:00:00+02:00")).map((entry) => entry.issue),
     ["Cronaca 001"],
   );
   assert.deepEqual(
-    getReleasedEditorialEntries(schedule, new Date("2026-08-24T00:00:00+02:00")).map((entry) => entry.issue),
-    ["Cronaca 002", "Cronaca 001"],
+    getReleasedEditorialEntries(schedule, new Date("2026-10-03T00:00:00+02:00")).map((entry) => entry.issue),
+    ["Cronaca 002", "Cronaca 007", "Cronaca 006", "Cronaca 005", "Cronaca 001"],
   );
   assert.deepEqual(
-    getReleasedEditorialEntries(schedule, new Date("2026-08-31T00:00:00+02:00")).map((entry) => entry.issue),
-    ["Cronaca 003", "Cronaca 002", "Cronaca 001"],
+    getReleasedEditorialEntries(schedule, new Date("2026-11-05T00:00:00+01:00")).map((entry) => entry.issue),
+    ["Cronaca 003", "Cronaca 012", "Cronaca 011", "Cronaca 010", "Cronaca 009", "Cronaca 008", "Cronaca 002", "Cronaca 007", "Cronaca 006", "Cronaca 005", "Cronaca 001"],
   );
   assert.deepEqual(
-    getReleasedEditorialEntries(schedule, new Date("2026-09-07T00:00:00+02:00")).map((entry) => entry.issue),
-    ["Cronaca 004", "Cronaca 003", "Cronaca 002", "Cronaca 001"],
+    getReleasedEditorialEntries(schedule, new Date("2026-11-19T00:00:00+01:00")).map((entry) => entry.issue),
+    ["Cronaca 004", "Cronaca 014", "Cronaca 013", "Cronaca 003", "Cronaca 012", "Cronaca 011", "Cronaca 010", "Cronaca 009", "Cronaca 008", "Cronaca 002", "Cronaca 007", "Cronaca 006", "Cronaca 005", "Cronaca 001"],
   );
-  assert.equal(getReleasedEditorialEntries(schedule, new Date("2026-11-08T22:59:59Z"))[0].issue, "Cronaca 012");
+  assert.equal(getReleasedEditorialEntries(schedule, new Date("2026-11-08T22:59:59Z"))[0].issue, "Cronaca 003");
   assert.equal(getReleasedEditorialEntries(schedule, new Date("2026-11-08T23:00:00Z"))[0].issue, "Cronaca 013");
   assert.equal(getReleasedEditorialEntries(schedule, new Date("2026-12-06T22:59:59Z"))[0].issue, "Cronaca 016");
   assert.equal(getReleasedEditorialEntries(schedule, new Date("2026-12-06T23:00:00Z"))[0].issue, "Cronaca 017");
@@ -53,10 +55,11 @@ test("publishes the prepared Nexus chronicles automatically at Italian midnight"
 
 test("keeps every approved weekly announcement in the prepared calendar", () => {
   for (const marker of [
-    'publishedAt: "2026-08-24"',
-    'publishedAt: "2026-08-26"',
-    'publishedAt: "2026-08-31"',
-    'publishedAt: "2026-09-07"',
+    'publishedAt: "2026-09-12"',
+    'publishedAt: "2026-10-03"',
+    'publishedAt: "2026-10-10"',
+    'publishedAt: "2026-11-05"',
+    'publishedAt: "2026-11-19"',
     'publishedAt: "2026-09-14"',
     'publishedAt: "2026-09-21"',
     'publishedAt: "2026-09-28"',
@@ -144,34 +147,46 @@ test("evaluates the calendar on every visit and switches archived issues without
   assert.doesNotMatch(feedSource, /chronicles\.map\(\(chronicle, index\) => <ChronicleStory/);
 });
 
-test("organizes the Nexus into five finite editorial sections", async () => {
+test("organizes the Nexus into an ordered monthly calendar", async () => {
   const newsStyles = await readFile(new URL("../app/cronache-del-nexus/news.css", import.meta.url), "utf8");
-  for (const section of ["novita", "giochi", "arte", "promozioni", "in-arrivo"]) {
-    assert.match(pageSource, new RegExp(`id="${section}"`));
-    assert.match(pageSource, new RegExp(`id: "${section}"`));
-    assert.match(pageSource, new RegExp(`activeSection === "${section}"`));
-  }
-  assert.doesNotMatch(pageSource, /chroniclePanelFromQuery|NexusChroniclesFeed|vista=archivio/);
-  assert.match(pageSource, /sezione=\$\{item\.id\}/);
-  assert.match(newsStyles, /\.nexus-edition-index/);
-  assert.match(newsStyles, /a\[aria-current="page"\]/);
-  assert.match(newsStyles, /scroll-margin-top:90px/);
+  assert.match(pageSource, /calendarEntries/);
+  assert.match(pageSource, /<MonthlyCalendar/);
+  assert.match(calendarSource, /monthNames/);
+  assert.match(calendarSource, /changeMonth/);
+  assert.match(calendarSource, /entriesByDate/);
+  assert.doesNotMatch(pageSource, /chroniclePanelFromQuery|NexusChroniclesFeed|vista=archivio|activeSection/);
+  assert.match(newsStyles, /\.monthly-calendar-day\[data-has-news='true'\]/);
+  assert.match(newsStyles, /\.monthly-calendar-day\[data-selected='true'\]/);
+  assert.match(calendarSource, /setSelectedDate/);
+  assert.match(calendarSource, /monthly-calendar-preview/);
+  assert.match(calendarSource, /\/cronache-del-nexus\/giorno\/\$\{previewEntry\.date\}/);
+  assert.doesNotMatch(calendarSource, /monthly-calendar-detail/);
 });
 
-test("uses the release calendar only to select the latest visible news", () => {
-  assert.match(pageSource, /getNexusChronicles\(editorialDate\)/);
-  assert.match(pageSource, /const latest = chronicles\[0\]/);
-  assert.match(pageSource, /latest\?\.signals\?\.slice\(0, 2\)/);
+test("uses twelve original transparent monthly sticker assets outside the date grid", async () => {
+  const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+  await Promise.all(months.map((month) => access(new URL(`../public/novita/calendar-stickers/${month}-lorewise-stickers-wide-v2.webp`, import.meta.url))));
+  await Promise.all(months.map((month) => access(new URL(`../public/novita/calendar-backgrounds/${month}-lorewise-calendar-bg-v1.webp`, import.meta.url))));
+  assert.match(calendarSource, /monthly-calendar-stickers/);
+  assert.match(calendarSource, /monthly-calendar-sticker-shelf/);
+  assert.match(calendarSource, /monthSlugs/);
+  assert.doesNotMatch(calendarSource, /::before|::after/);
+});
+
+test("uses the release calendar for current, available and upcoming news", () => {
+  assert.match(pageSource, /getNexusChronicles\(currentDate\)/);
+  assert.match(pageSource, /const latest = releasedChronicles\[0\]/);
+  assert.match(publicationSource, /editorialReleaseInstant\(chronicle\.publishedAt\)/);
+  assert.match(pageSource, /nextEntry/);
   assert.match(pageSource, /params\.anteprima === "tutte"/);
   assert.match(source, /caption: "INAZUMA ELEVEN: Victory Road · guida pubblica completa"/);
 });
 
-test("keeps games, art and promotions in distinct reader-facing sections", () => {
-  assert.match(pageSource, /gameProjects\.slice\(0, 3\)/);
-  assert.match(pageSource, /catalogArtworks\.slice\(-3\)\.reverse\(\)/);
-  assert.match(pageSource, /getActiveCommissionPromotion\(editorialDate\)/);
-  assert.match(pageSource, /WELCOME_COMMISSION_OFFER/);
-  assert.match(pageSource, /nexus-next-paths/);
+test("keeps chronicles and promotions distinct inside the same reader-facing calendar", () => {
+  assert.match(pageSource, /getPublicationCalendarEntries\(currentDate\)/);
+  assert.match(pageSource, /getActiveCommissionPromotion\(currentDate\)/);
+  assert.match(publicationSource, /category: "Commissioni"/);
+  assert.match(pageSource, /nexus-calendar-paths/);
 });
 
 test("never crops images in Nexus announcements, guide previews or Atlas galleries", () => {

@@ -347,7 +347,7 @@ export function FamiglioCombatPreviewCanvas({
 }
 
 function battleLayout(width: number, height: number, playerScale: number, opponentScale: number): BattleLayout {
-  const baseSize = height * .44;
+  const baseSize = height * .57;
   const playerSize = baseSize * playerScale;
   const opponentSize = baseSize * opponentScale;
   const edgePadding = width * .045;

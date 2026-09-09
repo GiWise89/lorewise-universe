@@ -12,6 +12,7 @@ import {
   reinterpretationStories,
   studioSketches,
 } from "@/lib/creativeJournal";
+import { commissionWorks } from "@/lib/commissionCatalog";
 
 export const metadata: Metadata = {
   title: "Dove nascono i mondi",
@@ -30,6 +31,15 @@ export default function CreativeJournalPage() {
   const commissionPortrait = commissionStories[0];
   const cartoonCover = getCreativeJournalEntry("mucca-e-pollo")!;
   const allReinterpretations = [...reinterpretationStories, ...studioSketches];
+  const additionalCommissionWorks = ["LW-COM-005", "LW-COM-015", "LW-COM-031"]
+    .map((code) => commissionWorks.find((work) => work.code === code))
+    .filter((work): work is (typeof commissionWorks)[number] => Boolean(work));
+  const journalEntrances = [
+    { label: "Originale GiWise", title: cyborg.title, href: `/dove-nascono-i-mondi/${cyborg.id}`, image: cyborg.image ?? cyborg.processImages[0].src },
+    { label: "Originale GiWise", title: custode.title, href: `/dove-nascono-i-mondi/${custode.id}`, image: custode.processImages[1].src },
+    { label: "Commissione", title: commissionPortrait.title, href: `/dove-nascono-i-mondi/${commissionPortrait.id}`, image: commissionPortrait.image ?? commissionPortrait.processImages[0].src },
+    { label: "Videogioco", title: gameJournalEntries[0].title, href: `/dove-nascono-i-mondi/giochi/${gameJournalEntries[0].id}`, image: gameJournalEntries[0].gallery[0].src },
+  ];
 
   return (
     <main className="diary-page">
@@ -60,6 +70,11 @@ export default function CreativeJournalPage() {
           <p>Ogni progetto ha una pagina propria, con fotografie, appunti e dettagli sul modo in cui è stato costruito. Quando un ricordo preciso manca, preferisco raccontare soltanto quello che so davvero.</p>
         </div>
       </section>
+
+      <nav className="shell diary-project-index" aria-label="Progetti in evidenza nel diario">
+        <header><p className="eyebrow">Apri un progetto</p><h2>Quattro ingressi nel diario.</h2></header>
+        <div>{journalEntrances.map((entry, index) => <Link href={entry.href} key={entry.href}><span className="diary-project-index-image"><Image src={entry.image} alt="" fill sizes="(max-width: 700px) 42vw, 240px" unoptimized /></span><span><small>{String(index + 1).padStart(2, "0")} · {entry.label}</small><strong>{entry.title}</strong><b>Apri →</b></span></Link>)}</div>
+      </nav>
 
       <CreativeJournalSections label="Scegli un capitolo del diario" sections={[
         { id: "originali", label: "Creazioni originali", eyebrow: "01", content: (
@@ -167,6 +182,13 @@ export default function CreativeJournalPage() {
             {commissionPortrait.image ? <CreativeJournalPhoto image={commissionPortrait.image} caption={commissionPortrait.finalCaption ?? "Opera completa"} /> : null}
           </div>
         </article>
+        <div className="shell diary-commission-more" aria-label="Altri lavori su commissione documentati">
+          <header><p className="diary-hand">Altri lavori realizzati</p><h3>Tre richieste, tre direzioni diverse.</h3><p>Ogni scheda conserva immagine completa, richiesta, tecnica e collegamento al progetto.</p></header>
+          <div>{additionalCommissionWorks.map((work) => <article key={work.code}>
+            <Link className="diary-commission-more-image" href={`/commissioni/${work.slug}`}><Image src={work.image} alt={`Anteprima protetta di ${work.title}`} fill sizes="(max-width: 760px) 100vw, 33vw" style={{ objectFit: "contain", objectPosition: "center" }} unoptimized /></Link>
+            <div><small>{work.code} · {work.requestType}</small><h4>{work.title}</h4><p>{work.description}</p><dl><div><dt>Categoria</dt><dd>{work.category}</dd></div><div><dt>Tecnica</dt><dd>{work.technique}</dd></div></dl><Link href={`/commissioni/${work.slug}`}>Apri il progetto completo →</Link></div>
+          </article>)}</div>
+        </div>
       </section>
         ) },
         { id: "passioni", label: "Passioni", eyebrow: "04", content: (
