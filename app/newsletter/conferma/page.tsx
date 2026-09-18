@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "@/components/NewsletterStatus.module.css";
-import { env } from "@/lib/netlifyRuntime";
 import { isNewsletterToken, isNewsletterTopic, newsletterTopicLabel, type NewsletterConfirmationOutcome } from "@/lib/newsletter";
-import { confirmNewsletterSubscription } from "@/lib/newsletterServer";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Conferma iscrizione | LoreWise Universe", robots: { index: false, follow: false } };
@@ -18,20 +16,26 @@ const copy: Record<Outcome, { eyebrow: string; title: string; body: string }> = 
   unavailable: { eyebrow: "Servizio non disponibile", title: "Riprova tra poco.", body: "Non è stato possibile confermare l’iscrizione in questo momento. Il link resta valido: riaprilo più tardi." },
 };
 
-async function confirm(token: string) {
-  if (!isNewsletterToken(token)) return { outcome: "invalid" as Outcome, topic: null, unsubscribeToken: null };
-  const database = (env as unknown as { DB?: D1Database }).DB;
-  if (!database) return { outcome: "unavailable" as Outcome, topic: null, unsubscribeToken: null };
-  try {
-    return await confirmNewsletterSubscription(database, token);
-  } catch {
-    return { outcome: "unavailable" as Outcome, topic: null, unsubscribeToken: null };
-  }
-}
+const outcomes = new Set<Outcome>(["confirm", "already_confirmed", "expired", "invalid", "unavailable"]);
 
-export default async function NewsletterConfirmPage({ searchParams }: { searchParams: Promise<{ token?: string }> }) {
-  const { token = "" } = await searchParams;
-  const result = await confirm(token);
+export default async function NewsletterConfirmPage({ searchParams }: { searchParams: Promise<{ token?: string; esito?: string; tema?: string; annulla?: string }> }) {
+  const { token = "", esito = "", tema = "", annulla = "" } = await searchParams;
+  // Primo passaggio: il link dell’email mostra solo il pulsante, la conferma richiede un clic.
+  if (!esito) {
+    const valid = isNewsletterToken(token);
+    return <main className={styles.page}>
+      <section className={styles.card} aria-labelledby="newsletter-confirm-title">
+        <p className={styles.eyebrow}>{valid ? "Ultimo passo" : copy.invalid.eyebrow}</p>
+        <h1 id="newsletter-confirm-title">{valid ? "Conferma la tua iscrizione." : copy.invalid.title}</h1>
+        <p>{valid ? "Premi il pulsante per confermare che vuoi ricevere le nostre email. Se non ti sei iscritto tu, chiudi semplicemente questa pagina." : copy.invalid.body}</p>
+        <div className={styles.actions}>
+          {valid ? <form method="post" action="/api/newsletter/confirm"><input type="hidden" name="token" value={token} /><button className={styles.primary} type="submit">Conferma iscrizione</button></form> : null}
+          <Link href="/">Torna alla home</Link>
+        </div>
+      </section>
+    </main>;
+  }
+  const result = { outcome: outcomes.has(esito as Outcome) ? esito as Outcome : "invalid", topic: tema || null, unsubscribeToken: annulla || null };
   const text = copy[result.outcome];
   const label = result.topic && isNewsletterTopic(result.topic) ? newsletterTopicLabel(result.topic) : null;
   const confirmed = result.outcome === "confirm" || result.outcome === "already_confirmed";
