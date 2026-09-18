@@ -33,7 +33,8 @@ test("puts The Wound Remembers before the wider LoreWise ecosystem", async () =>
   assert.match(home, /title: "Partecipa al Nexus"/);
   assert.match(home, /title: "GiWise Shop"/);
   assert.match(home, /title: "Commissioni"/);
-  assert.match(home, /title: "LoreWise VIP"/);
+  assert.match(home, /title: "Area VIP"/);
+  assert.doesNotMatch(home, /href: "\/vip"/);
   assert.match(home, /title: "Universe Pass"/);
   assert.ok(games.indexOf("studio-real-projects") < games.indexOf("studio-guides-callout"));
   assert.match(games, /source="games_hero">Gioca a The Wound Remembers/);

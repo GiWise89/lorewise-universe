@@ -3,21 +3,57 @@ import Image from "next/image";
 import Link from "next/link";
 import { HashTargetFocus } from "@/components/HashTargetFocus";
 import { MembershipPurchaseButton } from "@/components/MembershipPurchaseButton";
+import { resolveSubscriptionProduct } from "@/lib/commercialCatalog";
+import { GAME_GUIDES, getGuideEditorialNews, type GameGuide } from "@/lib/gameGuides";
+import { nexusBenefitEvents } from "@/lib/nexusChronicles";
+import { formatMonthlyPrice, passComparisonColumns, passComparisonRows } from "@/lib/universePassComparison";
 import styles from "./pass-focus.module.css";
+import compare from "./pass-compare.module.css";
 
 export const metadata: Metadata = {
   title: "LoreWise Universe Pass",
-  description: "Confronta Supporter e Collector e scopri i vantaggi del LoreWise Universe Pass su arte, giochi, commissioni e partecipazione.",
+  description: "Confronta Gratis, Supporter e Collector, scopri cosa sblocchi questo mese nell’Area VIP e i vantaggi del LoreWise Universe Pass su arte, giochi, commissioni e partecipazione.",
 };
+
+function planPrice(code: string) {
+  const product = resolveSubscriptionProduct(code);
+  if (!product) throw new Error(`Piano Universe Pass sconosciuto: ${code}`);
+  return formatMonthlyPrice(product.amountCents);
+}
+
+// Vantaggi già attivi o in corso nell’Area VIP, ripresi dal calendario delle Cronache.
+const monthlyUnlockCodes = ["VIP-ART-CREDITS", "VIP-ATELIER", "VIP-DOWNLOADS", "TWR-ROGO", "DEMON-MATCH-ANDROID-DEMO"] as const;
+const monthlyUnlocks = monthlyUnlockCodes
+  .map((code) => nexusBenefitEvents.find((event) => event.code === code))
+  .filter((event): event is (typeof nexusBenefitEvents)[number] => Boolean(event));
+
+const romeMonth = new Intl.DateTimeFormat("it-IT", { month: "long", year: "numeric", timeZone: "Europe/Rome" });
+const romeDay = new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "long", timeZone: "Europe/Rome" });
+
+function guidesUnlockedThisMonth(now: Date): GameGuide[] {
+  const month = romeMonth.format(now);
+  const scheduled = GAME_GUIDES
+    .filter((guide) => romeMonth.format(new Date(guide.vipFrom)) === month && now.getTime() < Date.parse(guide.publicAt))
+    .sort((first, second) => Date.parse(first.vipFrom) - Date.parse(second.vipFrom));
+  if (scheduled.length) return scheduled;
+  const { current, next } = getGuideEditorialNews(now);
+  return [current, next].filter((guide): guide is GameGuide => Boolean(guide));
+}
+
+function guideStatus(guide: GameGuide, now: Date) {
+  return now.getTime() < Date.parse(guide.vipFrom)
+    ? `Nell’Area VIP dal ${romeDay.format(new Date(guide.vipFrom))}`
+    : `In anteprima ora · pubblica dal ${romeDay.format(new Date(guide.publicAt))}`;
+}
 
 const plans = [
   {
-    name: "Supporter", code: "LW-PASS-SUPPORTER", price: "7,90 € / mese",
+    name: "Supporter", code: "LW-PASS-SUPPORTER", price: planPrice("LW-PASS-SUPPORTER"),
     purpose: "Per sostenere lo studio e partecipare di più.", featured: false,
     highlights: ["1 credito Arte al mese · massimo 2", "5% su commissioni e prodotti digitali ammessi", "Anteprime, candidature e badge Supporter"],
   },
   {
-    name: "Collector", code: "LW-PASS-COLLECTOR", price: "13,90 € / mese",
+    name: "Collector", code: "LW-PASS-COLLECTOR", price: planPrice("LW-PASS-COLLECTOR"),
     purpose: "Per collezionare e seguire LoreWise da vicino.", featured: true,
     highlights: ["2 crediti Arte al mese · massimo 4", "10% su commissioni e prodotti digitali ammessi", "Tutto Supporter, priorità e dossier estesi"],
   },
@@ -42,6 +78,11 @@ const faq = [
 export default async function MembershipPage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   const query = await searchParams;
   const focusPlans = query?.focus === "piani";
+  const now = new Date();
+  const monthLabel = romeMonth.format(now);
+  const monthGuides = guidesUnlockedThisMonth(now);
+  const comparisonColumns = passComparisonColumns();
+  const comparisonRows = passComparisonRows(comparisonColumns);
 
   return <main className={styles.page}>
     <HashTargetFocus targetId="piani" active={focusPlans} />
@@ -71,6 +112,27 @@ export default async function MembershipPage({ searchParams }: { searchParams?: 
         <MembershipPurchaseButton productCode={plan.code} priceLabel={plan.price} />
       </article>)}</div>
       <p className={styles.planNote}>Prima di confermare vedrai sempre prezzo, rinnovo mensile e modalità disponibile. Gli acquisti e i vantaggi restano collegati al tuo LoreWise ID.</p>
+    </div></section>
+
+    <section className={compare.comparison} id="confronto" aria-labelledby="compare-title"><div className="shell">
+      <header className={compare.heading}><div><p className={compare.eyebrow}>Gratis o Universe Pass</p><h2 id="compare-title">Cosa cambia, voce per voce.</h2></div><p>LoreWise resta visitabile gratuitamente. Il Universe Pass apre l’Area VIP e aggiunge crediti, sconti e partecipazione.</p></header>
+      <div className={compare.tableScroll} role="region" aria-labelledby="compare-title" tabIndex={0}>
+        <table className={compare.table}>
+          <caption className={compare.srOnly}>Confronto tra accesso gratuito, Universe Pass Supporter e Universe Pass Collector</caption>
+          <thead><tr><th scope="col">Vantaggio</th>{comparisonColumns.map((column) => <th scope="col" key={column.key}><span>{column.label}</span><small>{column.key === "free" ? "Gratuito" : planPrice(column.key)}</small></th>)}</tr></thead>
+          <tbody>{comparisonRows.map((row) => <tr key={row.key}><th scope="row">{row.label}</th>{row.cells.map((cell, index) => <td key={comparisonColumns[index].key} className={cell.included ? compare.included : compare.excluded}><span aria-hidden="true">{cell.included ? "✓" : "—"}</span> {cell.text}</td>)}</tr>)}</tbody>
+        </table>
+      </div>
+      <a className={compare.toPlans} href="#piani">Scegli il tuo piano →</a>
+    </div></section>
+
+    <section className={compare.unlocks} id="questo-mese" aria-labelledby="unlocks-title"><div className="shell">
+      <header className={compare.heading}><div><p className={compare.eyebrow}>Area VIP · {monthLabel}</p><h2 id="unlocks-title">Cosa sblocchi questo mese.</h2></div><p>Contenuti già pubblicati o in calendario nell’Area VIP, riservata a chi ha un Universe Pass attivo.</p></header>
+      <div className={compare.unlockGrid}>
+        {monthGuides.map((guide) => <article key={guide.id}><span>Guida VIP</span><h3>{guide.game}</h3><p>{guide.title}</p><small>{guideStatus(guide, now)}</small></article>)}
+        {monthlyUnlocks.map((event) => <article key={event.code}><span>{event.area}</span><h3>{event.title}</h3><p>{event.description}</p><small>{event.timing}</small></article>)}
+      </div>
+      <p className={compare.memberNote}>Hai già il Pass? <Link href="/vip-zone">Entra nell’Area VIP →</Link></p>
     </div></section>
 
     <section className={styles.benefits} id="vantaggi" aria-labelledby="benefits-title"><div className="shell">

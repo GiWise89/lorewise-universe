@@ -53,7 +53,7 @@ function ChronicleStory({ chronicle, index, initialPanel }: { chronicle: NexusCh
         </div>
       </header>
       <footer className="nexus-chronicle-conclusion"><div><span>Una promessa chiara</span><h3>Il pubblico non perde nulla.</h3><p>{chronicle.transparency}</p></div><Link href={chronicle.href}>{chronicle.action}<span aria-hidden="true">→</span></Link></footer>
-      <div className="nexus-vip-location" role="note" aria-label="Dove trovare i contenuti completi"><span>Dossier, anteprime, votazioni e download riservati</span><strong>TROVI TUTTO DENTRO L’AREA VIP</strong><Link href="/abbonamento">Abbonati all’Area VIP <span aria-hidden="true">→</span></Link>{chronicle.id === "demon-match-android-development" ? <small>Demo gratuita Android in arrivo</small> : null}</div>
+      <div className="nexus-vip-location" role="note" aria-label="Dove trovare i contenuti completi"><span>Dossier, anteprime, votazioni e download riservati</span><strong>TROVI TUTTO DENTRO L’AREA VIP</strong><Link href="/abbonamento">Scopri Universe Pass <span aria-hidden="true">→</span></Link>{chronicle.id === "demon-match-android-development" ? <small>Demo gratuita Android in arrivo</small> : null}</div>
     </section>
 
     <section className="nexus-chronicle-transmissions" role="tabpanel" id={`${chronicle.id}-signals-panel`} aria-labelledby={`${chronicle.id}-signals-tab`} hidden={activePanel !== "signals"}>

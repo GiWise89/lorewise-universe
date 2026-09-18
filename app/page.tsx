@@ -48,7 +48,7 @@ const guidedPaths = [
     eyebrow: "Il tuo posto nell’universo",
     title: "Partecipa al Nexus",
     description: "Segui GiWise Studio, incontra la community e scopri il Famiglio e i vantaggi pensati per chi vuole restare nell’universo.",
-    includes: "Community · Famiglio · LoreWise Pass",
+    includes: "Community · Famiglio · Universe Pass",
     action: "Entra nella community",
     href: "/community",
     image: "/brand/home-portals/vip.webp",
@@ -77,10 +77,10 @@ const services = [
   {
     key: "vip",
     eyebrow: "Per partecipare",
-    title: "LoreWise VIP",
-    description: "Eventi, contenuti e occasioni dedicate a chi vive il Nexus più da vicino.",
-    action: "Entra nell’area VIP",
-    href: "/vip",
+    title: "Area VIP",
+    description: "Guide in anteprima, dossier, atelier e download riservati a chi ha il Universe Pass.",
+    action: "Entra nell’Area VIP",
+    href: "/vip-zone",
     image: "/brand/home-portals/vip.webp",
   },
   {

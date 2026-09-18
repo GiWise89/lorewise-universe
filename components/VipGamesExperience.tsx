@@ -122,10 +122,10 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
 
   if (error) {
     return <section className="vip-gate shell" aria-labelledby="vip-gate-title">
-      <img className="vip-gate-seal" src="/brand/icons/lorewise-vip-official-v1.webp" alt="LoreWise VIP" width="1024" height="1024" />
+      <img className="vip-gate-seal" src="/brand/icons/lorewise-vip-official-v1.webp" alt="Sigillo dell’Area VIP" width="1024" height="1024" />
       <div>
         <p className="eyebrow">Archivio riservato</p>
-        <h1 id="vip-gate-title">La VIP Zone è chiusa.</h1>
+        <h1 id="vip-gate-title">L’Area VIP è chiusa.</h1>
         <p>{error.message}</p>
         <Link href={error.reason === "signed-out" ? "/account" : "/abbonamento"}>
           {error.reason === "signed-out" ? "Accedi al LoreWise ID" : "Scopri Universe Pass"}
@@ -165,7 +165,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
         </div>
       </div>
     </aside>
-    <nav className="vip-area-nav" aria-label="Sezioni della VIP Zone">
+    <nav className="vip-area-nav" aria-label="Sezioni dell’Area VIP">
       <div className="shell" role="tablist" aria-label="Aree riservate">
         {areas.map((area) => area.available ? <button
           className={area.id === activeArea ? "is-active" : undefined}
@@ -239,7 +239,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
           <div className="vip-download-grid">
             {collection.items.map((item, itemIndex) => <article key={item.code}>
               <figure>
-                <img src={`/api/vip-media?asset=${item.image}`} alt={`${item.title}, sfondo desktop LoreWise VIP`} loading="lazy" decoding="async" onError={showVipMediaFallback} />
+                <img src={`/api/vip-media?asset=${item.image}`} alt={`${item.title}, sfondo desktop Area VIP`} loading="lazy" decoding="async" onError={showVipMediaFallback} />
                 <figcaption><span>{String(itemIndex + 1).padStart(2, "0")}</span><strong>Anteprima protetta</strong></figcaption>
               </figure>
               <div>
@@ -290,7 +290,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
       <img src={`/api/vip-media?asset=${expansion.keyArt}`} alt={`Key art di ${expansion.game}: ${expansion.title}`} decoding="async" fetchPriority="high" onError={showVipMediaFallback} />
       <div className="vip-hero-shade" aria-hidden="true" />
       <div className="shell vip-expansion-hero-copy">
-        <p className="eyebrow">VIP Zone · Anteprima Games</p>
+        <p className="eyebrow">Area VIP · Anteprima Games</p>
         <span className="vip-member-badge">Pass {member.plan} attivo</span>
         <h1 id="vip-expansion-title"><small>{expansion.game}</small>{expansion.title}</h1>
         <p>{expansion.teaser}</p>

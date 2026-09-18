@@ -32,6 +32,6 @@ export async function GET(request: Request) {
       weeklyGuide: localGuidePreview ?? getVipWeeklyGuide(),
     }, { headers: { "Cache-Control": "private, no-store" } });
   } catch {
-    return Response.json({ error: "Non è stato possibile aprire la VIP Zone.", reason: "unavailable" }, { status: 503, headers: { "Cache-Control": "private, no-store" } });
+    return Response.json({ error: "Non è stato possibile aprire l’Area VIP.", reason: "unavailable" }, { status: 503, headers: { "Cache-Control": "private, no-store" } });
   }
 }

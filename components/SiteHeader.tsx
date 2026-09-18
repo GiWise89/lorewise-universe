@@ -16,7 +16,6 @@ const navIcons: Record<string, string> = {
   "/giochi": "/brand/navigation/giochi.webp",
   "/giochi/the-wound-remembers": "/brand/navigation/giochi.webp",
   "/vip-zone": "/brand/navigation/vip.webp",
-  "/vip": "/brand/navigation/vip.webp",
   "/enciclopedia": "/brand/icons/enciclopedia-concept-v1.webp",
   "/shop": "/brand/navigation/shop.webp",
   "/account": "/brand/navigation/account.webp",
@@ -59,8 +58,8 @@ const desktopNavigation = [
     accent: "vip",
     children: [
       { label: "Entra nella Community", description: "Canali ufficiali e spazi per partecipare", href: "/community" },
-      { label: "Area VIP", description: "Eventi e contenuti dedicati alla community", href: "/vip-zone" },
-      { label: "Universe Pass", description: "Scopri i vantaggi e scegli ciò che ti serve", href: "/abbonamento" },
+      { label: "Universe Pass", description: "Confronta i piani e scopri cosa sblocchi", href: "/abbonamento" },
+      { label: "Area VIP", description: "Guide, dossier e download per gli abbonati Universe Pass", href: "/vip-zone" },
       { label: "Contatti", description: "Parla direttamente con GiWise Studio", href: "/contatti" },
     ],
   },
@@ -69,11 +68,12 @@ const desktopNavigation = [
 const mobileExploreLinks = [
   { label: "Tutti i giochi", href: "/giochi" },
   { label: "LoreWise Codex", href: "/enciclopedia" },
-  { label: "Diario creativo", href: "/dove-nascono-i-mondi" },
+  { label: "Dove nascono i mondi", href: "/dove-nascono-i-mondi" },
   { label: "Commissioni", href: "/commissioni" },
   { label: "GiWise Shop", href: "/shop" },
   { label: "Il mio Famiglio", href: "/famiglio" },
   { label: "Universe Pass", href: "/abbonamento" },
+  { label: "Area VIP", href: "/vip-zone" },
   { label: "Account", href: "/account" },
 ] as const;
 

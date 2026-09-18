@@ -221,13 +221,13 @@ const openingChronicle: NexusChronicle = {
     id: "vip-archives-expand",
     issue: "Cronaca 001",
     category: "vip",
-    categoryLabel: "LoreWise VIP",
+    categoryLabel: "Area VIP",
     publishedAt: "2026-09-12",
     title: "Due mondi si stanno muovendo.",
     excerpt: "The Wound Remembers prepara una nuova minaccia. Fuori Trama apre una direzione ispirata alla musica. Questa è la parte che possiamo raccontare senza rovinare le sorprese.",
     detail: "Dietro le porte riservate non ci sono semplici immagini in più: ci sono scelte ancora in lavorazione, dossier di sviluppo e occasioni concrete per seguire o influenzare ciò che arriverà dopo.",
     image: "/brand/icons/lorewise-vip-official-v1.webp",
-    imageAlt: "Emblema ufficiale LoreWise VIP",
+    imageAlt: "Emblema ufficiale dell’Area VIP",
     signals: [
       {
         label: "The Wound Remembers",
@@ -275,8 +275,8 @@ const openingChronicle: NexusChronicle = {
     upcoming: {
       label: "Novità in arrivo",
       title: "Atlante dei Giochi",
-      status: "Guida completa disponibile ora · anteprima LoreWise VIP",
-      description: "Animal Crossing: New Horizons inaugura ufficialmente l’Atlante dei Giochi con il Taccuino dell’isola. La guida completa è già aperta in anteprima nell’area LoreWise VIP; Baldur’s Gate 3 sarà il viaggio successivo.",
+      status: "Guida completa disponibile ora · anteprima Area VIP",
+      description: "Animal Crossing: New Horizons inaugura ufficialmente l’Atlante dei Giochi con il Taccuino dell’isola. La guida completa è già aperta in anteprima nell’Area VIP; Baldur’s Gate 3 sarà il viaggio successivo.",
       features: [
         "I primi sette giorni e la crescita dell’isola",
         "Stelline, rape, servizi e progressione",
@@ -319,10 +319,10 @@ const openingChronicle: NexusChronicle = {
         storeAction: "Scopri il gioco su Nintendo",
         vipCta: {
           label: "Anteprima disponibile ora",
-          title: "Il Taccuino completo è già aperto nell’area LoreWise VIP.",
+          title: "Il Taccuino completo è già aperto nell’Area VIP.",
           text: "Entra subito nei 16 capitoli dedicati a progressione, Stelline, progettazione, DLC, creature e opere del museo. Con il Pass accedi prima ai nuovi contenuti e sostieni direttamente la crescita di LoreWise Universe.",
           href: "/abbonamento",
-          action: "Entra in LoreWise VIP",
+          action: "Entra nell’Area VIP",
           note: "Ogni nuova guida raggiunge l’Atlante pubblico dopo i sette giorni di anteprima VIP.",
         },
         sections: [
@@ -409,7 +409,7 @@ const ordinaryCommissionPromotion: NexusChroniclePromotion = {
   period: "Disponibile tutto l’anno",
   description: "Fuori dalle promozioni a tempo restano attivi gli sconti ordinari collegati al LoreWise ID.",
   visual: "/universe-pass/benefits-sketch-constellation-v1.webp",
-  visualAlt: "Costellazione illustrata dei vantaggi LoreWise Universe Pass",
+  visualAlt: "Costellazione illustrata dei vantaggi del Universe Pass",
   rates: [
     { audience: "Visitatori", discount: "Listino" },
     { audience: "Supporter", discount: "−5%" },
@@ -544,7 +544,7 @@ const demonMatchRevealChronicle = makeWeeklyChronicle({
   ],
   transparency: "La demo gratuita resterà accessibile a tutti quando sarà pronta. L’Area VIP offre anteprime e approfondimenti per chi vuole seguire lo sviluppo più da vicino.",
   href: "/abbonamento",
-  action: "Abbonati all’Area VIP",
+  action: "Scopri Universe Pass",
   featured: true,
 });
 
@@ -676,7 +676,7 @@ export const nexusChronicles: NexusChronicle[] = [
         title: "Apre l’Archivio dei Custodi.",
         text: "Tre sfondi originali dedicati a The Wound Remembers entrano nella raccolta digitale riservata. Le anteprime restano leggere e protette; i file completi sono disponibili agli abbonati con Pass attivo.",
         image: "/brand/icons/lorewise-vip-official-v1.webp",
-        imageAlt: "Emblema ufficiale LoreWise VIP",
+        imageAlt: "Emblema ufficiale dell’Area VIP",
         note: "Tre sfondi originali · archivio digitale protetto",
         href: "/vip-zone?area=downloads#downloads",
         action: "Apri i Download VIP",
@@ -730,7 +730,7 @@ export const nexusChronicles: NexusChronicle[] = [
         title: "Dopo mezzanotte cambia tutto.",
         text: "Icona dopo mezzanotte conserva in quattro passaggi la metamorfosi horror di un volto. Accanto al processo arriva LoreWise Match: tre nuovi sfondi originali raccolti in un unico archivio digitale.",
         image: "/brand/icons/lorewise-vip-official-v1.webp",
-        imageAlt: "Emblema LoreWise VIP per Atelier e Download",
+        imageAlt: "Emblema dell’Area VIP per Atelier e Download",
         note: "Quattro fasi di studio · tre nuovi sfondi LoreWise Match",
         href: "/vip-zone?area=downloads#downloads",
         action: "Apri LoreWise Match",
@@ -855,7 +855,7 @@ function guideAsFeaturedGame(guide: GameGuide, next: GameGuide | null): NonNulla
     storeAction: guide.storeLabel,
     vipCta: {
       label: `Disponibile da ${guideDate(guide.vipFrom)}`,
-      title: `${guide.title} è ora nell’area LoreWise VIP.`,
+      title: `${guide.title} è ora nell’Area VIP.`,
       text: next
         ? `La prossima guida sarà ${next.game}${nextLivingLabel}: arrivo previsto ${guideDate(next.vipFrom)}.`
         : "Il prossimo viaggio verrà annunciato nelle Cronache del Nexus.",
@@ -873,7 +873,7 @@ function chronicleWithScheduledGuide(chronicle: NexusChronicle): NexusChronicle 
   if (!current) return chronicle;
 
   const nextAnnouncement = next
-    ? `La prossima guida sarà ${next.game}${next?.livingGuide ? ", la prima Guida Viva LoreWise" : ""} e arriverà nell’area VIP ${guideDate(next.vipFrom)}.`
+    ? `La prossima guida sarà ${next.game}${next?.livingGuide ? ", la prima Guida Viva LoreWise" : ""} e arriverà nell’Area VIP ${guideDate(next.vipFrom)}.`
     : "La prossima guida verrà annunciata qui.";
   const publicAnnouncement = latestPublic
     ? `${latestPublic.game} è disponibile nell’Atlante pubblico.`
@@ -885,7 +885,7 @@ function chronicleWithScheduledGuide(chronicle: NexusChronicle): NexusChronicle 
       ...chronicle.upcoming,
       label: "Novità del lunedì",
       title: "La guida della settimana",
-      status: `${current.game} · ora in LoreWise VIP`,
+      status: `${current.game} · ora nell’Area VIP`,
       description: `${current.game} è la guida scelta per questa settimana. ${publicAnnouncement} ${nextAnnouncement}`,
       features: current.sections?.slice(0, 4).map((section) => section.label)
         ?? current.chapters.slice(0, 4).map((chapter) => chapter.label),
@@ -907,7 +907,7 @@ export const nexusChronicleCategories: Array<{ value: NexusChronicleCategoryFilt
   { value: "games", label: "Giochi" },
   { value: "codex", label: "Codex" },
   { value: "worlds", label: "Dove nascono i mondi" },
-  { value: "vip", label: "LoreWise VIP" },
+  { value: "vip", label: "Area VIP" },
 ];
 
 export function nexusChronicleCategoryFromQuery(value: string | null | undefined): NexusChronicleCategoryFilter {

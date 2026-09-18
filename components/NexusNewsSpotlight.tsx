@@ -110,7 +110,7 @@ export function NexusNewsSpotlight({ panel }: { panel?: string }) {
     {activePanel === "vip" && <section className={styles.passFeature} role="tabpanel" id="nexus-news-vip-panel" aria-labelledby="nexus-news-vip-tab">
       <div className={`shell ${styles.passInner}`}>
         <div className={styles.passSeal}>
-          <Image src="/brand/icons/lorewise-vip-official-v1.webp" alt="Sigillo LoreWise VIP" width={1024} height={1024} sizes="180px" unoptimized />
+          <Image src="/brand/icons/lorewise-vip-official-v1.webp" alt="Sigillo dell’Area VIP" width={1024} height={1024} sizes="180px" unoptimized />
           <span><strong>+2</strong> Famigli</span>
         </div>
         <div className={styles.passCopy}>

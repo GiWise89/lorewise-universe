@@ -53,7 +53,9 @@ test("keeps three guided paths and four services clearly separated", async () =>
   assert.match(html, /Tre modi per esplorare LoreWise Universe/);
   assert.match(html, /Servizi e vantaggi di LoreWise Universe/);
   assert.match(html, /Scopri i mondi[\s\S]*Crea o colleziona[\s\S]*Partecipa al Nexus/);
-  assert.match(html, /GiWise Shop[\s\S]*Commissioni[\s\S]*LoreWise VIP[\s\S]*Universe Pass/);
+  assert.match(html, /GiWise Shop[\s\S]*Commissioni[\s\S]*Area VIP[\s\S]*Universe Pass/);
+  assert.doesNotMatch(html, /LoreWise VIP/);
+  assert.doesNotMatch(html, /href="\/vip"/);
   assert.match(html, /href="\/mondi"/);
   assert.match(html, /href="\/community"/);
 });
@@ -70,15 +72,10 @@ test("opens Mondi as one narrative gateway to its three structured areas", async
   assert.match(html, /Novità dal Nexus[\s\S]*Dove nascono i mondi[\s\S]*LoreWise Codex/);
 });
 
-test("opens LoreWise VIP as one premium gateway to Area VIP and Universe Pass", async () => {
+test("permanently redirects the retired /vip gateway to the Universe Pass landing", async () => {
   const response = await render("/vip");
-  assert.equal(response.status, 200);
-  const html = await response.text();
-  assert.match(html, /Il privilegio/);
-  assert.equal((html.match(/class="vip-threshold vip-threshold-/g) ?? []).length, 2);
-  assert.match(html, /href="\/vip-zone"/);
-  assert.match(html, /href="\/abbonamento"/);
-  assert.match(html, /Area VIP[\s\S]*Universe Pass/);
+  assert.equal(response.status, 308);
+  assert.match(response.headers.get("location") ?? "", /\/abbonamento$/);
 });
 
 test("enforces the project text integrity contract", async () => {
@@ -128,8 +125,9 @@ test("groups every destination into the approved responsive navigation", async (
   assert.match(html, /Navigazione principale/);
   assert.match(html, />Esplora<[\s\S]*Scopri i mondi[\s\S]*LoreWise Codex[\s\S]*Cronache del Nexus[\s\S]*Dove nascono i mondi/);
   assert.match(html, /mobile-navigation-primary[\s\S]*>Gioca ora<[\s\S]*>Scopri i mondi<[\s\S]*>Arte e servizi<[\s\S]*>Community</);
-  assert.match(html, /mobile-explore-links[\s\S]*>Tutti i giochi<[\s\S]*>LoreWise Codex<[\s\S]*>Diario creativo<[\s\S]*>Commissioni<[\s\S]*>GiWise Shop<[\s\S]*>Il mio Famiglio<[\s\S]*>Universe Pass<[\s\S]*>Account</);
-  assert.match(html, />Community<[\s\S]*Entra nella Community[\s\S]*Area VIP[\s\S]*Universe Pass[\s\S]*Contatti/);
+  assert.match(html, /mobile-explore-links[\s\S]*>Tutti i giochi<[\s\S]*>LoreWise Codex<[\s\S]*>Dove nascono i mondi<[\s\S]*>Commissioni<[\s\S]*>GiWise Shop<[\s\S]*>Il mio Famiglio<[\s\S]*>Universe Pass<[\s\S]*>Area VIP<[\s\S]*>Account</);
+  assert.doesNotMatch(html, />Diario creativo</);
+  assert.match(html, />Community<[\s\S]*Entra nella Community[\s\S]*Universe Pass[\s\S]*Area VIP[\s\S]*Contatti/);
   assert.match(html, /href="\/arte"/);
   assert.match(html, /href="\/commissioni"/);
   assert.match(html, /href="\/shop"/);
@@ -181,7 +179,8 @@ test("publishes robots, manifest and a dynamic public sitemap", async () => {
   assert.match(xml, /\/cerca/);
   assert.match(xml, /\/dove-nascono-i-mondi/);
   assert.match(xml, /\/mondi/);
-  assert.match(xml, /\/vip/);
+  assert.match(xml, /\/abbonamento/);
+  assert.doesNotMatch(xml, /\/vip</);
   assert.doesNotMatch(xml, /\/gestione-ordini/);
 });
 
@@ -791,6 +790,9 @@ test("renders the membership proposal with a concise and transparent comparison"
   assert.match(html, /Prima di confermare vedrai sempre prezzo, rinnovo mensile/i);
   assert.doesNotMatch(html, /Stripe opera in prova oppure/i);
   assert.match(html, /id="piani" data-anchor-focus="true" tabindex="-1"/);
+  assert.match(html, /id="confronto"[\s\S]*Gratis[\s\S]*Universe Pass Supporter[\s\S]*Universe Pass Collector/);
+  assert.match(html, /id="questo-mese"[\s\S]*Cosa sblocchi questo mese/);
+  assert.match(html, /Crediti Arte del Universe Pass/);
 });
 
 test("renders art packages, personal license and protected delivery as a local draft", async () => {
@@ -1589,9 +1591,11 @@ test("tracks anonymous page views only on the public LoreWise domain", async () 
 test("renders the VIP Codex proposal area and protects its API", async () => {
   const component = await readFile(new URL("../components/CodexSuggestionForm.tsx", import.meta.url), "utf8");
   assert.match(component, /if \(access === "locked"\)/);
-  assert.match(component, /Serve un LoreWise Pass attivo/);
+  assert.match(component, /Serve un Universe Pass attivo/);
+  assert.match(component, /href="\/abbonamento">Scopri Universe Pass/);
+  assert.doesNotMatch(component, /href="\/vip"/);
   assert.match(component, /Manca un personaggio\?/);
-  assert.match(component, /Solo LoreWise VIP/);
+  assert.match(component, /Solo Area VIP/);
   assert.match(component, /Controlla il Codex/);
   assert.match(component, /Segui lo stato/);
   assert.match(component, /Opera o universo/);

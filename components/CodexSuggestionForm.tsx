@@ -103,14 +103,14 @@ export function CodexSuggestionForm() {
 
   if (access === "loading") return <section className="codex-suggestion codex-suggestion-loading" aria-live="polite">Verifica dell’accesso VIP…</section>;
   if (access === "locked") return <section className="codex-suggestion codex-suggestion-locked">
-    <div><p className="eyebrow">Accesso riservato</p><h2>Serve un LoreWise Pass attivo.</h2><p>Le proposte editoriali e il loro storico personale sono disponibili ai membri VIP idonei.</p><a href="/vip">Scopri LoreWise VIP →</a></div>
+    <div><p className="eyebrow">Accesso riservato</p><h2>Serve un Universe Pass attivo.</h2><p>Le proposte editoriali e il loro storico personale sono disponibili nell’Area VIP agli abbonati Universe Pass.</p><a href="/abbonamento">Scopri Universe Pass →</a></div>
   </section>;
 
   return <section className="codex-suggestion" aria-labelledby="codex-suggestion-title">
     <header className="codex-suggestion-intro">
       <Image src="/brand/icons/lorewise-vip-official-v1.webp" alt="" width={1024} height={1024} unoptimized />
       <div>
-        <p className="eyebrow">Partecipazione editoriale · Solo LoreWise VIP</p>
+        <p className="eyebrow">Partecipazione editoriale · Solo Area VIP</p>
         <h2 id="codex-suggestion-title">Manca un personaggio?</h2>
         <p>Segnalaci chi vorresti trovare nel Codex. Controlleremo fonti, continuità e materiale disponibile; le proposte accolte entreranno nei prossimi aggiornamenti.</p>
       </div>
