@@ -87,3 +87,16 @@ next-env.d.ts
 
 # Configurazione della precedente pubblicazione OpenAI Sites
 /.openai/
+
+# Copie locali, cache di strumenti e screenshot QA: mai nel repository
+/lorewise-universe-android-fresh/
+/famigli-del-nexus/.gradle-work/
+/famigli-del-nexus/.kotlin/
+/*.png
+.chrome-*/
+.codex-*.log
+/*.log
+.vscode/
+
+# Gioco Kotlin separato: vive nella stessa cartella ma non appartiene a questo repository.
+/famigli-del-nexus/

@@ -32,5 +32,24 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "worker", "vite.config.ts", "android", "android-shell", "scripts"]
+  "exclude": [
+    "node_modules",
+    "worker",
+    "vite.config.ts",
+    "android",
+    "android-shell",
+    "scripts",
+    ".tmp",
+    "tmp",
+    "dist",
+    "output",
+    "outputs",
+    "artifacts",
+    "lorewise-universe-android-fresh",
+    "famigli-del-nexus",
+    ".netlify",
+    ".wrangler",
+    ".npm-cache",
+    ".tools"
+  ]
 }

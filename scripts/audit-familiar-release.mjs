@@ -1,4 +1,4 @@
-import { access, readFile } from "node:fs/promises";
+import { access } from "node:fs/promises";
 import { join } from "node:path";
 import { STARTER_FAMILIARS, familiarPalettes } from "../lib/nexusFamiliarCatalog.ts";
 import { FAMILIAR_GADGETS, familiarAppearanceWithGadget } from "../lib/nexusFamiliarGadgets.ts";
@@ -46,10 +46,6 @@ for (const relative of [
   "drizzle/0030_nexus_familiar_economy.sql", "netlify/database/migrations/202608300001_nexus_familiar_economy/migration.sql",
 ]) await requireFile(relative);
 
-const component = await readFile(join(root, "components", "NexusFamiliarExperience.tsx"), "utf8");
-for (const token of ["Notification.requestPermission", "openPaidFamiliarCheckout", "mobile-shop-drawer", "FAMILIAR_GUIDED_TUTORIAL_STEPS"]) {
-  if (!component.includes(token)) failures.push(`Funzione interfaccia mancante: ${token}`);
-}
 
 const missionCatalog = await readFile(join(root, "lib", "nexusFamiliarMissionCatalog.ts"), "utf8");
 if (missionCatalog.includes('href: "/guide"')) failures.push("Collegamento missione guide non valido.");

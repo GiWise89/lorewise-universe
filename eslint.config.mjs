@@ -36,6 +36,28 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local copies, caches and native builds (formerly --ignore-pattern flags in package.json):
+    ".tmp/**",
+    ".gradle-rebuild/**",
+    ".gradle-famiglio-webview/**",
+    ".gradle-cache/**",
+    "lorewise-universe-android-fresh/**",
+    "famigli-del-nexus/**",
+    "famiglio-nexus-android/**",
+    "output/**",
+    "outputs/**",
+    "artifacts/**",
+    ".chrome-*/**",
+    ".wrangler/**",
+    ".npm-cache/**",
+    ".tools/**",
+    "work/**",
+    // Private production material (gitignored), not portal source:
+    "assets/**",
+    "campaign/**",
+    "source-assets/**",
+    "social-assets/**",
+    "discord-assets/**",
   ]),
 ]);
 
