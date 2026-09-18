@@ -1,5 +1,5 @@
 export type MiniGameMode = "light" | "rhythm" | "catch" | "memory";
-export type GameNote = { id: number; lane: number; born: number; travel: number; hazard: boolean };
+export type GameNote = { id: number; lane: number; born: number; travel: number; hazard: boolean; rain?: boolean };
 export type GameTrap = { id: number; x: number; y: number; expires: number };
 export type MiniGameRun = {
   mode: MiniGameMode; elapsed: number; duration: number; score: number; combo: number; bestCombo: number;
@@ -7,23 +7,35 @@ export type MiniGameRun = {
   target: { x: number; y: number; expires: number }; sequence: number[]; memoryStart: number; memoryIndex: number;
   feedback: string; feedbackUntil: number; finished: boolean; lives: number;
   trapsUnlocked: boolean; traps: GameTrap[]; nextTrap: number;
+  golden: { x: number; y: number; expires: number } | null; nextGolden: number;
+  rainRemaining: number; rainStep: number; rainTravel: number; nextRain: number;
+  memoryRound: number; mirror: boolean;
 };
 const lane = (random: () => number) => Math.min(3, Math.floor(random() * 4));
 export const RHYTHM_BEAT_MS = 60000 / 110;
 export const RHYTHM_FIRST_HIT_MS = 150 + RHYTHM_BEAT_MS * 4;
 export const RHYTHM_WINDOW_MS = 150;
 export function rhythmSpeed(elapsed: number) { return 1 + .2 * Math.min(1, Math.max(0, elapsed) / 40000); }
+export function miniGameStage(elapsed: number) {
+  return Math.floor(Math.max(0, elapsed) / 10_000);
+}
+export function miniGamePace(elapsed: number) {
+  return 1 + .18 * miniGameStage(elapsed);
+}
 export function createMiniGame(mode: MiniGameMode, duration = 40, random = Math.random): MiniGameRun {
   return { mode, elapsed: 0, duration: duration * 1000, score: 0, combo: 0, bestCombo: 0, hits: 0, misses: 0,
     lane: 1, notes: [], nextSpawn: mode === "rhythm" ? RHYTHM_FIRST_HIT_MS - RHYTHM_BEAT_MS : 300, serial: 0, target: { x: 50, y: 40, expires: 2000 },
     sequence: [lane(random), lane(random)], memoryStart: 500, memoryIndex: 0, feedback: "", feedbackUntil: 0, finished: false, lives: 3,
-    trapsUnlocked: false, traps: [], nextTrap: 0 };
+    trapsUnlocked: false, traps: [], nextTrap: 0, golden: null, nextGolden: 12000,
+    rainRemaining: 0, rainStep: 0, rainTravel: 2400, nextRain: 20000, memoryRound: 1, mirror: false };
 }
 export function memoryCue(s: MiniGameRun) {
   const time = s.elapsed - s.memoryStart;
+  // Freeze the tempo for this sequence so acceleration cannot skip a cue.
+  const beat = 750 / miniGamePace(s.memoryStart);
   if (time < 0) return { showing: true, pad: -1 };
-  const index = Math.floor(time / 750);
-  return { showing: index < s.sequence.length, pad: index < s.sequence.length && time % 750 < 500 ? s.sequence[index] : -1 };
+  const index = Math.floor(time / beat);
+  return { showing: index < s.sequence.length, pad: index < s.sequence.length && time % beat < beat * 2 / 3 ? s.sequence[index] : -1 };
 }
 function result(s: MiniGameRun, hit: boolean, message?: string) {
   if (s.finished) return;
@@ -45,7 +57,7 @@ function refreshLightTraps(s: MiniGameRun, random: () => number) {
   // Fallback positions guarantee separation even with a constant test RNG.
   candidates.push({x:14,y:20}, {x:86,y:20}, {x:14,y:68}, {x:86,y:68});
   const separate = (a: {x:number;y:number}, b: {x:number;y:number}) => Math.abs(a.x-b.x)>=28 || Math.abs(a.y-b.y)>=28;
-  const available = candidates.filter(point => separate(s.target, point));
+  const available = candidates.filter(point => separate(s.target, point) && (!s.golden || separate(s.golden, point)));
   const first = count === 2 ? available.find(point => available.some(other => separate(point,other))) : available[0];
   const chosen = first ? [first] : [];
   if (first && count === 2) {
@@ -59,7 +71,8 @@ function refreshLightTraps(s: MiniGameRun, random: () => number) {
   s.nextTrap = s.elapsed + 650 + random()*500;
 }
 function relocate(s: MiniGameRun, random: () => number) {
-  s.target = { x: 14 + random() * 72, y: 20 + random() * 48, expires: s.elapsed + Math.max(850, 2000 - s.hits * 45) };
+  s.golden = null;
+  s.target = { x: 14 + random() * 72, y: 20 + random() * 48, expires: s.elapsed + (2000 - Math.min(300, s.hits * 15)) / miniGamePace(s.elapsed) };
   // Shuffle the decoys together with the light, not just on a separate slow timer.
   refreshLightTraps(s, random);
 }
@@ -79,6 +92,15 @@ export function advanceMiniGame(previous: MiniGameRun, delta: number, random = M
     }
   }
   if (s.mode === "light" && s.elapsed >= s.target.expires) { result(s, false); relocate(s, random); }
+  if (s.golden && s.elapsed >= s.golden.expires) s.golden = null;
+  if (s.mode === "light" && !s.finished && s.elapsed >= s.nextGolden) {
+    const points = [{x:14,y:20},{x:86,y:20},{x:14,y:68},{x:86,y:68}];
+    const spot = points.find(p => [s.target,...s.traps].every(q => Math.abs(p.x-q.x)>=28 || Math.abs(p.y-q.y)>=28));
+    const expires = Math.min(s.target.expires - 100, s.elapsed + 1100 / miniGamePace(s.elapsed));
+    if (spot && expires - s.elapsed >= 250) {
+      s.golden = {...spot, expires}; s.nextGolden = s.elapsed + 12000;
+    }
+  }
   if (s.mode === "rhythm") {
     // Chart positions are in source-audio time: playbackRate never causes drift.
     while (s.elapsed >= s.nextSpawn && s.nextSpawn + RHYTHM_BEAT_MS < s.duration - 400) {
@@ -91,11 +113,25 @@ export function advanceMiniGame(previous: MiniGameRun, delta: number, random = M
     });
   }
   if (s.mode === "catch") {
-    if (s.elapsed >= s.nextSpawn) {
+    if (s.elapsed >= s.nextRain && !s.notes.length && !s.rainRemaining) {
+      s.rainRemaining = 6; s.rainStep = 0; s.rainTravel = 2400 / miniGamePace(s.elapsed);
+      s.nextRain = s.elapsed + 20000;
+    }
+    if (s.elapsed >= s.nextSpawn && (s.elapsed < s.nextRain || s.rainRemaining > 0)) {
       const id = ++s.serial;
       // Guarantee regular obstacles even when a random run would contain only stars.
-      s.notes.push({ id, lane: lane(random), born: s.elapsed, travel: Math.max(1500, 2400 - s.hits * 18), hazard: id % 4 === 0 || random() < .22 });
-      s.nextSpawn = s.elapsed + Math.max(550, 1000 - s.hits * 12);
+      const pace = miniGamePace(s.elapsed);
+      if (s.rainRemaining) {
+        const route = [0,1,2,3,2,1];
+        const starLane = Math.floor(s.nextRain / 20000) % 2 ? 3-route[s.rainStep] : route[s.rainStep];
+        s.notes.push({id,lane:starLane,born:s.elapsed,travel:s.rainTravel,hazard:false,rain:true});
+        s.notes.push({id:++s.serial,lane:(starLane+2)%4,born:s.elapsed,travel:s.rainTravel,hazard:true,rain:true});
+        s.rainStep++; s.rainRemaining--;
+        s.nextSpawn = s.elapsed + (s.rainRemaining ? s.rainTravel * .32 : s.rainTravel + 300);
+      } else {
+        s.notes.push({ id, lane: lane(random), born: s.elapsed, travel: 2400 / pace, hazard: id % 4 === 0 || random() < .22 });
+        s.nextSpawn = s.elapsed + 1000 / pace;
+      }
     }
     s.notes = s.notes.filter(note => {
       const age = s.elapsed - note.born;
@@ -119,6 +155,12 @@ export function pressMiniGameTrap(previous: MiniGameRun, id: number): MiniGameRu
     combo: 0, misses: previous.misses+1, lives: Math.max(0, previous.lives-1), finished: previous.lives <= 1,
     feedback: "−1 vita · −1 punto", feedbackUntil: previous.elapsed+1000 };
 }
+export function catchGoldenLight(previous: MiniGameRun): MiniGameRun {
+  if (previous.finished || previous.mode !== "light" || !previous.golden || previous.golden.expires <= previous.elapsed) return previous;
+  const s = {...previous, golden:null};
+  result(s, true, "Lucciola dorata! +3"); s.score += 2;
+  return s;
+}
 export function inputMiniGame(previous: MiniGameRun, input: number, random = Math.random): MiniGameRun {
   if (previous.finished) return previous;
   const s = { ...previous, notes: [...previous.notes] };
@@ -132,13 +174,16 @@ export function inputMiniGame(previous: MiniGameRun, input: number, random = Mat
     } else result(s, false, "Fuori tempo");
   }
   if (s.mode === "memory" && !memoryCue(s).showing) {
-    if (s.sequence[s.memoryIndex] !== input) {
-      result(s, false, "Riguarda la sequenza"); s.memoryIndex = 0; s.memoryStart = s.elapsed + 1000;
+    const expected = s.mirror ? s.sequence[s.sequence.length - 1 - s.memoryIndex] : s.sequence[s.memoryIndex];
+    if (expected !== input) {
+      result(s, false, "Riguarda la sequenza"); s.memoryIndex = 0; s.memoryStart = s.elapsed + 650;
     } else {
       result(s, true); s.memoryIndex++;
       if (s.memoryIndex === s.sequence.length) {
         s.feedback = "Sequenza completata!";
-        s.sequence = [...s.sequence, lane(random)].slice(-7); s.memoryIndex = 0; s.memoryStart = s.elapsed + 1000;
+        s.memoryRound++;
+        s.mirror = miniGameStage(s.elapsed) >= 2 && s.memoryRound % 3 === 0;
+        s.sequence = [...s.sequence, lane(random)]; s.memoryIndex = 0; s.memoryStart = s.elapsed + (s.mirror ? 1600 : 650);
       }
     }
   }

@@ -206,7 +206,7 @@ test("all 53 familiars own every stage and battle sequence", async () => {
     const stageRoot = path.join(root, "public", familiar.spriteBase, "growth", stage);
     await access(path.join(stageRoot, "preview.webp"));
     for (const action of REQUIRED_COLLECTION_ACTIONS) await access(path.join(stageRoot, "house", `${action}.png`));
-    for (const action of battleActions) await access(path.join(stageRoot, "battle", `${action}.png`));
+    for (const action of ["entrance", "idle", "run", "physical", "magic", "guard", "hit", "victory", "exhausted"]) await access(path.join(stageRoot, "battle-v6", `${action}.png`));
   }
 });
 

@@ -7,6 +7,14 @@ import { FAMILIAR_COMBAT_CATALOG, FAMILIAR_COMBAT_CIRCUITS } from "../lib/famigl
 
 const root = process.cwd();
 
+test("la lotta mobile riserva righe non comprimibili a HUD, campo e comandi", async () => {
+  const css = await readFile(path.join(root, "components", "FamiglioBattleScreen.module.css"), "utf8");
+  assert.match(css, /grid-template-rows:max-content max-content max-content/);
+  assert.match(css, /\.battleStage \.battleHud\{position:static/);
+  assert.match(css, /overflow-y:auto;scrollbar-width:thin/);
+  assert.match(css, /min-height:max-content;grid-template-rows:repeat\(4,max-content\)/);
+});
+
 test("Arena e Spedizioni restano due destinazioni indipendenti", async () => {
   const source = await readFile(path.join(root, "components", "FamiglioNexusRebuild.tsx"), "utf8");
   assert.match(source, /type FamiliarHomePanel = [^;]*"adventure" \| "combat"/);
@@ -17,9 +25,10 @@ test("Arena e Spedizioni restano due destinazioni indipendenti", async () => {
   assert.match(source, /activeFamiliarId: selectedFamiliarIdForStorage/);
 });
 
-test("la squadra dell'Arena mostra soltanto i Famigli posseduti senza cambiare la Casa", async () => {
+test("la squadra dell'Arena mostra gli otto iniziali e aggiunge soltanto Famigli acquistati o sbloccati", async () => {
   const source = await readFile(path.join(root, "components", "FamiglioNexusRebuild.tsx"), "utf8");
-  assert.match(source, /const ownedCombatFamiliarIds = new Set<string>\(purchasedAppearanceIds\)/);
+  assert.match(source, /const ownedCombatFamiliarIds = new Set<string>\(DEFAULT_FAMILIAR_IDS\)/);
+  assert.match(source, /for \(const id of purchasedAppearanceIds\) ownedCombatFamiliarIds\.add\(id\)/);
   assert.match(source, /house\.activeFamiliarId/);
   assert.match(source, /house\.rebuild\.unlockedIds/);
   assert.match(source, /const combatFamiliarOptions = FAMILIAR_COLLECTION\s*\.filter\(\(entry\) => ownedCombatFamiliarIds\.has\(entry\.id\)\)/);
@@ -27,17 +36,33 @@ test("la squadra dell'Arena mostra soltanto i Famigli posseduti senza cambiare l
   assert.match(source, /familiarOptions=\{combatFamiliarOptions\}/);
   assert.match(source, /colorVariant: combatColorVariantById\.get\(entry\.id\)/);
   assert.match(source, /colorVariant=\{combatSelectedColorVariant\}/);
+  assert.doesNotMatch(source, /for \(const entry of FAMILIAR_COLLECTION\) ownedCombatFamiliarIds\.add\(entry\.id\)/);
+});
+
+test("il roster usa pagine da otto e le modalità sono divise per categorie", async () => {
+  const [source, styles] = await Promise.all([
+    readFile(path.join(root, "components", "FamiglioCombatArena.tsx"), "utf8"),
+    readFile(path.join(root, "components", "FamiglioCombatArena.module.css"), "utf8"),
+  ]);
+  assert.match(source, /const rosterPageSize = 8/);
+  assert.match(source, /Campagna e Torre/);
+  assert.match(source, /Sfide e modalità/);
+  assert.match(source, /Arene e livelli/);
+  assert.match(source, /Prossimamente/);
+  assert.match(styles, /selectionViewport\[data-step="arenas"\][^{]*\{[^}]*overflow-y:\s*auto\s*!important/s);
+  assert.match(styles, /selectionViewport\[data-step="arenas"\]\s*>\s*\.arenaCatalog\s*\{[^}]*height:\s*auto;[^}]*overflow:\s*visible\s*!important/s);
 });
 
 test("le varianti cromatiche scelte restano nell'anteprima e in battaglia", async () => {
   const source = await readFile(path.join(root, "components", "FamiglioCombatArena.tsx"), "utf8");
   assert.match(source, /\/variants\/\$\{colorVariant\}/);
   assert.match(source, /spritePath\(option\.id, option\.growthStage, "idle", option\.colorVariant\)/);
-  assert.match(source, /spritePath\(battle\.player\.familiarId, growthStage, playerBattlePose, colorVariant\)/);
+  assert.match(source, /spritePath\(battle\.player\.familiarId, battlePlayerOption\?\.growthStage/);
+  assert.match(source, /playerBattlePose, battlePlayerOption\?\.colorVariant\)/);
   for (const variant of ["black", "brown", "siamese"]) {
-    const file = path.join(root, "public", "famiglio", "rebuild", "collection", "cat", "growth", "cucciolo", "battle-v2", "variants", variant, "idle.png");
+    const file = path.join(root, "public", "famiglio", "rebuild", "collection", "cat", "growth", "cucciolo", "battle-v6", "variants", variant, "idle.png");
     const metadata = await sharp(file).metadata();
-    assert.equal(metadata.width, 1920);
+    assert.equal(metadata.width, 1280);
     assert.equal(metadata.height, 160);
   }
 });
@@ -143,19 +168,21 @@ test("la preparazione è sequenziale e vittoria o sconfitta hanno una schermata 
   assert.match(source, /Conferma Famiglio/);
   assert.match(source, /onSelectFamiliar/);
   assert.match(source, /familiarRosterGrid/);
-  assert.match(source, /familiarPager/);
-  assert.match(source, /familiarsPerPage = 8/);
+  assert.match(source, /rosterSearch/);
+  assert.match(source, /filteredFamiliarOptions = normalizedRosterQuery/);
+  assert.match(source, /visibleFamiliarOptions = filteredFamiliarOptions\.slice/);
   assert.match(source, /Conferma rivale/);
   assert.match(source, /Conferma le mosse/);
   assert.doesNotMatch(source, /className=\{styles\.setupTabs\}/);
-  assert.match(source, /className=\{styles\.resultOverlay\}/);
+  assert.match(source, /className=\{battleStyles\.resultOverlay\}/);
   assert.match(source, /Vittoria!/);
   assert.match(source, /Sconfitta/);
   assert.match(source, /Rivincita/);
   assert.match(source, /Torna alla Casa/);
   assert.match(css, /\.selectionViewport\s*\{[\s\S]*?overflow:\s*hidden/);
   assert.match(css, /\.combat\[data-battle="false"\] > \.header,[\s\S]*?display:\s*none/);
-  assert.match(css, /\.resultOverlay\s*\{[\s\S]*?position:\s*absolute/);
+  const battleCss = await readFile(path.join(root, "components", "FamiglioBattleScreen.module.css"), "utf8");
+  assert.match(battleCss, /\.battleInfoOverlay,\.resultOverlay\{position:absolute/);
 });
 
 test("la UI rende visibile il limite di due mosse consecutive e gli stati sui combattenti", async () => {
@@ -172,12 +199,12 @@ test("la UI rende visibile il limite di due mosse consecutive e gli stati sui co
 test("la UI mostra energia, costi e ricarica senza introdurre una mossa di emergenza", async () => {
   const source = await readFile(path.join(root, "components", "FamiglioCombatArena.tsx"), "utf8");
   const engine = await readFile(path.join(root, "lib", "famiglioCombat.ts"), "utf8");
-  const css = await readFile(path.join(root, "components", "FamiglioCombatArena.module.css"), "utf8");
-  assert.match(source, /className=\{styles\.hudEnergy\}/);
+  const css = await readFile(path.join(root, "components", "FamiglioBattleScreen.module.css"), "utf8");
+  assert.match(source, /className=\{battleStyles\.hudEnergy\}/);
   assert.match(source, /Base · gratis/);
   assert.match(source, /Energia insufficiente/);
   assert.match(source, /In ricarica/);
-  assert.match(source, /className=\{styles\.roundNotice\}/);
+  assert.match(source, /className=\{battleStyles\.roundNotice\}/);
   assert.doesNotMatch(source, /Comandi del turno \{battle\.turn\}/);
   assert.match(engine, /FAMILIAR_COMBAT_MAX_ENERGY = 100/);
   assert.match(engine, /FAMILIAR_COMBAT_ENERGY_REGEN = 18/);
@@ -187,21 +214,24 @@ test("la UI mostra energia, costi e ricarica senza introdurre una mossa di emerg
 
 test("il duello usa arena ampia, mosse sotto e dossier a schermo senza scroll", async () => {
   const source = await readFile(path.join(root, "components", "FamiglioCombatArena.tsx"), "utf8");
-  const css = await readFile(path.join(root, "components", "FamiglioCombatArena.module.css"), "utf8");
-  assert.match(source, /className=\{styles\.battleUtilityDock\}/);
-  assert.match(css, /\.battleUtilityDock\s*\{[\s\S]*?display:\s*flex/);
-  assert.match(css, /\.battleMoveGrid\s*\{[\s\S]*?grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/);
-  assert.match(css, /\.combat\[data-battle="true"\] \.battleViewport,[\s\S]*?overflow:\s*hidden/);
+  const css = await readFile(path.join(root, "components", "FamiglioBattleScreen.module.css"), "utf8");
+  const shellCss = await readFile(path.join(root, "components", "FamiglioNexusRebuild.module.css"), "utf8");
+  assert.match(source, /className=\{battleStyles\.battleUtilityDock\}/);
+  assert.match(css, /\.battleUtilityDock\{[^}]*display:flex/);
+  assert.match(css, /\.battleMoveGrid\{[^}]*grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
+  assert.match(css, /\.battleViewport\{[^}]*overflow:hidden/);
   assert.match(source, /Informazioni sulla mossa/);
-  assert.match(source, /className=\{styles\.moveInfoButton\}/);
+  assert.match(source, /className=\{battleStyles\.moveInfoButton\}/);
   assert.match(source, /id="move-info-title"/);
   assert.match(css, /\.moveInfoStats/);
-  assert.match(css, /\.battleMoveCommand\s*\{[\s\S]*?background:\s*#0a3543/);
+  assert.match(css, /\.battleMoveCommand\{[^}]*background:#0a202d/);
   assert.match(source, />\{move \? "INFO" : "—"\}<\/button>/);
-  assert.match(css, /Comandi battaglia: pulsanti compatti da videogame/);
-  assert.match(css, /\.battleMoveCommand:has\(\.moveAction\[data-kind="physical"\]\)/);
-  assert.match(css, /\.battleMoveCommand:has\(\.moveAction\[data-kind="magic"\]\)/);
-  assert.match(css, /transform:\s*translateY\(3px\)/);
+  assert.match(css, /\.battleMoveCommand\[data-ready="true"\]/);
+  assert.doesNotMatch(shellCss, /width:\s*calc\(100vw - 12px\)/);
+  assert.match(shellCss, /deviceShell:has\(\[data-battle="true"\]\)[\s\S]*?width:\s*min\(1800px, calc\(100vw - 48px\)\)/);
+  assert.match(shellCss, /deviceShell:has\(\[data-battle="true"\]\) > \.introduction\s*\{\s*display:none/);
+  const selectionCss = await readFile(path.join(root, "components", "FamiglioCombatArena.module.css"), "utf8");
+  assert.match(selectionCss, /circuitLabel > strong[\s\S]*?font-size:clamp\(18px,1\.7vw,28px\)!important/);
 });
 
 test("iniziativa, Stati e Cronaca usano asset raster e schede complete", async () => {
@@ -290,12 +320,12 @@ test("tutte le arene usate dalla UI sono WebP 16:9 senza ritaglio", async () => 
   assert.match(css, /\.battleScene[\s\S]*?background-size:\s*contain/);
 });
 
-test("ogni Famiglio e crescita possiede le tredici pose battle-v2 dedicate", async () => {
+test("ogni Famiglio e crescita possiede le tredici pose battle-v6 dedicate", async () => {
   const stages = ["cucciolo", "giovane", "adulto"];
-  const actions = ["entrance", "idle", "run", "physical", "magic", "attack", "technique", "guard", "hit", "win", "lose", "victory", "exhausted"];
+  const actions = ["entrance", "idle", "run", "physical", "magic", "attack", "technique", "guard", "hit", "heal", "jump", "victory", "exhausted"];
   let files = 0;
   for (const familiar of FAMILIAR_COMBAT_CATALOG) for (const stage of stages) for (const action of actions) {
-    const file = path.join(root, "public", "famiglio", "rebuild", "collection", familiar.id, "growth", stage, "battle-v2", `${action}.png`);
+    const file = path.join(root, "public", "famiglio", "rebuild", "collection", familiar.id, "growth", stage, "battle-v6", `${action}.png`);
     const info = await stat(file);
     assert.ok(info.size > 400, `${familiar.id}/${stage}/${action}`);
     files += 1;
@@ -308,4 +338,20 @@ test("la UI offre 53 combattenti, quindi 52 avversari diversi per ciascuno", () 
   for (const familiar of FAMILIAR_COMBAT_CATALOG) {
     assert.equal(FAMILIAR_COMBAT_CATALOG.filter((candidate) => candidate.id !== familiar.id).length, 52);
   }
+});
+
+test("il 3 contro 3 e una modalita distinta e la scelta Famiglio non viene tagliata", async () => {
+  const source = await readFile(new URL("../components/FamiglioCombatArena.tsx", import.meta.url), "utf8");
+  const styles = await readFile(new URL("../components/FamiglioCombatArena.module.css", import.meta.url), "utf8");
+  assert.match(source, />3 contro 3</);
+  assert.match(source, /className=\{styles\.arenaCategoryTabs\}/);
+  assert.match(source, /aria-selected=\{arenaCategoryTab === "paths"\}/);
+  assert.match(source, /aria-selected=\{arenaCategoryTab === "team"\}/);
+  assert.match(source, /aria-selected=\{arenaCategoryTab === "arenas"\}/);
+  assert.match(source, /aria-selected=\{arenaCategoryTab === "future"\}/);
+  assert.match(source, /teamBattle:\s*battle\.teamBattle/);
+  assert.match(source, /className=\{battleStyles\.opponentTeamDock\}/);
+  assert.match(styles, /selectionViewport\[data-step="familiar"\][\s\S]*?familiarRosterGrid[^}]*overflow:hidden!important/s);
+  assert.match(styles, /selectionViewport\[data-step="familiar"\][\s\S]*?\.teamSummary\s*\{[^}]*max-height:\s*3\.35rem\s*!important/s);
+  assert.match(styles, /\.arenaCategoryTabs\s*\{[^}]*grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/s);
 });

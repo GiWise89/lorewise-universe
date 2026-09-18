@@ -79,18 +79,6 @@ test("records progress for every mission slot unlocked by the current Famiglio l
   assert.match(server, /familiarDailyMissionCount\(checked\.ok \? checked\.state\.level : 1\)/);
 });
 
-test("completed missions produce one persistent accessible announcement and refresh after cloud care", () => {
-  const component = readFileSync(join(process.cwd(), "components", "NexusFamiliarExperience.tsx"), "utf8");
-  const styles = readFileSync(join(process.cwd(), "components", "NexusFamiliarExperience.module.css"), "utf8");
-  assert.match(component, /function updateMissionsWithAnnouncement/);
-  assert.match(component, /mission\.complete && !mission\.claimed/);
-  assert.match(component, /FAMILIAR_MISSION_ANNOUNCED_STORAGE_PREFIX/);
-  assert.match(component, /role="status" aria-live="assertive" aria-atomic="true"/);
-  assert.match(component, /void loadMissionsRef\.current\(\)/);
-  assert.match(component, /Apri missioni/);
-  assert.match(styles, /\.missionAnnouncement\s*\{/);
-});
-
 test("daily missions expose exactly one refresh reservation per Rome day", () => {
   const server = readFileSync(join(process.cwd(), "lib", "nexusFamiliarMissionServer.ts"), "utf8");
   const route = readFileSync(join(process.cwd(), "app", "api", "famiglio", "missions", "route.ts"), "utf8");

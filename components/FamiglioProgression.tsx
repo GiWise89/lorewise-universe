@@ -17,7 +17,7 @@ import {
 import { familiarLevelForExperience } from "@/lib/nexusFamiliar";
 import { FAMILIAR_ATTENDANCE_COLLECTIBLES, FAMILIAR_ATTENDANCE_SEASONS, seasonCoverRewards, familiarAttendanceRecovery, type FamiliarAttendanceState } from "@/lib/famiglioAttendanceYear";
 import {albumRewardDate,albumSeasonProgress} from "@/lib/famiglioAlbumView";
-import { FAMILIAR_WEEKLY_STEPS, type FamiliarWeeklyLoopState, type FamiliarWeeklyStep } from "@/lib/famiglioWeeklyLoop";
+import { FAMILIAR_WEEKLY_STEPS, restoreFamiliarWeeklyLoopState, familiarWeeklyResetDate, type FamiliarWeeklyLoopState, type FamiliarWeeklyStep } from "@/lib/famiglioWeeklyLoop";
 import styles from "./FamiglioProgression.module.css";
 
 type ProgressionTrack = "weekly" | "growth" | "moves" | "rewards" | "album";
@@ -66,7 +66,7 @@ export function FamiglioProgression({
   growthStage,
   combatState,
   attendance,
-  weeklyLoop,
+  weeklyLoop: savedWeeklyLoop,
   onClaimWeeklyChest,
   onOpenAttendance,
   onNavigateStep,
@@ -85,6 +85,8 @@ export function FamiglioProgression({
   onNavigateStep: (step: FamiliarWeeklyStep) => void;
   onReturnHome: () => void;
 }) {
+  const weeklyLoop = restoreFamiliarWeeklyLoopState(savedWeeklyLoop, new Date(), attendance.launchDate);
+  const resetDate = familiarWeeklyResetDate(new Date(), attendance.launchDate);
   const [track, setTrack] = useState<ProgressionTrack>("weekly");
   const [page, setPage] = useState(0);
   const [albumSeason, setAlbumSeason] = useState<string | null>(null);
@@ -168,7 +170,7 @@ export function FamiglioProgression({
 
     <div className={styles.trackBody} data-track={track}>
       {track === "weekly" ? <>
-        <div className={styles.trackIntro}><strong>Settimana {week} · {currentSeason.name}</strong><span>Tocca un’isola per scegliere la tua prossima avventura. Le quattro tappe si possono fare in qualsiasi ordine.</span></div>
+        <div className={styles.trackIntro}><strong>Settimana {week} · {currentSeason.name}</strong><span>Tocca un’isola per scegliere la tua prossima avventura. Le quattro tappe si possono fare in qualsiasi ordine. Si rinnovano il {new Date(`${resetDate}T12:00:00Z`).toLocaleDateString("it-IT", {timeZone:"Europe/Rome"})}, a mezzanotte (ora italiana).</span></div>
         <p className={styles.nextAdventure}>{weeklyLoop.chestClaimed ? "Settimana completata: il tesoro è tuo." : remainingSteps.length ? `Mancano ${remainingSteps.length} tappe al tesoro: ${remainingSteps.map(step=>weeklyLabels[step]).join(" · ")}.` : "Tutte le tappe completate: apri il tesoro!"}</p>
         <div className={styles.lunarJourney}>
           <div className={styles.islandScene}><img className={styles.islandArtwork} src="/famiglio/rebuild/progression/lunar-islands-v2.png" alt="Quattro isole lunari collegate da un sentiero di stelle: casa, giardino dei giochi, rovine e altare di cristallo." />

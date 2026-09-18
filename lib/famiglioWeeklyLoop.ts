@@ -1,4 +1,4 @@
-import { familiarAttendancePosition } from "./famiglioAttendanceYear.ts";
+import { FAMILIAR_ATTENDANCE_LAUNCH_DATE, familiarAttendancePosition, familiarLocalDateKey } from "./famiglioAttendanceYear.ts";
 
 export const FAMILIAR_WEEKLY_STEPS = ["care", "play", "adventure", "combat"] as const;
 export type FamiliarWeeklyStep = typeof FAMILIAR_WEEKLY_STEPS[number];
@@ -20,8 +20,24 @@ export const FAMILIAR_MINIGAME_NAMES: Record<FamiliarMiniGameKind, string> = {
 };
 
 export function familiarWeekKey(now = new Date(), launchDate?: string) {
-  const position = familiarAttendancePosition(now, launchDate);
-  return `${launchDate ?? "calendar"}:w${String(position.week).padStart(2, "0")}`;
+  const origin = launchDate ?? "calendar";
+
+  // Il calendario dei 52 premi termina dopo un anno, ma le missioni del
+  // Percorso del Legame devono continuare a ripartire ogni settimana.
+  const currentDay = Date.parse(`${familiarLocalDateKey(now)}T00:00:00Z`);
+  const launchDay = Date.parse(`${launchDate ?? FAMILIAR_ATTENDANCE_LAUNCH_DATE}T00:00:00Z`);
+  const elapsedDays = Number.isFinite(currentDay) && Number.isFinite(launchDay)
+    ? Math.max(0, Math.floor((currentDay - launchDay) / 86_400_000))
+    : 0;
+  const rollingWeek = Math.floor(elapsedDays / 7) + 1;
+  return `${origin}:w${String(rollingWeek).padStart(2, "0")}`;
+}
+
+export function familiarWeeklyResetDate(now = new Date(), launchDate = FAMILIAR_ATTENDANCE_LAUNCH_DATE) {
+  const week = Number(familiarWeekKey(now, launchDate).match(/w(\d+)$/)?.[1] ?? 1);
+  const reset = new Date(`${launchDate}T12:00:00Z`);
+  reset.setUTCDate(reset.getUTCDate() + week * 7);
+  return reset.toISOString().slice(0, 10);
 }
 
 export function familiarMiniGameKind(now = new Date(), launchDate?: string): FamiliarMiniGameKind {

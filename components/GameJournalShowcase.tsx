@@ -47,7 +47,7 @@ export function GameJournalShowcase({ games }: { games: CreativeGameJournalEntry
       <article id={`game-panel-${instanceId}-${game.id}`} role="tabpanel" aria-labelledby={`game-tab-${instanceId}-${game.id}`} className={`diary-game-dossier diary-game-dossier-${game.id}`} key={game.id}>
         <header>
           <div><p className="diary-hand">{game.label}</p><h3>{game.title}</h3><p>{game.summary}</p></div>
-          <aside><span>Dietro questa schermata</span><strong>Mesi di progettazione, disegno, codice e prove.</strong></aside>
+          <aside><span>{game.code ? "Dietro questa schermata" : "Dentro questo mondo"}</span><strong>{game.code ? "Mesi di progettazione, disegno, codice e prove." : "Personaggi, minacce e possibilità da scoprire."}</strong></aside>
         </header>
 
         <div className="diary-game-gallery-inline">
@@ -61,18 +61,18 @@ export function GameJournalShowcase({ games }: { games: CreativeGameJournalEntry
 
         <div className="diary-game-work-grid">
           <section><span className="diary-game-block-number">01</span><h4>Personaggi e stile</h4><p>Un personaggio non è soltanto un’immagine: deve avere un ruolo, essere riconoscibile durante il gioco e restare coerente con interfaccia, ambientazione ed effetti.</p><ul>{game.creativeFocus.map((item) => <li key={item}>{item}</li>)}</ul></section>
-          <section><span className="diary-game-block-number">02</span><h4>Programmazione e prove</h4><p>Ogni scelta visiva deve poi funzionare nel codice. Regole, ricompense, statistiche e animazioni vengono provate e corrette molte volte.</p><ul>{game.currentWork.map((item) => <li key={item}>{item}</li>)}</ul></section>
+          <section><span className="diary-game-block-number">02</span><h4>{game.code ? "Programmazione e prove" : "L’avventura"}</h4><p>{game.code ? "Ogni scelta visiva deve poi funzionare nel codice. Regole, ricompense, statistiche e animazioni vengono provate e corrette molte volte." : "Ogni missione intreccia storia, scelte, esplorazione e battaglie a turni, lasciando conseguenze nel Rifugio."}</p><ul>{game.currentWork.map((item) => <li key={item}>{item}</li>)}</ul></section>
         </div>
 
-        <figure className="diary-code-photo">
+        {game.code ? <figure className="diary-code-photo">
           <figcaption><span><i aria-hidden="true" /><i aria-hidden="true" /><i aria-hidden="true" /></span><strong>{game.code.title}</strong><small>{game.code.file}</small></figcaption>
           <HorizontalScrollHint className="code-scroll-hint" />
           <pre><code>{game.code.snippet}</code></pre>
           <p>Una piccola parte del codice reale scritto per {game.title}.</p>
-        </figure>
+        </figure> : null}
 
         <footer>
-          <Link href={`/dove-nascono-i-mondi/giochi/${game.id}`}>Apri tutte le schermate e il codice <span aria-hidden="true">→</span></Link>
+          <Link href={`/dove-nascono-i-mondi/giochi/${game.id}`}>{game.code ? "Apri tutte le schermate e il codice" : "Scopri personaggi e immagini"} <span aria-hidden="true">→</span></Link>
           <Link href={game.href}>Vai alla scheda del gioco <span aria-hidden="true">→</span></Link>
         </footer>
       </article>

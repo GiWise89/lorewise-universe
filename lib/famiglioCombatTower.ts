@@ -8,6 +8,8 @@ export type FamiliarTowerFloor = {
   circuitId: (typeof FAMILIAR_COMBAT_CIRCUITS)[number]["id"];
   rank: FamiliarTowerFloorRank;
   backgroundSrc: string;
+  teamBattle: boolean;
+  opponentTeamIds: readonly string[];
 };
 export type FamiliarTowerRun = { id: string; seed: number; currentFloor: number; floors: readonly FamiliarTowerFloor[] };
 
@@ -65,6 +67,10 @@ export function createFamiliarTowerRun(playerId: string, playerLevel: number, se
     const [roll, next] = nextRandom(rngState); rngState = next;
     const selected = pool[Math.min(pool.length - 1, Math.floor(roll * pool.length))] ?? roster[index % roster.length];
     used.add(selected.id);
+    const teamBattle = [4, 8, 10].includes(index + 1);
+    const supportPool = roster.filter((entry) => entry.id !== selected.id && !used.has(entry.id));
+    const supportIds = teamBattle ? supportPool.slice(0, 2).map((entry) => entry.id) : [];
+    supportIds.forEach((id) => used.add(id));
     return {
       floor: index + 1,
       opponentId: selected.id,
@@ -72,6 +78,8 @@ export function createFamiliarTowerRun(playerId: string, playerLevel: number, se
       circuitId,
       rank,
       backgroundSrc: familiarTowerFloorBackground(index + 1),
+      teamBattle,
+      opponentTeamIds: [selected.id, ...supportIds].slice(0, 3),
     };
   });
   return { id: `tower-${rngState.toString(16)}`, seed: rngState, currentFloor: 1, floors };

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createFamiliarWeeklyLoopState, restoreFamiliarWeeklyLoopState } from '../lib/famiglioWeeklyLoop.ts';
+import { createFamiliarWeeklyLoopState, familiarWeekKey, restoreFamiliarWeeklyLoopState } from '../lib/famiglioWeeklyLoop.ts';
 const now = new Date('2026-09-08T12:00:00Z');
 const launch = '2026-09-08';
 test('legacy daily record migrates only to its original mode', () => {
@@ -26,4 +26,16 @@ test('daily records and shared reward reset on a new day', () => {
   assert.deepEqual(restored.miniGame.scores,{});
   assert.equal(restored.miniGame.rewarded,false);
   assert.equal(restored.miniGame.bestScore,0);
+});
+test('lunar path missions reset every week even after the 52-week reward calendar ends', () => {
+  const oldLaunch = '2025-09-08';
+  const stale = createFamiliarWeeklyLoopState(new Date('2026-09-07T12:00:00Z'), oldLaunch);
+  stale.steps = ['care', 'play', 'adventure', 'combat'];
+  stale.chestClaimed = true;
+  const nextWeek = new Date('2026-09-14T12:00:00Z');
+  const restored = restoreFamiliarWeeklyLoopState(stale, nextWeek, oldLaunch);
+  assert.notEqual(restored.weekKey, stale.weekKey);
+  assert.equal(restored.weekKey, familiarWeekKey(nextWeek, oldLaunch));
+  assert.deepEqual(restored.steps, []);
+  assert.equal(restored.chestClaimed, false);
 });

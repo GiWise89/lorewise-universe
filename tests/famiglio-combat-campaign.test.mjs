@@ -8,8 +8,10 @@ test("la campagna contiene 20 livelli ordinati in cinque capitoli", () => {
   assert.equal(FAMILIAR_COMBAT_CAMPAIGN.length, 20);
   assert.deepEqual(FAMILIAR_COMBAT_CAMPAIGN.map((level) => level.number), Array.from({ length: 20 }, (_, index) => index + 1));
   assert.deepEqual([...new Set(FAMILIAR_COMBAT_CAMPAIGN.map((level) => level.chapter))], [1, 2, 3, 4, 5]);
-  assert.equal(FAMILIAR_COMBAT_CAMPAIGN.at(-1)?.opponentLevel, 50);
+  assert.equal(FAMILIAR_COMBAT_CAMPAIGN.at(-1)?.opponentLevel, 32);
+  assert.ok(FAMILIAR_COMBAT_CAMPAIGN.every((level, index, campaign) => index === 0 || level.opponentLevel - campaign[index - 1].opponentLevel <= 3));
   assert.equal(FAMILIAR_COMBAT_CAMPAIGN.at(-1)?.npc.rank, "boss");
+  assert.deepEqual(FAMILIAR_COMBAT_CAMPAIGN.filter((level) => level.teamBattle).map((level) => level.number), [4, 8, 12, 16, 20]);
 });
 
 test("ogni livello usa uno scenario 16:9 dedicato e un foglio NPC animato personale", async () => {

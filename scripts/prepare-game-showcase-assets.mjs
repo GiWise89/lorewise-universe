@@ -7,7 +7,6 @@ const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDirectory, "..");
 const documentsRoot = path.resolve(projectRoot, "..");
 const woundRoot = path.join(documentsRoot, "Rpg Card Gaming", "dark-card-game");
-const fuoriTramaRoot = path.join(documentsRoot, "proggetti GiWise Studio", "LoreWise App", "lorewise-v1-starter", "fuori-trama-next");
 const outputRoot = path.join(projectRoot, "public", "games");
 
 const assets = [
@@ -52,24 +51,6 @@ const assets = [
     output: path.join(outputRoot, "the-wound-remembers", "gameplay-expedition.webp"),
     width: 2560,
     quality: 90,
-  },
-  {
-    source: path.join(fuoriTramaRoot, "public", "media", "cyberpunk-system", "v1", "nexus-chamber-16x9-v1.png"),
-    output: path.join(outputRoot, "lorewise-fuori-trama-next", "nexus-chamber.webp"),
-    width: 2000,
-    quality: 86,
-  },
-  {
-    source: path.join(fuoriTramaRoot, "public", "media", "campaign-ui", "v3", "grand-atlas-chamber-v1.png"),
-    output: path.join(outputRoot, "lorewise-fuori-trama-next", "atlas-chamber.webp"),
-    width: 2000,
-    quality: 86,
-  },
-  {
-    source: path.join(fuoriTramaRoot, "public", "media", "battle-table", "premium-table-v1.png"),
-    output: path.join(outputRoot, "lorewise-fuori-trama-next", "battle-table.webp"),
-    width: 2000,
-    quality: 86,
   },
 ];
 

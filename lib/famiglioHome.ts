@@ -176,6 +176,9 @@ export const DAILY_WISHES: Record<FamiliarHomeAction, { title: string; descripti
 
 export const DAILY_WISH_REWARD_COINS = 5;
 export const DAILY_ROUTINE_REWARD_COINS = 10;
+export const FAMILIAR_HYGIENE_DECAY_PER_HOUR = .5;
+export const FAMILIAR_HYGIENE_WASTE_DECAY_PER_HOUR = 1.6;
+export const FAMILIAR_HYGIENE_NEW_WASTE_PENALTY = 10;
 const MAX_DIARY_ENTRIES = 30;
 
 export const FAMILIAR_DEVICE_COVERS: ReadonlyArray<FamiliarDeviceCover> = [
@@ -821,7 +824,7 @@ export function advanceFamiliarHome(state: FamiliarHomeState, now = Date.now()):
     hunger: clampNeed(state.needs.hunger - elapsedHours * 2.2),
     energy: clampNeed(state.needs.energy + (sleeping ? elapsedSeconds * 1.15 : -elapsedHours * 1.4) - hungerPenalty),
     happiness: clampNeed(state.needs.happiness - elapsedHours * .9 - hungerPenalty - hygienePenalty - wasteCount * elapsedHours * .55 - newWaste * 3),
-    hygiene: clampNeed(state.needs.hygiene - elapsedHours * .7 - wasteCount * elapsedHours * 2.2 - newWaste * 14),
+    hygiene: clampNeed(state.needs.hygiene - elapsedHours * FAMILIAR_HYGIENE_DECAY_PER_HOUR - wasteCount * elapsedHours * FAMILIAR_HYGIENE_WASTE_DECAY_PER_HOUR - newWaste * FAMILIAR_HYGIENE_NEW_WASTE_PENALTY),
     affection: clampNeed(state.needs.affection - elapsedHours * .55),
   };
   const finished = Boolean(state.actionEndsAt && state.actionEndsAt <= now);
@@ -856,9 +859,19 @@ export function advanceFamiliarHome(state: FamiliarHomeState, now = Date.now()):
     lastOutcome: becameSick ? "Il Famiglio non si sente bene. Nora prepara la medicina adatta." : newWaste > 0 ? "Il Famiglio ha fatto i bisogni. Usa Pulisci per sistemare la Casa." : state.lastOutcome,
     health,
     routine: currentRoutine(state.routine, now),
+    weeklyLoop: restoreFamiliarWeeklyLoopState(state.weeklyLoop, new Date(now), state.attendance.launchDate),
     wish: currentWish(state.wish, now),
     bondWeek: advanceFamiliarBondWeek(state.bondWeek ?? createFamiliarBondWeek(state.lastUpdatedAt), now),
   };
+}
+
+export function claimFamiliarWeeklyChest(state: FamiliarHomeState, now = Date.now()): FamiliarHomeState {
+  const current = advanceFamiliarHome(state, now);
+  if (current.weeklyLoop.steps.length < 4 || current.weeklyLoop.chestClaimed) return current;
+  return {...current,
+    lastOutcome: "Tesoro settimanale aperto: +45 Monete Nexus e +2 Frammenti di Reliquia.",
+    wallet: {...current.wallet,nexusCoins:current.wallet.nexusCoins+45,totalEarned:current.wallet.totalEarned+45,relicFragments:current.wallet.relicFragments+2},
+    weeklyLoop: {...current.weeklyLoop,chestClaimed:true}};
 }
 
 export function chooseFamiliarBondMemory(state: FamiliarHomeState, choiceId: string, now = Date.now()): FamiliarHomeState {

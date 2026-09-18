@@ -19,6 +19,9 @@ import {
 import {
   DAILY_ROUTINE_REWARD_COINS,
   DAILY_WISH_REWARD_COINS,
+  FAMILIAR_HYGIENE_DECAY_PER_HOUR,
+  FAMILIAR_HYGIENE_NEW_WASTE_PENALTY,
+  FAMILIAR_HYGIENE_WASTE_DECAY_PER_HOUR,
   FAMILIAR_ITEM_CATALOG,
   FAMILIAR_MARKET_OFFERS,
   FAMILIAR_DEVICE_COVERS,
@@ -338,6 +341,15 @@ test("the familiar naturally soils the room and Pulisci removes the waste", () =
   const cleaned = performHomeAction(afterOneHour, "clean", 3_601_001);
   assert.equal(cleaned.toilet.wasteCount, 0);
   assert.match(cleaned.lastOutcome, /pulito i bisogni/i);
+});
+
+test("hygiene decreases at the softer care rate", () => {
+  assert.equal(FAMILIAR_HYGIENE_DECAY_PER_HOUR, .5);
+  assert.equal(FAMILIAR_HYGIENE_WASTE_DECAY_PER_HOUR, 1.6);
+  assert.equal(FAMILIAR_HYGIENE_NEW_WASTE_PENALTY, 10);
+  const initial = { ...createFamiliarHomeState(1_000), toilet: { urgency: 0, wasteCount: 0, lastEventAt: null } };
+  const afterOneHour = advanceFamiliarHome(initial, 3_601_000);
+  assert.equal(afterOneHour.needs.hygiene, initial.needs.hygiene - .5);
 });
 
 test("pending bathroom waste never interrupts another home action", () => {

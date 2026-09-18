@@ -25,6 +25,7 @@ import {
   restoreFamiliarCombatState,
   retreatFromFamiliarCombat,
   startFamiliarCombatBattle,
+  switchFamiliarCombatant,
   totalCombatXpForLevel,
 } from "../lib/famiglioCombat.ts";
 import {
@@ -32,6 +33,21 @@ import {
   FAMILIAR_COMBAT_CIRCUITS,
   MOVE_UNLOCK_BANDS,
 } from "../lib/famiglioCombatCatalog.ts";
+
+test("ogni mossa usa una semantica visiva coerente con il proprio effetto", () => {
+  for (const familiar of FAMILIAR_COMBAT_CATALOG) for (const move of familiar.moves) {
+    if (move.damageClass === "restore") {
+      assert.equal(move.animation, "restore", `${familiar.id}/${move.id}`);
+      assert.ok((move.healingRatio ?? 0) > 0, `${familiar.id}/${move.id}`);
+      assert.equal(move.power, 0, `${familiar.id}/${move.id}`);
+    }
+    if (move.animation === "guard") {
+      assert.equal(move.damageClass, "status", `${familiar.id}/${move.id}`);
+      assert.equal(move.status, "guard", `${familiar.id}/${move.id}`);
+    }
+    if (move.damageClass === "physical") assert.equal(move.animation, "charge", `${familiar.id}/${move.id}`);
+  }
+});
 
 function stateAtLevel(familiarId, level, options = {}) {
   const state = createFamiliarCombatState(options.seed ?? "engine-tests");
@@ -587,4 +603,58 @@ test("save restore sanitizes invalid entries without rerolling schedules or comp
   assert.deepEqual(restored.profiles.cat.claimedRewardKeys, ["prime-orme:normal:bird"]);
   assert.ok(restored.profiles.cat.unlockedDifficulties.includes("expert"));
   assert.ok(restored.profiles.cat.unlockedDifficulties.includes("nexus"));
+});
+
+test("a battle accepts a roster of three and rotates with cooldown and energy cost", () => {
+  const initial = stateAtLevel("cat", 8);
+  const started = startFamiliarCombatBattle(initial, { playerId: "cat", playerTeamIds: ["cat", "dog", "rabbit", "bird"], opponentId: "golden", opponentTeamIds: ["golden", "fox", "wolf"], teamBattle: true, circuitId: FAMILIAR_COMBAT_CIRCUITS[0].id, opponentLevel: 8, ignoreUnlocks: true });
+  assert.equal(started.ok, true, started.error);
+  assert.deepEqual(started.state.activeBattle.teamFamiliarIds, ["cat", "rabbit", "bird"]);
+  assert.equal(started.state.activeBattle.playerBench.length, 2);
+  const rotated = switchFamiliarCombatant(started.state, "rabbit");
+  assert.equal(rotated.ok, true, rotated.error);
+  assert.equal(rotated.state.activeBattle.player.familiarId, "rabbit");
+  assert.equal(rotated.state.activeBattle.switchCooldown, 2);
+  assert.equal(rotated.state.activeBattle.playerBench.find((entry) => entry.familiarId === "cat").energy, 70);
+  assert.match(rotated.state.lastMessage, /Risonanza di squadra/);
+  assert.deepEqual(started.state.activeBattle.opponentTeamFamiliarIds, ["golden", "fox", "wolf"]);
+  assert.equal(started.state.activeBattle.opponentBench.length, 2);
+});
+
+test("la rotazione 3 contro 3 è bloccata senza energia sufficiente", () => {
+  const initial = stateAtLevel("cat", 8);
+  const started = startFamiliarCombatBattle(initial, { playerId: "cat", playerTeamIds: ["rabbit", "bird"], opponentId: "golden", opponentTeamIds: ["fox", "wolf"], teamBattle: true, circuitId: FAMILIAR_COMBAT_CIRCUITS[0].id, opponentLevel: 8, ignoreUnlocks: true });
+  assert.equal(started.ok, true, started.error);
+  const drained = { ...started.state, activeBattle: { ...started.state.activeBattle, player: { ...started.state.activeBattle.player, energy: 20 } } };
+  const rotated = switchFamiliarCombatant(drained, "rabbit");
+  assert.equal(rotated.ok, false);
+  assert.match(rotated.error, /30 EN/);
+});
+
+test("a regular duel ignores reserves while a 3v3 victory requires all rival Famigli", () => {
+  const initial = stateAtLevel("cat", 8);
+  const duel = startFamiliarCombatBattle(initial, { playerId: "cat", playerTeamIds: ["rabbit", "bird"], opponentId: "golden", opponentTeamIds: ["fox", "wolf"], circuitId: FAMILIAR_COMBAT_CIRCUITS[0].id, opponentLevel: 8, ignoreUnlocks: true });
+  assert.equal(duel.ok, true, duel.error);
+  assert.equal(duel.state.activeBattle.playerBench.length, 0);
+  assert.equal(duel.state.activeBattle.opponentBench.length, 0);
+
+  const team = startFamiliarCombatBattle(initial, { playerId: "cat", playerTeamIds: ["rabbit", "bird"], opponentId: "golden", opponentTeamIds: ["fox", "wolf"], teamBattle: true, circuitId: FAMILIAR_COMBAT_CIRCUITS[0].id, opponentLevel: 8, ignoreUnlocks: true });
+  const ready = { ...team.state, activeBattle: { ...team.state.activeBattle, opponent: { ...team.state.activeBattle.opponent, hp: 0, statuses: [] } } };
+  const moveId = familiarCombatProgress(ready, "cat").equippedMoveIds[0];
+  const relayed = performFamiliarCombatTurn(ready, moveId);
+  assert.equal(relayed.ok, true, relayed.error);
+  assert.equal(relayed.state.activeBattle.outcome, "active");
+  assert.equal(relayed.state.activeBattle.opponent.familiarId, "fox");
+  assert.equal(relayed.state.activeBattle.opponentBench.length, 2);
+});
+
+test("a first campaign victory grants enough XP to continue without arena grinding", () => {
+  const initial = stateAtLevel("cat", 1);
+  const started = startFamiliarCombatBattle(initial, { playerId: "cat", opponentId: "bird", circuitId: FAMILIAR_COMBAT_CIRCUITS[0].id, opponentLevel: 4, encounterId: "campaign-04", ignoreUnlocks: true });
+  assert.equal(started.ok, true, started.error);
+  const ready = { ...started.state, activeBattle: { ...started.state.activeBattle, opponent: { ...started.state.activeBattle.opponent, hp: 0 } } };
+  const moveId = familiarCombatProgress(ready, "cat").equippedMoveIds[0];
+  const result = performFamiliarCombatTurn(ready, moveId);
+  assert.equal(result.ok, true, result.error);
+  assert.ok(familiarCombatProgress(result.state, "cat").combatLevel >= 5);
 });

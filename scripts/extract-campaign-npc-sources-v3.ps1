@@ -16,13 +16,3 @@ try {
   }
 } finally { $npcArchive.Dispose() }
 Write-Output 'Extracted 20 distinct original NPC animation sources.'
-$cloudRoot = Join-Path $PSScriptRoot '../public/famiglio/rebuild/effects/cloud-variants-v3'
-New-Item -ItemType Directory -Force -Path $cloudRoot | Out-Null
-$cloudArchive = [IO.Compression.ZipFile]::OpenRead('C:/Users/Luigi/Documents/asset game/GandalfHardcore FREE Platformer Assets.zip')
-try {
-  foreach ($cloudEntry in $cloudArchive.Entries) {
-    if ($cloudEntry.FullName -match '/cloud[1-6]\.png$') {
-      [IO.Compression.ZipFileExtensions]::ExtractToFile($cloudEntry, (Join-Path $cloudRoot $cloudEntry.Name), $true)
-    }
-  }
-} finally { $cloudArchive.Dispose() }

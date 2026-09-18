@@ -50,7 +50,7 @@ test('memory waits for input without a time penalty and ends on the third wrong 
   assert.equal(s.finished,true);assert.equal(s.lives,0);
 });
 
-test('cloud platforms stay playable in a three-minute run without timer or runaway speed', () => {
+test('cloud acceleration eventually defeats a fixed jump pattern through lost lives, not a timer', () => {
   let s=createCloudRun();
   for(let i=0;i<11250&&!s.finished;i++) {
     s.enemies=[];
@@ -59,7 +59,7 @@ test('cloud platforms stay playable in a three-minute run without timer or runaw
     if(s.grounded&&p&&p.x+p.width-x<14)s=jumpCloud(s);
     s=advanceCloud(s,16,()=>.5);
   }
-  assert.equal(s.finished,false);assert.equal(s.lives,3);assert.ok(s.elapsed>=180000);
+  assert.equal(s.finished,true);assert.equal(s.lives,0);assert.equal(s.misses,3);assert.ok(s.elapsed>60000);
 });
 
 test('game HUDs show lives rather than countdown and explain unlimited play', () => {

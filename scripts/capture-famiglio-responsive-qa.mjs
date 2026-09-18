@@ -117,7 +117,7 @@ async function capture(name, url, width, height, mobile, setup = "") {
   if (!mobile || !nativeMobileLaunch) await setResponsiveViewport(mobile ? 1024 : width, mobile ? Math.max(height, 768) : height);
   await command("Page.enable");
   await command("Emulation.setEmulatedMedia", {
-    features: [{ name: "prefers-reduced-motion", value: "reduce" }],
+    features: [{ name: "prefers-reduced-motion", value: cliArguments.includes('mode:motion') ? 'no-preference' : 'reduce' }],
   });
   await command("Page.navigate", { url }, 30_000);
   console.log(`[qa] ${name}: navigazione`);
@@ -149,7 +149,27 @@ async function capture(name, url, width, height, mobile, setup = "") {
   console.log(`[qa] ${name}: esperienza pronta`);
   if (setup) {
     setupResult = await command("Runtime.evaluate", { expression: setup, awaitPromise: true, returnByValue: true });
+    if (setupResult.exceptionDetails) throw new Error(`${name}: ${setupResult.exceptionDetails.exception?.description ?? 'setup fallito'}`);
     await new Promise((resolve) => setTimeout(resolve, 300));
+  }
+  if (name.includes('combat-mobile-team')) {
+    const initiative = await command('Page.captureScreenshot', {format:'png'});
+    await writeFile(path.join(outputRoot, name.replace('.png','-initiative.png')), Buffer.from(initiative.data,'base64'));
+    await command('Runtime.evaluate', {expression:`(async()=>{[...document.querySelectorAll('button')].find(b=>b.textContent.includes("Entra nell'Arena"))?.click();await new Promise(r=>setTimeout(r,1200));})()`,awaitPromise:true});
+    await command('Runtime.evaluate', {expression:`document.querySelector('[class*="battleStage"]').scrollTop=9999`});
+    const reserves = await command('Page.captureScreenshot', {format:'png'});
+    await writeFile(path.join(outputRoot, name.replace('.png','-reserves.png')), Buffer.from(reserves.data,'base64'));
+    await command('Runtime.evaluate', {expression:`document.querySelector('[class*="battleStage"]').scrollTop=0`});
+  }
+  if (name.includes('combat-cat-action')) {
+    for (let frame = 0; frame < 24; frame++) {
+      const sample = await command('Runtime.evaluate', {expression:`(() => { const canvas=document.querySelector('canvas[width="1280"][height="720"]'); return canvas ? {image:canvas.toDataURL('image/png'),phase:document.querySelector('[class*="turnBanner"]')?.textContent} : null; })()`,returnByValue:true});
+      if (sample.result?.value?.image) {
+        await writeFile(path.join(outputRoot, `action-frame-${String(frame).padStart(2,'0')}.png`), Buffer.from(sample.result.value.image.split(',')[1],'base64'));
+        console.log(`[action ${frame}] ${sample.result.value.phase}`);
+      }
+      await new Promise(resolve=>setTimeout(resolve,400));
+    }
   }
   const audit = await command("Runtime.evaluate", { expression: `(() => {
     const screen = document.querySelector('[aria-label="Mercato del Nexus"]')
@@ -555,6 +575,12 @@ try {
   const allViews = [["desktop", 1440, 1100, false], ["short", 1366, 768, false], ["compact", 760, 650, false], ["mobile", 390, 844, true], ["phone", 360, 640, true], ["android-viewport", 760, 1400, false], ["android-wide-css", 980, 1800, false]];
   const views = requestedViews.size ? allViews.filter(([view]) => requestedViews.has(view)) : allViews;
   const screens = [
+    ["combat-roster-bottom", "&familiar=cat", `(async()=>{const p=document.querySelector('[class*="selectionViewport"]');p.scrollTop=p.scrollHeight;await new Promise(r=>setTimeout(r,200));const b=[...document.querySelectorAll('button')].find(b=>b.textContent.includes('Conferma Famiglio'));if(!b)throw Error('Conferma assente');const r=b.getBoundingClientRect();if(r.bottom>p.getBoundingClientRect().bottom+1)throw Error('Conferma non raggiungibile');})()`, "combat", "adulto"],
+    ["combat-future-mobile", "&familiar=cat", `(async()=>{[...document.querySelectorAll('button')].find(b=>b.textContent.includes('Conferma Famiglio'))?.click();await new Promise(r=>setTimeout(r,200));[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='Prossimamente')?.click();await new Promise(r=>setTimeout(r,200));})()`, "combat", "adulto"],
+    ["combat-campaign-mobile", "&familiar=cat&attendance=0", `(async()=>{const click=async(text)=>{const button=[...document.querySelectorAll('button')].find(entry=>entry.textContent.trim()===text);if(!button)throw Error('Comando assente: '+text);button.click();await new Promise(resolve=>setTimeout(resolve,350));};await click('Conferma Famiglio');const campaign=[...document.querySelectorAll('button')].find(entry=>entry.querySelector('strong')?.textContent.trim()==='Campagna');if(!campaign)throw Error('Scheda Campagna assente');campaign.click();await new Promise(resolve=>setTimeout(resolve,350));})()`, "combat", "adulto"],
+    ["combat-campaign-mobile-bottom", "&familiar=cat&attendance=0", `(async()=>{const click=async(text)=>{const button=[...document.querySelectorAll('button')].find(entry=>entry.textContent.trim()===text);if(!button)throw Error('Comando assente: '+text);button.click();await new Promise(resolve=>setTimeout(resolve,350));};await click('Conferma Famiglio');const campaign=[...document.querySelectorAll('button')].find(entry=>entry.querySelector('strong')?.textContent.trim()==='Campagna');if(!campaign)throw Error('Scheda Campagna assente');campaign.click();await new Promise(resolve=>setTimeout(resolve,350));const viewport=document.querySelector('[class*="selectionViewport"]');if(!viewport)throw Error('Viewport Campagna assente');viewport.scrollTop=viewport.scrollHeight;await new Promise(resolve=>setTimeout(resolve,300));})()`, "combat", "adulto"],
+    ["combat-mobile-team", "&familiar=cat&needs=full", `(async () => { const click=async(text,exact=false)=>{const b=[...document.querySelectorAll('button')].find(b=>exact?b.textContent.trim()===text:b.textContent.includes(text));if(!b||b.disabled)throw Error('Comando assente: '+text);b.click();await new Promise(r=>setTimeout(r,250));};await click('Conferma Famiglio');await click('3 contro 3',true);await click('Rotazione tattica');await click('Conferma rivale');await click('Normale');await click('Conferma le mosse');await click('Inizia il 3 contro 3'); })()`, "combat", "adulto"],
+    ["combat-mobile-info-bottom", "&familiar=cat&opponent=bird&needs=full", `(async()=>{document.querySelector('button[aria-label^="Informazioni sulla mossa"]')?.click();await new Promise(r=>setTimeout(r,250));const card=document.querySelector('[class*="moveInfoCard"]');if(!card)throw Error('INFO assente');card.scrollTop=card.scrollHeight;})()`, "battle", "adulto"],
     ["onboarding-eggs", "", "", "choosing"],
     ["onboarding-confirm", "", "", "confirming"],
     ["onboarding-hatching", "", "", "hatching"],
@@ -624,6 +650,7 @@ try {
     ["combat-ready", "&familiar=cat", `(async () => { const click = (text) => [...document.querySelectorAll('button')].find((entry) => entry.textContent.includes(text))?.click(); click('Conferma Famiglio'); await new Promise((resolve) => setTimeout(resolve, 80)); click('Cortile delle Prime Orme'); await new Promise((resolve) => setTimeout(resolve, 80)); click('Conferma rivale'); await new Promise((resolve) => setTimeout(resolve, 80)); click('Normale'); await new Promise((resolve) => setTimeout(resolve, 80)); click('Conferma le mosse'); })()`, "combat", "adulto"],
     ["combat-tower-ready", "&familiar=cat", `(async () => { const click = (text) => [...document.querySelectorAll('button')].find((entry) => entry.textContent.includes(text))?.click(); click('Conferma Famiglio'); await new Promise((resolve) => setTimeout(resolve, 100)); click('Torre del Nexus'); await new Promise((resolve) => setTimeout(resolve, 100)); click('Normale'); await new Promise((resolve) => setTimeout(resolve, 100)); click('Conferma le mosse'); })()`, "combat", "adulto"],
     ["combat-tower-battle", "&familiar=cat", `(async () => { const click = (text) => [...document.querySelectorAll('button')].find((entry) => entry.textContent.includes(text))?.click(); click('Conferma Famiglio'); await new Promise((resolve) => setTimeout(resolve, 100)); click('Torre del Nexus'); await new Promise((resolve) => setTimeout(resolve, 100)); click('Normale'); await new Promise((resolve) => setTimeout(resolve, 100)); click('Conferma le mosse'); await new Promise((resolve) => setTimeout(resolve, 100)); click('Inizia il duello'); })()`, "combat", "adulto"],
+    ["combat-cat-action", "&familiar=cat&opponent=bird&circuit=prime-orme&difficulty=normal&needs=full", `(async () => { const start = [...document.querySelectorAll('button')].find(b=>b.textContent.includes("Entra nell'Arena")); start?.click(); await new Promise(r=>setTimeout(r,2200)); [...document.querySelectorAll('button')].find(b=>b.textContent.includes('Raffica affilata') && !b.disabled)?.click(); await new Promise(r=>setTimeout(r,1800)); })()`, "battle", "adulto"],
     ["combat-initiative", "&familiar=faerie-dragon&opponent=tyrannosaurus&circuit=valle-titani&difficulty=nexus", "", "battle", "adulto"],
     ["combat-battle", "&familiar=faerie-dragon&opponent=tyrannosaurus&circuit=valle-titani&difficulty=nexus", `([...document.querySelectorAll('button')].find((entry) => entry.textContent.includes("Entra nell'Arena")))?.click()`, "battle", "adulto"],
     ["combat-status-panel", "&familiar=faerie-dragon&opponent=tyrannosaurus&circuit=valle-titani&difficulty=nexus", `(() => { ([...document.querySelectorAll('button')].find((entry) => entry.textContent.includes("Entra nell'Arena")))?.click(); document.querySelector('button[aria-label="Apri gli stati attivi"]')?.click(); })()`, "battle", "adulto"],

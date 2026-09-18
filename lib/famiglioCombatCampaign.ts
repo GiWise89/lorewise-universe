@@ -18,6 +18,7 @@ export type FamiliarCampaignLevel = {
   objectiveLabel: string;
   turnLimit: number | null;
   bossPhases: number;
+  teamBattle: boolean;
   npc: {
     name: string;
     title: string;
@@ -61,6 +62,10 @@ const definitions = [
   ["Il cuore del Nulla", "Morvane", "Sovrano del Legame Corrotto", "boss", ["beholder", "ancient-black-dragon"], 50, "soglia-leggendaria", "Non sono il termine del vostro viaggio. Sono ciò che vi aspettava dall'inizio."],
 ] as const;
 
+// Curva pensata per far proseguire la storia con le ricompense della storia
+// stessa, senza obbligare a ripetere numerosi duelli liberi tra due capitoli.
+const CAMPAIGN_LEVEL_CURVE = [1,2,3,4,5,6,7,8,10,11,12,14,15,17,19,21,23,26,29,32] as const;
+
 const rankTitle: Record<FamiliarCampaignRank, string> = {
   reietto: "Reietto",
   predone: "Predone del Velo",
@@ -70,7 +75,8 @@ const rankTitle: Record<FamiliarCampaignRank, string> = {
 };
 
 export const FAMILIAR_COMBAT_CAMPAIGN: readonly FamiliarCampaignLevel[] = definitions.map((entry, index) => {
-  const [title, npcName, npcTitle, rank, opponentIds, opponentLevel, circuitId, introLine] = entry;
+  const [title, npcName, npcTitle, rank, opponentIds, , circuitId, introLine] = entry;
+  const opponentLevel = CAMPAIGN_LEVEL_CURVE[index];
   const chapter = Math.floor(index / 4) + 1;
   const difficulty: FamiliarCombatDifficulty = index < 7 ? "normal" : index < 14 ? "expert" : "nexus";
   const bossLevel = (index + 1) % 4 === 0;
@@ -99,6 +105,7 @@ export const FAMILIAR_COMBAT_CAMPAIGN: readonly FamiliarCampaignLevel[] = defini
     objectiveLabel,
     turnLimit: objective === "rapidita" ? Math.max(6, 12 - Math.floor(index / 5)) : objective === "resistenza" ? 14 : null,
     bossPhases: bossLevel ? Math.min(3, 2 + Math.floor(index / 12)) : 1,
+    teamBattle: [4, 8, 12, 16, 20].includes(index + 1),
     npc: {
       name: npcName,
       title: npcTitle || rankTitle[rank],

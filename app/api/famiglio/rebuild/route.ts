@@ -1,4 +1,6 @@
 import { env } from "@/lib/netlifyRuntime";
+import { isFamiglioRequestOriginAllowed } from "@/lib/famiglioRequestOrigin";
+import { syncCompetitionRewards } from "@/lib/famiglioLeaderboardRewards";
 import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import {
   FAMIGLIO_REBUILD_CLOUD_MAX_BYTES,
@@ -48,6 +50,7 @@ export async function GET() {
     const database = (env as unknown as RuntimeEnv).DB;
     if (!database) return json({ error: "Archivio Nexus Pet temporaneamente non disponibile." }, 503);
     await syncLoreWiseCustomer(user);
+    await syncCompetitionRewards(user.id);
     return json({ authenticated: true, ...await databaseSave(database, user.id) });
   } catch {
     return json({ error: "Non è stato possibile recuperare le Case del Nexus Pet." }, 503);
@@ -56,8 +59,7 @@ export async function GET() {
 
 export async function PUT(request: Request) {
   try {
-    const origin = request.headers.get("origin");
-    if (origin && origin !== new URL(request.url).origin) return json({ error: "Origine non valida." }, 403);
+    if (!isFamiglioRequestOriginAllowed(request)) return json({ error: "Origine non valida." }, 403);
     const contentLength = Number(request.headers.get("content-length") || 0);
     if (contentLength > FAMIGLIO_REBUILD_CLOUD_MAX_BYTES * 2) return json({ error: "Salvataggio troppo grande." }, 413);
     const user = await getLoreWiseUser();

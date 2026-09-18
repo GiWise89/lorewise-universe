@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
 import { advanceFamiliarTower, createFamiliarTowerRun, familiarTowerFloor, familiarTowerFloorBackground, FAMILIAR_TOWER_FLOOR_BACKGROUNDS } from "../lib/famiglioCombatTower.ts";
 
@@ -11,6 +12,8 @@ test("la Torre crea dieci piani ordinati con mini-boss e boss finale", () => {
   assert.equal(run.floors[7].rank, "mini-boss");
   assert.equal(run.floors[8].rank, "elite");
   assert.equal(run.floors[9].rank, "boss");
+  assert.deepEqual(run.floors.filter((floor) => floor.teamBattle).map((floor) => floor.floor), [4, 8, 10]);
+  assert.ok(run.floors.filter((floor) => floor.teamBattle).every((floor) => floor.opponentTeamIds.length === 3));
   assert.ok(new Set(run.floors.map((floor) => floor.opponentId)).size >= 9);
   assert.ok(run.floors.every((floor) => floor.opponentId !== "cat"));
   assert.equal(FAMILIAR_TOWER_FLOOR_BACKGROUNDS.length, 10);
@@ -39,4 +42,11 @@ test("l'avanzamento arriva al decimo piano e poi conclude la Torre", () => {
       run = next;
     }
   }
+});
+
+test("la UI salva ogni piano raggiunto e riprende la Torre invece di tornare al primo", () => {
+  const source = readFileSync("components/FamiglioCombatArena.tsx", "utf8");
+  assert.match(source, /lorewise:famiglio:tower/);
+  assert.match(source, /const run = towerRun \?\?/);
+  assert.match(source, /localStorage\.setItem\(towerStorageKey, JSON\.stringify\(nextRun\)\)/);
 });

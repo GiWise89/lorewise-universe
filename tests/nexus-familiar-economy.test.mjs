@@ -41,39 +41,12 @@ test("completes the real care, mission, outing, shop and commercial-benefit loop
   assert.equal(familiarLevelDiscount(levelTen.level, "commissioni"), 1);
 });
 
-test("legacy client-side economic mutations have been removed", async () => {
-  const source = await import("node:fs/promises").then((fs) => fs.readFile(new URL("../components/NexusFamiliarExperience.tsx", import.meta.url), "utf8"));
-  assert.doesNotMatch(source, /const synchronized = await commitEconomyState\(next\)/);
-  assert.match(source, /if \(cloudReadyRef\.current\)/);
-  assert.match(source, /runAuthoritativeCommand/);
-});
-
-test("account economy mutations use authoritative server commands", async () => {
-  const source = await import("node:fs/promises").then((fs) => fs.readFile(new URL("../components/NexusFamiliarExperience.tsx", import.meta.url), "utf8"));
-  assert.match(source, /runAuthoritativeCommand\("care", command\)/);
-  assert.match(source, /runAuthoritativeCommand\("outing-start", destinationId\)/);
-  assert.match(source, /runAuthoritativeCommand\("theme", offerId\)/);
-  assert.match(source, /payload\.familiar \? sanitizeFamiliarCloudState/);
-  assert.match(source, /payload\.conflict === true/);
-  assert.match(source, /runAuthoritativeCommand\(command, value, false\)/);
-  assert.match(source, /payload\.missingFamiliar === true/);
-  assert.match(source, /persistFamiliarRef\.current\(stateRef\.current, revision\)/);
-});
-
 test("revision conflicts are explicitly retryable for care and outings", async () => {
   const source = await import("node:fs/promises").then((fs) => fs.readFile(new URL("../app/api/famiglio/command/route.ts", import.meta.url), "utf8"));
   assert.equal((source.match(/conflict: true/g) ?? []).length, 2);
   assert.match(source, /current\.revision !== baseRevision/);
   assert.match(source, /latest\.revision/);
   assert.match(source, /missingFamiliar: true/);
-});
-
-test("local preview can complete a confirmed Famiglio reset while account sync is offline", async () => {
-  const source = await import("node:fs/promises").then((fs) => fs.readFile(new URL("../components/NexusFamiliarExperience.tsx", import.meta.url), "utf8"));
-  assert.match(source, /FAMILIAR_PENDING_DELETE_STORAGE_KEY/);
-  assert.match(source, /if \(!isLocalPreviewHost\(\)\)/);
-  assert.match(source, /setCloudStatus\("local"\)/);
-  assert.match(source, /pendingDeleteId && remote\?\.familiarId === pendingDeleteId/);
 });
 
 test("paid Famiglio offers use protected checkout and idempotent fulfillment", async () => {

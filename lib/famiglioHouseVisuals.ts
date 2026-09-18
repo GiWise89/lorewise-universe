@@ -9,7 +9,7 @@ const visual = (scale: number, groundOffset = 0): FamiliarHouseVisual => ({
 });
 
 export const FAMILIAR_HOUSE_VISUALS: Readonly<Record<string, FamiliarHouseVisual>> = {
-  cat: visual(.78),
+  cat: visual(.62),
   golden: visual(1.02),
   akita: visual(.98),
   "great-dane": visual(1.2),

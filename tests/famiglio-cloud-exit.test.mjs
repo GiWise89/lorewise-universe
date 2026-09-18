@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 test('cloud results always expose an exit and complete the score only once', () => {
   const source = readFileSync('components/FamiglioCloudGame.tsx', 'utf8');
   assert.match(source, /onClick=\{finish\}>Torna alla Casa/);
-  assert.match(source, /run.finished\?<button type="button" onClick=\{finish\}>Esci/);
+  assert.match(source, /run.finished\?<button type="button" disabled=\{match.saving\} onClick=\{finish\}>Esci/);
   assert.match(source, /if\(run.finished\)\{finish\(\);return;\}/);
   const body = source.match(/const finish=\(\)=>\{(.+?)\};/)[1];
   let submitted = { current: false }, scores = [], exits = 0;

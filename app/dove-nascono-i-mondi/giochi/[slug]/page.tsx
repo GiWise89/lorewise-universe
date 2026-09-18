@@ -56,12 +56,12 @@ export default async function GameJournalPage({ params }: { params: Promise<{ sl
             <div>{game.gallery.map((image, index) => <figure key={image.src}><Image src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(max-width: 760px) 94vw, 46vw" unoptimized /><figcaption>Schermata {String(index + 1).padStart(2, "0")} · {image.alt}</figcaption></figure>)}</div>
           </section>
         ) },
-        { id: `${game.id}-codice`, label: "Codice", eyebrow: "04", content: (
+        ...(game.code ? [{ id: `${game.id}-codice`, label: "Codice", eyebrow: "04", content: (
           <section className="game-journal-code shell" aria-labelledby="game-code-title">
             <div><p className="journal-kicker">Codice reale del progetto</p><h2 id="game-code-title">{game.code.title}</h2><p>Queste righe sono una piccola parte del sistema. Dietro ogni personaggio e ogni azione ci sono dati, condizioni, controlli e regole che il gioco deve risolvere senza fermarsi.</p></div>
             <figure><figcaption><span>{game.code.language}</span>{game.code.file}</figcaption><HorizontalScrollHint className="code-scroll-hint" /><pre><code>{game.code.snippet}</code></pre></figure>
           </section>
-        ) },
+        ) }] : []),
       ]} />
 
       <section className="game-journal-footer"><div className="shell"><p className="diary-hand">Dal diario al gioco</p><h2>Guarda il progetto completo e il suo stato attuale.</h2><Link href={game.href}>Apri la scheda di {game.title} <span aria-hidden="true">→</span></Link></div></section>

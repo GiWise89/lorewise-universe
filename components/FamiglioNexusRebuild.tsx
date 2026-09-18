@@ -33,6 +33,7 @@ import {
   FAMILIAR_MOODS,
   GROWTH_STAGES,
   advanceFamiliarHome,
+  claimFamiliarWeeklyChest,
   createFamiliarHomeState,
   dailyRoutineProgress,
   familiarMood,
@@ -71,6 +72,7 @@ import {
 } from "@/lib/famiglioBondWeek";
 import {
   FAMILIAR_COLLECTION,
+  DEFAULT_FAMILIAR_IDS,
   MEDUSA_FAMILIAR_CATALOG,
   FAMILIAR_BUNDLES,
   FAMILIAR_PRICE_EUR_BY_RARITY,
@@ -138,12 +140,23 @@ import {
   restoreFamiliarCombatState,
   startFamiliarCombatBattle,
   combatLevelForXp,
+  familiarCombatMovesAtLevel,
+  familiarCombatStats,
   type FamiliarCombatDifficulty,
   type FamiliarCombatReward,
   type FamiliarCombatState,
 } from "@/lib/famiglioCombat";
 
-type FamiliarLevelUpNotice = { track: "Legame" | "Esplorazione" | "Combattimento"; level: number; title: string; benefits: string[] };
+type FamiliarLevelUpNotice = {
+  track: "Legame" | "Esplorazione" | "Combattimento";
+  previousLevel: number;
+  level: number;
+  title: string;
+  benefits: string[];
+  statChanges?: string[];
+  unlockedMoves?: string[];
+  rewards?: string[];
+};
 import {
   dailyFamiliarMissions,
   previousRomeDateKey,
@@ -909,7 +922,7 @@ function MiniEgg({ egg }: { egg: StarterEgg }) {
   return <canvas ref={canvasRef} className={styles.miniEgg} width="88" height="104" aria-hidden="true" />;
 }
 
-function FamiliarPreview({ egg, colorVariant = null }: { egg: StarterEgg; colorVariant?: string | null }) {
+function FamiliarPreview({ egg, colorVariant = null, grounded = false }: { egg: StarterEgg; colorVariant?: string | null; grounded?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -935,11 +948,13 @@ function FamiliarPreview({ egg, colorVariant = null }: { egg: StarterEgg; colorV
         context.setTransform(ratio, 0, 0, ratio, 0, 0);
         context.clearRect(0, 0, width, height);
         const size = Math.min(width * .78, height * .74, 156);
-        const groundY = height * .82;
-        context.beginPath();
-        context.ellipse(width * .5, groundY, size * .28, size * .06, 0, 0, Math.PI * 2);
-        context.fillStyle = "rgba(19,37,35,.22)";
-        context.fill();
+        const groundY = grounded ? height : height * .82;
+        if (!grounded) {
+          context.beginPath();
+          context.ellipse(width * .5, groundY, size * .28, size * .06, 0, 0, Math.PI * 2);
+          context.fillStyle = "rgba(19,37,35,.22)";
+          context.fill();
+        }
         drawBornFamiliar(context, image, egg, width * .5, groundY, size, simulationTime);
       };
 
@@ -960,7 +975,7 @@ function FamiliarPreview({ egg, colorVariant = null }: { egg: StarterEgg; colorV
       cancelled = true;
       cancelAnimationFrame(frameRequest);
     };
-  }, [egg, colorVariant]);
+  }, [egg, colorVariant, grounded]);
 
   return <canvas ref={canvasRef} className={styles.familiarPreview} aria-label={`Anteprima animata: ${egg.familiar}`} />;
 }
@@ -2141,12 +2156,22 @@ export function FamiglioNexusRebuild() {
   const [homePanel, setHomePanel] = useState<FamiliarHomePanel>("care");
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [restChoiceOpen, setRestChoiceOpen] = useState(false);
-  const [levelUpNotice, setLevelUpNotice] = useState<FamiliarLevelUpNotice | null>(null);
+  const [levelUpNotices, setLevelUpNotices] = useState<FamiliarLevelUpNotice[]>([]);
+  const levelUpNotice = levelUpNotices[0] ?? null;
+  const enqueueLevelUp = (notice: FamiliarLevelUpNotice) => setLevelUpNotices((current) => [...current, notice]);
+  const enqueueLevelRange = (previousLevel: number, nextLevel: number, create: (level: number) => Omit<FamiliarLevelUpNotice,"previousLevel"|"level">) => {
+    if (nextLevel <= previousLevel) return;
+    setLevelUpNotices((current) => [...current, ...Array.from({ length: nextLevel - previousLevel }, (_, index) => {
+      const level = previousLevel + index + 1;
+      return { previousLevel: level - 1, level, ...create(level) };
+    })]);
+  };
   const [attendanceOpen, setAttendanceOpen] = useState(false);
   const [attendanceBusy, setAttendanceBusy] = useState(false);
   const [attendanceReveal, setAttendanceReveal] = useState<FamiliarAttendanceReward | null>(null);
   const [attendanceAutoSuppressed, setAttendanceAutoSuppressed] = useState(false);
   const [miniGameOpen, setMiniGameOpen] = useState(false);
+  const [miniGamePractice, setMiniGamePractice] = useState(false);
   const [bondStoryOpen, setBondStoryOpen] = useState(false);
   const [bondStoryFeedback, setBondStoryFeedback] = useState<{ choice: FamiliarBondChoice; day: number } | null>(null);
   const [storageReady, setStorageReady] = useState(false);
@@ -2542,9 +2567,9 @@ export function FamiglioNexusRebuild() {
         }
         previewRestChoice = previewParams.get("rest") === "choose";
         const requestedLevelUp = previewParams.get("levelup");
-        if (requestedLevelUp === "bond") previewLevelUp = { track: "Legame", level: 10, title: "Sintonia crescente", benefits: ["Nuovo traguardo del Legame", "Sconto dell'1% nelle botteghe"] };
-        if (requestedLevelUp === "adventure") previewLevelUp = { track: "Esplorazione", level: 4, title: "Esploratore del Nexus", benefits: ["Nuove ricompense di spedizione", "Progresso registrato nel Diario"] };
-        if (requestedLevelUp === "combat") previewLevelUp = { track: "Combattimento", level: 5, title: "Tecnica migliorata", benefits: ["Una mossa può essere potenziata", "Statistiche di lotta aumentate"] };
+        if (requestedLevelUp === "bond") previewLevelUp = { track: "Legame", previousLevel: 9, level: 10, title: "Sintonia crescente", benefits: ["Nuovo traguardo del Legame", "Ricordo registrato nel Diario"] };
+        if (requestedLevelUp === "adventure") previewLevelUp = { track: "Esplorazione", previousLevel: 3, level: 4, title: "Esploratore del Nexus", benefits: ["Nuove ricompense di spedizione", "Progresso registrato nel Diario"] };
+        if (requestedLevelUp === "combat") previewLevelUp = { track: "Combattimento", previousLevel: 4, level: 5, title: "Tecnica migliorata", benefits: ["Statistiche di lotta aumentate"], statChanges: ["HP +3", "Attacco +2", "Difesa +2"], unlockedMoves: ["Nuova tecnica disponibile"] };
         const requestedItem = previewParams.get("item") as FamiliarInventoryItemId | null;
         if (requestedItem && FAMILIAR_ITEM_CATALOG.some((item) => item.id === requestedItem)) {
           restoredHome = {
@@ -2595,8 +2620,9 @@ export function FamiglioNexusRebuild() {
       if (previewMiniGame) setMiniGameOpen(true);
       if (previewAttendance) setAttendanceOpen(true);
       if (previewSuppressAttendance) setAttendanceAutoSuppressed(true);
-      if (previewLevelUp) setLevelUpNotice(previewLevelUp);
+      if (previewLevelUp) enqueueLevelUp(previewLevelUp);
       setAllTestMode(previewAllTestMode);
+      setMiniGamePractice(previewSessionRef.current);
       setLocalHouseTrial(restoredLocalHouseTrial);
       setSavedHouseSnapshots(restoredHouseSnapshots);
       setActiveHouseIndex(restoredHouseIndex);
@@ -2729,9 +2755,9 @@ export function FamiglioNexusRebuild() {
   }, [state.stage]);
 
   useEffect(() => {
-    if (state.stage !== "home" || familiarAway) return;
+    if (state.stage !== "home") return;
     const interval = window.setInterval(() => setHomeState((current) => {
-      const next = advanceFamiliarHome(current);
+      const next = familiarAway ? {...current, weeklyLoop: restoreFamiliarWeeklyLoopState(current.weeklyLoop, new Date(), current.attendance.launchDate)} : advanceFamiliarHome(current);
       return previewFullNeedsRef.current ? {
         ...next,
         needs: { hunger: 100, energy: 100, happiness: 100, hygiene: 100, affection: 100 },
@@ -2757,6 +2783,8 @@ export function FamiglioNexusRebuild() {
     if (state.stage !== "home") return;
     const initialRefresh = window.setTimeout(() => void loadMissions(), 0);
     const refresh = () => void loadMissions();
+    let shownDate = romeDateKey();
+    const dayCheck = window.setInterval(() => { const date = romeDateKey(); if (date !== shownDate) { shownDate = date; refresh(); } }, 15000);
     const refreshWhenVisible = () => {
       if (document.visibilityState === "visible") refresh();
     };
@@ -2764,6 +2792,7 @@ export function FamiglioNexusRebuild() {
     document.addEventListener("visibilitychange", refreshWhenVisible);
     return () => {
       window.clearTimeout(initialRefresh);
+      window.clearInterval(dayCheck);
       window.removeEventListener("focus", refresh);
       document.removeEventListener("visibilitychange", refreshWhenVisible);
     };
@@ -2785,7 +2814,8 @@ export function FamiglioNexusRebuild() {
   const activeCollectionFamiliar = starterIsActive
     ? null
     : testCollectionFamiliar ?? FAMILIAR_COLLECTION.find((entry) => entry.id === activeFamiliarId) ?? null;
-  const ownedCombatFamiliarIds = new Set<string>(purchasedAppearanceIds);
+  const ownedCombatFamiliarIds = new Set<string>(DEFAULT_FAMILIAR_IDS);
+  for (const id of purchasedAppearanceIds) ownedCombatFamiliarIds.add(id);
   for (const id of state.unlockedIds) ownedCombatFamiliarIds.add(id);
   if (state.selectedId) ownedCombatFamiliarIds.add(state.selectedId);
   for (const house of savedHouseSnapshots) {
@@ -2793,12 +2823,6 @@ export function FamiglioNexusRebuild() {
     if (house.activeFamiliarId) ownedCombatFamiliarIds.add(house.activeFamiliarId);
     if (house.rebuild.selectedId) ownedCombatFamiliarIds.add(house.rebuild.selectedId);
     for (const id of house.rebuild.unlockedIds) ownedCombatFamiliarIds.add(id);
-  }
-  // Le anteprime complete restano disponibili soltanto nella modalita di prova locale.
-  if (allTestMode) {
-    for (const entry of FAMILIAR_COLLECTION) ownedCombatFamiliarIds.add(entry.id);
-  } else if (previewSession && testCollectionFamiliarId) {
-    ownedCombatFamiliarIds.add(testCollectionFamiliarId);
   }
   const combatColorVariantById = new Map<string, string | null>();
   for (const house of savedHouseSnapshots) {
@@ -2930,7 +2954,7 @@ export function FamiglioNexusRebuild() {
     const previousAdventureXp = adventureState.progress[reward.familiarId]?.adventureXp ?? 0;
     const previousAdventureLevel = Math.min(50, Math.floor(previousAdventureXp / 100) + 1);
     const nextAdventureLevel = Math.min(50, Math.floor((previousAdventureXp + reward.adventureXp) / 100) + 1);
-    if (nextAdventureLevel > previousAdventureLevel) setLevelUpNotice({ track: "Esplorazione", level: nextAdventureLevel, title: "Nuovi sentieri riconosciuti", benefits: ["Ricompense di spedizione migliorate", "Nuove varianti di viaggio disponibili"] });
+    enqueueLevelRange(previousAdventureLevel, nextAdventureLevel, () => ({ track: "Esplorazione", title: "Nuovi sentieri riconosciuti", benefits: ["Ricompense di spedizione migliorate", "Nuove varianti di viaggio disponibili"], rewards: [`+${reward.adventureXp} XP esplorazione`, `+${reward.nexusCoins} Monete Nexus`] }));
     setHomeState((current) => {
       const at = Date.now();
       return {
@@ -2956,10 +2980,19 @@ export function FamiglioNexusRebuild() {
   };
 
   const receiveCombatReward = (reward: FamiliarCombatReward) => {
-    const previousCombat = combatState.profiles[reward.familiarId];
-    const previousCombatLevel = previousCombat?.combatLevel ?? 1;
-    const nextCombatLevel = combatLevelForXp((previousCombat?.combatXp ?? 0) + reward.combatXp);
-    if (nextCombatLevel > previousCombatLevel) setLevelUpNotice({ track: "Combattimento", level: nextCombatLevel, title: "Forza del Legame aumentata", benefits: ["Statistiche di battaglia migliorate", "Controlla il Percorso per eventuali nuove mosse"] });
+    const recordedLevelUps = reward.levelUps?.length ? reward.levelUps : (() => {
+      const previousCombat = combatState.profiles[reward.familiarId];
+      const previousLevel = previousCombat?.combatLevel ?? 1;
+      return [{ familiarId: reward.familiarId, previousLevel, level: combatLevelForXp((previousCombat?.combatXp ?? 0) + reward.combatXp) }];
+    })();
+    for (const levelUp of recordedLevelUps) enqueueLevelRange(levelUp.previousLevel, levelUp.level, (level) => {
+      const before = familiarCombatStats(levelUp.familiarId, level - 1);
+      const after = familiarCombatStats(levelUp.familiarId, level);
+      const previousMoves = new Set(familiarCombatMovesAtLevel(levelUp.familiarId, level - 1).map((move) => move.id));
+      const unlockedMoves = familiarCombatMovesAtLevel(levelUp.familiarId, level).filter((move) => !previousMoves.has(move.id)).map((move) => move.name ?? move.id);
+      const fighterName = familiarCombatEntry(levelUp.familiarId)?.name ?? "Il Famiglio";
+      return { track: "Combattimento", title: `${fighterName} diventa più forte`, benefits: ["La squadra può affrontare avversari più forti"], statChanges: [`HP +${after.hp-before.hp}`, `Attacco +${after.attack-before.attack}`, `Difesa +${after.defense-before.defense}`, `Velocità +${after.speed-before.speed}`], unlockedMoves, rewards: levelUp.familiarId === reward.familiarId ? [`+${reward.combatXp} XP combattimento`, `+${reward.nexusCoins} Monete Nexus`] : ["Esperienza di squadra condivisa"] };
+    });
     setHomeState((current) => {
       const at = Date.now();
       return {
@@ -2998,8 +3031,7 @@ export function FamiglioNexusRebuild() {
     setHomeState(progressed);
     const nextBondLevel = familiarLevelForExperience(progressed.growth.bondXp);
     if (nextBondLevel > previousBondLevel) {
-      const milestone = FAMILIAR_MILESTONES.find((entry) => entry.level === nextBondLevel);
-      setLevelUpNotice({ track: "Legame", level: nextBondLevel, title: milestone?.title ?? "Il vostro Legame cresce", benefits: milestone ? [milestone.benefit, milestone.rewardLabel] : ["Nuova intensità del Legame", "Progressi registrati nel Diario"] });
+      enqueueLevelRange(previousBondLevel, nextBondLevel, (level) => { const reached = FAMILIAR_MILESTONES.find((entry) => entry.level === level); return { track: "Legame", title: reached?.title ?? "Il vostro Legame cresce", benefits: reached ? [reached.benefit] : ["Nuova intensità del Legame", "Progressi registrati nel Diario"], rewards: reached ? [reached.rewardLabel] : [] }; });
     }
     setAdventureState((current) => syncFamiliarAdventureGrowth(current, activeFamiliarId, progressed.growth.bondXp, progressed.growth.careStreak));
     return progressed.lastActionAt !== previousActionAt && progressed.activeAction === action;
@@ -3039,8 +3071,7 @@ export function FamiglioNexusRebuild() {
     ensureHomeAudio();
     playFamiliarInterfaceCue("confirm", !homeAudioMuted, homeAudioVolume);
     if (nextBondLevel > previousBondLevel) {
-      const milestone = FAMILIAR_MILESTONES.find((entry) => entry.level === nextBondLevel);
-      setLevelUpNotice({ track: "Legame", level: nextBondLevel, title: milestone?.title ?? "Il vostro Legame cresce", benefits: milestone ? [milestone.benefit, milestone.rewardLabel] : ["Un nuovo Ricordo del Legame", "La scelta è stata custodita nel Diario"] });
+      enqueueLevelRange(previousBondLevel, nextBondLevel, (level) => { const reached = FAMILIAR_MILESTONES.find((entry) => entry.level === level); return { track: "Legame", title: reached?.title ?? "Il vostro Legame cresce", benefits: reached ? [reached.benefit] : ["Un nuovo Ricordo del Legame", "La scelta è stata custodita nel Diario"], rewards: reached ? [reached.rewardLabel] : [] }; });
     }
   };
 
@@ -3058,8 +3089,7 @@ export function FamiglioNexusRebuild() {
     setHomeState(next);
     const nextBondLevel = familiarLevelForExperience(next.growth.bondXp);
     if (nextBondLevel > previousBondLevel) {
-      const milestone = FAMILIAR_MILESTONES.find((entry) => entry.level === nextBondLevel);
-      setLevelUpNotice({ track: "Legame", level: nextBondLevel, title: milestone?.title ?? "Il vostro Legame cresce", benefits: milestone ? [milestone.benefit, milestone.rewardLabel] : ["Nuova intensità del Legame", "Progressi registrati nel Diario"] });
+      enqueueLevelRange(previousBondLevel, nextBondLevel, (level) => { const reached = FAMILIAR_MILESTONES.find((entry) => entry.level === level); return { track: "Legame", title: reached?.title ?? "Il vostro Legame cresce", benefits: reached ? [reached.benefit] : ["Nuova intensità del Legame", "Progressi registrati nel Diario"], rewards: reached ? [reached.rewardLabel] : [] }; });
     }
     setAdventureState((current) => syncFamiliarAdventureGrowth(current, activeFamiliarId, next.growth.bondXp, next.growth.careStreak));
     return next.lastActionAt !== previousActionAt;
@@ -3119,8 +3149,7 @@ export function FamiglioNexusRebuild() {
       const previousBondLevel = familiarLevelForExperience(homeState.growth.bondXp);
       const nextBondLevel = familiarLevelForExperience(rewardedHome.growth.bondXp);
       if (nextBondLevel > previousBondLevel) {
-        const milestone = FAMILIAR_MILESTONES.find((entry) => entry.level === nextBondLevel);
-        setLevelUpNotice({ track: "Legame", level: nextBondLevel, title: milestone?.title ?? "Il vostro Legame cresce", benefits: milestone ? [milestone.benefit, milestone.rewardLabel] : ["Ricompensa della missione applicata", "Progressi registrati nel Diario"] });
+        enqueueLevelRange(previousBondLevel, nextBondLevel, (level) => { const reached = FAMILIAR_MILESTONES.find((entry) => entry.level === level); return { track: "Legame", title: reached?.title ?? "Il vostro Legame cresce", benefits: reached ? [reached.benefit] : ["Ricompensa della missione applicata", "Progressi registrati nel Diario"], rewards: reached ? [reached.rewardLabel] : [] }; });
       }
       setHomeState(rewardedHome);
       setAdventureState((current) => syncFamiliarAdventureGrowth(current, activeFamiliarId, rewardedHome.growth.bondXp, rewardedHome.growth.careStreak));
@@ -3853,7 +3882,7 @@ export function FamiglioNexusRebuild() {
               if (step === "play") { setHomePanel("care"); if (!homeState.activeAction) setMiniGameOpen(true); }
               else setHomePanel(step === "care" ? "care" : step === "combat" ? "combat" : "adventure");
             }}
-            onClaimWeeklyChest={() => setHomeState((current) => current.weeklyLoop.steps.length < 4 || current.weeklyLoop.chestClaimed ? current : ({ ...current, lastOutcome: "Tesoro settimanale aperto: +45 Monete Nexus e +2 Frammenti di Reliquia.", wallet: { ...current.wallet, nexusCoins: current.wallet.nexusCoins + 45, totalEarned: current.wallet.totalEarned + 45, relicFragments: current.wallet.relicFragments + 2 }, weeklyLoop: { ...current.weeklyLoop, chestClaimed: true } }))}
+            onClaimWeeklyChest={() => setHomeState((current) => claimFamiliarWeeklyChest(current))}
             onReturnHome={() => setHomePanel("care")}
           />
         ) : null}
@@ -4360,22 +4389,26 @@ export function FamiglioNexusRebuild() {
           <section className={styles.levelUpSheet} role="dialog" aria-modal="true" aria-labelledby="level-up-title">
             <span className={styles.levelUpEmblem} aria-hidden="true">✦</span>
             <small>Livello {levelUpNotice.track}</small>
-            <h3 id="level-up-title">Livello {levelUpNotice.level}</h3>
+            <h3 id="level-up-title">Livello {levelUpNotice.previousLevel} → {levelUpNotice.level}</h3>
             <strong>{levelUpNotice.title}</strong>
             <ul>{levelUpNotice.benefits.map((benefit) => <li key={benefit}>{benefit}</li>)}</ul>
-            <button type="button" onClick={() => setLevelUpNotice(null)}>Continua il cammino</button>
+            {levelUpNotice.statChanges?.length ? <section className={styles.levelUpDetails}><small>Statistiche aumentate</small><div>{levelUpNotice.statChanges.map((change) => <span key={change}>{change}</span>)}</div></section> : null}
+            {levelUpNotice.unlockedMoves?.length ? <section className={styles.levelUpDetails}><small>Nuove mosse</small><div>{levelUpNotice.unlockedMoves.map((move) => <span key={move}>{move}</span>)}</div></section> : null}
+            {levelUpNotice.rewards?.length ? <section className={styles.levelUpDetails}><small>Ricompense</small><div>{levelUpNotice.rewards.map((reward) => <span key={reward}>{reward}</span>)}</div></section> : null}
+            <button type="button" onClick={() => setLevelUpNotices((current) => current.slice(1))}>{levelUpNotices.length > 1 ? `Continua · ${levelUpNotices.length-1} traguardi` : "Continua il cammino"}</button>
           </section>
         </div>, document.body,
       ) : null}
       {miniGameOpen && typeof document !== "undefined" ? createPortal(
         <FamiglioDailyMiniGame
+          practice={miniGamePractice || allTestMode || localHouseTrial}
           kind={homeState.weeklyLoop.miniGame.kind}
           bestScore={homeState.weeklyLoop.miniGame.bestScore}
           scores={homeState.weeklyLoop.miniGame.scores}
           rewarded={homeState.weeklyLoop.miniGame.rewarded}
           familiarName={homeDisplayName}
           familiarSprite={familiarAnimatedPreview(miniGameFamiliar)}
-          familiarVisual={homeFamiliar && activeFamiliarId === homeFamiliar.id ? <FamiliarPreview egg={homeFamiliar} colorVariant={state.colorVariant} /> : undefined}
+          familiarVisual={homeFamiliar && activeFamiliarId === homeFamiliar.id ? <FamiliarPreview egg={homeFamiliar} colorVariant={state.colorVariant} grounded /> : undefined}
           onClose={() => setMiniGameOpen(false)}
           onComplete={completeDailyMiniGame}
         />, document.body,

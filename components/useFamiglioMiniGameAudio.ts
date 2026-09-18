@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-type Sound="collect"|"error"|"jump"|"light"|"rune";
+type Sound="collect"|"error"|"jump"|"light"|"rune"|"level";
 export function useFamiglioMiniGameAudio(active:boolean,quietMelody=false){
   const context=useRef<AudioContext|null>(null),nodes=useRef(new Set<OscillatorNode>());
   const [muted,setMuted]=useState(false);
@@ -16,6 +16,7 @@ export function useFamiglioMiniGameAudio(active:boolean,quietMelody=false){
     if(muted)return;const ctx=context.current;if(!ctx)return;const now=ctx.currentTime;
     if(kind==="rune"){note([261.63,329.63,392,523.25][pad%4],now,.34,.075,"sine");return;}
     if(kind==="error"){note(146.83,now,.16,.035);return;}
+    if(kind==="level"){[523.25,659.25,783.99].forEach((f,i)=>note(f,now+i*.1,.18,.035));return;}
     const tones=kind==="light"?[880,1318.51]:kind==="jump"?[392,523.25]:[659.25,987.77];
     tones.forEach((f,i)=>note(f,now+i*.065,.15,.035));
   },[muted,note]);

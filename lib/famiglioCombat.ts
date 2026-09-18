@@ -13,6 +13,7 @@ export const FAMILIAR_COMBAT_MAX_LEVEL = 50;
 export const FAMILIAR_COMBAT_MOVE_SLOTS = 4;
 export const FAMILIAR_COMBAT_MAX_ENERGY = 100;
 export const FAMILIAR_COMBAT_ENERGY_REGEN = 18;
+export const FAMILIAR_COMBAT_SWITCH_ENERGY_COST = 30;
 
 export type FamiliarCombatDifficulty = "normal" | "expert" | "nexus";
 export type FamiliarCombatOutcome = "active" | "victory" | "defeat";
@@ -108,6 +109,7 @@ export type FamiliarCombatReward = {
   nightSigils: number;
   relicFragments: number;
   firstClear: boolean;
+  levelUps?: Array<{ familiarId: string; previousLevel: number; level: number }>;
 };
 
 export type FamiliarCombatInitiative = {
@@ -126,7 +128,13 @@ export type FamiliarCombatBattle = {
   encounterId: string;
   difficulty: FamiliarCombatDifficulty;
   player: FamiliarCombatActor;
+  playerBench: FamiliarCombatActor[];
+  teamFamiliarIds: string[];
+  switchCooldown: number;
   opponent: FamiliarCombatActor;
+  opponentBench: FamiliarCombatActor[];
+  opponentTeamFamiliarIds: string[];
+  teamBattle: boolean;
   turn: number;
   maxTurns: number | null;
   bossPhasesTotal: number;
@@ -156,7 +164,9 @@ export type FamiliarCombatState = {
 
 export type StartFamiliarCombatBattleOptions = {
   playerId: string;
+  playerTeamIds?: readonly string[];
   opponentId: string;
+  opponentTeamIds?: readonly string[];
   circuitId: string;
   difficulty?: FamiliarCombatDifficulty;
   opponentLevel?: number;
@@ -166,6 +176,7 @@ export type StartFamiliarCombatBattleOptions = {
   playerEvolutionPath?: "impeto" | "baluardo" | "risonanza" | null;
   maxTurns?: number | null;
   bossPhases?: number;
+  teamBattle?: boolean;
 };
 
 export type FamiliarCombatOpponentPreviewOptions = {
@@ -748,7 +759,11 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
   if (playerEntry.id === opponentEntry.id) return { ok: false as const, state, error: "Scegli un avversario diverso." };
   if (!circuit) return { ok: false as const, state, error: "Circuito non disponibile." };
   if (!difficultyOrder.includes(difficulty)) return { ok: false as const, state, error: "Difficoltà non disponibile." };
-  const withPlayer = ensureFamiliarCombatProgress(state, playerEntry.id);
+  const teamBattle = Boolean(options.teamBattle);
+  const teamIds = unique([playerEntry.id, ...(teamBattle ? options.playerTeamIds ?? [] : [])])
+    .filter((id) => Boolean(familiarEntry(id)))
+    .slice(0, 3);
+  const withPlayer = teamIds.reduce((current, id) => ensureFamiliarCombatProgress(current, id), state);
   const progress = familiarCombatProgress(withPlayer, playerEntry.id);
   const [minimum] = circuitRange(circuit);
   if (!options.ignoreUnlocks && progress.combatLevel < minimum) {
@@ -772,9 +787,26 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
     opponentLevel: options.opponentLevel,
   });
   if (!opponentPreview) return { ok: false as const, state, error: "Anteprima dell'avversario non disponibile." };
+  const opponentTeamIds = unique([opponentEntry.id, ...(teamBattle ? options.opponentTeamIds ?? [] : [])])
+    .filter((id) => Boolean(familiarEntry(id)) && !teamIds.includes(id))
+    .slice(0, 3);
+  const opponentBench = opponentTeamIds.slice(1).flatMap((id) => {
+    const preview = familiarCombatOpponentPreview({
+      playerId: playerEntry.id,
+      opponentId: id,
+      circuitId: circuit.id,
+      difficulty,
+      opponentLevel: options.opponentLevel,
+    });
+    return preview ? [preview.actor] : [];
+  });
   const encounterId = options.encounterId ?? encounterKey(circuit.id, difficulty, opponentEntry.id);
   const battleSeed = normalizedSeed(`${withPlayer.seed}:${playerEntry.id}:${opponentEntry.id}:${encounterId}:${progress.battlesCompleted}`);
   const playerActor = battleActor(playerEntry.id, progress.combatLevel, 1, options.playerStatBonus, options.playerEvolutionPath);
+  const playerBench = teamIds.slice(1).map((id) => {
+    const memberProgress = familiarCombatProgress(withPlayer, id);
+    return battleActor(id, memberProgress.combatLevel);
+  });
   const initiativeRoll = rollInitiative(battleSeed, playerActor.stats.speed, opponentPreview.actor.stats.speed);
   const bossPhasesTotal = integer(options.bossPhases, 1, 1, 3);
   const battle: FamiliarCombatBattle = {
@@ -783,7 +815,13 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
     encounterId,
     difficulty,
     player: playerActor,
+    playerBench,
+    teamFamiliarIds: teamIds,
+    switchCooldown: 0,
     opponent: opponentPreview.actor,
+    opponentBench,
+    opponentTeamFamiliarIds: opponentTeamIds,
+    teamBattle,
     turn: 1,
     maxTurns: Number.isFinite(options.maxTurns) ? Math.max(1, Math.round(Number(options.maxTurns))) : null,
     bossPhasesTotal,
@@ -814,6 +852,21 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
       lastMessage: `Inizia l'incontro contro ${opponentEntry.name}.`,
     },
   };
+}
+
+export function switchFamiliarCombatant(state: FamiliarCombatState, familiarId: string) {
+  const original = state.activeBattle;
+  if (!original || original.outcome !== "active") return { ok: false as const, state, error: "Nessun combattimento attivo." };
+  if (original.switchCooldown > 0) return { ok: false as const, state, error: `Rotazione disponibile tra ${original.switchCooldown} turni.` };
+  if (original.player.energy < FAMILIAR_COMBAT_SWITCH_ENERGY_COST) return { ok: false as const, state, error: `Servono ${FAMILIAR_COMBAT_SWITCH_ENERGY_COST} EN per cambiare Famiglio.` };
+  const index = original.playerBench.findIndex((actor) => actor.familiarId === familiarId && actor.hp > 0);
+  if (index < 0) return { ok: false as const, state, error: "Questo Famiglio non può entrare ora." };
+  const incoming = { ...original.playerBench[index], statuses: [...original.playerBench[index].statuses, { id: "focus", name: STATUS_NAMES.focus, remainingTurns: 1, potency: 8, sourceMoveId: "team-resonance" }] };
+  const bench = [...original.playerBench];
+  bench.splice(index, 1, { ...original.player, energy: original.player.energy - FAMILIAR_COMBAT_SWITCH_ENERGY_COST });
+  const message = `${incoming.familiarId} entra in campo: Risonanza di squadra attiva, ${FAMILIAR_COMBAT_SWITCH_ENERGY_COST} EN consumata.`;
+  const battle = { ...original, player: incoming, playerBench: bench, switchCooldown: 2, lastPlayerMoveId: null, playerMoveStreak: 0, log: [...original.log, message].slice(-20) };
+  return { ok: true as const, state: { ...state, activeBattle: battle, lastMessage: message } };
 }
 
 function learnedMovesForActor(actor: FamiliarCombatActor) {
@@ -1173,7 +1226,7 @@ function combatRewardFor(battle: FamiliarCombatBattle, firstClear: boolean): Fam
   return {
     key: completedEncounterKey(battle),
     battleId: battle.id,
-    familiarId: battle.player.familiarId,
+    familiarId: battle.teamFamiliarIds[0] ?? battle.player.familiarId,
     circuitId: battle.circuitId,
     difficulty: battle.difficulty,
     combatXp: Math.max(1, Math.round(xpBase * difficulty.xpMultiplier)),
@@ -1192,11 +1245,14 @@ function concludeBattle(
   awardXp = true,
 ) {
   if (battle.resultApplied) return { state, battle };
-  const old = familiarCombatProgress(state, battle.player.familiarId);
+  const old = familiarCombatProgress(state, battle.teamFamiliarIds[0] ?? battle.player.familiarId);
   const key = completedEncounterKey(battle);
   const firstClear = outcome === "victory" && !old.completedEncounters.includes(key);
   const fullReward = combatRewardFor(battle, firstClear);
-  const earnedXp = awardXp ? (outcome === "victory" ? fullReward.combatXp : Math.max(1, Math.round(fullReward.combatXp * .2))) : 0;
+  const storyCatchUpXp = outcome === "victory" && firstClear && battle.encounterId.startsWith("campaign-")
+    ? Math.max(0, totalCombatXpForLevel(Math.min(50, battle.opponent.level + 1)) - old.combatXp)
+    : 0;
+  const earnedXp = awardXp ? (outcome === "victory" ? Math.max(fullReward.combatXp, storyCatchUpXp) : Math.max(1, Math.round(fullReward.combatXp * .2))) : 0;
   const combatXp = Math.max(0, old.combatXp + earnedXp);
   const combatLevel = combatLevelForXp(combatXp);
   const entry = familiarEntry(old.familiarId)!;
@@ -1220,13 +1276,25 @@ function concludeBattle(
   phaseEvent(battle, events, battle.player, battle.opponent, resultMove, "result", 900,
     outcome === "victory" ? `Vittoria. ${earnedXp} XP combattimento.` : `Sconfitta senza perdita di oggetti. ${earnedXp} XP combattimento.`);
   const resolvedBattle = { ...battle, outcome, resultApplied: true, timeline: events };
+  const teamProfiles = Object.fromEntries((battle.teamFamiliarIds.length ? battle.teamFamiliarIds : [old.familiarId]).map((familiarId) => {
+    if (familiarId === old.familiarId) return [familiarId, nextProgress];
+    const member = familiarCombatProgress(state, familiarId);
+    const memberXp = member.combatXp + Math.max(1, Math.round(earnedXp * .7));
+    const memberLevel = combatLevelForXp(memberXp);
+    const memberEntry = familiarEntry(familiarId)!;
+    return [familiarId, { ...member, combatXp: memberXp, combatLevel: memberLevel, battlesCompleted: member.battlesCompleted + 1, ...reconcileMoveLoadout(memberEntry, member.learnedSchedule, memberLevel, member.equippedMoveIds) }];
+  }));
+  const levelUps = Object.entries(teamProfiles).flatMap(([familiarId, profile]) => {
+    const before = familiarCombatProgress(state, familiarId).combatLevel;
+    return profile.combatLevel > before ? [{ familiarId, previousLevel: before, level: profile.combatLevel }] : [];
+  });
   return {
     battle: resolvedBattle,
     state: {
       ...state,
-      profiles: { ...state.profiles, [old.familiarId]: nextProgress },
+      profiles: { ...state.profiles, ...teamProfiles },
       activeBattle: resolvedBattle,
-      pendingReward: awardXp && outcome === "victory" && firstClear ? { ...fullReward, combatXp: earnedXp } : null,
+      pendingReward: awardXp && outcome === "victory" && firstClear ? { ...fullReward, combatXp: earnedXp, levelUps } : null,
       lastTimeline: events,
       lastMessage: outcome === "victory" ? "Vittoria nell'Arena dei Famigli." : "Il Famiglio è tornato al sicuro senza perdere oggetti.",
     },
@@ -1345,8 +1413,19 @@ export function performFamiliarCombatTurn(state: FamiliarCombatState, playerMove
       energy: Math.min(battle.opponent.maxEnergy, battle.opponent.energy + FAMILIAR_COMBAT_ENERGY_REGEN),
     },
     log: [...battle.log, ...events.filter((event) => ["impact", "guard", "status", "result"].includes(event.phase)).map((event) => event.message)].slice(-20),
+    switchCooldown: Math.max(0, battle.switchCooldown - 1),
   };
   if (battle.opponent.hp <= 0) {
+    const opponentReplacementIndex = battle.opponentBench.findIndex((actor) => actor.hp > 0);
+    if (opponentReplacementIndex >= 0) {
+      const replacement = battle.opponentBench[opponentReplacementIndex];
+      const bench = [...battle.opponentBench];
+      bench.splice(opponentReplacementIndex, 1, battle.opponent);
+      const message = `${replacement.familiarId} entra per la squadra rivale.`;
+      events.push({ id: `${battle.id}-${battle.turn}-${events.length + 1}`, order: events.length, actorId: replacement.familiarId, targetId: replacement.familiarId, moveId: "team-relay", phase: "status", durationMs: 900, actionKind: "status", vfxCue: "ombra-void", audioCue: "status-focus", statusId: "focus", message });
+      battle = { ...battle, opponent: replacement, opponentBench: bench, lastOpponentMoveId: null, opponentMoveStreak: 0, bossPhasesRemaining: 1, turn: battle.turn + 1, timeline: events, log: [...battle.log, message].slice(-20) };
+      return { ok: true as const, state: { ...state, activeBattle: battle, lastTimeline: events, lastMessage: message }, timeline: events, opponentMoveId: opponentMove.id };
+    }
     if (battle.bossPhasesRemaining > 1) {
       const nextRemaining = battle.bossPhasesRemaining - 1;
       const nextPhase = battle.bossPhasesTotal - nextRemaining + 1;
@@ -1387,6 +1466,16 @@ export function performFamiliarCombatTurn(state: FamiliarCombatState, playerMove
     return { ok: true as const, state: concluded.state, timeline: events, opponentMoveId: opponentMove.id };
   }
   if (battle.player.hp <= 0) {
+    const replacementIndex = battle.playerBench.findIndex((actor) => actor.hp > 0);
+    if (replacementIndex >= 0) {
+      const replacement = battle.playerBench[replacementIndex];
+      const bench = [...battle.playerBench];
+      bench.splice(replacementIndex, 1, battle.player);
+      const message = `${replacement.familiarId} raccoglie il Legame e continua la battaglia.`;
+      events.push({ id: `${battle.id}-${battle.turn}-${events.length + 1}`, order: events.length, actorId: replacement.familiarId, targetId: replacement.familiarId, moveId: "team-relay", phase: "status", durationMs: 900, actionKind: "status", vfxCue: "arcano-burst", audioCue: "status-focus", statusId: "focus", message });
+      battle = { ...battle, player: replacement, playerBench: bench, switchCooldown: 1, turn: battle.turn + 1, timeline: events, log: [...battle.log, message].slice(-20) };
+      return { ok: true as const, state: { ...state, activeBattle: battle, lastTimeline: events, lastMessage: message }, timeline: events, opponentMoveId: opponentMove.id };
+    }
     const concluded = concludeBattle(state, { ...battle, rngState: battle.rngState }, "defeat", events);
     return { ok: true as const, state: concluded.state, timeline: events, opponentMoveId: opponentMove.id };
   }
@@ -1528,6 +1617,12 @@ export function restoreFamiliarCombatState(value: unknown): FamiliarCombatState 
   if (candidate.activeBattle && typeof candidate.activeBattle === "object") {
     const player = restoreActor(candidate.activeBattle.player);
     const opponent = restoreActor(candidate.activeBattle.opponent);
+    const playerBench = Array.isArray(candidate.activeBattle.playerBench)
+      ? candidate.activeBattle.playerBench.map(restoreActor).filter((actor): actor is FamiliarCombatActor => Boolean(actor)).slice(0, 2)
+      : [];
+    const opponentBench = Array.isArray(candidate.activeBattle.opponentBench)
+      ? candidate.activeBattle.opponentBench.map(restoreActor).filter((actor): actor is FamiliarCombatActor => Boolean(actor)).slice(0, 2)
+      : [];
     const circuit = circuitEntry(String(candidate.activeBattle.circuitId ?? ""));
     const difficulty = difficultyOrder.includes(candidate.activeBattle.difficulty as FamiliarCombatDifficulty)
       ? candidate.activeBattle.difficulty as FamiliarCombatDifficulty : "normal";
@@ -1552,7 +1647,13 @@ export function restoreFamiliarCombatState(value: unknown): FamiliarCombatState 
         encounterId: String(candidate.activeBattle.encounterId ?? encounterKey(circuit.id, difficulty, opponent.familiarId)),
         difficulty,
         player,
+        playerBench,
+        teamFamiliarIds: unique([player.familiarId, ...playerBench.map((actor) => actor.familiarId)]).slice(0, 3),
+        switchCooldown: integer(candidate.activeBattle.switchCooldown, 0, 0, 9),
         opponent,
+        opponentBench,
+        opponentTeamFamiliarIds: unique([opponent.familiarId, ...opponentBench.map((actor) => actor.familiarId)]).slice(0, 3),
+        teamBattle: Boolean(candidate.activeBattle.teamBattle || playerBench.length || opponentBench.length),
         turn: integer(candidate.activeBattle.turn, 1, 1, 9999),
         maxTurns: Number.isFinite(candidate.activeBattle.maxTurns) ? integer(candidate.activeBattle.maxTurns, 1, 1, 9999) : null,
         bossPhasesTotal: integer(candidate.activeBattle.bossPhasesTotal, 1, 1, 3),
@@ -1579,6 +1680,10 @@ export function restoreFamiliarCombatState(value: unknown): FamiliarCombatState 
         circuitId: String(pending.circuitId ?? ""), difficulty: difficultyOrder.includes(pending.difficulty as FamiliarCombatDifficulty) ? pending.difficulty as FamiliarCombatDifficulty : "normal",
         combatXp: integer(pending.combatXp, 0), nexusCoins: integer(pending.nexusCoins, 0), nightSigils: integer(pending.nightSigils, 0),
         relicFragments: integer(pending.relicFragments, 0), firstClear: Boolean(pending.firstClear),
+        levelUps: Array.isArray(pending.levelUps) ? pending.levelUps.flatMap((entry) => {
+          if (!entry || !familiarEntry(String(entry.familiarId ?? ""))) return [];
+          return [{ familiarId: String(entry.familiarId), previousLevel: integer(entry.previousLevel, 1, 1, 50), level: integer(entry.level, 1, 1, 50) }];
+        }).slice(0, 3) : [],
       } satisfies FamiliarCombatReward
     : null;
   return {

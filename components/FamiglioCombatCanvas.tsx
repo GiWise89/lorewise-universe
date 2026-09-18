@@ -41,6 +41,14 @@ type BattleCanvasProps = {
   } | null;
 };
 
+// Le proporzioni della Tana descrivono quanto spazio occupa ogni specie nella
+// stanza, non quanto deve dominare il campo di lotta. In Arena manteniamo una
+// differenza riconoscibile ma stretta, cosi nessun Famiglio diventa minuscolo o
+// copre l'avversario.
+export function familiarCombatDisplayScale(naturalScale = 1) {
+  return Math.max(.84, Math.min(1.02, .9 + (naturalScale - .85) * .28));
+}
+
 type BattleSpritePose =
   | "entrance"
   | "idle"
@@ -49,8 +57,10 @@ type BattleSpritePose =
   | "physical"
   | "magic"
   | "technique"
+  | "heal"
   | "guard"
   | "hit"
+  | "jump"
   | "victory"
   | "exhausted";
 
@@ -82,9 +92,11 @@ type ParticleKind = "ember" | "crystal" | "spark" | "wind" | "leaf" | "arcane" |
 type ParticleTheme = { colors: readonly string[]; kind: ParticleKind };
 
 const MAX_READY_IMAGES = 72;
-const COMBAT_ANIMATION_PACING = 1.18;
+// Keep every generated pose on screen long enough to read the action.  Values
+// above 1 slow the strip playback without changing the combat rules.
+const COMBAT_ANIMATION_PACING = 1.8;
 const BATTLE_PREFETCH_POSES: readonly BattleSpritePose[] = [
-  "entrance", "idle", "run", "attack", "physical", "magic", "technique", "guard", "hit", "victory", "exhausted",
+  "entrance", "idle", "run", "attack", "physical", "magic", "technique", "heal", "guard", "hit", "jump", "victory", "exhausted",
 ];
 const pendingImageCache = new Map<string, Promise<HTMLImageElement>>();
 const readyImageCache = new Map<string, HTMLImageElement>();
@@ -143,7 +155,7 @@ function requestedPose(src: string): BattleSpritePose {
   if (name === "win") return "victory";
   if (name === "lose") return "exhausted";
   if (name === "physical") return "attack";
-  if (["entrance", "idle", "run", "attack", "physical", "magic", "technique", "guard", "hit", "victory", "exhausted"].includes(name)) {
+  if (["entrance", "idle", "run", "attack", "physical", "magic", "technique", "heal", "guard", "hit", "jump", "victory", "exhausted"].includes(name)) {
     return name as BattleSpritePose;
   }
   return "idle";
@@ -191,6 +203,7 @@ function resolveFighterAnimation(
   if (event.phase === "windup") {
     if (event.actionKind === "physical") return { pose: "attack", mode: "hold-start" };
     if (event.actionKind === "guard") return { pose: "guard", mode: "hold-start" };
+    if (event.actionKind === "heal") return { pose: "heal", mode: "progress" };
     if (event.actionKind === "magic") return { pose: "magic", mode: "progress" };
     return { pose: "technique", mode: "progress" };
   }
@@ -199,7 +212,9 @@ function resolveFighterAnimation(
     return event.actionKind === "physical" ? { pose: "physical", mode: "progress" } : { pose: "magic", mode: "hold-final" };
   }
   if (event.phase === "guard") return { pose: "guard", mode: "progress" };
-  if (event.phase === "status") return { pose: "technique", mode: "hold-final" };
+  if (event.phase === "status") return event.actionKind === "heal"
+    ? { pose: "heal", mode: "hold-final" }
+    : { pose: "technique", mode: "hold-final" };
   return { pose: "idle", mode: "loop" };
 }
 
@@ -248,22 +263,35 @@ function drawStripFrame(
   const frameCount = spriteFrameCount(image);
   const frameWidth = image.naturalWidth / frameCount;
   const frameHeight = image.naturalHeight;
-  const drawTop = floorY - size * (146 / 160);
+  const safeSize = size * .82;
+  const safeX = Math.max(safeSize * .56, Math.min(context.canvas.width - safeSize * .56, x));
+  const safeFloorY = Math.max(safeSize, Math.min(context.canvas.height - safeSize * .04, floorY));
+  // Gli strip v6 sono normalizzati sulla baseline 154/160. Usare la stessa
+  // baseline nel Canvas evita piedi tagliati o personaggi sospesi nelle azioni.
+  const drawTop = safeFloorY - safeSize * (154 / 160);
   context.save();
   context.globalAlpha = opacity;
   context.imageSmoothingEnabled = false;
-  context.translate(x, 0);
+  context.translate(safeX, 0);
   context.scale(flip ? -1 : 1, 1);
+  // The importer now extracts whole silhouettes; retain the ENTIRE frame,
+  // including effect margins. Cropping the source cannot repair a split atlas.
+  const sourceInset = 0;
+  const sourceWidth = Math.max(1, frameWidth - sourceInset * 2);
+  const sourceHeight = Math.max(1, frameHeight - sourceInset * 2);
+  context.beginPath();
+  context.rect(-safeSize / 2, drawTop, safeSize, safeSize);
+  context.clip();
   context.drawImage(
     image,
-    (frame % frameCount) * frameWidth,
-    0,
-    frameWidth,
-    frameHeight,
-    -size / 2,
+    Math.floor((frame % frameCount) * frameWidth) + sourceInset,
+    sourceInset,
+    sourceWidth,
+    sourceHeight,
+    -safeSize / 2,
     drawTop,
-    size,
-    size,
+    safeSize,
+    safeSize,
   );
   context.restore();
 }
@@ -277,7 +305,7 @@ export function FamiglioCombatPreviewCanvas({
   fps = 3.2,
 }: PreviewCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const previewScale = Math.max(.88, Math.min(1.12, naturalScale));
+  const previewScale = familiarCombatDisplayScale(naturalScale);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -347,7 +375,11 @@ export function FamiglioCombatPreviewCanvas({
 }
 
 function battleLayout(width: number, height: number, playerScale: number, opponentScale: number): BattleLayout {
-  const baseSize = height * .57;
+  // Fighters must remain supporting actors inside the arena, with a generous
+  // safe area for lunges, jumps and VFX.  The generated strips are square, so
+  // reducing the common box also prevents action silhouettes touching/crossing
+  // the canvas edges.
+  const baseSize = height * .23;
   const playerSize = baseSize * playerScale;
   const opponentSize = baseSize * opponentScale;
   const edgePadding = width * .045;
@@ -363,7 +395,7 @@ function battleLayout(width: number, height: number, playerScale: number, oppone
     opponentContactX,
     playerSize,
     opponentSize,
-    floorY: height * .88,
+    floorY: height * .86,
   };
 }
 
@@ -621,8 +653,10 @@ export function FamiglioBattleCanvas({
     npc: null as HTMLImageElement | null,
     npcSrc: "",
   });
-  const { id: playerId, spriteSrc: playerSpriteSrc, naturalScale: playerScale } = player;
-  const { id: opponentId, spriteSrc: opponentSpriteSrc, naturalScale: opponentScale } = opponent;
+  const { id: playerId, spriteSrc: playerSpriteSrc } = player;
+  const { id: opponentId, spriteSrc: opponentSpriteSrc } = opponent;
+  const playerScale = familiarCombatDisplayScale(player.naturalScale);
+  const opponentScale = familiarCombatDisplayScale(opponent.naturalScale);
   const playerAnimation = useMemo(
     () => resolveFighterAnimation(playerId, playerId, playerSpriteSrc, event, entering),
     [entering, event, playerId, playerSpriteSrc],
@@ -768,6 +802,10 @@ export function FamiglioBattleCanvas({
       const opponentEntranceX = width + layout.opponentSize * .6;
       const playerDrawX = playerEntranceX + (playerX - playerEntranceX) * familiarCombatTravelProgress(playerId, playerEntranceProgress);
       const opponentDrawX = opponentEntranceX + (opponentX - opponentEntranceX) * familiarCombatTravelProgress(opponentId, opponentEntranceProgress);
+      const idlePlayerLift = !event && !reducedMotion ? Math.sin(now / 310 + particleSeed(playerId) % 7) * height * .006 : 0;
+      const idleOpponentLift = !event && !reducedMotion ? Math.sin(now / 340 + particleSeed(opponentId) % 7) * height * .006 : 0;
+      const playerFloorY = layout.floorY - Math.max(0, idlePlayerLift);
+      const opponentFloorY = layout.floorY - Math.max(0, idleOpponentLift);
 
       // Il Custode corrotto appartiene alla profondita della scena: viene
       // disegnato prima dei Famigli, quindi il giocatore gli resta sempre davanti.
@@ -812,13 +850,17 @@ export function FamiglioBattleCanvas({
       const opponentFrameCount = images.opponent ? spriteFrameCount(images.opponent) : 1;
       const playerFrame = animationFrame(playerId, playerAnimation, now, progress, playerEntranceProgress, playerPoseStartRef.current, reducedMotion, playerFrameCount);
       const opponentFrame = animationFrame(opponentId, opponentAnimation, now, progress, opponentEntranceProgress, opponentPoseStartRef.current, reducedMotion, opponentFrameCount);
+      if (!event) {
+        drawParticleField(context, playerDrawX, playerFloorY - layout.playerSize * .42, layout.playerSize * .28, now, (now % 1800) / 1800, { colors: ["#fff2a8", "#7eeeff", "#b67cff"], kind: "arcane" }, reducedMotion ? 2 : 6, .32);
+        drawParticleField(context, opponentDrawX, opponentFloorY - layout.opponentSize * .42, layout.opponentSize * .28, now + 430, (now % 1800) / 1800, { colors: ["#ffd783", "#84f0cf", "#8eb8ff"], kind: "spark" }, reducedMotion ? 2 : 6, .28);
+      }
       if (images.player) {
         drawStripFrame(
           context,
           images.player,
           playerFrame,
           playerDrawX,
-          layout.floorY,
+          playerFloorY,
           layout.playerSize,
           fighterFacesLeft(playerId, playerId, event),
         );
@@ -853,7 +895,7 @@ export function FamiglioBattleCanvas({
           images.opponent,
           opponentFrame,
           opponentDrawX,
-          layout.floorY,
+          opponentFloorY,
           layout.opponentSize,
           fighterFacesLeft(opponentId, playerId, event),
         );
@@ -898,8 +940,8 @@ export function FamiglioBattleCanvas({
       }
 
       if (reducedMotion) return;
-      const playerOnceRunning = playerAnimation.mode === "once" && now - playerPoseStartRef.current < 450;
-      const opponentOnceRunning = opponentAnimation.mode === "once" && now - opponentPoseStartRef.current < 450;
+      const playerOnceRunning = playerAnimation.mode === "once" && now - playerPoseStartRef.current < playerFrameCount * familiarCombatMotionProfile(playerId).actionFrameMs * COMBAT_ANIMATION_PACING;
+      const opponentOnceRunning = opponentAnimation.mode === "once" && now - opponentPoseStartRef.current < opponentFrameCount * familiarCombatMotionProfile(opponentId).actionFrameMs * COMBAT_ANIMATION_PACING;
       const eventRunning = Boolean(event) && progress < 1;
       const entranceRunning = entering && (playerEntranceProgress < 1 || opponentEntranceProgress < 1);
       const idleRunning = !event && (playerAnimation.mode === "loop" || opponentAnimation.mode === "loop" || opponentCorrupted);
@@ -908,7 +950,7 @@ export function FamiglioBattleCanvas({
         const frameDelay = eventRunning || entranceRunning
           ? Math.max(33, 1000 / Math.min(30, Math.max(8, eventFps)))
           : idleRunning
-            ? 360
+            ? 90
             : 150;
         schedulePaint(frameDelay);
       }

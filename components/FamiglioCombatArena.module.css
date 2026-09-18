@@ -165,6 +165,59 @@
   .combatDossiers .loadout { grid-template-columns: 1fr; }
 }
 
+/* Arena 2026: modalità leggibili, roster completo e campo di lotta dominante. */
+.selectionViewport[data-step="familiar"] .opponentDropdown {
+  display: grid;
+  grid-template-columns: auto minmax(15rem, 1fr);
+  align-items: center;
+  gap: .75rem;
+  padding: .65rem .8rem;
+  border: 1px solid #ffe06d80;
+  border-radius: .75rem;
+  color: #fff2bd;
+  background: #130a20ee;
+}
+.selectionViewport[data-step="familiar"] .opponentDropdown span { font: 900 .72rem/1.2 var(--font-pixel),monospace; text-transform: uppercase; }
+.selectionViewport[data-step="familiar"] .opponentDropdown select { min-height: 2.8rem; padding: .55rem .7rem; border: 1px solid #b88bd0; border-radius: .55rem; color: #fff; background: #2a173c; font-size: .9rem; }
+.rosterSearch { display:grid; grid-template-columns:auto minmax(15rem,1fr); align-items:center; gap:.75rem; padding:.2rem .8rem; color:#eadcf4; }
+.rosterSearch span { font-size:.72rem; font-weight:850; }
+.rosterSearch input { min-height:2.6rem; padding:.5rem .7rem; border:1px solid #8e68a7; border-radius:.55rem; color:#fff; background:#10091be8; font-size:.85rem; }
+.rosterEmpty { grid-column:1/-1; margin:auto; color:#fff2bd; font-weight:800; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] > .playerSelector { grid-template-rows:auto auto auto minmax(24rem,1fr) auto auto; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarPickerLayout { grid-template-columns:minmax(0,1.45fr) minmax(20rem,.8fr); min-height:24rem; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterPane { min-height:24rem; overflow:hidden; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid { grid-template-columns:repeat(3,minmax(10rem,1fr)); grid-auto-rows:minmax(6rem,auto); gap:.55rem; overflow-y:auto; padding:.25rem; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid button { grid-template-columns:5.2rem minmax(0,1fr); min-height:6rem; padding:.45rem; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterCanvas { width:5.2rem; height:5.2rem; max-height:none; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid strong { color:#fff; font-size:.88rem; line-height:1.15; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid small { color:#ffe06d; font-size:.68rem; line-height:1.3; }
+
+.selectionViewport > .circuitRail .circuitLabel { inset:auto .8rem .7rem; padding-top:3.5rem; }
+.selectionViewport > .circuitRail .circuitLabel > strong { display:block; color:#fff5c7; font:900 clamp(1.05rem,1.25vw,1.45rem)/1.05 var(--font-pixel),monospace; text-shadow:0 2px 6px #000; }
+.selectionViewport > .circuitRail .circuitLabel > span { display:block; margin-top:.35rem; color:#fff; font-size:.78rem; line-height:1.3; text-shadow:0 1px 4px #000; }
+.modeGrid button { min-height:14rem; padding:1.2rem; }
+.modeGrid strong { color:#fff5bd; font:900 clamp(1.35rem,2vw,2rem)/1 var(--font-pixel),monospace; text-shadow:0 2px 6px #000; }
+.modeGrid span { color:#fff; font-size:.92rem; line-height:1.45; text-shadow:0 1px 4px #000; }
+.modeGrid small { font-size:.7rem; }
+
+@media (min-width: 901px) {
+  .combat[data-battle="true"] .battleViewport { padding:0; }
+  .combat[data-battle="true"] .battleColumn { width:100%; height:100%; }
+  .combat[data-battle="true"] .battleStage { position:relative; display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr) auto; width:100%; height:100%; gap:.45rem; }
+  .combat[data-battle="true"] .battleScene { grid-column:1; grid-row:1; width:100%; height:100%; min-height:0; aspect-ratio:auto; }
+  .combat[data-battle="true"] .battleHud { position:absolute; z-index:12; top:.65rem; width:min(19rem,25%); min-width:15rem; }
+  .combat[data-battle="true"] .battleHud[data-side="player"] { left:.65rem; }
+  .combat[data-battle="true"] .battleHud[data-side="opponent"] { right:.65rem; }
+  .combat[data-battle="true"] .battleControls { grid-column:1; grid-row:2; width:100%; }
+  .combat[data-battle="true"] .battleCanvas { width:100%; height:100%; }
+}
+
+@media (max-width: 900px) {
+  .selectionViewport[data-step="familiar"] .opponentDropdown,.rosterSearch { grid-template-columns:1fr; gap:.35rem; }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid { grid-template-columns:repeat(2,minmax(9rem,1fr)); }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarPickerLayout { grid-template-columns:1fr; }
+}
+
 /* Esito V4: scena raster dedicata, Famiglio protagonista e nessun ritaglio. */
 .resultOverlay {
   background: rgba(7, 4, 14, .9);
@@ -3273,6 +3326,22 @@
   background: linear-gradient(135deg, #4b2c5d, #241431 58%, #170d23);
   padding: .58rem;
 }
+
+.teamSummary { display: grid; gap: .35rem; margin: .65rem 0; padding: .75rem 1rem; border: 1px solid #8f6eaa; border-radius: .7rem; background: linear-gradient(110deg,#21112f,#36204b); color: #f7ecff; }
+.teamSummary small { color: #ffe06d; font: 800 .58rem/1.2 var(--font-pixel),monospace; letter-spacing: .08em; text-transform: uppercase; }
+.teamSummary strong { font-size: 1rem; }
+.teamSummary span { color: #d8c9e3; font-size: .78rem; }
+.teamSwitchDock { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: .55rem; margin-bottom: .55rem; padding: .45rem; border: 1px solid #ffe06d80; border-radius: .65rem; background: #160d25e8; color: #fff4ce; }
+.teamSwitchDock > span { display: grid; gap: .18rem; min-width: 8rem; }
+.teamSwitchDock > span small { color: #ffe06d; font: 800 .5rem/1.2 var(--font-pixel),monospace; text-transform: uppercase; }
+.teamSwitchDock > span strong { font-size: .72rem; }
+.teamSwitchDock > div { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .35rem; }
+.teamSwitchDock button { min-width: 0; display: grid; grid-template-columns: 2.8rem minmax(0,1fr); align-items: center; gap: .4rem; min-height: 3.1rem; padding: .2rem .45rem; border: 1px solid #8e68a7; border-radius: .45rem; background: #2b1940; color: #fff; text-align: left; }
+.teamSwitchDock button:disabled { opacity: .48; }
+.teamSwitchDock button span { min-width: 0; display: grid; }
+.teamSwitchDock button strong,.teamSwitchDock button small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.teamSwitchPortrait { width: 2.8rem; height: 2.8rem; object-fit: contain; }
+@media(max-width:620px){.teamSwitchDock{grid-template-columns:1fr}.teamSwitchDock > div{grid-template-columns:1fr 1fr}}
 .playerChoicePortrait { min-width: 0; width: min(9rem, 18vh); height: min(9rem, 18vh); grid-row: 1 / 3; display: grid; place-items: center; border: 1px solid #7c598f; border-radius: .55rem; background: radial-gradient(circle, #4b3260, #160c22 72%); overflow: hidden; }
 .playerChoicePortrait canvas { width: 100%; height: 100%; }
 .playerChoiceIdentity { min-width: 0; }
@@ -6620,6 +6689,71 @@
   .resultFamiliar { min-height: 8.5rem; height: 8.5rem; }
 }
 
+/* Garanzie finali: nessun contenuto della scelta Famiglio viene compresso o tagliato. */
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] > .playerSelector {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  grid-template-rows: auto minmax(21rem, auto) auto auto;
+  align-content: start;
+  scrollbar-gutter: stable;
+}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarPickerLayout {
+  min-height: 21rem;
+  overflow: visible;
+}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterPane {
+  min-height: 19rem;
+  overflow: hidden;
+}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .teamSummary {
+  min-height: max-content;
+  margin: .4rem 0 0;
+  overflow: visible;
+}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .teamSummary strong,
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .teamSummary span {
+  white-space: normal;
+  overflow-wrap: normal;
+}
+.selectionViewport > .circuitRail {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(8.5rem, 1fr));
+  overflow-y: auto;
+}
+.opponentTeamDock {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: .55rem;
+  padding: .35rem .55rem;
+  border: 1px solid #bd6de07a;
+  border-radius: .65rem;
+  background: #1a0b28e8;
+  color: #f7eaff;
+}
+.opponentTeamDock > span { display: grid; gap: .1rem; }
+.opponentTeamDock > span small { color: #dca8f0; font-size: .58rem; text-transform: uppercase; }
+.opponentTeamDock > div { display: flex; justify-content: flex-end; gap: .45rem; min-width: 0; }
+.opponentTeamDock > div > span { display: grid; grid-template-columns: 2.7rem minmax(0, 1fr); align-items: center; gap: .3rem; min-width: 8.5rem; }
+.opponentTeamDock > div > span[data-defeated="true"] { opacity: .42; filter: grayscale(1); }
+.opponentTeamDock .teamSwitchPortrait { width: 2.7rem; height: 2.7rem; }
+.opponentTeamDock > div small { font-size: .58rem; line-height: 1.25; }
+
+@media (max-width: 760px) {
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] > .playerSelector { grid-template-rows: none; }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarPickerLayout,
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterPane { min-height: auto; }
+  .selectionViewport > .circuitRail { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: 8rem; }
+  .opponentTeamDock { grid-template-columns: 1fr; }
+  .opponentTeamDock > div { justify-content: flex-start; overflow-x: auto; }
+}
+
 /* The mobile picker must never shrink the selectable companions below their content. */
 @media (max-width: 760px) {
   .combat[data-battle="false"] .selectionViewport[data-step="familiar"] > .playerSelector {
@@ -6741,4 +6875,496 @@
   }
   .combat[data-battle="true"] .battleScene .arenaPlate small { font-size: 11px; line-height: 1.2; }
   .combat[data-battle="true"] .battleScene .arenaPlate strong { font-size: 9px; line-height: 1.2; flex-shrink: 0; }
+}
+
+/* Final precedence for the rebuilt Arena. */
+.selectionViewport[data-step="familiar"] .opponentDropdown { display:grid; grid-template-columns:auto minmax(15rem,1fr); align-items:center; gap:.75rem; padding:.65rem .8rem; border:1px solid #ffe06d80; border-radius:.75rem; color:#fff2bd; background:#130a20ee; }
+.selectionViewport[data-step="familiar"] .opponentDropdown select { min-height:2.8rem; padding:.55rem .7rem; border:1px solid #b88bd0; border-radius:.55rem; color:#fff; background:#2a173c; font-size:.9rem; }
+.rosterSearch { display:grid; grid-template-columns:auto minmax(15rem,1fr); align-items:center; gap:.75rem; padding:.2rem .8rem; color:#eadcf4; }
+.rosterSearch input { min-height:2.6rem; padding:.5rem .7rem; border:1px solid #8e68a7; border-radius:.55rem; color:#fff; background:#10091be8; font-size:.85rem; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] > .playerSelector { grid-template-rows:auto auto auto minmax(24rem,1fr) auto auto; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarPickerLayout { grid-template-columns:minmax(0,1.45fr) minmax(20rem,.8fr); min-height:24rem; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterPane { min-height:24rem; overflow:hidden; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid { grid-template-columns:repeat(3,minmax(10rem,1fr)); grid-auto-rows:minmax(6rem,auto); gap:.55rem; overflow-y:auto; padding:.25rem; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid button { grid-template-columns:5.2rem minmax(0,1fr); min-height:6rem; padding:.45rem; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterCanvas { width:5.2rem; height:5.2rem; max-height:none; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid strong { color:#fff; font-size:.88rem; line-height:1.15; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid small { color:#ffe06d; font-size:.68rem; line-height:1.3; }
+.selectionViewport > .circuitRail .circuitLabel { inset:auto .8rem .7rem; padding-top:3.5rem; }
+.selectionViewport > .circuitRail .circuitLabel > strong { display:block; color:#fff5c7; font:900 clamp(1.05rem,1.25vw,1.45rem)/1.05 var(--font-pixel),monospace; text-shadow:0 2px 6px #000; }
+.selectionViewport > .circuitRail .circuitLabel > span { display:block; margin-top:.35rem; color:#fff; font-size:.78rem; line-height:1.3; text-shadow:0 1px 4px #000; }
+.modeGrid button { min-height:14rem; padding:1.2rem; }
+.modeGrid strong { color:#fff5bd; font:900 clamp(1.35rem,2vw,2rem)/1 var(--font-pixel),monospace; text-shadow:0 2px 6px #000; }
+.modeGrid span { color:#fff; font-size:.92rem; line-height:1.45; text-shadow:0 1px 4px #000; }
+@media(min-width:901px){
+ .combat[data-battle="true"] .battleViewport{padding:0}
+ .combat[data-battle="true"] .battleColumn{width:100%;height:100%}
+ .combat[data-battle="true"] .battleStage{position:relative;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;width:100%;height:100%;gap:.45rem}
+ .combat[data-battle="true"] .battleScene{grid-column:1;grid-row:1;width:100%;height:100%;min-height:0;aspect-ratio:auto}
+ .combat[data-battle="true"] .battleHud{position:absolute;z-index:12;top:.65rem;width:min(19rem,25%);min-width:15rem}
+ .combat[data-battle="true"] .battleHud[data-side="player"]{left:.65rem}
+ .combat[data-battle="true"] .battleHud[data-side="opponent"]{right:.65rem}
+ .combat[data-battle="true"] .battleControls{grid-column:1;grid-row:2;width:100%}
+ .combat[data-battle="true"] .battleCanvas{width:100%;height:100%}
+}
+@media(max-width:900px){.selectionViewport[data-step="familiar"] .opponentDropdown,.rosterSearch{grid-template-columns:1fr}.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid{grid-template-columns:repeat(2,minmax(9rem,1fr))}.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarPickerLayout{grid-template-columns:1fr}}
+
+/* Roster posseduto: righe reali, nessuna scheda sovrapposta. */
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarPickerLayout[data-single="true"] > .familiarRosterPane { display:grid; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid {
+  grid-template-rows:none!important;
+  grid-auto-flow:row!important;
+  grid-auto-rows:6.5rem!important;
+  align-content:start;
+  gap:.65rem;
+}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid button {
+  position:relative;
+  inset:auto;
+  width:100%;
+  height:6.5rem!important;
+  min-height:6.5rem!important;
+  margin:0;
+  overflow:hidden;
+  align-self:start;
+}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterCanvas { background:transparent!important; }
+@media(max-width:760px){
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid { grid-template-rows:6rem!important; grid-auto-rows:6rem!important; grid-auto-flow:column!important; }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid button { height:6rem!important; min-height:6rem!important; }
+}
+
+/* Titoli modalità leggibili sopra le illustrazioni. */
+.selectionViewport[data-step="arenas"] > .circuitRail { grid-auto-rows:minmax(10.5rem,1fr); gap:.7rem; }
+.selectionViewport[data-step="arenas"] > .circuitRail button { min-height:10.5rem; }
+.selectionViewport[data-step="arenas"] > .circuitRail .circuitLabel {
+  inset:auto 0 0;
+  min-height:58%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:3.5rem 1rem .9rem;
+  background:linear-gradient(transparent,#090511e8 38%,#090511 100%);
+}
+.selectionViewport[data-step="arenas"] > .circuitRail .circuitLabel > strong {
+  color:#fff6ca!important;
+  font-size:clamp(18px,1.7vw,28px)!important;
+  line-height:1.05!important;
+  text-shadow:0 3px 8px #000,0 0 2px #000;
+}
+.selectionViewport[data-step="arenas"] > .circuitRail .circuitLabel > span {
+  color:#fff!important;
+  font-size:clamp(13px,1vw,16px)!important;
+  line-height:1.35!important;
+  text-shadow:0 2px 5px #000;
+}
+
+/* Catalogo Arena: categorie leggibili, nessuna lunga lista con scroll interno. */
+.selectionViewport[data-step="arenas"] { overflow:hidden!important; }
+.selectionViewport[data-step="arenas"] > .arenaCatalog {
+  height:100%; min-height:0; overflow:hidden!important; padding:.55rem;
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:minmax(0,.82fr) minmax(0,1.18fr); gap:.65rem;
+}
+.arenaCategory { min-width:0; min-height:0; display:grid; grid-template-rows:auto minmax(0,1fr); gap:.38rem; padding:.55rem; border:1px solid #ffe06d55; border-radius:.8rem; background:linear-gradient(145deg,#261238ed,#12091fed); box-shadow:inset 0 1px #ffffff12,0 .5rem 1rem #0007; }
+.arenaCategoryWide { grid-column:1/-1; }
+.arenaCategory > header { display:flex; align-items:end; justify-content:space-between; gap:.6rem; }
+.arenaCategory > header small { color:#ffe06d; font:800 .58rem/1 var(--font-pixel),monospace; letter-spacing:.12em; text-transform:uppercase; }
+.arenaCategory > header h3 { margin:0; color:#fff6ce; font:900 clamp(1rem,1.35vw,1.45rem)/1 var(--font-pixel),monospace; }
+.categoryCards,.arenaCards { min-width:0; min-height:0; display:grid; gap:.45rem; }
+.categoryCards { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.arenaCategory:first-child .categoryCards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.arenaCards { grid-template-columns:repeat(5,minmax(0,1fr)); }
+.arenaCatalog .categoryCards > button,.arenaCatalog .arenaCards > button,.comingMode { position:relative; min-width:0; min-height:0!important; height:100%!important; overflow:hidden; border:1px solid #9565ad; border-radius:.62rem; background:#12091d; }
+.arenaCatalog .categoryCards > button,.arenaCatalog .arenaCards > button { padding:0; cursor:pointer; }
+.arenaCatalog .circuitThumb,.arenaCatalog .campaignArtwork,.arenaCatalog .towerArtwork { position:absolute; inset:0; width:100%; height:100%; background-size:contain!important; background-repeat:no-repeat; background-position:center; background-color:#0b0612; }
+.arenaCatalog .campaignArtwork img,.arenaCatalog .towerArtwork img { width:100%; height:100%; object-fit:contain; }
+.arenaCatalog .circuitLabel { position:absolute!important; z-index:2; inset:auto 0 0!important; min-height:52%!important; padding:2rem .6rem .55rem!important; display:flex!important; flex-direction:column; justify-content:flex-end; background:linear-gradient(transparent,#090511e8 40%,#090511)!important; }
+.arenaCatalog .circuitLabel > strong { color:#fff6ca!important; font:900 clamp(.78rem,1.05vw,1.05rem)/1.05 var(--font-pixel),monospace!important; }
+.arenaCatalog .circuitLabel > span { color:#fff!important; font-size:clamp(.62rem,.72vw,.76rem)!important; line-height:1.25!important; }
+.comingMode { display:flex; flex-direction:column; justify-content:center; gap:.35rem; padding:.8rem; text-align:left; color:#e6d8ed; background:radial-gradient(circle at 85% 15%,#a459d448,transparent 34%),linear-gradient(135deg,#29133b,#13091e); }
+.comingMode::after { content:"✦"; position:absolute; right:.7rem; top:.45rem; color:#ffe06d; font-size:1.25rem; }
+.comingMode small { color:#ffe06d; font:900 .52rem/1.1 var(--font-pixel),monospace; letter-spacing:.09em; text-transform:uppercase; }
+.comingMode strong { color:#fff5cd; font:900 clamp(.75rem,.95vw,1rem)/1.1 var(--font-pixel),monospace; }
+.comingMode span { font-size:.68rem; line-height:1.3; }
+
+/* Otto Famigli per pagina: il roster cresce tramite pagine, non tramite scrollbar. */
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterPane { grid-template-rows:minmax(0,1fr) auto; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid { grid-template-columns:repeat(4,minmax(0,1fr))!important; grid-template-rows:repeat(2,minmax(0,1fr))!important; grid-auto-rows:0!important; overflow:hidden!important; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid button { grid-template-columns:4.2rem minmax(0,1fr); height:auto!important; min-height:0!important; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterCanvas { width:4.2rem; height:4.7rem; }
+.combat[data-battle="false"] .familiarPager { grid-template-columns:2.4rem auto 2.4rem; justify-content:center; padding-top:.35rem; }
+.combat[data-battle="false"] .familiarPager button { min-height:2.2rem; font-size:1rem; }
+
+@media(max-width:900px){
+ .selectionViewport[data-step="arenas"]{overflow-y:auto!important}.selectionViewport[data-step="arenas"]>.arenaCatalog{height:auto;overflow:visible!important;grid-template-columns:1fr;grid-template-rows:none}.arenaCategoryWide{grid-column:auto}.arenaCards{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:7.5rem}.categoryCards{grid-auto-rows:8rem}
+ .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:repeat(4,minmax(5.2rem,1fr))!important}
+}
+
+/* Selettore finale delle modalità: una categoria alla volta, immagini intere e schede grandi. */
+.selectionViewport[data-step="arenas"] > .arenaCatalog {
+  grid-template-columns:1fr; grid-template-rows:auto minmax(0,1fr);
+}
+.arenaCategoryTabs { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.45rem; }
+.arenaCategoryTabs > button { min-height:2.8rem!important; height:auto!important; padding:.45rem .65rem!important; border:1px solid #8a5ca1!important; border-radius:.58rem!important; color:#eadcf2; background:linear-gradient(145deg,#321a46,#180c25)!important; font:800 clamp(.68rem,.9vw,.86rem)/1.15 var(--font-pixel),monospace; }
+.arenaCategoryTabs > button[aria-selected="true"] { color:#1d1027; border-color:#ffe06d!important; background:linear-gradient(135deg,#ffe991,#f2bf55)!important; box-shadow:0 0 1rem #ffe06d4d; }
+.arenaCatalog > .arenaCategory { grid-column:1; min-height:0; height:100%; }
+.arenaCatalog > .arenaCategory .categoryCards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.arenaCatalog > .arenaCategory .categoryCards > :only-child { grid-column:1/-1; }
+.arenaCatalog > .arenaCategory .arenaCards { grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); }
+.arenaCatalog > .arenaCategory .categoryCards > button,
+.arenaCatalog > .arenaCategory .categoryCards > .comingMode { min-height:14rem!important; }
+.arenaCatalog > .arenaCategory .arenaCards > button { min-height:0!important; }
+.arenaCatalog > .arenaCategory .circuitLabel > strong { font-size:clamp(1rem,1.45vw,1.4rem)!important; }
+.arenaCatalog > .arenaCategory .circuitLabel > span { font-size:clamp(.72rem,.9vw,.9rem)!important; }
+
+/* Il riepilogo squadra deve occupare solo lo spazio dei suoi contenuti. */
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .teamSummary {
+  min-height:0!important; height:auto!important; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:.3rem 1rem; padding:.65rem .85rem!important; overflow:visible;
+}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .teamSummary > span { grid-column:auto; color:#ffe06d; font-weight:900; }
+
+@media(max-width:760px){
+ .arenaCategoryTabs{grid-template-columns:repeat(2,minmax(0,1fr))}.arenaCatalog>.arenaCategory .categoryCards,.arenaCatalog>.arenaCategory .arenaCards{grid-template-columns:1fr;grid-template-rows:none}.arenaCatalog>.arenaCategory .categoryCards>* ,.arenaCatalog>.arenaCategory .arenaCards>button{min-height:9rem!important}.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .teamSummary{grid-template-columns:1fr}
+}
+
+/* La scelta delle modalita resta dentro il dispositivo ma puo scorrere: le
+   schede non vengono piu compresse o tagliate quando l'altezza utile e ridotta. */
+.combat[data-battle="false"] > .selectionViewport[data-step="arenas"] {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding-right: .28rem;
+}
+.selectionViewport[data-step="arenas"] > .arenaCatalog {
+  height: auto;
+  min-height: 100%;
+  overflow: visible !important;
+  grid-template-rows: auto auto;
+  align-content: start;
+}
+.arenaCatalog > .arenaCategory {
+  height: auto;
+  min-height: max-content;
+}
+.arenaCatalog > .arenaCategory .categoryCards {
+  grid-auto-rows: minmax(12rem, 1fr);
+}
+.arenaCatalog > .arenaCategory .arenaCards {
+  grid-auto-rows: minmax(9.5rem, 1fr);
+}
+
+/* Correzione definitiva delle griglie: nessuna vecchia regola puo spostare le
+   schede una sopra l'altra o ridurre le Arene a una linea vuota. */
+.arenaCatalog > .arenaCategory .categoryCards {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  grid-template-rows: none !important;
+  grid-auto-flow: row;
+  grid-auto-rows: 13rem;
+  align-items: stretch;
+}
+.arenaCatalog > .arenaCategory .categoryCards > button,
+.arenaCatalog > .arenaCategory .categoryCards > article,
+.arenaCatalog > .arenaCategory .campaignChoice,
+.arenaCatalog > .arenaCategory .towerChoice {
+  position: relative !important;
+  inset: auto !important;
+  grid-column: auto !important;
+  width: 100% !important;
+  height: 13rem !important;
+  min-height: 13rem !important;
+  margin: 0 !important;
+}
+.arenaCatalog > .arenaCategory .arenaCards {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  grid-template-rows: none !important;
+  grid-auto-flow: row;
+  grid-auto-rows: 10.5rem;
+  align-items: stretch;
+}
+.arenaCatalog > .arenaCategory .arenaCards > button {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 10.5rem !important;
+  min-height: 10.5rem !important;
+  margin: 0 !important;
+}
+
+/* Anche la Campagna usa lo scorrimento del pannello: mappa e briefing restano
+   due colonne leggibili senza schiacciare i venti livelli. */
+.combat[data-battle="false"] > .selectionViewport[data-step="campaign"] {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding-right: .28rem;
+}
+.selectionViewport[data-step="campaign"] > .campaignSetup {
+  height: auto;
+  min-height: 100%;
+  grid-template-columns: minmax(26rem, .9fr) minmax(30rem, 1.1fr);
+  align-items: start;
+  overflow: visible;
+}
+.selectionViewport[data-step="campaign"] .campaignMap {
+  grid-template-columns: repeat(4, minmax(7rem, 1fr));
+  grid-auto-rows: minmax(5.5rem, auto);
+  overflow: visible;
+}
+.selectionViewport[data-step="campaign"] .campaignMap > button {
+  min-height: 5.5rem;
+  height: auto;
+  overflow: hidden;
+}
+.selectionViewport[data-step="campaign"] .campaignBriefing {
+  min-height: 27rem;
+  height: auto;
+  overflow: hidden;
+}
+
+@media(max-width:900px){
+  .arenaCatalog > .arenaCategory .categoryCards,
+  .arenaCatalog > .arenaCategory .arenaCards { grid-template-columns: 1fr !important; }
+  .selectionViewport[data-step="campaign"] > .campaignSetup { grid-template-columns: 1fr; }
+}
+
+/* Scorrimento unico: nessun figlio del pannello puo comprimere la conferma. */
+.combat[data-battle="false"] > .selectionViewport[data-step] { display:block!important;overflow-y:auto!important;overflow-x:hidden!important;min-height:0!important;overscroll-behavior:contain;touch-action:pan-y;padding-bottom:18px!important;scroll-padding-bottom:18px; }
+.combat[data-battle="false"] .selectionViewport > .setupGuide { position:relative!important;top:auto!important;margin:0 0 12px!important; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] > .playerSelector { height:auto!important;min-height:0!important;overflow:visible!important; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarPickerLayout,
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterPane,
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid { height:auto!important;max-height:none!important;overflow:visible!important;min-height:0!important; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid { grid-auto-flow:row!important;grid-auto-rows:max-content!important;grid-template-rows:none!important;gap:10px!important; }
+.combat[data-battle="false"] > .progressRibbon{display:none!important}
+.combat[data-battle="false"] .arenaCategoryTabs > button{display:block!important;font-size:14px!important;line-height:1.3!important;white-space:normal!important;text-align:center!important;min-height:46px!important;}
+.combat[data-battle="false"] .arenaCatalog .comingMode > div > strong{font-size:20px!important;line-height:1.2!important}
+.combat[data-battle="false"] .arenaCatalog .comingMode > div > small{font-size:10px!important;line-height:1.5!important}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid button { min-width:0!important;height:auto!important;min-height:100px!important;grid-template-columns:48px minmax(0,1fr)!important;padding:10px!important;gap:8px!important; }
+.combat[data-battle="false"] .familiarRosterGrid button > span,
+.combat[data-battle="false"] .familiarRosterGrid button strong { min-width:0!important;max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere;line-height:1.25!important; }
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterCanvas { width:48px!important;height:58px!important; }
+.combat[data-battle="false"] .arenaCatalog > .arenaCategory .categoryCards { grid-auto-rows:max-content!important;gap:16px!important; }
+.combat[data-battle="false"] .arenaCatalog > .arenaCategory .categoryCards > .comingMode { display:grid!important;grid-template-columns:1fr!important;grid-template-rows:auto auto!important;height:auto!important;min-height:0!important;overflow:hidden!important;padding:0!important;border:1px solid #baa164!important;border-radius:14px!important;background:linear-gradient(145deg,#123643,#080f1d)!important;box-shadow:inset 0 0 0 3px #d9bb6820,0 8px 20px #0005; }
+.comingMode::before,.comingMode::after{display:none!important}
+.comingMode > img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#070e18}
+.comingMode > div{display:grid;gap:7px;padding:16px;border-top:1px solid #a58a4b80}
+.comingMode > div > small{font-size:10px;letter-spacing:.12em;color:#eed68d}
+.comingMode > div > strong{font-size:21px;line-height:1.2;color:#fff5d8}
+.comingMode > div > span{font-size:13px;line-height:1.4;color:#bad5df}
+
+/* Campagna mobile: un solo flusso verticale, nessun pannello compresso o tagliato. */
+@media (max-width: 620px) {
+  .combat[data-battle="false"] > .selectionViewport[data-step="campaign"] {
+    display: block !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    padding: .5rem .45rem 1.25rem !important;
+    scrollbar-gutter: auto;
+  }
+  .selectionViewport[data-step="campaign"] > .campaignSetup {
+    display: grid !important;
+    height: auto !important;
+    min-height: 0 !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto !important;
+    gap: .65rem !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+  .selectionViewport[data-step="campaign"] .setupHeading {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    gap: .45rem;
+    align-items: end;
+    padding: .35rem .15rem !important;
+  }
+  .selectionViewport[data-step="campaign"] .setupHeading h3 {
+    margin: .16rem 0 0;
+    font-size: .92rem;
+    line-height: 1.25 !important;
+  }
+  .selectionViewport[data-step="campaign"] .setupHeading > span {
+    align-self: end;
+    white-space: nowrap;
+    font-size: .58rem;
+  }
+  .selectionViewport[data-step="campaign"] .campaignMap {
+    display: grid !important;
+    min-height: 0 !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    grid-template-rows: none !important;
+    grid-auto-flow: row !important;
+    grid-auto-rows: auto !important;
+    gap: .38rem !important;
+    overflow: visible !important;
+    padding: .4rem !important;
+  }
+  .selectionViewport[data-step="campaign"] .campaignMap > button {
+    display: grid !important;
+    min-width: 0 !important;
+    min-height: 4.15rem !important;
+    height: auto !important;
+    grid-template-columns: 1.5rem minmax(0,1fr) !important;
+    align-content: center;
+    padding: .5rem !important;
+    border-radius: .72rem !important;
+    text-align: left;
+  }
+  .selectionViewport[data-step="campaign"] .campaignMap button > span {
+    display: block !important;
+    grid-row: 1 / 3 !important;
+    font-size: .68rem !important;
+  }
+  .selectionViewport[data-step="campaign"] .campaignMap button strong,
+  .selectionViewport[data-step="campaign"] .campaignMap button small {
+    display: block !important;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .selectionViewport[data-step="campaign"] .campaignMap button strong { font-size: .55rem !important; line-height: 1.25 !important; }
+  .selectionViewport[data-step="campaign"] .campaignMap button small { font-size: .48rem !important; line-height: 1.2 !important; }
+  .selectionViewport[data-step="campaign"] .campaignBriefing {
+    display: grid !important;
+    min-height: 0 !important;
+    height: auto !important;
+    grid-template-columns: 5.5rem minmax(0,1fr) !important;
+    grid-template-rows: auto auto auto auto !important;
+    gap: .48rem !important;
+    overflow: hidden !important;
+    padding: .55rem !important;
+    background-size: cover;
+  }
+  .selectionViewport[data-step="campaign"] .campaignNpc {
+    grid-column: 1 !important;
+    grid-row: 1 / 3 !important;
+    align-content: start;
+  }
+  .selectionViewport[data-step="campaign"] .campaignNpcCanvas { width: 5.5rem !important; max-width: 100%; }
+  .selectionViewport[data-step="campaign"] .comicBubble {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    min-width: 0;
+    padding: .5rem !important;
+  }
+  .selectionViewport[data-step="campaign"] .comicBubble p { font-size: .62rem !important; line-height: 1.35 !important; }
+  .selectionViewport[data-step="campaign"] .campaignFacts {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    grid-template-columns: 1fr !important;
+    gap: .2rem !important;
+  }
+  .selectionViewport[data-step="campaign"] .campaignFacts div { padding: .28rem .36rem !important; }
+  .selectionViewport[data-step="campaign"] .campaignObjective {
+    grid-column: 1 / -1 !important;
+    grid-row: 3 !important;
+    min-width: 0;
+    padding: .58rem !important;
+  }
+  .selectionViewport[data-step="campaign"] .campaignBriefing > .setupContinue {
+    grid-column: 1 / -1 !important;
+    grid-row: 4 !important;
+    width: 100%;
+    min-height: 2.85rem !important;
+  }
+}
+@media(max-width:760px){
+ .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .familiarRosterGrid button {grid-template-columns:1fr!important;justify-items:center!important;text-align:center!important;min-height:130px!important;}
+ .combat[data-battle="false"] .familiarRosterGrid button strong{font-size:13px!important;}
+ .combat[data-battle="false"] .arenaCatalog > .arenaCategory .categoryCards > .comingMode{grid-template-columns:36% minmax(0,1fr)!important;grid-template-rows:auto!important;}
+ .comingMode > img{height:100%;min-height:130px;}.comingMode > div{padding:12px;border-top:0;border-left:1px solid #a58a4b80}.comingMode > div > strong{font-size:18px}
+}
+
+/* Scelta Famiglio: il riepilogo della squadra e la conferma sono due righe
+   compatte. Nessun elemento puo assorbire l'altezza libera del dispositivo. */
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] > .playerSelector {
+  grid-template-rows: none !important;
+  grid-auto-rows: max-content !important;
+  align-content: start !important;
+}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] .teamSummary {
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: 3.35rem !important;
+  align-self: start !important;
+  margin: 0 !important;
+  padding: .55rem .75rem !important;
+  overflow: hidden !important;
+}
+.combat[data-battle="false"] .selectionViewport[data-step="familiar"] > .playerSelector > .setupContinue {
+  position: static !important;
+  align-self: start !important;
+  justify-self: end !important;
+  width: auto !important;
+  min-width: 12rem;
+  min-height: 2.6rem;
+  margin: 0 !important;
+}
+
+@media(max-width:760px){
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] .teamSummary {
+    max-height: none !important;
+  }
+  .combat[data-battle="false"] .selectionViewport[data-step="familiar"] > .playerSelector > .setupContinue {
+    width: 100% !important;
+  }
+}
+
+/* Controlli della lotta: appartengono alla fascia comandi sotto il campo e non
+   possono piu sovrapporsi all'HUD del rivale. */
+@media(min-width:901px){
+  .combat[data-battle="true"] .battleControls {
+    display:grid !important;
+    grid-column:1 !important;
+    grid-row:2 !important;
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-rows:auto auto auto;
+    align-items:center;
+    gap:.35rem .55rem;
+    width:100%;
+    min-width:0;
+  }
+  .combat[data-battle="true"] .battleMoveGrid {
+    grid-column:1 / -1 !important;
+    grid-row:1 !important;
+    width:100% !important;
+  }
+  .combat[data-battle="true"] .teamSwitchDock {
+    grid-column:1;
+    grid-row:2;
+    margin:0;
+  }
+  .combat[data-battle="true"] .opponentTeamDock {
+    grid-column:1 / -1;
+    grid-row:3;
+  }
+  .combat[data-battle="true"] .battleUtilityDock {
+    position:static !important;
+    inset:auto !important;
+    z-index:auto;
+    grid-column:2;
+    grid-row:2;
+    width:auto;
+    flex-direction:row !important;
+    align-items:center;
+    justify-self:end;
+  }
+  .combat[data-battle="true"] .battleUtilityTray {
+    flex-direction:row !important;
+  }
+  .combat[data-battle="true"] .battleUtilityButton,
+  .combat[data-battle="true"] .retreatButton {
+    width:2.75rem !important;
+    min-width:2.75rem !important;
+    height:2.75rem !important;
+    min-height:2.75rem !important;
+    padding:.25rem !important;
+  }
+  .combat[data-battle="true"] .battleUtilityIcon,
+  .combat[data-battle="true"] .retreatIcon {
+    width:1.9rem !important;
+    height:1.9rem !important;
+  }
 }

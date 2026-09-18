@@ -4342,12 +4342,13 @@
   }
 }
 
-/* Il dispositivo riempie il monitor senza perdere proporzioni sui laptop. */
+/* Il Nexus Pet mantiene la stessa sagoma su tutti i monitor desktop. */
 @media (min-width: 901px) {
   .deviceShell {
-    width: min(1680px, calc(100vw - 40px));
-    height: min(1040px, calc(100dvh - 28px));
-    max-height: calc(100dvh - 28px);
+    width: min(1260px, calc(100vw - 40px));
+    height: min(900px, calc(100dvh - 28px));
+    max-width: 1260px;
+    max-height: 900px;
   }
 }
 
@@ -5004,6 +5005,10 @@
 .levelUpSheet ul { position: relative; width: 100%; display: grid; gap: .35rem; margin: 0; padding: 0; list-style: none; }
 .levelUpSheet li { border: 1px solid #8c66a0; border-radius: .55rem; background: #160c24d9; padding: .48rem; color: #e9dcec; }
 .levelUpSheet li::before { content: "✦ "; color: #ffe06d; }
+.levelUpDetails { position: relative; width: 100%; display: grid; gap: .35rem; text-align: left; }
+.levelUpDetails > small { color: #ffe06d; font: 800 .55rem/1.2 var(--font-pixel),monospace; letter-spacing: .08em; text-transform: uppercase; }
+.levelUpDetails > div { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .3rem; }
+.levelUpDetails span { border: 1px solid #79598e; border-radius: .45rem; background: #0e0818cc; padding: .4rem .5rem; color: #fff4d4; font-size: .76rem; }
 .levelUpSheet button { position: relative; width: 100%; min-height: 3rem; border: 1px solid #fff0a4; border-radius: .65rem; background: linear-gradient(#ffdf68,#efb63f); color: #281532; font-weight: 900; }
 @media (max-width:620px) { .levelUpBackdrop { padding: .65rem; } .levelUpSheet { max-height: calc(100dvh - 1.3rem); padding: .9rem; } }
 
@@ -5076,4 +5081,41 @@
   .bondWeekHook small { font-size: .4rem; }
   .bondWeekHook strong { font-size: .5rem; }
   .bondWeekHook > button { min-height: 26px; padding: 4px 6px; font-size: .43rem; }
+}
+
+/* La battaglia cresce dentro il Nexus Pet, senza deformare o rimuovere il dispositivo. */
+@media (min-width: 901px) {
+  .deviceShell:has([data-battle="true"]) {
+    width: min(1800px, calc(100vw - 48px));
+    height: min(1040px, calc(100dvh - 24px));
+    max-width: 1800px;
+    max-height: 1040px;
+    margin: auto;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+  }
+  .deviceShell:has([data-battle="true"]) > .introduction { display:none; }
+  .deviceShell:has([data-battle="true"]) > .deviceTop { display:grid; }
+  .deviceShell:has([data-battle="true"]) > .deviceControls { display:grid; }
+  .deviceShell:has([data-battle="true"]) > .stage { min-height:0; height:100%; padding:clamp(6px,1vmin,10px); }
+}
+
+/* Formato desktop ampio: il Nexus Pet usa realmente il monitor senza perdere
+   la sua cornice, anche nelle schermate che precedono il combattimento. */
+@media (min-width: 901px) {
+  .deviceShell {
+    width: min(1800px, calc(100vw - 48px));
+    height: min(1040px, calc(100dvh - 24px));
+    max-width: 1800px;
+    max-height: 1040px;
+  }
+  .deviceTop {
+    column-gap: 12px;
+  }
+  .deviceTop > * {
+    min-width: 0;
+  }
+  .houseManagerTrigger,
+  .deviceTop .exitExperience {
+    flex-shrink: 0;
+  }
 }

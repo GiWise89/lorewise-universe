@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import sharp from 'sharp';
 import {createHash} from 'node:crypto';
-import {createCloudRun,advanceCloud} from '../lib/famiglioCloudJump.ts';
+import {createCloudRun,advanceCloud,cloudRunSpeed,cloudSpeedStage} from '../lib/famiglioCloudJump.ts';
 import {FAMILIAR_COMBAT_CAMPAIGN} from '../lib/famiglioCombatCampaign.ts';
 
 test('20 campaign NPCs have distinct silhouettes, real source animations and unclipped frames',async()=>{
@@ -25,24 +25,48 @@ test('20 campaign NPCs have distinct silhouettes, real source animations and unc
  }
  assert.equal(hashes.size,20,'Recolors alone cannot pass');
 });
-test('cloud route offers multiple widths, moving/fragile clouds and optional higher path',()=>{
- let s=createCloudRun();const kinds=new Set(),widths=new Set();
+test('cloud route offers flat walkable platforms of multiple widths and recurring obstacles',()=>{
+ let s=createCloudRun();const widths=new Set();let enemies=0;
  for(let i=0;i<100;i++){
-  s={...s,camera:i*250,y:200,vy:0,lives:3,finished:false};s=advanceCloud(s,16,()=>.4);
-  for(const p of s.platforms){kinds.add(p.kind);widths.add(p.width);}
+  s={...s,camera:i*250,y:300,vy:0,lives:3,finished:false};s=advanceCloud(s,16,()=>.4);
+  for(const p of s.platforms){assert.equal(p.kind,'stable');assert.equal(p.y,300);widths.add(p.width);}
+  enemies+=s.enemies.length;
  }
- for(const kind of ['stable','moving','fragile','bonus'])assert.ok(kinds.has(kind));
  assert.ok(widths.size>=3);
-});
-test('fragile cloud dissolves after contact while the stable route remains',()=>{
- let s=createCloudRun();s.platforms[0].kind='fragile';
- for(let i=0;i<60;i++)s=advanceCloud(s,16,()=>.5);
- assert.equal(s.platforms[0].broken,true);
+ assert.ok(enemies>0);
 });
 test('enemy gives warning, then removes one life on contact without repeat damage',()=>{
- let s=createCloudRun();s.enemies=[{id:6,x:165,y:278,warnedAt:null,passed:false}];
+ let s=createCloudRun();s.enemies=[{id:6,platformId:0,x:165,y:300,warnedAt:null,passed:false}];
  s=advanceCloud(s,16);assert.equal(s.lives,3);assert.ok(s.enemies[0].warnedAt!==null);
  s={...s,elapsed:2000,enemies:[{...s.enemies[0],x:s.camera+160}]};
  s=advanceCloud(s,16);assert.equal(s.lives,2);
  s=advanceCloud(s,16);assert.equal(s.lives,2);
+});
+test('generated cloud sprites have transparent breathing room and every actor uses the same walk line',async()=>{
+ for(const file of ['public/famiglio/rebuild/effects/minigame-jump-platform-short-v5.png','public/famiglio/rebuild/effects/minigame-jump-platform-medium-v5.png','public/famiglio/rebuild/effects/minigame-jump-platform-long-v5.png']){
+  const {data,info}=await sharp(file).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+  let sideAlpha=0,bottomAlpha=0,bestRailAlpha=0;
+  for(let y=0;y<info.height;y++)sideAlpha+=Number(data[(y*info.width)*4+3]>0)+Number(data[(y*info.width+info.width-1)*4+3]>0);
+  for(let y=0;y<Math.ceil(info.height*.25);y++){let rowAlpha=0;for(let x=0;x<info.width;x++)rowAlpha+=Number(data[(y*info.width+x)*4+3]>0);bestRailAlpha=Math.max(bestRailAlpha,rowAlpha);}
+  for(let x=0;x<info.width;x++)bottomAlpha+=Number(data[((info.height-1)*info.width+x)*4+3]>0);
+  assert.equal(sideAlpha,0,`${file} must not touch a side edge`);
+  assert.equal(bottomAlpha,0,`${file} must not touch the bottom edge`);
+  assert.ok(bestRailAlpha>info.width*.7,`${file} must expose a continuous walkable top line`);
+ }
+ const component=fs.readFileSync('components/FamiglioCloudGame.tsx','utf8');
+ const css=fs.readFileSync('components/FamiglioCloudGame.module.css','utf8');
+ assert.match(component,/top:percentY\(platform\.y-CLOUD_PLATFORM_SURFACE_OFFSET\)/);
+ assert.match(component,/top:percentY\(run\.y\)/);
+ assert.match(component,/x\+platform\.width>0&&x<CLOUD_VIEW_WIDTH/);
+ assert.match(component,/grounded\/>/);
+ assert.match(component,/SALTA ORA/);
+ const home=fs.readFileSync('components/FamiglioNexusRebuild.tsx','utf8');
+ const npc=fs.readFileSync('components/FamiglioCampaignNpcCanvas.tsx','utf8');
+ assert.match(home,/<FamiliarPreview egg=\{homeFamiliar\} colorVariant=\{state\.colorVariant\} grounded/);
+ assert.match(npc,/const sourceCanvas = grounded/);
+ assert.match(css,/\.pet,\.enemy\s*\{[^}]*translate\(-50%,-100%\)/);
+});
+test('cloud rhythm rises every ten seconds and keeps increasing beyond the former cap',()=>{
+ assert.equal(cloudSpeedStage(9999),0);assert.equal(cloudSpeedStage(10000),1);assert.equal(cloudSpeedStage(30000),3);
+ assert.ok(cloudRunSpeed(10000)>cloudRunSpeed(9999));assert.ok(cloudRunSpeed(180000)>cloudRunSpeed(120000));
 });

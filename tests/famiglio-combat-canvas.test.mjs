@@ -60,6 +60,8 @@ test("la tabella fase-posizione riproduce ogni gesto una volta e conserva la pos
   assert.match(canvas, /event\.phase === "windup"[\s\S]*?actionKind === "physical"[\s\S]*?pose: "attack", mode: "hold-start"/);
   assert.match(canvas, /event\.phase === "impact"[\s\S]*?actionKind === "physical"[\s\S]*?pose: "physical", mode: "progress"/);
   assert.match(canvas, /event\.phase === "projectile"[\s\S]*?pose: "magic", mode: "hold-final"/);
+  assert.match(canvas, /event\.actionKind === "heal"[\s\S]*?pose: "heal", mode: "progress"/);
+  assert.match(canvas, /event\.phase === "status"[\s\S]*?event\.actionKind === "heal"[\s\S]*?pose: "heal", mode: "hold-final"/);
   assert.match(canvas, /event\.phase === "result"[\s\S]{0,180}mode: "once"/);
   assert.match(canvas, /pose === "victory" \|\| pose === "exhausted"[\s\S]*?mode: "once"/);
   assert.match(canvas, /animation\.mode === "once"[\s\S]*?Math\.min\(3/);
@@ -69,8 +71,16 @@ test("la tabella fase-posizione riproduce ogni gesto una volta e conserva la pos
 test("contatto, VFX e ritorno seguono scala naturale e posizione reale del Famiglio", async () => {
   const canvas = await source("components/FamiglioCombatCanvas.tsx");
 
+  assert.match(canvas, /familiarCombatDisplayScale/);
+  assert.match(canvas, /Math\.max\(\.84, Math\.min\(1\.02/);
   assert.match(canvas, /playerSize = baseSize \* playerScale/);
   assert.match(canvas, /opponentSize = baseSize \* opponentScale/);
+  assert.match(canvas, /const baseSize = height \* \.23/);
+  assert.match(canvas, /floorY: height \* \.86/);
+  assert.match(canvas, /COMBAT_ANIMATION_PACING = 1\.8/);
+  assert.match(canvas, /const safeSize = size \* \.82/);
+  assert.match(canvas, /const sourceInset = 0/);
+  assert.match(canvas, /safeSize \* \(154 \/ 160\)/);
   assert.match(canvas, /playerContactX = Math\.max\(playerBaseX, contactPoint - playerSize \* \.23\)/);
   assert.match(canvas, /opponentContactX = Math\.min\(opponentBaseX, contactPoint \+ opponentSize \* \.23\)/);
   assert.match(canvas, /event\.phase === "advance" \|\| event\.phase === "return"[\s\S]*?x: eventActorX/);
@@ -139,7 +149,10 @@ test("i sei circuiti usano schede compatte con anteprima 16:9 completa", async (
 
   assert.equal(FAMILIAR_COMBAT_CIRCUITS.length, 6);
   assert.match(arena, /FAMILIAR_COMBAT_CIRCUITS\.map\(\(circuit\) =>/);
-  assert.match(arena, /<nav className=\{styles\.circuitRail\} aria-label="Circuiti dell'Arena">/);
+  assert.match(arena, /<nav className=\{`\$\{styles\.circuitRail\} \$\{styles\.arenaCatalog\}`\} aria-label="Modalità e arene">/);
+  assert.match(arena, /Campagna e Torre/);
+  assert.match(arena, /Sfide e modalità/);
+  assert.match(arena, /Arene e livelli/);
   assert.match(arena, /className=\{styles\.circuitThumb\}[\s\S]*?ARENA_BACKGROUNDS\[circuit\.id\]/);
   assert.match(css, /\/\* Le arene sono schede compatte[\s\S]*?\.circuitRail\s*\{[^}]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
   assert.match(css, /\.circuitThumb\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9[^}]*background-size:\s*contain/s);
@@ -149,39 +162,42 @@ test("i sei circuiti usano schede compatte con anteprima 16:9 completa", async (
 
 test("la preparazione guidata mostra un passaggio alla volta e la lotta conserva quattro comandi", async () => {
   const css = await source("components/FamiglioCombatArena.module.css");
+  const battleCss = await source("components/FamiglioBattleScreen.module.css");
   const arena = await source("components/FamiglioCombatArena.tsx");
 
   assert.match(arena, /styles\.setupGuide/);
   assert.match(arena, /Conferma rivale/);
   assert.match(arena, /Conferma le mosse/);
   assert.match(arena, /\[0, 1, 2, 3\]\.map\(\(index\) =>/);
-  assert.match(arena, /className=\{styles\.battleUtilityTray\}/);
+  assert.match(arena, /className=\{battleStyles\.battleUtilityTray\}/);
   assert.match(arena, /setBattleInfoPanel\("status"\)/);
   assert.match(arena, /setBattleInfoPanel\("log"\)/);
-  assert.match(arena, /className=\{styles\.battleInfoOverlay\}[\s\S]*?role="dialog"/);
+  assert.match(arena, /className=\{battleStyles\.battleInfoOverlay\}[\s\S]*?role="dialog"/);
   assert.match(css, /\.opponentRail\s*\{[^}]*display:\s*block;[^}]*overflow:\s*visible;/s);
-  assert.match(css, /\/\* Lotta:[\s\S]*?\.battleViewport\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/s);
-  assert.match(css, /\.battleColumn\s*\{[^}]*display:\s*flex[^}]*flex-direction:\s*column/s);
-  assert.match(css, /\.battleScene\s*\{[^}]*flex:\s*0 0 auto[^}]*aspect-ratio:\s*16\s*\/\s*9/s);
-  assert.match(css, /\.battleMoveGrid\s*\{[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/s);
+  assert.match(battleCss, /\.battleViewport\{[^}]*height:100%[^}]*overflow:hidden/);
+  assert.match(battleCss, /\.battleColumn\{[^}]*display:grid[^}]*grid-template-rows:minmax\(0,1fr\) auto/);
+  assert.match(battleCss, /\.battleScene\{[^}]*aspect-ratio:16\/9[^}]*overflow:hidden/);
+  assert.match(battleCss, /\.battleMoveGrid\{[^}]*grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
 });
 
 test("gli HUD sono ai lati del campo e la schermata di lotta usa tutta l'area senza scroll", async () => {
-  const css = await source("components/FamiglioCombatArena.module.css");
+  const css = await source("components/FamiglioBattleScreen.module.css");
   const arena = await source("components/FamiglioCombatArena.tsx");
-  const stageStart = arena.indexOf("className={styles.battleStage}");
-  const bannerStart = arena.indexOf("className={styles.turnBanner}", stageStart);
+  const stageStart = arena.indexOf("className={battleStyles.battleStage}");
+  const bannerStart = arena.indexOf("className={battleStyles.turnBanner}", stageStart);
   const stageMarkup = arena.slice(stageStart, bannerStart);
 
   assert.ok(stageStart >= 0 && bannerStart > stageStart);
-  assert.match(stageMarkup, /className=\{styles\.battleHud\} data-side="player"[\s\S]*?className=\{styles\.battleScene\}[\s\S]*?className=\{styles\.battleHud\} data-side="opponent"/);
-  assert.match(css, /\.battleStage\s*\{[^}]*grid-template-columns:\s*minmax\(10\.5rem,\s*\.3fr\)\s+minmax\(31rem,\s*1fr\)\s+minmax\(10\.5rem,\s*\.3fr\)/s);
-  assert.match(css, /\.battleHud,\s*\.battleHud\[data-side="opponent"\]\s*\{[^}]*position:\s*relative[^}]*width:\s*100%/s);
-  assert.match(css, /\/\* Modalita battaglia:[\s\S]*?\.combat\[data-battle="true"\] \.battleViewport\s*\{[^}]*overflow:\s*hidden/s);
+  assert.match(stageMarkup, /className=\{battleStyles\.battleHud\} data-side="player"[\s\S]*?className=\{battleStyles\.battleScene\}[\s\S]*?className=\{battleStyles\.battleHud\} data-side="opponent"/);
+  assert.match(css, /\.battleStage\{[^}]*grid-template-rows:minmax\(0,1fr\) auto[^}]*overflow:hidden/);
+  assert.match(css, /\.battleHud\{[^}]*position:absolute/);
+  assert.match(css, /\.battleHud\[data-side="player"\]\{left:20px\}/);
+  assert.match(css, /\.battleHud\[data-side="opponent"\]\{right:20px\}/);
+  assert.match(css, /\.battleViewport\{[^}]*overflow:hidden/);
 });
 
 test("le sei arene e il Canvas di lotta restano 16:9 e mostrano l'immagine intera", async () => {
-  const css = await source("components/FamiglioCombatArena.module.css");
+  const css = await source("components/FamiglioBattleScreen.module.css");
   const canvas = await source("components/FamiglioCombatCanvas.tsx");
 
   for (const circuit of FAMILIAR_COMBAT_CIRCUITS) {

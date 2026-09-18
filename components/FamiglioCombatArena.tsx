@@ -12,6 +12,7 @@ import {
   familiarCombatMoveHasCooldown,
   familiarCombatMoveIsBase,
   familiarCombatMoveMaxUses,
+  FAMILIAR_COMBAT_SWITCH_ENERGY_COST,
   familiarCombatLevelProgress,
   familiarCombatOpponentPreview,
   familiarCombatOpponents,
@@ -19,6 +20,7 @@ import {
   performFamiliarCombatTurn,
   retreatFromFamiliarCombat,
   startFamiliarCombatBattle,
+  switchFamiliarCombatant,
   type FamiliarCombatDifficulty,
   type FamiliarCombatState,
   type FamiliarCombatTimelineEvent,
@@ -54,6 +56,7 @@ import { playFamiliarInterfaceCue } from "../lib/nexusFamiliarAudio.ts";
 import { FamiglioBattleCanvas, FamiglioCombatPreviewCanvas, preloadFamiglioCombatImages } from "./FamiglioCombatCanvas.tsx";
 import { FamiglioCampaignNpcCanvas, type CampaignNpcPose } from "./FamiglioCampaignNpcCanvas.tsx";
 import styles from "./FamiglioCombatArena.module.css";
+import battleStyles from "./FamiglioBattleScreen.module.css";
 
 type FamiglioCombatArenaProps = {
   familiarId: string;
@@ -163,11 +166,7 @@ function spritePath(familiarId: string, growthStage: FamiliarGrowthStage, pose: 
   const baseVariants: Readonly<Record<string, string>> = { cat: "grey", rabbit: "white", parrot: "blue" };
   const baseVariant = baseVariants[familiarId];
   const variantSegment = colorVariant && baseVariant && colorVariant !== baseVariant ? `/variants/${colorVariant}` : "";
-  if (familiarId === "cat" && colorVariant === "black") {
-    return `/famiglio/rebuild/collection/cat/growth/${growthStage}/battle-v3/variants/black/${pose}.png`;
-  }
-  const assetRevision = familiarId === "fiddle-dog" ? "?v=3" : "";
-  return `/famiglio/rebuild/collection/${familiarId}/growth/${growthStage}/battle-v2${variantSegment}/${pose}.png${assetRevision}`;
+  return `/famiglio/rebuild/collection/${familiarId}/growth/${growthStage}/battle-v6${variantSegment}/${pose}.png?v=8`;
 }
 
 function wait(milliseconds: number) {
@@ -177,11 +176,19 @@ function wait(milliseconds: number) {
 function InitiativeDie({ value }: { value: number }) {
   const safeValue = Math.min(6, Math.max(1, Math.round(value)));
   return <span
-    className={styles.initiativeDie}
+    className={battleStyles.initiativeDie}
     style={{ "--die-position": `${(safeValue - 1) * 20}%` } as CSSProperties}
     role="img"
     aria-label={`Dado: ${safeValue}`}
   />;
+}
+
+function moveVisual(move: CombatMove) {
+  if (move.damageClass === "restore") return { kind: "heal", label: "Cura", pose: "heal" };
+  if (move.damageClass === "status" && (move.status === "guard" || move.animation === "guard")) return { kind: "guard", label: "Difesa", pose: "guard" };
+  if (move.damageClass === "status") return { kind: "status", label: "Tecnica", pose: "technique" };
+  if (move.damageClass === "magic") return { kind: "magic", label: "Magia", pose: "magic" };
+  return { kind: "physical", label: "Fisica", pose: "physical" };
 }
 
 function updateActiveAudioSettings(audios: Iterable<HTMLAudioElement>, muted: boolean, volume: number) {
@@ -219,10 +226,16 @@ function poseFor(
   if (!isActor) return "idle";
   if (event.phase === "advance" || event.phase === "return") return event.actionKind === "physical" ? "run" : "idle";
   if (event.phase === "guard") return "guard";
-  if (event.phase === "windup") return event.actionKind === "physical" ? "attack" : "technique";
+  if (event.phase === "windup") {
+    if (event.actionKind === "physical") return "attack";
+    if (event.actionKind === "heal") return "heal";
+    if (event.actionKind === "guard") return "guard";
+    if (event.actionKind === "magic") return "magic";
+    return "technique";
+  }
   if (event.phase === "projectile") return "magic";
   if (event.phase === "impact") return event.actionKind === "physical" ? "physical" : "idle";
-  if (event.phase === "status") return ["status", "heal"].includes(event.actionKind) ? "technique" : "idle";
+  if (event.phase === "status") return event.actionKind === "heal" ? "heal" : event.actionKind === "status" ? "technique" : "idle";
   return "idle";
 }
 
@@ -277,7 +290,9 @@ export function FamiglioCombatArena({
   const [selectedOpponentId, setSelectedOpponentId] = useState(initialOpponents[0] ?? "");
   const [difficulty, setDifficulty] = useState<FamiliarCombatDifficulty>("normal");
   const [setupTab, setSetupTab] = useState<ArenaSetupTab>("familiar");
-  const [familiarPage, setFamiliarPage] = useState(0);
+  const [rosterQuery, setRosterQuery] = useState("");
+  const [rosterPage, setRosterPage] = useState(0);
+  const [arenaCategoryTab, setArenaCategoryTab] = useState<"paths" | "team" | "arenas" | "future">("paths");
   const [currentEvent, setCurrentEvent] = useState<FamiliarCombatTimelineEvent | null>(null);
   const [contactActors, setContactActors] = useState<readonly string[]>([]);
   const [visibleHealth, setVisibleHealth] = useState<VisibleHealth | null>(null);
@@ -292,9 +307,10 @@ export function FamiglioCombatArena({
   const [selectedMoveInfoId, setSelectedMoveInfoId] = useState<string | null>(null);
   const [retreatConfirmOpen, setRetreatConfirmOpen] = useState(false);
   const [initiativeBattleId, setInitiativeBattleId] = useState<string | null>(null);
-  const [battleFormat, setBattleFormat] = useState<"duel" | "tower" | "campaign">("duel");
+  const [battleFormat, setBattleFormat] = useState<"duel" | "team" | "tower" | "campaign">("duel");
   const [selectedCampaignNumber, setSelectedCampaignNumber] = useState(1);
   const [towerRun, setTowerRun] = useState<FamiliarTowerRun | null>(null);
+  const [teamIds, setTeamIds] = useState<string[]>([familiarId]);
   const [roundNotice, setRoundNotice] = useState<number | null>(null);
   const [localMessage, setLocalMessage] = useState<string | null>(null);
   const sequenceRef = useRef(0);
@@ -306,24 +322,80 @@ export function FamiglioCombatArena({
   const audioSettingsRef = useRef({ muted, volume });
   const entranceTimerRef = useRef<number | null>(null);
   const shownInitiativeBattleIdsRef = useRef<Set<string>>(new Set());
+  const towerStorageKey = `lorewise:famiglio:tower:${familiarId}`;
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setTeamIds((current) => [...new Set([familiarId, ...current.filter((id) => familiarOptions.some((option) => option.id === id))])].slice(0, 3)), 0);
+    return () => window.clearTimeout(timer);
+  }, [familiarId, familiarOptions]);
+
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(towerStorageKey);
+      if (!stored) return;
+      const storedRun = JSON.parse(stored) as FamiliarTowerRun;
+      if (!storedRun?.id || !Array.isArray(storedRun.floors) || storedRun.currentFloor < 1 || storedRun.currentFloor > storedRun.floors.length) return;
+      const parsed: FamiliarTowerRun = {
+        ...storedRun,
+        floors: storedRun.floors.map((floor) => {
+          const teamBattle = [4, 8, 10].includes(floor.floor);
+          const fallbackTeam = [floor.opponentId, ...FAMILIAR_COMBAT_CATALOG.map((entry) => entry.id).filter((id) => id !== familiarId && id !== floor.opponentId)].slice(0, 3);
+          return { ...floor, teamBattle, opponentTeamIds: teamBattle ? [...new Set(floor.opponentTeamIds?.length ? floor.opponentTeamIds : fallbackTeam)].slice(0, 3) : [floor.opponentId] };
+        }),
+      };
+      const floor = familiarTowerFloor(parsed);
+      const timer = window.setTimeout(() => {
+        setTowerRun(parsed);
+        setBattleFormat("tower");
+        if (floor) {
+          setSelectedCircuitId(floor.circuitId);
+          setSelectedOpponentId(floor.opponentId);
+          if (floor.teamBattle) setTeamIds((current) => [...new Set([familiarId, ...current, ...familiarOptions.map((option) => option.id)])].slice(0, 3));
+        }
+      }, 0);
+      return () => window.clearTimeout(timer);
+    } catch { /* La Torre resta giocabile anche senza memoria locale. */ }
+  }, [familiarId, familiarOptions, towerStorageKey]);
 
   const opponentIds = useMemo(
     () => familiarCombatOpponents(familiarId, testMode ? undefined : selectedCircuit.id),
     [familiarId, selectedCircuit.id, testMode],
   );
-  const familiarsPerPage = 8;
-  const familiarPageCount = Math.max(1, Math.ceil(familiarOptions.length / familiarsPerPage));
-  const visibleFamiliarOptions = familiarOptions.slice(familiarPage * familiarsPerPage, (familiarPage + 1) * familiarsPerPage);
+  const normalizedRosterQuery = rosterQuery.trim().toLocaleLowerCase("it");
+  const filteredFamiliarOptions = normalizedRosterQuery
+    ? familiarOptions.filter((option) => option.name.toLocaleLowerCase("it").includes(normalizedRosterQuery))
+    : familiarOptions;
+  const rosterPageSize = 8;
+  const rosterPageCount = Math.max(1, Math.ceil(filteredFamiliarOptions.length / rosterPageSize));
+  const safeRosterPage = Math.min(rosterPage, rosterPageCount - 1);
+  const visibleFamiliarOptions = filteredFamiliarOptions.slice(safeRosterPage * rosterPageSize, (safeRosterPage + 1) * rosterPageSize);
   const selectPreparedFamiliar = (nextFamiliarId: string) => {
-    const selectedIndex = familiarOptions.findIndex((entry) => entry.id === nextFamiliarId);
-    if (selectedIndex >= 0) setFamiliarPage(Math.floor(selectedIndex / familiarsPerPage));
     onSelectFamiliar(nextFamiliarId);
+    setTeamIds((current) => [...new Set([nextFamiliarId, ...current])].slice(0, 3));
+  };
+  const toggleTeamMember = (nextFamiliarId: string) => {
+    if (nextFamiliarId === familiarId) return;
+    setTeamIds((current) => current.includes(nextFamiliarId)
+      ? current.filter((id) => id !== nextFamiliarId)
+      : current.length < 3 ? [...current, nextFamiliarId] : current);
+  };
+  const completePlayerTeam = () => {
+    const available = familiarOptions.map((option) => option.id);
+    setTeamIds((current) => [...new Set([familiarId, ...current, ...available])].slice(0, 3));
   };
   const activeTowerFloor = battleFormat === "tower" ? familiarTowerFloor(towerRun) : null;
   const selectedCampaignLevel = battleFormat === "campaign" ? FAMILIAR_COMBAT_CAMPAIGN[selectedCampaignNumber - 1] ?? FAMILIAR_COMBAT_CAMPAIGN[0] : null;
   const nextCampaignLevelNumber = FAMILIAR_COMBAT_CAMPAIGN.find((level) => !familiarCampaignIsComplete(progress, level))?.number ?? 20;
   const selectedCampaignOpponentId = selectedCampaignLevel ? familiarCampaignOpponent(selectedCampaignLevel, familiarId) : null;
   const safeOpponentId = selectedCampaignOpponentId ?? activeTowerFloor?.opponentId ?? (opponentIds.includes(selectedOpponentId) ? selectedOpponentId : opponentIds[0] ?? "");
+  const teamBattle = battleFormat === "team" || Boolean(selectedCampaignLevel?.teamBattle) || Boolean(activeTowerFloor?.teamBattle);
+  const opponentTeamIds = [...new Set([
+    safeOpponentId,
+    ...(activeTowerFloor?.opponentTeamIds ?? []),
+    ...(selectedCampaignLevel?.opponentIds ?? []),
+    ...opponentIds,
+    ...FAMILIAR_COMBAT_CATALOG.map((entry) => entry.id),
+  ])].filter((id) => id && !teamIds.includes(id)).slice(0, teamBattle ? 3 : 1);
   const opponentEntry = familiarCombatEntry(safeOpponentId);
   const opponentPreview = safeOpponentId ? familiarCombatOpponentPreview({
     playerId: familiarId,
@@ -351,7 +423,9 @@ export function FamiglioCombatArena({
     }];
   });
   const proposedOpponentLevel = opponentPreview?.level ?? selectedCircuit.minLevel;
-  const playerMoves = progress.equippedMoveIds.map(combatMoveById).filter((move): move is CombatMove => Boolean(move));
+  const activeCombatantId = state.activeBattle?.outcome === "active" ? state.activeBattle.player.familiarId : familiarId;
+  const activeCombatantProgress = familiarCombatProgress(state, activeCombatantId);
+  const playerMoves = activeCombatantProgress.equippedMoveIds.map(combatMoveById).filter((move): move is CombatMove => Boolean(move));
   const selectedMoveInfo = selectedMoveInfoId ? playerMoves.find((move) => move.id === selectedMoveInfoId) ?? null : null;
   const learnedMoves = progress.learnedMoveIds.map(combatMoveById).filter((move): move is CombatMove => Boolean(move));
   const opponentMoves = opponentPreview?.moves ?? [];
@@ -364,7 +438,9 @@ export function FamiglioCombatArena({
   const towerBackground = battleFormat === "tower" ? familiarTowerFloorBackground(activeTowerFloor?.floor) : null;
   const battleBackground = battleCampaignLevel?.arenaSrc ?? towerBackground ?? ARENA_BACKGROUNDS[battleCircuit.id] ?? battleCircuit.backgroundSrc;
   const battleDifficultyLabel = FAMILIAR_COMBAT_DIFFICULTIES.find((entry) => entry.id === battle?.difficulty)?.label ?? FAMILIAR_COMBAT_DIFFICULTIES[0].label;
-  const playerVisual = familiarHouseVisual(familiarId);
+  const battlePlayerOption = familiarOptions.find((option) => option.id === (battle?.player.familiarId ?? familiarId));
+  const battlePlayerName = battlePlayerEntry?.name ?? familiarName;
+  const playerVisual = familiarHouseVisual(battle?.player.familiarId ?? familiarId);
   const opponentVisual = familiarHouseVisual(battle?.opponent.familiarId ?? safeOpponentId);
   const playerHp = battle && visibleHealth?.battleId === battle.id ? visibleHealth.player : battle?.player.hp ?? 0;
   const opponentHp = battle && visibleHealth?.battleId === battle.id ? visibleHealth.opponent : battle?.opponent.hp ?? 0;
@@ -380,6 +456,7 @@ export function FamiglioCombatArena({
   const phaseDuration = Math.round(
     (presentationCue?.durationMs ?? currentEvent?.durationMs ?? 500)
       * familiarCombatPhaseDurationScale(phaseActorId)
+      * 1.53
       / animationSpeed,
   );
   const initiativeOpen = Boolean(battle?.initiative && initiativeBattleId === battle.id && battle.outcome === "active");
@@ -495,7 +572,7 @@ export function FamiglioCombatArena({
       playAudio(cue);
       health = updateHealthForEvent(event, health, currentBattle);
       setVisibleHealth(health);
-      await wait(Math.max(140, cue.durationMs / animationSpeed));
+      await wait(Math.max(220, cue.durationMs * familiarCombatPhaseDurationScale(event.actorId) * 1.53 / animationSpeed));
     }
     if (sequenceRef.current !== sequence) return;
     setCurrentEvent(null);
@@ -516,15 +593,24 @@ export function FamiglioCombatArena({
     setSetupTab("opponents");
   };
 
+  const chooseTeamBattle = () => {
+    setBattleFormat("team");
+    setTowerRun(null);
+    completePlayerTeam();
+    setSetupTab("opponents");
+  };
+
   const chooseTower = () => {
     towerRunSerialRef.current += 1;
-    const run = createFamiliarTowerRun(familiarId, progress.combatLevel, `${state.seed}:${progress.battlesCompleted}:${towerRunSerialRef.current}`);
+    const run = towerRun ?? createFamiliarTowerRun(familiarId, progress.combatLevel, `${state.seed}:${progress.battlesCompleted}:${towerRunSerialRef.current}`);
     const floor = familiarTowerFloor(run);
     if (!floor) return;
     setBattleFormat("tower");
     setTowerRun(run);
+    try { window.localStorage.setItem(towerStorageKey, JSON.stringify(run)); } catch { /* Salvataggio opzionale. */ }
     setSelectedCircuitId(floor.circuitId);
     setSelectedOpponentId(floor.opponentId);
+    if (floor.teamBattle) completePlayerTeam();
     setSetupTab("mode");
   };
 
@@ -547,6 +633,7 @@ export function FamiglioCombatArena({
     setSelectedCircuitId(level.circuitId);
     setDifficulty(level.difficulty);
     setSelectedOpponentId(familiarCampaignOpponent(level, familiarId));
+    if (level.teamBattle) completePlayerTeam();
     setSetupTab("moves");
   };
 
@@ -578,7 +665,9 @@ export function FamiglioCombatArena({
     playedAudioEventIdsRef.current.clear();
     const result = startFamiliarCombatBattle(state, {
       playerId: familiarId,
+      playerTeamIds: teamBattle ? teamIds : [familiarId],
       opponentId,
+      opponentTeamIds,
       circuitId,
       difficulty: campaignLevel?.difficulty ?? difficulty,
       opponentLevel: campaignLevel?.opponentLevel ?? towerFloor?.opponentLevel ?? (testMode ? progress.combatLevel : undefined),
@@ -587,7 +676,8 @@ export function FamiglioCombatArena({
       playerStatBonus,
       playerEvolutionPath,
       maxTurns: campaignLevel?.turnLimit ?? null,
-      bossPhases: campaignLevel?.bossPhases ?? 1,
+      bossPhases: teamBattle ? 1 : campaignLevel?.bossPhases ?? 1,
+      teamBattle,
     });
     if (!result.ok) {
       setLocalMessage(result.error);
@@ -612,6 +702,14 @@ export function FamiglioCombatArena({
     setEntering(true);
     if (entranceTimerRef.current) window.clearTimeout(entranceTimerRef.current);
     entranceTimerRef.current = window.setTimeout(() => setEntering(false), 900);
+    setState(result.state);
+  };
+
+  const rotateCombatant = (nextFamiliarId: string) => {
+    if (animating) return;
+    const result = switchFamiliarCombatant(state, nextFamiliarId);
+    if (!result.ok) { setLocalMessage(result.error); return; }
+    setLocalMessage(null);
     setState(result.state);
   };
 
@@ -663,13 +761,16 @@ export function FamiglioCombatArena({
       if (nextRun) {
         const floor = familiarTowerFloor(nextRun);
         setTowerRun(nextRun);
+        try { window.localStorage.setItem(towerStorageKey, JSON.stringify(nextRun)); } catch { /* Salvataggio opzionale. */ }
         if (floor) {
           setSelectedCircuitId(floor.circuitId);
           setSelectedOpponentId(floor.opponentId);
+          if (floor.teamBattle) completePlayerTeam();
         }
         setSetupTab("ready");
       } else {
         setTowerRun(null);
+        try { window.localStorage.removeItem(towerStorageKey); } catch { /* Nessun blocco. */ }
         setBattleFormat("duel");
         setSetupTab("arenas");
       }
@@ -681,6 +782,7 @@ export function FamiglioCombatArena({
         setSelectedCircuitId(nextLevel.circuitId);
         setDifficulty(nextLevel.difficulty);
         setSelectedOpponentId(familiarCampaignOpponent(nextLevel, familiarId));
+        if (nextLevel.teamBattle) completePlayerTeam();
       }
       setSetupTab("campaign");
     }
@@ -702,6 +804,14 @@ export function FamiglioCombatArena({
     }
     if (!state.pendingReward && battle) onMissionActivity?.("familiar_battle", battle.id);
     setState(closeFamiliarCombatBattle(nextState));
+    if (battle?.outcome === "victory" && battleFormat === "tower" && towerRun) {
+      const nextRun = advanceFamiliarTower(towerRun);
+      setTowerRun(nextRun);
+      try {
+        if (nextRun) window.localStorage.setItem(towerStorageKey, JSON.stringify(nextRun));
+        else window.localStorage.removeItem(towerStorageKey);
+      } catch { /* L'avanzamento resta valido nella sessione corrente. */ }
+    }
     onReturnHome();
   };
 
@@ -711,7 +821,9 @@ export function FamiglioCombatArena({
     const clearedState = closeFamiliarCombatBattle(state);
     const result = startFamiliarCombatBattle(clearedState, {
       playerId: familiarId,
-      opponentId: battle.opponent.familiarId,
+      playerTeamIds: battle.teamFamiliarIds,
+      opponentId: battle.opponentTeamFamiliarIds[0] ?? battle.opponent.familiarId,
+      opponentTeamIds: battle.opponentTeamFamiliarIds,
       circuitId: battle.circuitId,
       difficulty: battle.difficulty,
       opponentLevel: battle.opponent.level,
@@ -719,7 +831,8 @@ export function FamiglioCombatArena({
       playerStatBonus,
       playerEvolutionPath,
       maxTurns: battleCampaignLevel?.turnLimit ?? battle.maxTurns,
-      bossPhases: battleCampaignLevel?.bossPhases ?? battle.bossPhasesTotal,
+      bossPhases: battle.teamBattle ? 1 : battleCampaignLevel?.bossPhases ?? battle.bossPhasesTotal,
+      teamBattle: battle.teamBattle,
     });
     if (!result.ok) {
       setLocalMessage(result.error);
@@ -778,7 +891,7 @@ export function FamiglioCombatArena({
   const selectedDifficultyUnlocked = testMode || combatDifficultyIsUnlocked(progress, difficulty);
 
   return <section
-    className={styles.combat}
+    className={`${styles.combat} ${battle ? battleStyles.root : ""}`}
     data-battle={Boolean(battle)}
     data-famiglio-audio-scope="combat"
     aria-label="Arena dei Famigli"
@@ -833,7 +946,7 @@ export function FamiglioCombatArena({
           <strong>{setupSteps[setupStepIndex]?.label}</strong>
         </div>
         <ol aria-label={`Passaggio ${setupStepIndex + 1} di ${setupSteps.length}`}>
-          {setupSteps.map((step, index) => <li key={step.id} data-current={index === setupStepIndex} data-complete={index < setupStepIndex}><span><Image src={step.icon} alt="" width={128} height={128} aria-hidden="true" /></span><em>{step.label}</em></li>)}
+          {setupSteps.map((step, index) => <li key={step.id} data-current={index === setupStepIndex} data-complete={index < setupStepIndex}><span><Image src={step.icon} unoptimized alt="" width={128} height={128} aria-hidden="true" /></span><em>{step.label}</em></li>)}
         </ol>
         <button type="button" className={styles.setupHome} onClick={onReturnHome}>Casa</button>
       </header>
@@ -841,7 +954,7 @@ export function FamiglioCombatArena({
       {setupTab === "familiar" ? <section className={styles.playerSelector} aria-labelledby="player-selector-title">
         <header className={styles.setupHeading}>
           <div><small>La tua squadra</small><h3 id="player-selector-title">Scegli chi combatterà</h3></div>
-          <span>{familiarOptions.length} Famigli disponibili · pagina {familiarPage + 1}/{familiarPageCount}</span>
+          <span>{familiarOptions.length} Famigli disponibili · squadra {teamIds.length}/3</span>
         </header>
         <label className={styles.opponentDropdown}>
           <span>Famiglio combattente</span>
@@ -849,23 +962,29 @@ export function FamiglioCombatArena({
             {familiarOptions.map((option) => <option key={option.id} value={option.id}>{option.name} · Lv {familiarCombatProgress(state, option.id).combatLevel}</option>)}
           </select>
         </label>
+        <label className={styles.rosterSearch}>
+          <span>Cerca nel roster</span>
+          <input value={rosterQuery} onChange={(event) => { setRosterQuery(event.target.value); setRosterPage(0); }} placeholder="Nome del Famiglio" />
+        </label>
         <div className={styles.familiarPickerLayout} data-single={familiarOptions.length === 1}>
           <div className={styles.familiarRosterPane}>
             <div className={styles.familiarRosterGrid} aria-label="Famigli selezionabili">
               {visibleFamiliarOptions.map((option) => {
                 const optionProgress = familiarCombatProgress(state, option.id);
                 const optionVisual = familiarHouseVisual(option.id);
-                return <button type="button" key={option.id} data-selected={option.id === familiarId} aria-pressed={option.id === familiarId} onClick={() => selectPreparedFamiliar(option.id)}>
+                const inTeam = teamIds.includes(option.id);
+                return <button type="button" key={option.id} data-selected={inTeam} aria-pressed={inTeam} onClick={() => option.id === familiarId ? undefined : toggleTeamMember(option.id)}>
                   <FamiglioCombatPreviewCanvas className={styles.familiarRosterCanvas} src={spritePath(option.id, option.growthStage, "idle", option.colorVariant)} label={option.name} naturalScale={optionVisual.scale} />
-                  <span><strong>{option.name}</strong><small>Lv {optionProgress.combatLevel}</small></span>
+                  <span><strong>{option.name}</strong><small>{option.id === familiarId ? "Caposquadra" : inTeam ? "In squadra" : teamIds.length >= 3 ? "Squadra completa" : "Aggiungi"} · Lv {optionProgress.combatLevel}</small></span>
                 </button>;
               })}
             </div>
-            {familiarPageCount > 1 ? <div className={styles.familiarPager}>
-              <button type="button" aria-label="Famigli precedenti" disabled={familiarPage <= 0} onClick={() => setFamiliarPage((page) => Math.max(0, page - 1))}>←</button>
-              <span>{familiarPage + 1} / {familiarPageCount}</span>
-              <button type="button" aria-label="Famigli successivi" disabled={familiarPage >= familiarPageCount - 1} onClick={() => setFamiliarPage((page) => Math.min(familiarPageCount - 1, page + 1))}>→</button>
-            </div> : null}
+            {!visibleFamiliarOptions.length ? <p className={styles.rosterEmpty}>Nessun Famiglio corrisponde alla ricerca.</p> : null}
+            {rosterPageCount > 1 ? <nav className={styles.familiarPager} aria-label="Pagine del roster">
+              <button type="button" disabled={safeRosterPage === 0} onClick={() => setRosterPage((page) => Math.max(0, page - 1))} aria-label="Pagina precedente">←</button>
+              <span>{safeRosterPage + 1} / {rosterPageCount}</span>
+              <button type="button" disabled={safeRosterPage >= rosterPageCount - 1} onClick={() => setRosterPage((page) => Math.min(rosterPageCount - 1, page + 1))} aria-label="Pagina successiva">→</button>
+            </nav> : null}
           </div>
           <article className={styles.playerChoiceCard}>
             <div className={styles.playerChoicePortrait}>
@@ -876,32 +995,58 @@ export function FamiglioCombatArena({
             <div className={styles.playerChoiceMoves}><small>Mosse equipaggiate</small>{playerMoves.slice(0, 4).map((move) => <span key={move.id}>{move.name}</span>)}</div>
           </article>
         </div>
+        <div className={styles.teamSummary} aria-label="Rosa per il 3 contro 3"><small>Squadra 3 contro 3</small><strong>{teamIds.map((id) => familiarOptions.find((option) => option.id === id)?.name ?? id).join(" · ")}</strong><span>{teamIds.length}/3</span></div>
         <button className={styles.setupContinue} type="button" onClick={() => setSetupTab("arenas")}>Conferma Famiglio</button>
       </section> : null}
 
-      {setupTab === "arenas" ? <nav className={styles.circuitRail} aria-label="Circuiti dell'Arena">
-        <button type="button" className={styles.campaignChoice} onClick={chooseCampaign}>
-          <span className={styles.campaignArtwork} aria-hidden="true">
-            <Image src="/famiglio/rebuild/combat/campaign/arenas/05-trono-nulla-v1.webp" alt="" width={1600} height={900} unoptimized />
-          </span>
-          <span className={styles.circuitLabel}><strong>Campagna del Legame Corrotto</strong><span>20 livelli · 5 capitoli · storia narrata</span></span>
-        </button>
-        <button type="button" className={styles.towerChoice} onClick={chooseTower}>
-          <span className={styles.towerArtwork} aria-hidden="true">
-            <Image src="/famiglio/rebuild/combat/ui/tower-nexus-icon-v1.webp" alt="" width={512} height={512} unoptimized />
-          </span>
-          <span className={styles.circuitLabel}><strong>Torre del Nexus</strong><span>10 piani · mini-boss 4 e 8 · boss finale</span></span>
-        </button>
-        {FAMILIAR_COMBAT_CIRCUITS.map((circuit) => {
-          const unlocked = testMode || (progress.combatLevel >= circuit.minLevel && progress.wins >= circuit.unlockWins);
-          return <button type="button" key={circuit.id} data-selected={circuit.id === selectedCircuit.id} aria-pressed={circuit.id === selectedCircuit.id} onClick={() => chooseCircuit(circuit.id)}>
-            <span className={styles.circuitThumb} style={{ backgroundImage: `url(${ARENA_BACKGROUNDS[circuit.id] ?? circuit.backgroundSrc})` }} aria-hidden="true" />
-            <span className={styles.circuitLabel}>
-              <strong>{circuit.name}</strong>
-              <span>Livelli {circuit.minLevel}–{circuit.maxLevel}{unlocked ? "" : ` · ${circuit.unlockWins} vittorie`}</span>
-            </span>
-          </button>;
-        })}
+      {setupTab === "arenas" ? <nav className={`${styles.circuitRail} ${styles.arenaCatalog}`} aria-label="Modalità e arene">
+        <div className={styles.arenaCategoryTabs} role="tablist" aria-label="Categorie di combattimento">
+          <button type="button" role="tab" aria-selected={arenaCategoryTab === "paths"} onClick={() => setArenaCategoryTab("paths")}>Campagna e Torre</button>
+          <button type="button" role="tab" aria-selected={arenaCategoryTab === "team"} onClick={() => setArenaCategoryTab("team")}>3 contro 3</button>
+          <button type="button" role="tab" aria-selected={arenaCategoryTab === "arenas"} onClick={() => setArenaCategoryTab("arenas")}>Arene</button>
+          <button type="button" role="tab" aria-selected={arenaCategoryTab === "future"} onClick={() => setArenaCategoryTab("future")}>Prossimamente</button>
+        </div>
+        {arenaCategoryTab === "paths" ? <section className={styles.arenaCategory} aria-labelledby="story-modes-title">
+          <header><small>Percorsi</small><h3 id="story-modes-title">Campagna e Torre</h3></header>
+          <div className={styles.categoryCards}>
+            <button type="button" className={styles.campaignChoice} onClick={chooseCampaign}>
+              <span className={styles.campaignArtwork} aria-hidden="true"><Image src="/famiglio/rebuild/combat/campaign/arenas/05-trono-nulla-v1.webp" alt="" width={1600} height={900} unoptimized /></span>
+              <span className={styles.circuitLabel}><strong>Campagna</strong><span>20 livelli · 5 capitoli</span></span>
+            </button>
+            <button type="button" className={styles.towerChoice} onClick={chooseTower}>
+              <span className={styles.towerArtwork} aria-hidden="true"><Image src="/famiglio/rebuild/combat/ui/tower-nexus-icon-v1.webp" alt="" width={512} height={512} unoptimized /></span>
+              <span className={styles.circuitLabel}><strong>Torre del Nexus</strong><span>10 piani · boss e ricompense</span></span>
+            </button>
+          </div>
+        </section> : null}
+        {arenaCategoryTab === "team" ? <section className={styles.arenaCategory} aria-labelledby="team-modes-title">
+          <header><small>Squadre</small><h3 id="team-modes-title">Sfide e modalità</h3></header>
+          <div className={styles.categoryCards}>
+            <button type="button" className={styles.teamChoice} onClick={chooseTeamBattle}>
+              <span className={styles.circuitThumb} style={{ backgroundImage: `url(${ARENA_BACKGROUNDS["grotte-celesti"]})` }} aria-hidden="true" />
+              <span className={styles.circuitLabel}><strong>3 contro 3</strong><span>Rotazione tattica</span></span>
+            </button>
+          </div>
+        </section> : null}
+        {arenaCategoryTab === "arenas" ? <section className={`${styles.arenaCategory} ${styles.arenaCategoryWide}`} aria-labelledby="arenas-title">
+          <header><small>Campi di lotta</small><h3 id="arenas-title">Arene e livelli</h3></header>
+          <div className={styles.arenaCards}>
+            {FAMILIAR_COMBAT_CIRCUITS.map((circuit) => {
+              const unlocked = testMode || (progress.combatLevel >= circuit.minLevel && progress.wins >= circuit.unlockWins);
+              return <button type="button" key={circuit.id} data-selected={circuit.id === selectedCircuit.id} aria-pressed={circuit.id === selectedCircuit.id} onClick={() => chooseCircuit(circuit.id)}>
+                <span className={styles.circuitThumb} style={{ backgroundImage: `url(${ARENA_BACKGROUNDS[circuit.id] ?? circuit.backgroundSrc})` }} aria-hidden="true" />
+                <span className={styles.circuitLabel}><strong>{circuit.name}</strong><span>Livelli {circuit.minLevel}–{circuit.maxLevel}{unlocked ? "" : ` · ${circuit.unlockWins} vittorie`}</span></span>
+              </button>;
+            })}
+          </div>
+        </section> : null}
+        {arenaCategoryTab === "future" ? <section className={styles.arenaCategory} aria-labelledby="future-modes-title">
+          <header><small>In preparazione</small><h3 id="future-modes-title">Nuove modalità</h3></header>
+          <div className={styles.categoryCards}>
+            <article className={styles.comingMode} data-theme="duo"><Image src={ARENA_BACKGROUNDS["grotte-celesti"]} alt="" unoptimized width={640} height={360}/><div><small>IN ARRIVO · SFIDE A SQUADRE</small><strong>Duello in coppia</strong><span>Due legami. Una sola squadra.</span></div></article>
+            <article className={styles.comingMode} data-theme="event"><Image src={ARENA_BACKGROUNDS["soglia-leggendaria"] ?? ARENA_BACKGROUNDS["valle-titani"]} alt="" unoptimized width={640} height={360}/><div><small>IN ARRIVO · EVENTI SPECIALI</small><strong>Evento del Nexus</strong><span>Nuove sfide e ricompense stagionali.</span></div></article>
+          </div>
+        </section> : null}
       </nav> : null}
 
       {setupTab === "campaign" ? <section className={styles.campaignSetup} aria-labelledby="campaign-title">
@@ -1043,7 +1188,7 @@ export function FamiglioCombatArena({
       {setupTab === "ready" ? <section className={styles.selectionGrid}>
         <article className={styles.challengePicker}>
           <div className={styles.pickerHeader}>
-            <div><small>{battleFormat === "tower" ? `Torre · piano ${towerRun?.currentFloor ?? 1}/10` : battleFormat === "campaign" ? `Campagna · livello ${selectedCampaignLevel?.number ?? 1}/20` : "Sfida selezionata"}</small><h3>{opponentEntry?.name ?? "Nessun incontro"}</h3></div>
+            <div><small>{battleFormat === "tower" ? `Torre · piano ${towerRun?.currentFloor ?? 1}/10` : battleFormat === "campaign" ? `Campagna · livello ${selectedCampaignLevel?.number ?? 1}/20` : teamBattle ? "Sfida a squadre" : "Sfida selezionata"}</small><h3>{teamBattle ? "3 contro 3" : opponentEntry?.name ?? "Nessun incontro"}</h3></div>
             <span>{testMode ? `${opponentIds.length} avversari di prova` : `${opponentIds.length} nel circuito`}</span>
           </div>
           {opponentEntry ? <div className={styles.duelPreview} style={{ backgroundImage: `url(${selectedCampaignLevel?.arenaSrc ?? activeTowerFloor?.backgroundSrc ?? ARENA_BACKGROUNDS[selectedCircuit.id] ?? selectedCircuit.backgroundSrc})` }}>
@@ -1058,11 +1203,11 @@ export function FamiglioCombatArena({
             <span>{titleCase(opponentEntry.role)}</span>
             <strong>Lv {proposedOpponentLevel}</strong>
           </div> : null}
-          <div className={styles.readySummary}><span>Arena <strong>{selectedCircuit.name}</strong></span><span>Modalità <strong>{FAMILIAR_COMBAT_DIFFICULTIES.find((entry) => entry.id === difficulty)?.label}</strong></span><span>Mosse <strong>{playerMoves.length}/4</strong></span></div>
+          <div className={styles.readySummary}><span>Arena <strong>{selectedCircuit.name}</strong></span><span>Formato <strong>{teamBattle ? "3 contro 3" : "Duello"}</strong></span><span>Modalità <strong>{FAMILIAR_COMBAT_DIFFICULTIES.find((entry) => entry.id === difficulty)?.label}</strong></span><span>Mosse <strong>{playerMoves.length}/4</strong></span></div>
           {battleFormat === "tower" && towerRun ? <div className={styles.towerProgress} aria-label={`Piano ${towerRun.currentFloor} di 10`}>
             {towerRun.floors.map((floor) => <span key={floor.floor} data-current={floor.floor === towerRun.currentFloor} data-complete={floor.floor < towerRun.currentFloor} data-rank={floor.rank}>{floor.floor}</span>)}
           </div> : null}
-          <button className={styles.startButton} type="button" disabled={activityGate?.allowed === false || !safeOpponentId || (battleFormat !== "campaign" && (!selectedCircuitUnlocked || !selectedDifficultyUnlocked))} onClick={beginBattle}>{activityGate?.allowed === false ? "Famiglio non pronto" : battleFormat === "campaign" || (selectedCircuitUnlocked && selectedDifficultyUnlocked) ? "Inizia il duello" : "Sfida non ancora disponibile"}</button>
+          <button className={styles.startButton} type="button" disabled={activityGate?.allowed === false || !safeOpponentId || (teamBattle && teamIds.length < Math.min(3, familiarOptions.length)) || (battleFormat !== "campaign" && (!selectedCircuitUnlocked || !selectedDifficultyUnlocked))} onClick={beginBattle}>{activityGate?.allowed === false ? "Famiglio non pronto" : teamBattle && teamIds.length < Math.min(3, familiarOptions.length) ? "Completa la squadra" : battleFormat === "campaign" || (selectedCircuitUnlocked && selectedDifficultyUnlocked) ? teamBattle ? "Inizia il 3 contro 3" : "Inizia il duello" : "Sfida non ancora disponibile"}</button>
         </article>
       </section> : null}
 
@@ -1088,33 +1233,36 @@ export function FamiglioCombatArena({
         </article> : null}
         <button className={styles.setupContinue} type="button" disabled={!progress.equippedMoveIds.length} onClick={() => setSetupTab("ready")}>Conferma le mosse</button>
       </section> : null}
-    </div> : <section className={styles.battleViewport} data-animating={animating}>
-      <div className={styles.battleColumn}>
-        <div className={styles.battleStage}>
-          <div className={styles.battleHud} data-side="player" data-critical={playerHpPercent <= 25}>
-            <div className={styles.hudHeading}>
-              <span><strong>{familiarName}</strong><small>{titleCase(battlePlayerEntry?.affinity ?? "natura")} · {titleCase(battlePlayerEntry?.role ?? "assaltatore")}</small></span>
+    </div> : <section className={battleStyles.battleViewport} data-animating={animating}>
+      <div className={battleStyles.battleColumn}>
+        <div className={battleStyles.battleStage}>
+          <div className={battleStyles.battleHud} data-side="player" data-critical={playerHpPercent <= 25}>
+            <div className={battleStyles.fighterStatusTags} aria-label={`Stati di ${battlePlayerName}`}>
+              {battle.player.statuses.map((status) => <span key={status.id}>{status.name}<small>{status.remainingTurns}t</small></span>)}
+            </div>
+            <div className={battleStyles.hudHeading}>
+              <span><strong>{battlePlayerName}</strong><small>{titleCase(battlePlayerEntry?.affinity ?? "natura")} · {titleCase(battlePlayerEntry?.role ?? "assaltatore")}</small></span>
               <b>Lv {battle.player.level}</b>
             </div>
-            <div className={styles.hudHealth}>
-              <span><Image className={styles.resourceIcon} src="/famiglio/rebuild/combat/ui/battle-hp-icon-v1.png" alt="" width={64} height={64} unoptimized />HP</span><div><i style={{ width: `${playerHpPercent}%` }} /></div><strong>{Math.max(0, playerHp)} / {battle.player.maxHp}</strong>
+            <div className={battleStyles.hudHealth}>
+              <span><Image className={battleStyles.resourceIcon} src="/famiglio/rebuild/combat/ui/battle-hp-icon-v1.png" alt="" width={64} height={64} unoptimized />HP</span><div><i style={{ width: `${playerHpPercent}%` }} /></div><strong>{Math.max(0, playerHp)} / {battle.player.maxHp}</strong>
             </div>
-            <div className={styles.hudEnergy}>
-              <span><Image className={styles.resourceIcon} src="/famiglio/rebuild/combat/ui/battle-energy-icon-v1.png" alt="" width={64} height={64} unoptimized />EN</span><div><i style={{ width: `${playerEnergyPercent}%` }} /></div><strong>{battle.player.energy} / {battle.player.maxEnergy}</strong>
+            <div className={battleStyles.hudEnergy}>
+              <span><Image className={battleStyles.resourceIcon} src="/famiglio/rebuild/combat/ui/battle-energy-icon-v1.png" alt="" width={64} height={64} unoptimized />EN</span><div><i style={{ width: `${playerEnergyPercent}%` }} /></div><strong>{battle.player.energy} / {battle.player.maxEnergy}</strong>
             </div>
           </div>
           <div
-            className={styles.battleScene}
+            className={battleStyles.battleScene}
             style={{ backgroundImage: `url(${battleBackground})`, "--phase-duration": `${phaseDuration}ms` } as CSSProperties}
-            aria-label={`${battleCircuit.name}: ${familiarName} contro ${battleOpponentEntry?.name ?? "avversario"}`}
+            aria-label={`${battleCircuit.name}: ${battlePlayerName} contro ${battleOpponentEntry?.name ?? "avversario"}`}
           >
             <FamiglioBattleCanvas
-              className={styles.battleCanvas}
+              className={battleStyles.battleCanvas}
               backgroundSrc={battleBackground}
               player={{
                 id: battle.player.familiarId,
-                name: familiarName,
-                spriteSrc: spritePath(battle.player.familiarId, growthStage, playerBattlePose, colorVariant),
+                name: battlePlayerName,
+                spriteSrc: spritePath(battle.player.familiarId, battlePlayerOption?.growthStage ?? opponentStageForLevel(battle.player.level), playerBattlePose, battlePlayerOption?.colorVariant),
                 naturalScale: playerVisual.scale,
               }}
               opponent={{
@@ -1128,46 +1276,43 @@ export function FamiglioCombatArena({
               contactActors={contactActors}
               entering={entering}
               phaseDurationMs={phaseDuration}
-              label={`${battleCircuit.name}: ${familiarName} contro ${battleOpponentEntry?.name ?? "avversario"}`}
+              label={`${battleCircuit.name}: ${battlePlayerName} contro ${battleOpponentEntry?.name ?? "avversario"}`}
               opponentCorrupted={Boolean(battleCampaignLevel)}
               corruptionIntensity={battleCampaignLevel?.corruptionIntensity}
               campaignNpc={battleCampaignLevel ? { src: battleCampaignLevel.npc.spriteSrc, name: battleCampaignLevel.npc.name, pose: campaignNpcPose } : null}
             />
-            <div className={styles.fighterStatusTags} data-side="player" aria-label={`Stati di ${familiarName}`}>
-              {battle.player.statuses.map((status) => <span key={status.id} data-status={status.id}>{status.name}<small>{status.remainingTurns}t</small></span>)}
-            </div>
-            <div className={styles.fighterStatusTags} data-side="opponent" aria-label={`Stati di ${battleOpponentEntry?.name ?? "avversario"}`}>
-              {battle.opponent.statuses.map((status) => <span key={status.id} data-status={status.id}>{status.name}<small>{status.remainingTurns}t</small></span>)}
-            </div>
-            <div className={styles.arenaPlate}><small>{battleCircuit.name}</small><strong>{battleDifficultyLabel}</strong></div>
+            <div className={battleStyles.arenaPlate}><small>{battleCircuit.name}</small><strong>{battleDifficultyLabel}</strong></div>
+            {roundNotice === battle.turn && !initiativeOpen ? <div className={battleStyles.roundNotice} role="status"><small>{battle.bossPhasesTotal > 1 ? `Fase ${battle.bossPhasesTotal - battle.bossPhasesRemaining + 1}/${battle.bossPhasesTotal}` : "Round"}</small><strong>{battle.turn}</strong></div> : null}
           </div>
-          <div className={styles.battleHud} data-side="opponent" data-critical={opponentHpPercent <= 25}>
-            <div className={styles.hudHeading}>
+          <div className={battleStyles.battleHud} data-side="opponent" data-critical={opponentHpPercent <= 25}>
+            <div className={battleStyles.fighterStatusTags} aria-label={`Stati di ${battleOpponentEntry?.name ?? "avversario"}`}>
+              {battle.opponent.statuses.map((status) => <span key={status.id}>{status.name}<small>{status.remainingTurns}t</small></span>)}
+            </div>
+            <div className={battleStyles.hudHeading}>
               <span><strong>{battleOpponentEntry?.name}</strong><small>{titleCase(battleOpponentEntry?.affinity ?? "natura")} · {titleCase(battleOpponentEntry?.role ?? "assaltatore")}</small></span>
               <b>Lv {battle.opponent.level}</b>
             </div>
-            <div className={styles.hudHealth}>
-              <span><Image className={styles.resourceIcon} src="/famiglio/rebuild/combat/ui/battle-hp-icon-v1.png" alt="" width={64} height={64} unoptimized />HP</span><div><i style={{ width: `${opponentHpPercent}%` }} /></div><strong>{Math.max(0, opponentHp)} / {battle.opponent.maxHp}</strong>
+            <div className={battleStyles.hudHealth}>
+              <span><Image className={battleStyles.resourceIcon} src="/famiglio/rebuild/combat/ui/battle-hp-icon-v1.png" alt="" width={64} height={64} unoptimized />HP</span><div><i style={{ width: `${opponentHpPercent}%` }} /></div><strong>{Math.max(0, opponentHp)} / {battle.opponent.maxHp}</strong>
             </div>
-            <div className={styles.hudEnergy}>
-              <span><Image className={styles.resourceIcon} src="/famiglio/rebuild/combat/ui/battle-energy-icon-v1.png" alt="" width={64} height={64} unoptimized />EN</span><div><i style={{ width: `${opponentEnergyPercent}%` }} /></div><strong>{battle.opponent.energy} / {battle.opponent.maxEnergy}</strong>
+            <div className={battleStyles.hudEnergy}>
+              <span><Image className={battleStyles.resourceIcon} src="/famiglio/rebuild/combat/ui/battle-energy-icon-v1.png" alt="" width={64} height={64} unoptimized />EN</span><div><i style={{ width: `${opponentEnergyPercent}%` }} /></div><strong>{battle.opponent.energy} / {battle.opponent.maxEnergy}</strong>
             </div>
           </div>
-          {roundNotice === battle.turn && !initiativeOpen ? <div className={styles.roundNotice} role="status"><small>{battle.bossPhasesTotal > 1 ? `Fase ${battle.bossPhasesTotal - battle.bossPhasesRemaining + 1}/${battle.bossPhasesTotal}` : "Round"}</small><strong>{battle.turn}</strong></div> : null}
-          <aside className={styles.battleControls}>
+          <aside className={battleStyles.battleControls}>
         {battle.outcome === "active" ? <>
-          <div className={styles.battleUtilityDock}>
-            <div className={styles.battleUtilityTray} aria-label="Dettagli del combattimento">
-              <button type="button" className={styles.battleUtilityButton} aria-label="Apri gli stati attivi" aria-haspopup="dialog" onClick={() => setBattleInfoPanel("status")}> 
-                <Image className={styles.battleUtilityIcon} src="/famiglio/rebuild/combat/ui/battle-status-icon-v1.png" width={64} height={64} unoptimized alt="" aria-hidden="true" />
+          <div className={battleStyles.battleUtilityDock}>
+            <div className={battleStyles.battleUtilityTray} aria-label="Dettagli del combattimento">
+              <button type="button" className={battleStyles.battleUtilityButton} aria-label="Apri gli stati attivi" aria-haspopup="dialog" onClick={() => setBattleInfoPanel("status")}>
+                <Image className={battleStyles.battleUtilityIcon} src="/famiglio/rebuild/combat/ui/battle-status-icon-v1.png" width={64} height={64} unoptimized alt="" aria-hidden="true" />
                 <span>{battle.player.statuses.length + battle.opponent.statuses.length}</span>
               </button>
-              <button type="button" className={styles.battleUtilityButton} aria-label="Apri la cronaca del combattimento" aria-haspopup="dialog" onClick={() => setBattleInfoPanel("log")}> 
-                <Image className={styles.battleUtilityIcon} src="/famiglio/rebuild/combat/ui/battle-log-icon-v1.png" width={64} height={64} unoptimized alt="" aria-hidden="true" />
+              <button type="button" className={battleStyles.battleUtilityButton} aria-label="Apri la cronaca del combattimento" aria-haspopup="dialog" onClick={() => setBattleInfoPanel("log")}>
+                <Image className={battleStyles.battleUtilityIcon} src="/famiglio/rebuild/combat/ui/battle-log-icon-v1.png" width={64} height={64} unoptimized alt="" aria-hidden="true" />
               </button>
             </div>
             <button
-              className={styles.retreatButton}
+              className={battleStyles.retreatButton}
               type="button"
               disabled={animating}
               aria-label="Chiedi conferma per ritirarti"
@@ -1175,10 +1320,31 @@ export function FamiglioCombatArena({
               title="Ritirati dal duello"
               onClick={() => setRetreatConfirmOpen(true)}
             >
-              <Image className={styles.retreatIcon} src="/famiglio/rebuild/combat/ui/battle-retreat-icon-v2.png" width={96} height={96} unoptimized alt="" aria-hidden="true" />
+              <Image className={battleStyles.retreatIcon} src="/famiglio/rebuild/combat/ui/battle-retreat-icon-v2.png" width={96} height={96} unoptimized alt="" aria-hidden="true" />
             </button>
           </div>
-          <div className={styles.battleMoveGrid}>
+          {battle.playerBench.length ? <div className={battleStyles.teamSwitchDock} aria-label="Rotazione della squadra">
+            <span><small>Rotazione · {FAMILIAR_COMBAT_SWITCH_ENERGY_COST} EN</small><strong>{battle.switchCooldown > 0 ? `Disponibile tra ${battle.switchCooldown} turni` : battle.player.energy < FAMILIAR_COMBAT_SWITCH_ENERGY_COST ? "Energia insufficiente" : "Scegli chi entra"}</strong></span>
+            <div>{battle.playerBench.map((member) => {
+              const option = familiarOptions.find((entry) => entry.id === member.familiarId);
+              const entry = familiarCombatEntry(member.familiarId);
+              return <button type="button" key={member.familiarId} disabled={animating || member.hp <= 0 || battle.switchCooldown > 0 || battle.player.energy < FAMILIAR_COMBAT_SWITCH_ENERGY_COST} onClick={() => rotateCombatant(member.familiarId)}>
+                <FamiglioCombatPreviewCanvas className={battleStyles.teamSwitchPortrait} src={spritePath(member.familiarId, option?.growthStage ?? opponentStageForLevel(member.level), "idle", option?.colorVariant)} label={entry?.name ?? member.familiarId} naturalScale={familiarHouseVisual(member.familiarId).scale} />
+                <span><strong>{entry?.name ?? member.familiarId}</strong><small>{member.hp}/{member.maxHp} HP</small></span>
+              </button>;
+            })}</div>
+          </div> : null}
+          {battle.opponentBench.length ? <div className={battleStyles.opponentTeamDock} aria-label="Squadra rivale">
+            <span><small>Squadra rivale</small><strong>{1 + battle.opponentBench.filter((member) => member.hp > 0).length} ancora in lotta</strong></span>
+            <div>{battle.opponentBench.map((member) => {
+              const entry = familiarCombatEntry(member.familiarId);
+              return <span key={member.familiarId} data-defeated={member.hp <= 0}>
+                <FamiglioCombatPreviewCanvas className={battleStyles.teamSwitchPortrait} src={spritePath(member.familiarId, opponentStageForLevel(member.level), "idle")} label={entry?.name ?? member.familiarId} naturalScale={familiarHouseVisual(member.familiarId).scale} flip />
+                <small>{entry?.name ?? member.familiarId} · {member.hp}/{member.maxHp} HP</small>
+              </span>;
+            })}</div>
+          </div> : null}
+          <div className={battleStyles.battleMoveGrid}>
             {[0, 1, 2, 3].map((index) => {
               const move = playerMoves[index];
               const uses = move ? (battle.player.moveUses[move.id] ?? familiarCombatMoveMaxUses(move.id)) : 0;
@@ -1206,9 +1372,10 @@ export function FamiglioCombatArena({
                         ? "Limite raggiunto · scegli un'altra mossa"
                         : `${energyCost === 0 ? "Base · gratis" : `${energyCost} EN`} · ${effectivenessLabel}${damagePreview ? ` · ~${damagePreview} danni` : ""} · ${maxUses > 0 ? `Usi ${uses}/${maxUses}` : "Usi illimitati"}`;
               const ready = Boolean(move && !usesLocked && !energyLocked && !cooldownLocked && !repetitionLocked);
-              return <article className={styles.battleMoveCommand} key={move?.id ?? `locked-${index}`} data-ready={ready}>
+              const visual = move ? moveVisual(move) : null;
+              return <article className={battleStyles.battleMoveCommand} key={move?.id ?? `locked-${index}`} data-ready={ready} data-kind={visual?.kind ?? "locked"}>
                 <button
-                  className={styles.moveAction}
+                  className={battleStyles.moveAction}
                   type="button"
                   disabled={animating || !ready}
                   data-kind={move?.damageClass ?? "locked"}
@@ -1219,10 +1386,10 @@ export function FamiglioCombatArena({
                   title={move ? `${move.name}: ${availabilityLabel}` : undefined}
                 >
                   <small>{String(index + 1).padStart(2, "0")}</small>
-                  <strong>{move?.name ?? "Mossa da sbloccare"}</strong>
+                  <strong><span>{move?.name ?? "Mossa da sbloccare"}</span>{visual ? <em className={battleStyles.moveKindLabel}>{visual.label}</em> : null}</strong>
                 </button>
                 <button
-                  className={styles.moveInfoButton}
+                  className={battleStyles.moveInfoButton}
                   type="button"
                   disabled={!move}
                   aria-label={move ? `Informazioni sulla mossa ${move.name}` : "Mossa non ancora sbloccata"}
@@ -1233,13 +1400,13 @@ export function FamiglioCombatArena({
           </div>
         </> : null}
           </aside>
-          {initiativeOpen && battle.initiative ? <section className={`${styles.battleInfoOverlay} ${styles.initiativeOverlay}`} role="dialog" aria-modal="true" aria-labelledby="initiative-title">
-            <article className={`${styles.battleInfoCard} ${styles.initiativeCard}`}>
+          {initiativeOpen && battle.initiative ? <section className={`${battleStyles.battleInfoOverlay} ${battleStyles.initiativeOverlay}`} role="dialog" aria-modal="true" aria-labelledby="initiative-title">
+            <article className={`${battleStyles.battleInfoCard} ${battleStyles.initiativeCard}`}>
               <header><span><small>Inizio del duello</small><h2 id="initiative-title">{"Tiro d'iniziativa"}</h2></span></header>
               <p>Ogni Famiglio lancia due dadi. Il totale più alto ottiene il primo attacco.</p>
-              <div className={styles.initiativeContest}>
+              <div className={battleStyles.initiativeContest}>
                 {[
-                  { key: "player", name: familiarName, dice: battle.initiative.playerDice, total: battle.initiative.playerTotal, critical: battle.initiative.playerCritical },
+                  { key: "player", name: battlePlayerName, dice: battle.initiative.playerDice, total: battle.initiative.playerTotal, critical: battle.initiative.playerCritical },
                   { key: "opponent", name: battleOpponentEntry?.name ?? "Avversario", dice: battle.initiative.opponentDice, total: battle.initiative.opponentTotal, critical: battle.initiative.opponentCritical },
                 ].map((roll) => <section key={roll.key} data-winner={battle.initiative?.first === roll.key}>
                   <strong>{roll.name}</strong>
@@ -1248,21 +1415,21 @@ export function FamiglioCombatArena({
                   {roll.critical ? <em>Doppio: primo colpo critico</em> : null}
                 </section>)}
               </div>
-              <p className={styles.initiativeResult}><strong>{battle.initiative.first === "player" ? familiarName : battleOpponentEntry?.name}</strong> attacca per primo.</p>
-              <button className={styles.initiativeContinue} type="button" onClick={() => {
+              <p className={battleStyles.initiativeResult}><strong>{battle.initiative.first === "player" ? battlePlayerName : battleOpponentEntry?.name}</strong> attacca per primo.</p>
+              <button className={battleStyles.initiativeContinue} type="button" onClick={() => {
                 setInitiativeBattleId(null);
               }}>{"Entra nell'Arena"}</button>
             </article>
           </section> : null}
-          {battle.outcome === "active" && battleInfoPanel ? <section className={styles.battleInfoOverlay} role="dialog" aria-modal="true" aria-labelledby="battle-info-title">
-            <article className={styles.battleInfoCard} data-panel={battleInfoPanel}>
+          {battle.outcome === "active" && battleInfoPanel ? <section className={battleStyles.battleInfoOverlay} role="dialog" aria-modal="true" aria-labelledby="battle-info-title">
+            <article className={battleStyles.battleInfoCard} data-panel={battleInfoPanel}>
               <header>
                 <span><small>ROUND {battle.turn}</small><h2 id="battle-info-title">{battleInfoPanel === "status" ? "Stati del combattimento" : "Cronaca dell'incontro"}</h2></span>
                 <button type="button" onClick={() => setBattleInfoPanel(null)} aria-label="Chiudi la scheda">Chiudi</button>
               </header>
-              {battleInfoPanel === "status" ? <div className={styles.battleStatusDossier}>
+              {battleInfoPanel === "status" ? <div className={battleStyles.battleStatusDossier}>
                 {[
-                  { actor: battle.player, name: familiarName, hp: Math.max(0, playerHp) },
+                  { actor: battle.player, name: battlePlayerName, hp: Math.max(0, playerHp) },
                   { actor: battle.opponent, name: battleOpponentEntry?.name ?? "Avversario", hp: Math.max(0, opponentHp) },
                 ].map(({ actor, name, hp }) => <section key={actor.familiarId}>
                   <header><strong>{name}</strong><span>{hp}/{actor.maxHp} HP · {actor.energy}/{actor.maxEnergy} EN</span></header>
@@ -1271,22 +1438,34 @@ export function FamiglioCombatArena({
                     <span>{status.remainingTurns} {status.remainingTurns === 1 ? "round restante" : "round restanti"}</span>
                     <p>{STATUS_DETAILS[status.id] ?? "Effetto temporaneo applicato durante il combattimento."}</p>
                     <small>Intensità {status.potency}%</small>
-                  </article>)}</div> : <p className={styles.noBattleStatus}>Nessuno stato attivo. Il Famiglio può agire normalmente.</p>}
+                  </article>)}</div> : <p className={battleStyles.noBattleStatus}>Nessuno stato attivo. Il Famiglio può agire normalmente.</p>}
                 </section>)}
-              </div> : <div className={styles.battleChronicle} aria-live="polite">
+              </div> : <div className={battleStyles.battleChronicle} aria-live="polite">
                 <p>Ultimi eventi registrati, dal meno recente al più recente.</p>
                 <ol>{battle.log.slice(-8).map((line, index) => <li key={`${battle.turn}-${index}`}><span>{String(index + 1).padStart(2, "0")}</span><strong>{combatText(line)}</strong></li>)}</ol>
               </div>}
             </article>
           </section> : null}
-          {battle.outcome === "active" && selectedMoveInfo ? <section className={styles.battleInfoOverlay} role="dialog" aria-modal="true" aria-labelledby="move-info-title">
-            <article className={`${styles.battleInfoCard} ${styles.moveInfoCard}`} data-panel="move">
+          {battle.outcome === "active" && selectedMoveInfo ? <section className={battleStyles.battleInfoOverlay} role="dialog" aria-modal="true" aria-labelledby="move-info-title">
+            <article className={`${battleStyles.battleInfoCard} ${battleStyles.moveInfoCard}`} data-panel="move">
               <header>
                 <span><small>Scheda mossa</small><h2 id="move-info-title">{selectedMoveInfo.name}</h2></span>
                 <button type="button" onClick={() => setSelectedMoveInfoId(null)} aria-label="Chiudi le informazioni sulla mossa">Chiudi</button>
               </header>
-              <p className={styles.moveInfoDescription}>{selectedMoveInfo.description}</p>
-              <dl className={styles.moveInfoStats}>
+              <div className={battleStyles.moveInfoIntro}>
+                <div className={battleStyles.movePreviewStage} style={{ backgroundImage: `url(${battleBackground})` }}>
+                  <FamiglioCombatPreviewCanvas
+                    key={`${battle.player.familiarId}-${selectedMoveInfo.id}`}
+                    className={battleStyles.movePreviewCanvas}
+                    src={spritePath(battle.player.familiarId, battlePlayerOption?.growthStage ?? opponentStageForLevel(battle.player.level), moveVisual(selectedMoveInfo).pose, battlePlayerOption?.colorVariant)}
+                    label={`${battlePlayerName} esegue ${selectedMoveInfo.name}`}
+                    naturalScale={playerVisual.scale}
+                    fps={4}
+                  />
+                </div>
+                <p className={battleStyles.moveInfoDescription}>{selectedMoveInfo.description}</p>
+              </div>
+              <dl className={battleStyles.moveInfoStats}>
                 <div><dt>Categoria</dt><dd>{selectedMoveInfo.damageClass === "physical" ? "Fisica" : selectedMoveInfo.damageClass === "magic" ? "Magica" : selectedMoveInfo.damageClass === "restore" ? "Cura" : "Stato"}</dd></div>
                 <div><dt>Affinità</dt><dd>{titleCase(selectedMoveInfo.affinity)}</dd></div>
                 <div><dt>Energia</dt><dd>{familiarCombatMoveEnergyCost(battle.player.familiarId, selectedMoveInfo.id)} EN</dd></div>
@@ -1296,54 +1475,54 @@ export function FamiglioCombatArena({
                 <div><dt>Effetto</dt><dd>{selectedMoveInfo.status ? `${STATUS_LABELS[selectedMoveInfo.status] ?? titleCase(selectedMoveInfo.status)} ${selectedMoveInfo.statusChance ?? 100}%` : selectedMoveInfo.healingRatio ? `Cura ${Math.round(selectedMoveInfo.healingRatio * 100)}% HP` : "Danno diretto"}</dd></div>
                 <div><dt>Utilizzi</dt><dd>{familiarCombatMoveMaxUses(selectedMoveInfo.id) > 0 ? `${battle.player.moveUses[selectedMoveInfo.id] ?? 0}/${familiarCombatMoveMaxUses(selectedMoveInfo.id)}` : "Illimitati"}</dd></div>
               </dl>
-              <section className={styles.moveInfoRules}>
+              <section className={battleStyles.moveInfoRules}>
                 <h3>Regole durante il duello</h3>
                 <p>{moveSubtitle(selectedMoveInfo)}.</p>
                 <p>La stessa mossa speciale non può essere usata più di due volte consecutive. Le mosse con ricarica richiedono una scelta diversa prima di tornare disponibili.</p>
               </section>
             </article>
           </section> : null}
-          {battle.outcome === "active" && retreatConfirmOpen ? <section className={styles.battleInfoOverlay} role="dialog" aria-modal="true" aria-labelledby="retreat-confirm-title">
-            <article className={`${styles.battleInfoCard} ${styles.retreatConfirmCard}`}>
-              <Image className={styles.retreatConfirmIcon} src="/famiglio/rebuild/combat/ui/battle-retreat-icon-v2.png" width={192} height={192} unoptimized alt="" aria-hidden="true" />
+          {battle.outcome === "active" && retreatConfirmOpen ? <section className={battleStyles.battleInfoOverlay} role="dialog" aria-modal="true" aria-labelledby="retreat-confirm-title">
+            <article className={`${battleStyles.battleInfoCard} ${battleStyles.retreatConfirmCard}`}>
+              <Image className={battleStyles.retreatConfirmIcon} src="/famiglio/rebuild/combat/ui/battle-retreat-icon-v2.png" width={192} height={192} unoptimized alt="" aria-hidden="true" />
               <small>Abbandona il duello</small>
               <h2 id="retreat-confirm-title">Vuoi davvero ritirarti?</h2>
               <p>La battaglia terminerà come ritirata. Non perderai oggetti, ma non riceverai esperienza o ricompense.</p>
-              <div className={styles.retreatConfirmActions}>
+              <div className={battleStyles.retreatConfirmActions}>
                 <button type="button" onClick={() => setRetreatConfirmOpen(false)}>Continua a combattere</button>
                 <button type="button" data-danger="true" onClick={leaveBattle}>Conferma ritiro</button>
               </div>
             </article>
           </section> : null}
         </div>
-        <div className={styles.turnBanner}><strong>{currentEvent ? combatText(currentEvent.message) : (entering ? "I Famigli entrano nell'Arena." : "Scegli una mossa.")}</strong></div>
+        <div className={battleStyles.turnBanner}><strong>{currentEvent ? combatText(currentEvent.message) : (entering ? "I Famigli entrano nell'Arena." : "Scegli una mossa.")}</strong></div>
       </div>
     </section>}
 
-    {!animating && battle && battle.outcome !== "active" ? <section className={styles.resultOverlay} data-outcome={battle.outcome} role="dialog" aria-modal="true" aria-labelledby="battle-result-title">
-      <article className={styles.resultScreen}>
-        <div className={styles.resultAura} aria-hidden="true"><span /></div>
+    {!animating && battle && battle.outcome !== "active" ? <section className={battleStyles.resultOverlay} data-outcome={battle.outcome} role="dialog" aria-modal="true" aria-labelledby="battle-result-title">
+      <article className={battleStyles.resultScreen}>
+        <div className={battleStyles.resultAura} aria-hidden="true"><span /></div>
         <small>{battle.outcome === "victory" ? "Trionfo del Legame" : "Il Legame non si spezza"}</small>
         <h2 id="battle-result-title">{battle.outcome === "victory" ? "Vittoria!" : "Sconfitta"}</h2>
-        {battleCampaignLevel ? <div className={styles.resultDialogue}>
-          <FamiglioCampaignNpcCanvas className={styles.resultNpcCanvas} src={battleCampaignLevel.npc.spriteSrc} hue={battleCampaignLevel.npc.costumeHue} pose={battle.outcome === "victory" ? "defeat" : "victory"} label={battleCampaignLevel.npc.name} />
-          <div className={styles.comicBubble}><strong>{battleCampaignLevel.npc.name}</strong><p>{battle.outcome === "victory" ? battleCampaignLevel.victoryLine : battleCampaignLevel.defeatLine}</p></div>
+        {battleCampaignLevel ? <div className={battleStyles.resultDialogue}>
+          <FamiglioCampaignNpcCanvas className={battleStyles.resultNpcCanvas} src={battleCampaignLevel.npc.spriteSrc} hue={battleCampaignLevel.npc.costumeHue} pose={battle.outcome === "victory" ? "defeat" : "victory"} label={battleCampaignLevel.npc.name} />
+          <div className={battleStyles.comicBubble}><strong>{battleCampaignLevel.npc.name}</strong><p>{battle.outcome === "victory" ? battleCampaignLevel.victoryLine : battleCampaignLevel.defeatLine}</p></div>
         </div> : <p>{battle.outcome === "victory" ? (battleFormat === "tower" && towerRun ? `${familiarName} ha superato il piano ${towerRun.currentFloor} della Torre.` : `${familiarName} ha dominato l'Arena.`) : `${familiarName} è al sicuro e può prepararsi alla rivincita.`}</p>}
-        <div className={styles.resultFamiliar} data-outcome={battle.outcome} aria-label={battle.outcome === "victory" ? "Santuario della vittoria" : "Santuario della rivincita"}>
+        <div className={battleStyles.resultFamiliar} data-outcome={battle.outcome} aria-label={battle.outcome === "victory" ? "Santuario della vittoria" : "Santuario della rivincita"}>
           <FamiglioCombatPreviewCanvas
-            className={styles.resultFamiliarCanvas}
+            className={battleStyles.resultFamiliarCanvas}
             src={spritePath(familiarId, growthStage, battle.outcome === "victory" ? "victory" : "exhausted", colorVariant)}
             label={`${familiarName}: ${battle.outcome === "victory" ? "vittoria" : "sconfitta"}`}
             naturalScale={playerVisual.scale}
           />
         </div>
-        {state.pendingReward ? <dl className={styles.resultRewards}>
+        {state.pendingReward ? <dl className={battleStyles.resultRewards}>
           <div><dt>XP</dt><dd>+{state.pendingReward.combatXp}</dd></div>
           <div><dt>Monete</dt><dd>+{state.pendingReward.nexusCoins}</dd></div>
           <div><dt>Sigilli</dt><dd>+{state.pendingReward.nightSigils}</dd></div>
           <div><dt>Frammenti</dt><dd>+{state.pendingReward.relicFragments}</dd></div>
-        </dl> : <div className={styles.defeatMessage}>{battle.outcome === "victory" ? "Esperienza di combattimento acquisita" : "Nessun oggetto perso"}</div>}
-        <div className={styles.resultActions}>
+        </dl> : <div className={battleStyles.defeatMessage}>{battle.outcome === "victory" ? "Esperienza di combattimento acquisita" : "Nessun oggetto perso"}</div>}
+        <div className={battleStyles.resultActions}>
           {battle.outcome === "victory"
             ? <button type="button" onClick={collectReward}>{battleFormat === "tower" && towerRun?.currentFloor !== 10 ? "Raccogli · prossimo piano" : "Raccogli e continua"}</button>
             : <button type="button" onClick={rematch}>Rivincita</button>}
@@ -1352,7 +1531,7 @@ export function FamiglioCombatArena({
       </article>
     </section> : null}
 
-    <footer className={styles.message} aria-live="polite">
+    <footer className={battle ? battleStyles.message : styles.message} aria-live="polite">
       <span>{audioUnlocked ? (muted ? "Audio disattivato" : "Audio pronto") : "L'audio si attiva al primo comando"}</span>
       <strong>{combatText(currentEvent?.message ?? localMessage ?? state.lastMessage)}</strong>
     </footer>

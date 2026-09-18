@@ -6,16 +6,15 @@ import sharp from "sharp";
 
 const root = process.cwd();
 
-test("the black cat uses the redrawn high-definition battle atlas in every growth stage", async () => {
+test("the black cat has its battle-v6 variant in every growth stage", async () => {
   const arena = await readFile(path.join(root, "components", "FamiglioCombatArena.tsx"), "utf8");
-  assert.match(arena, /familiarId === "cat" && colorVariant === "black"/);
-  assert.match(arena, /battle-v3\/variants\/black/);
+  assert.match(arena, /battle-v6\$\{variantSegment\}/);
   for (const stage of ["cucciolo", "giovane", "adulto"]) {
     for (const pose of ["idle", "run", "attack", "magic", "guard", "hit", "victory", "exhausted"]) {
-      const file = path.join(root, "public", "famiglio", "rebuild", "collection", "cat", "growth", stage, "battle-v3", "variants", "black", `${pose}.png`);
+      const file = path.join(root, "public", "famiglio", "rebuild", "collection", "cat", "growth", stage, "battle-v6", "variants", "black", `${pose}.png`);
       const metadata = await sharp(file).metadata();
-      assert.equal(metadata.width, 3840, `${stage}/${pose}: atlas width`);
-      assert.equal(metadata.height, 320, `${stage}/${pose}: atlas height`);
+      assert.equal(metadata.width, 1280, `${stage}/${pose}: atlas width`);
+      assert.equal(metadata.height, 160, `${stage}/${pose}: atlas height`);
       assert.equal(metadata.hasAlpha, true, `${stage}/${pose}: transparent background`);
     }
   }
