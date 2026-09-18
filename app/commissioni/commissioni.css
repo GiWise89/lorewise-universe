@@ -4,7 +4,7 @@
  * l'ordine originale delle regole: contiene solo selettori che richiedono
  * classi usate esclusivamente in questa sezione.
  */
-.commission-status-page { min-height: 100vh; padding-bottom: 120px; background: #fff8f1 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1150px; }
+.commission-status-page { min-height: 100vh; padding-bottom: 120px; background: #fff8f1 url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1150px; }
 .commission-status-hero { padding-block: 75px 70px; background: #35143f; color: white; }
 .commission-status-hero > div { display: grid; grid-template-columns: minmax(150px, 230px) minmax(0, 1fr); gap: clamp(40px, 7vw, 95px); align-items: center; }
 .commission-status-hero div > p:not(.eyebrow) { max-width: 720px; margin: 0; color: #f4e7f2; font-size: .95rem; line-height: 1.75; }
@@ -64,7 +64,7 @@
 .commission-chapter-masthead .eyebrow { color:#f9a8d4; }
 .commission-chapter-masthead div > p:last-child { max-width:680px; margin:0; color:#f8e9f3; font-size:clamp(.9rem,1.2vw,1.05rem); line-height:1.75; }
 .commission-chapter-masthead-emblem .commission-chapter-icon { width:88%; height:88%; padding:0; object-fit:contain; background:transparent; border:0; box-shadow:none; transform:rotate(-2deg); }
-.commission-chapter-navigation { scroll-margin-top:76px; padding-block:clamp(54px,7vw,84px); color:#fff8e9; background:#24102d; box-shadow:inset 0 1px rgba(255,255,255,.08),inset 0 -1px rgba(255,255,255,.08); }
+.commission-chapter-navigation { scroll-margin-top:76px; padding-block:clamp(54px,7vw,84px); color:var(--night-ink); background:var(--night-surface); box-shadow:inset 0 1px rgba(255,255,255,.08),inset 0 -1px rgba(255,255,255,.08); }
 .commission-chapter-navigation header { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,390px); gap:45px; align-items:end; margin-bottom:34px; }
 .commission-chapter-navigation header > p { margin:0; color:#e7d9e5; font-size:.88rem; line-height:1.7; }
 .commission-chapter-navigation .eyebrow { color:#f9a8d4; }
@@ -115,7 +115,7 @@
 .commission-status-terms { display: grid !important; grid-template-columns: 22px 1fr; gap: 11px; align-items: start; margin: 0 0 18px; padding: 17px; background: #f8e5ef; color: #553249; cursor: pointer; }
 .commission-status-terms span { color: #553249 !important; font-size: .76rem !important; font-weight: 750 !important; letter-spacing: 0 !important; line-height: 1.55; text-transform: none !important; }
 .commission-status-terms a { color: #6d28d9; text-decoration: underline; text-underline-offset: 3px; }
-.commission-terms-page { min-height: 100vh; padding-bottom: 120px; background: #fff8f1 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1150px; }
+.commission-terms-page { min-height: 100vh; padding-bottom: 120px; background: #fff8f1 url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1150px; }
 .commission-terms-hero { padding-block: 70px; background: #35143f; color: white; }
 .commission-terms-hero > div { display: grid; grid-template-columns: minmax(140px,220px) 1fr; gap: clamp(35px,7vw,90px); align-items: center; }
 .commission-terms-hero p:not(.eyebrow) { max-width: 740px; color: #f4e7f2; font-size: 1rem; line-height: 1.75; }
@@ -175,7 +175,7 @@
 .commission-detail-page {
   overflow-x: hidden;
   background-color: #fff8f1;
-  background-image: url("/backgrounds/lorewise-art-paper-gallery-v1.webp");
+  background-image: url("/backgrounds/lorewise-parchment-v2.webp");
   background-position: center top;
   background-size: auto 1150px;
 }
@@ -326,7 +326,7 @@
 .commission-detail-visual { min-height: 0; display: flex; flex-direction: column; padding: 40px clamp(26px, 3vw, 48px) 24px; background: #35143f url("/backgrounds/artwork-viewing-stage-v1.webp") center / cover; }
 .commission-detail-visual img { width: 100%; min-height: 0; flex: 1; object-fit: contain; filter: drop-shadow(0 25px 38px rgba(15, 6, 23, .4)); }
 .commission-detail-visual p { margin: 17px 0 0; color: #fff2f8; font-size: .7rem; font-weight: 750; letter-spacing: .04em; }
-.commission-detail-copy { overflow-y: auto; padding: clamp(48px, 5vw, 76px); background: #fffaf3 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") 70% center / auto 100%; }
+.commission-detail-copy { overflow-y: auto; padding: clamp(48px, 5vw, 76px); background: #fffaf3 url("/backgrounds/lorewise-parchment-v2.webp") 70% center / auto 100%; }
 .commission-detail-copy > header { padding-bottom: 52px; }
 .commission-detail-copy > header small { color: #db2777; font-size: .69rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
 .commission-detail-copy > header p { color: #6d28d9; font-size: .78rem; font-weight: 800; }
@@ -954,7 +954,7 @@
 .commission-quick-start article strong { display:block;color:#6d28d9;font:750 clamp(1.65rem,2.4vw,2.4rem) var(--font-lore-display),serif; }
 .commission-quick-start article p { min-height:3.2em;margin:13px 0 18px;color:#684f62;font-size:.78rem;line-height:1.6; }
 .commission-quick-start article a { color:#922253;font-size:.7rem;font-weight:850; }
-.commission-hub-page .commission-chapter-navigation { padding-block:clamp(34px,4vw,48px) 0;background:#2a1234;color:#fff7df; }
+.commission-hub-page .commission-chapter-navigation { padding-block:clamp(34px,4vw,48px) 0;background:var(--night-surface);color:var(--night-ink); }
 .commission-hub-page .commission-chapter-navigation header { grid-template-columns:minmax(0,1fr) minmax(240px,370px);gap:30px;margin-bottom:22px; }
 .commission-hub-page .commission-chapter-navigation header h2 { max-width:none;color:#fff0bf;font-size:clamp(2rem,3vw,3rem);line-height:1;letter-spacing:-.025em; }
 .commission-hub-page .commission-chapter-navigation header > p { color:#eadce8;font-size:.8rem;line-height:1.6; }
@@ -963,7 +963,7 @@
 .commission-hub-page .commission-chapter-navigation nav > a { min-height:104px;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:1fr;padding:18px 17px;color:#fff7df;border:1px solid rgba(255,238,199,.18);background:rgba(255,255,255,.055); }
 .commission-hub-page .commission-chapter-navigation nav > a::before,.commission-hub-page .commission-chapter-navigation nav > a::after { display:none; }
 .commission-hub-page .commission-chapter-navigation nav > a:hover,.commission-hub-page .commission-chapter-navigation nav > a:focus-visible { transform:translateY(-2px);border:1px solid #f9a8d4;background:rgba(219,39,119,.13); }
-.commission-hub-page .commission-chapter-navigation nav > a[aria-current="page"] { border:1px solid #fef08a;background:rgba(124,58,237,.24);box-shadow:inset 0 3px #fef08a; }
+.commission-hub-page .commission-chapter-navigation nav > a[aria-current="page"] { border:1px solid var(--gold);background:rgba(217,179,106,.12);box-shadow:inset 0 3px var(--gold); }
 .commission-hub-page .commission-chapter-navigation nav > a[data-chapter="panoramica"] { color:#fff7df; }
 .commission-hub-page .commission-chapter-navigation .commission-chapter-icon,
 .commission-hub-page .commission-chapter-navigation .commission-chapter-copy small,

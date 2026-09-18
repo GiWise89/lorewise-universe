@@ -26,7 +26,7 @@
   .commission-admin-controls { grid-template-columns: 1fr; }
   .commission-admin-hero > div { grid-template-columns: 64px minmax(0,1fr); gap: 14px; }
 }
-.commission-admin-page { min-height: 100vh; padding-bottom: 110px; background: #fff8f1 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1100px; color: #352238; }
+.commission-admin-page { min-height: 100vh; padding-bottom: 110px; background: #fff8f1 url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1100px; color: #352238; }
 .commission-admin-hero { padding-block: 78px 68px; background: #32123e; color: white; }
 .commission-admin-hero > div { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: clamp(38px, 6vw, 82px); align-items: center; }
 .commission-admin-hero div > p:last-child { max-width: 720px; margin: 0; color: #f6e8f2; font-size: .95rem; line-height: 1.75; }

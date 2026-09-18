@@ -81,7 +81,7 @@
   .shop-catalog-artwork { height: 440px; }
   .shop-catalog-pagination button { font-size: .76rem; }
 }
-.shop-product-page { overflow: hidden; color: #172554; background: #fff9f3 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / 720px auto; }
+.shop-product-page { overflow: hidden; color: #172554; background: #fff9f3 url("/backgrounds/lorewise-parchment-v2.webp") center top / 720px auto; }
 .shop-product-masthead { padding: 58px 0 82px; color: #fff8df; background-color: #31143d; background-image: linear-gradient(108deg,rgba(37,12,47,.98),rgba(92,24,83,.94) 58%,rgba(48,28,89,.91)),url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg"); background-position: center; background-size: cover; box-shadow: inset 0 -4px 0 #f59e0b; }
 .shop-product-title-line { display: flex; flex-wrap: wrap; gap: 12px 30px; color: #ffd85a; font-size: .68rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
 .shop-product-title-line span + span::before { content: "·"; margin-right: 30px; color: #ff7a45; }
@@ -139,7 +139,7 @@
   .shop-product-variants article + article { padding-left: 0; border-top: 1px solid rgba(255,248,223,.23); border-left: 0; }
   .shop-product-checkout-note { grid-template-columns: 1fr; gap: 35px; padding-block: 68px 78px; }
 }
-.shop-bridge { position: relative; z-index: 5; color: #fff8df; background: #35143f url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center 43% / cover no-repeat; box-shadow: inset 0 -3px 0 #f4cf49; }
+.shop-bridge { position: relative; z-index: 5; color: var(--night-ink); background: var(--night-bg); box-shadow: inset 0 -1px 0 rgba(217,179,106,.45); }
 .shop-bridge::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(95deg,rgba(38,10,47,.97),rgba(86,25,83,.93) 55%,rgba(43,28,87,.92)); }
 .shop-bridge-inner { display: grid; grid-template-columns: auto minmax(260px,.8fr) auto; gap: clamp(28px,4vw,68px); align-items: center; min-height: 108px; padding-block: 15px; }
 .shop-bridge-identity { display: flex; gap: 14px; align-items: center; }
@@ -153,10 +153,7 @@
   min-height: 760px;
   display: flex;
   align-items: center;
-  background-color: #e7f4ff;
-  background-image: linear-gradient(105deg,rgba(255,250,246,.96),rgba(238,244,255,.84) 54%,rgba(244,226,255,.68)),url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg");
-  background-position: center;
-  background-size: cover;
+  background: radial-gradient(circle at 78% 30%, rgba(217,179,106,.2), transparent 42%), var(--parchment-bg);
 }
 .giwise-shop-hero-inner { display: grid; grid-template-columns: minmax(0,.92fr) minmax(500px,1.08fr); gap: clamp(50px,7vw,105px); align-items: center; padding-block: 70px 88px; }
 .giwise-shop-hero-actions { display: flex; flex-wrap: wrap; gap: 18px 30px; margin-top: 30px; }
@@ -205,7 +202,7 @@
 .giwise-shop-custom-copy li > span { color: #db2777; font-size: .67rem; font-weight: 900; letter-spacing: .1em; }
 .giwise-shop-custom-copy li strong { color: #32123e; font: 700 1.12rem var(--font-lore-display),serif; }
 .giwise-shop-custom-copy li p { margin: 4px 0 0; color: #765d70; font-size: .77rem; }
-.giwise-shop-fulfilment { padding: 82px 0; background: linear-gradient(rgba(235,247,255,.78),rgba(255,239,232,.82)), url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center / 680px auto; box-shadow: inset 0 4px 0 #23c4da; }
+.giwise-shop-fulfilment { padding: 82px 0; background: linear-gradient(rgba(235,247,255,.78),rgba(255,239,232,.82)), url("/backgrounds/lorewise-parchment-v2.webp") center / 680px auto; box-shadow: inset 0 4px 0 #23c4da; }
 .giwise-shop-fulfilment-inner { display: grid; grid-template-columns: 190px minmax(0,.85fr) minmax(420px,1.15fr); gap: clamp(35px,5vw,75px); align-items: center; }
 .giwise-shop-fulfilment-inner > div,.giwise-shop-fulfilment ol { padding: clamp(25px,3vw,42px); border: 1px solid rgba(23,37,84,.13); background: rgba(255,253,248,.9); box-shadow: 0 20px 50px rgba(59,48,83,.1); }
 .giwise-shop-fulfilment-inner > div > p:last-child { color: #35415f; font-size: 1rem; line-height: 1.7; }
@@ -236,11 +233,10 @@
 }
 
 @media (max-width: 800px) {
-  .shop-bridge { background-image: url("/backgrounds/lorewise-celestial-atlas-mobile-4k-v2.jpg"); }
   .shop-bridge-inner { grid-template-columns: 1fr; gap: 13px; min-height: 0; padding-block: 16px 19px; }
   .shop-bridge-identity strong { font-size: 1.25rem; }
   .shop-bridge nav a { flex: none; max-width: 100%; white-space: normal; line-height: 1.35; }
-  .giwise-shop-hero { min-height: auto; background-image: linear-gradient(rgba(255,250,246,.9),rgba(235,238,255,.75)),url("/backgrounds/lorewise-celestial-atlas-mobile-4k-v2.jpg"); }
+  .giwise-shop-hero { min-height: auto; }
   .giwise-shop-hero-inner { grid-template-columns: 1fr; gap: 35px; padding-block: 60px 70px; }
   .giwise-shop-hero-visual { min-height: 530px; width: min(100%,620px); margin-inline: auto; }
   .giwise-shop-section-heading,.giwise-shop-identities-intro,.giwise-shop-custom,.giwise-shop-support { grid-template-columns: 1fr; gap: 38px; }

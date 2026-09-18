@@ -155,7 +155,7 @@
 }
 .art-page {
   background-color: #fff9f2;
-  background-image: url("/backgrounds/lorewise-art-paper-gallery-v1.webp");
+  background-image: url("/backgrounds/lorewise-parchment-v2.webp");
   background-position: center top;
   background-size: 100% auto;
 }
@@ -220,10 +220,10 @@
 .uniform-art-gallery .artwork-card-social { grid-template-columns:.86fr 1.14fr; min-height:48px; padding:3px; }
 .uniform-art-gallery .artwork-card-social .artwork-social-label { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .uniform-art-gallery .artwork-card-social button > strong { flex:0 0 19px; min-width:19px; width:19px; height:19px; font-size:.65rem; }
-.artwork-page { background-color: #fff9f2; background-image: url("/backgrounds/lorewise-art-paper-gallery-v1.webp"); background-position: center top; background-size: cover; }
+.artwork-page { background-color: #fff9f2; background-image: url("/backgrounds/lorewise-parchment-v2.webp"); background-position: center top; background-size: cover; }
 .artwork-detail { background: transparent; box-shadow: 0 30px 75px rgba(76, 29, 87, .17); }
 .artwork-detail-visual { background-color: #35143f; }
-.artwork-detail-content { background-color: #fffaf3; background-image: url("/backgrounds/lorewise-art-paper-gallery-v1.webp"); background-position: 70% center; background-size: auto 100%; }
+.artwork-detail-content { background-color: #fffaf3; background-image: url("/backgrounds/lorewise-parchment-v2.webp"); background-position: 70% center; background-size: auto 100%; }
 .artwork-detail-content section { padding-block: 50px; }
 .artwork-provenance { position: relative; }
 .artwork-provenance::after { content: "GIWISE"; position: absolute; right: 0; bottom: 16px; color: rgba(124, 58, 237, .08); font: 900 clamp(2.8rem, 5vw, 5rem) var(--font-lore-display), serif; pointer-events: none; }
@@ -301,7 +301,7 @@
   grid-column: 3;
   padding: clamp(46px, 4.6vw, 70px);
   background-color: #fffaf3;
-  background-image: url("/backgrounds/lorewise-art-paper-gallery-v1.webp");
+  background-image: url("/backgrounds/lorewise-parchment-v2.webp");
   background-position: 70% center;
   background-size: auto 100%;
   overscroll-behavior: auto;
@@ -372,7 +372,7 @@
   .artwork-pagination-wide > a:last-child span { order: 2; }
   .artwork-pagination-wide > a:last-child img { order: 1; }
 }
-.artwork-package-page { min-height: 100vh; background: #fff5e9 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1200px; color: #172554; }
+.artwork-package-page { min-height: 100vh; background: #fff5e9 url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1200px; color: #172554; }
 .artwork-package-hero { min-height: 620px; display: grid; align-items: end; padding: 110px 0 80px; background: #35123d url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center 45% / cover no-repeat; color: white; box-shadow: inset 0 0 0 1000px rgba(43,13,51,.63); }
 .artwork-package-hero-inner { display: grid; grid-template-columns: 1fr minmax(260px,.38fr); gap: 80px; align-items: end; }
 .artwork-package-stage { padding-block: 100px 120px; }
@@ -483,7 +483,7 @@
   color:#172554;
   background:
     linear-gradient(135deg,rgba(255,255,255,.2),transparent 36%),
-    #fff7ef url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center/cover;
+    #fff7ef url("/backgrounds/lorewise-parchment-v2.webp") center/cover;
   border:1px solid rgba(225,178,74,.7);
   border-top:6px solid #db2777;
   box-shadow:0 36px 100px rgba(0,0,0,.56),inset 0 0 0 6px rgba(255,255,255,.28);

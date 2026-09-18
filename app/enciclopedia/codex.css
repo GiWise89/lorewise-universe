@@ -1,8 +1,8 @@
 /* Stili caricati solo nelle pagine del LoreWise Codex. */
 
 /* LoreWise Codex · Archivio delle Convergenze */
-.codex-home, .codex-character-page { --codex-ink: #172b57; --codex-plum: #461950; --codex-violet: #7137d8; --codex-pink: #df287c; --codex-coral: #ff775f; --codex-gold: #e7ad42; --codex-paper: #fff8ee; --codex-muted: #705f70; background: #fff8ee url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1200px; color: var(--codex-ink); }
-.codex-home-hero { min-height: 720px; display: grid; align-items: center; padding-block: 85px; background: linear-gradient(110deg, rgba(255,248,238,.98), rgba(255,226,230,.88) 54%, rgba(222,211,255,.9)); border-bottom: 6px solid var(--codex-pink); }
+.codex-home, .codex-character-page { --codex-ink: #172b57; --codex-plum: #461950; --codex-violet: #7137d8; --codex-pink: #b3264f; --codex-coral: #ff775f; --codex-gold: #e7ad42; --codex-paper: var(--parchment-bg); --codex-muted: #705f70; background: #fff8ee url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1200px; color: var(--codex-ink); }
+.codex-home-hero { min-height: 720px; display: grid; align-items: center; padding-block: 85px; background: var(--parchment-bg); border-bottom: 6px solid var(--codex-pink); }
 .codex-home-hero-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(300px,.8fr); gap: clamp(55px,9vw,135px); align-items: center; }
 .codex-home-copy h1 { margin: 10px 0 22px; color: var(--codex-ink); font: 700 clamp(5.5rem,11vw,10rem)/.76 var(--font-lore-display), var(--font-display), serif; letter-spacing: -.065em; }
 .codex-home-copy > p:not(.eyebrow) { max-width: 720px; color: #574d64; font-size: 1rem; line-height: 1.75; }
@@ -227,8 +227,8 @@
   padding-block: 56px;
   border-bottom-width: 3px;
   background:
-    radial-gradient(circle at 82% 18%, rgba(255,255,255,.78), transparent 24%),
-    linear-gradient(118deg, rgba(255,248,238,.98), rgba(255,229,226,.86) 58%, rgba(225,216,255,.82));
+    radial-gradient(circle at 82% 22%, rgba(217,179,106,.2), transparent 36%),
+    var(--parchment-bg);
 }
 .codex-home-hero-grid {
   grid-template-columns: minmax(0,1.08fr) minmax(380px,.92fr);
@@ -648,7 +648,7 @@
   position: relative;
   padding: clamp(34px,4.5vw,58px) clamp(28px,5vw,68px);
   background-color: #35163f;
-  background-image: linear-gradient(118deg,rgba(31,10,39,.95),rgba(77,28,76,.86) 54%,rgba(45,16,57,.94)),url("/backgrounds/lorewise-art-paper-gallery-v1.webp");
+  background-image: linear-gradient(118deg,rgba(31,10,39,.95),rgba(77,28,76,.86) 54%,rgba(45,16,57,.94)),url("/backgrounds/lorewise-parchment-v2.webp");
   background-position: center;
   background-size: cover,680px auto;
   background-blend-mode: normal,soft-light;

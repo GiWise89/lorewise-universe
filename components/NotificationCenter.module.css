@@ -1,4 +1,4 @@
-.page { min-height:78vh; padding:clamp(64px,8vw,116px) 0; overflow-x:clip; background:#fff7ef url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center/cover; color:#172554; }
+.page { min-height:78vh; padding:clamp(64px,8vw,116px) 0; overflow-x:clip; background:#fff7ef url("/backgrounds/lorewise-parchment-v2.webp") center/cover; color:#172554; }
 .hero { position:relative; padding-bottom:42px; border-bottom:4px solid #db2777; }
 .hero h1 { max-width:min(780px,78%); margin:8px 0 16px; font:700 clamp(4rem,9vw,8rem)/.84 var(--font-lore-display),serif; letter-spacing:-.035em; }
 .hero > p:last-of-type { max-width:700px; margin:0; color:#5f657a; font-size:clamp(.96rem,1.4vw,1.12rem); line-height:1.7; }

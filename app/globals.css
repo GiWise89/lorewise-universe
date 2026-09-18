@@ -668,7 +668,7 @@
 /* Catalogo GiWise Shop verificato: archivio aperto, non dashboard a riquadri. */
 .shop-catalog-page {
   color: #20113b;
-  background: #fffaf4 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top/auto 1150px repeat-y;
+  background: #fffaf4 url("/backgrounds/lorewise-parchment-v2.webp") center top/auto 1150px repeat-y;
 }
 
 .shop-catalog-hero {
@@ -1369,7 +1369,7 @@ button:disabled, input:disabled { cursor: not-allowed; opacity: .65; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none!important; } *, *::before, *::after { animation-duration: .01ms!important; animation-iteration-count: 1!important; scroll-behavior: auto!important; } }
 
 /* GiWise Studio Games & Apps: contenuti strutturati in HTML, immagini raster reali, CSS limitato all'impaginazione. */
-.studio-games-page { overflow: hidden; background: #fffaf0 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1200px; color: #172554; }
+.studio-games-page { overflow: hidden; background: #fffaf0 url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1200px; color: #172554; }
 .studio-games-hero-copy h1 { max-width: 760px; margin: 14px 0 28px; color: #172554; font: 700 clamp(4rem, 7.7vw, 8.2rem)/.86 var(--font-lore-display), serif; letter-spacing: -.06em; }
 .studio-games-hero-copy > p:not(.eyebrow) { max-width: 680px; color: #405279; font-size: clamp(1rem, 1.4vw, 1.18rem); line-height: 1.8; }
 .studio-games-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 35px; }
@@ -1540,7 +1540,7 @@ body { background: var(--white); }
 .portal-diario { bottom: 8px; left: 50%; margin-left: -140px; }
 .portal-enciclopedia { right: 4%; bottom: 8px; }
 
-.studio-ribbon { position: relative; min-height: 94px; padding: 0; overflow: hidden; background:linear-gradient(105deg,#b71458 0%,#e33969 45%,#f06a61 100%),url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center / 620px auto; background-blend-mode:multiply,soft-light; color:#fff9e9; text-align:center; box-shadow:inset 0 1px rgba(255,255,255,.38),inset 0 -3px #f4bd4d,0 10px 28px rgba(87,18,50,.2); }
+.studio-ribbon { position: relative; min-height: 94px; padding: 0; overflow: hidden; background:linear-gradient(105deg,#b71458 0%,#e33969 45%,#f06a61 100%),url("/backgrounds/lorewise-parchment-v2.webp") center / 620px auto; background-blend-mode:multiply,soft-light; color:#fff9e9; text-align:center; box-shadow:inset 0 1px rgba(255,255,255,.38),inset 0 -3px #f4bd4d,0 10px 28px rgba(87,18,50,.2); }
 .studio-ribbon-link { position: relative; width: 100%; min-height: 94px; display: grid; grid-template-columns: minmax(190px,.72fr) minmax(280px,1fr) minmax(190px,.72fr); gap: clamp(24px,5vw,80px); align-items: center; padding: 17px clamp(28px,8vw,150px); color:#fff9e9!important; text-decoration:none; cursor:pointer; transition:background-color .22s ease,box-shadow .22s ease; }
 .studio-ribbon-link::before { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg,rgba(255,255,255,.08),rgba(255,255,255,.42),rgba(255,255,255,.08)); transform: translateX(-110%); transition: transform .55s ease; pointer-events: none; }
 .studio-ribbon-badge { justify-self:end; display:inline-flex; align-items:center; gap:9px; padding:8px 12px; border:1px solid rgba(255,249,233,.48); background:rgba(74,13,54,.2); font-size:.7rem; font-weight:950; letter-spacing:.13em; text-transform:uppercase; }
@@ -1607,12 +1607,12 @@ body { background: var(--white); }
 .story-dossier-meta small { flex:1; min-width:0; color:#f6ce63; font-size:.57rem; font-weight:900; letter-spacing:.07em; line-height:1.35; text-align:right; text-transform:uppercase; }
 .story-dossier-demon .story-dossier-meta { background:linear-gradient(110deg,#16080c,#310a13); }
 .story-dossier-fuori .story-dossier-meta { background:linear-gradient(110deg,#07111d,#15102f); }
-.lore-story { min-height: 680px; background: #fff9f1 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center / 720px auto; }
+.lore-story { min-height: 680px; background: #fff9f1 url("/backgrounds/lorewise-parchment-v2.webp") center / 720px auto; }
 .lore-story-inner { min-height: 680px; display: grid; grid-template-columns: .88fr 1.12fr; align-items: center; gap: clamp(45px,7vw,105px); padding-block: 72px; }
 .lore-story-inner > img { width: 100%; max-height: 530px; object-fit: contain; filter: drop-shadow(0 28px 32px rgba(124, 58, 237, .17)); }
 .lore-story .eyebrow { color: #d97706; }
 
-.home-finale { padding: 82px 0; background-color: #fce7f3; background-image: linear-gradient(115deg,rgba(255,238,247,.94),rgba(244,230,255,.9)),url("/backgrounds/lorewise-art-paper-gallery-v1.webp"); background-position: center; background-size: cover,680px auto; }
+.home-finale { padding: 82px 0; background-color: #fce7f3; background-image: linear-gradient(115deg,rgba(255,238,247,.94),rgba(244,230,255,.9)),url("/backgrounds/lorewise-parchment-v2.webp"); background-position: center; background-size: cover,680px auto; }
 .home-finale-inner { display: grid; grid-template-columns: 260px minmax(0,1fr); gap: clamp(45px,7vw,95px); align-items: center; }
 .finale-seal { width: 100%; height: auto; filter: drop-shadow(0 24px 26px rgba(86,21,64,.24)); }
 .finale-copy { text-align: left; }
@@ -2074,7 +2074,7 @@ body { background: var(--white); }
 .commission-page {
   overflow-x: hidden;
   background-color: #fff8f1;
-  background-image: url("/backgrounds/lorewise-art-paper-gallery-v1.webp");
+  background-image: url("/backgrounds/lorewise-parchment-v2.webp");
   background-position: center top;
   background-size: auto 1150px;
 }
@@ -2272,7 +2272,7 @@ body { background: var(--white); }
 .account-auth-modes button { min-height: 0; padding: 8px 0 12px; border-bottom: 3px solid transparent; background: transparent; color: #655d76; font-size: .72rem; }
 .account-registration-consents input { width: 18px; height: 18px; margin-top: 2px; accent-color: #db2777; }
 .account-signin-pending p { margin-bottom: 0; color: #eadfea; font-size: .88rem; line-height: 1.7; }
-.account-profile { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,1fr); gap: clamp(28px,4vw,48px); margin: 70px 0 115px; padding: clamp(38px,5vw,70px); border-top: 5px solid #7c3aed; background: #fff5ea url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center / cover; box-shadow: 0 28px 70px rgba(23,37,84,.16); }
+.account-profile { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,1fr); gap: clamp(28px,4vw,48px); margin: 70px 0 115px; padding: clamp(38px,5vw,70px); border-top: 5px solid #7c3aed; background: #fff5ea url("/backgrounds/lorewise-parchment-v2.webp") center / cover; box-shadow: 0 28px 70px rgba(23,37,84,.16); }
 .account-profile > header, .account-profile form { min-width: 0; }
 .account-profile > header { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr); column-gap:clamp(35px,6vw,90px); align-items:end; padding-bottom:clamp(24px,3vw,38px); border-bottom:1px solid rgba(23,37,84,.16); }
 .account-profile > header .eyebrow { grid-column:1; align-self:end; }
@@ -2549,7 +2549,7 @@ body { background: var(--white); }
 .art-community-compose form button { min-height: 48px; border: 0; padding: 13px 20px; background: #db2777; color: white; font-weight: 900; cursor: pointer; }
 .art-community-compose form button:disabled { cursor: not-allowed; opacity: .6; }
 
-.community-admin-page { min-height: 100vh; background: #fff5ea url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1100px; color: #172554; }
+.community-admin-page { min-height: 100vh; background: #fff5ea url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1100px; color: #172554; }
 .community-admin-hero { padding: 90px 0 75px; background: #281130 url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center / cover no-repeat; color: white; box-shadow: inset 0 0 0 1000px rgba(34,9,42,.78); }
 .community-admin-hero > div { display: grid; grid-template-columns: 230px minmax(0,950px); gap: clamp(40px,7vw,100px); align-items: center; }
 .community-admin-hero img { width: 230px; height: 230px; object-fit: contain; filter: drop-shadow(0 28px 38px rgba(0,0,0,.4)); }
@@ -2705,7 +2705,7 @@ body { background: var(--white); }
   z-index: 50;
   border-bottom: 1px solid rgba(93, 35, 102, .16);
   background-color: rgba(255, 251, 246, .96);
-  background-image: linear-gradient(90deg, rgba(255,255,255,.93), rgba(255,244,240,.9) 52%, rgba(246,239,255,.92)), url("/backgrounds/lorewise-art-paper-gallery-v1.webp");
+  background-image: linear-gradient(90deg, rgba(255,255,255,.93), rgba(255,244,240,.9) 52%, rgba(246,239,255,.92)), url("/backgrounds/lorewise-parchment-v2.webp");
   background-position: center;
   background-size: cover, 720px auto;
   box-shadow: 0 8px 30px rgba(76, 29, 87, .07);
@@ -2903,7 +2903,7 @@ body { background: var(--white); }
     display:block;
     border-top: 1px solid rgba(76,29,87,.14);
     background-color: rgba(255,248,241,.98);
-    background-image: linear-gradient(rgba(255,248,241,.9),rgba(248,238,255,.9)),url("/backgrounds/lorewise-art-paper-gallery-v1.webp");
+    background-image: linear-gradient(rgba(255,248,241,.9),rgba(248,238,255,.9)),url("/backgrounds/lorewise-parchment-v2.webp");
     background-position: center;
     background-size: cover, 620px auto;
     box-shadow: 0 20px 35px rgba(76,29,87,.12);
@@ -3036,7 +3036,7 @@ body { background: var(--white); }
 }
 
 /* GiWise Shop: vetrina editoriale LoreWise collegata al catalogo Hoplix reale. */
-.giwise-shop-page { overflow: hidden; background: #fff9f3 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / 720px auto; color: #172554; }
+.giwise-shop-page { overflow: hidden; background: #fff9f3 url("/backgrounds/lorewise-parchment-v2.webp") center top / 720px auto; color: #172554; }
 .shop-bridge-identity img { width: 76px; height: 76px; object-fit: contain; filter: drop-shadow(0 10px 16px rgba(0,0,0,.3)); }
 .shop-bridge-inner > p { max-width: 550px; margin: 0; color: #eadcea; font-size: .76rem; line-height: 1.55; }
 .shop-bridge nav { display: flex; gap: 12px 24px; align-items: center; justify-content: flex-end; }
@@ -3534,7 +3534,7 @@ body { background: var(--white); }
 .worlds-page { color:#f7f1e7; background:#0d0b12; }
 .worlds-page .eyebrow,.worlds-home-story .eyebrow { color:#e6b65c; }
 .worlds-hero { position:relative; overflow:hidden; background:radial-gradient(circle at 75% 28%,rgba(179,45,74,.22),transparent 32%),linear-gradient(115deg,#0c0910 0%,#18101b 54%,#270d18 100%); }
-.worlds-hero::before { content:""; position:absolute; inset:0; opacity:.24; background:url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center/720px auto; mix-blend-mode:soft-light; }
+.worlds-hero::before { content:""; position:absolute; inset:0; opacity:.24; background:url("/backgrounds/lorewise-parchment-v2.webp") center/720px auto; mix-blend-mode:soft-light; }
 .worlds-hero-inner { position:relative; display:grid; grid-template-columns:minmax(0,1.04fr) minmax(400px,.7fr); gap:clamp(45px,8vw,130px); align-items:center; min-height:780px; padding-block:90px; }
 .worlds-hero-copy h1 { max-width:900px; margin:8px 0 24px; font:650 clamp(4.6rem,8.4vw,9.2rem)/.82 var(--font-display),serif; letter-spacing:-.065em; text-wrap:balance; }
 .worlds-hero-copy > p:nth-of-type(2) { max-width:620px; margin:0; color:#f0d6a3; font:600 clamp(1.2rem,2vw,1.75rem)/1.35 var(--font-display),serif; }
@@ -3564,7 +3564,7 @@ body { background: var(--white); }
 .worlds-feature-copy blockquote p { margin:13px 0 0; color:#eee5ee; font:500 clamp(1.2rem,1.8vw,1.55rem)/1.65 var(--font-display),serif; }
 .worlds-link { display:inline-flex; gap:12px; align-items:center; padding-bottom:7px; color:#e6b65c; border-bottom:2px solid currentColor; font-size:.76rem; font-weight:900; text-decoration:none; }
 .worlds-link:hover,.worlds-link:focus-visible { color:#f06b82; }
-.worlds-next { padding-block:115px; color:#19121c; background:#eee5d8 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center/720px auto; }
+.worlds-next { padding-block:115px; color:#19121c; background:#eee5d8 url("/backgrounds/lorewise-parchment-v2.webp") center/720px auto; }
 .worlds-section-heading { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(300px,.65fr); gap:clamp(35px,7vw,100px); align-items:end; margin-bottom:65px; }
 .worlds-section-heading > p { max-width:560px; margin:0 0 12px; color:#665c68; font-size:.88rem; line-height:1.75; }
 .worlds-next .eyebrow { color:#8b273f; }
@@ -4235,7 +4235,7 @@ body { background: var(--white); }
   --chronicle-pink:#db2777;
   --chronicle-gold:#e4ab31;
   color:var(--chronicle-ink);
-  background:#f4efe6 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / 900px auto;
+  background:#f4efe6 url("/backgrounds/lorewise-parchment-v2.webp") center top / 900px auto;
 }
 .nexus-chronicles-page .eyebrow { margin:0; color:var(--chronicle-pink); font-size:.68rem; font-weight:950; letter-spacing:.14em; text-transform:uppercase; }
 .nexus-chronicles-hero { overflow:hidden; color:#fff8eb; border-bottom:5px solid var(--chronicle-gold); background:radial-gradient(circle at 18% 45%,rgba(109,40,217,.38),transparent 28%),radial-gradient(circle at 82% 20%,rgba(219,39,119,.28),transparent 24%),#10172f; }
@@ -4786,7 +4786,7 @@ body { background: var(--white); }
 .artwork-card-comment-entry.is-reply { grid-template-columns:44px minmax(0,1fr); margin-left:10px; padding:12px; border-left-color:#7c3aed; background:rgba(245,237,255,.75); box-shadow:none; }.artwork-card-comments-access a { min-height:44px; display:inline-flex; align-items:center; justify-content:center; border:0; padding:11px 19px; background:linear-gradient(135deg,#8b236c,#db2777); color:white; font-size:.72rem; font-weight:900; letter-spacing:.03em; cursor:pointer; box-shadow:0 8px 18px rgba(159,18,57,.18); }.artwork-card-comments-access p { margin:0 0 12px; color:#4c1d57; line-height:1.55; }
 
 .profile-completion-gate { position:fixed; inset:0; z-index:1400; display:grid; place-items:center; padding:20px; background:rgba(12,7,20,.88); backdrop-filter:blur(10px); }
-.profile-completion-gate > section { width:min(650px,100%); padding:clamp(30px,6vw,65px); background:#fff7ef url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center/cover; border-top:6px solid #db2777; box-shadow:0 36px 100px rgba(0,0,0,.5); }
+.profile-completion-gate > section { width:min(650px,100%); padding:clamp(30px,6vw,65px); background:#fff7ef url("/backgrounds/lorewise-parchment-v2.webp") center/cover; border-top:6px solid #db2777; box-shadow:0 36px 100px rgba(0,0,0,.5); }
 .profile-completion-gate h2 { margin:10px 0 20px; color:#172554; font:700 clamp(2.4rem,8vw,4.7rem)/.9 var(--font-display),serif; }
 .profile-completion-gate p { color:#5f657a; line-height:1.65; }.profile-completion-gate .profile-completion-missing { color:#9f1239; font-weight:850; }
 .profile-completion-gate a { min-height:50px; display:inline-flex; align-items:center; justify-content:center; margin-top:12px; padding:13px 20px; background:#db2777; color:white; font-size:.78rem; font-weight:900; }
@@ -4834,7 +4834,7 @@ body { background: var(--white); }
 .community-replies { grid-column:2; margin-top:10px!important; }.community-replies .community-comment { padding-left:14px; border-top:0; }
 .community-reply-compose { display:grid; gap:9px; margin-top:16px; }.community-reply-compose textarea { min-height:92px; resize:vertical; padding:12px; border:1px solid rgba(255,244,212,.3); background:rgba(0,0,0,.15); color:white; }.community-reply-compose > div { display:flex; justify-content:space-between; align-items:center; gap:12px; }.community-reply-compose button { min-height:40px; border:0; padding:10px 14px; background:#db2777; color:white; font-weight:900; }
 
-.notifications-page { min-height:78vh; padding:clamp(70px,8vw,120px) 0; background:#fff7ef url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center/cover; color:#172554; }
+.notifications-page { min-height:78vh; padding:clamp(70px,8vw,120px) 0; background:#fff7ef url("/backgrounds/lorewise-parchment-v2.webp") center/cover; color:#172554; }
 .notifications-hero { position:relative; padding-bottom:45px; border-bottom:4px solid #db2777; }.notifications-hero h1 { margin:8px 0 16px; font:700 clamp(4rem,9vw,9rem)/.82 var(--font-lore-display),serif; }.notifications-hero > p:last-of-type { max-width:700px; color:#5f657a; line-height:1.7; }.notifications-hero > strong { position:absolute; right:0; bottom:42px; display:grid; color:#db2777; font:700 4rem var(--font-lore-display),serif; text-align:right; }.notifications-hero > strong span { color:#6d6376; font:900 .62rem var(--font-body),sans-serif; text-transform:uppercase; }
 .notifications-panel { padding-top:45px; }.notifications-panel > header { display:flex; justify-content:space-between; gap:25px; align-items:end; }.notifications-panel h2 { margin:6px 0 0; font:700 clamp(2.2rem,4vw,4rem)/.95 var(--font-lore-display),serif; }.notifications-panel > header > div:last-child { display:flex; flex-wrap:wrap; gap:10px; }.notifications-panel button,.notifications-panel a { min-height:42px; display:inline-flex; align-items:center; justify-content:center; border:1px solid rgba(23,37,84,.2); padding:9px 13px; background:transparent; color:#4c1d57; font-size:.67rem; font-weight:900; cursor:pointer; }.notifications-panel button:disabled { opacity:.45; cursor:not-allowed; }
 .notifications-panel ol { display:grid; gap:10px; margin:35px 0 0; padding:0; list-style:none; }.notifications-panel li { display:grid; grid-template-columns:48px minmax(0,1fr) auto; gap:18px; align-items:center; padding:22px; border:1px solid rgba(23,37,84,.13); background:rgba(255,255,255,.7); }.notifications-panel li.is-read { opacity:.7; }.notification-symbol { width:44px; height:44px; display:grid; place-items:center; border-radius:50%; background:#32123e; color:#f6ce63; font-size:1.3rem; }.notifications-panel li small { color:#7c3aed; font-size:.62rem; font-weight:900; text-transform:uppercase; }.notifications-panel li strong { display:block; margin:5px 0; color:#172554; font-size:1rem; }.notifications-panel li p { margin:0; color:#5f657a; line-height:1.55; }.notifications-panel li > div:last-child { display:grid; gap:7px; min-width:110px; }.notifications-message,.notifications-empty { margin-top:30px; color:#5f657a; }
@@ -6005,7 +6005,7 @@ body { background: var(--white); }
       radial-gradient(circle at 18% 0,rgba(244,207,73,.18),transparent 26%),
       radial-gradient(circle at 72% 110%,rgba(219,39,119,.11),transparent 31%),
       linear-gradient(96deg,rgba(255,255,255,.94),rgba(255,248,238,.92) 48%,rgba(248,241,255,.94)),
-      url("/backgrounds/lorewise-art-paper-gallery-v1.webp");
+      url("/backgrounds/lorewise-parchment-v2.webp");
     background-size:auto,auto,auto,720px auto;
     box-shadow:0 9px 28px rgba(76,29,87,.1),inset 0 -1px rgba(76,29,87,.12);
   }
@@ -6095,7 +6095,7 @@ body { background: var(--white); }
   .nav-group-menu {
     border-radius:7px 20px 10px 17px;
     background-color:#fffaf2;
-    background-image:linear-gradient(rgba(255,250,242,.94),rgba(255,250,242,.94)),url("/backgrounds/lorewise-art-paper-gallery-v1.webp");
+    background-image:linear-gradient(rgba(255,250,242,.94),rgba(255,250,242,.94)),url("/backgrounds/lorewise-parchment-v2.webp");
     background-size:auto,520px auto;
   }
 }

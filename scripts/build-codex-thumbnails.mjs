@@ -6,7 +6,7 @@ const root = process.cwd();
 const sourceRoot = path.join(root, "assets", "codex-character-originals");
 const outputRoot = path.join(root, "public", "codex", "thumbnails");
 const profilePath = path.join(root, ".tmp", "codex-thumbnail-profile.txt");
-const renderProfile = "340x450-webp-q78-a88-e6-v2";
+const renderProfile = "340x450-webp-q78-a88-e6-trim-v3";
 const supported = new Set([".png", ".jpg", ".jpeg", ".webp"]);
 const previousProfile = await fs.readFile(profilePath, "utf8").catch(() => "");
 const forceRebuild = previousProfile !== renderProfile;
@@ -31,7 +31,13 @@ async function convert(source) {
     fs.stat(output).catch(() => null),
   ]);
   if (!forceRebuild && outputStat && outputStat.size > 0 && outputStat.mtimeMs >= sourceStat.mtimeMs) return false;
-  await sharp(source, { failOn: "warning" })
+  // I ritratti scontornati arrivano spesso con ampi margini trasparenti: nell'indice la figura
+  // resterebbe minuscola. Si elimina solo il vuoto trasparente, mai una parte del ritratto.
+  const { isOpaque } = await sharp(source, { failOn: "warning" }).stats();
+  const input = isOpaque
+    ? source
+    : await sharp(source, { failOn: "warning" }).rotate().trim({ background: "#00000000", threshold: 12 }).toBuffer();
+  await sharp(input, { failOn: "warning" })
     .rotate()
     .resize({ width: 340, height: 450, fit: "inside", withoutEnlargement: true })
     .webp({ quality: 78, alphaQuality: 88, effort: 6 })
@@ -51,4 +57,4 @@ const workers = Array.from({ length: Math.min(2, files.length) }, async () => {
 await Promise.all(workers);
 await fs.mkdir(path.dirname(profilePath), { recursive: true });
 await fs.writeFile(profilePath, renderProfile, "utf8");
-console.log(`Anteprime Codex pronte: ${files.length} file, ${converted} rigenerati, senza ritagli.`);
+console.log(`Anteprime Codex pronte: ${files.length} file, ${converted} rigenerati, margini trasparenti rimossi, ritratti interi.`);

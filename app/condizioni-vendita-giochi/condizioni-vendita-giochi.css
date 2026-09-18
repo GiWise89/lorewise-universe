@@ -4,7 +4,7 @@
  * l'ordine originale delle regole: contiene solo selettori che richiedono
  * classi usate esclusivamente in questa sezione.
  */
-.game-sales-terms-page { min-height: 100vh; padding-bottom: 120px; background: #fff8f1 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1150px; color: #172554; }
+.game-sales-terms-page { min-height: 100vh; padding-bottom: 120px; background: #fff8f1 url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1150px; color: #172554; }
 .game-sales-terms-page > header { padding: clamp(75px,10vw,145px) 0; border-bottom: 6px solid #7c3aed; background: linear-gradient(120deg,rgba(255,242,216,.97),rgba(251,231,239,.95) 52%,rgba(232,221,255,.96)); }
 .game-sales-terms-page > header p:last-child { max-width: 800px; color: #5f5263; font-size: clamp(1rem,1.45vw,1.22rem); line-height: 1.7; }
 .game-sales-terms-document { padding-top: 70px; }
