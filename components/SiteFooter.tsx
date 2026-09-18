@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 const footerExplore = [
   ["Giochi", "/giochi"], ["Mondi", "/mondi"], ["Arte", "/arte"], ["Commissioni", "/commissioni"],
@@ -23,6 +24,7 @@ export function SiteFooter() {
           <p className="footer-kicker">Un progetto originale GiWise Studio</p>
           <p className="footer-statement">The Wound Remembers è il card RPG dark fantasy di GiWise Studio, ospitato dentro LoreWise Universe.</p>
           <Link className="footer-primary-link" href="/giochi/the-wound-remembers">Scopri e gioca <span aria-hidden="true">→</span></Link>
+          <div style={{ marginTop: 28, maxWidth: 520 }}><NewsletterSignup variant="cronache" topic="cronache" tone="dark" compact /></div>
         </div>
         <div className="footer-column"><h2>Esplora</h2><ul>{footerExplore.map(([label, href]) => <li key={href}><Link href={href}>{label}</Link></li>)}</ul></div>
         <div className="footer-column"><h2>Aiuto e condizioni</h2><ul>{footerSupport.map(([label, href]) => <li key={href}><Link href={href}>{label}</Link></li>)}</ul></div>

@@ -2,6 +2,7 @@ import { ensureAdminAuditTable } from "@/lib/adminAudit";
 import { syncAdminNotifications } from "@/lib/adminNotifications";
 import { ensureArtCommunityTables } from "@/lib/artCommunityServer";
 import { ensureBenefitEngineTables } from "@/lib/benefitEngine";
+import { countConfirmedNewsletterSubscribers } from "@/lib/newsletterServer";
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
 import { ensureTransactionalEmailTable } from "@/lib/transactionalEmail";
 import { ensureSupportTicketTables } from "@/lib/supportTickets";
@@ -42,6 +43,8 @@ export async function GET() {
     count(auth.database, "admin_notifications", " WHERE read_at IS NULL AND dismissed_at IS NULL"),
     getSiteAnalyticsSummary(auth.database),
   ]);
+  // Solo lettura: iscritti confermati per newsletter e avvisi “Avvisami”.
+  const newsletterSubscribers = await countConfirmedNewsletterSubscribers(auth.database).catch(() => ({}));
   const notifications = await auth.database.prepare(`SELECT id, category, severity, title, message, reference_code,
     target_url, source_created_at, read_at FROM admin_notifications WHERE dismissed_at IS NULL
     ORDER BY CASE severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END,
@@ -55,6 +58,7 @@ export async function GET() {
   return Response.json({
     identity: { email: auth.adminEmail },
     analytics,
+    newsletterSubscribers,
     summary: { users, activeUsers, subscriptions, pendingOrders, support, commissions, reports, deliveries: deliveriesArt + deliveriesGame, pendingEmails, unreadNotifications },
     notifications: notifications.results.map((row) => ({ id: row.id, category: row.category, severity: row.severity,
       title: row.title, message: row.message, referenceCode: row.reference_code, targetUrl: row.target_url,

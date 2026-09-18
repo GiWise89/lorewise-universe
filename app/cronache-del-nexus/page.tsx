@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { getActiveCommissionPromotion, holidayNexusPromotion } from "@/lib/commissionPromotion";
 import { editorialReleaseInstant } from "@/lib/editorialCalendar";
 import { getNexusChronicles } from "@/lib/nexusChronicles";
@@ -53,6 +54,8 @@ export default async function NexusNewsPage({ searchParams }: { searchParams: Pr
       <header className="nexus-calendar-heading"><div><p className="eyebrow">Agenda LoreWise</p><h2 id="calendar-board-title">Un mese da esplorare, giorno per giorno.</h2></div><p>Le date illuminate contengono una novità. Seleziona il giorno per leggere le informazioni e raggiungere direttamente il contenuto.</p></header>
       <MonthlyCalendar entries={calendarEntries} initialYear={currentDate.getFullYear()} initialMonth={currentDate.getMonth()} today={`${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`} />
     </div></section>
+
+    <div className="shell" style={{ paddingBlock: 56 }}><NewsletterSignup variant="cronache" topic="cronache" tone="light" /></div>
 
     <section className="nexus-calendar-paths"><div className="shell"><div><p className="eyebrow">Continua a esplorare</p><h2>Ogni novità conduce al suo mondo.</h2></div><nav aria-label="Percorsi LoreWise"><Link href="/giochi">Giochi <span>→</span></Link><Link href="/arte">Arte <span>→</span></Link><Link href="/commissioni">Commissioni <span>→</span></Link><Link href="/community">Community <span>→</span></Link></nav></div></section>
   </main>;
