@@ -79,7 +79,9 @@
 .codex-character-masthead { padding: 35px 0 10px; background: #38163e; border-top: 5px solid var(--codex-pink); }
 .codex-character-masthead .back-link { margin: 0; color: #fff2cd; font-weight: 850; }
 .codex-character-shell { display: grid; grid-template-columns: minmax(330px, .78fr) minmax(0,1.22fr); gap: clamp(55px,7vw,105px); align-items: start; padding-block: 65px 125px; }
-.codex-character-visual { position: sticky; top: 145px; min-width: 0; }
+/* Il ritratto scorre con la pagina: il contenitore include anche il dossier a tutta larghezza,
+   quindi un ritratto fisso finirebbe sopra i capitoli. */
+.codex-character-visual { position: static; min-width: 0; }
 .codex-character-image { display: flex; justify-content: center; width: 100%; }
 .codex-character-art-mat { display: inline-block; width: fit-content; max-width: 100%; border: 30px solid transparent; border-image: url("/codex/ornaments/adaptive-art-border-v1.webp") 115 / 30px stretch; }
 .codex-character-portrait { display: block; width: auto; height: auto; max-width: 100%; max-height: 680px; object-fit: contain; filter: drop-shadow(0 22px 22px rgba(28,6,35,.22)); }
@@ -1428,9 +1430,8 @@
 
 /* Navigatore del dossier come linea editoriale continua, senza otto schede. */
 .codex-dossier-tabs .codex-chapter-index {
-  position:sticky;
-  z-index:12;
-  top:78px;
+  position:relative;
+  z-index:1;
   isolation:isolate;
   display:grid;
   grid-template-columns:repeat(8,minmax(0,1fr));
@@ -1524,7 +1525,7 @@
   .codex-dossier-tabs .codex-chapter-index button { scroll-snap-align:start; }
 }
 @media (max-width:620px) {
-  .codex-dossier-tabs .codex-chapter-index { top:68px;grid-auto-columns:132px; }
+  .codex-dossier-tabs .codex-chapter-index { grid-auto-columns:132px; }
 }
 @media (prefers-reduced-motion:reduce) {
   .codex-dossier-tabs .codex-chapter-index button::before { transition:none; }
