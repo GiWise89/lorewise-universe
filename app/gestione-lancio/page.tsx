@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import { LaunchReadinessDashboard } from "@/components/LaunchReadinessDashboard";
 import { LaunchOwnerDecisions } from "@/components/LaunchOwnerDecisions";
-import { getLoreWiseUser } from "@/lib/supabase/server";
+import { requireAdminPage } from "@/lib/adminPageGuard";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Prontezza al lancio · Area privata", robots: { index: false, follow: false } };
 
 export default async function LaunchReadinessPage() {
-  const user = await getLoreWiseUser();
-  if (!user) redirect("/account");
+  await requireAdminPage();
   return <main className="launch-readiness-page">
     <header className="launch-readiness-hero"><div className="shell">
       <Image src="/brand/lorewise-universe-logo-concept-c.webp" alt="Emblema LoreWise Universe" width={1536} height={1024} unoptimized priority />

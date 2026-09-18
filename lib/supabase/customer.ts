@@ -66,7 +66,8 @@ export async function syncLoreWiseCustomer(user: User) {
   const communityEmails = user.user_metadata?.community_emails === true ? 1 : 0;
   const studioUpdatesEmails = user.user_metadata?.studio_updates_emails === true ? 1 : 0;
   const normalizedEmail = user.email.toLocaleLowerCase("it");
-  const role = configuredAdminEmails(runtime).has(normalizedEmail) ? "admin" : "member";
+  // Il ruolo amministratore richiede un indirizzo email confermato, non soltanto dichiarato.
+  const role = user.email_confirmed_at && configuredAdminEmails(runtime).has(normalizedEmail) ? "admin" : "member";
   await database.prepare(`INSERT INTO customers (id, email, display_name, role, locale, community_emails,
       studio_updates_emails, privacy_version, privacy_accepted_at, status, created_at, updated_at)
     VALUES (?, ?, ?, ?, 'it-IT', ?, ?, ?, ?, 'active', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)

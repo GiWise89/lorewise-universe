@@ -2,7 +2,7 @@ import { env } from "@/lib/netlifyRuntime";
 
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import type { CommercialProduct } from "@/lib/commercialCatalog";
-import { createStripeCheckoutSession, getStripeConfiguration, type StripeRuntimeEnv } from "@/lib/stripe";
+import { createStripeCheckoutSession, getStripeConfiguration, type StripeRuntimeEnv, checkoutReturnOrigin } from "@/lib/stripe";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser } from "@/lib/supabase/server";
 import { ensureCommissionBenefitColumns } from "@/lib/universePass";
@@ -104,7 +104,7 @@ export async function POST(request: Request) {
         VALUES (?, ?, ?, ?, ?, 'pending', CURRENT_TIMESTAMP)`).bind(paymentId, commission.id, orderId, phase, amountCents),
     ]);
     try {
-      const session = await createStripeCheckoutSession({ secretKey: stripe.secretKey, origin: requestUrl.origin, customerEmail: customer.email, orderId, orderReference, product });
+      const session = await createStripeCheckoutSession({ secretKey: stripe.secretKey, origin: checkoutReturnOrigin(runtime, requestUrl), customerEmail: customer.email, orderId, orderReference, product });
       await runtime.DB.prepare("UPDATE orders SET stripe_checkout_session_id = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?").bind(session.id, orderId).run();
       return Response.json({ checkoutUrl: session.url, mode: stripe.mode, testMode: stripe.testMode }, { headers: { "Cache-Control": "private, no-store" } });
     } catch (error) {

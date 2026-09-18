@@ -3,7 +3,7 @@ import { env } from "@/lib/netlifyRuntime";
 import { resolveCommercialProduct, type CommercialProductType } from "@/lib/commercialCatalog";
 import { automaticArtworkDeliveryReady } from "@/lib/automaticArtworkDelivery";
 import { ensureCommerceTables } from "@/lib/commerceServer";
-import { createStripeCheckoutSession, getStripeConfiguration, type StripeRuntimeEnv } from "@/lib/stripe";
+import { createStripeCheckoutSession, getStripeConfiguration, type StripeRuntimeEnv, checkoutReturnOrigin } from "@/lib/stripe";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser } from "@/lib/supabase/server";
 import { calculatePurchaseBenefit, discountPercentForProduct, getActiveUniversePass, type DiscountableProductType } from "@/lib/universePass";
@@ -202,7 +202,7 @@ export async function POST(request: Request) {
     ]);
 
     try {
-      const origin = requestUrl.origin;
+      const origin = checkoutReturnOrigin(runtime, requestUrl);
       const session = await createStripeCheckoutSession({ secretKey: stripe.secretKey, origin, customerEmail: customer.email, orderId, orderReference, product: checkoutProduct });
       await runtime.DB.prepare("UPDATE orders SET stripe_checkout_session_id = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?")
         .bind(session.id, orderId).run();

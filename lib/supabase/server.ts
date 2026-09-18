@@ -5,7 +5,9 @@ import { getSupabasePublicConfig } from "@/lib/supabase/config";
 export async function isLocalLoreWiseRequest() {
   try {
     const requestHeaders = await headers();
-    const rawHost = (requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "").toLowerCase();
+    // In produzione x-forwarded-host arriva dal client e non può decidere se una richiesta è locale.
+    const forwardedHost = process.env.NODE_ENV === "production" ? null : requestHeaders.get("x-forwarded-host");
+    const rawHost = (forwardedHost ?? requestHeaders.get("host") ?? "").toLowerCase();
     const host = rawHost.startsWith("[") ? rawHost.slice(0, rawHost.indexOf("]") + 1) : rawHost.split(":")[0];
     const configuredHosts = (process.env.LOREWISE_LOCAL_PREVIEW_HOSTS ?? "")
       .split(",")
@@ -57,7 +59,8 @@ export async function getLoreWiseUser() {
     // Il recupero locale sottostante gestisce un provider temporaneamente irraggiungibile.
   }
 
-  if (await isLocalLoreWiseRequest()) {
+  // getSession() legge il cookie senza verificarne la firma: ammesso solo in sviluppo locale.
+  if (process.env.NODE_ENV !== "production" && await isLocalLoreWiseRequest()) {
     try {
       const { data } = await client.auth.getSession();
       return data.session?.user ?? null;

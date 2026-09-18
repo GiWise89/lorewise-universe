@@ -12,10 +12,21 @@ import { queueAndAttemptTransactionalEmail } from "@/lib/transactionalEmail";
 import { claimWelcomeCommissionOffer } from "@/lib/welcomeCommissionOffer";
 import { claimFamiliarCommissionReward } from "@/lib/familiarCommissionReward";
 import { familiarLevelForCustomer } from "@/lib/nexusFamiliarBenefits";
+import { isRateLimited, recordAttempt } from "@/lib/requestRateLimit";
+import { checkoutReturnOrigin, type StripeRuntimeEnv } from "@/lib/stripe";
 
 const maxFiles = 3;
 const maxFileSize = 8 * 1024 * 1024;
 const allowedFileTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
+
+// Il tipo dichiarato dal browser non basta: verifica la firma reale di JPG, PNG e WebP.
+async function hasImageSignature(file: File) {
+  const bytes = new Uint8Array(await file.slice(0, 12).arrayBuffer());
+  const jpeg = bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
+  const png = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a].every((value, index) => bytes[index] === value);
+  const webp = String.fromCharCode(...bytes.slice(0, 4)) === "RIFF" && String.fromCharCode(...bytes.slice(8, 12)) === "WEBP";
+  return jpeg || png || webp;
+}
 const packages = new Set(["Da valutare insieme", "Ritratto Essenziale", "Ritratto Completo", "Opera Narrativa", CORRUPTED_PORTRAIT_PACKAGE]);
 const uses = new Set(["Personale", "Commerciale da valutare", "Non sono sicuro"]);
 
@@ -171,6 +182,13 @@ export async function POST(request: Request) {
     if (files.length > maxFiles || files.some((file) => file.size > maxFileSize || !allowedFileTypes.has(file.type))) {
       return Response.json({ error: "Puoi allegare fino a 3 immagini JPG, PNG o WebP, massimo 8 MB ciascuna." }, { status: 400 });
     }
+    if (!(await Promise.all(files.map(hasImageSignature))).every(Boolean)) {
+      return Response.json({ error: "Uno degli allegati non è un’immagine JPG, PNG o WebP valida." }, { status: 400 });
+    }
+    if (await isRateLimited(runtime.DB, "commission-request", [`customer:${customer.id}`], 5, 60)) {
+      return Response.json({ error: "Hai già inviato cinque richieste nell’ultima ora. Attendi prima di inviarne un’altra." }, { status: 429, headers: { "Retry-After": "3600" } });
+    }
+    await recordAttempt(runtime.DB, "commission-request", [`customer:${customer.id}`], 60);
 
     await ensureSchema(runtime.DB);
     await ensureCommissionBenefitColumns(runtime.DB);
@@ -241,7 +259,7 @@ export async function POST(request: Request) {
         name,
         referenceCode,
         title: packageName,
-        detailUrl: `${new URL(request.url).origin}/commissioni/stato`,
+        detailUrl: `${checkoutReturnOrigin(runtime as unknown as StripeRuntimeEnv, new URL(request.url))}/commissioni/stato`,
       },
     });
     return Response.json({

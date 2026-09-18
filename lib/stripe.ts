@@ -32,6 +32,12 @@ function securePublicOrigin(value: string | undefined) {
   }
 }
 
+/** Origine per i link di ritorno da Stripe: il dominio pubblico configurato, non l'host dichiarato dalla richiesta. */
+export function checkoutReturnOrigin(env: StripeRuntimeEnv, requestUrl: URL) {
+  const configured = env.NEXT_PUBLIC_SITE_URL?.trim();
+  return configured && securePublicOrigin(configured) ? new URL(configured).origin : requestUrl.origin;
+}
+
 export function getStripeConfiguration(env: StripeRuntimeEnv) {
   const secretKey = env.STRIPE_SECRET_KEY?.trim() ?? "";
   const webhookSecret = env.STRIPE_WEBHOOK_SECRET?.trim() ?? "";

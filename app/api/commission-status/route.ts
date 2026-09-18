@@ -4,6 +4,7 @@ type RuntimeEnv = { DB?: D1Database };
 import { COMMISSION_TERMS_VERSION } from "@/lib/commissionTerms";
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { ensureCommissionBenefitColumns } from "@/lib/universePass";
+import { clientAddress, isRateLimited, recordAttempt } from "@/lib/requestRateLimit";
 
 type RequestRow = {
   id: string;
@@ -134,6 +135,12 @@ export async function POST(request: Request) {
     return Response.json({ error: "Codice richiesta o email non validi." }, { status: 400 });
   }
 
+  // Blocca i tentativi di indovinare codici: 10 ricerche fallite in 15 minuti per IP o per email.
+  const attemptSubjects = [`ip:${clientAddress(request)}`, `email:${email}`];
+  if (await isRateLimited(runtime.DB, "commission-status", attemptSubjects, 10, 15)) {
+    return Response.json({ error: "Troppi tentativi non riusciti. Attendi un quarto d’ora e controlla codice ed email." }, { status: 429, headers: { "Retry-After": "900", "Cache-Control": "no-store" } });
+  }
+
   await ensureClientResponseColumns(runtime.DB);
   await ensureCommerceTables(runtime.DB);
   await ensureCommissionBenefitColumns(runtime.DB);
@@ -144,6 +151,7 @@ export async function POST(request: Request) {
     FROM commission_requests WHERE reference_code = ? AND lower(email) = ?`)
     .bind(referenceCode, email).first<RequestRow>();
   if (!row) {
+    await recordAttempt(runtime.DB, "commission-status", attemptSubjects, 15);
     return Response.json({ error: "Nessuna richiesta corrisponde ai dati inseriti." }, { status: 404, headers: { "Cache-Control": "no-store" } });
   }
 

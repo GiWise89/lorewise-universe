@@ -21,11 +21,14 @@ export async function GET(request: Request) {
   if (!object) return new Response("Allegato non trovato.", { status: 404 });
 
   const safeName = file.original_name.replace(/["\r\n]/g, "-");
+  // Solo le immagini ammesse si aprono nel browser; qualsiasi altro tipo viene scaricato.
+  const previewable = ["image/jpeg", "image/png", "image/webp"].includes(file.content_type);
   return new Response(object.body, {
     headers: {
-      "Content-Type": file.content_type,
+      "Content-Type": previewable ? file.content_type : "application/octet-stream",
       "Content-Length": String(object.size),
-      "Content-Disposition": `inline; filename="${safeName}"`,
+      "Content-Disposition": `${previewable ? "inline" : "attachment"}; filename="${safeName}"`,
+      "Content-Security-Policy": "default-src 'none'; img-src 'self'; sandbox",
       "Cache-Control": "private, no-store",
       "X-Content-Type-Options": "nosniff",
     },
