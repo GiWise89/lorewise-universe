@@ -5,6 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Mondi",
   description: "La soglia narrativa verso le Cronache del Nexus, il diario creativo e il LoreWise Codex.",
+  alternates: { canonical: "/mondi" },
 };
 
 const worldPaths = [

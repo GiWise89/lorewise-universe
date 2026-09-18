@@ -6,6 +6,7 @@ import { CodexSuggestionForm } from "@/components/CodexSuggestionForm";
 export const metadata: Metadata = {
   title: "Proposte VIP | LoreWise Codex",
   description: "Spazio editoriale riservato per proporre i prossimi dossier del LoreWise Codex.",
+  alternates: { canonical: "/enciclopedia/proposte-vip" },
 };
 
 export default function CodexVipSuggestionsPage() {

@@ -6,6 +6,7 @@ import { CommissionStatusTracker } from "@/components/CommissionStatusTracker";
 export const metadata: Metadata = {
   title: "Segui la tua richiesta",
   description: "Consulta lo stato della tua commissione artistica GiWise Studio con codice richiesta ed email.",
+  alternates: { canonical: "/commissioni/stato" },
   robots: { index: false, follow: false },
 };
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "LoreWise VIP",
   description: "La soglia premium verso l’Area VIP e il LoreWise Universe Pass.",
+  alternates: { canonical: "/vip" },
 };
 
 const vipPaths = [

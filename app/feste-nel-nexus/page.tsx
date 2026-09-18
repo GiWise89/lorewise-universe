@@ -6,6 +6,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Feste nel Nexus | Commissioni GiWise Studio",
   description: "Dal 1 dicembre 2026 al 1 gennaio 2027, una tariffa dedicata sulle commissioni GiWise Studio.",
+  alternates: { canonical: "/feste-nel-nexus" },
 };
 
 function campaignPhase(at: Date): HolidayNexusCampaignPhase {

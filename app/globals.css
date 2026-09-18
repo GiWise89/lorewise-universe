@@ -1705,8 +1705,8 @@
 }
 
 * { box-sizing: border-box; }
-html { max-width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
-body { max-width: 100%; margin: 0; overflow-x: hidden; background: var(--paper); color: var(--ink); font-family: var(--font-body), sans-serif; line-height: 1.65; }
+html { max-width: 100%; overflow-x: hidden; overflow-x: clip; scroll-behavior: smooth; }
+body { max-width: 100%; margin: 0; overflow-x: hidden; overflow-x: clip; background: var(--paper); color: var(--ink); font-family: var(--font-body), sans-serif; line-height: 1.65; }
 .site-header { padding-top: env(safe-area-inset-top,0px); }
 .site-footer { padding-bottom: env(safe-area-inset-bottom,0px); }
 a { color: inherit; text-decoration: none; }
@@ -1941,7 +1941,7 @@ button:disabled, input:disabled { cursor: not-allowed; opacity: .65; }
   .commission-admin-delete { margin: 10px auto 0; }
 }
 
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none!important; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none!important; } *, *::before, *::after { animation-duration: .01ms!important; animation-iteration-count: 1!important; scroll-behavior: auto!important; } }
 
 /* GiWise Studio Games & Apps: contenuti strutturati in HTML, immagini raster reali, CSS limitato all'impaginazione. */
 .studio-games-page { overflow: hidden; background: #fffaf0 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1200px; color: #172554; }
@@ -5334,8 +5334,8 @@ body { background: var(--white); }
   .shop-bridge-identity img { width: 62px; height: 62px; }
   .shop-bridge-identity strong { font-size: 1.25rem; }
   .shop-bridge-inner > p { max-width: 620px; font-size: .72rem; }
-  .shop-bridge nav { grid-column: auto; gap: 10px 18px; justify-content: flex-start; padding-left: 0; overflow-x: auto; scrollbar-width: thin; }
-  .shop-bridge nav a { flex: none; }
+  .shop-bridge nav { grid-column: auto; flex-wrap: wrap; gap: 10px 18px; justify-content: flex-start; padding-left: 0; overflow: visible; }
+  .shop-bridge nav a { flex: none; max-width: 100%; white-space: normal; line-height: 1.35; }
   .giwise-shop-hero { min-height: auto; background-image: linear-gradient(rgba(255,250,246,.9),rgba(235,238,255,.75)),url("/backgrounds/lorewise-celestial-atlas-mobile-4k-v2.jpg"); }
   .giwise-shop-hero-inner { grid-template-columns: 1fr; gap: 35px; padding-block: 60px 70px; }
   .giwise-shop-hero-copy h1 { font-size: clamp(3.5rem,12vw,5.4rem); }
@@ -5817,85 +5817,292 @@ body { background: var(--white); }
   .studio-games-page .studio-access-list article { padding: 30px 24px 34px; }
 }
 
-/* Fuori Trama: dossier Nexus con schermate desktop reali, mai ritagliate. */
-.game-dossier-fuori-trama {
-  --nexus-cyan: #24e5e5;
-  --nexus-violet: #9b5cff;
-  --nexus-gold: #d9ae55;
-  --nexus-ink: #03080f;
-  background: #050a11;
-  color: #eafcff;
+/* Il Patto delle Ceneri: dossier dark fantasy con immagini canoniche integre. */
+.game-dossier-patto-ceneri {
+  --nexus-cyan: #df9d4a;
+  --nexus-violet: #8d2f31;
+  --nexus-gold: #e7b85e;
+  --nexus-ink: #100706;
+  background: #100706;
+  color: #fff5e8;
 }
-.game-dossier-fuori-trama .game-dossier-breadcrumbs { color: #8ebac3; }
-.game-dossier-fuori-trama .game-dossier-breadcrumbs a { color: #bceff2; }
-.game-dossier-fuori-trama .game-dossier-breadcrumbs span { color: var(--nexus-cyan); }
-.game-dossier-fuori-trama .game-dossier-hero { min-height: min(86vh, 900px); background: #02060b; }
-.game-dossier-fuori-trama .game-dossier-hero-art { object-fit: contain; }
-.game-dossier-fuori-trama .game-dossier-hero-shade { background: linear-gradient(90deg,rgba(2,6,11,.93),rgba(2,6,11,.08) 64%),linear-gradient(0deg,rgba(2,6,11,.95),transparent 58%); }
-.game-dossier-fuori-trama .game-dossier-logo { width: min(60vw,760px); }
-.game-dossier-fuori-trama .game-hero-primary { background: var(--nexus-cyan); color: #031016; }
-.game-dossier-fuori-trama .game-hero-secondary { border: 1px solid rgba(217,174,85,.72); color: #ffe5a5; background: rgba(3,8,15,.75); }
-.game-dossier-fuori-trama .game-dossier-summary,
-.game-dossier-fuori-trama .game-dossier-story { color: #eafcff; }
-.game-dossier-fuori-trama .game-dossier-summary h2,
-.game-dossier-fuori-trama .game-dossier-story h2 { color: #fff; }
-.game-dossier-fuori-trama .game-dossier-summary > div > p:last-child,
-.game-dossier-fuori-trama .game-dossier-story div > p:not(.eyebrow) { color: #a9bdc7; }
-.game-dossier-fuori-trama .game-dossier-summary dl { border-top-color: var(--nexus-cyan); }
-.game-dossier-fuori-trama .game-dossier-summary dl div { border-bottom-color: rgba(92,222,229,.2); }
-.game-dossier-fuori-trama .game-dossier-summary dt,
-.game-dossier-fuori-trama .game-dossier-story > span,
-.game-dossier-fuori-trama .eyebrow { color: var(--nexus-cyan); }
-.game-dossier-fuori-trama .game-dossier-summary dd { color: #d7e8ee; }
+
+/* Il Patto delle Ceneri: scala editoriale leggibile e cast completo. */
+.game-dossier-patto-ceneri .game-dossier-summary h2,
+.game-dossier-patto-ceneri .game-dossier-story h2,
+.game-dossier-patto-ceneri .game-nexus-story h2,
+.game-dossier-patto-ceneri .game-play-flow h2,
+.game-dossier-patto-ceneri .game-dossier-features h2,
+.game-dossier-patto-ceneri .game-protagonist-intro h2,
+.game-dossier-patto-ceneri .patto-villains h2,
+.game-dossier-patto-ceneri .patto-coming h2 {
+  max-width: 14ch;
+  margin-block: 10px 24px;
+  font-size: clamp(2.7rem, 5vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -.035em;
+  overflow-wrap: normal;
+  text-wrap: balance;
+}
+
+.game-dossier-patto-ceneri .game-story-continuation {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+.game-dossier-patto-ceneri .game-story-continuation p { margin: 0; }
+
+.game-dossier-patto-ceneri .game-protagonist-reveal {
+  background:
+    radial-gradient(circle at 14% 18%, rgba(231,184,94,.18), transparent 30%),
+    radial-gradient(circle at 86% 76%, rgba(151,43,34,.25), transparent 34%),
+    linear-gradient(135deg,#160807,#0b0505 58%,#25100c);
+}
+.game-dossier-patto-ceneri .game-protagonist-reveal::before {
+  background: linear-gradient(116deg, transparent 48.6%, rgba(231,184,94,.18) 50%, transparent 51.4%);
+  opacity: .45;
+}
+.game-dossier-patto-ceneri .game-protagonist-intro > figure,
+.game-dossier-patto-ceneri .game-protagonist-pair article {
+  border: 1px solid rgba(231,184,94,.24);
+  background: rgba(15,6,5,.82);
+}
+.game-dossier-patto-ceneri .game-protagonist-intro > figure,
+.game-dossier-patto-ceneri .game-protagonist-pair figure {
+  background: radial-gradient(circle at 50% 64%,rgba(231,184,94,.17),transparent 60%);
+}
+.game-dossier-patto-ceneri .game-protagonist-pair span { color: var(--nexus-gold); }
+.game-dossier-patto-ceneri .game-protagonist-pair h3 {
+  max-width: 100%;
+  margin-block: 10px 18px;
+  font-size: clamp(2rem, 3.15vw, 3.65rem);
+  line-height: 1.02;
+  letter-spacing: -.025em;
+  text-transform: none;
+  overflow-wrap: break-word;
+}
+.game-dossier-patto-ceneri .game-protagonist-pair p { color: #d8c7b9; }
+.game-dossier-patto-ceneri .game-protagonist-closing {
+  font-size: clamp(1.8rem, 3.2vw, 3.8rem);
+  line-height: 1.08;
+}
+
+.game-dossier-patto-ceneri .game-play-flow h3 {
+  margin-block: 12px 16px;
+  font-size: clamp(2rem, 3.5vw, 3.8rem);
+  line-height: 1.04;
+  letter-spacing: -.025em;
+}
+.game-dossier-patto-ceneri .game-play-flow-image {
+  display: grid;
+  place-items: center;
+}
+.game-dossier-patto-ceneri .game-play-flow-image img {
+  max-height: min(72vh, 760px);
+  object-fit: contain;
+}
+
+.patto-villains {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(76px, 9vw, 132px);
+  color: #fff6e9;
+  background:
+    radial-gradient(circle at 50% 8%,rgba(178,52,35,.2),transparent 34%),
+    linear-gradient(180deg,#090404,#180806 55%,#0b0504);
+}
+.patto-villains header { max-width: 830px; margin-bottom: clamp(42px,6vw,78px); }
+.patto-villains header > p:last-child {
+  max-width: 68ch;
+  margin: 0;
+  color: #d8c4b3;
+  font-size: clamp(1rem,1.35vw,1.18rem);
+  line-height: 1.75;
+}
+.patto-villain-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: clamp(22px,3vw,44px);
+}
+.patto-villain-grid article {
+  display: grid;
+  grid-template-columns: minmax(190px,.72fr) minmax(0,1.28fr);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(231,184,94,.24);
+  background: linear-gradient(135deg,rgba(40,10,7,.94),rgba(12,5,5,.96));
+  box-shadow: 0 28px 70px rgba(0,0,0,.42);
+}
+.patto-villain-grid figure {
+  display: grid;
+  place-items: end center;
+  min-width: 0;
+  margin: 0;
+  padding: 12px 0 0;
+  background: radial-gradient(circle at 50% 62%,rgba(185,52,35,.22),transparent 58%);
+}
+.patto-villain-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 610px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+.patto-villain-grid article > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(26px,3.5vw,52px);
+}
+.patto-villain-grid span {
+  color: var(--nexus-gold);
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.patto-villain-grid h3 {
+  margin: 10px 0 18px;
+  color: #fff;
+  font: 750 clamp(2rem,3.1vw,3.6rem)/1.02 var(--font-lore-display),serif;
+  letter-spacing: -.025em;
+  overflow-wrap: break-word;
+}
+.patto-villain-grid p { margin: 0; color: #d7c3b3; line-height: 1.72; }
+
+.patto-coming {
+  padding-block: clamp(78px,10vw,150px);
+  color: #fff5e8;
+  background:
+    radial-gradient(circle at 80% 24%,rgba(157,47,34,.32),transparent 30%),
+    linear-gradient(125deg,#1a0907,#080404 72%);
+  border-block: 1px solid rgba(231,184,94,.25);
+}
+.patto-coming .shell { max-width: 980px; }
+.patto-coming p:not(.eyebrow) { max-width: 67ch; color: #d8c2b1; font-size: 1.08rem; line-height: 1.75; }
+.patto-coming a {
+  display: inline-flex;
+  margin-top: 26px;
+  padding: 15px 20px;
+  color: #1c0905;
+  background: linear-gradient(135deg,#f1be62,#c96f31);
+  font-weight: 900;
+  text-decoration: none;
+}
+.game-dossier-patto-ceneri .game-nexus-finale p {
+  max-width: 18ch;
+  font-size: clamp(2.7rem,5.5vw,6rem);
+  line-height: 1.02;
+  letter-spacing: -.035em;
+}
+
+@media (max-width: 1060px) {
+  .game-dossier-patto-ceneri .game-protagonist-pair,
+  .patto-villain-grid { grid-template-columns: 1fr; }
+  .game-dossier-patto-ceneri .game-protagonist-pair article,
+  .patto-villain-grid article { grid-template-columns: minmax(180px,.62fr) minmax(0,1.38fr); }
+}
+
+@media (max-width: 760px) {
+  .game-dossier-patto-ceneri .game-dossier-summary h2,
+  .game-dossier-patto-ceneri .game-dossier-story h2,
+  .game-dossier-patto-ceneri .game-nexus-story h2,
+  .game-dossier-patto-ceneri .game-play-flow h2,
+  .game-dossier-patto-ceneri .game-dossier-features h2,
+  .game-dossier-patto-ceneri .game-protagonist-intro h2,
+  .game-dossier-patto-ceneri .patto-villains h2,
+  .game-dossier-patto-ceneri .patto-coming h2 {
+    max-width: 100%;
+    font-size: clamp(2.35rem,11.5vw,3.65rem);
+    line-height: 1.04;
+  }
+  .game-dossier-patto-ceneri .game-protagonist-pair article,
+  .patto-villain-grid article { grid-template-columns: 1fr; }
+  .game-dossier-patto-ceneri .game-protagonist-pair img,
+  .patto-villain-grid img { width: min(100%,390px); max-height: 480px; }
+  .game-dossier-patto-ceneri .game-protagonist-pair h3,
+  .patto-villain-grid h3 { font-size: clamp(2rem,10vw,3.1rem); }
+  .game-dossier-patto-ceneri .game-play-flow h3 { font-size: clamp(1.9rem,9.5vw,3rem); }
+  .game-dossier-patto-ceneri .game-nexus-finale p {
+    max-width: 16ch;
+    font-size: clamp(2.3rem,11vw,3.8rem);
+    line-height: 1.04;
+  }
+}
+.game-dossier-patto-ceneri .game-dossier-breadcrumbs { color: #c7aa94; }
+.game-dossier-patto-ceneri .game-dossier-breadcrumbs a { color: #ffe4bd; }
+.game-dossier-patto-ceneri .game-dossier-breadcrumbs span { color: var(--nexus-gold); }
+.game-dossier-patto-ceneri .game-dossier-hero { min-height: min(88vh, 920px); background: #080303; }
+.game-dossier-patto-ceneri .game-dossier-hero-art { object-fit: contain; object-position: center; }
+.game-dossier-patto-ceneri .game-dossier-hero-shade { background: linear-gradient(90deg,rgba(8,3,3,.95),rgba(8,3,3,.2) 65%),linear-gradient(0deg,rgba(8,3,3,.92),transparent 56%); }
+.game-dossier-patto-ceneri .game-dossier-hero-copy > h1 {
+  max-width: 11ch;
+  margin-block: 22px 16px;
+  font-size: clamp(3.75rem,6.2vw,7rem);
+  line-height: .96;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+.game-dossier-patto-ceneri .game-hero-primary { background: linear-gradient(135deg,#f1be62,#c96f31); color: #1c0905; }
+.game-dossier-patto-ceneri .game-hero-secondary { border: 1px solid rgba(231,184,94,.72); color: #ffe5b1; background: rgba(16,7,6,.78); }
+.game-dossier-patto-ceneri .game-dossier-summary,
+.game-dossier-patto-ceneri .game-dossier-story { color: #fff5e8; }
+.game-dossier-patto-ceneri .game-dossier-summary h2,
+.game-dossier-patto-ceneri .game-dossier-story h2 { color: #fff; }
+.game-dossier-patto-ceneri .game-dossier-summary > div > p:last-child,
+.game-dossier-patto-ceneri .game-dossier-story div > p:not(.eyebrow) { color: #cfb9a7; }
+.game-dossier-patto-ceneri .game-dossier-summary dl { border-top-color: var(--nexus-gold); }
+.game-dossier-patto-ceneri .game-dossier-summary dl div { border-bottom-color: rgba(231,184,94,.2); }
+.game-dossier-patto-ceneri .game-dossier-summary dt,
+.game-dossier-patto-ceneri .game-dossier-story > span,
+.game-dossier-patto-ceneri .eyebrow { color: var(--nexus-gold); }
+.game-dossier-patto-ceneri .game-dossier-summary dd { color: #f2dfcf; }
 
 .game-nexus-story { position: relative; min-height: 760px; display: grid; align-items: end; overflow: hidden; background: #020711; color: #fff; }
 .game-nexus-story > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.game-dossier-patto-ceneri .game-nexus-story > img,
+.game-dossier-patto-ceneri .game-nexus-finale img { object-fit: contain; background: #080303; }
 .game-nexus-story > div[aria-hidden] { position: absolute; inset: 0; background: linear-gradient(90deg,rgba(2,7,17,.96),rgba(3,8,18,.46) 70%),linear-gradient(0deg,rgba(2,7,17,.97),transparent 62%); }
 .game-nexus-story > .shell { position: relative; z-index: 1; padding-block: 110px; }
 .game-nexus-story h2 { max-width: 1040px; margin: 12px 0 30px; color: white; font: 700 clamp(3.4rem,6.3vw,7rem)/.88 var(--font-lore-display),serif; letter-spacing: -.05em; }
 .game-nexus-story p:not(.eyebrow) { max-width: 760px; color: #bfced8; font-size: clamp(1rem,1.2vw,1.16rem); line-height: 1.75; }
 
-.game-dossier-fuori-trama .game-play-flow { background: #030810 url("/games/lorewise-fuori-trama-next/nexus-chamber.webp") center / cover fixed; }
-.game-dossier-fuori-trama .game-play-flow > .shell::before { background: rgba(2,7,14,.91); }
-.game-dossier-fuori-trama .game-play-flow .eyebrow,
-.game-dossier-fuori-trama .game-play-flow li span { color: var(--nexus-cyan); }
-.game-dossier-fuori-trama .game-play-flow-note { max-width: 760px; margin: 24px 0 0; color: #a9c7d0; font-size: 1rem; line-height: 1.7; }
-.game-dossier-fuori-trama .game-play-flow li { grid-template-columns: minmax(0,1.55fr) minmax(280px,.45fr); border-top-color: rgba(36,229,229,.24); }
-.game-dossier-fuori-trama .game-play-flow-image { padding: 8px; background: linear-gradient(135deg,rgba(36,229,229,.85),rgba(155,92,255,.28),rgba(217,174,85,.7)); box-shadow: 0 32px 85px rgba(0,0,0,.68); }
-.game-dossier-fuori-trama .game-play-flow-image img { width: 100%; height: auto; object-fit: contain; background: #02050a; }
-.game-dossier-fuori-trama .game-play-flow li:last-child .game-play-flow-image { box-shadow: 0 34px 95px rgba(92,42,193,.32); }
+.game-dossier-patto-ceneri .game-play-flow { background: #120706 url("/games/the-wound-remembers-il-patto-delle-ceneri/prologo-banchetto-v1.webp") center / cover fixed; }
+.game-dossier-patto-ceneri .game-play-flow > .shell::before { background: rgba(13,5,4,.9); }
+.game-dossier-patto-ceneri .game-play-flow .eyebrow,
+.game-dossier-patto-ceneri .game-play-flow li span { color: var(--nexus-gold); }
+.game-dossier-patto-ceneri .game-play-flow-note { max-width: 760px; margin: 24px 0 0; color: #d7c0ae; font-size: 1rem; line-height: 1.7; }
+.game-dossier-patto-ceneri .game-play-flow li { grid-template-columns: minmax(0,1.55fr) minmax(280px,.45fr); border-top-color: rgba(231,184,94,.24); }
+.game-dossier-patto-ceneri .game-play-flow-image { padding: 8px; background: linear-gradient(135deg,#e7b85e,rgba(142,43,40,.72),#3b1714); box-shadow: 0 32px 85px rgba(0,0,0,.68); }
+.game-dossier-patto-ceneri .game-play-flow-image img { width: 100%; height: auto; object-fit: contain; background: #080303; }
+.game-dossier-patto-ceneri .game-play-flow li:last-child .game-play-flow-image { box-shadow: 0 34px 95px rgba(147,48,39,.32); }
 
-.game-dossier-fuori-trama .game-dossier-features { background: radial-gradient(circle at 82% 18%,rgba(121,65,206,.24),transparent 32%),linear-gradient(115deg,#04131a,#080714 68%,#15091d); }
-.game-dossier-fuori-trama .game-dossier-features::before { background: linear-gradient(90deg,rgba(2,13,19,.98),rgba(8,7,20,.74)); }
-.game-dossier-fuori-trama .game-dossier-features .eyebrow,
-.game-dossier-fuori-trama .game-dossier-features li span { color: var(--nexus-cyan); }
-.game-dossier-fuori-trama .game-known-issues { color: #e5f7fa; }
-.game-dossier-fuori-trama .game-known-issues h2 { color: #fff; }
-.game-dossier-fuori-trama .game-known-issues p { color: #a9bdc7; }
+.game-dossier-patto-ceneri .game-dossier-features { background: radial-gradient(circle at 82% 18%,rgba(152,43,34,.28),transparent 32%),linear-gradient(115deg,#160706,#0b0505 68%,#24100b); }
+.game-dossier-patto-ceneri .game-dossier-features::before { background: linear-gradient(90deg,rgba(17,6,5,.98),rgba(20,7,6,.74)); }
+.game-dossier-patto-ceneri .game-dossier-features .eyebrow,
+.game-dossier-patto-ceneri .game-dossier-features li span { color: var(--nexus-gold); }
+.game-dossier-patto-ceneri .game-known-issues { color: #fff3e5; }
+.game-dossier-patto-ceneri .game-known-issues h2 { color: #fff; }
+.game-dossier-patto-ceneri .game-known-issues p { color: #cfb9a7; }
 
-.game-dossier-fuori-trama .game-development-journal { background: radial-gradient(circle at 15% 10%,rgba(36,229,229,.12),transparent 28%),radial-gradient(circle at 86% 74%,rgba(155,92,255,.18),transparent 34%),#071019; color: #edfaff; }
-.game-dossier-fuori-trama .game-development-journal h2,
-.game-dossier-fuori-trama .game-development-journal h3,
-.game-dossier-fuori-trama .game-development-journal h4 { color: #fff; }
-.game-dossier-fuori-trama .game-development-journal p,
-.game-dossier-fuori-trama .game-development-journal li { color: #aec3cb; }
-.game-dossier-fuori-trama .game-latest-update,
-.game-dossier-fuori-trama .game-journal-lower > * { background: rgba(3,10,17,.72); border-color: rgba(36,229,229,.22); }
+.game-dossier-patto-ceneri .game-development-journal { background: radial-gradient(circle at 15% 10%,rgba(231,184,94,.12),transparent 28%),radial-gradient(circle at 86% 74%,rgba(154,42,35,.2),transparent 34%),#140807; color: #fff5e8; }
+.game-dossier-patto-ceneri .game-development-journal h2,
+.game-dossier-patto-ceneri .game-development-journal h3,
+.game-dossier-patto-ceneri .game-development-journal h4 { color: #fff; }
+.game-dossier-patto-ceneri .game-development-journal p,
+.game-dossier-patto-ceneri .game-development-journal li { color: #d0b9a7; }
+.game-dossier-patto-ceneri .game-latest-update,
+.game-dossier-patto-ceneri .game-journal-lower > * { background: rgba(15,6,5,.78); border-color: rgba(231,184,94,.22); }
 
-.game-dossier-fuori-trama .game-dossier-access { background: #03080f url("/games/lorewise-fuori-trama-next/nexus-chamber.webp") center / cover; }
-.game-dossier-fuori-trama .game-dossier-access::before { background: linear-gradient(105deg,rgba(2,7,14,.98),rgba(10,8,28,.9)); }
-.game-dossier-fuori-trama .game-dossier-access h2 { color: #fff; }
-.game-dossier-fuori-trama .game-access-intro > p:last-child { color: #adc5cd; }
-.game-dossier-fuori-trama .game-development-access { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.game-dossier-fuori-trama .game-development-access .game-edition { min-height: 590px; background: rgba(3,10,18,.88); border: 1px solid rgba(255,255,255,.12); border-top-width: 4px; }
-.game-dossier-fuori-trama .game-edition-free { border-top-color: #4de39b; }
-.game-dossier-fuori-trama .game-edition-pass { border-top-color: var(--nexus-violet); }
-.game-dossier-fuori-trama .game-edition-beta { border-top-color: var(--nexus-cyan); }
-.game-dossier-fuori-trama .game-development-access .game-edition div > strong { max-width: 100%; font-size: clamp(2.45rem,3vw,3.35rem); line-height: .92; overflow-wrap: anywhere; }
-.game-dossier-fuori-trama .game-edition > a { background: var(--nexus-cyan); color: #021016; }
-.game-dossier-fuori-trama .game-dossier-release-notes article { background: rgba(3,10,18,.88); }
-.game-dossier-fuori-trama .game-dossier-release-notes h3 { color: #fff; }
-.game-dossier-fuori-trama .game-dossier-release-notes p { color: #a9bdc7; }
+.game-dossier-patto-ceneri .game-dossier-access { background: #120706 url("/games/the-wound-remembers-il-patto-delle-ceneri/prologo-banchetto-v1.webp") center / cover; }
+.game-dossier-patto-ceneri .game-dossier-access::before { background: linear-gradient(105deg,rgba(14,5,4,.98),rgba(28,8,6,.9)); }
+.game-dossier-patto-ceneri .game-dossier-access h2 { color: #fff; }
+.game-dossier-patto-ceneri .game-access-intro > p:last-child { color: #d0b8a5; }
+.game-dossier-patto-ceneri .game-dossier-release-notes article { background: rgba(15,6,5,.9); }
+.game-dossier-patto-ceneri .game-dossier-release-notes h3 { color: #fff; }
+.game-dossier-patto-ceneri .game-dossier-release-notes p { color: #cfb9a7; }
 
 .game-nexus-finale { position: relative; min-height: 620px; display: grid; place-items: center; overflow: hidden; background: #020711; }
 .game-nexus-finale img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -5903,16 +6110,21 @@ body { background: var(--white); }
 .game-nexus-finale p { position: relative; z-index: 1; max-width: 1150px; margin: 0; padding: 50px; color: #fff; text-align: center; font: 700 clamp(3.4rem,7vw,8rem)/.86 var(--font-lore-display),serif; letter-spacing: -.055em; text-shadow: 0 18px 55px #000; }
 
 @media (max-width: 1080px) {
-  .game-dossier-fuori-trama .game-development-access { grid-template-columns: 1fr; }
-  .game-dossier-fuori-trama .game-development-access .game-edition { min-height: 0; }
+  .game-dossier-patto-ceneri .game-development-access { grid-template-columns: 1fr; }
+  .game-dossier-patto-ceneri .game-development-access .game-edition { min-height: 0; }
 }
 @media (max-width: 760px) {
-  .game-dossier-fuori-trama .game-dossier-hero { min-height: 650px; }
-  .game-dossier-fuori-trama .game-dossier-logo { width: 100%; }
+  .game-dossier-patto-ceneri .game-dossier-hero { min-height: 650px; }
+  .game-dossier-patto-ceneri .game-dossier-hero-copy > h1 {
+    max-width: 100%;
+    font-size: clamp(2.8rem,13vw,4.35rem);
+    line-height: 1;
+    letter-spacing: -.035em;
+  }
   .game-nexus-story { min-height: 630px; }
   .game-nexus-story > .shell { padding-block: 76px; }
-  .game-dossier-fuori-trama .game-play-flow { background-attachment: scroll; }
-  .game-dossier-fuori-trama .game-play-flow li { grid-template-columns: 1fr; }
+  .game-dossier-patto-ceneri .game-play-flow { background-attachment: scroll; }
+  .game-dossier-patto-ceneri .game-play-flow li { grid-template-columns: 1fr; }
   .game-nexus-finale { min-height: 460px; }
   .game-nexus-finale p { padding-inline: 24px; }
 }
@@ -7232,22 +7444,6 @@ body { background: var(--white); }
 .vip-drop-register article p { margin:0; color:#c75b49; font-size:.62rem; font-weight:950; text-transform:uppercase; }
 .vip-drop-register article h3 { margin:0; font:650 1rem/1.25 var(--font-display),serif; }
 .vip-drop-register article small { color:#a9a096; font-size:.68rem; line-height:1.55; }
-.vip-fuori-trama { padding-block:96px; color:#ececf0; border-top:1px solid rgba(132,121,255,.24); background:#0b0b12; }
-.vip-fuori-trama-layout { display:grid; grid-template-columns:minmax(0,1.18fr) minmax(390px,.82fr); gap:clamp(42px,6vw,86px); align-items:center; }
-.vip-fuori-trama figure { position:relative; margin:0; aspect-ratio:16/10; overflow:hidden; border:1px solid rgba(132,121,255,.35); background:#050508; box-shadow:0 28px 70px rgba(0,0,0,.48); }
-.vip-fuori-trama figure::after { position:absolute; inset:11px; border:1px solid rgba(223,180,90,.22); pointer-events:none; content:""; }
-.vip-fuori-trama figure img { display:block; width:100%; height:100%; object-fit:cover; }
-.vip-fuori-trama figcaption { position:absolute; z-index:1; right:18px; bottom:18px; padding:9px 12px; color:#eee9df; background:rgba(7,7,11,.86); font-size:.58rem; font-weight:900; text-transform:uppercase; }
-.vip-fuori-trama-logo { display:block; width:min(270px,68%); height:auto; margin:14px 0 25px; object-fit:contain; object-position:left center; }
-.vip-fuori-trama h2 { max-width:9ch; margin:0; font:650 clamp(3rem,5.2vw,5.8rem)/.9 var(--font-display),serif; }
-.vip-fuori-trama-meta { display:flex; gap:12px 22px; margin:24px 0; color:#cabefb; font-size:.62rem; font-weight:950; text-transform:uppercase; }
-.vip-fuori-trama-meta span { color:#dfb45a; }
-.vip-fuori-trama-copy > p:not(.eyebrow):not(.vip-fuori-trama-note) { color:#c7c4ce; font-size:.94rem; line-height:1.78; }
-.vip-fuori-trama dl { margin:26px 0; border-top:1px solid rgba(132,121,255,.25); }
-.vip-fuori-trama dl div { display:grid; grid-template-columns:95px 1fr; gap:18px; padding:14px 0; border-bottom:1px solid rgba(132,121,255,.18); }
-.vip-fuori-trama dt { color:#dfb45a; font-size:.62rem; font-weight:950; text-transform:uppercase; }
-.vip-fuori-trama dd { margin:0; color:#d8d4de; font-size:.76rem; line-height:1.55; }
-.vip-fuori-trama-note { margin:0; padding-left:18px; color:#aaa5b2; border-left:2px solid #7e6de7; font-size:.72rem; line-height:1.65; }
 .vip-games-directory { padding-block:58px; color:#f1ede6; border-block:1px solid rgba(223,180,90,.2); background:#11100f; }
 .vip-games-directory .shell { display:grid; grid-template-columns:minmax(250px,.65fr) minmax(0,1.35fr); gap:clamp(38px,6vw,86px); align-items:end; }
 .vip-games-directory h1 { max-width:12ch; margin:10px 0 9px; font:650 clamp(2.5rem,4.5vw,4.7rem)/.92 var(--font-display),serif; }
@@ -7263,58 +7459,11 @@ body { background: var(--white); }
 .vip-games-directory button:hover,.vip-games-directory button:focus-visible { background:#191715; outline:2px solid #dfb45a; outline-offset:-2px; }
 .vip-games-directory button.is-selected { color:#fff7e9; background:linear-gradient(120deg,rgba(223,180,90,.16),rgba(223,180,90,.03)); box-shadow:inset 0 -3px #dfb45a; }
 .vip-games-directory button:nth-child(2).is-selected { background:linear-gradient(120deg,rgba(132,121,255,.18),rgba(132,121,255,.03)); box-shadow:inset 0 -3px #8c7bf1; }
-.vip-fuori-trama { position:relative; overflow:hidden; padding-block:100px; color:#f1f0f5; border-top:1px solid rgba(132,121,255,.3); background:linear-gradient(135deg,#08080d 0%,#101019 55%,#15101a 100%); }
-.vip-fuori-trama .shell { position:relative; }
-.vip-fuori-trama-copy { max-width:920px; margin-bottom:54px; }
-.vip-fuori-trama-logo { width:min(250px,62vw); margin:15px 0 28px; }
-.vip-fuori-trama h2 { max-width:12ch; color:#f3efe8; font:700 clamp(3.7rem,7vw,7.2rem)/.84 var(--font-lore-display),Georgia,serif; text-transform:uppercase; }
-.vip-fuori-trama-copy h3 { margin:22px 0 0; color:#b9afff; font:650 clamp(1.45rem,2.6vw,2.4rem)/1.12 var(--font-display),serif; }
-.vip-fuori-trama-meta { margin:23px 0; color:#b9afff; font-size:.68rem; }
-.vip-fuori-trama-copy > p:not(.eyebrow) { max-width:72ch; color:#d1ced8; font-size:clamp(1rem,1.2vw,1.12rem); line-height:1.8; }
-.vip-singer-roster { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:clamp(12px,1.4vw,22px); }
-.vip-singer-roster article { min-width:0; }
-.vip-singer-roster figure { position:relative; margin:0; aspect-ratio:3/5; overflow:hidden; border:1px solid rgba(168,156,255,.38); background:#050508; box-shadow:0 24px 55px rgba(0,0,0,.42); }
-.vip-singer-roster figure::after { inset:8px; border-color:rgba(223,180,90,.2); }
-.vip-singer-roster figure img { width:100%; height:100%; object-fit:contain; object-position:center bottom; transition:transform .35s ease; }
-.vip-singer-roster article:hover img { transform:scale(1.025); }
-.vip-singer-roster figcaption { top:15px; right:15px; bottom:auto; left:15px; display:flex; justify-content:space-between; gap:10px; padding:0 0 10px; color:#f3efe8; border-bottom:1px solid rgba(255,255,255,.28); background:transparent; font-size:.58rem; }
-.vip-singer-roster figcaption span { color:#dfb45a; }
-.vip-singer-roster h3 { margin:17px 0 5px; font:650 clamp(1.12rem,1.45vw,1.5rem)/1.1 var(--font-display),serif; }
-.vip-singer-roster article > p { margin:0; color:#958fa1; font-size:.67rem; font-weight:850; text-transform:uppercase; }
-.vip-fuori-trama-statement { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr); gap:24px 60px; margin-top:58px; padding-top:32px; border-top:1px solid rgba(168,156,255,.3); }
-.vip-fuori-trama-statement > p { margin:0; color:#d8d4de; font:600 clamp(1rem,1.35vw,1.2rem)/1.65 var(--font-display),serif; }
-.vip-fuori-trama-statement .vip-fuori-trama-note { padding-left:20px; border-left:2px solid #8c7bf1; }
-.vip-fuori-trama-statement small { grid-column:1/-1; max-width:90ch; color:#77717f; font-size:.64rem; line-height:1.6; }
-.vip-singer-vote { display:grid; grid-template-columns:minmax(260px,.8fr) minmax(300px,1fr); gap:32px 70px; margin-top:72px; padding:clamp(32px,5vw,62px); border:1px solid rgba(168,156,255,.3); background:#111019; }
-.vip-singer-vote header h3 { margin:10px 0 18px; color:#f3efe8; font:650 clamp(2.2rem,4vw,4.4rem)/.92 var(--font-display),serif; }
-.vip-singer-vote header > p:last-child { color:#c7c3d0; font-size:.94rem; line-height:1.75; }
-.vip-singer-vote form { align-self:end; }
-.vip-singer-vote label { display:block; margin-bottom:10px; color:#dfb45a; font-size:.66rem; font-weight:950; text-transform:uppercase; }
-.vip-singer-vote form > div { display:grid; grid-template-columns:minmax(0,1fr) auto; }
-.vip-singer-vote input { min-width:0; min-height:52px; padding:0 16px; color:#f4f0f7; border:1px solid rgba(168,156,255,.38); border-right:0; border-radius:0; background:#08080d; font:650 .92rem/1 var(--font-body),sans-serif; }
-.vip-singer-vote input:focus { outline:2px solid #a89cff; outline-offset:-2px; }
-.vip-singer-vote form button { min-height:52px; padding:0 20px; color:#151118; border:0; background:#dfb45a; font-size:.68rem; font-weight:950; text-transform:uppercase; cursor:pointer; }
-.vip-singer-vote form button:disabled { cursor:wait; opacity:.62; }
-.vip-singer-vote form > small { display:block; margin-top:12px; color:#8f8998; font-size:.66rem; line-height:1.5; }
-.vip-singer-vote form > small strong { color:#c8c0ff; }
-.vip-singer-vote form > p[role="status"] { min-height:1.5em; margin:10px 0 0; color:#d9d4df; font-size:.7rem; }
-.vip-singer-ranking { grid-column:1/-1; display:grid; grid-template-columns:220px minmax(0,1fr); gap:30px; padding-top:30px; border-top:1px solid rgba(168,156,255,.25); }
-.vip-singer-ranking h4 { margin:0; color:#b9afff; font:650 1.5rem/1.1 var(--font-display),serif; }
-.vip-singer-ranking ol { margin:0; padding:0; list-style:none; border-top:1px solid rgba(255,255,255,.1); }
-.vip-singer-ranking li { display:grid; grid-template-columns:44px minmax(0,1fr) auto; gap:18px; align-items:center; min-height:52px; border-bottom:1px solid rgba(255,255,255,.1); }
-.vip-singer-ranking li span { color:#797281; font-size:.62rem; font-weight:950; }
-.vip-singer-ranking li strong { font:650 1rem/1.2 var(--font-display),serif; }
-.vip-singer-ranking li small { color:#9b94a3; font-size:.66rem; font-weight:850; }
-.vip-singer-ranking li.is-finalist span,.vip-singer-ranking li.is-finalist small { color:#dfb45a; }
-.vip-singer-ranking > p { margin:0; color:#8f8998; font-size:.8rem; line-height:1.65; }
-.vip-singer-vote footer { grid-column:1/-1; padding:17px 20px; color:#e5deea; border-left:3px solid #dfb45a; background:rgba(223,180,90,.08); font-size:.76rem; line-height:1.65; }
 @media (max-width:900px) {
   .vip-expansion-hero { min-height:720px; }
   .vip-expansion-hero > img { inset:0 0 auto; height:46%; opacity:.82; object-fit:contain; object-position:center top; }
   .vip-hero-shade { background:linear-gradient(0deg,rgba(3,3,3,.97) 0%,rgba(3,3,3,.55) 72%,rgba(3,3,3,.24)); }
-  .vip-expansion-intro,.vip-pass-value header,.vip-character,.vip-rewards-header,.vip-reward,.vip-development header,.vip-drop-register .shell,.vip-fuori-trama-layout,.vip-games-directory .shell,.vip-fuori-trama-statement,.vip-singer-vote { grid-template-columns:1fr; }
-  .vip-singer-ranking { grid-template-columns:1fr; gap:18px; }
-  .vip-singer-roster { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .vip-expansion-intro,.vip-pass-value header,.vip-character,.vip-rewards-header,.vip-reward,.vip-development header,.vip-drop-register .shell,.vip-games-directory .shell { grid-template-columns:1fr; }
   .vip-area-nav .shell { grid-template-columns:repeat(2,1fr); }
   .vip-privilege-grid { grid-template-columns:repeat(2,1fr); }
   .vip-character { min-height:0; }
@@ -7351,18 +7500,8 @@ body { background: var(--white); }
   .vip-download-bundle a,.vip-reward-copy a { width:100%; justify-content:center; box-sizing:border-box; }
   .vip-drop-register article { grid-template-columns:34px 1fr; }
   .vip-drop-register article h3,.vip-drop-register article small { grid-column:2; }
-  .vip-fuori-trama { padding-block:68px; }
-  .vip-fuori-trama h2 { font-size:clamp(2.8rem,13vw,4.4rem); }
-  .vip-fuori-trama dl div { grid-template-columns:1fr; gap:7px; }
   .vip-games-directory nav { grid-template-columns:1fr; }
   .vip-games-directory button { min-height:120px; }
-  .vip-singer-vote { padding:25px 18px; }
-  .vip-singer-vote form > div { grid-template-columns:1fr; gap:9px; }
-  .vip-singer-vote input { border-right:1px solid rgba(168,156,255,.38); }
-  .vip-singer-roster { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-  .vip-singer-roster figcaption { top:11px; right:11px; left:11px; font-size:.52rem; }
-  .vip-singer-roster h3 { font-size:1.05rem; }
-  .vip-fuori-trama-statement { margin-top:44px; }
   .vip-download-library-hero h1 { gap:16px; }
   .vip-download-library-hero h1 span { font-size:clamp(3rem,15vw,5rem); overflow-wrap:normal; word-break:normal; hyphens:none; }
   .vip-download-library-hero h1 strong { width:min(100%,310px); font-size:clamp(1.25rem,7vw,1.8rem); }
@@ -7460,7 +7599,7 @@ body { background: var(--white); }
 .vip-character-copy > p:not(.eyebrow),.vip-atelier-stage-story > p,.vip-atelier-note p,.vip-atelier-studies article p { font-size:clamp(1rem,1.15vw,1.12rem); line-height:1.82; }
 .vip-collector-lock { margin-top:22px; padding:19px 21px!important; color:#bdb3a8!important; border:1px solid var(--vip-line)!important; border-left:3px solid var(--vip-gold)!important; background:rgba(223,180,90,.06); }
 .vip-collector-lock strong { display:block; margin-bottom:6px; color:var(--vip-gold); font-size:.68rem; text-transform:uppercase; }
-.vip-pass-value,.vip-faction,.vip-character,.vip-development,.vip-drop-register,.vip-fuori-trama,.vip-art-card,.vip-atelier-stage,.vip-atelier-note,.vip-atelier-studies article,.vip-download-collection { content-visibility:auto; contain-intrinsic-size:auto 760px; }
+.vip-pass-value,.vip-faction,.vip-character,.vip-development,.vip-drop-register,.vip-art-card,.vip-atelier-stage,.vip-atelier-note,.vip-atelier-studies article,.vip-download-collection { content-visibility:auto; contain-intrinsic-size:auto 760px; }
 .vip-zone-page img { max-width:100%; }
 @media (max-width:900px) {
   .vip-member-bar .shell { min-height:70px; }
@@ -7500,116 +7639,24 @@ body { background: var(--white); }
   .vip-art-lightbox figcaption { flex-direction:column; gap:5px; }
 }
 
-/* LoreWise Android: public release hub. */
-.app-download-page { color:#f5eee3; background:#090808; }
-.app-download-page .eyebrow,.studio-app-download-callout .eyebrow { margin:0; color:#dfb45a; font-size:.68rem; font-weight:950; text-transform:uppercase; }
-.app-download-hero { min-height:min(760px,82vh); display:grid; align-items:center; overflow:hidden; border-bottom:1px solid rgba(223,180,90,.28); background:#090808; }
-.app-download-hero-inner { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr); gap:clamp(44px,8vw,130px); align-items:center; padding-block:clamp(80px,10vw,150px); }
-.app-download-copy h1 { max-width:850px; margin:16px 0 25px; font:650 clamp(4.2rem,8.8vw,9rem)/.84 var(--font-display),Georgia,serif; letter-spacing:0; }
-.app-download-coming-soon { display:inline-flex; width:fit-content; margin-top:18px; padding:9px 14px; color:#17100a; background:#dfb45a; border:1px solid #f6d78f; font-size:.68rem; font-weight:950; letter-spacing:.14em; line-height:1; }
-.app-download-copy > p:last-of-type { max-width:62ch; color:#b9b0a5; font-size:clamp(.98rem,1.3vw,1.15rem); line-height:1.8; }
-.app-download-copy > a,.app-download-integrity a { display:inline-flex; gap:18px; margin-top:26px; padding-bottom:7px; color:#dfb45a; border-bottom:1px solid currentColor; font-size:.72rem; font-weight:950; text-transform:uppercase; }
-.app-download-identity { position:relative; aspect-ratio:1/1; display:grid; place-items:center; }
-.app-download-identity img:first-child { position:relative; z-index:2; width:82%; height:auto; filter:drop-shadow(0 34px 55px rgba(0,0,0,.62)); }
-.app-download-identity img:last-child { position:absolute; inset:8% 0 0 20%; width:80%; height:80%; object-fit:contain; opacity:.16; }
-.app-download-familiar-scene { position:relative; min-width:0; padding:14px; border:1px solid rgba(223,180,90,.45); background:linear-gradient(145deg,#21102f,#0c0a17); box-shadow:0 30px 80px rgba(0,0,0,.55); }
-.app-download-familiar-scene > img { display:block; width:100%; height:auto; object-fit:contain; }
-.app-download-familiar-scene > div { position:absolute; right:clamp(12px,3vw,34px); bottom:clamp(12px,3vw,34px); display:grid; grid-template-columns:56px 1fr; column-gap:14px; min-width:min(330px,78%); padding:18px 20px; color:#f7eedf; background:rgba(11,7,20,.9); border-left:3px solid #dfb45a; backdrop-filter:blur(10px); }
-.app-download-familiar-scene > div img { grid-row:1 / 3; width:56px; height:56px; object-fit:contain; }
-.app-download-familiar-scene > div strong { font:650 1.2rem var(--font-display),Georgia,serif; }
-.app-download-familiar-scene > div span { margin-top:4px; color:#c7bdca; font-size:.8rem; }
-.app-download-release { padding-block:clamp(80px,10vw,145px); border-bottom:1px solid rgba(223,180,90,.22); }
-.app-download-release-grid { display:grid; grid-template-columns:minmax(0,.9fr) minmax(480px,1.1fr); gap:clamp(60px,10vw,170px); }
-.app-download-release header h2,.app-download-access h2,.app-download-integrity h2,.studio-app-download-callout h2 { margin:14px 0 25px; font:650 clamp(3.4rem,6vw,7rem)/.88 var(--font-display),Georgia,serif; letter-spacing:0; }
-.app-download-release header > p:last-child { max-width:48ch; color:#a99f95; line-height:1.75; }
-.app-download-release-data dl { display:grid; grid-template-columns:1fr 1fr; margin:0; border-top:1px solid rgba(223,180,90,.28); }
-.app-download-release-data dl div { min-height:105px; padding:23px 20px 20px 0; border-bottom:1px solid rgba(223,180,90,.2); }
-.app-download-release-data dl div:nth-child(even) { padding-left:24px; border-left:1px solid rgba(223,180,90,.2); }
-.app-download-release-data dt,.app-download-integrity dt { color:#8f877f; font-size:.58rem; font-weight:950; text-transform:uppercase; }
-.app-download-release-data dd,.app-download-integrity dd { margin:8px 0 0; color:#f5eee3; font:650 1.15rem var(--font-display),Georgia,serif; }
-.app-download-state { display:grid; gap:9px; margin-top:34px; padding:30px 0; border-block:1px solid rgba(223,180,90,.28); }
-.app-download-state > span:first-child { color:#8f877f; font-size:.6rem; font-weight:950; text-transform:uppercase; }
-.app-download-state > strong { color:#dfb45a; font:650 clamp(2rem,3vw,3.3rem) var(--font-display),Georgia,serif; }
-.app-download-state > a { width:fit-content; margin-top:14px; padding:16px 22px; color:#17100a; background:#dfb45a; border:1px solid #f6d78f; font-size:.72rem; font-weight:950; text-transform:uppercase; }
-.app-download-disabled { width:fit-content; margin-top:14px; padding:16px 20px; color:#17100a; background:#dfb45a; font-size:.7rem; font-weight:950; text-transform:uppercase; opacity:.58; }
-.app-download-state small { color:#8f877f; line-height:1.6; }
-.app-download-access { padding-block:clamp(80px,9vw,130px); color:#1f1830; background:#f3eee7; }
-.app-download-access .eyebrow { color:#7c3aed; }
-.app-download-access-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(60px,10vw,160px); }
-.app-download-access ol { margin:0; padding:0; list-style:none; border-top:1px solid rgba(31,24,48,.2); }
-.app-download-access li { display:grid; grid-template-columns:58px 1fr; gap:20px; padding:28px 0; border-bottom:1px solid rgba(31,24,48,.16); }
-.app-download-access li > span { color:#7c3aed; font:700 1rem var(--font-lore-display),serif; }
-.app-download-access li strong { font:650 1.4rem var(--font-display),Georgia,serif; }
-.app-download-access li p { margin:8px 0 0; color:#5f586b; line-height:1.65; }
-.app-download-integrity { padding-block:clamp(80px,10vw,145px); }
-.app-download-integrity-grid { display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(60px,11vw,180px); }
-.app-download-integrity-grid > div:last-child > p { max-width:65ch; color:#b9b0a5; font-size:1.05rem; line-height:1.8; }
-.app-download-integrity dl { margin:36px 0 0; border-top:1px solid rgba(223,180,90,.25); }
-.app-download-integrity dl div { display:grid; grid-template-columns:140px 1fr; gap:24px; padding:18px 0; border-bottom:1px solid rgba(223,180,90,.18); }
-.app-download-integrity dd { overflow-wrap:anywhere; }
-.studio-app-download-callout { padding-block:100px; color:#f5eee3; background:#0b0a09; }
-.studio-app-download-callout > div { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:end; }
-.studio-app-download-callout h2 { max-width:9ch; font-size:clamp(3.2rem,5.2vw,6.2rem); }
-.studio-app-download-callout h2 span { white-space:nowrap; }
-.studio-app-download-callout p { color:#b9b0a5; line-height:1.75; }
-.studio-app-download-callout a { display:inline-flex; margin-top:22px; padding-bottom:6px; color:#dfb45a; border-bottom:1px solid currentColor; font-weight:900; }
 .footer-app-link { color:#e7bd78!important; font-weight:900; }
-.app-download-install { padding-block:110px; color:#17120d; background:#e9e1d5; border-bottom:1px solid rgba(74,51,20,.3); }
-.app-download-install .eyebrow { color:#7138d0; }
-.app-download-install-heading { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(320px,.75fr); gap:90px; align-items:end; margin-bottom:68px; }
-.app-download-install-heading h2,.app-download-warnings h2 { max-width:820px; margin:14px 0 0; font:650 5.4rem/.9 var(--font-display),Georgia,serif; letter-spacing:0; }
-.app-download-install-heading > p { max-width:52ch; margin:0 0 8px; color:#5c5146; font-size:1.02rem; line-height:1.75; }
 .app-install-steps { display:grid; grid-template-columns:repeat(4,1fr); margin:0; padding:0; list-style:none; border-top:1px solid rgba(47,34,18,.28); border-bottom:1px solid rgba(47,34,18,.28); }
 .app-install-steps li { min-height:255px; padding:28px 28px 30px 0; }
 .app-install-steps li + li { padding-left:28px; border-left:1px solid rgba(47,34,18,.22); }
 .app-install-steps li > span { display:block; margin-bottom:54px; color:#7138d0; font:800 .75rem var(--font-lore-display),serif; }
 .app-install-steps strong { display:block; font:650 1.42rem/1.1 var(--font-display),Georgia,serif; }
 .app-install-steps p { margin:13px 0 0; color:#5c5146; font-size:.92rem; line-height:1.65; }
-.app-download-security-note { display:grid; grid-template-columns:.85fr 1.15fr; gap:90px; margin-top:70px; padding:58px 60px; color:#f4ede3; background:#100d0b; border-left:4px solid #dfb45a; }
-.app-download-security-note h3 { max-width:560px; margin:14px 0 0; font:650 2.25rem/1.03 var(--font-display),Georgia,serif; }
-.app-download-security-note > div:last-child p { max-width:70ch; margin:0; color:#bdb3a8; line-height:1.75; }
-.app-download-security-note > div:last-child p + p { margin-top:18px; color:#dfb45a; }
-.app-download-warnings { padding-block:110px; background:#0b0908; border-bottom:1px solid rgba(223,180,90,.25); }
-.app-download-warnings-layout { display:grid; grid-template-columns:minmax(320px,.8fr) minmax(0,1.2fr); gap:110px; }
-.app-download-warnings header { position:sticky; top:110px; align-self:start; }
-.app-download-warnings header h2 { max-width:650px; color:#f3ece2; font-size:4.6rem; }
-.app-download-warnings header > p:last-child { max-width:52ch; margin-top:28px; color:#a99f95; line-height:1.75; }
-.app-download-warning-list { border-top:1px solid rgba(223,180,90,.3); }
-.app-download-warning-list article { padding:30px 0 32px; border-bottom:1px solid rgba(223,180,90,.22); }
-.app-download-warning-list article > p { margin:0 0 10px; color:#dfb45a; font-size:.62rem; font-weight:950; text-transform:uppercase; }
-.app-download-warning-list h3 { margin:0; color:#f4ede3; font:650 1.65rem var(--font-display),Georgia,serif; }
-.app-download-warning-list span { display:block; max-width:68ch; margin-top:12px; color:#b9b0a5; line-height:1.7; }
 @media (max-width:900px) {
-  .app-download-hero-inner,.app-download-release-grid,.app-download-access-grid,.app-download-integrity-grid,.app-download-install-heading,.app-download-security-note,.app-download-warnings-layout,.studio-app-download-callout > div { grid-template-columns:1fr; }
-  .app-download-identity { width:min(560px,86vw); margin-inline:auto; }
-  .app-download-familiar-scene { width:min(720px,100%); margin-inline:auto; }
-  .app-download-release-grid,.app-download-access-grid,.app-download-integrity-grid,.app-download-install-heading,.app-download-security-note,.app-download-warnings-layout { gap:48px; }
   .app-install-steps { grid-template-columns:1fr 1fr; }
   .app-install-steps li:nth-child(3) { border-left:0; }
   .app-install-steps li:nth-child(n+3) { border-top:1px solid rgba(47,34,18,.22); }
-  .app-download-warnings header { position:static; }
   .studio-games-index > div { grid-template-columns:repeat(2,1fr); }
 }
 @media (max-width:620px) {
-  .app-download-hero { min-height:auto; }
-  .app-download-hero-inner { gap:30px; padding-block:64px; }
-  .app-download-copy h1 { font-size:clamp(3.6rem,19vw,5.2rem); overflow-wrap:normal; word-break:normal; hyphens:none; }
-  .app-download-identity { width:100%; }
-  .app-download-familiar-scene { padding:7px; }
-  .app-download-familiar-scene > div { position:relative; right:auto; bottom:auto; min-width:0; width:100%; margin-top:7px; }
-  .app-download-release-data dl { grid-template-columns:1fr; }
-  .app-download-release-data dl div,.app-download-release-data dl div:nth-child(even) { min-height:0; padding:19px 0; border-left:0; }
-  .app-download-access li { grid-template-columns:40px 1fr; }
-  .app-download-integrity dl div { grid-template-columns:1fr; gap:3px; }
-  .app-download-install,.app-download-warnings { padding-block:72px; }
-  .app-download-install-heading h2,.app-download-warnings header h2 { font-size:3rem; }
   .app-install-steps { grid-template-columns:1fr; }
   .app-install-steps li,.app-install-steps li + li { min-height:0; padding:24px 0; border-left:0; border-top:1px solid rgba(47,34,18,.22); }
   .app-install-steps li:first-child { border-top:0; }
   .app-install-steps li > span { margin-bottom:18px; }
-  .app-download-security-note { margin-top:48px; padding:34px 28px; }
-  .app-download-security-note h3 { font-size:1.8rem; }
-  .studio-app-download-callout { padding-block:70px; }
 }
 .vip-media-fallback {
   object-fit: contain !important;
@@ -11397,7 +11444,7 @@ main :where(p,li,dt,dd,figcaption,strong,small,span,label,a,button):not(code):no
 /* Demon Match Three · rivelazione Alba/Ombra e nuova identità Android. */
 .studio-games-page .studio-real-project-demon-match-three .studio-real-project-visual { background:linear-gradient(135deg,#17134a 0 49.7%,#4d0a32 50.3% 100%); }
 .studio-games-page .studio-real-project-demon-match-three .studio-real-project-visual > img:first-child { object-fit:contain; object-position:center; }
-.studio-games-hero-backdrop img:last-child { object-fit:contain; object-position:center; background:linear-gradient(145deg,#17144a,#4a092f); }
+.studio-games-hero-backdrop img:nth-child(3) { object-fit:contain; object-position:center; background:linear-gradient(145deg,#17144a,#4a092f); }
 .story-dossier-demon .story-dossier-cover { aspect-ratio:16/9; background:linear-gradient(135deg,#0d1734,#420b2c); }
 .story-dossier-demon .story-dossier-cover img { object-fit:contain; }
 
@@ -11614,7 +11661,6 @@ main :where(p,li,dt,dd,figcaption,strong,small,span,label,a,button):not(code):no
   .privacy-provider-list a,
   .giwise-shop-product-copy > div strong,
   .vip-character-copy h2,
-  .studio-app-download-callout h2 span,
   .studio-work-progress-unfinished > a,
   .nexus-chronicles-membership > div > a,
   .game-guide-living-status > a,
@@ -12107,6 +12153,31 @@ main.diary-page nav.diary-project-index .diary-project-index-image{min-width:0}
 .diary-commission-more article>div{display:flex;min-width:0;flex-direction:column;padding:28px}
 .diary-commission-more small{color:#9b3150;font-size:.6rem;font-weight:900;text-transform:uppercase}
 .diary-commission-more h4{margin:13px 0 12px;color:#302329;font:700 clamp(1.8rem,2.5vw,2.7rem)/.95 var(--font-display),serif}
+
+/* Protezione tipografica globale: i font decorativi non devono sovrapporre o tagliare le righe. */
+:where(main,header,section,article,aside,nav,footer) > * { min-width: 0; }
+:where(h1,h2,h3) {
+  max-width: 100%;
+  line-height: 1.05 !important;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: balance;
+}
+:where(h4) {
+  max-width: 100%;
+  line-height: 1.1 !important;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+:where(p,li,dt,dd,figcaption,summary,a,button,strong,small,span) {
+  overflow-wrap: anywhere;
+}
+:where(img,video,canvas,svg) { max-width: 100%; }
+
+@media (max-width: 760px) {
+  :where(h1,h2,h3) { letter-spacing: -.025em !important; }
+}
 .diary-commission-more article p{margin:0;color:#65585a;font-size:.82rem;line-height:1.65}
 .diary-commission-more dl{display:grid;gap:9px;margin:24px 0 0;padding-top:18px;border-top:1px solid rgba(75,38,48,.16)}
 .diary-commission-more dl div{display:grid;gap:3px}.diary-commission-more dt{color:#9b3150;font-size:.55rem;font-weight:900;text-transform:uppercase}.diary-commission-more dd{margin:0;color:#4c3b40;font-size:.7rem;line-height:1.45}
@@ -12170,3 +12241,24 @@ main.diary-page nav.diary-project-index .diary-project-index-image{min-width:0}
   .studio-games-page .studio-real-project-visual,.studio-game-gateway-visual{aspect-ratio:4/3}.global-search-results a{grid-template-columns:110px minmax(0,1fr)}.global-search-results img{width:110px;min-height:170px;object-fit:contain}
   .game-dossier-page :where(h1,h2,h3),.codex-character-page :where(h1,h2,h3),.personal-dashboard :where(h2,h3){overflow-wrap:normal;word-break:normal;hyphens:none}
 }
+
+/* SandBox · quarto titolo del catalogo e grafica pixel art senza sfocature. */
+img[src*="/games/sandbox/"] { image-rendering:pixelated; }
+.studio-games-hero-backdrop:has(> img:nth-child(4)) { grid-template-columns: repeat(4,1fr); }
+.studio-games-hero-backdrop img:nth-child(4) { object-fit:cover; object-position:center; }
+@media (min-width: 1001px) {
+  .studio-game-gateway-grid:has(> article:nth-child(4)) { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 1000px) and (min-width: 701px) {
+  .studio-game-gateway-grid:has(> article:nth-child(4)) article:first-child { grid-column: auto; }
+}
+.studio-games-hero-titles a > strong { color:#fff; font-size:1.15rem; line-height:1.2; }
+
+/* Accessibilità: indicatore di focus da tastiera dove gli stili sopra azzerano l'outline (il comportamento al passaggio del mouse resta invariato). */
+.shop-catalog-controls input:focus-visible { outline:3px solid #7c3aed; outline-offset:2px; }
+.illustrated-portal:focus-visible { outline:3px solid color-mix(in srgb,var(--portal-accent,#7c3aed) 48%,#fff); outline-offset:4px; }
+.art-index-nav > button:focus-visible,
+.adult-thumbnail-gate button:focus-visible,
+.art-load-more button:focus-visible,
+.commission-filters button:focus-visible,
+.commission-hub-page .commission-chapter-navigation nav > a:focus-visible { outline:3px solid currentColor; outline-offset:2px; }

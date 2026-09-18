@@ -4,10 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { catalogArtworks } from "@/lib/artCatalog";
 
-export const metadata: Metadata = {
-  title: "Simulazione pacchetto digitale",
-  description: "Anteprima protetta dell'esperienza di consegna di un'opera LoreWise Universe.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  return {
+    title: "Simulazione pacchetto digitale",
+    description: "Anteprima protetta dell'esperienza di consegna di un'opera LoreWise Universe.",
+    alternates: { canonical: `/arte/${slug}/pacchetto` },
+  };
+}
 
 export default async function ArtworkPackagePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

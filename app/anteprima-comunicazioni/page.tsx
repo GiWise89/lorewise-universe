@@ -5,7 +5,7 @@ import { MarketingCampaignDashboard } from "@/components/MarketingCampaignDashbo
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Anteprima comunicazioni promozionali | LoreWise Universe",
+  title: "Anteprima comunicazioni promozionali",
   robots: { index: false, follow: false },
 };
 

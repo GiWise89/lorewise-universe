@@ -100,6 +100,8 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [unreadNotifications, setUnreadNotifications] = useState<number | null>(null);
   const notificationRefreshQueued = useRef(false);
+  const syncNotifications = useRef<(() => void) | null>(null);
+  const desktopNavigationRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -115,9 +117,37 @@ export function SiteHeader() {
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       setMenuOpen(false);
+      desktopNavigationRef.current?.querySelectorAll("details[open]").forEach((details) => details.removeAttribute("open"));
     });
     return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
+
+  useEffect(() => {
+    const navigation = desktopNavigationRef.current;
+    if (!navigation) return;
+    const closeGroups = (except?: Element | null) => navigation.querySelectorAll("details[open]").forEach((details) => { if (details !== except) details.removeAttribute("open"); });
+    const closeOnOutsidePointer = (event: PointerEvent) => { if (!navigation.contains(event.target as Node)) closeGroups(); };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      const openGroup = navigation.querySelector("details[open]");
+      if (!openGroup) return;
+      const focusWasInside = openGroup.contains(document.activeElement);
+      closeGroups();
+      if (focusWasInside) openGroup.querySelector("summary")?.focus();
+    };
+    const closeOnFocusLeave = (event: FocusEvent) => {
+      const group = (event.target as Element | null)?.closest("details");
+      if (group && !group.contains(event.relatedTarget as Node | null)) group.removeAttribute("open");
+    };
+    document.addEventListener("pointerdown", closeOnOutsidePointer);
+    document.addEventListener("keydown", closeOnEscape);
+    navigation.addEventListener("focusout", closeOnFocusLeave);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsidePointer);
+      document.removeEventListener("keydown", closeOnEscape);
+      navigation.removeEventListener("focusout", closeOnFocusLeave);
+    };
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -132,6 +162,7 @@ export function SiteHeader() {
     let pending = false;
     let controller: AbortController | null = null;
     let unsubscribeFromAuth: (() => void) | null = null;
+    let client: ReturnType<typeof createLoreWiseBrowserClient> | null = null;
     async function refreshNotifications() {
       if (!authenticated) return;
       if (pending) { notificationRefreshQueued.current = true; return; }
@@ -157,7 +188,7 @@ export function SiteHeader() {
       }
     }
     async function initializeNotifications() {
-      const client = createLoreWiseBrowserClient();
+      client = createLoreWiseBrowserClient();
       if (!client) return;
       const { data } = await client.auth.getSession();
       if (!active) return;
@@ -175,6 +206,15 @@ export function SiteHeader() {
       unsubscribeFromAuth = () => authListener.subscription.unsubscribe();
     }
     void initializeNotifications();
+    // Dopo ogni navigazione basta rileggere la sessione locale e aggiornare il contatore: l'ascoltatore auth resta unico.
+    syncNotifications.current = () => {
+      if (!client) return;
+      void client.auth.getSession().then(({ data }) => {
+        if (!active) return;
+        authenticated = Boolean(data.session);
+        if (authenticated) void refreshNotifications();
+      });
+    };
     const refreshAfterRead = () => void refreshNotifications();
     window.addEventListener("lorewise:notifications-updated", refreshAfterRead);
     const refresh = window.setInterval(() => {
@@ -186,7 +226,15 @@ export function SiteHeader() {
       unsubscribeFromAuth?.();
       window.removeEventListener("lorewise:notifications-updated", refreshAfterRead);
       window.clearInterval(refresh);
+      syncNotifications.current = null;
     };
+  }, []);
+
+  const notificationPathname = useRef(pathname);
+  useEffect(() => {
+    if (notificationPathname.current === pathname) return;
+    notificationPathname.current = pathname;
+    syncNotifications.current?.();
   }, [pathname]);
 
   return (
@@ -196,7 +244,7 @@ export function SiteHeader() {
         <button className="mobile-menu-trigger" type="button" aria-label={menuOpen ? "Chiudi il menu principale" : "Apri il menu principale"} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen((open) => !open)}>
           <Image src="/brand/navigation/lorewise-wax-seal.webp" alt="" width={128} height={128} unoptimized /><span>{menuOpen ? "Chiudi" : "Menu"}</span>
         </button>
-        <nav className="desktop-navigation" aria-label="Navigazione principale">
+        <nav className="desktop-navigation" aria-label="Navigazione principale" ref={desktopNavigationRef}>
           <ul className="nav-list">
             {desktopNavigation.map((item) => {
               const isActive = item.children.some((child) => isCurrentRoute(pathname, child.href));
