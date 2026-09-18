@@ -42,19 +42,17 @@ test("renders LoreWise Universe with its structured portals", async () => {
   assert.match(html, /Costruisci il tuo Patto\. Leggi la Nemesi\./);
   assert.match(html, /href="https:\/\/thewoundremembers\.com\//);
   assert.match(html, /Come vuoi entrare nell’universo/);
-  assert.match(html, /Scegli in base a ciò che vuoi ottenere/);
+  assert.doesNotMatch(html, /Scegli in base a ciò che vuoi ottenere/);
   assert.doesNotMatch(html, /data-welcome-offer/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
-test("keeps three guided paths and four services clearly separated", async () => {
+test("groups every destination inside three guided paths", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Tre modi per esplorare LoreWise Universe/);
-  assert.match(html, /Servizi e vantaggi di LoreWise Universe/);
   assert.match(html, /Scopri i mondi[\s\S]*Crea o colleziona[\s\S]*Partecipa al Nexus/);
-  assert.match(html, /GiWise Shop[\s\S]*Commissioni[\s\S]*Area VIP[\s\S]*Universe Pass/);
+  assert.match(html, /Colleziona opere[\s\S]*Richiedi una commissione[\s\S]*GiWise Shop[\s\S]*Area VIP[\s\S]*Universe Pass/);
   assert.doesNotMatch(html, /LoreWise VIP/);
   assert.doesNotMatch(html, /href="\/vip"/);
   assert.match(html, /href="\/mondi"/);

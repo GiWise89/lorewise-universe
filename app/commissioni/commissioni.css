@@ -982,7 +982,7 @@
 .commission-hub-page .commission-featured-grid strong { font-size:clamp(1rem,1.35vw,1.35rem); }
 .commission-hub-page .commission-featured-grid small { font-size:.57rem; }
 .commission-hub-page .commission-featured-grid em { display:none; }
-.commission-overview-process { padding-block:clamp(54px,6vw,76px);color:#fff7e5;background:#41194f; }
+.commission-overview-process { padding-block:clamp(54px,6vw,76px);color:var(--night-ink);background:var(--night-surface); }
 .commission-overview-process header h2 { max-width:18ch;margin:7px 0 28px;color:#fff0bf;font:700 clamp(2.35rem,4vw,4.1rem)/.95 var(--font-lore-display),serif;letter-spacing:-.035em; }
 .commission-overview-process .eyebrow { color:#f9a8d4; }
 .commission-overview-process ol { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:0;border-block:1px solid rgba(255,255,255,.2);list-style:none; }

@@ -1005,3 +1005,4 @@
   .studio-game-gateway-grid:has(> article:nth-child(4)) article:first-child { grid-column: auto; }
 }
 .studio-games-hero-titles a > strong { color:#fff; font-size:1.15rem; line-height:1.2; }
+.studio-game-gateway-logo{width:min(300px,100%);margin-block:10px 4px}.studio-game-gateway-logo img{display:block;width:100%;height:auto;image-rendering:pixelated;filter:drop-shadow(0 4px 8px rgba(20,30,70,.22))}

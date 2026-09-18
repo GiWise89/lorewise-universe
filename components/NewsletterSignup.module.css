@@ -2,7 +2,7 @@
    generiche dei contenitori (per esempio .site-footer p, .site-footer a, .site-footer h2). */
 .root{--nl-bg:#241031;--nl-panel:rgba(255,255,255,.07);--nl-text:#fff8df;--nl-muted:#e4d6ea;--nl-accent:#f4cf49;--nl-button:#db2777;--nl-button-hover:#b81d63;--nl-button-text:#fff;--nl-field:#fffaf4;--nl-field-text:#241031;--nl-line:rgba(255,255,255,.22);--nl-link:#f8d565;--nl-error-bg:#ffe1ea;--nl-error-text:#7a0f35;
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(20px,4vw,48px);align-items:center;min-width:0;padding:clamp(22px,4vw,40px);border-top:4px solid var(--nl-accent);background:var(--nl-bg);color:var(--nl-text);font-family:var(--font-body),Arial,sans-serif}
-.dark{--nl-bg:linear-gradient(120deg,#2b0d35,#431653 60%,#1d2458)}
+.dark{--nl-bg:var(--night-raise);--nl-accent:var(--gold);--nl-link:var(--gold-soft);--nl-line:var(--night-line);--nl-button:#be185d;--nl-button-hover:#9d174d}
 .light{--nl-bg:#fffaf4;--nl-panel:#fff;--nl-text:#241031;--nl-muted:#4a3652;--nl-accent:#db2777;--nl-line:rgba(36,16,49,.2);--nl-link:#7c35ec;--nl-field:#fff;box-shadow:0 22px 60px rgba(46,18,56,.12)}
 .avvisami{grid-template-columns:1fr;gap:16px;border-top-width:3px}
 .compact{grid-template-columns:1fr;gap:14px;padding:clamp(18px,3vw,26px)}

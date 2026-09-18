@@ -22,75 +22,46 @@ export const metadata: Metadata = {
   },
 };
 
+// Un solo ingresso guidato: ogni porta raccoglie le destinazioni che prima erano divise
+// fra "Come vuoi entrare" e "Servizi e vantaggi".
 const guidedPaths = [
   {
     key: "worlds",
     eyebrow: "Storie e personaggi",
     title: "Scopri i mondi",
-    description: "Entra dagli universi, incontra i loro personaggi e approfondisci ciò che ti incuriosisce attraverso Codex, Cronache e diario creativo.",
-    includes: "Mondi · Codex · Cronache · Diario",
-    action: "Scegli cosa esplorare",
-    href: "/mondi",
+    description: "Entra dagli universi, incontra i loro personaggi e approfondisci ciò che ti incuriosisce.",
     image: "/brand/home-portals/mondi.webp",
+    links: [
+      { title: "Mondi", href: "/mondi" },
+      { title: "LoreWise Codex", href: "/enciclopedia" },
+      { title: "Cronache del Nexus", href: "/cronache-del-nexus" },
+      { title: "Dove nascono i mondi", href: "/dove-nascono-i-mondi" },
+    ],
   },
   {
     key: "create",
     eyebrow: "Opere e idee",
     title: "Crea o colleziona",
-    description: "Scopri le opere originali, scegli una creazione disponibile oppure racconta la tua idea per una commissione personale.",
-    includes: "Arte · Commissioni · GiWise Shop",
-    action: "Entra nella galleria",
-    href: "/arte",
+    description: "Scopri le opere originali, porta a casa un oggetto dell’universo oppure racconta la tua idea per una commissione.",
     image: "/brand/home-portals/arte.webp",
+    links: [
+      { title: "Colleziona opere", href: "/arte" },
+      { title: "Richiedi una commissione", href: "/commissioni" },
+      { title: "GiWise Shop", href: "/shop" },
+    ],
   },
   {
     key: "nexus",
     eyebrow: "Il tuo posto nell’universo",
     title: "Partecipa al Nexus",
-    description: "Segui GiWise Studio, incontra la community e scopri il Famiglio e i vantaggi pensati per chi vuole restare nell’universo.",
-    includes: "Community · Famiglio · Universe Pass",
-    action: "Entra nella community",
-    href: "/community",
+    description: "Incontra la community, adotta il tuo Famiglio e scegli i vantaggi pensati per chi vuole restare.",
     image: "/brand/home-portals/vip.webp",
-  },
-] as const;
-
-const services = [
-  {
-    key: "shop",
-    eyebrow: "Per collezionare",
-    title: "GiWise Shop",
-    description: "Merchandising e collezioni ufficiali ispirati ai mondi di GiWise Studio.",
-    action: "Visita lo Shop",
-    href: "/shop",
-    image: "/brand/home-portals/shop.webp",
-  },
-  {
-    key: "commission",
-    eyebrow: "Per creare",
-    title: "Commissioni",
-    description: "Racconta la tua idea e trasformala in un’opera costruita insieme a te.",
-    action: "Scopri le commissioni",
-    href: "/commissioni",
-    image: "/brand/home-portals/commissioni.webp",
-  },
-  {
-    key: "vip",
-    eyebrow: "Per partecipare",
-    title: "Area VIP",
-    description: "Guide in anteprima, dossier, atelier e download riservati a chi ha il Universe Pass.",
-    action: "Entra nell’Area VIP",
-    href: "/vip-zone",
-    image: "/brand/home-portals/vip.webp",
-  },
-  {
-    key: "pass",
-    eyebrow: "Per avere vantaggi",
-    title: "Universe Pass",
-    description: "Scegli i benefici che ti interessano su opere, commissioni e iniziative selezionate.",
-    action: "Confronta i vantaggi",
-    href: "/abbonamento",
-    image: "/brand/lorewise-wax-seal-v1.webp",
+    links: [
+      { title: "Community", href: "/community" },
+      { title: "Famiglio", href: "/famiglio" },
+      { title: "Area VIP", href: "/vip-zone" },
+      { title: "Universe Pass", href: "/abbonamento" },
+    ],
   },
 ] as const;
 
@@ -135,16 +106,11 @@ export default async function Home({ searchParams }: { searchParams?: Promise<Re
           </div>
           <Link href="/giochi">Esplora tutti i giochi <span aria-hidden="true">→</span></Link>
         </div>
-        <Link className={styles.gamesPortal} href="/giochi">
-          <Image src="/brand/icons/giochi-concept-v1.webp" alt="" width={260} height={260} unoptimized />
-          <span><small>Area Giochi</small><strong>Tutti i titoli, in un solo ingresso.</strong><span>Confronta subito ciò che è giocabile, in sviluppo o in arrivo.</span></span>
-          <b>Entra nella sezione Giochi <i aria-hidden="true">→</i></b>
-        </Link>
         <div className={styles.gameGrid}>
           {gameProjects.filter((project) => project.slug !== "the-wound-remembers").map((project) => (
             <Link className={`${styles.gameCard} ${styles[project.statusTone]}`} href={`/giochi/${project.slug}`} key={project.slug}>
               <span className={styles.gameArt}>
-                <Image src={project.catalogCoverImage ?? project.heroImage} alt={project.catalogCoverAlt ?? project.heroAlt} width={1200} height={760} unoptimized />
+                <Image src={project.catalogCoverImage ?? project.heroImage} alt={project.catalogCoverAlt ?? project.heroAlt} width={1200} height={760} sizes="(max-width: 760px) 100vw, 33vw" unoptimized />
               </span>
               <span className={styles.gameCopy}>
                 <small>{project.statusTone === "available" ? "Giocabile ora" : "In sviluppo"}</small>
@@ -161,51 +127,24 @@ export default async function Home({ searchParams }: { searchParams?: Promise<Re
         <div className={styles.guidedIntro}>
           <p>LoreWise Universe · GiWise Studio</p>
           <h2 id="guided-entry-title">Come vuoi entrare nell’universo?</h2>
-          <span>Non devi conoscere già LoreWise. Scegli ciò che ti attira: ti accompagneremo da lì, un passo alla volta.</span>
+          <span>Non devi conoscere già LoreWise. Scegli ciò che ti attira: ogni porta ti porta dritto al posto giusto.</span>
         </div>
-        <nav className={styles.pathGrid} aria-label="Tre modi per esplorare LoreWise Universe">
-          {guidedPaths.map((path, index) => {
-            const content = <>
-              <span className={styles.pathNumber}>0{index + 1}</span>
+        <div className={styles.pathGrid}>
+          {guidedPaths.map((path, index) => (
+            <article className={`${styles.path} ${styles[path.key]}`} key={path.key} aria-labelledby={`path-${path.key}`}>
+              <span className={styles.pathNumber} aria-hidden="true">0{index + 1}</span>
               <span className={styles.pathArt}><Image src={path.image} alt="" width={420} height={420} unoptimized /></span>
               <span className={styles.pathCopy}>
                 <small>{path.eyebrow}</small>
-                <strong>{path.title}</strong>
+                <strong id={`path-${path.key}`}>{path.title}</strong>
                 <span>{path.description}</span>
-                <em>{path.includes}</em>
-                {path.key === "create" ? <span className={styles.pathActions}>
-                  <Link href="/arte">Colleziona opere <i aria-hidden="true">→</i></Link>
-                  <Link href="/commissioni">Richiedi una commissione <i aria-hidden="true">→</i></Link>
-                </span> : <b>{path.action} <i aria-hidden="true">→</i></b>}
+                <nav className={styles.pathLinks} aria-label={path.title}>
+                  {path.links.map((link) => <Link href={link.href} key={link.href}>{link.title} <i aria-hidden="true">→</i></Link>)}
+                </nav>
               </span>
-            </>;
-
-            return path.key === "create"
-              ? <article className={`${styles.path} ${styles[path.key]}`} key={path.key}>{content}</article>
-              : <Link className={`${styles.path} ${styles[path.key]}`} href={path.href} key={path.key}>{content}</Link>;
-          })}
-        </nav>
-      </section>
-
-      <section className={styles.services} aria-labelledby="services-title">
-        <div className={styles.servicesIntro}>
-          <p>Servizi e vantaggi</p>
-          <h2 id="services-title">Scegli in base a ciò che vuoi ottenere.</h2>
-          <span>Ogni porta ha uno scopo preciso: acquistare, creare, partecipare oppure ricevere vantaggi.</span>
-        </div>
-        <nav className={styles.serviceGrid} aria-label="Servizi e vantaggi di LoreWise Universe">
-          {services.map((service) => (
-            <Link className={`${styles.serviceCard} ${styles[service.key]}`} href={service.href} key={service.key}>
-              <Image src={service.image} alt="" width={420} height={420} unoptimized />
-              <span>
-                <small>{service.eyebrow}</small>
-                <strong>{service.title}</strong>
-                <span>{service.description}</span>
-                <b>{service.action} <i aria-hidden="true">→</i></b>
-              </span>
-            </Link>
+            </article>
           ))}
-        </nav>
+        </div>
       </section>
 
       <CurrentDiscountRibbon initialPromotion={initialPromotion} previewBlackFriday={previewBlackFriday} previewCampaign={previewBlackFridayCampaign} previewHoliday={previewHoliday} />

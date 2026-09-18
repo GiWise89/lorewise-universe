@@ -17,7 +17,8 @@ type FilterPanel = "search" | "genre" | "price" | "sort";
 const adultCover = "/brand/art-portals/adult-cover-v2.webp";
 const originalSeal = "/brand/art-portals/originals-seal-card-v1.webp";
 const fanartSeal = "/brand/art-portals/fanart-seal-card-v1.webp";
-const pageSize = 6;
+// Multiplo delle colonne della galleria (4 su desktop, 2 su telefono): nessuna riga resta a metà.
+const pageSize = 8;
 const featuredArchiveCodes = ["LW-ART-081", "LW-ART-080"] as const;
 
 export function ArtCatalog({ artworks }: ArtCatalogProps) {

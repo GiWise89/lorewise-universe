@@ -69,7 +69,9 @@ export default function GamesPage() {
               <div className="studio-game-gateway-copy">
                 <div className="studio-game-gateway-status"><span>{presentation?.label ?? project.status}</span><small>0{index + 1} · {project.code}</small></div>
                 <p className="studio-game-gateway-kind">{project.kind}</p>
-                <h3>{project.title}</h3>
+                {project.slug === "sandbox" && project.logoImage
+                  ? <h3 className="studio-game-gateway-logo"><Image src={project.logoImage} alt={project.title} width={2139} height={417} unoptimized /></h3>
+                  : <h3>{project.title}</h3>}
                 <p className="studio-game-gateway-intro">{presentation?.note ?? project.summary}</p>
                 <p className="studio-game-gateway-summary">{project.summary.split(".")[0]}.</p>
                 <dl><div><dt>Versione</dt><dd>{project.version}</dd></div><div><dt>Accesso</dt><dd>{project.access}</dd></div><div><dt>Piattaforme</dt><dd>{project.platforms.join(" · ")}</dd></div></dl>

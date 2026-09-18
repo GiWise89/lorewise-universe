@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
-import { Cinzel_Decorative, Fraunces, Manrope } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteAnalyticsTracker } from "@/components/SiteAnalyticsTracker";
@@ -9,9 +9,9 @@ import { SiteJsonLd } from "@/components/SeoJsonLd";
 import { NexusPetNavigationPip } from "@/components/NexusPetNavigationPipLazy";
 import "./site.css";
 
-const display = Fraunces({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600", "700"] });
+// Un solo carattere per i titoli: Fraunces variabile copre tutti i pesi usati dal sito.
+const display = Fraunces({ variable: "--font-display", subsets: ["latin"] });
 const body = Manrope({ variable: "--font-body", subsets: ["latin"] });
-const loreDisplay = Cinzel_Decorative({ variable: "--font-lore-display", subsets: ["latin"], weight: ["400", "700", "900"] });
 
 const siteUrl = new URL("https://lorewisenexus.it");
 const title = "LoreWise Universe | Codex, giochi, arte e mondi da esplorare";
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="it">
-      <body className={`${display.variable} ${body.variable} ${loreDisplay.variable}`}>
+      <body className={`${display.variable} ${body.variable}`}>
         <SiteJsonLd />
         <a className="skip-link" href="#contenuto">Vai al contenuto</a>
         <Suspense fallback={null}>

@@ -1,3 +1,32 @@
+/*
+ * Sistema visivo LoreWise: due climi condivisi da tutte le sezioni.
+ * "Notte" per giochi, lore e fasce di passaggio; "Pergamena" per arte, servizi e lettura.
+ */
+:root {
+  --night-bg: #0d0a13;
+  --night-surface: #161220;
+  --night-raise: #1f1a2b;
+  --night-line: rgba(232, 212, 168, .16);
+  --night-ink: #f5ecdb;
+  --night-muted: #b9ae9f;
+  --gold: #d9b36a;
+  --gold-soft: #f1dba6;
+  --parchment-bg: #f7f0e4;
+  --parchment-surface: #fffaf2;
+  --parchment-ink: #1f1a2c;
+  --parchment-muted: #655c6d;
+  --parchment-line: rgba(31, 26, 44, .12);
+  --card-radius: 18px;
+  --card-shadow: 0 18px 44px rgba(31, 20, 44, .12);
+}
+
+/* I titoli "lore" usano lo stesso carattere dei titoli del sito. */
+body { --font-lore-display: var(--font-display); }
+
+/* Molti titoli stringono le lettere (letter-spacing negativo): con Fraunces le parole
+   finirebbero attaccate, quindi riapriamo lo spazio fra una parola e l'altra. */
+:where(h1,h2,h3) { word-spacing: .12em; }
+
 :root {
   --lorewise-body-size: clamp(.98rem, .24vw + .91rem, 1.1rem);
   --lorewise-reading-leading: 1.68;
@@ -40,3 +69,14 @@
   .welcome-commission-copy h2 { font-size:clamp(1.3rem,6.2vw,1.7rem); }
   .welcome-commission-copy p { font-size:.78rem; line-height:1.5; }
 }
+
+/* Fasce di passaggio nel clima "Notte": un solo fondo scuro al posto dei viola saturi. */
+.site-footer {
+  background-color: var(--night-bg);
+  background-image: radial-gradient(circle at 14% 0%, rgba(217, 179, 106, .12), transparent 42%), linear-gradient(180deg, #14101c, var(--night-bg));
+  color: var(--night-ink);
+  box-shadow: inset 0 1px 0 rgba(217, 179, 106, .38);
+}
+.site-footer h2,.site-footer .footer-identity .footer-kicker { color: var(--gold); }
+.site-footer .footer-column a,.site-footer .footer-identity .footer-statement { color: #e9e0d0; }
+.site-footer a:hover,.site-footer a:focus-visible { color: var(--gold-soft); }

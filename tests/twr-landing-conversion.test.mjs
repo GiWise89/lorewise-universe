@@ -28,11 +28,10 @@ test("puts The Wound Remembers before the wider LoreWise ecosystem", async () =>
   assert.match(home, /gameProjects\.filter\(\(project\) => project\.slug !== "the-wound-remembers"\)\.map/);
   assert.match(home, /title: "Scopri i mondi"/);
   assert.match(home, /title: "Crea o colleziona"/);
-  assert.match(home, /href="\/arte">Colleziona opere/);
-  assert.match(home, /href="\/commissioni">Richiedi una commissione/);
+  assert.match(home, /\{ title: "Colleziona opere", href: "\/arte" \}/);
+  assert.match(home, /\{ title: "Richiedi una commissione", href: "\/commissioni" \}/);
   assert.match(home, /title: "Partecipa al Nexus"/);
   assert.match(home, /title: "GiWise Shop"/);
-  assert.match(home, /title: "Commissioni"/);
   assert.match(home, /title: "Area VIP"/);
   assert.doesNotMatch(home, /href: "\/vip"/);
   assert.match(home, /title: "Universe Pass"/);
