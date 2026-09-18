@@ -117,7 +117,7 @@
 .nexus { --path-accent: #6d28d9; }
 .pathNumber { position: absolute; z-index: 3; top: 20px; left: 22px; color: var(--path-accent); font-size: .65rem; font-weight: 950; letter-spacing: .16em; }
 .pathArt { display: grid; place-items: center; padding: 20px; background: radial-gradient(circle, color-mix(in srgb, var(--path-accent) 14%, var(--parchment-surface)), transparent 68%); }
-.pathArt img { width: min(76%, 200px); height: 190px; object-fit: contain; filter: drop-shadow(0 16px 22px rgba(44, 30, 72, .18)); }
+.pathArt img { width: min(82%, 240px); height: 200px; object-fit: contain; filter: drop-shadow(0 16px 20px rgba(60, 38, 20, .22)); }
 .pathCopy { display: flex; flex-direction: column; align-items: stretch; padding: 30px clamp(22px, 2.4vw, 34px) 32px; border-top: 3px solid var(--path-accent); }
 .pathCopy > small { color: var(--path-accent); font-size: .62rem; font-weight: 950; letter-spacing: .13em; text-transform: uppercase; }
 .pathCopy > strong { display: block; margin-top: 10px; font: 700 clamp(1.9rem, 2.6vw, 2.9rem)/.98 var(--font-display), Georgia, serif; letter-spacing: -.035em; text-wrap: balance; }

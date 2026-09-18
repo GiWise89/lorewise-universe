@@ -30,7 +30,7 @@ const guidedPaths = [
     eyebrow: "Storie e personaggi",
     title: "Scopri i mondi",
     description: "Entra dagli universi, incontra i loro personaggi e approfondisci ciò che ti incuriosisce.",
-    image: "/brand/home-portals/mondi.webp",
+    image: "/brand/home-portals/porta-mondi-v2.webp",
     links: [
       { title: "Mondi", href: "/mondi" },
       { title: "LoreWise Codex", href: "/enciclopedia" },
@@ -43,7 +43,7 @@ const guidedPaths = [
     eyebrow: "Opere e idee",
     title: "Crea o colleziona",
     description: "Scopri le opere originali, porta a casa un oggetto dell’universo oppure racconta la tua idea per una commissione.",
-    image: "/brand/home-portals/arte.webp",
+    image: "/brand/home-portals/porta-crea-v2.webp",
     links: [
       { title: "Colleziona opere", href: "/arte" },
       { title: "Richiedi una commissione", href: "/commissioni" },
@@ -55,7 +55,7 @@ const guidedPaths = [
     eyebrow: "Il tuo posto nell’universo",
     title: "Partecipa al Nexus",
     description: "Incontra la community, adotta il tuo Famiglio e scegli i vantaggi pensati per chi vuole restare.",
-    image: "/brand/home-portals/vip.webp",
+    image: "/brand/home-portals/porta-nexus-v2.webp",
     links: [
       { title: "Community", href: "/community" },
       { title: "Famiglio", href: "/famiglio" },
@@ -133,7 +133,7 @@ export default async function Home({ searchParams }: { searchParams?: Promise<Re
           {guidedPaths.map((path, index) => (
             <article className={`${styles.path} ${styles[path.key]}`} key={path.key} aria-labelledby={`path-${path.key}`}>
               <span className={styles.pathNumber} aria-hidden="true">0{index + 1}</span>
-              <span className={styles.pathArt}><Image src={path.image} alt="" width={420} height={420} unoptimized /></span>
+              <span className={styles.pathArt}><Image src={path.image} alt="" width={560} height={560} unoptimized /></span>
               <span className={styles.pathCopy}>
                 <small>{path.eyebrow}</small>
                 <strong id={`path-${path.key}`}>{path.title}</strong>
