@@ -142,7 +142,7 @@ export const STUDIO_POLLS = [
     options: [
       { code: "nhevara", label: "Nhevara" },
       { code: "kharvoss", label: "Kharvoss" },
-      { code: "fuori-trama", label: "Il cast di Fuori Trama" },
+      { code: "patto-delle-ceneri", label: "Il Patto delle Ceneri" },
     ],
   },
   {

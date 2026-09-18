@@ -127,7 +127,6 @@ export async function GET() {
         { id: "hoplix", label: "GiWiseShop · Hoplix", detail: enabled(runtime.HOPLIX_COOKIE_AUDIT_APPROVED) ? "Cookie, dipendenze e passaggio visivo approvati." : "Verifica Hoplix sospesa su decisione del proprietario.", ready: enabled(runtime.HOPLIX_COOKIE_AUDIT_APPROVED), required: false },
         { id: "publication", label: "Autorizzazione alla pubblicazione", detail: enabled(runtime.LOREWISE_PUBLICATION_APPROVED) ? "Autorizzazione finale del proprietario registrata." : "Pubblicazione e nuovo staging non autorizzati: mantenere false fino al consenso esplicito di Luigi.", ready: enabled(runtime.LOREWISE_PUBLICATION_APPROVED), required: true },
         { id: "google", label: "Accesso Google", detail: enabled(runtime.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED) ? "Provider opzionale attivo." : "Opzionale: l'accesso email e password resta sufficiente.", ready: enabled(runtime.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED), required: false },
-        { id: "fuori-trama", label: "Fuori Trama", detail: "Build, 141 test e collaudo responsive locale superati. Distribuzione commerciale sospesa finché i 667 riferimenti esterni non saranno rimossi o autorizzati.", ready: false, required: false },
       ],
     },
   ];

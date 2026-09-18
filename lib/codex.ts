@@ -258,7 +258,6 @@ const curatedCodexEntries: CodexEntry[] = [
     production: {
       appearances: [
         { title: "The Wound Remembers", format: "Videogioco", role: "Personaggio principale e leader del Sangue Cavo", year: "2026", status: "editorial", sourceIds: ["twr-lore", "twr-factions", "codex-authorial"] },
-        { title: "Fuori Trama Next", format: "Videogioco · integrazione cross-universe", role: "Personaggio integrato nel Codice del Nexus", year: "2026", status: "verified", sourceIds: ["twr-integration"] },
       ],
       facts: [
         fact("Ideazione", verified("GiWise Studio", ["twr-integration"])),
@@ -289,7 +288,6 @@ const curatedCodexEntries: CodexEntry[] = [
         { id: "twr-factions", title: "Definizione della fazione Sangue Cavo", kind: "primary", location: "src/game/factions.ts", note: "Leadership, rito, identità narrativa e profilo di gioco." },
         { id: "twr-campaign", title: "Campagna principale", kind: "primary", location: "src/game/campaign.ts", note: "Azioni, dialoghi, luoghi e rapporti narrativi." },
         { id: "twr-extended-campaign", title: "Campagna estesa", kind: "primary", location: "src/game/extendedCampaign.ts", note: "Sviluppi successivi del viaggio attraverso le Porte." },
-        { id: "twr-integration", title: "Integrazione Fuori Trama Next", kind: "project", location: "src/data/characters.json", note: "Identità del progetto, immagine e collegamento cross-universe." },
         { id: "nhevara-visual", title: "Ritratto ufficiale di Nhevara", kind: "visual", location: "public/assets/leaders/nhevara.webp", note: "Riferimento esclusivamente visivo." },
         { id: "codex-authorial", title: "Lore originale sviluppata per LoreWise Codex", kind: "authorial", location: "LoreWise Universe · scheda Nhevara", note: "Espansione narrativa autorizzata dal creatore del personaggio e costruita in coerenza con il materiale primario." },
       ],
@@ -401,7 +399,6 @@ const curatedCodexEntries: CodexEntry[] = [
     production: {
       appearances: [
         { title: "The Wound Remembers", format: "Videogioco", role: "Co-protagonista e leader della Tomba Affamata", year: "2026", status: "editorial", sourceIds: ["twr-lore", "twr-factions", "codex-authorial"] },
-        { title: "Fuori Trama Next", format: "Videogioco · integrazione cross-universe", role: "Recluta del Codice del Nexus", year: "2026", status: "verified", sourceIds: ["twr-integration"] },
       ],
       facts: [
         fact("Ideazione", verified("GiWise Studio", ["twr-integration"])),
@@ -432,7 +429,6 @@ const curatedCodexEntries: CodexEntry[] = [
         { id: "twr-factions", title: "Definizione della fazione Tomba Affamata", kind: "primary", location: "src/game/factions.ts", note: "Leadership, mazzo, rito e identità ludica." },
         { id: "twr-campaign", title: "Campagna principale", kind: "primary", location: "src/game/campaign.ts", note: "Dialoghi, azioni e rapporto con Nhevara." },
         { id: "twr-extended-campaign", title: "Campagna estesa", kind: "primary", location: "src/game/extendedCampaign.ts", note: "La Chiave Viva, la palude e gli sviluppi oltre la Cattedrale." },
-        { id: "twr-integration", title: "Integrazione Fuori Trama Next", kind: "project", location: "src/data/campaignRewards.ts", note: "Titolo Re Sepolto, reclutamento e collegamento cross-universe." },
         { id: "kharvoss-visual", title: "Ritratto ufficiale di Kharvoss", kind: "visual", location: "public/assets/leaders/kharvoss-campaign-cutout.png", note: "Riferimento per anatomia, abiti ed equipaggiamento." },
         { id: "codex-authorial", title: "Lore originale sviluppata per LoreWise Codex", kind: "authorial", location: "LoreWise Universe · scheda Kharvoss", note: "Espansione narrativa autorizzata dal creatore e costruita in coerenza con il materiale primario." },
       ],
@@ -625,7 +621,8 @@ const mergedThirdPartyAliases = new Map([
 ]);
 const mergedThirdPartyRegistryIds = new Set(mergedThirdPartyAliases.keys());
 
-const originalCodexEntries = generatedOriginalDossiers as unknown as CodexEntry[];
+const originalCodexEntries = (generatedOriginalDossiers as unknown as CodexEntry[])
+  .filter((entry) => entry.catalog.work !== "LoreWise Fuori Trama");
 const verifiedThirdPartyEntries = generatedThirdPartyDossiers as unknown as CodexEntry[];
 const pennyExtraEntry = verifiedThirdPartyEntries.find((entry) => entry.slug === "penny-human-extra");
 const publicThirdPartyEntries = verifiedThirdPartyEntries

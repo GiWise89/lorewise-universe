@@ -1,5 +1,5 @@
 import { requireVipAccess } from "@/lib/vipAccess";
-import { VIP_AREAS, VIP_DEMON_MATCH_DROP, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP } from "@/lib/vipZone";
+import { VIP_AREAS, VIP_DEMON_MATCH_DROP, VIP_EDITORIAL_STATUS, VIP_EXPANSION } from "@/lib/vipZone";
 import { VIP_ART_DROP, VIP_ARTWORKS } from "@/data/vip-artworks";
 import { VIP_ATELIER } from "@/data/vip-atelier";
 import { VIP_DOWNLOAD_LIBRARY } from "@/data/vip-downloads";
@@ -24,7 +24,6 @@ export async function GET(request: Request) {
       areas: VIP_AREAS,
       editorial: VIP_EDITORIAL_STATUS,
       expansion: VIP_EXPANSION,
-      fuoriTrama: VIP_FUORI_TRAMA_DROP,
       demonMatch: VIP_DEMON_MATCH_DROP,
       art: { ...VIP_ART_DROP, artworks: VIP_ARTWORKS },
       atelier: VIP_ATELIER,

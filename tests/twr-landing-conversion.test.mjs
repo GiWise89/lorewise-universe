@@ -12,7 +12,7 @@ test("keeps The Wound Remembers landing focused on immediate play", async () => 
   assert.match(source, /TwrGameplayTrailer className="game-hero-secondary"/);
   assert.match(source, /isTheWoundRemembers && project\.logoImage \? <>\s*<Image className="game-dossier-logo"/);
   assert.match(source, /<h1 className=\{styles\.visuallyHiddenTitle\}>\{project\.title\}<\/h1>/);
-  const woundActionBranch = source.match(/\{isTheWoundRemembers \? <>([\s\S]*?)<\/> : isFuoriTrama/)?.[1] ?? "";
+  const woundActionBranch = source.match(/\{isTheWoundRemembers \? <>([\s\S]*?)<\/> : isPattoDelleCeneri/)?.[1] ?? "";
   assert.ok(woundActionBranch);
   assert.doesNotMatch(woundActionBranch, /Edizione Windows|target="_blank"/);
 });

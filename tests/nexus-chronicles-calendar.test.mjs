@@ -78,7 +78,6 @@ test("keeps every approved weekly announcement in the prepared calendar", () => 
     "Dal legame al paesaggio.",
     "Dopo mezzanotte cambia tutto.",
     "Due custodi, due memorie.",
-    "Dal gruppo al tavolo tattico.",
     "Il turno di Halloween comincia a River Fields.",
     "Il Sentiero riapre l’Atlante.",
     "Night City non concede una seconda prima impressione.",
@@ -115,7 +114,6 @@ test("uses only public, existing images in scheduled public announcements", asyn
     "../public/brand/icons/arte-concept-v1.webp",
     "../public/codex/seals/lorewise-codex-emblem-v1.webp",
     "../public/codex/display/nhevara.webp",
-    "../public/games/lorewise-fuori-trama-next/gameplay-current-tactical-battle.webp",
     "../public/brand/icons/commissioni-concept-v1.webp",
     "../public/universe-pass/benefits-sketch-constellation-v1.webp",
     "../public/promotions/halloween-corrupted-portrait-premium-v1.webp",
@@ -239,7 +237,6 @@ test("gives every scheduled announcement a direct internal path button", () => {
     "/vip-zone?area=downloads#downloads",
     "/vip-zone?area=atelier#atelier",
     "/enciclopedia#indice-codex",
-    "/dove-nascono-i-mondi/giochi/lorewise-fuori-trama-next",
   ]) assert.match(source, new RegExp(path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.equal([...source.matchAll(/action: "Apri /g)].length >= 8, true);
 });
@@ -253,7 +250,6 @@ test("keeps a permanent premium register with every declared Pass event", () => 
     "VIP-ATELIER",
     "VIP-DOWNLOADS",
     "TWR-ROGO",
-    "FUORI-TRAMA-PARTICIPATION",
     "DEMON-MATCH-ANDROID-DEMO",
     "COMMISSIONS-OPENING",
     "HALLOWEEN-HORROR-COLLECTIONS",

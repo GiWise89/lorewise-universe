@@ -95,33 +95,6 @@ export const VIP_DEMON_MATCH_DROP = {
   },
 } as const;
 
-export const VIP_FUORI_TRAMA_DROP = {
-  code: "FT-ROSTER-CANTANTI-01",
-  game: "Fuori Trama",
-  eyebrow: "Anteprima roster · Novità 01",
-  title: "Cantanti fuori trama",
-  subtitle: "Le voci entrano nel Nexus.",
-  status: "In sviluppo",
-  date: "21 agosto 2026",
-  introduction: "Una nuova sezione del roster porterà nel Nexus personaggi ispirati al mondo della musica. Cantanti italiani e internazionali potranno entrare nella compagnia e combattere al fianco dei personaggi preferiti nelle avventure di Fuori Trama.",
-  roster: [
-    { name: "Salmo", image: "fuori-trama-salmo", origin: "Italia" },
-    { name: "Noyz Narcos", image: "fuori-trama-noyz-narcos", origin: "Italia" },
-    { name: "Kid Yugi", image: "fuori-trama-kid-yugi", origin: "Italia" },
-    { name: "Biggie", image: "fuori-trama-biggie", origin: "Internazionale" },
-    { name: "2Pac", image: "fuori-trama-2pac", origin: "Internazionale" },
-  ],
-  promise: "Questi sono soltanto i primi nomi: arriveranno tantissimi altri cantanti italiani e internazionali. Ruoli, abilità e modalità di reclutamento saranno presentati progressivamente, senza anticipare caratteristiche non ancora confermate.",
-  communityVote: {
-    code: "FT-CANTANTI-COMMUNITY-01",
-    title: "Chi vuoi nel Nexus?",
-    description: "Scrivi il nome del cantante che vorresti vedere in Fuori Trama. La candidatura vale anche come tuo voto e puoi sostituirla finché la consultazione resta aperta.",
-    rule: "I due cantanti più votati saranno selezionati per la fase d'inserimento nel gioco, previa verifica dei diritti e approvazione definitiva.",
-  },
-  closing: "Fuori Trama resterà gratuito per tutti. Gli abbonati ricevono l'anteprima del roster e dei dossier di sviluppo, non un accesso esclusivo al gioco.",
-  rightsNote: "Anteprima creativa locale. Nomi, immagini e riferimenti a persone reali richiedono un audit dei diritti prima di qualsiasi pubblicazione o distribuzione.",
-} as const;
-
 export const VIP_EXPANSION = {
   code: "TWR-EXP-ROGO-01",
   game: "The Wound Remembers",
@@ -259,26 +232,6 @@ export const VIP_MEDIA = {
   "demon-match-varek": {
     objectKey: "vip-zone/games/demon-match-three/varek-shadow-lineage-v1.webp",
     contentType: "image/webp",
-  },
-  "fuori-trama-salmo": {
-    objectKey: "vip-zone/games/fuori-trama/cantanti/salmo-v1.jpg",
-    contentType: "image/jpeg",
-  },
-  "fuori-trama-noyz-narcos": {
-    objectKey: "vip-zone/games/fuori-trama/cantanti/noyz-narcos-v1.jpeg",
-    contentType: "image/jpeg",
-  },
-  "fuori-trama-kid-yugi": {
-    objectKey: "vip-zone/games/fuori-trama/cantanti/kid-yugi-v1.jpg",
-    contentType: "image/jpeg",
-  },
-  "fuori-trama-biggie": {
-    objectKey: "vip-zone/games/fuori-trama/cantanti/biggie-v1.jpg",
-    contentType: "image/jpeg",
-  },
-  "fuori-trama-2pac": {
-    objectKey: "vip-zone/games/fuori-trama/cantanti/2pac-v1.jpg",
-    contentType: "image/jpeg",
   },
   ...VIP_ART_MEDIA,
   ...VIP_ATELIER_MEDIA,

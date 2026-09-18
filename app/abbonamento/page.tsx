@@ -35,7 +35,7 @@ const faq = [
   ["Posso continuare gratuitamente?", "Sì. Cataloghi pubblici, anteprime, diario e contenuti gratuiti restano accessibili senza Pass."],
   ["Come funzionano i crediti Arte?", "Arrivano dopo ogni mese pagato: uno per Supporter e due per Collector. Puoi usarli soltanto sulle opere indicate come disponibili."],
   ["Perdo le opere se annullo?", "No. Le opere già riscattate e la relativa licenza personale restano nel tuo archivio."],
-  ["I giochi diventano a pagamento?", "No. Fuori Trama resta gratuito e The Wound Remembers resta giocabile. Il Pass aggiunge soltanto vantaggi e contenuti dichiarati."],
+  ["I giochi diventano a pagamento?", "No. The Wound Remembers resta giocabile. Per i progetti ancora in lavorazione, prezzo e distribuzione vengono dichiarati soltanto quando sono realmente definiti."],
   ["Posso annullare il rinnovo?", "Sì. Rinnovo, periodo attivo e vantaggi sono gestibili dalla tua Area personale."],
 ] as const;
 

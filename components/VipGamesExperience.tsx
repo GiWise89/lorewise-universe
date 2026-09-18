@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type FormEvent } from "react";
-import type { VIP_AREAS, VIP_DEMON_MATCH_DROP, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP } from "@/lib/vipZone";
+import { useEffect, useState } from "react";
+import type { VIP_AREAS, VIP_DEMON_MATCH_DROP, VIP_EDITORIAL_STATUS, VIP_EXPANSION } from "@/lib/vipZone";
 import type { VIP_ARTWORKS, VIP_ART_DROP } from "@/data/vip-artworks";
 import { VipArtExperience } from "@/components/VipArtExperience";
 import type { VIP_ATELIER } from "@/data/vip-atelier";
@@ -17,7 +17,6 @@ type VipPayload = {
   areas: typeof VIP_AREAS;
   editorial: typeof VIP_EDITORIAL_STATUS;
   expansion: typeof VIP_EXPANSION;
-  fuoriTrama: typeof VIP_FUORI_TRAMA_DROP;
   demonMatch: typeof VIP_DEMON_MATCH_DROP;
   art: typeof VIP_ART_DROP & { artworks: typeof VIP_ARTWORKS };
   atelier: typeof VIP_ATELIER;
@@ -25,7 +24,7 @@ type VipPayload = {
   weeklyGuide: GameGuide | null;
 };
 
-type ActiveGame = "the-wound-remembers" | "fuori-trama" | "demon-match-three";
+type ActiveGame = "the-wound-remembers" | "demon-match-three";
 type ActiveArea = "guides" | "games" | "art" | "atelier" | "downloads";
 const VIP_AREA_ICONS: Record<ActiveArea, string> = {
   guides: "/brand/icons/vip-guides-v1.webp",
@@ -34,12 +33,6 @@ const VIP_AREA_ICONS: Record<ActiveArea, string> = {
   atelier: "/brand/icons/vip-atelier-v1.webp",
   downloads: "/brand/icons/vip-downloads-v1.webp",
 };
-type SingerVotePayload = {
-  ranking: Array<{ id: string; name: string; votes: number; position: number }>;
-  viewerChoice: string | null;
-  error?: string;
-};
-
 export function VipGamesExperience({ initialArea = "guides", initialGame = "the-wound-remembers", guidePreview = "" }: {
   initialArea?: ActiveArea;
   initialGame?: ActiveGame;
@@ -49,10 +42,6 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
   const [error, setError] = useState<{ message: string; reason: string } | null>(null);
   const [activeArea, setActiveArea] = useState<ActiveArea>(initialArea);
   const [activeGame, setActiveGame] = useState<ActiveGame>(initialGame);
-  const [candidate, setCandidate] = useState("");
-  const [singerVote, setSingerVote] = useState<SingerVotePayload>({ ranking: [], viewerChoice: null });
-  const [voteMessage, setVoteMessage] = useState("");
-  const [voteBusy, setVoteBusy] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -72,18 +61,6 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
   }, [guidePreview]);
 
   useEffect(() => {
-    if (activeArea !== "games" || activeGame !== "fuori-trama") return;
-    const controller = new AbortController();
-    fetch("/api/vip-singer-vote", { cache: "no-store", headers: { accept: "application/json" }, signal: controller.signal })
-      .then(async (response) => {
-        if (!response.ok) return;
-        setSingerVote(await response.json() as SingerVotePayload);
-      })
-      .catch(() => undefined);
-    return () => controller.abort();
-  }, [activeArea, activeGame]);
-
-  useEffect(() => {
     if (!payload || !window.location.hash) return;
     const targetId = decodeURIComponent(window.location.hash.slice(1));
     const frame = window.requestAnimationFrame(() => {
@@ -91,29 +68,6 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
     });
     return () => window.cancelAnimationFrame(frame);
   }, [payload, activeArea, activeGame]);
-
-  async function submitSingerVote(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!candidate.trim() || voteBusy) return;
-    setVoteBusy(true);
-    setVoteMessage("");
-    try {
-      const response = await fetch("/api/vip-singer-vote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", accept: "application/json" },
-        body: JSON.stringify({ candidate }),
-      });
-      const body = await response.json() as SingerVotePayload;
-      if (!response.ok) throw new Error(body.error ?? "Voto non registrato.");
-      setSingerVote(body);
-      setCandidate("");
-      setVoteMessage("La tua scelta è stata registrata sul LoreWise ID.");
-    } catch (reason) {
-      setVoteMessage(reason instanceof Error ? reason.message : "Voto non registrato.");
-    } finally {
-      setVoteBusy(false);
-    }
-  }
 
   function openArea(areaId: string) {
     setActiveArea(areaId === "guides" || areaId === "art" || areaId === "atelier" || areaId === "downloads" ? areaId : "games");
@@ -136,7 +90,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
 
   if (!payload) {
     const loadingTargetId = activeArea === "games"
-      ? activeGame === "fuori-trama" ? "vip-panel-fuori-trama" : activeGame === "demon-match-three" ? "vip-demon-match" : "dossier-rogo"
+      ? activeGame === "demon-match-three" ? "vip-demon-match" : "dossier-rogo"
       : activeArea;
     return <section className="vip-loading shell" id={loadingTargetId} aria-live="polite">
       <span aria-hidden="true" />
@@ -144,7 +98,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
     </section>;
   }
 
-  const { areas, editorial, expansion, fuoriTrama, demonMatch, member } = payload;
+  const { areas, editorial, expansion, demonMatch, member } = payload;
   return <>
     <aside className="vip-member-bar" aria-label="Stato Universe Pass">
       <div className="shell">
@@ -271,13 +225,8 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
             <strong>The Wound Remembers</strong>
             <small>Il Rogo delle Dieci Porte</small>
           </button>
-          <button className={activeGame === "fuori-trama" ? "is-selected" : undefined} type="button" role="tab" aria-selected={activeGame === "fuori-trama"} aria-controls="vip-panel-fuori-trama" onClick={() => setActiveGame("fuori-trama")}>
-            <span>02</span>
-            <strong>Fuori Trama</strong>
-            <small>Cantanti fuori trama</small>
-          </button>
           <button className={activeGame === "demon-match-three" ? "is-selected" : undefined} type="button" role="tab" aria-selected={activeGame === "demon-match-three"} aria-controls="vip-demon-match" onClick={() => setActiveGame("demon-match-three")}>
-            <span>03</span>
+            <span>02</span>
             <strong>Demon Match Three</strong>
             <small>Nora · Varek · Android</small>
           </button>
@@ -393,57 +342,6 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
     </section>
     </div> : null}
 
-    {activeGame === "fuori-trama" ? <section className="vip-fuori-trama" id="vip-panel-fuori-trama" role="tabpanel" aria-labelledby="vip-fuori-trama-title">
-      <div className="shell">
-        <header className="vip-fuori-trama-copy">
-          <p className="eyebrow">{fuoriTrama.eyebrow}</p>
-          <img className="vip-fuori-trama-logo" src="/games/lorewise-fuori-trama-next/logo-official-v2.webp" alt="Fuori Trama" loading="lazy" decoding="async" />
-          <h2 id="vip-fuori-trama-title">{fuoriTrama.title}</h2>
-          <h3>{fuoriTrama.subtitle}</h3>
-          <div className="vip-fuori-trama-meta"><span>{fuoriTrama.status}</span><time>{fuoriTrama.date}</time></div>
-          <p>{fuoriTrama.introduction}</p>
-        </header>
-
-        <div className="vip-singer-roster" aria-label="Prima selezione dei cantanti">
-          {fuoriTrama.roster.map((character, index) => <article key={character.name}>
-            <figure>
-              <img src={`/api/vip-media?asset=${character.image}`} alt={`${character.name}, personaggio previsto per Fuori Trama`} loading="lazy" decoding="async" onError={showVipMediaFallback} />
-              <figcaption><span>{String(index + 1).padStart(2, "0")}</span><small>{character.origin}</small></figcaption>
-            </figure>
-            <h3>{character.name}</h3>
-            <p>Personaggio in sviluppo</p>
-          </article>)}
-        </div>
-
-        <div className="vip-fuori-trama-statement">
-          <p>{fuoriTrama.promise}</p>
-          <p className="vip-fuori-trama-note">{fuoriTrama.closing}</p>
-          <small>{fuoriTrama.rightsNote}</small>
-        </div>
-
-        <section className="vip-singer-vote" aria-labelledby="vip-singer-vote-title">
-          <header>
-            <p className="eyebrow">Scelta degli abbonati</p>
-            <h3 id="vip-singer-vote-title">{fuoriTrama.communityVote.title}</h3>
-            <p>{fuoriTrama.communityVote.description}</p>
-          </header>
-          <form onSubmit={submitSingerVote}>
-            <label htmlFor="vip-singer-candidate">Cantante da candidare</label>
-            <div>
-              <input id="vip-singer-candidate" name="candidate" value={candidate} onChange={(event) => setCandidate(event.target.value)} minLength={2} maxLength={60} placeholder="Scrivi nome o nome d’arte" required />
-              <button type="submit" disabled={voteBusy}>{voteBusy ? "Registrazione…" : singerVote.viewerChoice ? "Cambia voto" : "Candida e vota"}</button>
-            </div>
-            <small>Un voto per LoreWise ID. Scelta attuale: <strong>{singerVote.viewerChoice ?? "nessuna"}</strong>.</small>
-            <p role="status">{voteMessage}</p>
-          </form>
-          <div className="vip-singer-ranking">
-            <h4>Classifica VIP</h4>
-            {singerVote.ranking.length ? <ol>{singerVote.ranking.map((entry) => <li className={entry.position <= 2 ? "is-finalist" : undefined} key={entry.id}><span>{String(entry.position).padStart(2, "0")}</span><strong>{entry.name}</strong><small>{entry.votes} {entry.votes === 1 ? "voto" : "voti"}</small></li>)}</ol> : <p>La votazione è appena iniziata. La prima candidatura aprirà la classifica.</p>}
-          </div>
-          <footer>{fuoriTrama.communityVote.rule}</footer>
-        </section>
-      </div>
-    </section> : null}
     {activeGame === "demon-match-three" ? <section className="vip-demon-match" id="vip-demon-match" role="tabpanel" aria-labelledby="vip-demon-match-title">
       <header className="vip-demon-match-hero">
         <div className="vip-demon-match-art"><img src={`/api/vip-media?asset=${encodeURIComponent(demonMatch.image)}`} alt={demonMatch.imageAlt} decoding="async" fetchPriority="high" onError={showVipMediaFallback} /></div>

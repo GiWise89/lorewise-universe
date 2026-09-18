@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { Miniflare } from "miniflare";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
-import { getVipDownload, getVipMedia, VIP_AREAS, VIP_DEMON_MATCH_DROP, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_FUORI_TRAMA_DROP, VIP_MEDIA } from "../lib/vipZone.ts";
+import { getVipDownload, getVipMedia, VIP_AREAS, VIP_DEMON_MATCH_DROP, VIP_EDITORIAL_STATUS, VIP_EXPANSION, VIP_MEDIA } from "../lib/vipZone.ts";
 import { VIP_ARTWORKS, VIP_ART_DROP } from "../data/vip-artworks.ts";
 import { VIP_ATELIER, VIP_ATELIER_MEDIA_PRIVATE } from "../data/vip-atelier.ts";
 import { VIP_DOWNLOAD_LIBRARY } from "../data/vip-downloads.ts";
@@ -123,7 +123,7 @@ test("defines the approved spoiler-safe VIP expansion reveal", () => {
 });
 
 test("allows only declared private VIP media identifiers", () => {
-  assert.equal(Object.keys(VIP_MEDIA).length, 102);
+  assert.equal(Object.keys(VIP_MEDIA).length, 97);
   assert.equal(getVipMedia("rogo-key-art")?.contentType, "image/png");
   assert.equal(getVipMedia("vharokh-dossier")?.objectKey.includes("vharokh-sagoma"), true);
   assert.equal(getVipMedia("velisara-dossier")?.objectKey.includes("velisara-sagoma"), true);
@@ -208,18 +208,3 @@ test("separates commercial VIP originals from exhibition-only works", () => {
   assert.equal(VIP_ARTWORKS.every((artwork) => getVipMedia(artwork.mediaId)?.contentType === "image/webp"), true);
 });
 
-test("publishes one spoiler-safe Fuori Trama development novelty", () => {
-  assert.equal(VIP_FUORI_TRAMA_DROP.code, "FT-ROSTER-CANTANTI-01");
-  assert.equal(VIP_FUORI_TRAMA_DROP.game, "Fuori Trama");
-  assert.equal(VIP_FUORI_TRAMA_DROP.title, "Cantanti fuori trama");
-  assert.deepEqual(VIP_FUORI_TRAMA_DROP.roster.map((character) => character.name), ["Salmo", "Noyz Narcos", "Kid Yugi", "Biggie", "2Pac"]);
-  assert.match(VIP_FUORI_TRAMA_DROP.closing, /gratuito per tutti/i);
-  assert.match(VIP_FUORI_TRAMA_DROP.closing, /non un accesso esclusivo al gioco/i);
-  assert.match(VIP_FUORI_TRAMA_DROP.promise, /tantissimi altri cantanti/i);
-  assert.equal(VIP_FUORI_TRAMA_DROP.communityVote.code, "FT-CANTANTI-COMMUNITY-01");
-  assert.match(VIP_FUORI_TRAMA_DROP.communityVote.description, /candidatura vale anche come tuo voto/i);
-  assert.match(VIP_FUORI_TRAMA_DROP.communityVote.rule, /due cantanti più votati/i);
-  assert.match(VIP_FUORI_TRAMA_DROP.communityVote.rule, /verifica dei diritti/i);
-  assert.match(VIP_FUORI_TRAMA_DROP.rightsNote, /audit dei diritti/i);
-  assert.equal(VIP_FUORI_TRAMA_DROP.roster.every((character) => getVipMedia(character.image)?.contentType === "image/jpeg"), true);
-});

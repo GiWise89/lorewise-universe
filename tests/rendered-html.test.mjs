@@ -178,7 +178,7 @@ test("publishes robots, manifest and a dynamic public sitemap", async () => {
   const xml = await sitemap.text();
   assert.match(xml, /\/arte\/lw-art-001/);
   assert.match(xml, /\/enciclopedia\//);
-  assert.match(xml, /\/cerca/);
+  assert.doesNotMatch(xml, /\/cerca/);
   assert.match(xml, /\/dove-nascono-i-mondi/);
   assert.match(xml, /\/mondi/);
   assert.match(xml, /\/vip/);
@@ -342,7 +342,7 @@ test("renders one intuitive Codex index while keeping origins explicitly switcha
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.ok(Buffer.byteLength(html) < 450_000, "L'indice iniziale deve serializzare soltanto la prima pagina");
-  assert.match(html, /665[\s\S]{0,80}dossier/);
+  assert.match(html, /637[\s\S]{0,80}dossier/);
   assert.match(html, /Da dove vuoi iniziare\?/);
   assert.match(html, /Come consultare il LoreWise Codex/);
   assert.match(html, /Scelta facoltativa/);
@@ -368,7 +368,7 @@ test("loads the complete Codex index from the cached public endpoint", async () 
   assert.equal(response.status, 200);
   assert.match(response.headers.get("cache-control") || "", /s-maxage=86400/);
   const payload = await response.json();
-  assert.equal(payload.entries.length, 665);
+  assert.equal(payload.entries.length, 637);
   assert.match(payload.entries.map((entry) => entry.displayTitle).join("\n"), /Pennywise, il Clown Danzante/);
 });
 
@@ -377,7 +377,7 @@ test("renders the separate GiWise Originals archive", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Originali[\s\S]*GiWise/);
-  assert.match(html, /223[\s\S]{0,80}dossier originali/);
+  assert.match(html, /195[\s\S]{0,80}dossier originali/);
   assert.match(html, /Nhevara, Madreferita/);
   assert.match(html, /Kharvoss, Re Sepolto/);
   assert.match(html, /Elyra, Voce Negata/);
@@ -1053,9 +1053,10 @@ test("renders the real GiWise Studio game catalog without simulated purchases", 
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /The Wound Remembers/);
-  assert.match(html, /Fuori Trama/);
+  assert.match(html, /Il Patto delle Ceneri/);
   assert.match(html, /Demon Match Three/);
-  assert.match(html, /Disponibile e in aggiornamento/);
+  assert.match(html, /SandBox/);
+  assert.match(html, /Giocabile ora/);
   assert.match(html, /In sviluppo/);
   assert.match(html, /GS-GAME-001/);
   assert.match(html, /GS-GAME-002/);
@@ -1070,7 +1071,7 @@ test("renders The Wound Remembers as a live evolving game with a verified but un
   assert.match(html, /Costruisci il tuo Patto\. Leggi la Nemesi\./);
   assert.match(html, /Versione web 1\.0\.0/);
   assert.match(html, /Italiano · interfaccia e contenuti/);
-  assert.match(html, /Limiti conosciuti e materiali/);
+  assert.match(html, /Compatibilità e limiti attuali/);
   assert.match(html, /Windows SmartScreen/);
   assert.match(html, /gameplay-trailer-v1\.mp4/);
   assert.match(html, /Campagna narrativa articolata in dieci atti/);
@@ -1112,29 +1113,6 @@ test("renders the transparent draft license for the future Windows edition", asy
   assert.match(html, /non esclusiva e non trasferibile/i);
   assert.match(html, /non dovrà mai disattivare antivirus o protezioni di Windows/i);
   assert.match(html, /SHA-256 pubblicato e verificabile/i);
-});
-
-test("renders Fuori Trama as a free tactical RPG dossier with current desktop gameplay", async () => {
-  const response = await render("/giochi/lorewise-fuori-trama-next");
-  assert.equal(response.status, 200);
-  const html = await response.text();
-  assert.match(html, /Fuori Trama/);
-  assert.match(html, /RPG tattico di LoreWise Universe con regole d20/);
-  assert.match(html, /Pre-release 0\.1\.0/);
-  assert.match(html, /Italiano · sviluppo corrente/);
-  assert.match(html, /Gratuito per tutti/);
-  assert.match(html, /Download gratuito in preparazione/);
-  assert.match(html, /Entra nello sviluppo/);
-  assert.match(html, /Universe Pass/);
-  assert.match(html, /non costituisce il prezzo del gioco/);
-  assert.match(html, /gameplay-current-campaigns\.webp/);
-  assert.match(html, /gameplay-current-expedition-party\.webp/);
-  assert.match(html, /gameplay-current-tactical-battle\.webp/);
-  assert.match(html, /gameplay-current-card-duel\.webp/);
-  assert.match(html, /Risolvi il duello con le carte/);
-  assert.match(html, /audit dei contenuti/);
-  assert.match(html, /universi di terzi/);
-  assert.doesNotMatch(html, /Acquista ora|Scarica gratuitamente/);
 });
 
 test("renders the current native Android Demon Match Three gameplay without exposing the VIP protagonists", async () => {
@@ -1192,11 +1170,10 @@ test("renders the unified LoreWise account with a safe authentication state and 
   const html = await response.text();
   assert.match(html, /LoreWise ID/);
   assert.match(html, /Il tuo universo, sempre con te/);
-  assert.match(html, /Ordini/);
-  assert.match(html, /Arte e licenze/);
+  assert.match(html, /Acquisti/);
   assert.match(html, /Commissioni/);
-  assert.match(html, /Abbonamento/);
-  assert.match(html, /Libreria giochi/);
+  assert.match(html, /Consegne riservate/);
+  assert.match(html, /Vantaggi sempre visibili/);
   assert.match(html, /Accesso sicuro (?:in preparazione|disponibile)/);
   assert.match(html, /Registrati/);
   assert.match(html, /Imposta o recupera password/);
@@ -1286,15 +1263,9 @@ test("keeps the Community moderation workspace private", async () => {
   assert.equal(new URL(response.headers.get("location"), "http://localhost").pathname, "/account");
 });
 
-test("renders a harmless administrator simulation without a real account", async () => {
+test("hides the administrator simulation in production builds", async () => {
   const response = await render("/gestione-community-simulazione");
-  assert.equal(response.status, 200);
-  const html = await response.text();
-  assert.match(html, /simulazione amministratore/i);
-  assert.match(html, /Modalità prova locale/i);
-  assert.match(html, /admin\.simulato@example\.invalid/i);
-  assert.match(html, /Questo è un commento dimostrativo/i);
-  assert.match(html, /Nessun account reale viene modificato/i);
+  assert.equal(response.status, 404);
 });
 
 test("protects account deletion requests behind an authenticated session", async () => {
@@ -1415,14 +1386,8 @@ test("keeps the artwork delivery archive private", async () => {
 
 test("keeps the verified Windows game archive private and the installer unavailable", async () => {
   const page = await render("/gestione-consegne-giochi");
-  assert.equal(page.status, 200);
-  const html = await page.text();
-  assert.match(html, /Edizione Windows/i);
-  assert.match(html, /La build desktop corretta è verificata/i);
-  assert.match(html, /1\.0\.2/);
-  assert.match(html, /85830385096300EDC17FCD79A8210A212848F081E044160FE6E33CF31240D810/);
-  assert.match(html, /Scansione Microsoft Defender da completare/i);
-  assert.doesNotMatch(html, /1587DA3C2ACD614166D7F5DFD5D0B323E40D2AC9F73846010D9508332D3AABD6/);
+  assert.equal(page.status, 307);
+  assert.match(page.headers.get("location") ?? "", /\/account$/);
   const api = await render("/api/game-deliveries/admin", { headers: { accept: "application/json" } });
   assert.equal(api.status, 401);
   assert.match(await api.text(), /Sessione amministratore non valida/i);
