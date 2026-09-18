@@ -1,4 +1,5 @@
 import type { FamiliarHomeState, FamiliarInventoryItemId } from "./famiglioHome.ts";
+import { restoreFamiliarStreakClaims, type FamiliarStreakClaim } from "./famiglioStreak.ts";
 
 export const FAMILIAR_ATTENDANCE_DAYS = 365;
 export const FAMILIAR_ATTENDANCE_WEEKS = 52;
@@ -25,6 +26,8 @@ export type FamiliarAttendanceState = {
   lastClaimDate: string | null;
   collectibles: string[];
   echoShards: number;
+  /** Traguardi della serie già riscossi (chiave: giorni + inizio serie). */
+  streakMilestones: FamiliarStreakClaim[];
 };
 
 export type FamiliarAttendanceReward = {
@@ -60,7 +63,7 @@ export function familiarLocalDateKey(now = new Date()) {
 }
 
 export function createFamiliarAttendanceState(launchDate = FAMILIAR_ATTENDANCE_LAUNCH_DATE): FamiliarAttendanceState {
-  return { launchDate, claimedDates: [], streak: 0, lastClaimDate: null, collectibles: [], echoShards: 0 };
+  return { launchDate, claimedDates: [], streak: 0, lastClaimDate: null, collectibles: [], echoShards: 0, streakMilestones: [] };
 }
 
 export function restoreFamiliarAttendanceState(value: unknown): FamiliarAttendanceState {
@@ -81,6 +84,7 @@ export function restoreFamiliarAttendanceState(value: unknown): FamiliarAttendan
     lastClaimDate: typeof candidate.lastClaimDate === "string" && DATE_RE.test(candidate.lastClaimDate) ? candidate.lastClaimDate : null,
     collectibles,
     echoShards: Math.max(0, Math.round(Number(candidate.echoShards) || 0)),
+    streakMilestones: restoreFamiliarStreakClaims(candidate.streakMilestones),
   };
 }
 

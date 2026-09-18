@@ -81,3 +81,22 @@ export function sanitizeFamiglioRebuildCloudSave(value: unknown):
     save: { ...value, schemaVersion: 1, activeHouseIndex, houses: value.houses as Array<JsonRecord | null>, updatedAt },
   };
 }
+
+/**
+ * Il Registro presenze (date, serie, ricordi e traguardi della serie) viene
+ * scritto soltanto dalle rotte server di riscatto, con l'orologio del server.
+ * Un salvataggio inviato dal client non può riscrivere date o traguardi: per
+ * ogni Casa già presente sul server si conserva il registro autorevole.
+ */
+export function preserveServerOwnedAttendance(
+  incoming: FamiglioRebuildCloudSave,
+  current: FamiglioRebuildCloudSave | null,
+): FamiglioRebuildCloudSave {
+  if (!current) return incoming;
+  const houses = incoming.houses.map((house, index) => {
+    const stored = current.houses[index];
+    if (!house || !stored || !isRecord(house.home) || !isRecord(stored.home) || !isRecord(stored.home.attendance)) return house;
+    return { ...house, home: { ...house.home, attendance: stored.home.attendance } };
+  });
+  return { ...incoming, houses };
+}

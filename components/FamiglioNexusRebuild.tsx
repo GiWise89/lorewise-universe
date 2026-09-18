@@ -98,6 +98,7 @@ import {
 } from "@/lib/famiglioCombatCatalog";
 import { FamiglioGuideOverlay } from "./FamiglioGuideOverlay";
 import { FamiglioDailyMiniGame } from "./FamiglioDailyMiniGame";
+import { FamiglioStreakCard } from "./FamiglioStreakCard";
 import { familiarActivityGate, familiarCombatNeedBonus } from "@/lib/famiglioWellbeing";
 import { familiarDailyMoment, familiarReturnGreeting } from "@/lib/famiglioDailyMoments";
 import { familiarLevelForExperience } from "@/lib/nexusFamiliar";
@@ -112,6 +113,7 @@ import {
   familiarLocalDateKey,
   type FamiliarAttendanceReward,
 } from "@/lib/famiglioAttendanceYear";
+import { claimFamiliarStreakMilestone, type FamiliarStreakMilestone } from "@/lib/famiglioStreak";
 
 const FamiglioAdventure = dynamic(() => import("./FamiglioAdventure").then((module) => module.FamiglioAdventure), {
   ssr: false,
@@ -2170,6 +2172,8 @@ export function FamiglioNexusRebuild() {
   const [attendanceBusy, setAttendanceBusy] = useState(false);
   const [attendanceReveal, setAttendanceReveal] = useState<FamiliarAttendanceReward | null>(null);
   const [attendanceAutoSuppressed, setAttendanceAutoSuppressed] = useState(false);
+  const [streakBusy, setStreakBusy] = useState(false);
+  const [streakMessage, setStreakMessage] = useState<string | null>(null);
   const [miniGameOpen, setMiniGameOpen] = useState(false);
   const [miniGamePractice, setMiniGamePractice] = useState(false);
   const [bondStoryOpen, setBondStoryOpen] = useState(false);
@@ -2296,6 +2300,45 @@ export function FamiglioNexusRebuild() {
       setAttendanceBusy(false);
     }
   }, [activeHouseIndex, attendanceBusy, cloudSyncReady, homeState]);
+
+  const claimStreakMilestone = useCallback(async (days: number) => {
+    if (streakBusy) return;
+    setStreakBusy(true);
+    setStreakMessage(null);
+    const announce = (milestone: FamiliarStreakMilestone) => setStreakMessage(`Traguardo ${milestone.title} riscattato: ${milestone.label}.`);
+    try {
+      if (cloudSyncReady && !previewSessionRef.current) {
+        // Con il LoreWise ID attivo la serie viene ricalcolata sul server: il
+        // client indica soltanto il traguardo, mai date o conteggi.
+        const response = await fetch("/api/famiglio/rebuild/streak", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ houseIndex: activeHouseIndex, baseRevision: cloudRevisionRef.current, days }),
+        });
+        const payload = await response.json().catch(() => ({})) as { home?: unknown; milestone?: FamiliarStreakMilestone; revision?: unknown; error?: string };
+        if (response.ok && payload.home && payload.milestone) {
+          setHomeState(restoreFamiliarHome(payload.home));
+          cloudRevisionRef.current = Math.max(cloudRevisionRef.current, Math.floor(Number(payload.revision) || 0));
+          announce(payload.milestone);
+          return;
+        }
+        if (response.status !== 401) {
+          setStreakMessage(payload.error || "Il premio non è stato consumato. Riprova.");
+          return;
+        }
+      }
+      const claimed = claimFamiliarStreakMilestone(homeState, days);
+      if (claimed.status === "claimed" && claimed.milestone) {
+        setHomeState(claimed.state);
+        announce(claimed.milestone);
+      }
+    } catch {
+      setStreakMessage("Il premio non è stato consumato. Riprova.");
+    } finally {
+      setStreakBusy(false);
+    }
+  }, [activeHouseIndex, cloudSyncReady, homeState, streakBusy]);
 
   useEffect(() => {
     let cancelled = false;
@@ -3686,6 +3729,13 @@ export function FamiglioNexusRebuild() {
                   <strong>{activeGrowth.bondXp} XP</strong>
                 </div>
               </div>
+              <FamiglioStreakCard
+                attendance={homeState.attendance}
+                busy={streakBusy}
+                message={streakMessage}
+                onClaim={(days) => void claimStreakMilestone(days)}
+                onOpenAttendance={() => { setAttendanceReveal(null); setAttendanceOpen(true); }}
+              />
               {HOME_NEEDS.map((need) => (
                 <div className={styles.needRow} key={need.id}>
                   <span aria-hidden="true">{need.icon}</span>

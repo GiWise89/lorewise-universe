@@ -18,6 +18,12 @@
 .companion p b { color: #fff0ae; font-size: .82rem; text-transform: uppercase; }
 .companion p span { color: #d2e9e7; font-size: .72rem; line-height: 1.35; }
 .card > a { display: flex; justify-content: space-between; padding: 10px 13px; color: #281736; background: #ffd45b; font-size: .78rem; font-weight: 900; text-decoration: none; text-transform: uppercase; }
+.trigger { position: relative; }
+.streakBadge { position: absolute; top: -8px; right: -6px; display: inline-flex; align-items: center; gap: 2px; min-width: 22px; padding: 2px 5px; color: #281736; background: #ff9d3b; border: 2px solid #092c37; border-radius: 9px; font: 900 .62rem/1 ui-monospace, monospace; font-style: normal; box-shadow: 0 2px 6px rgba(4,2,12,.4); }
+.streakBadge[data-risk="true"] { background: #ffd45b; }
+.streakBadge svg { flex: 0 0 auto; }
+.companion p .streakLine { color: #ffc58a; font-weight: 800; }
+.companion p .streakLine[data-risk="true"] { color: #ffd45b; }
 .spriteFrame { display: block; flex: 0 0 auto; background-repeat: no-repeat; image-rendering: pixelated; }
 
 @media (max-width: 640px) {
