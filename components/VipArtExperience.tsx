@@ -29,7 +29,7 @@ export function VipArtExperience({ art, discountPercent }: { art: VipArtPayload;
       {featured ? <img src={`/api/vip-media?asset=${featured.mediaId}`} alt="Anteprima protetta dell'opera VIP del mese" width="1600" height="1200" decoding="async" fetchPriority="high" onError={showVipMediaFallback} /> : null}
       <div className="vip-art-hero-shade" aria-hidden="true" />
       <div className="shell">
-        <p className="eyebrow">LoreWise VIP · Drop arte 01</p>
+        <p className="eyebrow">Area VIP · Drop arte 01</p>
         <span>Scelta VIP del mese</span>
         <h1 id="vip-art-title">{art.title}</h1>
         <p>{art.subtitle}</p>
@@ -81,7 +81,7 @@ export function VipArtExperience({ art, discountPercent }: { art: VipArtPayload;
       </div>
 
       {visibleCount < works.length ? <button className="vip-art-more" type="button" onClick={() => setVisibleCount((count) => count + 12)}>Mostra altre opere <span>{Math.min(12, works.length - visibleCount)}</span></button> : null}
-      <p className="vip-art-protection">Le immagini mostrate sono copie ridotte e filigranate. I file originali non vengono esposti nella VIP Zone.</p>
+      <p className="vip-art-protection">Le immagini mostrate sono copie ridotte e filigranate. I file originali non vengono esposti nell’Area VIP.</p>
     </div>
 
     {selected ? <div className="vip-art-lightbox" role="dialog" aria-modal="true" aria-label={`Dettaglio di ${selected.title}`} onClick={() => setSelectedId(null)}>

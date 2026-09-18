@@ -12,7 +12,7 @@ const staticPaths = [
   "", "/arte", "/abbonamento", "/commissioni", "/commissioni/condizioni",
   "/giochi", "/giochi/guide", "/giochi/nexus-pet", "/assistenza-giochi", "/condizioni-vendita-giochi", "/enciclopedia",
   "/enciclopedia/originali-giwise", "/enciclopedia/proposte-vip", "/shop", "/shop/catalogo", "/licenza-arte", "/licenza-gioco",
-  "/privacy", "/contatti", "/community", "/mondi", "/vip", "/dove-nascono-i-mondi", "/cronache-del-nexus", "/famiglio", "/feste-nel-nexus",
+  "/privacy", "/contatti", "/community", "/mondi", "/dove-nascono-i-mondi", "/cronache-del-nexus", "/famiglio", "/feste-nel-nexus",
 ];
 
 function escapeXml(value: string) {

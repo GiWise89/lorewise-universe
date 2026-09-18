@@ -4,8 +4,8 @@ import { VipGamesExperience } from "@/components/VipGamesExperience";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "LoreWise VIP",
-  description: "Anteprime e dossier riservati agli abbonati Universe Pass.",
+  title: "Area VIP",
+  description: "L’Area VIP del Universe Pass: guide in anteprima, dossier, atelier e download riservati agli abbonati.",
   robots: { index: false, follow: false, noarchive: true, noimageindex: true },
 };
 

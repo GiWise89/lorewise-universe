@@ -29,7 +29,7 @@ export default async function PublicGameGuidesPage({ searchParams }: PublicGameG
         <dl>
           <div><dt>Guide pubbliche</dt><dd>{guides.length}</dd></div>
           <div><dt>Nuovi arrivi</dt><dd>Ogni lunedì</dd></div>
-          <div><dt>Anteprima</dt><dd>LoreWise VIP</dd></div>
+          <div><dt>Anteprima</dt><dd>Area VIP</dd></div>
         </dl>
       </div>
     </header>
@@ -72,9 +72,9 @@ export default async function PublicGameGuidesPage({ searchParams }: PublicGameG
       </section>}
     </> : <section className="shell public-game-guides-empty">
       <p className="eyebrow">Prima apertura · 24 agosto 2026</p>
-      <h2>La prima guida è ancora nell’area VIP.</h2>
+      <h2>La prima guida è ancora nell’Area VIP.</h2>
       <p>Lunedì “Il taccuino dell’isola”, la guida completa di Animal Crossing: New Horizons, entrerà automaticamente qui. Gli abbonati possono già leggerla nella sezione “Guida della settimana”.</p>
-      <Link href="/vip-zone">Apri LoreWise VIP <span aria-hidden="true">→</span></Link>
+      <Link href="/vip-zone">Apri l’Area VIP <span aria-hidden="true">→</span></Link>
     </section>}
   </main>;
 }

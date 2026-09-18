@@ -12,7 +12,7 @@ export type VipRuntimeEnv = { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket };
 export async function requireVipAccess(options: { prepareCommerce?: boolean } = {}) {
   const user = await getLoreWiseUser();
   if (!user?.email || !evaluateVipAccess({ authenticated: true, accountActive: true, passActive: true }).allowed) {
-    return { error: Response.json({ error: "Accedi al tuo LoreWise ID per entrare nella VIP Zone.", reason: "signed-out" }, { status: 401, headers: { "Cache-Control": "private, no-store" } }) } as const;
+    return { error: Response.json({ error: "Accedi al tuo LoreWise ID per entrare nell’Area VIP.", reason: "signed-out" }, { status: 401, headers: { "Cache-Control": "private, no-store" } }) } as const;
   }
 
   const runtime = env as unknown as VipRuntimeEnv;

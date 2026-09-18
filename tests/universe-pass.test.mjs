@@ -118,3 +118,30 @@ test("collega i pulsanti iniziali alle sezioni della pagina con ancore native", 
   assert.match(page, /id="vantaggi"/);
   assert.match(styles, /\.benefits\{scroll-margin-top:88px/);
 });
+
+test("deriva il confronto Gratis / Universe Pass dai piani dichiarati", async () => {
+  const { passComparisonColumns, passComparisonRows, formatMonthlyPrice } = await import("../lib/universePassComparison.ts");
+  const columns = passComparisonColumns();
+  assert.deepEqual(columns.map((column) => column.label), ["Gratis", "Universe Pass Supporter", "Universe Pass Collector"]);
+  const rows = Object.fromEntries(passComparisonRows(columns).map((row) => [row.key, row.cells.map((cell) => cell.text)]));
+  assert.deepEqual(rows["art-credits"], ["Non incluso", "1 al mese · massimo 2", "2 al mese · massimo 4"]);
+  assert.deepEqual(rows.commission, ["Non incluso", "−5%", "−10%"]);
+  assert.deepEqual(rows.artwork, ["Non incluso", "−10%", "−20%"]);
+  assert.deepEqual(rows.dossiers, ["Non incluso", "Non incluso", "Incluso"]);
+  assert.deepEqual(rows["vip-area"], ["Non incluso", "Incluso", "Incluso"]);
+  assert.equal(formatMonthlyPrice(790), "7,90 € / mese");
+  assert.equal(formatMonthlyPrice(1390), "13,90 € / mese");
+});
+
+test("fa di /abbonamento l’unica landing del Universe Pass", () => {
+  const page = readFileSync(new URL("../app/abbonamento/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /id="confronto"/);
+  assert.match(page, /Cosa sblocchi questo mese/);
+  assert.match(page, /resolveSubscriptionProduct/);
+  assert.match(page, /nexusBenefitEvents/);
+  assert.doesNotMatch(page, /price: "\d/);
+  const vip = readFileSync(new URL("../app/vip/page.tsx", import.meta.url), "utf8");
+  assert.match(vip, /permanentRedirect\("\/abbonamento"\)/);
+  const sitemap = readFileSync(new URL("../app/sitemap.xml/route.ts", import.meta.url), "utf8");
+  assert.doesNotMatch(sitemap, /"\/vip"/);
+});
