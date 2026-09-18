@@ -78,6 +78,7 @@
 .gamesPortal>span{display:grid;gap:5px}.gamesPortal small{color:#85e6ac;font-size:.62rem;font-weight:950;letter-spacing:.13em;text-transform:uppercase}.gamesPortal strong{font:700 clamp(1.55rem,2.6vw,2.7rem)/1 var(--font-display),Georgia,serif}.gamesPortal span>span{color:#c9c3bd;font-size:.82rem;line-height:1.55}
 .gamesPortal>b{display:inline-flex;gap:18px;align-items:center;padding:14px 17px;color:#07130d;background:#85e6ac;font-size:.7rem;font-weight:950;white-space:nowrap}.gamesPortal i{font-size:1rem;font-style:normal}
 .gameGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 26px); margin-top: clamp(32px, 4vw, 48px); }
+.gameGrid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
 .gameCard { --game-state: #d5aa58; min-width: 0; display: grid; grid-template-columns: minmax(170px, .72fr) minmax(0, 1.28fr); overflow: hidden; border: 1px solid rgba(255, 244, 222, .2); border-radius: 8px 26px 8px 26px; background: linear-gradient(145deg, #111722, #1b1422); color: #fff4de; transition: transform .24s ease, border-color .24s ease; }
 .available { --game-state: #85e6ac; }
 .development { --game-state: #d5aa58; }
@@ -240,3 +241,5 @@
 @media (prefers-reduced-motion: reduce) {
   .path,.pathCopy > b i,.gameCard,.serviceCard { transition: none; }
 }
+.gameCopy strong.gameLogo { width: min(420px, 100%); }
+.gameLogo img { display: block; width: 100%; height: auto; image-rendering: pixelated; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .5)); }

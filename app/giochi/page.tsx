@@ -9,7 +9,8 @@ import { FunnelLink } from "@/components/FunnelLink";
 const gamePresentation = {
   "the-wound-remembers": { label: "Giocabile ora", tone: "available", note: "Apri la versione web e inizia subito." },
   "demon-match-three": { label: "In sviluppo", tone: "development", note: "Segui la costruzione dell’esperienza Android." },
-  "lorewise-fuori-trama-next": { label: "In arrivo", tone: "upcoming", note: "Scopri il progetto prima della futura apertura pubblica." },
+  "the-wound-remembers-il-patto-delle-ceneri": { label: "In lavorazione", tone: "upcoming", note: "Segui il nuovo GDR tattico dalla prima missione giocabile alla campagna completa." },
+  sandbox: { label: "In sviluppo", tone: "development", note: "Crea un mondo, affidalo a sei popoli e guarda nascere villaggi, regni e guerre." },
 } as const;
 
 export const metadata: Metadata = {
