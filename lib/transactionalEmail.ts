@@ -8,7 +8,8 @@ type EmailRuntimeEnv = {
 export type TransactionalTemplate =
   | "order_paid" | "order_refunded" | "payment_disputed"
   | "subscription_activated" | "subscription_renewed" | "subscription_payment_failed"
-  | "commission_received" | "commission_quote" | "commission_payment";
+  | "commission_received" | "commission_quote" | "commission_payment"
+  | "newsletter_confirmation";
 
 export type TransactionalEmailPayload = {
   name?: string; referenceCode?: string; title?: string; amountLabel?: string;
@@ -39,6 +40,7 @@ function templateCopy(template: TransactionalTemplate, payload: TransactionalEma
     subscription_payment_failed: { subject: "Pagamento Universe Pass non riuscito", heading: "Il rinnovo non è stato confermato.", body: `Il pagamento mensile di ${payload.planLabel || title} non è riuscito. Verifica lo stato nell’Area personale prima che i vantaggi vengano sospesi.`, action: "Controlla l’abbonamento" },
     commission_received: { subject: `Richiesta ricevuta · ${reference}`, heading: "La tua richiesta è arrivata.", body: `GiWise Studio ha ricevuto ${title}. Il codice ${reference} permette di seguire preventivo, decisioni e pagamenti.`, action: "Segui la richiesta" },
     commission_quote: { subject: `Preventivo disponibile · ${reference}`, heading: "Il preventivo è pronto.", body: `Il preventivo per ${title} è disponibile.${amount} Apri la pratica per leggere il riepilogo e accettare le condizioni.`, action: "Apri il preventivo" },
+    newsletter_confirmation: { subject: `Conferma l’iscrizione · ${title}`, heading: "Manca un solo passo.", body: `Hai chiesto di ricevere ${title} da LoreWise Universe. Conferma l’indirizzo con il pulsante qui sotto: finché non lo fai non ti scriveremo altro. Il link resta valido per 48 ore. Se non sei stato tu, ignora questo messaggio e nessuna iscrizione verrà attivata.`, action: "Conferma l’iscrizione" },
     commission_payment: { subject: `${payload.phaseLabel || "Pagamento"} confermato · ${reference}`, heading: `${payload.phaseLabel || "Pagamento"} registrato.`, body: `Il pagamento per ${title} è stato collegato alla commissione ${reference}.${amount} Lo stato del progetto è già aggiornato.`, action: "Segui il progetto" },
   };
   return copies[template];
@@ -48,7 +50,10 @@ export function renderTransactionalEmail(template: TransactionalTemplate, payloa
   const copy = templateCopy(template, payload);
   const actionUrl = payload.detailUrl || payload.accountUrl || "https://lorewisenexus.it/account";
   const greeting = payload.name ? `Ciao ${escapeHtml(payload.name)},` : "Ciao,";
-  const html = `<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escapeHtml(copy.subject)}</title></head><body style="margin:0;background:#efe7f5;color:#241031;font-family:Arial,sans-serif"><table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td align="center" style="padding:32px 16px"><table role="presentation" width="620" cellspacing="0" cellpadding="0" style="max-width:620px;background:#fffaf4;border-top:5px solid #dc2579"><tr><td style="padding:38px 42px"><p style="margin:0 0 24px;color:#7c35ec;font-weight:700;letter-spacing:2px;text-transform:uppercase">LoreWise Universe · GiWise Studio</p><p style="font-size:17px">${greeting}</p><h1 style="margin:14px 0;color:#17295e;font-family:Georgia,serif;font-size:38px;line-height:1.05">${escapeHtml(copy.heading)}</h1><p style="font-size:17px;line-height:1.7;color:#4a3652">${escapeHtml(copy.body)}</p><p style="margin:30px 0"><a href="${escapeHtml(actionUrl)}" style="display:inline-block;background:#dc2579;color:#fff;text-decoration:none;font-weight:700;padding:15px 22px">${escapeHtml(copy.action)}</a></p><p style="margin:32px 0 0;padding-top:22px;border-top:1px solid #ddcfdb;font-size:13px;line-height:1.6;color:#725f76">Messaggio transazionale collegato al tuo LoreWise ID. Non rispondere con dati di pagamento. Per assistenza: lorewise.archive@gmail.com.</p></td></tr></table></td></tr></table></body></html>`;
+  const footer = template === "newsletter_confirmation"
+    ? "Ricevi questo messaggio perché il tuo indirizzo è stato inserito su lorewisenexus.it. Nessuna iscrizione è attiva finché non confermi. Per assistenza: lorewise.archive@gmail.com."
+    : "Messaggio transazionale collegato al tuo LoreWise ID. Non rispondere con dati di pagamento. Per assistenza: lorewise.archive@gmail.com.";
+  const html = `<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escapeHtml(copy.subject)}</title></head><body style="margin:0;background:#efe7f5;color:#241031;font-family:Arial,sans-serif"><table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td align="center" style="padding:32px 16px"><table role="presentation" width="620" cellspacing="0" cellpadding="0" style="max-width:620px;background:#fffaf4;border-top:5px solid #dc2579"><tr><td style="padding:38px 42px"><p style="margin:0 0 24px;color:#7c35ec;font-weight:700;letter-spacing:2px;text-transform:uppercase">LoreWise Universe · GiWise Studio</p><p style="font-size:17px">${greeting}</p><h1 style="margin:14px 0;color:#17295e;font-family:Georgia,serif;font-size:38px;line-height:1.05">${escapeHtml(copy.heading)}</h1><p style="font-size:17px;line-height:1.7;color:#4a3652">${escapeHtml(copy.body)}</p><p style="margin:30px 0"><a href="${escapeHtml(actionUrl)}" style="display:inline-block;background:#dc2579;color:#fff;text-decoration:none;font-weight:700;padding:15px 22px">${escapeHtml(copy.action)}</a></p><p style="margin:32px 0 0;padding-top:22px;border-top:1px solid #ddcfdb;font-size:13px;line-height:1.6;color:#725f76">${footer}</p></td></tr></table></td></tr></table></body></html>`;
   return { subject: copy.subject, html };
 }
 

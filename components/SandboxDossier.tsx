@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { NewsletterSignup } from "./NewsletterSignup";
 import styles from "./SandboxDossier.module.css";
 
 const base = "/games/sandbox";
@@ -284,6 +285,7 @@ export function SandboxDossier() {
           <p><span>Disponibilità</span><strong>Da annunciare</strong></p>
         </div>
         <Link className={styles.primary} href="/cronache-del-nexus">Segui le novità dal Nexus →</Link>
+        <div style={{ marginTop: 32, maxWidth: 640 }}><NewsletterSignup variant="avvisami" topic="avvisami:sandbox" tone="dark" headingLevel={3} description="Lascia l’email: ti scriveremo una sola volta, quando SandBox sarà giocabile. Nessun’altra comunicazione." /></div>
       </div>
     </section>
 

@@ -1,0 +1,48 @@
+/* Iscrizione a newsletter e avvisi. I selettori annidati sotto .root battono le regole
+   generiche dei contenitori (per esempio .site-footer p, .site-footer a, .site-footer h2). */
+.root{--nl-bg:#241031;--nl-panel:rgba(255,255,255,.07);--nl-text:#fff8df;--nl-muted:#e4d6ea;--nl-accent:#f4cf49;--nl-button:#db2777;--nl-button-hover:#b81d63;--nl-button-text:#fff;--nl-field:#fffaf4;--nl-field-text:#241031;--nl-line:rgba(255,255,255,.22);--nl-link:#f8d565;--nl-error-bg:#ffe1ea;--nl-error-text:#7a0f35;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(20px,4vw,48px);align-items:center;min-width:0;padding:clamp(22px,4vw,40px);border-top:4px solid var(--nl-accent);background:var(--nl-bg);color:var(--nl-text);font-family:var(--font-body),Arial,sans-serif}
+.dark{--nl-bg:linear-gradient(120deg,#2b0d35,#431653 60%,#1d2458)}
+.light{--nl-bg:#fffaf4;--nl-panel:#fff;--nl-text:#241031;--nl-muted:#4a3652;--nl-accent:#db2777;--nl-line:rgba(36,16,49,.2);--nl-link:#7c35ec;--nl-field:#fff;box-shadow:0 22px 60px rgba(46,18,56,.12)}
+.avvisami{grid-template-columns:1fr;gap:16px;border-top-width:3px}
+.compact{grid-template-columns:1fr;gap:14px;padding:clamp(18px,3vw,26px)}
+
+.root .copy{min-width:0}
+.root .eyebrow{margin:0 0 6px;color:var(--nl-accent);font-size:.68rem;font-weight:900;letter-spacing:.16em;line-height:1.3;text-transform:uppercase}
+.root .title{margin:0 0 8px;color:var(--nl-text);font-family:var(--font-display),Georgia,serif;font-size:clamp(1.55rem,3.2vw,2.3rem);font-weight:700;letter-spacing:-.01em;line-height:1.08;text-transform:none}
+.compact .title,.avvisami .title{font-size:clamp(1.3rem,2.4vw,1.65rem)}
+.root .intro{max-width:52ch;margin:0;color:var(--nl-muted);font-size:.95rem;line-height:1.6}
+.compact .intro{font-size:.85rem}
+
+.root .form{display:grid;gap:12px;min-width:0}
+.root .field{display:grid;gap:6px;min-width:0}
+.root .field>label{color:var(--nl-text);font-size:.78rem;font-weight:800;letter-spacing:.04em}
+.root .row{display:flex;gap:8px;min-width:0}
+.root .row input{flex:1 1 auto;min-width:0;min-height:48px;padding:10px 14px;border:2px solid var(--nl-line);border-radius:0;background:var(--nl-field);color:var(--nl-field-text);font:inherit;font-size:1rem}
+.root .row input::placeholder{color:#8b7690}
+.root .row button{flex:0 0 auto;min-height:48px;padding:10px 20px;border:0;background:var(--nl-button);color:var(--nl-button-text);font:inherit;font-size:.95rem;font-weight:900;cursor:pointer}
+.root .row button:hover{background:var(--nl-button-hover)}
+.root button:disabled,.root input:disabled{opacity:.65;cursor:progress}
+
+.root .consent{display:flex;align-items:flex-start;gap:10px;color:var(--nl-muted);font-size:.8rem;line-height:1.5;cursor:pointer}
+.root .consent input{flex:0 0 auto;width:20px;height:20px;margin:1px 0 0;accent-color:var(--nl-button)}
+.root .consent a{color:var(--nl-link);font-size:inherit;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+
+.root .error{margin:0;padding:10px 12px;background:var(--nl-error-bg);color:var(--nl-error-text);font-size:.85rem;font-weight:800;line-height:1.45}
+.root .success{margin:0;padding:16px 18px;border-left:4px solid var(--nl-accent);background:var(--nl-panel);color:var(--nl-text);font-size:.95rem;font-weight:700;line-height:1.55}
+
+.root input:focus-visible,.root button:focus-visible,.root a:focus-visible{outline:3px solid var(--nl-accent);outline-offset:2px}
+
+/* Campo esca: fuori dallo schermo per le persone, visibile ai bot che compilano tutto. */
+.trap{position:absolute!important;left:-10000px!important;width:1px;height:1px;overflow:hidden}
+
+@media (max-width:760px){
+  .root{grid-template-columns:1fr}
+}
+@media (max-width:420px){
+  .root .row{flex-direction:column}
+  .root .row button{width:100%}
+}
+@media (prefers-reduced-motion:no-preference){
+  .root .row button{transition:background-color .18s ease}
+}

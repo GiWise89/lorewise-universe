@@ -9,6 +9,7 @@ import { GamePurchaseButton } from "@/components/GamePurchaseButton";
 import { GameCommunityReviews } from "@/components/GameCommunityReviews";
 import { PattoCeneriDossier } from "@/components/PattoCeneriDossier";
 import { SandboxDossier } from "@/components/SandboxDossier";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 import styles from "./page.module.css";
 
 const pattoVillains = [
@@ -107,7 +108,7 @@ export default async function GameProjectPage({ params }: { params: Promise<{ sl
         </> : null}
         {project.publicUrl && project.publicAction ? <article className="game-edition game-edition-web"><div><span>Edizione Web</span><strong>Gioca ora</strong><p>La versione completa attualmente disponibile, sempre collegata agli aggiornamenti del progetto.</p></div><ul><li>Accesso dal browser</li><li>Profilo e progressi cloud</li><li>Account LoreWise obbligatorio</li></ul>{isTheWoundRemembers ? <FunnelLink href={project.publicUrl} eventName="play_cta_click" source="landing_web_edition">{project.publicAction} <span aria-hidden="true">→</span></FunnelLink> : <a href={project.publicUrl} target="_blank" rel="noopener noreferrer">{project.publicAction} <span aria-hidden="true">↗</span></a>}</article> : null}
         {project.windowsOffer ? <article className="game-edition game-edition-windows"><div><span>{project.windowsOffer.edition}</span><strong>{project.windowsOffer.launchPrice}</strong><small>prezzo di lancio · poi {project.windowsOffer.futurePrice}</small><p>{project.windowsOffer.delivery}</p></div><ul>{project.windowsOffer.requirements.map((requirement) => <li key={requirement}>{requirement}</li>)}</ul>{project.windowsOffer.purchaseUrl ? <a href={project.windowsOffer.purchaseUrl}>Acquista e scarica</a> : <><strong className="game-purchase-pending">{project.windowsOffer.availability}</strong><GamePurchaseButton productCode={project.windowsOffer.productCode} priceLabel={project.windowsOffer.launchPrice} /></>}<small className="game-product-code">Prodotto predisposto · {project.windowsOffer.productCode}</small></article> : null}
-      </div>{project.windowsOffer ? <>
+      </div>{isDemonMatch ? <div style={{ marginTop: 32 }}><NewsletterSignup variant="avvisami" topic="avvisami:demon-match-android" tone="dark" headingLevel={3} title="Avvisami quando esce su Android" description="Lascia l’email: ti scriveremo una sola volta, quando Demon Match Three sarà disponibile su Android. Nessun’altra comunicazione." /></div> : null}{project.windowsOffer ? <>
         <section className="game-windows-specification" aria-labelledby="game-windows-specification-title">
           <header><p className="eyebrow">Prima di installare</p><h3 id="game-windows-specification-title">Tutto dichiarato, prima del download.</h3><p>La build 1.0.2 è stata verificata: versione, dimensione e impronta saranno mostrate anche nella libreria personale prima di consentire il download.</p></header>
           <div>

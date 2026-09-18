@@ -1,0 +1,13 @@
+.page{min-height:72vh;display:grid;place-items:center;padding:clamp(48px,9vw,120px) 16px;background:linear-gradient(125deg,#1c0d2a,#3a1447 60%,#172554);color:#fff8df}
+.card{width:min(640px,100%);padding:clamp(28px,5vw,52px);border-top:5px solid #db2777;background:#fffaf4;color:#241031;box-shadow:0 30px 80px rgba(8,2,15,.45)}
+.card h1{margin:12px 0 16px;color:#17295e;font-family:var(--font-display),Georgia,serif;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.02}
+.card p{margin:0 0 14px;color:#4a3652;font-size:1.02rem;line-height:1.65}
+.card .eyebrow{margin:0;color:#7c35ec;font-size:.74rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.card .topic{padding:12px 14px;border-left:4px solid #f4cf49;background:#fff1c7;color:#351342}
+.card .fine{margin-top:22px;font-size:.88rem;color:#725f76}
+.card a{color:#7c35ec;font-weight:800;text-underline-offset:4px}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:26px}
+.card .primary{display:inline-flex;align-items:center;min-height:48px;padding:12px 20px;border:0;background:#db2777;color:#fff;font:inherit;font-weight:900;text-decoration:none;cursor:pointer}
+.card .primary:hover,.card .primary:focus-visible{background:#b81d63}
+.card .primary:disabled{opacity:.6;cursor:progress}
+.card :focus-visible{outline:3px solid #f4cf49;outline-offset:3px}

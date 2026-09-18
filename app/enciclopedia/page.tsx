@@ -5,6 +5,7 @@ import { CodexIndex } from "@/components/CodexIndex";
 import { codexEntries } from "@/lib/codex";
 import { createCodexIndexEntries, createCodexIndexFacets } from "@/lib/codexIndex";
 import { UniverseGuide } from "@/components/UniverseGuide";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 const description = "LoreWise Codex: dossier di personaggi e universi con identità, biografie, relazioni, continuità e fonti, separando il canone GiWise dagli universi documentati.";
 
@@ -67,5 +68,7 @@ export default function EncyclopediaPage() {
       { href: "/giochi", label: "Giochi e app", description: "I mondi interattivi e il loro stato reale." },
       { href: "/dove-nascono-i-mondi", label: "Dietro le quinte", description: "Dal primo segno al progetto completo." },
     ]} />
+
+    <div className="shell" style={{ paddingBlock: 56 }}><NewsletterSignup variant="cronache" topic="cronache" tone="light" description="Ogni lunedì una lettera dal Nexus: nuovi dossier del Codex, uscite, giochi in sviluppo e appuntamenti. Niente spam, ti disiscrivi con un clic." /></div>
   </main>;
 }
