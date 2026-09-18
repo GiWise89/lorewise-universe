@@ -8,13 +8,14 @@ import { familiarMood, FAMILIAR_MOODS } from "@/lib/famiglioHome";
 import { FAMILIAR_COLLECTION, familiarAnimatedPreview } from "@/lib/famiglioMarketExpansion";
 import { STARTER_EGGS, type StarterEgg } from "@/lib/famiglioRebuild";
 import { FAMILIAR_SPRITE_ROSTER } from "@/lib/famiglioSpriteRoster";
+import { familiarStreakSummary } from "@/lib/famiglioStreak";
 import styles from "./NexusPetNavigationPip.module.css";
 
 const SAVE_KEY = "lorewise.famiglio-rebuild.v1";
 
 type PipHouse = {
   rebuild?: { stage?: string; selectedId?: string | null; familiarName?: string; colorVariant?: string | null };
-  home?: { needs?: Record<string, number>; growth?: { stage?: string; bondXp?: number } };
+  home?: { needs?: Record<string, number>; growth?: { stage?: string; bondXp?: number }; attendance?: { claimedDates?: unknown; streak?: unknown; streakMilestones?: unknown } };
   activeFamiliarId?: string | null;
 };
 
@@ -29,6 +30,21 @@ function activeHouse(value: unknown): PipHouse | null {
 
 function readableStage(stage?: string) {
   return stage === "adulto" ? "Adulto" : stage === "giovane" ? "Giovane" : "Cucciolo";
+}
+
+function StreakBadge({ days, atRisk }: { days: number; atRisk: boolean }) {
+  return (
+    <em className={styles.streakBadge} data-risk={atRisk} aria-hidden="true">
+      <svg viewBox="0 0 16 16" width="10" height="10" focusable="false" shapeRendering="crispEdges"><path d="M7 1h2v2h1v1h1v2h1v1h1v5h-1v1h-1v1H4v-1H3v-1H2V8h1V6h1v1h1V4h1V2h1z" fill="currentColor" /></svg>
+      {days}
+    </em>
+  );
+}
+
+function streakLabel(days: number, atRisk: boolean) {
+  if (days <= 0) return "";
+  const count = days === 1 ? "1 giorno" : `${days} giorni consecutivi`;
+  return atRisk ? `Serie di presenze: ${count}, registra la presenza di oggi` : `Serie di presenze: ${count}`;
 }
 
 function StarterPipSprite({ egg, colorVariant }: { egg: StarterEgg; colorVariant?: string | null }) {
@@ -94,6 +110,7 @@ export function NexusPetNavigationPip() {
       stage: readableStage(house.home?.growth?.stage),
       bondXp: Math.max(0, Math.floor(Number(house.home?.growth?.bondXp) || 0)),
       colorVariant: activeId === house.rebuild?.selectedId ? house.rebuild?.colorVariant : null,
+      streak: familiarStreakSummary(house.home?.attendance),
     };
   }, [house]);
 
@@ -109,15 +126,16 @@ export function NexusPetNavigationPip() {
           </header>
           <div className={styles.companion}>
             {data.starter ? <StarterPipSprite egg={data.starter} colorVariant={data.colorVariant} /> : data.collection ? <Image src={familiarAnimatedPreview(data.collection)} alt={data.collection.name} width={160} height={160} unoptimized /> : null}
-            <p><b>{data.mood.icon} {data.mood.label}</b><span>{data.stage} · {data.bondXp} PE Legame</span></p>
+            <p><b>{data.mood.icon} {data.mood.label}</b><span>{data.stage} · {data.bondXp} PE Legame</span>{data.streak.current > 0 ? <span className={styles.streakLine} data-risk={data.streak.atRisk}>{streakLabel(data.streak.current, data.streak.atRisk)}</span> : null}</p>
           </div>
           <Link href="/famiglio">Torna alla Casa <span aria-hidden="true">→</span></Link>
         </section>
       ) : (
-        <button className={styles.trigger} type="button" onClick={() => setOpen(true)} aria-label={`Apri il PiP di ${data.name}`}>
+        <button className={styles.trigger} type="button" onClick={() => setOpen(true)} aria-label={`Apri il PiP di ${data.name}${data.streak.current > 0 ? `. ${streakLabel(data.streak.current, data.streak.atRisk)}` : ""}`}>
           <Image src="/famiglio/rebuild/nexus-pet-emblem-v2.png" alt="" width={64} height={64} unoptimized />
           <span>{data.starter ? <StarterPipSprite egg={data.starter} colorVariant={data.colorVariant} /> : data.collection ? <Image src={familiarAnimatedPreview(data.collection)} alt="" width={96} height={96} unoptimized /> : null}</span>
           <b>{data.name}</b>
+          {data.streak.current > 0 ? <StreakBadge days={data.streak.current} atRisk={data.streak.atRisk} /> : null}
         </button>
       )}
     </aside>
