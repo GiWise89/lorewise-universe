@@ -100,3 +100,6 @@ next-env.d.ts
 
 # Gioco Kotlin separato: vive nella stessa cartella ma non appartiene a questo repository.
 /famigli-del-nexus/
+
+# Copie di lavoro temporanee degli agenti
+/.claude/worktrees/
