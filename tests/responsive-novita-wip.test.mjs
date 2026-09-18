@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import { obsessionWorkInProgress } from "../lib/studioWorkInProgress.ts";
+import { readSiteStyles } from "./site-styles.mjs";
 
 test("publishes the three authentic Obsession drawing stages as one work in progress", async () => {
   assert.equal(obsessionWorkInProgress.stages.length, 3);
@@ -33,7 +34,7 @@ test("adds an interactive Obsession sequence to Novita and never crops its drawi
   const [page, component, styles] = await Promise.all([
     readFile(new URL("../app/cronache-del-nexus/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/StudioWorkInProgress.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readSiteStyles(),
   ]);
   assert.doesNotMatch(page, /<StudioWorkInProgress \/>/);
   const feed = await readFile(new URL("../components/NexusChroniclesFeed.tsx", import.meta.url), "utf8");
@@ -56,7 +57,7 @@ test("adds an interactive Obsession sequence to Novita and never crops its drawi
 });
 
 test("limits card compaction to phones and menu reordering to tablets", async () => {
-  const styles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const styles = await readSiteStyles();
   const tabletSelector = styles.indexOf(".mobile-navigation .mobile-navigation-primary { grid-template-columns:repeat(4,minmax(0,1fr));", 10_000);
   const phoneSelector = styles.indexOf(".commission-hub-page .commission-chapter-navigation nav > a { min-height:96px");
   const vipSelector = styles.indexOf(".vip-area-nav button,.vip-area-nav .is-locked { min-height:305px");

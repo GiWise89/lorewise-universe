@@ -1,0 +1,108 @@
+/*
+ * Stili della sezione /feste-nel-nexus, caricati solo dalle route sotto app/feste-nel-nexus
+ * tramite app/feste-nel-nexus/layout.tsx. Estratti da app/globals.css mantenendo
+ * l'ordine originale delle regole: contiene solo selettori che richiedono
+ * classi usate esclusivamente in questa sezione.
+ */
+.holiday-nexus-page { min-height:100vh; overflow:hidden; color:#fff8eb; background-color:#081723; background-image:url('/promotions/holiday/christmas-nexus-background-v1.webp'); background-position:center top; background-size:100% auto; background-attachment:fixed; background-repeat:no-repeat; }
+.holiday-nexus-hero,.holiday-nexus-offer,.holiday-nexus-paths,.holiday-nexus-terms { width:min(100% - clamp(72px,10vw,150px),1440px); margin-inline:auto; }
+.holiday-nexus-light-field { position:fixed; z-index:6; inset:0; overflow:hidden; pointer-events:none; }
+.holiday-nexus-light-field span { position:absolute; inset-block:0; display:block; width:clamp(220px,20vw,320px); background-image:url('/promotions/holiday/christmas-fairy-lights-edge-v1.webp'); background-position:left top; background-size:100% auto; background-repeat:repeat-y; opacity:.84; filter:brightness(1.04) drop-shadow(0 0 11px rgba(255,199,77,.46)); animation:holiday-lights-glow 2.8s ease-in-out infinite alternate; }
+.holiday-nexus-light-field .is-left { left:0; }
+.holiday-nexus-light-field .is-right { right:0; transform:scaleX(-1); animation-delay:-1.4s; }
+.holiday-nexus-hero { position:relative; isolation:isolate; margin-top:28px; border:1px solid rgba(239,201,119,.58); background:rgba(7,22,34,.9); box-shadow:0 35px 100px rgba(0,0,0,.55),0 0 70px rgba(230,57,84,.13); }
+.holiday-nexus-brand { position:relative; z-index:4; min-height:76px; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:13px clamp(20px,4vw,48px); border-bottom:1px solid rgba(239,201,119,.28); background:rgba(6,20,31,.76); }
+.holiday-nexus-brand img { width:150px; height:48px; object-fit:contain; }
+.holiday-nexus-brand span,.holiday-nexus-hero-copy > p:first-child,.holiday-nexus-offer-heading p,.holiday-nexus-paths > header p,.holiday-nexus-terms p { color:#efc977; font-size:.68rem; font-weight:950; letter-spacing:.13em; text-transform:uppercase; }
+.holiday-nexus-hero-grid { position:relative; z-index:2; display:grid; grid-template-columns:minmax(0,.88fr) minmax(480px,1.12fr); min-height:720px; }
+.holiday-nexus-hero-copy { min-width:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:clamp(38px,6vw,88px); border-right:1px solid rgba(239,201,119,.22); }
+.holiday-nexus-hero-copy h1 { max-width:9.5ch; margin:17px 0 22px; color:#fff6df; font:750 clamp(4rem,7vw,8.2rem)/.82 var(--font-display),Georgia,serif; letter-spacing:-.055em; }
+.holiday-nexus-hero-copy > strong { color:#efc977; font-size:.86rem; text-transform:uppercase; }
+.holiday-nexus-hero-copy > p:not(:first-child) { max-width:60ch; margin:25px 0 0; color:#d5dce2; line-height:1.75; }
+.holiday-nexus-hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:34px; }
+.holiday-nexus-hero-actions a,.holiday-nexus-paths article a,.holiday-nexus-terms > a { display:inline-flex; align-items:center; justify-content:space-between; gap:28px; min-height:52px; padding:14px 18px; color:#10222b; background:#efc977; font-size:.68rem; font-weight:950; text-decoration:none; text-transform:uppercase; }
+.holiday-nexus-hero-actions a + a { color:#fff3d7; border:1px solid rgba(239,201,119,.5); background:#162f39; }
+.holiday-nexus-gallery { min-width:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); gap:1px; background:rgba(239,201,119,.3); }
+.holiday-nexus-gallery figure { min-width:0; min-height:0; display:grid; grid-template-rows:minmax(0,1fr) auto; margin:0; background:#101a24; }
+.holiday-nexus-gallery figure.is-primary { grid-row:1/-1; }
+.holiday-nexus-gallery img { display:block; width:100%; height:100%; min-height:0; object-fit:contain; background:#0d1720; }
+.holiday-nexus-gallery figcaption { display:flex; justify-content:space-between; gap:14px; padding:12px 15px; color:#fff6df; }
+.holiday-nexus-gallery figcaption small { color:#efc977; }
+.holiday-nexus-garland { position:relative; z-index:5; display:block; width:min(96%,1500px); height:auto; margin:clamp(-90px,-5vw,-48px) auto clamp(-95px,-5vw,-50px); object-fit:contain; pointer-events:none; filter:drop-shadow(0 20px 22px rgba(0,0,0,.4)); animation:holiday-garland-sway 8s ease-in-out infinite; }
+.holiday-nexus-garland.is-reversed { transform:scaleX(-1); animation-name:holiday-garland-sway-reversed; }
+.holiday-nexus-offer { margin-top:34px; padding:clamp(38px,6vw,78px); border:1px solid rgba(239,201,119,.4); background:rgba(11,39,47,.96); }
+.holiday-nexus-offer-heading { display:grid; grid-template-columns:120px minmax(0,1fr); gap:28px; align-items:center; }
+.holiday-nexus-offer-heading img { width:120px; height:120px; object-fit:contain; }
+.holiday-nexus-offer-heading h2,.holiday-nexus-paths > header h2,.holiday-nexus-terms h2 { max-width:900px; margin:9px 0 0; color:#fff6df; font:700 clamp(2.7rem,5vw,5.8rem)/.88 var(--font-display),Georgia,serif; letter-spacing:-.04em; }
+.holiday-nexus-rates { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:48px 0 0; border-block:1px solid rgba(239,201,119,.45); }
+.holiday-nexus-rates > div { min-width:0; padding:28px clamp(18px,4vw,52px); border-right:1px solid rgba(239,201,119,.32); }
+.holiday-nexus-rates > div:last-child { border-right:0; }
+.holiday-nexus-rates dt { color:#c7d4d8; font-size:.7rem; font-weight:900; text-transform:uppercase; }
+.holiday-nexus-rates dd { margin:8px 0 0; color:#efc977; font:750 clamp(2.8rem,5vw,5.6rem)/1 var(--font-display),Georgia,serif; }
+.holiday-nexus-timer-panel { display:grid; grid-template-columns:minmax(230px,.35fr) minmax(0,.65fr); gap:40px; align-items:center; margin-top:42px; }
+.holiday-nexus-timer-panel > div:first-child { display:grid; gap:8px; }
+.holiday-nexus-timer-panel > div:first-child small { color:#aebfc4; font-weight:850; text-transform:uppercase; }
+.holiday-nexus-timer-panel > div:first-child strong { color:#fff6df; font:650 1.6rem var(--font-display),Georgia,serif; }
+.holiday-nexus-countdown { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid rgba(239,201,119,.42); border-left:1px solid rgba(239,201,119,.42); }
+.holiday-nexus-countdown > span { min-width:0; display:grid; gap:6px; padding:19px 12px; text-align:center; border-right:1px solid rgba(239,201,119,.42); border-bottom:1px solid rgba(239,201,119,.42); background:#071a22; }
+.holiday-nexus-countdown > span strong { color:#efc977; font:750 clamp(1.9rem,3.5vw,3.6rem)/1 var(--font-display),Georgia,serif; font-variant-numeric:tabular-nums; }
+.holiday-nexus-countdown > span small { color:#c2d0d4; font-size:.6rem; font-weight:900; text-transform:uppercase; }
+.holiday-nexus-countdown-arrived { grid-column:1/-1; padding:25px; color:#efc977; border:1px solid rgba(239,201,119,.42); text-align:center; }
+.holiday-nexus-paths { margin-top:34px; padding:clamp(38px,6vw,78px); color:#162735; background:#fff9ed; }
+.holiday-nexus-paths > header { display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center; }
+.holiday-nexus-paths > header h2 { width:100%; max-width:18ch; margin-inline:auto; color:#152c38; line-height:.94; text-wrap:balance; }
+.holiday-nexus-paths > div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin-top:45px; }
+.holiday-nexus-paths article { min-width:0; display:grid; grid-template-rows:minmax(330px,1fr) auto; border:1px solid rgba(21,44,56,.22); background:#fffdf8; }
+.holiday-nexus-paths article figure { min-width:0; min-height:0; display:grid; place-items:center; margin:0; padding:18px; background:#10212b; }
+.holiday-nexus-paths article img { display:block; width:100%; height:100%; max-height:520px; object-fit:contain; }
+.holiday-nexus-paths article > div { padding:28px; }
+.holiday-nexus-paths article small { color:#a75543; font-weight:900; text-transform:uppercase; }
+.holiday-nexus-paths article h3 { margin:11px 0 14px; color:#152c38; font:700 clamp(1.9rem,3vw,3rem)/.95 var(--font-display),Georgia,serif; }
+.holiday-nexus-paths article p { min-height:5.2em; color:#5b6870; line-height:1.65; }
+.holiday-nexus-paths article a { width:100%; margin-top:20px; }
+.holiday-nexus-terms { display:grid; grid-template-columns:150px minmax(0,1fr) auto; gap:clamp(28px,5vw,70px); align-items:center; margin-block:34px 70px; padding:clamp(34px,5vw,64px); border:1px solid rgba(239,201,119,.4); background:rgba(7,22,34,.96); }
+.holiday-nexus-terms > img { width:150px; height:150px; object-fit:contain; }
+.holiday-nexus-terms h2 { max-width:720px; font-size:clamp(2.2rem,4vw,4.6rem); }
+.holiday-nexus-terms ul { margin:24px 0 0; padding-left:20px; color:#cbd6da; line-height:1.7; }
+.holiday-nexus-terms > a { align-self:end; white-space:nowrap; }
+
+@media (max-width:980px) {
+  .holiday-nexus-hero-grid { grid-template-columns:1fr; }
+  .holiday-nexus-hero-copy { border-right:0; border-bottom:1px solid rgba(239,201,119,.22); }
+  .holiday-nexus-gallery { min-height:720px; }
+  .holiday-nexus-timer-panel,.holiday-nexus-paths > header,.holiday-nexus-terms { grid-template-columns:1fr; }
+  .holiday-nexus-paths > div { grid-template-columns:1fr; }
+  .holiday-nexus-paths article { grid-template-columns:minmax(260px,.75fr) minmax(0,1fr); grid-template-rows:auto; }
+  .holiday-nexus-terms > a { justify-self:start; }
+}
+
+@media (max-width:640px) {
+  .holiday-nexus-hero,.holiday-nexus-offer,.holiday-nexus-paths,.holiday-nexus-terms { width:calc(100% - 24px); }
+  .holiday-nexus-brand { align-items:flex-start; flex-direction:column; }
+  .holiday-nexus-hero-copy { padding:34px 22px 40px; }
+  .holiday-nexus-hero-copy h1 { font-size:clamp(3.7rem,18vw,5.3rem); }
+  .holiday-nexus-hero-actions,.holiday-nexus-hero-actions a { width:100%; }
+  .holiday-nexus-gallery { min-height:0; grid-template-columns:1fr; grid-template-rows:auto; }
+  .holiday-nexus-gallery figure.is-primary { grid-row:auto; }
+  .holiday-nexus-gallery img { height:auto; max-height:none; }
+  .holiday-nexus-offer,.holiday-nexus-paths,.holiday-nexus-terms { padding:30px 20px; }
+  .holiday-nexus-offer-heading { grid-template-columns:78px minmax(0,1fr); }
+  .holiday-nexus-offer-heading img { width:78px; height:78px; }
+  .holiday-nexus-rates { grid-template-columns:1fr; }
+  .holiday-nexus-rates > div { border-right:0; border-bottom:1px solid rgba(239,201,119,.32); }
+  .holiday-nexus-rates > div:last-child { border-bottom:0; }
+  .holiday-nexus-countdown { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .holiday-nexus-paths article { grid-template-columns:1fr; }
+  .holiday-nexus-paths article figure { min-height:0; }
+  .holiday-nexus-paths article img { height:auto; max-height:none; }
+  .holiday-nexus-paths article p { min-height:0; }
+  .holiday-nexus-paths > header h2 { max-width:12ch; font-size:clamp(2.5rem,12vw,3.7rem); }
+  .holiday-nexus-terms > img { width:100px; height:100px; }
+  .holiday-nexus-terms > a { width:100%; white-space:normal; }
+  .holiday-nexus-garland { width:100%; }
+  .holiday-nexus-light-field span { width:110px; opacity:.62; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .holiday-nexus-garland,.holiday-nexus-light-field span { animation:none; }
+}

@@ -1,12 +1,13 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { readSiteStylesSync } from "./site-styles.mjs";
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
 test("l'hero dell'Area personale non impone ritorni a capo e mantiene una scala controllata", () => {
   const page = read("app/account/page.tsx");
-  const styles = read("app/globals.css");
+  const styles = readSiteStylesSync();
   assert.match(page, /Il tuo universo, sempre con te/);
   assert.doesNotMatch(page, /Tutto ciò che<br/);
   assert.match(styles, /\.account-hero-copy \{[^}]*border-left:4px solid/s);
@@ -27,7 +28,7 @@ test("le card Universe Pass separano titolo, vantaggi e azione", () => {
 test("Codex e richiesta commissione tengono separati soprattitoli e titoli", () => {
   const codexPage = read("app/enciclopedia/page.tsx");
   const codexStyles = read("app/enciclopedia/codex.css");
-  const globalStyles = read("app/globals.css");
+  const globalStyles = readSiteStylesSync();
   assert.match(codexPage, /<h1>LoreWise Codex\.<\/h1>/);
   assert.match(codexStyles, /\.codex-home-copy>\.eyebrow\{[^}]*margin:0 0 clamp\(22px/);
   assert.match(globalStyles, /\.commission-request-focus-intro \.eyebrow\{[^}]*margin:0 0 clamp\(22px/);
@@ -35,7 +36,7 @@ test("Codex e richiesta commissione tengono separati soprattitoli e titoli", () 
 });
 
 test("le tre intestazioni principali di GiWise Shop non toccano i soprattitoli", () => {
-  const styles = read("app/globals.css");
+  const styles = readSiteStylesSync();
   assert.match(styles, /\.giwise-shop-hero-copy>\.eyebrow,[\s\S]*\.giwise-shop-support>div>\.eyebrow\{display:block;margin:0 0 clamp\(28px/);
   assert.match(styles, /\.giwise-shop-hero-copy>h1,[\s\S]*\.giwise-shop-support>div>h2\{margin-top:0\}/);
 });

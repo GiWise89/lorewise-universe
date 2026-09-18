@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./privacy.css";
 
 export const metadata: Metadata = { alternates: { canonical: "/privacy" } };
 

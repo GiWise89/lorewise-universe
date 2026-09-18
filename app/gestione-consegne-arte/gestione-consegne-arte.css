@@ -1,0 +1,37 @@
+/*
+ * Stili della sezione /gestione-consegne-arte, caricati solo dalle route sotto app/gestione-consegne-arte
+ * tramite app/gestione-consegne-arte/layout.tsx. Estratti da app/globals.css mantenendo
+ * l'ordine originale delle regole: contiene solo selettori che richiedono
+ * classi usate esclusivamente in questa sezione.
+ */
+.delivery-artwork-summary { display: grid; grid-template-columns: minmax(135px,220px) 1fr; gap: clamp(25px,4vw,55px); align-items: center; }
+.delivery-artwork-summary small { color: #db2777; font-size: .68rem; font-weight: 900; letter-spacing: .08em; }
+.delivery-artwork-summary p { color: #6b214f; font-weight: 800; }
+.delivery-artwork-summary strong { display: inline-block; margin-top: 16px; color: #7c3aed; font-size: .68rem; text-transform: uppercase; }
+.delivery-admin-register { margin-top: clamp(75px,10vw,140px); padding-top: 28px; border-top: 5px solid #7c3aed; }
+.delivery-admin-register > header { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 50px; align-items: end; margin-bottom: 35px; }
+.delivery-admin-register > header h2 { margin: 0; color: #32123e; font: 700 clamp(2.7rem,5vw,5rem)/.86 var(--font-lore-display),serif; letter-spacing: -.045em; }
+.delivery-admin-register > header > p:last-child { margin: 0; color: #727789; line-height: 1.6; }
+.delivery-admin-register ol { margin: 0; padding: 0; list-style: none; }
+.delivery-admin-register li { position: relative; display: grid; grid-template-columns: 105px minmax(0,1fr) auto; gap: 10px 22px; align-items: center; padding: 20px 0; border-bottom: 1px solid rgba(23,37,84,.18); }
+.delivery-admin-register li strong { color: #db2777; }
+.delivery-admin-register li span { overflow: hidden; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+.delivery-admin-register li small { grid-column: 2; color: #727789; }
+.delivery-admin-register li em { grid-column: 3; grid-row: 1 / span 2; color: #15803d; font-size: .68rem; font-style: normal; font-weight: 900; text-transform: uppercase; }
+.delivery-admin-register li em.is-pending { color: #b45309; }
+.delivery-register-empty { max-width: 760px; color: #6b214f; font-size: 1rem; line-height: 1.65; }
+
+@media (max-width: 760px) {
+  .delivery-admin-register > header { grid-template-columns: 1fr; }
+  .delivery-admin-register li { grid-template-columns: 1fr auto; }
+  .delivery-admin-register li span, .delivery-admin-register li small { grid-column: 1 / -1; }
+  .delivery-admin-register li em { grid-column: 2; grid-row: 1; }
+}
+
+@media (max-width:700px) {
+  .delivery-admin-register li span {
+    overflow:visible;
+    text-overflow:clip;
+    white-space:normal;
+  }
+}

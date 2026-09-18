@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./giochi.css";
 
 const description = "Giochi indie e progetti interattivi di GiWise Studio: card RPG dark fantasy, RPG narrativi, horror e diari di sviluppo.";
 

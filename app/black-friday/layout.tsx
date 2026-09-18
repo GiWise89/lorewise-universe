@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./black-friday.css";
 
 export const metadata: Metadata = {
   title: "Black Friday + Cyber Monday 2026",

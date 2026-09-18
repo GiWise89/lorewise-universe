@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { calculateBestCommissionDiscount, claimWelcomeCommissionOffer, getWelcomeCommissionOfferForRequest, isWelcomeCommissionOfferActive, syncWelcomeCommissionOfferEntitlement, welcomeCommissionEligibilityStartsAt, welcomeCommissionOfferExpiresAt, welcomeCommissionRegistrationIsEligible, WELCOME_COMMISSION_OFFER } from "../lib/welcomeCommissionOffer.ts";
 import { DatabaseSync } from "node:sqlite";
+import { readSiteStyles } from "./site-styles.mjs";
 
 function d1Adapter(database) {
   return {
@@ -108,7 +109,7 @@ test("renders a dismissible accessible popup with a real brand asset", async () 
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/account/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/AccountAccessPanel.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readSiteStyles(),
   ]);
   assert.match(popup, /role="dialog"/);
   assert.match(popup, /aria-label="Chiudi l’offerta di benvenuto"/);
@@ -123,7 +124,7 @@ test("renders a dismissible accessible popup with a real brand asset", async () 
 test("presents the active 5 euro bonus as a premium path inside Promotions", async () => {
   const [feed, styles] = await Promise.all([
     readFile(new URL("../components/NexusChroniclesFeed.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readSiteStyles(),
   ]);
   assert.match(feed, /promotion-panel[\s\S]*nexus-welcome-offer/);
   assert.match(feed, /Bonus LoreWise ID · In vigore/);

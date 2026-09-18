@@ -1,0 +1,53 @@
+/*
+ * Stili della sezione /gestione-ordini, caricati solo dalle route sotto app/gestione-ordini
+ * tramite app/gestione-ordini/layout.tsx. Estratti da app/globals.css mantenendo
+ * l'ordine originale delle regole: contiene solo selettori che richiedono
+ * classi usate esclusivamente in questa sezione.
+ */
+.order-admin-page { min-height: 100vh; background: #fff5e9 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1200px; color: #172554; }
+.order-admin-page > header { padding: clamp(65px,9vw,120px) 0; border-bottom: 5px solid #db2777; background: #32123e url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center / cover; color: #fff; box-shadow: inset 0 0 0 1000px rgba(48,14,57,.76); }
+.order-admin-page > header .shell { display: grid; grid-template-columns: minmax(170px,280px) 1fr; gap: clamp(40px,7vw,95px); align-items: center; }
+.order-admin-page > header img { width: 100%; height: auto; filter: drop-shadow(0 24px 35px rgba(0,0,0,.3)); }
+.order-admin-page > header p:last-child { max-width: 740px; color: #eee0ec; font-size: clamp(1rem,1.4vw,1.25rem); line-height: 1.7; }
+.order-admin-dashboard { padding-block: 75px 120px; }
+.order-admin-test, .order-admin-message { padding: 18px 22px; border-left: 5px solid #f6ce63; background: #fff2bc; color: #4c1d57; line-height: 1.55; }
+.order-admin-message { border-left-color: #7c3aed; background: #f3e8ff; font-weight: 800; }
+.order-admin-summary { display: grid; grid-template-columns: repeat(4,1fr); margin: 50px 0 90px; padding: 0; border-block: 1px solid rgba(23,37,84,.2); list-style: none; }
+.order-admin-summary li { min-height: 150px; display: grid; align-content: center; gap: 12px; padding: 25px 30px; }
+.order-admin-summary li + li { border-left: 1px solid rgba(23,37,84,.17); }
+.order-admin-summary strong { color: #db2777; font: 700 clamp(2.7rem,4vw,4.3rem)/.9 var(--font-lore-display),serif; }
+.order-admin-register > header, .order-admin-support > header { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 55px; align-items: end; margin-bottom: 38px; }
+.order-admin-support > header > p:last-child { margin: 0; color: #697186; line-height: 1.7; }
+.order-admin-table { border-top: 4px solid #db2777; }
+.order-admin-row { display: grid; grid-template-columns: minmax(260px,1fr) minmax(220px,.7fr) 130px 120px; gap: 24px; align-items: center; padding: 22px 0; border-bottom: 1px solid rgba(23,37,84,.17); }
+.order-admin-head { color: #7c3aed; font-size: .64rem; font-weight: 900; text-transform: uppercase; }
+.order-admin-row strong, .order-admin-row small { display: block; }
+.order-admin-row small { margin-top: 6px; color: #73788a; font-size: .66rem; }
+.order-admin-row em { color: #7c3aed; font-size: .68rem; font-style: normal; font-weight: 900; text-transform: uppercase; }
+.order-admin-row b { color: #db2777; font: 700 1.15rem var(--font-lore-display),serif; }
+.order-admin-support { margin-top: 120px; padding-top: 32px; border-top: 5px solid #7c3aed; }
+.order-support-editor { display: grid; grid-template-columns: minmax(300px,.8fr) 1.2fr; gap: clamp(35px,6vw,85px); padding: 38px 0; border-bottom: 1px solid rgba(23,37,84,.18); }
+.order-support-editor > header { display: grid; grid-template-columns: 1fr auto; gap: 15px; }
+.order-support-editor header span { color: #db2777; font-size: .65rem; font-weight: 900; text-transform: uppercase; }
+.order-support-editor small, .order-support-editor time { color: #727789; font-size: .65rem; }
+.order-support-editor > p { margin: 16px 0 0; color: #59647d; line-height: 1.7; }
+.order-support-editor > div:last-child { display: grid; gap: 15px; }
+.order-support-editor label { display: grid; gap: 7px; color: #7c3aed; font-size: .66rem; font-weight: 900; text-transform: uppercase; }
+.order-support-editor select, .order-support-editor textarea { border: 1px solid rgba(23,37,84,.25); padding: 12px; background: rgba(255,255,255,.65); color: #32123e; font: 700 .8rem var(--font-body),sans-serif; text-transform: none; }
+.order-support-editor button { justify-self: start; min-height: 46px; border: 0; padding: 12px 19px; background: #7c3aed; color: #fff; font-weight: 900; cursor: pointer; }
+.order-support-editor .order-refund-action { border: 2px solid #9f1239; background: #fff1f2; color: #881337; box-shadow: 0 10px 24px rgba(159,18,57,.12); }
+.order-support-editor button:disabled { cursor: wait; opacity: .7; }
+.order-admin-empty { padding-left: 22px; border-left: 4px solid #f6ce63; color: #697186; }
+.order-admin-loading { min-height: 450px; display: grid; place-content: center; text-align: center; }
+
+@media (max-width: 760px) {
+  .order-admin-page > header .shell { grid-template-columns: 1fr; }
+  .order-admin-page > header img { width: min(230px,65vw); }
+  .order-admin-summary { grid-template-columns: 1fr 1fr; }
+  .order-admin-summary li + li { border-left: 0; }
+  .order-admin-summary li:nth-child(even) { border-left: 1px solid rgba(23,37,84,.17); }
+  .order-admin-register > header, .order-admin-support > header { grid-template-columns: 1fr; }
+  .order-admin-row { grid-template-columns: 1fr auto; }
+  .order-admin-row > span { grid-column: 1 / -1; }
+  .order-support-editor { grid-template-columns: 1fr; }
+}

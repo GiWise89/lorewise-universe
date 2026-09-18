@@ -1,0 +1,95 @@
+/*
+ * Stili della sezione /mondi, caricati solo dalle route sotto app/mondi
+ * tramite app/mondi/layout.tsx. Estratti da app/globals.css mantenendo
+ * l'ordine originale delle regole: contiene solo selettori che richiedono
+ * classi usate esclusivamente in questa sezione.
+ */
+.worlds-gateway { color:#172554;background:#eaf7fa; }
+.worlds-gateway-scene {
+  position:relative;
+  isolation:isolate;
+  min-height:calc(100svh - 74px);
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.14),rgba(245,237,255,.18)),
+    url("/backgrounds/lorewise-luminous-universe-v1.webp") center/cover no-repeat;
+}
+.worlds-gateway-scene::before {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  background:radial-gradient(circle at 50% 49%,rgba(255,250,223,.82) 0 10%,rgba(255,255,255,.26) 30%,transparent 58%);
+  pointer-events:none;
+}
+.worlds-gateway-inner { position:relative;min-height:calc(100svh - 74px);display:grid;grid-template-rows:auto 1fr auto;gap:18px;padding-block:clamp(28px,4vw,58px) 24px; }
+.worlds-gateway-heading { width:min(100%,1040px);margin-inline:auto;display:grid;grid-template-columns:120px minmax(0,1fr) minmax(260px,.72fr);gap:clamp(18px,3.5vw,52px);align-items:center;text-align:left; }
+.worlds-gateway-heading p { margin:0;color:#5f6681;font-size:clamp(.78rem,1.1vw,.96rem);line-height:1.65; }
+.worlds-gateway-heading div > p { color:#9d286c;font-size:.68rem;font-weight:950;letter-spacing:.18em;text-transform:uppercase; }
+.worlds-convergence { position:relative;width:min(100%,1120px);margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,64px);align-items:center; }
+.worlds-convergence::before { content:"";position:absolute;top:43%;right:11%;left:11%;height:1px;background:linear-gradient(90deg,transparent,#eaa448 15%,#57c9e1 50%,#ad72e3 85%,transparent);box-shadow:0 0 14px rgba(86,198,222,.48);pointer-events:none; }
+.worlds-route { --world-accent:#dc8c27;position:relative;z-index:1;min-width:0;display:grid;justify-items:center;align-content:center;color:#172554!important;text-align:center;text-decoration:none; }
+.worlds-route-origins { --world-accent:#24aeca;transform:translateY(26px); }
+.worlds-route-codex { --world-accent:#8b5bd0; }
+.worlds-route-orbit { position:absolute;z-index:-1;top:12px;width:clamp(150px,15vw,220px);aspect-ratio:1;border:1px solid color-mix(in srgb,var(--world-accent) 42%,transparent);border-radius:50%;box-shadow:0 0 0 18px color-mix(in srgb,var(--world-accent) 5%,transparent),0 0 40px color-mix(in srgb,var(--world-accent) 16%,transparent);transition:transform .55s ease,border-color .3s ease; }
+.worlds-route-orbit::before,.worlds-route-orbit::after { content:"";position:absolute;width:7px;aspect-ratio:1;border-radius:50%;background:var(--world-accent);box-shadow:0 0 10px var(--world-accent); }
+.worlds-route-orbit::before { top:12%;left:13%; }
+.worlds-route-orbit::after { right:4%;bottom:26%; }
+.worlds-route-emblem { width:clamp(150px,15vw,220px);height:clamp(150px,15vw,220px);display:grid;place-items:center; }
+.worlds-route-copy { max-width:330px;display:grid;justify-items:center;gap:8px;padding-top:10px; }
+.worlds-route-copy small { color:var(--world-accent);font-size:.64rem;font-weight:950;letter-spacing:.13em;text-transform:uppercase; }
+.worlds-route-copy strong { color:#172554;font:750 clamp(1.65rem,2.3vw,2.65rem)/.94 var(--font-lore-display),Georgia,serif;letter-spacing:-.035em; }
+.worlds-route-copy > span { color:#515b78;font-size:clamp(.74rem,.9vw,.86rem);line-height:1.55; }
+.worlds-route-copy b { margin-top:4px;padding-bottom:4px;border-bottom:2px solid var(--world-accent);color:#172554;font-size:.7rem;font-weight:950;letter-spacing:.08em;text-transform:uppercase; }
+.worlds-route-copy b i { display:inline-block;margin-left:7px;font-style:normal;transition:transform .25s ease; }
+.worlds-route:hover .worlds-route-emblem img,.worlds-route:focus-visible .worlds-route-emblem img { transform:translateY(-12px) scale(1.035);filter:drop-shadow(0 27px 27px color-mix(in srgb,var(--world-accent) 30%,transparent)); }
+.worlds-route:hover .worlds-route-orbit,.worlds-route:focus-visible .worlds-route-orbit { transform:rotate(24deg) scale(1.06);border-color:var(--world-accent); }
+.worlds-route:hover .worlds-route-copy b i,.worlds-route:focus-visible .worlds-route-copy b i { transform:translateX(5px); }
+.worlds-route:focus-visible { outline:3px solid var(--world-accent);outline-offset:10px;border-radius:18px; }
+.worlds-gateway-legend { justify-self:center;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;color:#707693;font-size:.61rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase; }
+.worlds-gateway-stars { position:absolute;inset:0;z-index:-1;pointer-events:none; }
+.worlds-gateway-stars i { position:absolute;width:5px;aspect-ratio:1;border-radius:50%;background:#fff;box-shadow:0 0 12px 3px rgba(255,255,255,.85);animation:worlds-star-pulse 3.8s ease-in-out infinite; }
+.worlds-gateway-stars i:nth-child(1){top:17%;left:8%}
+.worlds-gateway-stars i:nth-child(2){top:31%;right:9%;animation-delay:-1.2s}
+.worlds-gateway-stars i:nth-child(3){bottom:18%;left:16%;animation-delay:-2.4s}
+.worlds-gateway-stars i:nth-child(4){right:22%;bottom:13%;animation-delay:-.7s}
+.worlds-gateway-stars i:nth-child(5){top:12%;left:57%;animation-delay:-3.1s}
+
+@media (max-width:1100px) {
+  .worlds-convergence { grid-template-columns:repeat(3,minmax(0,1fr));gap:38px 28px; }
+  .worlds-route-origins { transform:none; }
+}
+
+@media (max-width:900px) {
+  .worlds-gateway-inner { gap:30px; }
+  .worlds-gateway-heading { grid-template-columns:84px 1fr; }
+  .worlds-convergence { gap:22px; }
+}
+
+@media (max-width:700px) {
+  .worlds-gateway-scene,.worlds-gateway-inner { min-height:auto; }
+  .worlds-gateway-inner { padding-block:30px 34px; }
+  .worlds-gateway-heading { display:block;text-align:center; }
+  .worlds-gateway-heading > p { margin:14px auto 0; }
+  .worlds-gateway-heading h1 { font-size:clamp(2.7rem,13vw,4rem); }
+  .worlds-convergence { grid-template-columns:1fr;gap:42px; }
+  .worlds-convergence::before { top:5%;bottom:5%;left:50%;width:1px;height:auto;background:linear-gradient(180deg,transparent,#eaa448 14%,#57c9e1 50%,#ad72e3 86%,transparent); }
+  .worlds-route { grid-template-columns:128px minmax(0,1fr);justify-items:start;gap:12px;text-align:left; }
+  .worlds-route-emblem { width:128px;height:128px; }
+  .worlds-route-orbit { top:0;left:0;width:128px; }
+  .worlds-route-copy { justify-items:start;padding:0; }
+  .worlds-route-copy strong { font-size:clamp(1.55rem,7vw,2.1rem); }
+  .worlds-route-copy > span { font-size:.74rem; }
+  .worlds-gateway-legend { gap:7px;font-size:.5rem;letter-spacing:.1em; }
+  .worlds-gateway-legend i { width:19px; }
+}
+
+@media (max-width:430px) {
+  .worlds-route { grid-template-columns:88px minmax(0,1fr);gap:10px; }
+  .worlds-route-emblem,.worlds-route-orbit { width:88px;height:88px; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .worlds-gateway-stars i { animation:none; }
+  .worlds-route-emblem img,.worlds-route-orbit { transition:none; }
+}

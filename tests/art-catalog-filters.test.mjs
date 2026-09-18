@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { readSiteStyles } from "./site-styles.mjs";
 
 test("keeps the art filters in one closable responsive panel", async () => {
   const source = await readFile(new URL("../components/ArtCatalog.tsx", import.meta.url), "utf8");
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const css = await readSiteStyles();
 
   assert.match(source, /useState<FilterPanel \| null>\(null\)/);
   assert.equal((source.match(/aria-controls="art-filter-panel"/g) ?? []).length, 4);

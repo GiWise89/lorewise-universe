@@ -1,0 +1,36 @@
+/*
+ * Stili della sezione /licenza-gioco, caricati solo dalle route sotto app/licenza-gioco
+ * tramite app/licenza-gioco/layout.tsx. Estratti da app/globals.css mantenendo
+ * l'ordine originale delle regole: contiene solo selettori che richiedono
+ * classi usate esclusivamente in questa sezione.
+ */
+.game-license-page { min-height: 100vh; padding-bottom: 120px; background: #fff8f1 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1150px; color: #172554; }
+.game-license-page > header { padding: clamp(60px,8vw,115px) 0; border-bottom: 5px solid #db2777; background: linear-gradient(115deg,rgba(255,242,216,.96),rgba(251,231,239,.94),rgba(232,221,255,.94)); }
+.game-license-page > header .shell { display: grid; grid-template-columns: minmax(140px,230px) minmax(0,1fr); gap: clamp(35px,7vw,95px); align-items: center; }
+.game-license-page > header img { width: 100%; height: auto; filter: drop-shadow(0 22px 28px rgba(76,29,87,.18)); }
+.game-license-page > header p:last-child { max-width: 760px; color: #5f5263; font-size: clamp(1rem,1.5vw,1.25rem); line-height: 1.65; }
+.game-license-document { padding-top: clamp(55px,7vw,95px); }
+.game-license-status { display: grid; grid-template-columns: minmax(260px,.8fr) minmax(0,1.2fr); gap: 35px; padding: 24px 0; border-block: 1px solid rgba(23,37,84,.2); }
+.game-license-status strong { color: #b45309; font-size: .76rem; text-transform: uppercase; }
+.game-license-status p { margin: 0; color: #687086; line-height: 1.65; }
+.game-license-document > ol { margin: 60px 0 0; padding: 0; list-style: none; }
+.game-license-document > ol li { display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 30px; padding: 30px 0; border-bottom: 1px solid rgba(23,37,84,.17); }
+.game-license-document > ol li > span { color: #db2777; font: 700 1.35rem var(--font-lore-display),serif; }
+.game-license-document li p { max-width: 920px; margin: 0; color: #626d84; line-height: 1.75; }
+.game-license-signature { display: grid; grid-template-columns: minmax(0,1.25fr) minmax(280px,.75fr); gap: clamp(45px,8vw,110px); margin-top: 85px; padding-top: 35px; border-top: 5px solid #7c3aed; }
+.game-license-signature > div > p:last-child { color: #626d84; line-height: 1.8; }
+.game-license-signature ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(23,37,84,.2); }
+.game-license-signature li { padding: 16px 0; border-bottom: 1px solid rgba(23,37,84,.17); color: #4c1d57; font-size: .78rem; font-weight: 800; }
+.game-license-back { margin-top: 65px; }
+.game-license-back a { color: #6d28d9; font-weight: 900; text-decoration: none; border-bottom: 2px solid #db2777; }
+.game-license-commerce { margin-top: 75px; padding: 34px 0; border-block: 1px solid rgba(23,37,84,.2); }
+.game-license-commerce > p:not(.eyebrow) { max-width: 840px; color: #626d84; line-height: 1.75; }
+.game-license-commerce a { display: inline-block; margin-top: 12px; padding-bottom: 5px; border-bottom: 3px solid #db2777; color: #6d28d9; font-weight: 900; text-decoration: none; }
+
+@media (max-width: 760px) {
+  .game-license-page > header .shell { grid-template-columns: 95px 1fr; gap: 22px; }
+  .game-license-page h1 { font-size: clamp(2.9rem,12vw,4.4rem); }
+  .game-license-page > header p:last-child { grid-column: 1 / -1; }
+  .game-license-status, .game-license-signature { grid-template-columns: 1fr; }
+  .game-license-document > ol li { grid-template-columns: 42px 1fr; gap: 14px; }
+}

@@ -1,3 +1,4 @@
+import "./enciclopedia.css";
 import "./codex.css";
 
 export default function EncyclopediaLayout({ children }: Readonly<{ children: React.ReactNode }>) {

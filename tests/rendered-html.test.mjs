@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { getCreativeJournalEntry } from "../lib/creativeJournal.ts";
 import { isLoreWisePublicHost, isTrackablePublicPath } from "../lib/siteAnalytics.ts";
+import { readSiteStyles } from "./site-styles.mjs";
 
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
@@ -21,7 +22,7 @@ async function render(pathname = "/", init = {}) {
 }
 
 test("keeps headings on whole words across the public site", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const css = await readSiteStyles();
   const unsafeHeadingRules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
     .filter(([, selector, declarations]) => /\bh[1-6]\b/i.test(selector)
       && (/overflow-wrap\s*:\s*anywhere/i.test(declarations) || /word-break\s*:\s*break-(?:word|all)/i.test(declarations)))
@@ -79,7 +80,7 @@ test("permanently redirects the retired /vip gateway to the Universe Pass landin
 });
 
 test("enforces the project text integrity contract", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const css = await readSiteStyles();
   assert.match(css, /Contratto globale di integrità del testo/);
   assert.match(css, /main\s+:where\(h1,h2,h3,h4,h5,h6\)[\s\S]{0,300}white-space:normal!important/);
   assert.match(css, /\.portal-copy[\s\S]{0,220}z-index:2[\s\S]{0,160}overflow:visible/);
@@ -88,7 +89,7 @@ test("enforces the project text integrity contract", async () => {
 });
 
 test("uses a scenic desktop constellation and a safe responsive grid", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const css = await readSiteStyles();
   assert.match(css, /Desktop scenografico: costellazione orbitale/);
   assert.match(css, /@media \(min-width:1281px\)[\s\S]*?\.home-portal-gallery\s*\{[\s\S]*?position:absolute/);
   assert.match(css, /Mantiene il nucleo centrale separato dai portali superiore e VIP[\s\S]{0,90}min-height:1000px/);
@@ -97,7 +98,7 @@ test("uses a scenic desktop constellation and a safe responsive grid", async () 
 });
 
 test("uses the luminous universe without translucent portal panels", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const css = await readSiteStyles();
   assert.match(css, /url\("\/backgrounds\/lorewise-luminous-universe-v1\.webp"\)/);
   assert.match(css, /\.universe-map\s*\{[\s\S]{0,700}background-size:cover,100% 100%/);
   assert.match(
@@ -111,7 +112,7 @@ test("uses the luminous universe without translucent portal panels", async () =>
 });
 
 test("animates every home emblem with accessible levitation and particles", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const css = await readSiteStyles();
   assert.match(css, /@keyframes portal-icon-levitation/);
   assert.match(css, /@keyframes portal-particle-drift/);
   assert.match(css, /\.home-portal-gallery \.illustrated-portal:nth-child\(6\)/);
@@ -970,7 +971,7 @@ test("opens package CTAs in the dedicated estimate form instead of the portfolio
 test("keeps Halloween portrait examples and pricing copy in separate non-cropping regions", async () => {
   const [page, styles, countdown] = await Promise.all([
     readFile(new URL("../app/commissioni/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readSiteStyles(),
     readFile(new URL("../components/HalloweenCountdown.tsx", import.meta.url), "utf8"),
   ]);
   assert.match(page, /const corruptedPortraitExamples = \[6, 7, 12, 23, 25\]/);

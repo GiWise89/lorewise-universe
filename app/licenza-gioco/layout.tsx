@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./licenza-gioco.css";
 
 export const metadata: Metadata = { alternates: { canonical: "/licenza-gioco" } };
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./dove-nascono-i-mondi.css";
 
 const description = "Il diario creativo di GiWise Studio: bozze, processi, arte digitale, passioni e videogiochi in costruzione.";
 

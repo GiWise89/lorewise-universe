@@ -1,0 +1,40 @@
+/*
+ * Stili della sezione /gestione-assistenza, caricati solo dalle route sotto app/gestione-assistenza
+ * tramite app/gestione-assistenza/layout.tsx. Estratti da app/globals.css mantenendo
+ * l'ordine originale delle regole: contiene solo selettori che richiedono
+ * classi usate esclusivamente in questa sezione.
+ */
+.support-admin-editor label,.support-admin-toolbar label{display:grid;gap:7px;font-weight:800}
+.support-admin-editor select,.support-admin-editor textarea,.support-admin-toolbar select{width:100%;padding:13px;border:1px solid rgba(255,255,255,.2);color:#fff;background:#0c142c;font:inherit}
+.support-admin-page{min-height:100vh;padding-bottom:100px;color:#fff;background:#080d21}
+.support-admin-page>header{padding:75px 0;background:linear-gradient(110deg,rgba(8,13,33,.96),rgba(55,20,63,.9)),url('/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg') center/cover}
+.support-admin-page>header>.shell{display:grid;grid-template-columns:220px 1fr;gap:45px;align-items:center}
+.support-admin-page>header img{width:100%;height:200px;object-fit:contain}
+.support-admin-dashboard{padding:70px 0}
+.support-admin-dashboard>header{display:flex;justify-content:space-between;gap:30px;align-items:end}
+.support-admin-dashboard>header h2{font:700 clamp(3rem,7vw,6rem)/.9 var(--font-display)}
+.support-admin-dashboard>header>strong{font-size:4rem;color:#41d8e5}
+.support-admin-dashboard>header>strong span{display:block;font-size:.7rem}
+.support-admin-toolbar{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:30px 0;padding:20px;background:#111832}
+.support-admin-list{display:grid;gap:18px}
+.support-admin-ticket{padding:26px;background:#111832;border-left:5px solid #64748b}
+.support-admin-ticket.priority-high{border-color:#f59e0b}
+.support-admin-ticket.priority-critical{border-color:#fb7185}
+.support-admin-ticket>header{display:flex;justify-content:space-between;gap:20px}
+.support-admin-ticket a{color:#41d8e5}
+.support-admin-editor{display:grid;grid-template-columns:180px 180px 1fr auto;gap:14px;align-items:end;margin-top:22px}
+.support-admin-editor label:nth-child(3){grid-column:auto}
+.support-admin-editor textarea{min-height:100px}
+
+@media (max-width:1050px) {
+  .support-admin-editor{grid-template-columns:1fr 1fr}
+  .support-admin-editor label:nth-child(3),.support-admin-editor button{grid-column:1/-1}
+}
+
+@media (max-width:700px) {
+  .support-admin-dashboard>header{align-items:start;flex-direction:column}
+  .support-admin-page>header>.shell{grid-template-columns:1fr}
+  .support-admin-page>header img{height:130px}
+  .support-admin-editor{grid-template-columns:1fr}
+  .support-admin-editor>*{grid-column:1!important}
+}

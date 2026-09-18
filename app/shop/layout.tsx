@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ShopBridge } from "@/components/shop/ShopBridge";
+import "./shop.css";
 
 const description = "GiWise Shop su LoreWise: merch, accessori, setup, collezioni artistiche e prodotti personalizzati con schede verificate.";
 

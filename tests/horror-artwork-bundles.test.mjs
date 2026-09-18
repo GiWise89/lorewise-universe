@@ -6,6 +6,7 @@ import {
   horrorArtworkBundles,
   isHorrorArtworkBundleActive,
 } from "../lib/horrorArtworkBundles.ts";
+import { readSiteStyles } from "./site-styles.mjs";
 
 test("defines the three approved Halloween collections with three GiWise originals each", () => {
   assert.equal(horrorArtworkBundles.length, 3);
@@ -42,7 +43,7 @@ test("resolves each collection as one non-stackable commercial product", () => {
 });
 
 test("keeps every collection preview fully visible", async () => {
-  const styles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const styles = await readSiteStyles();
   const start = styles.indexOf(".horror-bundle-artworks img");
   const end = styles.indexOf("}", start);
   assert.ok(start >= 0);
@@ -62,7 +63,7 @@ test("uses the original Halloween backdrop and a real second-by-second promotion
   const [timer, page, styles] = await Promise.all([
     readFile(new URL("../components/HorrorPromotionTimer.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/arte/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readSiteStyles(),
   ]);
   assert.match(timer, /setInterval\(\(\) => setNow\(Date\.now\(\)\), 1000\)/);
   assert.match(timer, /HORROR_BUNDLE_STARTS_AT/);

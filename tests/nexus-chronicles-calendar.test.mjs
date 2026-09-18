@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import { getReleasedEditorialEntries } from "../lib/editorialCalendar.ts";
+import { readSiteStyles } from "./site-styles.mjs";
 
 const schedule = [
   { issue: "Cronaca 001", publishedAt: "2026-09-12" },
@@ -28,7 +29,7 @@ const pageSource = await readFile(new URL("../app/cronache-del-nexus/page.tsx", 
 const calendarSource = await readFile(new URL("../app/cronache-del-nexus/MonthlyCalendar.tsx", import.meta.url), "utf8");
 const publicationSource = await readFile(new URL("../lib/publicationCalendar.ts", import.meta.url), "utf8");
 const feedSource = await readFile(new URL("../components/NexusChroniclesFeed.tsx", import.meta.url), "utf8");
-const globalStyles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+const globalStyles = await readSiteStyles();
 
 test("publishes the prepared Nexus chronicles automatically at Italian midnight", () => {
   assert.deepEqual(
@@ -212,8 +213,11 @@ test("keeps the Demon Match reveal usable on narrow mobile screens", () => {
   assert.match(globalStyles, /\.game-dossier-demon-match \.game-dossier-hero-art \{[^}]*object-fit:contain;/s);
   assert.match(globalStyles, /\.vip-demon-match-art img \{[^}]*object-fit:contain;/s);
   assert.match(globalStyles, /\.vip-demon-match-dossiers img \{[^}]*object-fit:contain;/s);
-  assert.match(globalStyles, /@media \(max-width:760px\) \{[\s\S]*\.game-protagonist-pair,\.vip-demon-match-dossiers \{ grid-template-columns:1fr; \}/);
-  assert.match(globalStyles, /@media \(max-width:520px\) \{[\s\S]*\.game-protagonist-intro > div > a,[\s\S]*\.nexus-vip-location > a \{ width:100%; \}/);
+  // The shared mobile rule is split between the /giochi and /vip-zone section stylesheets.
+  assert.match(globalStyles, /@media \(max-width:760px\) \{[\s\S]*\.game-protagonist-pair \{ grid-template-columns:1fr; \}/);
+  assert.match(globalStyles, /@media \(max-width:760px\) \{[\s\S]*\.vip-demon-match-dossiers \{ grid-template-columns:1fr; \}/);
+  assert.match(globalStyles, /@media \(max-width:520px\) \{[\s\S]*\.game-protagonist-intro > div > a \{ width:100%; \}/);
+  assert.match(globalStyles, /@media \(max-width:520px\) \{[\s\S]*\.nexus-vip-location > a \{ width:100%; \}/);
   assert.match(globalStyles, /@media \(max-width:520px\) \{[\s\S]*\.vip-demon-match-development li \{ grid-template-columns:36px minmax\(0,1fr\);/);
   assert.match(globalStyles, /@media \(max-width:520px\) \{[\s\S]*\.pass-game-demon \{ min-height:500px; \}/);
 });

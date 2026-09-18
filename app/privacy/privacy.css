@@ -1,0 +1,67 @@
+/*
+ * Stili della sezione /privacy, caricati solo dalle route sotto app/privacy
+ * tramite app/privacy/layout.tsx. Estratti da app/globals.css mantenendo
+ * l'ordine originale delle regole: contiene solo selettori che richiedono
+ * classi usate esclusivamente in questa sezione.
+ */
+.privacy-page { min-height: 100vh; background: #fff5e9 url("/backgrounds/lorewise-art-paper-gallery-v1.webp") center top / auto 1200px; color: #172554; }
+.privacy-hero { min-height: 580px; display: grid; align-items: end; padding: 110px 0 75px; background: #35123d url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center 44% / cover no-repeat; color: white; box-shadow: inset 0 0 0 1000px rgba(43,13,51,.66); }
+.privacy-hero .eyebrow { color: #f6ce63; }
+.privacy-hero p:not(.eyebrow) { max-width: 780px; color: #f0e4ef; font-size: clamp(1rem,1.4vw,1.2rem); line-height: 1.75; }
+.privacy-hero strong { display: inline-flex; margin-top: 20px; color: #f6ce63; font-size: .68rem; letter-spacing: .08em; }
+.privacy-layout { display:grid;grid-template-columns:minmax(230px,300px) minmax(0,1fr);gap:clamp(42px,6vw,96px);align-items:start; }
+.privacy-index { position:sticky;top:105px;margin-top:95px;padding:25px 0 28px;border-block:1px solid rgba(23,37,84,.22); }
+.privacy-index > p { margin:0 0 14px;color:#9d286c;font-size:.66rem;font-weight:950;letter-spacing:.12em;text-transform:uppercase; }
+.privacy-index ol { display:grid;gap:0;margin:0;padding:0;list-style:none; }
+.privacy-index li { border-top:1px solid rgba(23,37,84,.11); }
+.privacy-index a:hover { color:#9d286c; }
+.privacy-index a:focus-visible { outline:3px solid #6d28d9;outline-offset:3px; }
+.privacy-index a span { color:#db2777;font:700 .65rem var(--font-lore-display),serif; }
+.privacy-index > small { display:block;margin-top:20px;color:#5c657d;font-size:.66rem;line-height:1.65; }
+.privacy-document { min-width:0;padding-block:95px 130px; }
+.privacy-document > section { display: grid; grid-template-columns: 80px minmax(0,900px); gap: clamp(28px,6vw,80px); padding: 42px 0; border-bottom: 1px solid rgba(23,37,84,.2); }
+.privacy-document > section { scroll-margin-top:110px; }
+.privacy-document > section > span { color: #db2777; font: 700 1.15rem var(--font-lore-display), serif; }
+.privacy-document section p { max-width: 830px; margin: 0; color: #5c657d; line-height: 1.85; }
+.privacy-document section p + p { margin-top:18px; }
+.privacy-document section a { display: inline-flex; margin-top: 20px; color: #5b21b6; font-weight: 900; text-decoration: underline; text-underline-offset: 4px; }
+.privacy-document section p a,.privacy-provider-list a { display:inline;margin-top:0; }
+.privacy-kicker { margin-bottom:12px!important;color:#9d286c!important;font-size:.64rem!important;font-weight:950;letter-spacing:.11em;text-transform:uppercase; }
+.privacy-facts { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(28px,4vw,54px);margin-top:30px;border-top:1px solid rgba(23,37,84,.18); }
+.privacy-facts article p { font-size:.78rem;line-height:1.65; }
+.privacy-facts small { display:block;margin-top:12px;color:#6d28d9;font-size:.65rem;font-weight:750;line-height:1.55; }
+.privacy-storage-table { max-width:100%;margin-top:30px;overflow-x:auto;overscroll-behavior-inline:contain;border:1px solid rgba(23,37,84,.2);background:rgba(255,250,240,.68); }
+.privacy-storage-table:focus-visible { outline:3px solid #6d28d9;outline-offset:3px; }
+.privacy-storage-table table { width:100%;min-width:820px;border-collapse:collapse;text-align:left; }
+.privacy-storage-table th { padding:15px;color:#fff8eb;background:#32123e;font-size:.63rem;letter-spacing:.07em;text-transform:uppercase; }
+.privacy-storage-table td { padding:16px 15px;color:#4d566f;border-top:1px solid rgba(23,37,84,.13);font-size:.7rem;line-height:1.55;vertical-align:top; }
+.privacy-storage-table td:first-child { color:#7e245f;font-weight:850; }
+.privacy-note { margin-top:16px!important;padding-left:16px;border-left:3px solid #e4ab31;font-size:.72rem; }
+.privacy-provider-list,.privacy-retention-list { display:grid;gap:0;margin:28px 0 0;padding:0;list-style:none; }
+.privacy-provider-list li { display:grid;grid-template-columns:minmax(130px,.34fr) minmax(0,1fr) auto;gap:18px;align-items:start;padding:18px 0;border-top:1px solid rgba(23,37,84,.18); }
+.privacy-provider-list strong { color:#32123e;font-family:var(--font-lore-display),serif; }
+.privacy-provider-list span { color:#5c657d;font-size:.74rem;line-height:1.55; }
+.privacy-retention-list li { padding:15px 0 15px 24px;position:relative;color:#5c657d;border-top:1px solid rgba(23,37,84,.16);font-size:.76rem;line-height:1.65; }
+.privacy-retention-list li::before { content:"◇";position:absolute;left:2px;color:#db2777; }
+.privacy-retention-list strong { color:#32123e; }
+.privacy-document aside strong { color: #f6ce63; font: 700 1.3rem var(--font-lore-display), serif; }
+.privacy-document aside p { margin-bottom: 0; line-height: 1.7; }
+
+@media (max-width: 760px) {
+  .privacy-hero { min-height: 500px; padding-block: 90px 55px; }
+  .privacy-layout { grid-template-columns:1fr;gap:0; }
+  .privacy-index { position:static;margin-top:45px; }
+  .privacy-index ol { grid-template-columns:repeat(2,minmax(0,1fr));column-gap:22px; }
+  .privacy-document { padding-block: 30px 90px; }
+  .privacy-document > section { grid-template-columns: 40px 1fr; gap: 16px; padding: 32px 0; }
+  .privacy-facts { grid-template-columns:1fr; }
+  .privacy-provider-list li { grid-template-columns:1fr;gap:7px; }
+  .privacy-document aside { padding: 28px 24px; }
+}
+
+@media (max-width:700px) {
+  .privacy-storage-table code,
+  .privacy-provider-list a {
+    white-space:normal;
+  }
+}

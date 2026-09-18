@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./commissioni.css";
 
 const description = "Commissioni artistiche GiWise Studio: ritratti, coppie, animali, trasformazioni fantasy e opere narrative su richiesta.";
 

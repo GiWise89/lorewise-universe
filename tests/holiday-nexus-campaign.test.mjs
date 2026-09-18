@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
+import { readSiteStyles } from "./site-styles.mjs";
 
 const [page, home, ribbon, experience, countdown, styles, chronicles, communications] = await Promise.all([
   readFile(new URL("../app/feste-nel-nexus/page.tsx", import.meta.url), "utf8"),
@@ -8,7 +9,7 @@ const [page, home, ribbon, experience, countdown, styles, chronicles, communicat
   readFile(new URL("../components/CurrentDiscountRibbon.tsx", import.meta.url), "utf8"),
   readFile(new URL("../components/HolidayNexusCampaignExperience.tsx", import.meta.url), "utf8"),
   readFile(new URL("../components/HolidayNexusCountdown.tsx", import.meta.url), "utf8"),
-  readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  readSiteStyles(),
   readFile(new URL("../lib/nexusChronicles.ts", import.meta.url), "utf8"),
   readFile(new URL("../lib/promotionCommunications.ts", import.meta.url), "utf8"),
 ]);

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./contatti.css";
 
 export const metadata: Metadata = { alternates: { canonical: "/contatti" } };
 

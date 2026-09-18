@@ -1,0 +1,86 @@
+/*
+ * Stili della sezione /enciclopedia, caricati solo dalle route sotto app/enciclopedia
+ * tramite app/enciclopedia/layout.tsx. Estratti da app/globals.css mantenendo
+ * l'ordine originale delle regole: contiene solo selettori che richiedono
+ * classi usate esclusivamente in questa sezione.
+ */
+.back-link { display: inline-block; margin-bottom: 45px; color: #cbd2cf; font-size: .75rem; }
+.source-note { padding: 25px!important; border: 1px solid var(--line)!important; background: var(--paper-deep); }
+.codex-home-hero { min-height: 620px; padding-block: 68px; }
+.codex-index { padding-block: 68px 88px; }
+.codex-result { min-height: 245px; }
+.codex-result-copy { padding-block: 30px; }
+.codex-result-copy small,
+.codex-result-status b,
+.codex-result-status span,
+.codex-visual-record figcaption,
+.codex-character-visual > p,
+.codex-editorial-meta strong,
+.codex-sources small { font-size: .76rem; }
+.codex-character-shell { padding-block: 52px 88px; }
+.codex-character-title { padding-bottom: 38px; }
+.codex-chapter { padding-block: 54px; }
+.codex-chapter-index { margin-top: 30px; }
+
+@media (max-width: 720px) {
+  .codex-home-hero { min-height: 0; padding-block: 44px; }
+  .codex-index { padding-block: 40px; }
+  .codex-result-portrait { height: 300px; }
+  .codex-character-shell { padding-block: 24px 50px; }
+  .codex-character-portrait { max-height: 62vh; }
+  .codex-chapter { padding-block: 38px; }
+}
+.codex-bookmark-control button { width: fit-content; padding: 10px 14px; color: #2c1337; background: #f4cf49; border: 0; font-weight: 950; cursor: pointer; }
+.codex-bookmark-control button:disabled { cursor: not-allowed; opacity: .45; }
+.codex-result-row { position: relative; border: 0; }
+.codex-result-row .codex-result { width: 100%; }
+.codex-bookmark-control { display: grid; grid-template-columns: auto minmax(120px,220px) auto; gap: 10px; align-items: center; padding: 12px 18px; background: #2d1238; }
+.codex-bookmark-control label,.codex-bookmark-control small { color: #fff8df; font-size: .68rem; font-weight: 850; }
+.codex-bookmark-control input { min-width: 0; padding: 9px 10px; color: #28142f; background: #fffaf0; border: 0; }
+
+@media (max-width: 600px) {
+  .codex-bookmark-control { grid-template-columns: 1fr; }
+}
+.codex-home > section:not(:first-child) {
+  content-visibility:auto;
+  contain-intrinsic-size:auto 820px;
+}
+.codex-suggestion { overflow:hidden; }
+.codex-suggestion-intro { display:grid; grid-template-columns:150px minmax(0,1fr); gap:34px; align-items:center; }
+.codex-suggestion-intro p:last-child { max-width:74ch; color:#65586b; line-height:1.7; }
+.codex-suggestion-flow { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:38px 0 0; padding:0; list-style:none; border-block:1px solid rgba(91,37,112,.18); }
+.codex-suggestion-flow li + li { padding-left:24px; border-left:1px solid rgba(91,37,112,.18); }
+.codex-suggestion-flow li > span { color:#c52f71; font:800 .72rem var(--font-lore-display),serif; letter-spacing:.08em; }
+.codex-suggestion form { border-top:0; }
+.codex-suggestion label { min-width:0; }
+.codex-suggestion label > span { overflow-wrap:normal; word-break:normal; hyphens:none; }
+.codex-suggestion input,.codex-suggestion textarea { min-width:0; box-sizing:border-box; }
+.codex-suggestion input:focus,.codex-suggestion textarea:focus { outline:3px solid rgba(197,47,113,.22); outline-offset:2px; border-color:#7c3aed; }
+.codex-suggestion textarea { resize:vertical; }
+.codex-suggestion-submit { grid-column:1/-1; display:flex; justify-content:space-between; gap:28px; align-items:center; padding-top:6px; }
+.codex-suggestion button { flex:0 0 auto; min-height:48px; padding-inline:20px; }
+.codex-suggestion button:hover,.codex-suggestion button:focus-visible { background:#7b2688; }
+.codex-suggestion button:focus-visible { outline:3px solid #f4cf49; outline-offset:3px; }
+.codex-suggestion-message { margin:24px 0 0; padding:14px 16px; background:#f1e4f5; border-left:4px solid #7c3aed; }
+.codex-suggestion-message.is-error { color:#711c31; background:#fff0f2; border-left-color:#d92558; }
+.codex-suggestion-history ol { gap:0; margin-top:20px; border-top:1px solid rgba(91,37,112,.14); }
+.codex-suggestion-history li > div:first-child { display:grid; min-width:0; gap:4px; }
+.codex-suggestion-history li strong { overflow-wrap:normal; word-break:normal; hyphens:none; }
+.codex-suggestion-history time { color:#746779; font-size:.68rem; }
+.codex-suggestion-status { display:grid; flex:0 0 auto; gap:4px; justify-items:end; text-align:right; }
+.codex-suggestion-status small { color:#6b2475; font-weight:900; text-transform:uppercase; }
+
+@media (max-width:700px) {
+  .codex-suggestion { margin-inline:-1px; padding:30px 20px; }
+  .codex-suggestion-intro { grid-template-columns:1fr; gap:12px; }
+  .codex-suggestion h2 { font-size:clamp(2.15rem,11vw,3.15rem); }
+  .codex-suggestion-flow { grid-template-columns:1fr; margin-top:28px; }
+  .codex-suggestion-flow li,.codex-suggestion-flow li + li { padding:18px 0; border-left:0; }
+  .codex-suggestion-flow li + li { border-top:1px solid rgba(91,37,112,.14); }
+  .codex-suggestion-reason,.codex-suggestion-submit { grid-column:auto; }
+  .codex-suggestion-submit { display:grid; gap:16px; }
+  .codex-suggestion button { width:100%; }
+  .codex-suggestion-history li { display:grid; gap:12px; align-items:start; }
+  .codex-suggestion-status { justify-items:start; text-align:left; }
+  .codex-character-page :where(h1,h2,h3){overflow-wrap:normal;word-break:normal;hyphens:none}
+}

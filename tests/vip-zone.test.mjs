@@ -9,6 +9,7 @@ import { VIP_ATELIER, VIP_ATELIER_MEDIA_PRIVATE } from "../data/vip-atelier.ts";
 import { VIP_DOWNLOAD_LIBRARY } from "../data/vip-downloads.ts";
 import { buildVipMemberProfile, evaluateVipAccess } from "../lib/vipMember.ts";
 import { universePassBenefitFromCode } from "../lib/universePass.ts";
+import { readSiteStyles } from "./site-styles.mjs";
 
 test("materializes protected VIP media before returning it to the browser", async () => {
   const source = await readFile(new URL("../app/api/vip-media/route.ts", import.meta.url), "utf8");
@@ -34,7 +35,7 @@ test("translates SQLite table discovery before querying Netlify Postgres", async
 });
 
 test("keeps art entrance titles inside their responsive columns", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const css = await readSiteStyles();
   assert.match(css, /\.art-entrance-grid button \{[^}]*width: 100%;[^}]*min-width: 0;/s);
   assert.match(css, /\.art-entrance-grid strong[^}]*overflow-wrap: normal;[^}]*word-break: normal;[^}]*hyphens: none;/s);
   assert.doesNotMatch(css, /\.art-entrance-grid strong[^}]*overflow-wrap: anywhere;/s);
@@ -43,7 +44,7 @@ test("keeps art entrance titles inside their responsive columns", async () => {
 
 test("never splits diary and Codex portal titles inside a word", async () => {
   const css = (await Promise.all([
-    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readSiteStyles(),
     readFile(new URL("../app/enciclopedia/codex.css", import.meta.url), "utf8"),
   ])).join("\n");
   assert.match(css, /\.diary-entry-card-copy h3[^}]*overflow-wrap:normal;[^}]*word-break:normal;[^}]*hyphens:none;/s);
@@ -81,7 +82,7 @@ test("reads every protected VIP image from the persisted local R2 archive", asyn
 });
 
 test("keeps mobile VIP badges and journal labels inside their controls", async () => {
-  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const css = await readSiteStyles();
   assert.match(css, /\.vip-area-nav button b,\.vip-area-nav \.is-locked b \{ position:static;/);
   assert.match(css, /\.journal-switch-tabs \{ top:56px; overflow:visible; grid-template-columns:repeat\(2,minmax\(0,1fr\)\); \}/);
 });

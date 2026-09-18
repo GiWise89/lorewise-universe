@@ -14,6 +14,7 @@ import {
   getBlackFridayCampaignPhase,
   isBlackFridayTeaserActive,
 } from "../lib/blackFridayTeaser.ts";
+import { readSiteStyles } from "./site-styles.mjs";
 
 test("shows the Black Friday teaser only from 2 to 22 November 2026", () => {
   assert.equal(BLACK_FRIDAY_TEASER_STARTS_AT, "2026-11-02T00:00:00+01:00");
@@ -85,7 +86,7 @@ test("uses real generated imagery and keeps it fully visible", async () => {
   const [experience, ribbon, styles] = await Promise.all([
     readFile(new URL("../components/BlackFridayCampaignExperience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/CurrentDiscountRibbon.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readSiteStyles(),
   ]);
   assert.match(experience, /countdown-portal-hero-v1\.webp/);
   assert.match(experience, /countdown-sticker-frame-v1\.webp/);

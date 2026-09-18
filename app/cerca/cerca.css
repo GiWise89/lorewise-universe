@@ -1,0 +1,63 @@
+/*
+ * Stili della sezione /cerca, caricati solo dalle route sotto app/cerca
+ * tramite app/cerca/layout.tsx. Estratti da app/globals.css mantenendo
+ * l'ordine originale delle regole: contiene solo selettori che richiedono
+ * classi usate esclusivamente in questa sezione.
+ */
+.global-search-page{min-height:100vh;padding:clamp(70px,8vw,130px) 0;background:#f7f0e8 url('/backgrounds/lorewise-art-paper-gallery-v1.webp') center top/auto 1200px;color:#172554}
+.global-search-workspace>header>p:last-child{max-width:780px;font-size:1.05rem;line-height:1.8}
+.global-search-controls{display:grid;grid-template-columns:minmax(300px,1fr) auto;gap:24px;align-items:end;margin:55px 0 28px;padding:28px;background:#111832;color:#fff;border-top:4px solid #41d8e5}
+.global-search-controls label{display:grid;gap:9px;font-weight:800}
+.global-search-controls input{width:100%;padding:17px 18px;border:1px solid rgba(255,255,255,.28);color:#fff;background:rgba(0,0,0,.25);font:inherit}
+.global-search-controls>div{display:flex;gap:7px;flex-wrap:wrap}
+.global-search-controls button[aria-pressed=true]{color:#111832;background:#f4cf49;border-color:#f4cf49}
+.global-search-count{padding-bottom:18px;border-bottom:1px solid rgba(23,37,84,.2)}
+.global-search-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:28px 0 0;padding:0;list-style:none}
+.global-search-results a:hover,.global-search-results a:focus-visible{transform:translateY(-4px);border-color:#7c3aed;box-shadow:0 20px 45px rgba(56,26,91,.16)}
+.global-search-results p{font-size:.85rem;line-height:1.55}
+.global-search-results b{margin-top:auto;color:#db2777}
+.global-search-empty{padding:50px;background:#fff;border-left:5px solid #db2777}
+
+@media (max-width:1050px) {
+  .global-search-controls{grid-template-columns:1fr}
+  .global-search-results{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media (max-width:700px) {
+  .global-search-workspace h1{font-size:3.2rem}
+  .global-search-results{grid-template-columns:1fr}
+  .global-search-results a{grid-template-columns:95px 1fr}
+}
+.global-search-more {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:32px auto 0;
+  padding:15px 24px;
+  border:1px solid #172554;
+  color:#172554;
+  background:#fff;
+  cursor:pointer;
+  font-weight:900;
+}
+.global-search-more:hover,.global-search-more:focus-visible { color:#fff; background:#172554; }
+.global-search-quick-paths{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:34px}
+.global-search-quick-paths>span{margin-right:8px;color:#59647e;font-size:.68rem;font-weight:900;text-transform:uppercase}
+.global-search-quick-paths button{padding:10px 13px;border:1px solid rgba(23,37,84,.22);color:#172554;background:rgba(255,255,255,.72);cursor:pointer;font-weight:800}
+.global-search-quick-paths button[aria-pressed=true]{color:#fff;border-color:#7c3aed;background:#7c3aed}
+.global-search-summary{display:flex;justify-content:space-between;gap:20px;align-items:center;border-bottom:1px solid rgba(23,37,84,.2)}
+.global-search-summary .global-search-count{border:0}
+.global-search-summary>button{border:0;border-bottom:2px solid #db2777;color:#7c3aed;background:transparent;cursor:pointer;font-weight:900}
+
+@media (max-width:700px) {
+  .global-search-summary{align-items:flex-start;flex-direction:column;padding-bottom:16px}
+  .global-search-controls{grid-template-columns:1fr}
+}
+.global-search-results a{border-radius:18px 5px 18px 5px}
+.global-search-results strong{overflow-wrap:normal;word-break:normal;hyphens:none}
+
+@media (max-width:700px) {
+  .global-search-results{grid-template-columns:1fr}
+  .global-search-results a{grid-template-columns:110px minmax(0,1fr)}
+  .global-search-results img{width:110px;min-height:170px;object-fit:contain}
+}

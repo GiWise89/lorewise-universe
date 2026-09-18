@@ -8,6 +8,7 @@ import {
   getPromotionCommunicationPack,
   promotionCommunicationPacks,
 } from "../lib/promotionCommunications.ts";
+import { readSiteStyles } from "./site-styles.mjs";
 
 test("gives every promotion an email and a channel-specific social kit", () => {
   assert.ok(promotionCommunicationPacks.length > 0);
@@ -76,7 +77,7 @@ test("keeps local preview manual and all social artwork fully visible", async ()
     readFile(new URL("../components/MarketingCampaignDashboard.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/gestione-comunicazioni/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/anteprima-comunicazioni/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readSiteStyles(),
   ]);
   assert.match(dashboard, /Solo anteprima · nessun invio/);
   assert.match(dashboard, /pubblicazione sempre manuale/);
