@@ -49,7 +49,7 @@ export const FAMILIAR_ATTENDANCE_REWARDS: FamiliarAttendanceReward[] = [
   { day: 4, label: "8 monete Nexus", icon: "/famiglio/navigation/shop-v1.webp", coins: 8, items: {} },
   { day: 5, label: "1 sapone", icon: "/famiglio/needs/igiene-v2.png", coins: 0, items: { soap: 1 } },
   { day: 6, label: "12 monete Nexus", icon: "/famiglio/navigation/shop-v1.webp", coins: 12, items: {} },
-  { day: 7, label: "Scrigno del legame", icon: "/famiglio/legacy/navigation/legame-v1.png", coins: 20, items: { food: 1, toy: 1 } },
+  { day: 7, label: "Scrigno del legame", icon: "/famiglio/legacy/navigation/legame-v1.webp", coins: 20, items: { food: 1, toy: 1 } },
 ];
 
 export const FAMILIAR_WISH_CATALOG: Record<FamiliarWishKind, { title: string; description: string; icon: string; actionLabel: string }> = {
@@ -64,23 +64,23 @@ export const FAMILIAR_SEASONAL_EVENTS: FamiliarSeasonalEvent[] = [
   {
     id: "anniversario-nexus", title: "Anniversario del Nexus", subtitle: "Le stanze ricordano ogni legame nato fra i mondi.", dateLabel: "24 agosto - 7 settembre", startMonthDay: "08-24", endMonthDay: "09-07", accent: "#f4c968",
     activities: [
-      { id: "lanterna", title: "Accendi la lanterna", description: "Completa un'uscita reale e riporta la fiamma del varco.", icon: "/famiglio/time-icons/tramonto-v1.png", energyCost: 0, reward: { coins: 0, items: {} }, requirement: "outing" },
-      { id: "sala-ricordi", title: "Attraversa la sala dei ricordi", description: "Completa e riscuoti una missione per custodire un ricordo.", icon: "/famiglio/legacy/navigation/legame-v1.png", energyCost: 0, reward: { coins: 0, items: {} }, requirement: "mission", requires: ["lanterna"] },
+      { id: "lanterna", title: "Accendi la lanterna", description: "Completa un'uscita reale e riporta la fiamma del varco.", icon: "/famiglio/time-icons/tramonto-v1.webp", energyCost: 0, reward: { coins: 0, items: {} }, requirement: "outing" },
+      { id: "sala-ricordi", title: "Attraversa la sala dei ricordi", description: "Completa e riscuoti una missione per custodire un ricordo.", icon: "/famiglio/legacy/navigation/legame-v1.webp", energyCost: 0, reward: { coins: 0, items: {} }, requirement: "mission", requires: ["lanterna"] },
       { id: "sigillo", title: "Risveglia il sigillo", description: "Concludi il percorso dopo aver superato le due prove reali.", icon: "/famiglio/navigation/tana-v1.webp", energyCost: 12, reward: { coins: 40, items: { food: 1, toy: 1 } }, requirement: "finale", requires: ["lanterna", "sala-ricordi"] },
     ],
   },
   {
     id: "halloween-nexus", title: "Ombre di Halloween", subtitle: "Lanterne, nebbia viola e sentieri che compaiono soltanto di notte.", dateLabel: "24 ottobre - 1 novembre", startMonthDay: "10-24", endMonthDay: "11-01", accent: "#f08a42",
     activities: [
-      { id: "zucca", title: "Segui la lanterna", description: "Completa un'uscita reale e trova il varco fra le zucche.", icon: "/famiglio/time-icons/tramonto-v1.png", energyCost: 0, reward: { coins: 0, items: {} }, requirement: "outing" },
+      { id: "zucca", title: "Segui la lanterna", description: "Completa un'uscita reale e trova il varco fra le zucche.", icon: "/famiglio/time-icons/tramonto-v1.webp", energyCost: 0, reward: { coins: 0, items: {} }, requirement: "outing" },
       { id: "nebbia", title: "Attraversa la nebbia", description: "Completa e riscuoti una missione per raccogliere una traccia.", icon: "/famiglio/navigation/fuori-casa-v1.webp", energyCost: 0, reward: { coins: 0, items: {} }, requirement: "mission", requires: ["zucca"] },
-      { id: "maschera", title: "Custodisci la maschera", description: "Concludi il percorso dopo aver superato le due prove reali.", icon: "/famiglio/legacy/navigation/legame-v1.png", energyCost: 12, reward: { coins: 46, items: { soap: 1, toy: 1 } }, requirement: "finale", requires: ["zucca", "nebbia"] },
+      { id: "maschera", title: "Custodisci la maschera", description: "Concludi il percorso dopo aver superato le due prove reali.", icon: "/famiglio/legacy/navigation/legame-v1.webp", energyCost: 12, reward: { coins: 46, items: { soap: 1, toy: 1 } }, requirement: "finale", requires: ["zucca", "nebbia"] },
     ],
   },
   {
     id: "feste-nexus", title: "Luci delle Feste", subtitle: "La neve accende i portali e ogni ritorno scalda la tana.", dateLabel: "1 dicembre - 6 gennaio", startMonthDay: "12-01", endMonthDay: "01-06", accent: "#8dd7e8",
     activities: [
-      { id: "stella", title: "Accendi la stella", description: "Completa un'uscita reale e porta la prima luce nell'atrio.", icon: "/famiglio/time-icons/alba-v1.png", energyCost: 0, reward: { coins: 0, items: {} }, requirement: "outing" },
+      { id: "stella", title: "Accendi la stella", description: "Completa un'uscita reale e porta la prima luce nell'atrio.", icon: "/famiglio/time-icons/alba-v1.webp", energyCost: 0, reward: { coins: 0, items: {} }, requirement: "outing" },
       { id: "fiocchi", title: "Segui i fiocchi", description: "Completa e riscuoti una missione lungo il cammino innevato.", icon: "/famiglio/navigation/fuori-casa-v1.webp", energyCost: 0, reward: { coins: 0, items: {} }, requirement: "mission", requires: ["stella"] },
       { id: "dono", title: "Apri il dono del Nexus", description: "Concludi il viaggio dopo aver superato le due prove reali.", icon: "/famiglio/navigation/shop-v1.webp", energyCost: 12, reward: { coins: 49, items: { food: 1, toy: 1 } }, requirement: "finale", requires: ["stella", "fiocchi"] },
     ],

@@ -22,9 +22,9 @@ import { familiarSpeciesProfile } from "@/lib/nexusFamiliarSpecies";
 export type LegacyView = "diary" | "personality" | "discoveries" | "rewards";
 
 const LEGACY_VIEWS: Array<{ id: LegacyView; label: string; eyebrow: string; icon: string }> = [
-  { id: "diary", label: "Diario", eyebrow: "Ricordi", icon: "/famiglio/legacy/navigation/diario-v1.png" },
+  { id: "diary", label: "Diario", eyebrow: "Ricordi", icon: "/famiglio/legacy/navigation/diario-v1.webp" },
   { id: "personality", label: "Personalità", eyebrow: "Legame", icon: "/famiglio/legacy/navigation/personalita-v1.png" },
-  { id: "discoveries", label: "Scoperte", eyebrow: "Album", icon: "/famiglio/legacy/navigation/scoperte-v1.png" },
+  { id: "discoveries", label: "Scoperte", eyebrow: "Album", icon: "/famiglio/legacy/navigation/scoperte-v1.webp" },
   { id: "rewards", label: "Ricompense", eyebrow: "Centro Nexus", icon: "/famiglio/navigation/missioni-v1.webp" },
 ];
 
@@ -144,7 +144,7 @@ export function NexusFamiliarLegacy({ state, familiarFamily, familiarSprite, fam
           <p>Qui trovi crescita, monete, premi ottenuti e sconti del vostro legame.</p>
         </header>
         <section className={styles.rewardStatus} aria-label="Stato delle ricompense">
-          <article><img src="/famiglio/legacy/navigation/legame-v1.png" alt="" /><span><small>Livello attuale</small><strong>{state.level} / {MAX_FAMILIAR_LEVEL}</strong></span></article>
+          <article><img src="/famiglio/legacy/navigation/legame-v1.webp" alt="" /><span><small>Livello attuale</small><strong>{state.level} / {MAX_FAMILIAR_LEVEL}</strong></span></article>
           <article><img src="/famiglio/navigation/shop-v1.webp" alt="" /><span><small>Monete disponibili</small><strong>{state.nexusCoins}</strong></span></article>
           <article><img src="/famiglio/legacy/navigation/personalita-v1.png" alt="" /><span><small>Sconto Famiglio</small><strong>{currentDiscount ? `${currentDiscount}%` : "Da sbloccare"}</strong></span></article>
         </section>
@@ -200,7 +200,7 @@ export function NexusFamiliarLegacy({ state, familiarFamily, familiarSprite, fam
             {selectedDiscoveries.map((discovery) => {
               const found = foundDiscoveries.some((entry) => entry.id === discovery.id);
               return <article key={discovery.id} data-found={found}>
-                <img src={found ? discovery.icon : "/famiglio/legacy/discoveries/sconosciuto-v1.png"} alt="" />
+                <img src={found ? discovery.icon : "/famiglio/legacy/discoveries/sconosciuto-v1.webp"} alt="" />
                 <span><small>{found ? discovery.rarity : "DA SCOPRIRE"}</small><strong>{found ? discovery.name : "Tesoro sconosciuto"}</strong><p>{found ? discovery.description : `Puoi trovarlo durante un'uscita verso ${selectedPostcard.title}.`}</p></span>
               </article>;
             })}

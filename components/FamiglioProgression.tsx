@@ -165,7 +165,7 @@ export function FamiglioProgression({
     </div>
 
     <nav className={styles.trackTabs} aria-label="Rami del Percorso del Legame">
-      {TRACKS.map((item) => <button key={item.id} type="button" aria-pressed={track === item.id} onClick={() => { setTrack(item.id); setPage(0); }}><img className={styles.trackIcon} src={`/famiglio/rebuild/progression/lunar-${item.id}-v2.png`} alt="" /><strong>{item.label}</strong><small>{item.description}</small></button>)}
+      {TRACKS.map((item) => <button key={item.id} type="button" aria-pressed={track === item.id} onClick={() => { setTrack(item.id); setPage(0); }}><img className={styles.trackIcon} src={`/famiglio/rebuild/progression/lunar-${item.id}-v2.webp`} alt="" /><strong>{item.label}</strong><small>{item.description}</small></button>)}
     </nav>
 
     <div className={styles.trackBody} data-track={track}>
@@ -173,12 +173,12 @@ export function FamiglioProgression({
         <div className={styles.trackIntro}><strong>Settimana {week} · {currentSeason.name}</strong><span>Tocca un’isola per scegliere la tua prossima avventura. Le quattro tappe si possono fare in qualsiasi ordine. Si rinnovano il {new Date(`${resetDate}T12:00:00Z`).toLocaleDateString("it-IT", {timeZone:"Europe/Rome"})}, a mezzanotte (ora italiana).</span></div>
         <p className={styles.nextAdventure}>{weeklyLoop.chestClaimed ? "Settimana completata: il tesoro è tuo." : remainingSteps.length ? `Mancano ${remainingSteps.length} tappe al tesoro: ${remainingSteps.map(step=>weeklyLabels[step]).join(" · ")}.` : "Tutte le tappe completate: apri il tesoro!"}</p>
         <div className={styles.lunarJourney}>
-          <div className={styles.islandScene}><img className={styles.islandArtwork} src="/famiglio/rebuild/progression/lunar-islands-v2.png" alt="Quattro isole lunari collegate da un sentiero di stelle: casa, giardino dei giochi, rovine e altare di cristallo." />
+          <div className={styles.islandScene}><img className={styles.islandArtwork} src="/famiglio/rebuild/progression/lunar-islands-v2.webp" alt="Quattro isole lunari collegate da un sentiero di stelle: casa, giardino dei giochi, rovine e altare di cristallo." />
             <ol className={styles.islandNodes}>{FAMILIAR_WEEKLY_STEPS.map((step,index) => <li key={step} data-step={step} data-complete={weeklyLoop.steps.includes(step)}><button type="button" aria-pressed={selectedStep === step} aria-label={`${weeklyLabels[step]}${weeklyLoop.steps.includes(step) ? ", completata" : ""}`} onClick={() => setSelectedStep(step)}><b>{weeklyLoop.steps.includes(step) ? "✓" : index+1}</b><span>{({care:"Cura",play:"Gioca",adventure:"Esplora",combat:"Lotta"})[step]}</span><small>{weeklyLoop.steps.includes(step)?"Fatto":"Da fare"}</small></button></li>)}</ol>
           </div>
           <aside className={styles.journeyDetails}>
             <div className={styles.selectedIsland} aria-live="polite"><small>{weeklyLoop.steps.includes(selectedStep) ? "✓ Tappa completata" : `Tappa ${FAMILIAR_WEEKLY_STEPS.indexOf(selectedStep)+1} · da esplorare`}</small><h3>{weeklyLabels[selectedStep]}</h3><p>{stepHelp[selectedStep]}</p><button type="button" onClick={() => onNavigateStep(selectedStep)}>{stepAction[selectedStep]}</button></div>
-            <div className={styles.lunarTreasure} data-ready={!remainingSteps.length && !weeklyLoop.chestClaimed}><img src="/famiglio/rebuild/progression/lunar-rewards-v2.png" alt="" /><div><strong>{weeklyLoop.chestClaimed ? "Tesoro raccolto" : `${weeklyLoop.steps.length}/4 tappe · il tuo tesoro`}</strong><p>45 Monete Nexus<br />2 Frammenti di Reliquia</p></div><button type="button" disabled={weeklyLoop.steps.length < 4 || weeklyLoop.chestClaimed} onClick={onClaimWeeklyChest}>{weeklyLoop.chestClaimed ? "Riscosso ✓" : remainingSteps.length ? `Completa le ${remainingSteps.length} tappe mancanti` : "Apri il tesoro"}</button></div>
+            <div className={styles.lunarTreasure} data-ready={!remainingSteps.length && !weeklyLoop.chestClaimed}><img src="/famiglio/rebuild/progression/lunar-rewards-v2.webp" alt="" /><div><strong>{weeklyLoop.chestClaimed ? "Tesoro raccolto" : `${weeklyLoop.steps.length}/4 tappe · il tuo tesoro`}</strong><p>45 Monete Nexus<br />2 Frammenti di Reliquia</p></div><button type="button" disabled={weeklyLoop.steps.length < 4 || weeklyLoop.chestClaimed} onClick={onClaimWeeklyChest}>{weeklyLoop.chestClaimed ? "Riscosso ✓" : remainingSteps.length ? `Completa le ${remainingSteps.length} tappe mancanti` : "Apri il tesoro"}</button></div>
             <button className={styles.attendanceEntry} type="button" onClick={() => setTrack("album")}>Scopri i ricordi nell’Album →</button>
           </aside>
         </div>

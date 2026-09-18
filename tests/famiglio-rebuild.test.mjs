@@ -135,6 +135,18 @@ function pngDimensions(path) {
   return { width: png.readUInt32BE(16), height: png.readUInt32BE(20) };
 }
 
+function rasterDimensions(path) {
+  const file = readFileSync(path);
+  if (file.toString("ascii", 0, 4) !== "RIFF" || file.toString("ascii", 8, 12) !== "WEBP") return pngDimensions(path);
+  const chunk = file.toString("ascii", 12, 16);
+  if (chunk === "VP8X") return { width: file.readUIntLE(24, 3) + 1, height: file.readUIntLE(27, 3) + 1 };
+  if (chunk === "VP8L") {
+    const bits = file.readUInt32LE(21);
+    return { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 };
+  }
+  return { width: file.readUInt16LE(26) & 0x3fff, height: file.readUInt16LE(28) & 0x3fff };
+}
+
 test("the rebuild offers exactly the eight approved identifiable starters", () => {
   assert.deepEqual(STARTER_EGGS.map((egg) => egg.familiar), [
     "Gatto",
@@ -1180,7 +1192,7 @@ test("Medusa exposes fifteen fixed-price premium micro-pattern covers", () => {
     const mobile = join(process.cwd(), "public", ...cover.artMobile.split("/").filter(Boolean));
     assert.ok(statSync(desktop).size > 40_000);
     assert.ok(statSync(mobile).size > 40_000);
-    const dimensions = pngDimensions(desktop);
+    const dimensions = rasterDimensions(desktop);
     assert.equal(dimensions.width, dimensions.height, `${cover.name}: il micromotivo deve essere quadrato`);
     assert.ok(dimensions.width >= 1024, `${cover.name}: il micromotivo deve restare ad alta risoluzione`);
     assert.equal(cover.artDesktop, cover.artMobile);

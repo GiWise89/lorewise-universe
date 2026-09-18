@@ -45,7 +45,7 @@ export const FAMILIAR_MEMORIES: FamiliarMemoryDefinition[] = [
 
 export const FAMILIAR_DISCOVERIES: FamiliarDiscoveryDefinition[] = [
   { id: "polline-luminoso", destinationId: "sentiero-luminoso", name: "Polline luminoso", description: "Brilla soltanto quando viene riportato a casa.", rarity: "Comune", icon: "/famiglio/legacy/discoveries/polline-luminoso-v1.png" },
-  { id: "piuma-del-varco", destinationId: "sentiero-luminoso", name: "Piuma del varco", description: "Una traccia leggera lasciata fra due sentieri.", rarity: "Raro", icon: "/famiglio/legacy/discoveries/piuma-del-varco-v1.png" },
+  { id: "piuma-del-varco", destinationId: "sentiero-luminoso", name: "Piuma del varco", description: "Una traccia leggera lasciata fra due sentieri.", rarity: "Raro", icon: "/famiglio/legacy/discoveries/piuma-del-varco-v1.webp" },
   { id: "seme-stellare", destinationId: "giardino-delle-stelle", name: "Seme stellare", description: "Conserva una scintilla del giardino notturno.", rarity: "Comune", icon: "/famiglio/legacy/discoveries/seme-stellare-v1.png" },
   { id: "cristallo-di-rugiada", destinationId: "giardino-delle-stelle", name: "Cristallo di rugiada", description: "Riflette costellazioni che non esistono nel nostro cielo.", rarity: "Raro", icon: "/famiglio/legacy/discoveries/cristallo-rugiada-v1.png" },
   { id: "sigillo-del-custode", destinationId: "varco-dei-custodi", name: "Sigillo del Custode", description: "Un frammento antico che reagisce alla presenza del Famiglio.", rarity: "Straordinario", icon: "/famiglio/legacy/discoveries/sigillo-custode-v1.png" },
@@ -53,17 +53,17 @@ export const FAMILIAR_DISCOVERIES: FamiliarDiscoveryDefinition[] = [
 ];
 
 export const FAMILIAR_POSTCARDS: FamiliarPostcardDefinition[] = [
-  { id: "cartolina-sentiero", destinationId: "sentiero-luminoso", title: "Sentiero luminoso", message: "Una piccola luce ha accompagnato ogni passo.", image: "/famiglio/legacy/postcards/sentiero-luminoso-v1.png" },
-  { id: "cartolina-giardino", destinationId: "giardino-delle-stelle", title: "Giardino delle stelle", message: "Qui persino i fiori sembrano ricordare il cielo.", image: "/famiglio/legacy/postcards/giardino-stelle-v1.png" },
-  { id: "cartolina-varco", destinationId: "varco-dei-custodi", title: "Varco dei Custodi", message: "Oltre la soglia, il Nexus ha pronunciato il nostro nome.", image: "/famiglio/legacy/postcards/varco-custodi-v1.png" },
+  { id: "cartolina-sentiero", destinationId: "sentiero-luminoso", title: "Sentiero luminoso", message: "Una piccola luce ha accompagnato ogni passo.", image: "/famiglio/legacy/postcards/sentiero-luminoso-v1.webp" },
+  { id: "cartolina-giardino", destinationId: "giardino-delle-stelle", title: "Giardino delle stelle", message: "Qui persino i fiori sembrano ricordare il cielo.", image: "/famiglio/legacy/postcards/giardino-stelle-v1.webp" },
+  { id: "cartolina-varco", destinationId: "varco-dei-custodi", title: "Varco dei Custodi", message: "Oltre la soglia, il Nexus ha pronunciato il nostro nome.", image: "/famiglio/legacy/postcards/varco-custodi-v1.webp" },
 ];
 
 export const FAMILIAR_PERSONALITIES: Record<FamiliarPersonalityKey, { label: string; description: string; icon: string }> = {
   curiosity: { label: "Curioso", description: "Osserva, cerca e scopre dettagli nascosti.", icon: "/famiglio/legacy/personality/curiosita-v1.png" },
   affection: { label: "Affettuoso", description: "Ricorda le cure e cerca la tua presenza.", icon: "/famiglio/legacy/personality/affetto-v1.png" },
-  adventure: { label: "Avventuroso", description: "Ama le uscite e i percorsi più lunghi.", icon: "/famiglio/legacy/personality/avventura-v1.png" },
+  adventure: { label: "Avventuroso", description: "Ama le uscite e i percorsi più lunghi.", icon: "/famiglio/legacy/personality/avventura-v1.webp" },
   playfulness: { label: "Giocherellone", description: "Trasforma ogni momento in un invito a giocare.", icon: "/famiglio/legacy/personality/gioco-v1.png" },
-  calm: { label: "Tranquillo", description: "Trova equilibrio nel riposo e nella quiete.", icon: "/famiglio/legacy/personality/quiete-v1.png" },
+  calm: { label: "Tranquillo", description: "Trova equilibrio nel riposo e nella quiete.", icon: "/famiglio/legacy/personality/quiete-v1.webp" },
 };
 
 export function createFamiliarLegacy(now = new Date()): FamiliarLegacyState {

@@ -42,7 +42,7 @@ export type FamiliarShopOffer = {
 export const MAX_DAILY_FAMILIAR_OUTINGS = 3;
 
 export const FAMILIAR_DESTINATIONS: FamiliarDestination[] = [
-  { id: "sentiero-luminoso", name: "Sentiero luminoso", description: "Una passeggiata breve tra le luci del Nexus.", icon: "/famiglio/time-icons/alba-v1.png", minutes: 5, energyCost: 8, reward: { coins: 6, experience: 30, items: {} } },
+  { id: "sentiero-luminoso", name: "Sentiero luminoso", description: "Una passeggiata breve tra le luci del Nexus.", icon: "/famiglio/time-icons/alba-v1.webp", minutes: 5, energyCost: 8, reward: { coins: 6, experience: 30, items: {} } },
   { id: "giardino-delle-stelle", name: "Giardino delle stelle", description: "Dieci minuti per esplorare, giocare e trovare piccoli tesori.", icon: "/famiglio/needs/felicita-v2.png", minutes: 10, energyCost: 16, reward: { coins: 13, experience: 60, items: {} } },
   { id: "varco-dei-custodi", name: "Varco dei Custodi", description: "Quindici minuti oltre la soglia; il percorso più lungo offre la ricompensa migliore.", icon: "/famiglio/navigation/fuori-casa-v1.webp", minutes: 15, energyCost: 24, reward: { coins: 22, experience: 90, items: {} } },
 ];
@@ -60,10 +60,10 @@ export function familiarOutingRewardForLevel(destination: FamiliarDestination, l
 
 
 export const FAMILIAR_SHOP_OFFERS: FamiliarShopOffer[] = [
-  { id: "tema-giardino-lucciole", name: "Giardino delle lucciole", description: "Cinque sfondi coordinati: alba, giorno, pomeriggio, tramonto e notte.", icon: "/famiglio/themes/giardino-lucciole/giorno-v1.png", priceCoins: 100, kind: "theme", themeId: "giardino-lucciole", status: "preview" },
-  { id: "tema-biblioteca-astrale", name: "Biblioteca astrale", description: "Cinque momenti del giorno fra libri, camino e mappe stellari.", icon: "/famiglio/themes/biblioteca-astrale/giorno-v1.png", priceCoins: 140, kind: "theme", themeId: "biblioteca-astrale", status: "preview" },
-  { id: "tema-serra-celeste", name: "Serra celeste", description: "Cinque sfondi coordinati fra vetrate, fiori magici e acqua.", icon: "/famiglio/themes/serra-celeste/giorno-v1.png", priceCoins: 180, kind: "theme", themeId: "serra-celeste", status: "preview" },
-  { id: "tema-cucina-alchemica", name: "Cucina dell'Alchimista", description: "Cinque momenti del giorno fra rame, erbe, pozioni e focolare.", icon: "/famiglio/themes/cucina-alchemica/giorno-v1.png", priceCoins: 220, kind: "theme", themeId: "cucina-alchemica", status: "preview" },
+  { id: "tema-giardino-lucciole", name: "Giardino delle lucciole", description: "Cinque sfondi coordinati: alba, giorno, pomeriggio, tramonto e notte.", icon: "/famiglio/themes/giardino-lucciole/giorno-v1.webp", priceCoins: 100, kind: "theme", themeId: "giardino-lucciole", status: "preview" },
+  { id: "tema-biblioteca-astrale", name: "Biblioteca astrale", description: "Cinque momenti del giorno fra libri, camino e mappe stellari.", icon: "/famiglio/themes/biblioteca-astrale/giorno-v1.webp", priceCoins: 140, kind: "theme", themeId: "biblioteca-astrale", status: "preview" },
+  { id: "tema-serra-celeste", name: "Serra celeste", description: "Cinque sfondi coordinati fra vetrate, fiori magici e acqua.", icon: "/famiglio/themes/serra-celeste/giorno-v1.webp", priceCoins: 180, kind: "theme", themeId: "serra-celeste", status: "preview" },
+  { id: "tema-cucina-alchemica", name: "Cucina dell'Alchimista", description: "Cinque momenti del giorno fra rame, erbe, pozioni e focolare.", icon: "/famiglio/themes/cucina-alchemica/giorno-v1.webp", priceCoins: 220, kind: "theme", themeId: "cucina-alchemica", status: "preview" },
   ...FAMILIAR_GADGETS.map((gadget) => ({
     ...gadget,
     kind: "gadget" as const,

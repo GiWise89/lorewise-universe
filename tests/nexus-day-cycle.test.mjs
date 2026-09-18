@@ -25,7 +25,7 @@ test("uses Europe/Rome time including seasonal time changes", () => {
 test("every time phase uses a room-only background without embedded black bands", () => {
   for (const hour of [5, 8, 12, 17, 20]) {
     const cycle = nexusRomeCycle(new Date(`2026-01-15T${String(hour).padStart(2, "0")}:00:00.000Z`));
-    assert.match(cycle.background, /-room-v2\.png$/);
+    assert.match(cycle.background, /-room-v2\.webp$/);
     assert.ok(existsSync(join(process.cwd(), "public", cycle.background)));
   }
 });

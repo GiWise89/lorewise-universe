@@ -60,7 +60,7 @@ export function NexusFamiliarRituals({ state, view, busy, onAttendance, onWish }
 
   if (view === "attendance") return (
     <section className={styles.scene} data-scene="attendance" aria-labelledby="attendance-title">
-      <img className={styles.sceneArt} src="/famiglio/rituals/calendario-presenze-v1.png" alt="Santuario settimanale con sette nicchie luminose e ricompense del Nexus" />
+      <img className={styles.sceneArt} src="/famiglio/rituals/calendario-presenze-v1.webp" alt="Santuario settimanale con sette nicchie luminose e ricompense del Nexus" />
       <div className={styles.sceneShade} />
       <header className={styles.sceneHeader}>
         <p>CALENDARIO DEL LEGAME</p>
@@ -93,7 +93,7 @@ export function NexusFamiliarRituals({ state, view, busy, onAttendance, onWish }
 
   return (
     <section className={styles.scene} data-scene="wish" aria-labelledby="wish-title">
-      <img className={styles.sceneArt} src="/famiglio/rituals/desiderio-giorno-v1.png" alt="Camera dei desideri con sfera luminosa e simboli di cura" />
+      <img className={styles.sceneArt} src="/famiglio/rituals/desiderio-giorno-v1.webp" alt="Camera dei desideri con sfera luminosa e simboli di cura" />
       <div className={styles.sceneShade} />
       <header className={styles.sceneHeader}>
         <p>DESIDERIO DEL GIORNO</p>
