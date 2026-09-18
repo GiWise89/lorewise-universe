@@ -76,7 +76,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
 
   if (error) {
     return <section className="vip-gate shell" aria-labelledby="vip-gate-title">
-      <img className="vip-gate-seal" src="/brand/icons/lorewise-vip-official-v1.webp" alt="Sigillo dell’Area VIP" width="1024" height="1024" />
+      <img className="vip-gate-seal" src="/brand/icons/vip-v2.webp" alt="Sigillo dell’Area VIP" width="1024" height="1024" />
       <div>
         <p className="eyebrow">Archivio riservato</p>
         <h1 id="vip-gate-title">L’Area VIP è chiusa.</h1>
@@ -104,7 +104,7 @@ export function VipGamesExperience({ initialArea = "guides", initialGame = "the-
       <div className="shell">
         <div className="vip-club-identity">
           <span className="vip-club-seal" aria-hidden="true">
-            <img src="/brand/icons/lorewise-vip-official-v1.webp" alt="" width="1024" height="1024" />
+            <img src="/brand/icons/vip-v2.webp" alt="" width="1024" height="1024" />
           </span>
           <div>
             <small>Il circolo privato di LoreWise</small>

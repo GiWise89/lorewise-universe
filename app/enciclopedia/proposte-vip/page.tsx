@@ -15,7 +15,7 @@ export default function CodexVipSuggestionsPage() {
       <div className="shell">
         <Link href="/enciclopedia" className="back-link">← Torna al LoreWise Codex</Link>
         <div>
-          <Image src="/brand/icons/lorewise-vip-official-v1.webp" alt="" width={1024} height={1024} priority unoptimized />
+          <Image src="/brand/icons/vip-v2.webp" alt="" width={1024} height={1024} priority unoptimized />
           <section>
             <p className="eyebrow">Partecipazione riservata</p>
             <h1>Proposte VIP.</h1>

@@ -4,33 +4,33 @@
  * l'ordine originale delle regole: contiene solo selettori che richiedono
  * classi usate esclusivamente in questa sezione.
  */
-.worlds-gateway { color:#172554;background:#eaf7fa; }
+.worlds-gateway { color:var(--parchment-ink);background:var(--parchment-bg); }
 .worlds-gateway-scene {
   position:relative;
   isolation:isolate;
   min-height:calc(100svh - 74px);
   overflow:hidden;
   background:
-    linear-gradient(180deg,rgba(255,255,255,.14),rgba(245,237,255,.18)),
-    url("/backgrounds/lorewise-luminous-universe-v1.webp") center/cover no-repeat;
+    radial-gradient(circle at 50% 42%,rgba(217,179,106,.18),transparent 55%),
+    var(--parchment-bg) url("/backgrounds/lorewise-parchment-v2.webp") center/cover no-repeat;
 }
 .worlds-gateway-scene::before {
   content:"";
   position:absolute;
   z-index:-1;
   inset:0;
-  background:radial-gradient(circle at 50% 49%,rgba(255,250,223,.82) 0 10%,rgba(255,255,255,.26) 30%,transparent 58%);
+  background:radial-gradient(circle at 50% 49%,rgba(255,250,236,.7) 0 10%,rgba(255,250,236,.2) 30%,transparent 58%);
   pointer-events:none;
 }
 .worlds-gateway-inner { position:relative;min-height:calc(100svh - 74px);display:grid;grid-template-rows:auto 1fr auto;gap:18px;padding-block:clamp(28px,4vw,58px) 24px; }
 .worlds-gateway-heading { width:min(100%,1040px);margin-inline:auto;display:grid;grid-template-columns:120px minmax(0,1fr) minmax(260px,.72fr);gap:clamp(18px,3.5vw,52px);align-items:center;text-align:left; }
 .worlds-gateway-heading p { margin:0;color:#5f6681;font-size:clamp(.78rem,1.1vw,.96rem);line-height:1.65; }
-.worlds-gateway-heading div > p { color:#9d286c;font-size:.68rem;font-weight:950;letter-spacing:.18em;text-transform:uppercase; }
+.worlds-gateway-heading div > p { color:#9a6a1c;font-size:.68rem;font-weight:950;letter-spacing:.18em;text-transform:uppercase; }
 .worlds-convergence { position:relative;width:min(100%,1120px);margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,64px);align-items:center; }
-.worlds-convergence::before { content:"";position:absolute;top:43%;right:11%;left:11%;height:1px;background:linear-gradient(90deg,transparent,#eaa448 15%,#57c9e1 50%,#ad72e3 85%,transparent);box-shadow:0 0 14px rgba(86,198,222,.48);pointer-events:none; }
-.worlds-route { --world-accent:#dc8c27;position:relative;z-index:1;min-width:0;display:grid;justify-items:center;align-content:center;color:#172554!important;text-align:center;text-decoration:none; }
-.worlds-route-origins { --world-accent:#24aeca;transform:translateY(26px); }
-.worlds-route-codex { --world-accent:#8b5bd0; }
+.worlds-convergence::before { content:"";position:absolute;top:43%;right:11%;left:11%;height:1px;background:linear-gradient(90deg,transparent,rgba(217,179,106,.9) 15%,rgba(217,179,106,.9) 85%,transparent);box-shadow:none;pointer-events:none; }
+.worlds-route { --world-accent:#b3264f;position:relative;z-index:1;min-width:0;display:grid;justify-items:center;align-content:center;color:#172554!important;text-align:center;text-decoration:none; }
+.worlds-route-origins { --world-accent:#b7791f;transform:translateY(26px); }
+.worlds-route-codex { --world-accent:#1e3a8a; }
 .worlds-route-orbit { position:absolute;z-index:-1;top:12px;width:clamp(150px,15vw,220px);aspect-ratio:1;border:1px solid color-mix(in srgb,var(--world-accent) 42%,transparent);border-radius:50%;box-shadow:0 0 0 18px color-mix(in srgb,var(--world-accent) 5%,transparent),0 0 40px color-mix(in srgb,var(--world-accent) 16%,transparent);transition:transform .55s ease,border-color .3s ease; }
 .worlds-route-orbit::before,.worlds-route-orbit::after { content:"";position:absolute;width:7px;aspect-ratio:1;border-radius:50%;background:var(--world-accent);box-shadow:0 0 10px var(--world-accent); }
 .worlds-route-orbit::before { top:12%;left:13%; }
@@ -73,7 +73,7 @@
   .worlds-gateway-heading > p { margin:14px auto 0; }
   .worlds-gateway-heading h1 { font-size:clamp(2.7rem,13vw,4rem); }
   .worlds-convergence { grid-template-columns:1fr;gap:42px; }
-  .worlds-convergence::before { top:5%;bottom:5%;left:50%;width:1px;height:auto;background:linear-gradient(180deg,transparent,#eaa448 14%,#57c9e1 50%,#ad72e3 86%,transparent); }
+  .worlds-convergence::before { top:5%;bottom:5%;left:50%;width:1px;height:auto;background:linear-gradient(180deg,transparent,rgba(217,179,106,.9) 14%,rgba(217,179,106,.9) 86%,transparent); }
   .worlds-route { grid-template-columns:128px minmax(0,1fr);justify-items:start;gap:12px;text-align:left; }
   .worlds-route-emblem { width:128px;height:128px; }
   .worlds-route-orbit { top:0;left:0;width:128px; }
@@ -93,3 +93,6 @@
   .worlds-gateway-stars i { animation:none; }
   .worlds-route-emblem img,.worlds-route-orbit { transition:none; }
 }
+
+/* Su pergamena le stelle luminose non si vedono: il clima chiaro resta pulito. */
+.worlds-gateway-stars { display:none; }

@@ -17,7 +17,7 @@ export default async function CommissionAdminPage() {
   if (!admin) {
     return (
       <main className="commission-admin-access-denied">
-        <Image src="/brand/icons/commissioni-concept-v1.webp" alt="Emblema GiWise Commissioni" width={1224} height={1285} unoptimized />
+        <Image src="/brand/icons/commissioni-v2.webp" alt="Emblema GiWise Commissioni" width={1224} height={1285} unoptimized />
         <small>Area privata GiWise Studio</small>
         <h1>Accesso non autorizzato.</h1>
         <p>Accedi con il profilo amministratore LoreWise ID. I dati delle richieste restano protetti.</p>
@@ -30,7 +30,7 @@ export default async function CommissionAdminPage() {
     <main className="commission-admin-page">
       <header className="commission-admin-hero">
         <div className="shell">
-          <Image src="/brand/icons/commissioni-concept-v1.webp" alt="Emblema illustrato GiWise Commissioni" width={1224} height={1285} unoptimized priority />
+          <Image src="/brand/icons/commissioni-v2.webp" alt="Emblema illustrato GiWise Commissioni" width={1224} height={1285} unoptimized priority />
           <div><p className="eyebrow">GiWise Studio · Archivio riservato</p><h1>GiWise<br />Commissioni.</h1><p>Valuta ogni richiesta, consulta i riferimenti, prepara il preventivo e accompagna il lavoro fino alla consegna.</p></div>
         </div>
       </header>

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default async function CommunityManagementPage() {
   await requireAdminPage();
   return <main className="community-admin-page">
-    <header className="community-admin-hero"><div className="shell"><Image src="/brand/icons/social-assistenza-concept-v1.webp" alt="Emblema illustrato della Community LoreWise" width={1224} height={1285} priority unoptimized /><div><p className="eyebrow">LoreWise Universe · area riservata</p><h1>Custodisci la conversazione.</h1><p>Segnalazioni, decisioni e blocchi vengono trattati in un unico archivio amministrativo, senza esporre email o note private nelle pagine pubbliche.</p></div></div></header>
+    <header className="community-admin-hero"><div className="shell"><Image src="/brand/icons/community-v2.webp" alt="Emblema illustrato della Community LoreWise" width={1224} height={1285} priority unoptimized /><div><p className="eyebrow">LoreWise Universe · area riservata</p><h1>Custodisci la conversazione.</h1><p>Segnalazioni, decisioni e blocchi vengono trattati in un unico archivio amministrativo, senza esporre email o note private nelle pagine pubbliche.</p></div></div></header>
     <div className="shell community-admin-workspace"><CommunityModerationDashboard /></div>
   </main>;
 }

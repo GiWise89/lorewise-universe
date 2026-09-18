@@ -36,7 +36,7 @@ export default async function ArtPage({ searchParams }: { searchParams?: Promise
             <p>Originali acquistabili e opere in esposizione, raccolti in una vetrina protetta.</p>
             <Link className="art-hero-catalog-link" href="#art-index">Guarda subito le opere <span aria-hidden="true">↓</span></Link>
           </div>
-          <Image src="/brand/icons/arte-concept-v1.webp" alt="Emblema della sezione Arte" width={1224} height={1285} unoptimized priority />
+          <Image src="/brand/icons/arte-v2.webp" alt="Emblema della sezione Arte" width={1224} height={1285} unoptimized priority />
         </div>
       </section>
 

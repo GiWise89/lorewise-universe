@@ -21,7 +21,7 @@ export type PublicationCalendarEntry = {
 const promotions = [commissionOpeningPromotion, corruptedPortraitPromotion, holidayNexusPromotion] as const;
 const promotionCalendarDates: Record<string, string> = { "nexus-opening-2026": "2026-09-10" };
 const promotionVisuals: Record<string, { image: string; imageAlt: string }> = {
-  "nexus-opening-2026": { image: "/brand/icons/commissioni-concept-v1.webp", imageAlt: "Emblema delle commissioni artistiche GiWise Studio" },
+  "nexus-opening-2026": { image: "/brand/icons/commissioni-v2.webp", imageAlt: "Emblema delle commissioni artistiche GiWise Studio" },
   "halloween-corrupted-portrait-2026": { image: "/promotions/halloween-corrupted-portrait-premium-v1.webp", imageAlt: "Ritratto promozionale La mia versione corrotta" },
   "nexus-holidays-2026": { image: "/novita/nexus-sections/promozioni-invito-v1.webp", imageAlt: "Invito illustrato alle Feste nel Nexus" },
 };

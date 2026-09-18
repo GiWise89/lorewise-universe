@@ -106,16 +106,16 @@ test("keeps every approved weekly announcement in the prepared calendar", () => 
 
 test("uses only public, existing images in scheduled public announcements", async () => {
   const images = [
-    "../public/brand/icons/dove-nascono-i-mondi-concept-v1.webp",
+    "../public/brand/icons/mondi-v2.webp",
     "../public/games/demon-match-three/gameplay-portal-backdrop-v1.webp",
     "../public/games/demon-match-three/gameplay-map-act-1-v1.webp",
     "../public/games/demon-match-three/gameplay-powerup-ready-v1.webp",
     "../public/creative-journal/previews/lw-wip-010-preview.jpg",
-    "../public/brand/icons/lorewise-vip-official-v1.webp",
-    "../public/brand/icons/arte-concept-v1.webp",
+    "../public/brand/icons/vip-v2.webp",
+    "../public/brand/icons/arte-v2.webp",
     "../public/codex/seals/lorewise-codex-emblem-v1.webp",
     "../public/codex/display/nhevara.webp",
-    "../public/brand/icons/commissioni-concept-v1.webp",
+    "../public/brand/icons/commissioni-v2.webp",
     "../public/universe-pass/benefits-sketch-constellation-v1.webp",
     "../public/promotions/halloween-corrupted-portrait-premium-v1.webp",
     "../public/decorations/halloween/moon-amber-mist-optimized-v1.webp",

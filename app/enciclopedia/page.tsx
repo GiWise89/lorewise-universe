@@ -59,7 +59,7 @@ export default function EncyclopediaPage() {
       <header><p className="eyebrow">Percorsi specialistici</p><h2 id="codex-secondary-title">Quando vuoi entrare più a fondo.</h2></header>
       <div>
         <Link href="/enciclopedia/originali-giwise"><Image src="/codex/seals/giwise-original-seal-v1.webp" alt="" width={320} height={320} /><span><small>Archivio autonomo</small><strong>Originali GiWise</strong><span>Esplora soltanto personaggi, fazioni e lore creati da GiWise Studio.</span><b>Apri l’archivio d’autore →</b></span></Link>
-        <Link href="/enciclopedia/proposte-vip"><Image src="/brand/icons/lorewise-vip-official-v1.webp" alt="" width={1024} height={1024} unoptimized /><span><small>Partecipazione riservata</small><strong>Proposte VIP</strong><span>Suggerisci un futuro dossier senza interrompere la consultazione principale.</span><b>Apri lo spazio proposte →</b></span></Link>
+        <Link href="/enciclopedia/proposte-vip"><Image src="/brand/icons/vip-v2.webp" alt="" width={1024} height={1024} unoptimized /><span><small>Partecipazione riservata</small><strong>Proposte VIP</strong><span>Suggerisci un futuro dossier senza interrompere la consultazione principale.</span><b>Apri lo spazio proposte →</b></span></Link>
       </div>
     </section>
 

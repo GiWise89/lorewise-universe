@@ -15,7 +15,7 @@ export default function CommissionStatusPage() {
     <main className="commission-status-page">
       <section className="commission-status-hero">
         <div className="shell">
-          <Image src="/brand/icons/commissioni-concept-v1.webp" alt="Emblema illustrato GiWise Commissioni" width={1224} height={1285} unoptimized priority />
+          <Image src="/brand/icons/commissioni-v2.webp" alt="Emblema illustrato GiWise Commissioni" width={1224} height={1285} unoptimized priority />
           <div><p className="eyebrow">GiWise Studio · Area cliente</p><h1>Segui la tua<br />richiesta.</h1><p>Un accesso riservato per sapere dove si trova il tuo progetto, consultare il preventivo e comunicare la tua decisione.</p><Link href="/commissioni">Torna alle commissioni</Link></div>
         </div>
       </section>

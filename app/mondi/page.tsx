@@ -28,7 +28,7 @@ const worldPaths = [
     description: "Bozze autentiche, lavorazioni, passioni e storie dello Studio prima del risultato finale.",
     action: "Apri il Diario",
     href: "/dove-nascono-i-mondi",
-    image: "/brand/icons/dove-nascono-i-mondi-concept-v1.webp",
+    image: "/brand/icons/mondi-v2.webp",
     imageAlt: "Emblema del diario Dove nascono i mondi",
   },
   {
@@ -39,7 +39,7 @@ const worldPaths = [
     description: "Personaggi, universi, continuità e fonti custoditi in dossier editoriali distinti.",
     action: "Consulta il Codex",
     href: "/enciclopedia",
-    image: "/codex/seals/lorewise-codex-emblem-v1.webp",
+    image: "/brand/icons/codex-v2.webp",
     imageAlt: "Emblema del LoreWise Codex",
   },
 ] as const;
@@ -50,7 +50,7 @@ export default function WorldsGatewayPage() {
       <div className="worlds-gateway-stars" aria-hidden="true"><i /><i /><i /><i /><i /></div>
       <div className="shell worlds-gateway-inner">
         <header className="worlds-gateway-heading">
-          <Image src="/brand/navigation/mondi.webp" alt="" width={420} height={420} priority unoptimized />
+          <Image src="/brand/icons/mondi-v2.webp" alt="" width={640} height={640} priority unoptimized />
           <div><p>Archivio narrativo · GiWise Studio</p><h1 id="worlds-gateway-title">Tre sentieri.<br />Un solo universo.</h1></div>
           <p>Scopri ciò che accade nei mondi, osserva come nascono e approfondisci personaggi e legami nel Codex.</p>
         </header>

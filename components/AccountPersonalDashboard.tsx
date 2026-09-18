@@ -289,7 +289,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "", localHallow
     <section id="account-overview" className="account-workspace-panel" aria-label="Panoramica account" hidden={activeView !== "overview"}>
       <section id="account-tasks" className="account-task-center" aria-labelledby="account-task-title"><header><div><p className="eyebrow">La tua prossima azione</p><h3 id="account-task-title">Da fare ora.</h3></div><strong>{accountTasks.length}<span>attività</span></strong></header>{accountTasks.length ? <ol>{accountTasks.map((task, index) => <li className={`tone-${task.tone}`} key={`${task.href}-${index}`}><span aria-hidden="true" /><div><strong>{task.title}</strong><p>{task.detail}</p></div>{task.href === "#account-library" || task.href === "#account-benefits" ? <button type="button" onClick={() => openView(task.href === "#account-library" ? "library" : "benefits")}>{task.action} →</button> : <a href={task.href}>{task.action} →</a>}</li>)}</ol> : <div className="account-task-empty"><strong>Tutto sotto controllo.</strong><p>Non ci sono pagamenti, richieste o consegne che richiedono una tua azione.</p><Link href="/cerca">Esplora LoreWise</Link></div>}</section>
 
-      {canModerate ? <div className="personal-admin-entry"><Image src="/brand/icons/social-assistenza-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Ruolo {data.identity.role === "admin" ? "amministratore" : "moderatore"}</p><strong>{data.community.openReports ? `${data.community.openReports} segnalazioni da valutare` : "Centro operativo disponibile"}</strong></div><div className="personal-admin-actions"><Link href={data.identity.role === "admin" ? "/admin" : "/gestione-community"}>{data.identity.role === "admin" ? "Apri il Centro Admin" : "Apri la moderazione"}</Link></div></div> : null}
+      {canModerate ? <div className="personal-admin-entry"><Image src="/brand/icons/community-v2.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Ruolo {data.identity.role === "admin" ? "amministratore" : "moderatore"}</p><strong>{data.community.openReports ? `${data.community.openReports} segnalazioni da valutare` : "Centro operativo disponibile"}</strong></div><div className="personal-admin-actions"><Link href={data.identity.role === "admin" ? "/admin" : "/gestione-community"}>{data.identity.role === "admin" ? "Apri il Centro Admin" : "Apri la moderazione"}</Link></div></div> : null}
 
       <ol className="personal-dashboard-numbers" aria-label="Riepilogo personale">
         <li><span>01</span><strong>{data.summary.orders}</strong><small>Ordini registrati</small></li>
@@ -309,7 +309,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "", localHallow
 
     <div id="account-orders" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "orders"}>
       <article className="personal-chapter personal-orders">
-        <header><Image src="/brand/icons/shop-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Ordini e ricevute</p><h3>I tuoi acquisti.</h3></div></header>
+        <header><Image src="/brand/icons/shop-v2.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Ordini e ricevute</p><h3>I tuoi acquisti.</h3></div></header>
         {data.orders.length ? <ol>{data.orders.map((order) => <li key={order.referenceCode}><div><strong>{order.itemTitles || order.type}</strong><small>{order.referenceCode} · {dateLabel(order.createdAt)}</small></div><span>{statusLabels[order.status] ?? order.status}</span><b>{money(order.totalCents, order.currency)}</b><Link className="personal-order-detail" href={`/account/ordini/${encodeURIComponent(order.referenceCode)}`}>Apri riepilogo</Link></li>)}</ol> : <div className="personal-empty"><strong>Nessun ordine registrato.</strong><p>Gli acquisti compariranno qui soltanto dopo la conferma reale del pagamento.</p><div><Link href="/arte">Esplora l’Arte</Link><Link href="/giochi">Scopri Giochi e App</Link></div></div>}
       </article>
 
@@ -317,7 +317,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "", localHallow
 
     <div id="account-library" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "library"}>
       <article className="personal-chapter personal-library">
-        <header><Image src="/brand/icons/arte-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Arte, giochi e licenze</p><h3>La tua libreria.</h3></div></header>
+        <header><Image src="/brand/icons/arte-v2.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Arte, giochi e licenze</p><h3>La tua libreria.</h3></div></header>
         {data.library.length ? <div className="personal-library-columns"><section><h4>Arte e licenze</h4>{artworkItems.length ? <div className="personal-library-art-groups">
           {artworkCollectionGroups.map(({ bundle, items }) => <section className="personal-library-collection" key={bundle.code} aria-labelledby={`library-${bundle.slug}`}>
             <header><div><small>Collezione completa · 3 opere</small><h5 id={`library-${bundle.slug}`}>{bundle.title}</h5></div><span>{items[0]?.orderReferenceCode ?? bundle.code}</span></header>
@@ -332,7 +332,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "", localHallow
 
     <div id="account-commissions" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "commissions"}>
       <article className="personal-chapter personal-commissions">
-        <header><Image src="/brand/icons/commissioni-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Lavori su richiesta</p><h3>Le tue commissioni.</h3></div></header>
+        <header><Image src="/brand/icons/commissioni-v2.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Lavori su richiesta</p><h3>Le tue commissioni.</h3></div></header>
         {data.commissions.length ? <ol>{data.commissions.map((commission) => <li key={commission.referenceCode}><div><strong>{commission.packageName}</strong><small>{commission.referenceCode} · {commission.category}</small>{commission.quoteDiscountCents ? <small>{commission.pricingDiscountLabel ?? getCommissionPromotionForSubmission(commission.packageName, commission.createdAt)?.label ?? commission.membershipPlanCode ?? "Sconto"}{commission.pricingDiscountKind === "percentage" ? ` · ${commission.pricingDiscountValue ?? commission.membershipDiscountPercent}%` : ""}: −{money(commission.quoteDiscountCents)}</small> : null}</div><span>{statusLabels[commission.status] ?? commission.status}</span><b>{money(commission.quoteCents)}</b></li>)}</ol> : <div className="personal-empty"><strong>Nessuna commissione collegata.</strong><p>Le nuove richieste vengono collegate direttamente al LoreWise ID e ricevono automaticamente i vantaggi del piano attivo.</p><Link href="/commissioni">Richiedi un progetto</Link></div>}
       </article>
 
@@ -340,7 +340,7 @@ export function AccountPersonalDashboard({ successfulSessionId = "", localHallow
 
     <div id="account-community" className="account-workspace-panel personal-dashboard-chapters account-single-chapter" hidden={activeView !== "community"}>
       <article className="personal-chapter personal-community-account">
-        <header><Image src="/brand/icons/social-assistenza-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Reazioni dalla Community</p><h3>La tua voce.</h3></div></header>
+        <header><Image src="/brand/icons/community-v2.webp" alt="" width={1224} height={1285} unoptimized /><div><p className="eyebrow">Reazioni dalla Community</p><h3>La tua voce.</h3></div></header>
         <div className="personal-community-counts"><div><strong>{data.community.likes}</strong><span>Like lasciati</span></div><div><strong>{data.community.comments}</strong><span>Commenti pubblicati</span></div></div>
         <p>Puoi gestire commenti e recensioni direttamente dalla scheda dell’opera o del gioco interessato.</p><div className="personal-admin-actions"><Link href="/arte">Vai alla collezione Arte</Link><Link href="/giochi">Vai ai giochi</Link></div>
       </article>

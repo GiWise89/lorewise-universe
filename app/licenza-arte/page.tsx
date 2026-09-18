@@ -64,7 +64,7 @@ export default function ArtLicensePage() {
             <h1 id="license-title">L’opera arriva completa. I diritti restano all’autore.</h1>
             <p>Questa pagina definisce cosa riceverà l’acquirente, come potrà usare il file e come verrà protetto il download. Nessun acquisto o collegamento privato è ancora attivo.</p>
           </div>
-          <Image src="/brand/icons/arte-concept-v1.webp" alt="Emblema illustrato di Arte in Vetrina" width={1224} height={1285} unoptimized priority />
+          <Image src="/brand/icons/arte-v2.webp" alt="Emblema illustrato di Arte in Vetrina" width={1224} height={1285} unoptimized priority />
         </div>
       </section>
 

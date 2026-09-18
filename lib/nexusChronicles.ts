@@ -216,7 +216,7 @@ const openingChronicle: NexusChronicle = {
     title: "Il mondo ferito continua a muoversi.",
     excerpt: "The Wound Remembers prepara una nuova minaccia, mentre Il Patto delle Ceneri sperimenta una diversa forma di gioco tattico. Questa è la parte che possiamo raccontare senza rovinare le sorprese.",
     detail: "Dietro le porte riservate non ci sono semplici immagini in più: ci sono scelte ancora in lavorazione, dossier di sviluppo e occasioni concrete per seguire o influenzare ciò che arriverà dopo.",
-    image: "/brand/icons/lorewise-vip-official-v1.webp",
+    image: "/brand/icons/vip-v2.webp",
     imageAlt: "Emblema ufficiale dell’Area VIP",
     signals: [
       {
@@ -246,7 +246,7 @@ const openingChronicle: NexusChronicle = {
       title: "Apertura del Nexus",
       period: commissionOpeningPromotion.period,
       description: "Per inaugurare il sito, le richieste di commissione inviate entro la scadenza ricevono una tariffa di apertura legata al LoreWise ID.",
-      visual: "/brand/icons/commissioni-concept-v1.webp",
+      visual: "/brand/icons/commissioni-v2.webp",
       visualAlt: "Emblema delle commissioni LoreWise",
       rates: [
         { audience: "Visitatori", discount: `−${commissionOpeningPromotion.rates.visitor}%` },
@@ -466,7 +466,7 @@ const holidayChroniclePromotion: NexusChroniclePromotion = {
   title: holidayNexusPromotion.title,
   period: holidayNexusPromotion.period,
   description: "Un ritratto può diventare un regalo, un ricordo o l’inizio di un nuovo mondo. La tariffa delle Feste viene calcolata direttamente sul preventivo e resta acquisita dopo la scadenza.",
-  visual: "/brand/icons/commissioni-concept-v1.webp",
+  visual: "/brand/icons/commissioni-v2.webp",
   visualAlt: "Emblema illustrato delle commissioni GiWise Studio",
   rates: [
     { audience: "Visitatori", discount: `−${holidayNexusPromotion.rates.visitor}%` },
@@ -593,7 +593,7 @@ const guideCalendarChronicles = guideChronicleEditorial.map((entry) => {
     label: "Archivio delle uscite",
     title: "Diciassette Cronache, un percorso leggibile.",
     text: "Guide, date, passaggi pubblici e campagne stagionali restano raccolti in un archivio facile da consultare.",
-    image: "/brand/icons/giochi-concept-v1.webp",
+    image: "/brand/icons/giochi-v2.webp",
     imageAlt: "Emblema della sezione Giochi di LoreWise Universe",
     note: "Calendario completato · archivio permanente",
     href: "/cronache-del-nexus",
@@ -648,7 +648,7 @@ export const nexusChronicles: NexusChronicle[] = [
     title: "Dal tratto al mondo.",
     excerpt: "La settimana di Baldur’s Gate 3 comincia dal processo creativo di Lae’zel, mentre l’Archivio dei Custodi apre tre nuovi sfondi riservati agli abbonati.",
     detail: "La Cronaca mette vicini due modi di custodire un universo: osservare come nasce un personaggio e conservare sul proprio dispositivo un frammento visivo originale di LoreWise.",
-    image: "/brand/icons/dove-nascono-i-mondi-concept-v1.webp",
+    image: "/brand/icons/mondi-v2.webp",
     imageAlt: "Emblema di Dove nascono i mondi",
     signals: [
       {
@@ -665,7 +665,7 @@ export const nexusChronicles: NexusChronicle[] = [
         label: "Download VIP",
         title: "Apre l’Archivio dei Custodi.",
         text: "Tre sfondi originali dedicati a The Wound Remembers entrano nella raccolta digitale riservata. Le anteprime restano leggere e protette; i file completi sono disponibili agli abbonati con Pass attivo.",
-        image: "/brand/icons/lorewise-vip-official-v1.webp",
+        image: "/brand/icons/vip-v2.webp",
         imageAlt: "Emblema ufficiale dell’Area VIP",
         note: "Tre sfondi originali · archivio digitale protetto",
         href: "/vip-zone?area=downloads#downloads",
@@ -702,14 +702,14 @@ export const nexusChronicles: NexusChronicle[] = [
     title: "Due anime dello stesso Atelier.",
     excerpt: "Un ricordo nel bosco e un volto spezzato dopo mezzanotte mostrano quanto possano essere diverse le strade che conducono a un’opera.",
     detail: "LoreWise non ha un solo tono. Questa settimana l’Atelier mette a confronto un processo intimo e luminoso con una trasformazione horror, mentre l’archivio digitale accoglie la trilogia LoreWise Match.",
-    image: "/brand/icons/arte-concept-v1.webp",
+    image: "/brand/icons/arte-v2.webp",
     imageAlt: "Emblema di Arte in Vetrina",
     signals: [
       {
         label: "Atelier VIP",
         title: "Dal legame al paesaggio.",
         text: "Insieme nel bosco segue quattro fasi reali: prima la vicinanza fra una ragazza e il suo cane, poi identità, colore e infine il luogo che li custodisce.",
-        image: "/brand/icons/dove-nascono-i-mondi-concept-v1.webp",
+        image: "/brand/icons/mondi-v2.webp",
         imageAlt: "Emblema di Dove nascono i mondi usato per il processo creativo Insieme nel bosco",
         note: "Quattro fasi protette · processo delicato e personale",
         href: "/vip-zone?area=atelier#atelier",
@@ -719,7 +719,7 @@ export const nexusChronicles: NexusChronicle[] = [
         label: "Atelier e Download VIP",
         title: "Dopo mezzanotte cambia tutto.",
         text: "Icona dopo mezzanotte conserva in quattro passaggi la metamorfosi horror di un volto. Accanto al processo arriva LoreWise Match: tre nuovi sfondi originali raccolti in un unico archivio digitale.",
-        image: "/brand/icons/lorewise-vip-official-v1.webp",
+        image: "/brand/icons/vip-v2.webp",
         imageAlt: "Emblema dell’Area VIP per Atelier e Download",
         note: "Quattro fasi di studio · tre nuovi sfondi LoreWise Match",
         href: "/vip-zone?area=downloads#downloads",

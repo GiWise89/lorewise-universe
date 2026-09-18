@@ -23,7 +23,7 @@ export default async function ArtworkPackagePage({ params }: { params: Promise<{
     <section className="artwork-package-hero">
       <div className="shell artwork-package-hero-inner">
         <div><p className="eyebrow">Simulazione locale · nessun acquisto registrato</p><h1>Il tuo pacchetto,<br />prima di acquistare.</h1><p>Questa pagina riproduce ciò che apparirà nella libreria personale dopo una conferma di pagamento. L’immagine visibile resta l’anteprima pubblica protetta.</p></div>
-        <Image src="/brand/icons/arte-concept-v1.webp" alt="" width={1224} height={1285} priority unoptimized />
+        <Image src="/brand/icons/arte-v2.webp" alt="" width={1224} height={1285} priority unoptimized />
       </div>
     </section>
 

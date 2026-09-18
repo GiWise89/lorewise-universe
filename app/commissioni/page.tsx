@@ -354,7 +354,7 @@ function CommissionRequestSection({ user, promotion, initialPackage, initialRefe
         <h2 id="commission-request-title">Partiamo dalla tua idea.</h2>
         <p>Il preventivo dipenderà da numero di soggetti, complessità, sfondo, urgenza, revisioni e utilizzo finale.</p>
         <ul className="check-list"><li>Ritratto personale o di coppia</li><li>Ritratto di bambino con consenso del tutore</li><li>Ritratto del tuo animale</li><li>Trasformazione fantasy o horror</li><li>Fan art destinata all’uso personale</li></ul>
-        <aside className="commission-request-policy"><Image src="/brand/icons/commissioni-concept-v1.webp" alt="" width={1224} height={1285} unoptimized /><div><strong>Prima di inviare</strong><ul>{commissionContentRules.map((rule) => <li key={rule}>{rule}</li>)}</ul><Link href="/commissioni/condizioni">Condizioni complete</Link></div></aside>
+        <aside className="commission-request-policy"><Image src="/brand/icons/commissioni-v2.webp" alt="" width={1224} height={1285} unoptimized /><div><strong>Prima di inviare</strong><ul>{commissionContentRules.map((rule) => <li key={rule}>{rule}</li>)}</ul><Link href="/commissioni/condizioni">Condizioni complete</Link></div></aside>
       </div>
       {user?.email ? <CommissionRequestForm
         categories={commissionCategories}
@@ -556,7 +556,7 @@ export default async function CommissionsPage({ searchParams }: { searchParams?:
 
       {activeChapter === "metodo" ? <section className="commission-fanart-note" aria-labelledby="commission-fanart-title">
         <div className="shell commission-fanart-grid">
-          <Image src="/brand/icons/commissioni-concept-v1.webp" alt="Emblema illustrato delle commissioni GiWise Studio" width={1224} height={1285} unoptimized />
+          <Image src="/brand/icons/commissioni-v2.webp" alt="Emblema illustrato delle commissioni GiWise Studio" width={1224} height={1285} unoptimized />
           <div>
             <p className="eyebrow">Ritratti iconici e fan art</p>
             <h2 id="commission-fanart-title">I nomi degli artisti restano visibili.</h2>

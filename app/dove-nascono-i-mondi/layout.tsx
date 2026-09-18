@@ -12,9 +12,9 @@ export const metadata: Metadata = {
     siteName: "LoreWise Universe",
     locale: "it_IT",
     type: "website",
-    images: [{ url: "/brand/icons/dove-nascono-i-mondi-concept-v1.webp", alt: "Dove nascono i mondi, diario creativo GiWise Studio" }],
+    images: [{ url: "/brand/icons/mondi-v2.webp", alt: "Dove nascono i mondi, diario creativo GiWise Studio" }],
   },
-  twitter: { card: "summary_large_image", title: "Dove nascono i mondi", description, images: ["/brand/icons/dove-nascono-i-mondi-concept-v1.webp"] },
+  twitter: { card: "summary_large_image", title: "Dove nascono i mondi", description, images: ["/brand/icons/mondi-v2.webp"] },
 };
 
 export default function CreativeJournalLayout({ children }: Readonly<{ children: React.ReactNode }>) {

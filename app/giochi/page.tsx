@@ -117,7 +117,7 @@ export default function GamesPage() {
       <section className="studio-dossier-section" aria-labelledby="studio-dossier-title">
         <div className="shell studio-dossier-grid">
           <div className="studio-dossier-art">
-            <Image src="/brand/icons/giochi-concept-v1.webp" alt="Mondo fantastico e controller, simbolo dei progetti interattivi GiWise Studio" width={1536} height={1024} unoptimized />
+            <Image src="/brand/icons/giochi-v2.webp" alt="Mondo fantastico e controller, simbolo dei progetti interattivi GiWise Studio" width={1536} height={1024} unoptimized />
           </div>
           <div className="studio-dossier-copy">
             <p className="eyebrow">Scheda progetto</p>

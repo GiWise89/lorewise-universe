@@ -9,7 +9,7 @@ export function ShopBridge() {
     <aside className="shop-bridge" aria-label="Collegamento tra LoreWise Universe e GiWise Shop">
       <div className="shell shop-bridge-inner">
         <div className="shop-bridge-identity">
-          <Image src="/brand/icons/shop-concept-v1.webp" alt="" width={1224} height={1285} unoptimized />
+          <Image src="/brand/icons/shop-v2.webp" alt="" width={1224} height={1285} unoptimized />
           <div>
             <span>LoreWise Universe presenta</span>
             <strong>GiWise Shop</strong>

@@ -40,18 +40,18 @@ type FamiglioCustodianSummary = {
 };
 
 const modules = [
-  { code: "01", title: "Utenti", description: "Profili, ruoli, stato, crediti e diritti collegati al LoreWise ID.", href: "#admin-users", icon: "/brand/icons/social-assistenza-concept-v1.webp", tone: "cyan" },
+  { code: "01", title: "Utenti", description: "Profili, ruoli, stato, crediti e diritti collegati al LoreWise ID.", href: "#admin-users", icon: "/brand/icons/community-v2.webp", tone: "cyan" },
   { code: "02", title: "Abbonamenti e vantaggi", description: "Piani, rinnovi, crediti, sconti e accessi assegnati dal motore vantaggi.", href: "#admin-users", icon: "/brand/lorewise-universe-logo-concept-c.webp", tone: "violet" },
-  { code: "03", title: "Ordini e rimborsi", description: "Pagamenti, rimborsi e revoca dei diritti dopo conferma.", href: "/gestione-ordini", icon: "/brand/icons/shop-concept-v1.webp", tone: "gold" },
-  { code: "04", title: "Commissioni", description: "Brief, allegati, preventivi, sconti automatici e avanzamento lavori.", href: "/gestione-commissioni", icon: "/brand/icons/commissioni-concept-v1.webp", tone: "pink" },
-  { code: "05", title: "Arte e licenze", description: "Pacchetti protetti, certificati, controllo qualità e consegne personali.", href: "/gestione-consegne-arte", icon: "/brand/icons/arte-concept-v1.webp", tone: "rose" },
-  { code: "06", title: "Giochi e applicazioni", description: "Build Windows, pacchetti privati, versioni e accessi al download.", href: "/gestione-consegne-giochi", icon: "/brand/icons/giochi-concept-v1.webp", tone: "cyan" },
-  { code: "07", title: "Community", description: "Segnalazioni, contenuti sospesi, blocchi e registro moderazione.", href: "/gestione-community", icon: "/brand/icons/social-assistenza-concept-v1.webp", tone: "violet" },
+  { code: "03", title: "Ordini e rimborsi", description: "Pagamenti, rimborsi e revoca dei diritti dopo conferma.", href: "/gestione-ordini", icon: "/brand/icons/shop-v2.webp", tone: "gold" },
+  { code: "04", title: "Commissioni", description: "Brief, allegati, preventivi, sconti automatici e avanzamento lavori.", href: "/gestione-commissioni", icon: "/brand/icons/commissioni-v2.webp", tone: "pink" },
+  { code: "05", title: "Arte e licenze", description: "Pacchetti protetti, certificati, controllo qualità e consegne personali.", href: "/gestione-consegne-arte", icon: "/brand/icons/arte-v2.webp", tone: "rose" },
+  { code: "06", title: "Giochi e applicazioni", description: "Build Windows, pacchetti privati, versioni e accessi al download.", href: "/gestione-consegne-giochi", icon: "/brand/icons/giochi-v2.webp", tone: "cyan" },
+  { code: "07", title: "Community", description: "Segnalazioni, contenuti sospesi, blocchi e registro moderazione.", href: "/gestione-community", icon: "/brand/icons/community-v2.webp", tone: "violet" },
   { code: "08", title: "Pubblicazione", description: "Configurazione, pagamenti di prova, archivi e barriere di lancio.", href: "/gestione-lancio", icon: "/brand/lorewise-universe-logo-concept-c.webp", tone: "gold" },
-  { code: "09", title: "Ricevute e notifiche", description: "Coda email, consegne Resend, errori e reinvii senza duplicazioni.", href: "/gestione-email", icon: "/brand/icons/social-assistenza-concept-v1.webp", tone: "pink" },
-  { code: "10", title: "Centro assistenza", description: "Ticket collegati agli utenti, priorità, stato e risposte tracciate.", href: "/gestione-assistenza", icon: "/brand/icons/social-assistenza-concept-v1.webp", tone: "cyan" },
+  { code: "09", title: "Ricevute e notifiche", description: "Coda email, consegne Resend, errori e reinvii senza duplicazioni.", href: "/gestione-email", icon: "/brand/icons/community-v2.webp", tone: "pink" },
+  { code: "10", title: "Centro assistenza", description: "Ticket collegati agli utenti, priorità, stato e risposte tracciate.", href: "/gestione-assistenza", icon: "/brand/icons/community-v2.webp", tone: "cyan" },
   { code: "11", title: "Visite del sito", description: "Visualizzazioni, sessioni anonime, pagine più consultate e provenienza del traffico pubblico.", href: "#admin-analytics", icon: "/brand/lorewise-universe-logo-concept-c.webp", tone: "violet" },
-  { code: "12", title: "Comunicazioni GiWise Studio", description: "Bozze, anteprime, pubblico consenziente, prove e invii delle novità facoltative.", href: "/gestione-comunicazioni", icon: "/brand/icons/social-assistenza-concept-v1.webp", tone: "rose" },
+  { code: "12", title: "Comunicazioni GiWise Studio", description: "Bozze, anteprime, pubblico consenziente, prove e invii delle novità facoltative.", href: "/gestione-comunicazioni", icon: "/brand/icons/community-v2.webp", tone: "rose" },
 ];
 
 const famiglioCustodiansModule = { code: "13", title: "Custodi dei Famigli", description: "Account LoreWise ID che hanno schiuso un Famiglio, email, Case attive e ultima sincronizzazione.", href: "#admin-famiglio-custodians", icon: "/famiglio/rebuild/nexus-pet-emblem-v2.png", tone: "gold" };

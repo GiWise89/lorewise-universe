@@ -18,7 +18,7 @@ const clauses = [
 
 export default function GameLicensePage() {
   return <main className="game-license-page">
-    <header><div className="shell"><Image src="/brand/icons/giochi-concept-v1.webp" alt="Emblema illustrato di Giochi e App" width={1024} height={1024} priority unoptimized /><div><p className="eyebrow">LoreWise Universe · GiWise Studio</p><h1>Licenza personale<br />dei giochi.</h1><p>Bozza precontrattuale locale delle edizioni Windows e Android distribuite dal catalogo LoreWise. Nessun acquisto o download è attivo.</p></div></div></header>
+    <header><div className="shell"><Image src="/brand/icons/giochi-v2.webp" alt="Emblema illustrato di Giochi e App" width={1024} height={1024} priority unoptimized /><div><p className="eyebrow">LoreWise Universe · GiWise Studio</p><h1>Licenza personale<br />dei giochi.</h1><p>Bozza precontrattuale locale delle edizioni Windows e Android distribuite dal catalogo LoreWise. Nessun acquisto o download è attivo.</p></div></div></header>
     <div className="shell game-license-document">
       <section className="game-license-status"><strong>Stato: bozza da approvare prima della vendita</strong><p>Versione, prezzo, durata del supporto e dati dell’installer saranno inseriti soltanto dopo il collaudo definitivo.</p></section>
       <ol>{clauses.map(([number, title, text]) => <li key={number}><span>{number}</span><div><h2>{title}</h2><p>{text}</p></div></li>)}</ol>

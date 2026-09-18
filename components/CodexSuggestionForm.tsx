@@ -108,7 +108,7 @@ export function CodexSuggestionForm() {
 
   return <section className="codex-suggestion" aria-labelledby="codex-suggestion-title">
     <header className="codex-suggestion-intro">
-      <Image src="/brand/icons/lorewise-vip-official-v1.webp" alt="" width={1024} height={1024} unoptimized />
+      <Image src="/brand/icons/vip-v2.webp" alt="" width={1024} height={1024} unoptimized />
       <div>
         <p className="eyebrow">Partecipazione editoriale · Solo Area VIP</p>
         <h2 id="codex-suggestion-title">Manca un personaggio?</h2>

@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 };
 
 const accountSections = [
-  { number: "01", title: "Acquisti e licenze", description: "Ritrova ordini, ricevute, opere e giochi nella tua libreria personale.", image: "/brand/icons/shop-concept-v1.webp", href: "/shop", action: "Esplora lo Shop" },
+  { number: "01", title: "Acquisti e licenze", description: "Ritrova ordini, ricevute, opere e giochi nella tua libreria personale.", image: "/brand/icons/shop-v2.webp", href: "/shop", action: "Esplora lo Shop" },
   { number: "02", title: "Universe Pass", description: "Controlla piano, crediti Arte, sconti e vantaggi attivi.", image: "/brand/lorewise-universe-logo-concept-c.webp", href: "/abbonamento", action: "Scopri i piani" },
-  { number: "03", title: "Commissioni", description: "Segui preventivo, lavorazione, pagamenti e consegna della tua richiesta.", image: "/brand/icons/commissioni-concept-v1.webp", href: "/commissioni", action: "Apri le commissioni" },
-  { number: "04", title: "Famiglio e giochi", description: "Accedi ai tuoi giochi e porta con te i progressi collegati al LoreWise ID.", image: "/brand/icons/giochi-concept-v1.webp", href: "/giochi", action: "Vai ai giochi" },
+  { number: "03", title: "Commissioni", description: "Segui preventivo, lavorazione, pagamenti e consegna della tua richiesta.", image: "/brand/icons/commissioni-v2.webp", href: "/commissioni", action: "Apri le commissioni" },
+  { number: "04", title: "Famiglio e giochi", description: "Accedi ai tuoi giochi e porta con te i progressi collegati al LoreWise ID.", image: "/brand/icons/giochi-v2.webp", href: "/giochi", action: "Vai ai giochi" },
 ];
 
 const accessNotices: Record<string, string> = {

@@ -8,21 +8,21 @@ import { createLoreWiseBrowserClient } from "@/lib/supabase/client";
 
 const navIcons: Record<string, string> = {
   "/": "/brand/navigation/lorewise-universe-logo.webp",
-  "/arte": "/brand/navigation/arte.webp",
+  "/arte": "/brand/navigation/arte-v2.webp",
   "/abbonamento": "/brand/navigation/lorewise-wax-seal.webp",
-  "/commissioni": "/brand/navigation/commissioni.webp",
-  "/mondi": "/brand/navigation/mondi.webp",
-  "/dove-nascono-i-mondi": "/brand/navigation/mondi.webp",
-  "/giochi": "/brand/navigation/giochi.webp",
-  "/giochi/the-wound-remembers": "/brand/navigation/giochi.webp",
-  "/vip-zone": "/brand/navigation/vip.webp",
-  "/enciclopedia": "/brand/icons/enciclopedia-concept-v1.webp",
-  "/shop": "/brand/navigation/shop.webp",
-  "/account": "/brand/navigation/account.webp",
+  "/commissioni": "/brand/navigation/commissioni-v2.webp",
+  "/mondi": "/brand/navigation/mondi-v2.webp",
+  "/dove-nascono-i-mondi": "/brand/navigation/mondi-v2.webp",
+  "/giochi": "/brand/navigation/giochi-v2.webp",
+  "/giochi/the-wound-remembers": "/brand/navigation/giochi-v2.webp",
+  "/vip-zone": "/brand/navigation/vip-v2.webp",
+  "/enciclopedia": "/brand/navigation/codex-v2.webp",
+  "/shop": "/brand/navigation/shop-v2.webp",
+  "/account": "/brand/navigation/community-v2.webp",
   "/famiglio": "/famiglio/navigation/tana-v1.webp",
   "/cronache-del-nexus": "/brand/navigation/lorewise-wax-seal.webp",
-  "/community": "/brand/icons/social-assistenza-concept-v1.webp",
-  "/contatti": "/brand/navigation/account.webp",
+  "/community": "/brand/navigation/community-v2.webp",
+  "/contatti": "/brand/navigation/community-v2.webp",
 };
 
 const desktopNavigation = [
@@ -85,10 +85,10 @@ const mobilePrimaryLinks = [
 ] as const;
 
 const desktopGroupIcons = {
-  Giochi: "/brand/navigation/giochi.webp",
-  Esplora: "/brand/navigation/mondi.webp",
-  "Arte e servizi": "/brand/navigation/arte.webp",
-  Community: "/brand/icons/social-assistenza-concept-v1.webp",
+  Giochi: "/brand/navigation/giochi-v2.webp",
+  Esplora: "/brand/navigation/mondi-v2.webp",
+  "Arte e servizi": "/brand/navigation/arte-v2.webp",
+  Community: "/brand/navigation/community-v2.webp",
 } as const;
 
 function isCurrentRoute(pathname: string, href: string) {
@@ -264,7 +264,7 @@ export function SiteHeader() {
           {unreadNotifications ? <span>{unreadNotifications > 99 ? "99+" : unreadNotifications}</span> : null}
         </Link>
         <Link className={isCurrentRoute(pathname, "/account") ? "header-contact is-active" : "header-contact"} aria-current={isCurrentRoute(pathname, "/account") ? "page" : undefined} href="/account">
-          <Image src="/brand/navigation/account.webp" alt="" width={112} height={112} unoptimized />
+          <Image src="/brand/navigation/community-v2.webp" alt="" width={112} height={112} unoptimized />
           <span>Account</span>
         </Link>
         </div>

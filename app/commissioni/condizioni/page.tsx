@@ -13,7 +13,7 @@ export default function CommissionTermsPage() {
     <main className="commission-terms-page">
       <section className="commission-terms-hero">
         <div className="shell">
-          <Image src="/brand/icons/commissioni-concept-v1.webp" alt="Emblema illustrato GiWise Commissioni" width={1224} height={1285} unoptimized priority />
+          <Image src="/brand/icons/commissioni-v2.webp" alt="Emblema illustrato GiWise Commissioni" width={1224} height={1285} unoptimized priority />
           <div><p className="eyebrow">GiWise Studio · Regole del servizio</p><h1>Un accordo chiaro,<br />prima di creare.</h1><p>Queste condizioni definiscono cosa posso realizzare, come vengono protette le immagini e quali passaggi precedono l’inizio del lavoro.</p></div>
         </div>
       </section>

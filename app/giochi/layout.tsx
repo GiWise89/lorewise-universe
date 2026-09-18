@@ -12,9 +12,9 @@ export const metadata: Metadata = {
     siteName: "LoreWise Universe",
     locale: "it_IT",
     type: "website",
-    images: [{ url: "/brand/icons/giochi-concept-v1.webp", alt: "Giochi e app di GiWise Studio" }],
+    images: [{ url: "/brand/icons/giochi-v2.webp", alt: "Giochi e app di GiWise Studio" }],
   },
-  twitter: { card: "summary_large_image", title: "Giochi e app di GiWise Studio", description, images: ["/brand/icons/giochi-concept-v1.webp"] },
+  twitter: { card: "summary_large_image", title: "Giochi e app di GiWise Studio", description, images: ["/brand/icons/giochi-v2.webp"] },
 };
 
 export default function GamesLayout({ children }: Readonly<{ children: React.ReactNode }>) {

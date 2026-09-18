@@ -13,9 +13,9 @@ export const metadata: Metadata = {
     siteName: "LoreWise Universe",
     locale: "it_IT",
     type: "website",
-    images: [{ url: "/brand/icons/shop-concept-v1.webp", alt: "GiWise Shop" }],
+    images: [{ url: "/brand/icons/shop-v2.webp", alt: "GiWise Shop" }],
   },
-  twitter: { card: "summary_large_image", title: "GiWise Shop · LoreWise Universe", description, images: ["/brand/icons/shop-concept-v1.webp"] },
+  twitter: { card: "summary_large_image", title: "GiWise Shop · LoreWise Universe", description, images: ["/brand/icons/shop-v2.webp"] },
 };
 
 export default function ShopLayout({ children }: Readonly<{ children: React.ReactNode }>) {

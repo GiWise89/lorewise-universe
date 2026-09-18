@@ -104,7 +104,7 @@ export function HolidayNexusCampaignExperience({ phase, preview = false }: { pha
     <Image className="holiday-nexus-garland is-reversed" src="/promotions/holiday/christmas-garland-divider-v1.webp" alt="" width={2172} height={724} unoptimized />
 
     <section className="holiday-nexus-terms" aria-labelledby="holiday-nexus-terms-title">
-      <Image src="/brand/icons/commissioni-concept-v1.webp" alt="Emblema delle commissioni GiWise Studio" width={1224} height={1285} unoptimized />
+      <Image src="/brand/icons/commissioni-v2.webp" alt="Emblema delle commissioni GiWise Studio" width={1224} height={1285} unoptimized />
       <div><p>Prima di iniziare</p><h2 id="holiday-nexus-terms-title">La richiesta non ti obbliga all’acquisto.</h2><ul><li>La tariffa si applica al preventivo finale.</li><li>Lo sconto non è cumulabile: viene applicato il vantaggio più conveniente.</li><li>Le richieste complete inviate entro il 1° gennaio conservano la tariffa anche se il lavoro termina dopo.</li><li>Acconto, tempi, revisioni e consegna vengono confermati prima dell’inizio.</li></ul></div>
       {active ? <Link href={requestHref}>Racconta la tua idea <span aria-hidden="true">→</span></Link> : <Link href="/commissioni">Esplora le commissioni <span aria-hidden="true">→</span></Link>}
     </section>

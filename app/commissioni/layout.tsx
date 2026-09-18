@@ -12,9 +12,9 @@ export const metadata: Metadata = {
     siteName: "LoreWise Universe",
     locale: "it_IT",
     type: "website",
-    images: [{ url: "/brand/icons/commissioni-concept-v1.webp", alt: "Commissioni artistiche GiWise Studio" }],
+    images: [{ url: "/brand/icons/commissioni-v2.webp", alt: "Commissioni artistiche GiWise Studio" }],
   },
-  twitter: { card: "summary_large_image", title: "Commissioni artistiche · GiWise Studio", description, images: ["/brand/icons/commissioni-concept-v1.webp"] },
+  twitter: { card: "summary_large_image", title: "Commissioni artistiche · GiWise Studio", description, images: ["/brand/icons/commissioni-v2.webp"] },
 };
 
 export default function CommissionsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
