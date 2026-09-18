@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteAnalyticsTracker } from "@/components/SiteAnalyticsTracker";
 import { ProfileCompletionGate } from "@/components/ProfileCompletionGate";
 import { SiteJsonLd } from "@/components/SeoJsonLd";
-import { NexusPetNavigationPip } from "@/components/NexusPetNavigationPip";
+import { NexusPetNavigationPip } from "@/components/NexusPetNavigationPipLazy";
 import "./site.css";
 
 const display = Fraunces({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600", "700"] });

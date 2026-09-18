@@ -33,7 +33,7 @@ export type CreativeGameJournalEntry = {
   currentWork: string[];
   creativeFocus: string[];
   gallery: CreativeJournalImage[];
-  code: { title: string; file: string; language: string; snippet: string };
+  code?: { title: string; file: string; language: string; snippet: string };
   href: string;
   status: string;
 };
@@ -472,26 +472,20 @@ export const gameJournalEntries: CreativeGameJournalEntry[] = [
     status: "Disponibile e in aggiornamento",
   },
   {
-    id: "lorewise-fuori-trama-next",
-    title: "Fuori Trama",
-    label: "RPG narrativo e tattico",
-    summary: "Mesi di codice per far convivere campagne, prove d20, compagnia, inventario e combattimenti nello stesso percorso persistente.",
-    currentWork: ["Duello e combattimento a carte in collaudo.", "Build gratuita pubblica in preparazione.", "Responsive, accessibilità e audit dei contenuti ancora da completare."],
-    creativeFocus: ["L’aspetto da tavolo deve restare leggibile mentre cambiano personaggi e ambientazioni.", "Ogni personaggio richiede ritratto, statistiche, ruolo, abilità e carte coerenti.", "Il blu e il viola del Nexus tengono insieme mondi visivamente molto diversi."],
+    id: "the-wound-remembers-il-patto-delle-ceneri",
+    title: "The Wound Remembers – Il Patto delle Ceneri",
+    label: "GDR tattico da tavolo digitale · dark fantasy",
+    summary: "Una nuova compagnia attraversa le cicatrici lasciate da The Wound Remembers e affronta la Corte del Rogo in un GDR di scelte, esplorazione e battaglie a turni.",
+    currentWork: ["Nuovi personaggi prendono posto nel Rifugio.", "Valisandra e Vahrokh guidano la nuova minaccia.", "Missioni, legami e combattimenti crescono insieme alla storia."],
+    creativeFocus: ["Forma liberamente una compagnia di quattro membri.", "Esplora, dialoga, agisci nell’ombra o affronta il pericolo.", "Leggi le intenzioni nemiche e usa il campo di battaglia a tuo vantaggio."],
     gallery: [
-      { src: "/games/lorewise-fuori-trama-next/gameplay-current-campaigns.webp", alt: "Scelta delle campagne di Fuori Trama", width: 2000, height: 1250 },
-      { src: "/games/lorewise-fuori-trama-next/gameplay-current-expedition-party.webp", alt: "Formazione della compagnia in Fuori Trama", width: 2000, height: 1250 },
-      { src: "/games/lorewise-fuori-trama-next/gameplay-current-tactical-battle.webp", alt: "Battaglia tattica reale di Fuori Trama", width: 2000, height: 1250 },
-      { src: "/games/lorewise-fuori-trama-next/gameplay-current-card-duel.webp", alt: "Duello a carte di Fuori Trama", width: 2000, height: 1250 },
+      { src: "/games/the-wound-remembers-il-patto-delle-ceneri/key-art-v2.webp", alt: "I protagonisti e i nemici del Patto delle Ceneri", width: 1672, height: 941 },
+      { src: "/games/the-wound-remembers-il-patto-delle-ceneri/sevrana-cucitrice-del-respiro-v1.webp", alt: "Sevrana, Cucitrice del Respiro", width: 1024, height: 1536 },
+      { src: "/games/the-wound-remembers-il-patto-delle-ceneri/valisandra-grazia-v3.webp", alt: "Valisandra, la Grazia Marcia", width: 1024, height: 1536 },
+      { src: "/games/the-wound-remembers-il-patto-delle-ceneri/vahrokh-sovrano-v3.webp", alt: "Vahrokh, Imperatore del Rogo Profondo", width: 1448, height: 1086 },
     ],
-    code: {
-      title: "Probabilità di colpire con il d20",
-      file: "src/engine/combatExchange.ts",
-      language: "TypeScript",
-      snippet: "export const hitProbability = (state, attackerId, targetId) => {\n  const attacker = state.units.find(unit => unit.id === attackerId)\n  const target = state.units.find(unit => unit.id === targetId)\n  if (!attacker || !target) return 0\n\n  const targetAc = target.armorClass + coverBonus(state, target)\n  return Math.max(5, Math.min(95,\n    (21 - (targetAc - attacker.attackBonus)) * 5\n  ))\n}",
-    },
-    href: "/giochi/lorewise-fuori-trama-next",
-    status: "In sviluppo",
+    href: "/giochi/the-wound-remembers-il-patto-delle-ceneri",
+    status: "In lavorazione",
   },
   {
     id: "demon-match-three",

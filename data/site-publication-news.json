@@ -98,6 +98,20 @@
     "imageAlt": "Costruzione del mazzo in The Wound Remembers"
   },
   {
+    "id": "patto-delle-ceneri-development-dossier",
+    "publicationKey": "game:the-wound-remembers-il-patto-delle-ceneri:dossier-v1",
+    "date": "2026-09-11",
+    "category": "Giochi",
+    "title": "Un nuovo Patto nasce dalle ceneri.",
+    "description": "The Wound Remembers – Il Patto delle Ceneri entra nel catalogo come GDR tattico dark fantasy in lavorazione, con una nuova compagnia e una nuova minaccia.",
+    "detail": "Il nuovo dossier presenta la storia, le possibilità di gioco, i custodi del Rifugio e i due nemici principali: Valisandra, la Grazia Marcia, e Vahrokh, Imperatore del Rogo Profondo.",
+    "href": "/giochi/the-wound-remembers-il-patto-delle-ceneri",
+    "action": "Scopri Il Patto delle Ceneri",
+    "tone": "games",
+    "image": "/games/the-wound-remembers-il-patto-delle-ceneri/key-art-v2.webp",
+    "imageAlt": "I nuovi protagonisti e nemici del Patto delle Ceneri"
+  },
+  {
     "id": "halloween-artwork-bundles",
     "publicationKey": "art:halloween-bundles-2026",
     "date": "2026-10-01",

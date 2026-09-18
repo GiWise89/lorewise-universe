@@ -26,10 +26,10 @@ export default function FamiglioLaboratorioPage() {
         return <article key={familiar.id}>
           <div className={styles.preview}>
             <Image
-              src={`/famiglio/rebuild/collection/${familiar.id}/growth/cucciolo/battle-v2/idle.png`}
+              src={`/famiglio/rebuild/collection/${familiar.id}/growth/cucciolo/battle-v6/idle.png`}
               alt={`Sequenza idle di ${familiar.name}`}
-              width={640}
-              height={128}
+              width={1280}
+              height={160}
               unoptimized
             />
           </div>

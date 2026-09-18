@@ -18,7 +18,7 @@ export function SiteFooter() {
         <div className="footer-identity">
           <div className="footer-brand-lockup">
             <Link className="brand brand-footer" href="/" aria-label="LoreWise Universe, home"><Image src="/brand/lorewise-universe-logo-concept-c.webp" alt="" width={1536} height={1024} unoptimized /></Link>
-            <Image className="footer-seal" src="/brand/lorewise-wax-seal-v1.webp" alt="Sigillo LoreWise Universe" width={512} height={512} unoptimized />
+            <Image className="footer-seal" src="/brand/lorewise-wax-seal-256-v1.webp" alt="Sigillo LoreWise Universe" width={256} height={256} unoptimized />
           </div>
           <p className="footer-kicker">Un progetto originale GiWise Studio</p>
           <p className="footer-statement">The Wound Remembers è il card RPG dark fantasy di GiWise Studio, ospitato dentro LoreWise Universe.</p>
