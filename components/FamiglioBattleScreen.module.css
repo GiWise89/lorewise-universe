@@ -107,3 +107,18 @@
   .initiativeContest{grid-template-columns:1fr}.initiativeContest .initiativeDie{width:48px;height:48px;margin:4px 6px 4px 0}.initiativeWinner{display:inline-block;margin:5px 0 0}
   .battleInfoOverlay,.resultOverlay{padding:10px}.battleInfoCard>header{position:sticky;top:-14px;z-index:2;background:#0b2432;padding-top:8px}
 }
+
+/* Comandi audio/velocità/salta spostati nel dock: l'intestazione dell'Arena è nascosta in battaglia. */
+.battleUtilityTray{flex-wrap:wrap;justify-content:flex-end}
+.battleUtilityButton:disabled{opacity:.38;cursor:default;filter:grayscale(.6)}
+.battleUtilityIcon[data-muted="true"]{opacity:.45;filter:grayscale(1)}
+.battleUtilityButton[aria-pressed="true"]:not([data-control="audio"]){border-color:var(--gold);box-shadow:inset 0 -3px #031820,0 0 10px #ffda6155}
+/* Focus da tastiera visibile su comandi, mosse e finestre. */
+.battleUtilityButton:focus-visible,.retreatButton:focus-visible,.moveAction:focus-visible,.moveInfoButton:focus-visible,.teamSwitchDock button:focus-visible,.battleInfoCard button:focus-visible,.resultActions button:focus-visible,.initiativeContinue:focus-visible,.retreatConfirmActions button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+/* Motivo breve del blocco di una mossa (prima solo nel title, invisibile al tocco). */
+.moveBlockedReason{color:#ffb4a8!important;letter-spacing:0!important}
+/* Le anteprime quadrate non vanno stirate nei riquadri rettangolari. */
+.root canvas{object-fit:contain}
+@media(max-width:900px){.battleUtilityDock{flex-wrap:wrap;justify-content:flex-end}}
+@media(max-width:900px) and (pointer:coarse){.battleUtilityButton,.retreatButton{width:44px;height:44px;min-width:44px;min-height:44px}}
+@media(prefers-reduced-motion:reduce){.hudHealth i,.hudEnergy i{transition:none}}

@@ -8,6 +8,9 @@ export function FamiglioPaceNotice({ elapsed, active, sound, message = "" }: {
   const stage = Math.floor(elapsed / 10000);
   const announced = useRef(0);
   useEffect(() => {
+    // Una nuova partita riparte da elapsed 0: senza questo azzeramento il
+    // suono di accelerazione restava muto fino a superare il ritmo già raggiunto.
+    if (stage < announced.current) announced.current = stage;
     if (active && stage > announced.current) { announced.current = stage; sound("level"); }
   }, [active, stage, sound]);
   const rising = active && stage > 0 && elapsed % 10000 < 1600;

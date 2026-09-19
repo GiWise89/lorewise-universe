@@ -22,6 +22,7 @@ export function FamiglioCampaignNpcCanvas({ src, label, hue = 0, className, pose
     if (!canvas || !context) return;
     let disposed = false;
     let request = 0;
+    let timer = 0;
     const image = new Image();
     image.decoding = "async";
     image.onload = () => {
@@ -38,18 +39,39 @@ export function FamiglioCampaignNpcCanvas({ src, label, hue = 0, className, pose
         sourceContext.drawImage(image, 0, 0);
       }
       const started = performance.now();
+      // Prima il Custode veniva ridisegnato a ogni frame del monitor (60-120 al
+      // secondo, con getImageData quando `grounded`) anche se lo sprite cambia
+      // solo ogni 150-180 ms, e la posa "defeat" continuava a girare dopo
+      // l'ultimo frame. Ora si ridisegna solo al cambio di frame e ci si ferma
+      // quando l'animazione è conclusa; i bordi calcolati restano in cache.
+      const boundsCache = new Map<number, { sx: number; sy: number; sw: number; sh: number }>();
+      let lastFrame = -1;
+      const frameMs = pose === "idle" ? 180 : 150;
+      const scheduleNext = (elapsed: number) => {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => { if (!disposed) request = window.requestAnimationFrame(paint); }, Math.max(16, frameMs - (elapsed % frameMs)));
+      };
       const paint = (now: number) => {
+        request = 0;
         if (disposed) return;
-        context.clearRect(0, 0, canvas.width, canvas.height);
         const elapsed = now - started;
-        const step = Math.floor(elapsed / (pose === "idle" ? 180 : 150));
+        const step = Math.floor(elapsed / frameMs);
         const frame = reduced ? 0 : pose === "defeat" ? Math.min(columns - 1, step) : step % columns;
+        const finished = reduced || (pose === "defeat" && frame >= columns - 1);
+        if (frame === lastFrame) {
+          if (!finished) scheduleNext(elapsed);
+          return;
+        }
+        lastFrame = frame;
+        context.clearRect(0, 0, canvas.width, canvas.height);
         const row = NPC_ROW[pose];
         let sx = frame * frameWidth;
         let sy = row * frameHeight;
         let sw = frameWidth;
         let sh = frameHeight;
-        if (grounded && sourceContext) {
+        const cachedBounds = grounded ? boundsCache.get(frame) : undefined;
+        if (cachedBounds) ({ sx, sy, sw, sh } = cachedBounds);
+        else if (grounded && sourceContext) {
           const pixels = sourceContext.getImageData(sx, sy, sw, sh).data;
           let minX = sw, minY = sh, maxX = -1, maxY = -1;
           for (let y = 0; y < sh; y += 1) for (let x = 0; x < sw; x += 1) {
@@ -61,6 +83,7 @@ export function FamiglioCampaignNpcCanvas({ src, label, hue = 0, className, pose
           if (maxX >= minX && maxY >= minY) {
             sx += minX; sy += minY; sw = maxX - minX + 1; sh = maxY - minY + 1;
           }
+          boundsCache.set(frame, { sx, sy, sw, sh });
         }
         const scale = Math.min((canvas.width - 12) / sw, (canvas.height - (grounded ? 0 : 8)) / sh);
         const width = sw * scale;
@@ -76,12 +99,12 @@ export function FamiglioCampaignNpcCanvas({ src, label, hue = 0, className, pose
           context.fillRect(0, 0, canvas.width, canvas.height);
         }
         context.restore();
-        if (!reduced) request = window.requestAnimationFrame(paint);
+        if (!finished) scheduleNext(elapsed);
       };
       request = window.requestAnimationFrame(paint);
     };
     image.src = src;
-    return () => { disposed = true; if (request) window.cancelAnimationFrame(request); };
+    return () => { disposed = true; image.onload = null; window.clearTimeout(timer); if (request) window.cancelAnimationFrame(request); };
   }, [grounded, hue, pose, src, hitFlash]);
 
   return <canvas ref={canvasRef} className={className} width={240} height={240} role="img" aria-label={label} />;

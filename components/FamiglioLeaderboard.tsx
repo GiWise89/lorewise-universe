@@ -21,7 +21,9 @@ export function FamiglioLeaderboard({onClose,practice=false}:{onClose:()=>void;p
     setLoading(true);setError('');
     try{
       const response=await fetch('/api/famiglio/leaderboard',{cache:'no-store',signal:controller.signal});
-      const body=await response.json() as Rankings & {error?:string};if(!response.ok)throw Error(body.error||"Classifica non disponibile.");
+      // Una risposta non JSON (pagina d'errore del proxy, 502) mostrava al giocatore
+      // l'errore tecnico inglese di JSON.parse: ora resta il messaggio italiano.
+      const body=await response.json().catch(()=>({error:"Classifica non disponibile."})) as Rankings & {error?:string};if(!response.ok||!body.boards)throw Error(body.error||"Classifica non disponibile.");
       if(!controller.signal.aborted)setData(body);
     }catch(error){if(!controller.signal.aborted)setError(error instanceof Error?error.message:'Classifica non disponibile.');}
     finally{if(!controller.signal.aborted)setLoading(false);}

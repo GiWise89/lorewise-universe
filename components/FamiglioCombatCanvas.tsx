@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import type { FamiliarCombatTimelineEvent } from "../lib/famiglioCombat.ts";
 import { familiarCombatMotionProfile, familiarCombatTravelProgress } from "../lib/famiglioCombatMotion.ts";
 import type { FamiliarCombatPresentationCue } from "../lib/famiglioCombatPresentation.ts";
@@ -374,6 +374,54 @@ export function FamiglioCombatPreviewCanvas({
   return <canvas ref={canvasRef} className={className} width="320" height="320" role="img" aria-label={label} />;
 }
 
+// La scena di lotta non ha sempre proporzione 16:9 (su desktop la riga della
+// griglia la rende circa 2.75:1). Con un buffer fisso 1280x720 il browser
+// stirava il Canvas: Famigli schiacciati in larghezza e sfocati su schermi
+// HiDPI. Il buffer segue ora la misura reale del riquadro per il DPR, entro un
+// tetto di pixel che mantiene leggero il ridisegno.
+const BATTLE_CANVAS_MAX_PIXELS = 2560 * 1440;
+
+export function familiarBattleCanvasBackingSize(cssWidth: number, cssHeight: number, devicePixelRatio = 1) {
+  if (!(cssWidth > 8) || !(cssHeight > 8)) return { width: 1280, height: 720 };
+  const ratio = Math.min(3, Math.max(1, Number.isFinite(devicePixelRatio) ? devicePixelRatio : 1));
+  let width = cssWidth * ratio;
+  let height = cssHeight * ratio;
+  const budget = Math.min(1, Math.sqrt(BATTLE_CANVAS_MAX_PIXELS / (width * height)));
+  width *= budget;
+  height *= budget;
+  return { width: Math.max(160, Math.round(width)), height: Math.max(90, Math.round(height)) };
+}
+
+// Rettangolo 16:9 più grande contenuto nel Canvas, centrato.
+export function familiarBattleStageRect(canvasWidth: number, canvasHeight: number) {
+  const width = Math.min(canvasWidth, canvasHeight * 16 / 9);
+  const height = width * 9 / 16;
+  return { x: (canvasWidth - width) / 2, y: (canvasHeight - height) / 2, width, height };
+}
+
+// Sfondo "cover" per le fasce esterne al palco: riempie il riquadro senza deformarsi, ancorato verso il basso
+// perché il terreno dove poggiano i Famigli resta sempre visibile.
+function drawCoverBackground(context: CanvasRenderingContext2D, image: HTMLImageElement, width: number, height: number) {
+  const sourceWidth = Math.max(1, image.naturalWidth);
+  const sourceHeight = Math.max(1, image.naturalHeight);
+  const scale = Math.max(width / sourceWidth, height / sourceHeight);
+  const drawWidth = sourceWidth * scale;
+  const drawHeight = sourceHeight * scale;
+  context.drawImage(image, (width - drawWidth) / 2, (height - drawHeight) * .7, drawWidth, drawHeight);
+}
+
+// Stessa regola usata dall'Arena per animare le barre HP: il numero compare
+// esattamente quando la barra cambia (reazione al colpo, tick di bruciatura o
+// veleno, cure e rigenerazione).
+function combatFloatingAmount(event: FamiliarCombatTimelineEvent): { text: string; kind: "damage" | "heal" } | null {
+  const amount = Math.max(0, Math.round(Number(event.amount) || 0));
+  if (!amount) return null;
+  if (event.actionKind === "heal") return { text: `+${amount}`, kind: "heal" };
+  if (event.phase === "reaction" && (event.actionKind === "physical" || event.actionKind === "magic")) return { text: `-${amount}`, kind: "damage" };
+  if (event.phase === "status" && (event.statusId === "burn" || event.statusId === "poison")) return { text: `-${amount}`, kind: "damage" };
+  return null;
+}
+
 function battleLayout(width: number, height: number, playerScale: number, opponentScale: number): BattleLayout {
   // Fighters must remain supporting actors inside the arena, with a generous
   // safe area for lunges, jumps and VFX.  The generated strips are square, so
@@ -636,6 +684,7 @@ export function FamiglioBattleCanvas({
   campaignNpc = null,
 }: BattleCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [backingSize, setBackingSize] = useState({ width: 1280, height: 720 });
   const eventStartRef = useRef(0);
   const entranceStartRef = useRef(0);
   const playerPoseStartRef = useRef(0);
@@ -654,6 +703,12 @@ export function FamiglioBattleCanvas({
     npcSrc: "",
   });
   const { id: playerId, spriteSrc: playerSpriteSrc } = player;
+  // L'Arena passa un oggetto nuovo a ogni render: l'effetto di disegno dipende
+  // solo dai suoi valori, altrimenti ripartiva (ricarica immagini + nuovo ciclo)
+  // a ogni fase del turno e a ogni aggiornamento delle barre.
+  const npcSrc = campaignNpc?.src ?? "";
+  const npcName = campaignNpc?.name ?? "";
+  const npcPose = campaignNpc?.pose ?? "idle";
   const { id: opponentId, spriteSrc: opponentSpriteSrc } = opponent;
   const playerScale = familiarCombatDisplayScale(player.naturalScale);
   const opponentScale = familiarCombatDisplayScale(opponent.naturalScale);
@@ -667,6 +722,31 @@ export function FamiglioBattleCanvas({
   );
   const resolvedPlayerSpriteSrc = spritePathForPose(playerSpriteSrc, playerAnimation.pose);
   const resolvedOpponentSpriteSrc = spritePathForPose(opponentSpriteSrc, opponentAnimation.pose);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const rect = canvas.getBoundingClientRect();
+      const next = familiarBattleCanvasBackingSize(rect.width, rect.height, window.devicePixelRatio);
+      setBackingSize((current) => Math.abs(current.width - next.width) < 2 && Math.abs(current.height - next.height) < 2 ? current : next);
+    };
+    const scheduleMeasure = () => {
+      if (!frame) frame = window.requestAnimationFrame(measure);
+    };
+    scheduleMeasure();
+    const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(scheduleMeasure);
+    observer?.observe(canvas);
+    // Il cambio di zoom/DPR non modifica sempre la misura CSS del riquadro.
+    window.addEventListener("resize", scheduleMeasure);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", scheduleMeasure);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   useEffect(() => {
     eventStartRef.current = performance.now();
@@ -690,9 +770,9 @@ export function FamiglioBattleCanvas({
       ...BATTLE_PREFETCH_POSES.map((pose) => spritePathForPose(playerSpriteSrc, pose)),
       ...BATTLE_PREFETCH_POSES.map((pose) => spritePathForPose(opponentSpriteSrc, pose)),
       opponentCorrupted ? "/famiglio/rebuild/combat/vfx/corruption-aura-purple-v1.png" : null,
-      campaignNpc?.src,
+      npcSrc || null,
     ]);
-  }, [backgroundSrc, campaignNpc?.src, opponentCorrupted, opponentSpriteSrc, playerSpriteSrc]);
+  }, [backgroundSrc, npcSrc, opponentCorrupted, opponentSpriteSrc, playerSpriteSrc]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -738,10 +818,10 @@ export function FamiglioBattleCanvas({
         if (!disposed) { imagesRef.current.corruption = image; schedulePaint(); }
       }).catch(() => undefined);
     } else imagesRef.current.corruption = null;
-    if (campaignNpc?.src) {
-      imagesRef.current.npcSrc = campaignNpc.src;
-      void loadImage(campaignNpc.src).then((image) => {
-        if (!disposed && imagesRef.current.npcSrc === campaignNpc.src) {
+    if (npcSrc) {
+      imagesRef.current.npcSrc = npcSrc;
+      void loadImage(npcSrc).then((image) => {
+        if (!disposed && imagesRef.current.npcSrc === npcSrc) {
           imagesRef.current.npc = image;
           schedulePaint();
         }
@@ -769,11 +849,22 @@ export function FamiglioBattleCanvas({
     const paint = (now: number) => {
       animationRequest = 0;
       if (disposed || document.hidden) return;
-      const width = canvas.width;
-      const height = canvas.height;
-      context.clearRect(0, 0, width, height);
-      context.imageSmoothingEnabled = true;
       const images = imagesRef.current;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.imageSmoothingEnabled = true;
+      // L'arena resta un palco 16:9 intero e non deformato al centro del
+      // riquadro; le eventuali fasce laterali/superiori ripetono lo sfondo
+      // attenuato. Tutto il resto del disegno usa le coordinate del palco.
+      const stage = familiarBattleStageRect(canvas.width, canvas.height);
+      if (stage.width < canvas.width - 1 || stage.height < canvas.height - 1) {
+        if (images.background) drawCoverBackground(context, images.background, canvas.width, canvas.height);
+        context.fillStyle = "rgba(4,10,18,.62)";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+      }
+      context.save();
+      context.translate(stage.x, stage.y);
+      const width = stage.width;
+      const height = stage.height;
       if (images.background) context.drawImage(images.background, 0, 0, width, height);
       else {
         const fallback = context.createLinearGradient(0, 0, 0, height);
@@ -809,7 +900,7 @@ export function FamiglioBattleCanvas({
 
       // Il Custode corrotto appartiene alla profondita della scena: viene
       // disegnato prima dei Famigli, quindi il giocatore gli resta sempre davanti.
-      if (campaignNpc && images.npc) {
+      if (npcSrc && images.npc) {
         const npcRows = { idle: 0, command: 1, cheer: 2, anger: 3, victory: 4, defeat: 5 } as const;
         const npcColumns = 8;
         const npcFrameWidth = images.npc.naturalWidth / npcColumns;
@@ -820,11 +911,11 @@ export function FamiglioBattleCanvas({
         const npcFloorY = layout.floorY - height * .12;
         context.save();
         context.imageSmoothingEnabled = false;
-        context.drawImage(images.npc, npcFrame * npcFrameWidth, npcRows[campaignNpc.pose] * npcFrameHeight, npcFrameWidth, npcFrameHeight, npcX - npcSize / 2, npcFloorY - npcSize, npcSize, npcSize);
+        context.drawImage(images.npc, npcFrame * npcFrameWidth, npcRows[npcPose] * npcFrameHeight, npcFrameWidth, npcFrameHeight, npcX - npcSize / 2, npcFloorY - npcSize, npcSize, npcSize);
         context.font = `700 ${Math.max(18, Math.round(height * .026))}px monospace`;
         context.textAlign = "center";
         context.textBaseline = "middle";
-        const labelWidth = context.measureText(campaignNpc.name).width + 28;
+        const labelWidth = context.measureText(npcName).width + 28;
         const labelY = npcFloorY - npcSize + 10;
         context.fillStyle = "rgba(18,8,29,.92)";
         context.strokeStyle = "#ffe06d";
@@ -834,7 +925,7 @@ export function FamiglioBattleCanvas({
         context.fill();
         context.stroke();
         context.fillStyle = "#fff1bc";
-        context.fillText(campaignNpc.name, npcX, labelY + 1);
+        context.fillText(npcName, npcX, labelY + 1);
         context.restore();
       }
 
@@ -939,6 +1030,31 @@ export function FamiglioBattleCanvas({
         context.restore();
       }
 
+      // Numeri fluttuanti: prima il danno/cura era leggibile solo nella barra HP
+      // e nel banner in basso, lontano dal Famiglio colpito.
+      const floatingAmount = event ? combatFloatingAmount(event) : null;
+      if (event && floatingAmount) {
+        const targetIsPlayer = event.targetId === playerId;
+        const targetX = targetIsPlayer ? playerDrawX : opponentDrawX;
+        const targetSize = targetIsPlayer ? layout.playerSize : layout.opponentSize;
+        const rise = reducedMotion ? .5 : easeInOut(progress);
+        context.save();
+        context.translate(targetX, layout.floorY - targetSize * (.9 + rise * .18));
+        context.globalAlpha = reducedMotion ? 1 : Math.max(.25, 1 - Math.max(0, progress - .75) / .25);
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.lineJoin = "round";
+        context.font = `900 ${Math.max(26, Math.round(height * .064))}px monospace`;
+        context.lineWidth = Math.max(6, height * .011);
+        context.strokeStyle = "rgba(25, 8, 35, .96)";
+        context.strokeText(floatingAmount.text, 0, 0);
+        context.fillStyle = floatingAmount.kind === "heal" ? "#8dff9a" : "#ff6f68";
+        context.fillText(floatingAmount.text, 0, 0);
+        context.restore();
+      }
+
+      context.restore();
+
       if (reducedMotion) return;
       const playerOnceRunning = playerAnimation.mode === "once" && now - playerPoseStartRef.current < playerFrameCount * familiarCombatMotionProfile(playerId).actionFrameMs * COMBAT_ANIMATION_PACING;
       const opponentOnceRunning = opponentAnimation.mode === "once" && now - opponentPoseStartRef.current < opponentFrameCount * familiarCombatMotionProfile(opponentId).actionFrameMs * COMBAT_ANIMATION_PACING;
@@ -976,6 +1092,8 @@ export function FamiglioBattleCanvas({
     };
   }, [
     backgroundSrc,
+    // Cambiare width/height svuota il Canvas: va ridisegnato subito.
+    backingSize,
     contactActors,
     cue,
     entering,
@@ -983,7 +1101,9 @@ export function FamiglioBattleCanvas({
     opponentAnimation,
     opponentCorrupted,
     corruptionIntensity,
-    campaignNpc,
+    npcName,
+    npcPose,
+    npcSrc,
     opponentId,
     opponentScale,
     phaseDurationMs,
@@ -997,8 +1117,9 @@ export function FamiglioBattleCanvas({
   return <canvas
     ref={canvasRef}
     className={className}
-    width="1280"
-    height="720"
+    width={backingSize.width}
+    height={backingSize.height}
+    data-backing={`${backingSize.width}x${backingSize.height}`}
     role="img"
     aria-label={label}
     style={{ "--battle-aspect": "16 / 9" } as CSSProperties}

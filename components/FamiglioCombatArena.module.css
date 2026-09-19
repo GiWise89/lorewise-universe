@@ -7368,3 +7368,7 @@
     height:1.9rem !important;
   }
 }
+
+/* Le anteprime Canvas sono quadrate (320x320): senza object-fit venivano stirate
+   nei riquadri rettangolari (roster 48x58, ritratto 224x336, risultato 360x190). */
+.combat canvas { object-fit: contain; }

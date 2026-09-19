@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type Dispatch, type SetStateAction } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type Dispatch, type KeyboardEvent as ReactKeyboardEvent, type SetStateAction } from "react";
 import {
   claimFamiliarCombatReward,
   closeFamiliarCombatBattle,
@@ -149,9 +149,28 @@ function titleCase(value: string) {
 }
 
 const LOCALIZED_FAMILIARS = [...FAMILIAR_COMBAT_CATALOG].sort((left, right) => right.id.length - left.id.length);
+// Il motore scrive gli id tecnici ("cat", "imp") nei messaggi: vanno sostituiti
+// soltanto come parole intere, altrimenti "Beccata" diventava "BecGattoa" e
+// "bloccato" diventava "bloGattoo" nella cronaca e nel banner del turno.
+const FAMILIAR_ID_PATTERN = new RegExp(
+  `(?<![\\p{L}\\p{N}-])(${LOCALIZED_FAMILIARS.map((familiar) => familiar.id.replace(/[^a-z0-9-]/gi, "")).join("|")})(?![\\p{L}\\p{N}-])`,
+  "gu",
+);
+const FAMILIAR_NAME_BY_ID = new Map(LOCALIZED_FAMILIARS.map((familiar) => [familiar.id, familiar.name]));
+
+// Alcune mosse contengono un id come parola intera ("Marea dello slime",
+// "Graffio dell'imp"): restano intatte.
+const PROTECTED_MOVE_NAMES = [...new Set(FAMILIAR_COMBAT_CATALOG.flatMap((familiar) => familiar.moves.map((move) => move.name)))]
+  .filter((name) => new RegExp(FAMILIAR_ID_PATTERN.source, "u").test(name))
+  .sort((left, right) => right.length - left.length);
+
+const PROTECTED_MOVE_SPLIT = new RegExp(`(${PROTECTED_MOVE_NAMES.map((name) => name.replace(/[.*+?^$()|[\]\\{}]/g, "\\$&")).join("|") || "(?!)"})`, "u");
 
 function combatText(value: string) {
-  return LOCALIZED_FAMILIARS.reduce((text, familiar) => text.replaceAll(familiar.id, familiar.name), value);
+  return value
+    .split(PROTECTED_MOVE_SPLIT)
+    .map((part, index) => index % 2 === 1 ? part : part.replace(FAMILIAR_ID_PATTERN, (id) => FAMILIAR_NAME_BY_ID.get(id) ?? id))
+    .join("");
 }
 
 function stageLabel(stage: FamiliarGrowthStage) {
@@ -322,6 +341,13 @@ export function FamiglioCombatArena({
   const audioSettingsRef = useRef({ muted, volume });
   const entranceTimerRef = useRef<number | null>(null);
   const shownInitiativeBattleIdsRef = useRef<Set<string>>(new Set());
+  // Guardia sincrona contro doppio click/tap: lo stato `animating` arriva solo
+  // al render successivo, il ref blocca subito un secondo turno.
+  const turnLockRef = useRef(false);
+  // La velocità scelta durante un turno deve valere anche per le fasi restanti.
+  const animationSpeedRef = useRef<1 | 2>(1);
+  const arenaRef = useRef<HTMLElement>(null);
+  const dialogReturnFocusRef = useRef<HTMLElement | null>(null);
   const towerStorageKey = `lorewise:famiglio:tower:${familiarId}`;
 
   useEffect(() => {
@@ -478,12 +504,17 @@ export function FamiglioCombatArena({
             ? "command"
             : "idle";
 
+  // Il cartello del round dipende solo da id/turno: prima ripartiva a ogni
+  // cambio d'oggetto (inizio animazione) e riannunciava il round già giocato.
+  const roundBattleId = battle?.id ?? null;
+  const roundTurn = battle?.turn ?? 0;
+  const roundActive = battle?.outcome === "active";
   useEffect(() => {
-    if (!battle || battle.outcome !== "active") return;
-    const show = window.setTimeout(() => setRoundNotice(battle.turn), 0);
-    const timer = window.setTimeout(() => setRoundNotice((current) => current === battle.turn ? null : current), 1250);
+    if (!roundBattleId || !roundActive || animating) return;
+    const show = window.setTimeout(() => setRoundNotice(roundTurn), 0);
+    const timer = window.setTimeout(() => setRoundNotice((current) => current === roundTurn ? null : current), 1250);
     return () => { window.clearTimeout(show); window.clearTimeout(timer); };
-  }, [battle]);
+  }, [animating, roundActive, roundBattleId, roundTurn]);
 
   useEffect(() => () => {
     sequenceRef.current += 1;
@@ -572,7 +603,7 @@ export function FamiglioCombatArena({
       playAudio(cue);
       health = updateHealthForEvent(event, health, currentBattle);
       setVisibleHealth(health);
-      await wait(Math.max(220, cue.durationMs * familiarCombatPhaseDurationScale(event.actorId) * 1.53 / animationSpeed));
+      await wait(Math.max(220, cue.durationMs * familiarCombatPhaseDurationScale(event.actorId) * 1.53 / animationSpeedRef.current));
     }
     if (sequenceRef.current !== sequence) return;
     setCurrentEvent(null);
@@ -580,6 +611,7 @@ export function FamiglioCombatArena({
     const resolved = nextState.activeBattle;
     if (resolved) setVisibleHealth({ battleId: resolved.id, player: resolved.player.hp, opponent: resolved.opponent.hp });
     pendingPresentationStateRef.current = null;
+    turnLockRef.current = false;
     setPresentationBattle(null);
     setAnimating(false);
   };
@@ -641,7 +673,7 @@ export function FamiglioCombatArena({
     { id: "familiar", label: "Famiglio", icon: "/famiglio/rebuild/combat/ui/step-famiglio.png" },
     { id: "arenas", label: battleFormat === "tower" ? "Torre" : battleFormat === "campaign" ? "Campagna" : "Arena", icon: "/famiglio/rebuild/combat/ui/step-arena.png" },
     ...(battleFormat === "campaign" ? [{ id: "campaign" as const, label: "Storia", icon: "/famiglio/rebuild/combat/ui/step-rivale.png" }] : battleFormat === "tower" ? [] : [{ id: "opponents" as const, label: "Rivale", icon: "/famiglio/rebuild/combat/ui/step-rivale.png" }]),
-    ...(battleFormat === "campaign" ? [] : [{ id: "mode" as const, label: "Modalita", icon: "/famiglio/rebuild/combat/ui/step-modalita.png" }]),
+    ...(battleFormat === "campaign" ? [] : [{ id: "mode" as const, label: "Modalità", icon: "/famiglio/rebuild/combat/ui/step-modalita.png" }]),
     { id: "moves", label: "Mosse", icon: "/famiglio/rebuild/combat/ui/step-mosse.png" },
     { id: "ready", label: "Battaglia", icon: "/famiglio/rebuild/combat/ui/step-battaglia.png" },
   ];
@@ -653,7 +685,7 @@ export function FamiglioCombatArena({
 
   const beginBattle = () => {
     if (activityGate && !activityGate.allowed) {
-      setLocalMessage(activityGate.reason ?? "Il Famiglio non e pronto a combattere.");
+      setLocalMessage(activityGate.reason ?? "Il Famiglio non è pronto a combattere.");
       return;
     }
     const towerFloor = battleFormat === "tower" ? familiarTowerFloor(towerRun) : null;
@@ -706,7 +738,7 @@ export function FamiglioCombatArena({
   };
 
   const rotateCombatant = (nextFamiliarId: string) => {
-    if (animating) return;
+    if (animating || turnLockRef.current) return;
     const result = switchFamiliarCombatant(state, nextFamiliarId);
     if (!result.ok) { setLocalMessage(result.error); return; }
     setLocalMessage(null);
@@ -714,7 +746,7 @@ export function FamiglioCombatArena({
   };
 
   const performSelectedMove = (moveId: string) => {
-    if (animating || !battle || battle.outcome !== "active") return;
+    if (animating || turnLockRef.current || !battle || battle.outcome !== "active") return;
     setInitiativeBattleId(null);
     const currentBattle = state.activeBattle;
     if (!currentBattle) return;
@@ -724,6 +756,7 @@ export function FamiglioCombatArena({
       setLocalMessage(result.error);
       return;
     }
+    turnLockRef.current = true;
     setLocalMessage(null);
     setState(result.state);
     void animateTimeline(result.timeline, result.state, currentBattle);
@@ -740,22 +773,30 @@ export function FamiglioCombatArena({
 
   const collectReward = () => {
     if (battle?.outcome === "victory") onBattleVictory?.(battle.id);
-    if (!state.pendingReward) {
+    // Il motore crea una ricompensa solo al primo successo di un incontro. Prima
+    // un piano della Torre o un livello di Campagna già vinto (stesso rivale,
+    // arena e modalità) chiudeva la battaglia senza avanzare: il giocatore
+    // restava bloccato sullo stesso piano. Ora l'avanzamento non dipende più
+    // dalla presenza della ricompensa.
+    let claimedState = state;
+    if (state.pendingReward) {
+      const result = claimFamiliarCombatReward(state);
+      if (result.ok) {
+        setLocalMessage(null);
+        onReward(result.reward);
+        onMissionActivity?.("familiar_battle", result.reward.battleId);
+      } else setLocalMessage(result.error);
+      claimedState = result.state;
+    } else {
       setLocalMessage(null);
-      setState(closeFamiliarCombatBattle(state));
+      if (battle) onMissionActivity?.("familiar_battle", battle.id);
+    }
+    if (battle?.outcome === "victory" && battleFormat === "tower" && towerRun) onMissionActivity?.("familiar_tower_floor", `${towerRun.id}:floor-${towerRun.currentFloor}`);
+    const cleared = closeFamiliarCombatBattle(claimedState);
+    if (battle?.outcome !== "victory") {
+      setState(cleared);
       return;
     }
-    const result = claimFamiliarCombatReward(state);
-    if (!result.ok) {
-      setLocalMessage(result.error);
-      setState(closeFamiliarCombatBattle(result.state));
-      return;
-    }
-    setLocalMessage(null);
-    onReward(result.reward);
-    onMissionActivity?.("familiar_battle", result.reward.battleId);
-    if (battleFormat === "tower" && towerRun) onMissionActivity?.("familiar_tower_floor", `${towerRun.id}:floor-${towerRun.currentFloor}`);
-    const cleared = closeFamiliarCombatBattle(result.state);
     if (battleFormat === "tower" && towerRun) {
       const nextRun = advanceFamiliarTower(towerRun);
       if (nextRun) {
@@ -827,7 +868,12 @@ export function FamiglioCombatArena({
       circuitId: battle.circuitId,
       difficulty: battle.difficulty,
       opponentLevel: battle.opponent.level,
-      ignoreUnlocks: testMode || battleFormat === "tower",
+      // La rivincita deve restare lo stesso incontro: senza encounterId un
+      // livello di Campagna vinto alla rivincita non risultava completato
+      // (e perdeva arena/Custode), e senza ignoreUnlocks la rivincita di un
+      // livello oltre gli sblocchi del circuito veniva rifiutata.
+      encounterId: battle.encounterId,
+      ignoreUnlocks: testMode || battleFormat === "tower" || Boolean(battleCampaignLevel),
       playerStatBonus,
       playerEvolutionPath,
       maxTurns: battleCampaignLevel?.turnLimit ?? battle.maxTurns,
@@ -841,6 +887,7 @@ export function FamiglioCombatArena({
     }
     const started = result.state.activeBattle;
     if (started) setVisibleHealth({ battleId: started.id, player: started.player.hp, opponent: started.opponent.hp });
+    playedAudioEventIdsRef.current.clear();
     setCurrentEvent(null);
     setContactActors([]);
     setPresentationBattle(null);
@@ -882,15 +929,78 @@ export function FamiglioCombatArena({
   };
 
   useEffect(() => {
+    // Qualunque percorso chiuda la presentazione (fine, salto, ritiro) libera il turno.
+    if (!animating) turnLockRef.current = false;
+  }, [animating]);
+
+  useEffect(() => {
+    animationSpeedRef.current = animationSpeed;
+  }, [animationSpeed]);
+
+  useEffect(() => {
     if (!animating || currentEvent || presentationBattle) return;
     const unlock = window.setTimeout(() => setAnimating(false), 0);
     return () => window.clearTimeout(unlock);
   }, [animating, currentEvent, presentationBattle]);
 
+  // Finestre modali della battaglia: prima restavano senza focus (la tastiera
+  // restava sul link "Vai al contenuto" della pagina), senza Esc e senza
+  // trappola del Tab, pur dichiarando aria-modal.
+  const openDialog = !animating && battle && battle.outcome !== "active"
+    ? "result"
+    : battle?.outcome === "active" && retreatConfirmOpen
+      ? "retreat"
+      : battle?.outcome === "active" && selectedMoveInfo
+        ? "move"
+        : battle?.outcome === "active" && battleInfoPanel
+          ? "info"
+          : initiativeOpen
+            ? "initiative"
+            : null;
+  useEffect(() => {
+    if (!openDialog) {
+      const back = dialogReturnFocusRef.current;
+      dialogReturnFocusRef.current = null;
+      if (back?.isConnected && !(back as HTMLButtonElement).disabled) back.focus({ preventScroll: true });
+      return;
+    }
+    const active = document.activeElement as HTMLElement | null;
+    if (!dialogReturnFocusRef.current && active && !active.closest("[role='dialog']")) dialogReturnFocusRef.current = active;
+    const frame = window.requestAnimationFrame(() => {
+      const dialogs = arenaRef.current?.querySelectorAll<HTMLElement>("[role='dialog']");
+      const dialog = dialogs?.[dialogs.length - 1];
+      if (dialog && !dialog.contains(document.activeElement)) dialog.querySelector<HTMLElement>("button:not(:disabled)")?.focus({ preventScroll: true });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [openDialog]);
+
+  const handleDialogKeys = (event: ReactKeyboardEvent<HTMLElement>) => {
+    if (!openDialog) return;
+    if (event.key === "Escape") {
+      if (openDialog === "retreat") setRetreatConfirmOpen(false);
+      else if (openDialog === "move") setSelectedMoveInfoId(null);
+      else if (openDialog === "info") setBattleInfoPanel(null);
+      else if (openDialog === "initiative") setInitiativeBattleId(null);
+      else return;
+      event.preventDefault();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const dialogs = arenaRef.current?.querySelectorAll<HTMLElement>("[role='dialog']");
+    const dialog = dialogs?.[dialogs.length - 1];
+    const focusable = Array.from(dialog?.querySelectorAll<HTMLElement>("button:not(:disabled), a[href], select, input, [tabindex]:not([tabindex='-1'])") ?? []);
+    if (!focusable.length) return;
+    const index = focusable.indexOf(document.activeElement as HTMLElement);
+    if (event.shiftKey && index <= 0) { event.preventDefault(); focusable[focusable.length - 1].focus(); }
+    else if (!event.shiftKey && (index < 0 || index === focusable.length - 1)) { event.preventDefault(); focusable[0].focus(); }
+  };
+
   const selectedCircuitUnlocked = testMode || (progress.combatLevel >= selectedCircuit.minLevel && progress.wins >= selectedCircuit.unlockWins);
   const selectedDifficultyUnlocked = testMode || combatDifficultyIsUnlocked(progress, difficulty);
 
   return <section
+    ref={arenaRef}
+    onKeyDown={handleDialogKeys}
     className={`${styles.combat} ${battle ? battleStyles.root : ""}`}
     data-battle={Boolean(battle)}
     data-famiglio-audio-scope="combat"
@@ -922,7 +1032,7 @@ export function FamiglioCombatArena({
           <label><span>Volume</span><input aria-label="Volume combattimento" type="range" min="0" max="1" step="0.05" value={volume} onChange={(event) => { setVolume(Number(event.target.value)); unlockCombatAudio(); }} /></label>
         </div>
         {battle ? <div className={styles.animationControls} aria-label="Controlli animazione">
-          <button className={styles.speedControl} type="button" aria-label={`Velocita animazione ${animationSpeed}x`} title={`Velocita animazione ${animationSpeed}x`} onClick={() => setAnimationSpeed((value) => value === 1 ? 2 : 1)}>
+          <button className={styles.speedControl} type="button" aria-label={`Velocità animazione ${animationSpeed}x`} title={`Velocità animazione ${animationSpeed}x`} onClick={() => setAnimationSpeed((value) => value === 1 ? 2 : 1)}>
             <Image className={styles.controlIcon} src="/famiglio/rebuild/combat/ui/control-speed.png" alt="" width={96} height={96} aria-hidden="true" /><small aria-hidden="true">{animationSpeed}x</small>
           </button>
           {animating ? <button type="button" aria-label="Salta animazione" title="Salta animazione" onClick={skipPresentation}><Image className={styles.controlIcon} src="/famiglio/rebuild/combat/ui/control-skip.png" alt="" width={96} height={96} aria-hidden="true" /></button> : null}
@@ -1282,7 +1392,7 @@ export function FamiglioCombatArena({
               campaignNpc={battleCampaignLevel ? { src: battleCampaignLevel.npc.spriteSrc, name: battleCampaignLevel.npc.name, pose: campaignNpcPose } : null}
             />
             <div className={battleStyles.arenaPlate}><small>{battleCircuit.name}</small><strong>{battleDifficultyLabel}</strong></div>
-            {roundNotice === battle.turn && !initiativeOpen ? <div className={battleStyles.roundNotice} role="status"><small>{battle.bossPhasesTotal > 1 ? `Fase ${battle.bossPhasesTotal - battle.bossPhasesRemaining + 1}/${battle.bossPhasesTotal}` : "Round"}</small><strong>{battle.turn}</strong></div> : null}
+            {roundNotice === battle.turn && !initiativeOpen && !animating ? <div className={battleStyles.roundNotice} role="status"><small>{battle.bossPhasesTotal > 1 ? `Fase ${battle.bossPhasesTotal - battle.bossPhasesRemaining + 1}/${battle.bossPhasesTotal}` : "Round"}</small><strong>{battle.turn}</strong></div> : null}
           </div>
           <div className={battleStyles.battleHud} data-side="opponent" data-critical={opponentHpPercent <= 25}>
             <div className={battleStyles.fighterStatusTags} aria-label={`Stati di ${battleOpponentEntry?.name ?? "avversario"}`}>
@@ -1303,6 +1413,19 @@ export function FamiglioCombatArena({
         {battle.outcome === "active" ? <>
           <div className={battleStyles.battleUtilityDock}>
             <div className={battleStyles.battleUtilityTray} aria-label="Dettagli del combattimento">
+              {/* L'intestazione dell'Arena (audio, velocità, salta) è nascosta in
+                  battaglia: senza questi comandi il giocatore non poteva più
+                  silenziare né accelerare o saltare le animazioni del turno. */}
+              <button type="button" className={battleStyles.battleUtilityButton} data-control="audio" aria-label={muted ? "Attiva audio" : "Disattiva audio"} title={muted ? "Attiva audio" : "Disattiva audio"} aria-pressed={muted} onClick={() => { setMuted((value) => !value); unlockCombatAudio(); }}>
+                <Image className={battleStyles.battleUtilityIcon} data-muted={muted} src="/famiglio/rebuild/combat/ui/control-audio.png" width={96} height={96} alt="" aria-hidden="true" />
+              </button>
+              <button type="button" className={battleStyles.battleUtilityButton} data-control="speed" aria-label={`Velocità animazione ${animationSpeed}x`} title={`Velocità animazione ${animationSpeed}x`} aria-pressed={animationSpeed === 2} onClick={() => setAnimationSpeed((value) => value === 1 ? 2 : 1)}>
+                <Image className={battleStyles.battleUtilityIcon} src="/famiglio/rebuild/combat/ui/control-speed.png" width={96} height={96} alt="" aria-hidden="true" />
+                <span aria-hidden="true">{animationSpeed}x</span>
+              </button>
+              <button type="button" className={battleStyles.battleUtilityButton} data-control="skip" aria-label="Salta animazione" title="Salta animazione" disabled={!animating} onClick={skipPresentation}>
+                <Image className={battleStyles.battleUtilityIcon} src="/famiglio/rebuild/combat/ui/control-skip.png" width={96} height={96} alt="" aria-hidden="true" />
+              </button>
               <button type="button" className={battleStyles.battleUtilityButton} aria-label="Apri gli stati attivi" aria-haspopup="dialog" onClick={() => setBattleInfoPanel("status")}>
                 <Image className={battleStyles.battleUtilityIcon} src="/famiglio/rebuild/combat/ui/battle-status-icon-v1.png" width={64} height={64} unoptimized alt="" aria-hidden="true" />
                 <span>{battle.player.statuses.length + battle.opponent.statuses.length}</span>
@@ -1372,6 +1495,8 @@ export function FamiglioCombatArena({
                         ? "Limite raggiunto · scegli un'altra mossa"
                         : `${energyCost === 0 ? "Base · gratis" : `${energyCost} EN`} · ${effectivenessLabel}${damagePreview ? ` · ~${damagePreview} danni` : ""} · ${maxUses > 0 ? `Usi ${uses}/${maxUses}` : "Usi illimitati"}`;
               const ready = Boolean(move && !usesLocked && !energyLocked && !cooldownLocked && !repetitionLocked);
+              // Su touch il title non si vede: il motivo del blocco sostituisce l'etichetta del tipo.
+              const blockedReason = !move ? null : usesLocked ? "Usi finiti" : energyLocked ? `Servono ${energyCost} EN` : cooldownLocked ? "In ricarica" : repetitionLocked ? "Cambia mossa" : null;
               const visual = move ? moveVisual(move) : null;
               return <article className={battleStyles.battleMoveCommand} key={move?.id ?? `locked-${index}`} data-ready={ready} data-kind={visual?.kind ?? "locked"}>
                 <button
@@ -1384,9 +1509,10 @@ export function FamiglioCombatArena({
                   data-repetition-locked={repetitionLocked}
                   onClick={() => move && performSelectedMove(move.id)}
                   title={move ? `${move.name}: ${availabilityLabel}` : undefined}
+                  aria-label={move ? `${move.name}, ${visual?.label ?? ""}: ${availabilityLabel}` : "Mossa da sbloccare"}
                 >
                   <small>{String(index + 1).padStart(2, "0")}</small>
-                  <strong><span>{move?.name ?? "Mossa da sbloccare"}</span>{visual ? <em className={battleStyles.moveKindLabel}>{visual.label}</em> : null}</strong>
+                  <strong><span>{move?.name ?? "Mossa da sbloccare"}</span>{visual ? <em className={`${battleStyles.moveKindLabel} ${blockedReason ? battleStyles.moveBlockedReason : ""}`}>{blockedReason ?? visual.label}</em> : null}</strong>
                 </button>
                 <button
                   className={battleStyles.moveInfoButton}

@@ -208,7 +208,10 @@ test("le sei arene e il Canvas di lotta restano 16:9 e mostrano l'immagine inter
 
   assert.match(css, /\.battleScene\s*\{[\s\S]*?aspect-ratio:\s*16\s*\/\s*9[\s\S]*?overflow:\s*hidden/);
   assert.match(css, /\.battleScene\s*\{[\s\S]*?background-position:\s*center[\s\S]*?background-size:\s*contain/);
-  assert.match(canvas, /width="1280"\s+height="720"/);
+  // Il buffer segue la misura reale del riquadro (niente stiramento né sfocatura HiDPI);
+  // l'arena resta comunque un palco 16:9 intero, centrato nel Canvas.
+  assert.match(canvas, /width=\{backingSize\.width\}\s+height=\{backingSize\.height\}/);
+  assert.match(canvas, /const stage = familiarBattleStageRect\(canvas\.width, canvas\.height\)/);
   assert.match(canvas, /context\.drawImage\(images\.background, 0, 0, width, height\)/);
   assert.doesNotMatch(canvas, /drawImage\(background,[\s\S]{0,180}naturalWidth|drawImage\(background,[\s\S]{0,180}naturalHeight/);
 });
