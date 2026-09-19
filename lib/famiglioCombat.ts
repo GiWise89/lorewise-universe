@@ -1169,8 +1169,9 @@ function tickStatuses(
   let hp = actor.hp;
   const statuses: FamiliarCombatStatus[] = [];
   for (const status of actor.statuses) {
-    if (status.id === "burn" || status.id === "poison") {
-      const amount = Math.max(1, Math.round(actor.maxHp * status.potency / 100));
+    if ((status.id === "burn" || status.id === "poison") && hp > 0) {
+      // Mostra il danno realmente subito (mai più degli HP rimasti) e chi lo subisce.
+      const amount = Math.min(hp, Math.max(1, Math.round(actor.maxHp * status.potency / 100)));
       hp = Math.max(0, hp - amount);
       events.push({
         id: `${battle.id}-${battle.turn}-${events.length + 1}`,
@@ -1185,11 +1186,12 @@ function tickStatuses(
         audioCue: status.id === "poison" ? "status-poison" : "status-burn",
         amount,
         statusId: status.id,
-        message: `${STATUS_NAMES[status.id] ?? status.name}: ${amount} danni.`,
+        message: `${actor.familiarId} subisce ${STATUS_NAMES[status.id] ?? status.name}: ${amount} danni.`,
       });
-    } else if (status.id === "regen") {
-      const amount = Math.max(1, Math.round(actor.maxHp * status.potency / 100));
-      hp = Math.min(actor.maxHp, hp + amount);
+    } else if (status.id === "regen" && hp > 0 && hp < actor.maxHp) {
+      // Cura effettiva, limitata agli HP mancanti: niente "+0" o valori oltre il massimo.
+      const amount = Math.min(actor.maxHp - hp, Math.max(1, Math.round(actor.maxHp * status.potency / 100)));
+      hp += amount;
       events.push({
         id: `${battle.id}-${battle.turn}-${events.length + 1}`,
         order: events.length,
@@ -1203,7 +1205,7 @@ function tickStatuses(
         audioCue: "status-heal",
         amount,
         statusId: status.id,
-        message: `${STATUS_NAMES[status.id] ?? status.name}: ${amount} HP recuperati.`,
+        message: `${actor.familiarId} recupera ${amount} HP con ${STATUS_NAMES[status.id] ?? status.name}.`,
       });
     }
     // Uno stato d'azione arrivato dopo che il portatore aveva già agito non ha
