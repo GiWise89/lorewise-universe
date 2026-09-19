@@ -56,6 +56,9 @@ export function familiarCombatMotionProfile(familiarId: string): FamiliarCombatM
 }
 
 function clampProgress(progress: number) {
+  // Math.min/max propagano NaN: un tempo di animazione non valido (es. durata 0)
+  // deve lasciare il Famiglio al punto di partenza invece di produrre NaN.
+  if (Number.isNaN(progress)) return 0;
   return Math.max(0, Math.min(1, progress));
 }
 
