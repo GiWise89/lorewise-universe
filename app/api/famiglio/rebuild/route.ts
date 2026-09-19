@@ -5,6 +5,7 @@ import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import {
   FAMIGLIO_REBUILD_CLOUD_MAX_BYTES,
   preserveServerOwnedAttendance,
+  preserveServerOwnedCombat,
   rebuildSaveEntitlementViolation,
   sanitizeFamiglioRebuildCloudSave,
 } from "@/lib/famiglioRebuildCloud";
@@ -79,7 +80,9 @@ export async function PUT(request: Request) {
       const current = metadataSave(user);
       if (current.revision !== baseRevision) return json({ error: "Le Case sono state aggiornate su un altro dispositivo.", ...current }, 409);
       const revision = current.revision + 1;
-      const save = preserveServerOwnedAttendance(checked.save, current.save);
+      // Presenze e progressi di combattimento restano quelli del server: il client
+      // non può assegnarsi vittorie, livelli, incontri completati o premi riscattati.
+      const save = preserveServerOwnedCombat(preserveServerOwnedAttendance(checked.save, current.save), current.save);
       const client = await createLoreWiseServerClient();
       if (!client) return json({ error: "Servizio LoreWise ID non disponibile." }, 503);
       const { error } = await saveLocalGameData(user, {
@@ -105,7 +108,9 @@ export async function PUT(request: Request) {
     const violation = rebuildSaveEntitlementViolation(checked.save, current.save, { offerIds, appearanceIds });
     if (violation) return json({ error: violation }, 403);
     const revision = current.revision + 1;
-    const save = preserveServerOwnedAttendance(checked.save, current.save);
+    // Presenze e progressi di combattimento restano quelli del server: il client
+    // non può assegnarsi vittorie, livelli, incontri completati o premi riscattati.
+    const save = preserveServerOwnedCombat(preserveServerOwnedAttendance(checked.save, current.save), current.save);
     if (current.revision === 0) {
       const inserted = await database.prepare(`INSERT INTO nexus_pet_rebuild_saves (customer_id, save_json, revision)
         VALUES (?, ?, ?) ON CONFLICT(customer_id) DO NOTHING`).bind(user.id, JSON.stringify(save), revision).run();

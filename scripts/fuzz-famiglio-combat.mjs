@@ -531,9 +531,13 @@ export function playBattle(scenario, random, policy, stats, checks = {}) {
       const retreated = retreatFromFamiliarCombat(deepFreeze(state));
       const after = familiarCombatProgress(retreated, leadId);
       assert.equal(after.combatXp, leadBefore.combatXp, "la ritirata non deve dare XP");
-      assert.equal(after.losses, leadBefore.losses + 1);
+      // Ritirata neutra: nessuna sconfitta né vittoria nel record, nessun premio.
+      assert.equal(after.losses, leadBefore.losses, "la ritirata non è una sconfitta");
+      assert.equal(after.wins, leadBefore.wins);
+      assert.deepEqual(after.completedEncounters, leadBefore.completedEncounters, "la ritirata non completa l'incontro");
+      assert.equal(after.battlesCompleted, leadBefore.battlesCompleted + 1);
       assert.equal(retreated.pendingReward, null);
-      assert.equal(retreated.activeBattle.outcome, "defeat");
+      assert.equal(retreated.activeBattle.outcome, "retreat");
       stats.retreats += 1;
       return { state: retreated, turns, outcome: "retreat", actions };
     }

@@ -93,8 +93,10 @@ test("Torre e Campagna avanzano anche quando la vittoria non assegna una nuova r
   assert.match(body, /advanceFamiliarTower\(towerRun\)/);
   assert.match(body, /setSelectedCampaignNumber\(nextNumber\)/);
   const rematch = arena.slice(arena.indexOf("const rematch = () => {"), arena.indexOf("const leaveBattle"));
-  assert.match(rematch, /encounterId: battle\.encounterId/);
-  assert.match(rematch, /ignoreUnlocks: testMode \|\| battleFormat === "tower" \|\| Boolean\(battleCampaignLevel\)/);
+  // La rivincita ripete la stessa richiesta d'incontro (capitolo, piano o rivale):
+  // encounterId e sblocchi derivano dal piano condiviso usato anche dal server.
+  assert.match(rematch, /loadFamiglioCombatJournal\(battle\.id\)\?\.request/);
+  assert.match(rematch, /startRequestedBattle\(clearedState, request\)/);
 });
 
 test("preparazione allineata al motore: base fissa, titolare 3v3 reale, riserve di forza simile, niente falso 'Raccogli'", async () => {
@@ -103,7 +105,9 @@ test("preparazione allineata al motore: base fissa, titolare 3v3 reale, riserve 
   assert.match(arena, /disabled=\{baseSlot \|\| locked/);
   assert.match(arena, /const previewOpponentId = teamBattle \? opponentTeamIds\[0\] \?\? safeOpponentId : safeOpponentId;/);
   assert.match(arena, /const opponentEntry = familiarCombatEntry\(previewOpponentId\)/);
-  assert.match(arena, /Math\.abs\(familiarCombatPower\(left\) - leadRivalPower\)/);
+  const verification = await source("lib/famiglioCombatVerification.ts");
+  assert.match(verification, /Math\.abs\(familiarCombatRosterPower\(left\) - leadPower\)/);
+  assert.match(arena, /familiarCombatRivalTeamIds\(\{/);
   assert.match(arena, /state\.pendingReward \? "Raccogli · prossimo piano" : "Prossimo piano"/);
   assert.match(arena, /state\.pendingReward \? "Raccogli e continua" : "Continua"/);
 });

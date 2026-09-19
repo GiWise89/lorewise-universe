@@ -1,4 +1,6 @@
 import { createFamiliarAttendanceState } from "./famiglioAttendanceYear.ts";
+import { createFamiliarCombatProgress, restoreFamiliarCombatState, type FamiliarCombatProgress } from "./famiglioCombat.ts";
+import { familiarCombatLoadoutIsValid } from "./famiglioCombatVerification.ts";
 import { MEDUSA_FAMILIAR_CATALOG } from "./famiglioMarketExpansion.ts";
 import { PREMIUM_FAMILIARS } from "./nexusFamiliarCatalog.ts";
 
@@ -112,6 +114,70 @@ export function preserveServerOwnedAttendance(
   return { ...incoming, houses };
 }
 
+/**
+ * Progressi di combattimento di proprietà del server. Livello, XP, vittorie,
+ * sconfitte, battaglie disputate, incontri completati (Campagna compresa),
+ * difficoltà sbloccate, premi riscattati e seme dei combattimenti cambiano soltanto
+ * con una battaglia verificata da /api/famiglio/rebuild/combat. Dal client si
+ * accettano solo le mosse equipaggiate, se già apprese. Il registro delle battaglie
+ * verificate (`combatLedger`) non è mai scritto dal client.
+ */
+export const FAMIGLIO_SERVER_OWNED_COMBAT_FIELDS = [
+  "combatLevel", "combatXp", "wins", "losses", "battlesCompleted", "learnedSchedule", "learnedMoveIds",
+  "completedEncounters", "unlockedDifficulties", "claimedRewardKeys", "rngState",
+] as const satisfies ReadonlyArray<keyof FamiliarCombatProgress>;
+
+function mergeServerOwnedCombat(incomingRaw: unknown, storedRaw: unknown | null): JsonRecord {
+  const incoming = isRecord(incomingRaw) ? incomingRaw : {};
+  const stored = storedRaw && isRecord(storedRaw) ? restoreFamiliarCombatState(storedRaw) : null;
+  const seed = stored ? stored.seed : restoreFamiliarCombatState(incoming).seed;
+  const requested = isRecord(incoming.profiles) ? incoming.profiles : {};
+  const profiles: Record<string, FamiliarCombatProgress> = {};
+  const ids = new Set([...Object.keys(stored?.profiles ?? {}), ...Object.keys(requested)]);
+  for (const familiarId of ids) {
+    let base: FamiliarCombatProgress;
+    try {
+      // Un Famiglio senza progressi sul server riparte da zero, qualunque cosa dica il client.
+      base = stored?.profiles[familiarId] ?? createFamiliarCombatProgress(familiarId, seed);
+    } catch {
+      continue; // Famiglio sconosciuto.
+    }
+    const candidate = requested[familiarId];
+    const equipped = isRecord(candidate) && Array.isArray(candidate.equippedMoveIds) && candidate.equippedMoveIds.every((id) => typeof id === "string")
+      ? candidate.equippedMoveIds as string[]
+      : null;
+    profiles[familiarId] = equipped && familiarCombatLoadoutIsValid(base, equipped)
+      ? { ...base, equippedMoveIds: [...equipped], archivedMoveIds: base.learnedMoveIds.filter((id) => !equipped.includes(id)) }
+      : base;
+  }
+  // La battaglia in corso resta del client (è solo presentazione: premi e progressi
+  // passano dal replay verificato); un premio "in attesa" scritto dal client non vale nulla.
+  return { ...incoming, seed, profiles, pendingReward: null };
+}
+
+export function preserveServerOwnedCombat(
+  incoming: FamiglioRebuildCloudSave,
+  current: FamiglioRebuildCloudSave | null,
+): FamiglioRebuildCloudSave {
+  const houses = incoming.houses.map((house, index) => {
+    if (!house) return house;
+    const stored = current?.houses[index];
+    const storedHouse = isRecord(stored) ? stored : null;
+    const next: JsonRecord = { ...house, combat: mergeServerOwnedCombat(house.combat, storedHouse ? storedHouse.combat ?? {} : null) };
+    if (storedHouse && isRecord(storedHouse.combatLedger)) next.combatLedger = storedHouse.combatLedger;
+    else delete next.combatLedger;
+    return next;
+  });
+  const next: FamiglioRebuildCloudSave = { ...incoming, houses };
+  // Copia della Casa attiva al primo livello del salvataggio.
+  if ("combat" in next) {
+    const active = houses[incoming.activeHouseIndex];
+    next.combat = active && isRecord(active.combat) ? active.combat : mergeServerOwnedCombat(next.combat, null);
+  }
+  delete next.combatLedger;
+  return next;
+}
+
 /** Case a pagamento: indice 1 → "slot-famiglio-2", indice 2 → "slot-famiglio-3". */
 const PAID_HOUSE_OFFER_IDS: ReadonlyArray<readonly [number, string]> = [[1, "slot-famiglio-2"], [2, "slot-famiglio-3"]];
 const GATED_FAMILIAR_IDS = new Set<string>([
@@ -133,7 +199,7 @@ function familiarIdsInHouse(house: unknown, ids: Set<string>) {
   }
 }
 
-function familiarIdsInSave(save: FamiglioRebuildCloudSave | null) {
+export function familiarIdsInSave(save: FamiglioRebuildCloudSave | null) {
   const ids = new Set<string>();
   if (!save) return ids;
   // Il client salva anche una copia della Casa attiva al primo livello del salvataggio.

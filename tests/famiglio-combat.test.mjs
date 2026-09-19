@@ -530,7 +530,9 @@ test("defeat and retreat preserve inventory by design and cannot farm combat XP"
   const retreated = retreatFromFamiliarCombat(state);
   const afterRetreat = familiarCombatProgress(retreated, "cat");
   assert.equal(afterRetreat.combatXp, before.combatXp);
-  assert.equal(afterRetreat.losses, before.losses + 1);
+  // La ritirata è neutra: nessuna sconfitta registrata.
+  assert.equal(afterRetreat.losses, before.losses);
+  assert.equal(retreated.activeBattle?.outcome, "retreat");
   assert.equal(retreated.pendingReward, null);
   assert.equal("inventory" in retreated, false);
 
