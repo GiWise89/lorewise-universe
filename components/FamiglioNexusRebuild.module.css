@@ -5119,3 +5119,21 @@
     flex-shrink: 0;
   }
 }
+
+/*
+ * Casa su telefono: i blocchi (stanza, esigenze, desiderio, azioni) si impilano con la loro
+ * altezza naturale e l'area scorre. La griglia a righe vincolate comprimeva il pannello delle
+ * esigenze sotto il Desiderio di oggi; la Serie di presenze occupa tutta la larghezza, così le
+ * esigenze restano leggibili su due colonne.
+ */
+@media (max-width: 560px) {
+  .homeExperience { display: flex; flex-direction: column; }
+  .homeExperience > * { flex: 0 0 auto; }
+  .needsPanel { height: auto; min-height: 0; }
+  .needsPanel > section { grid-column: 1 / -1; }
+  .homeExperience > .dailyWishCard { align-self: stretch; width: auto; max-width: none; }
+  /* Come in un tamagotchi: i comandi di cura subito sotto la stanza, visibili senza scorrere. */
+  .homeExperience > * { order: 2; }
+  .homeExperience > .homeScene { order: 0; }
+  .homeExperience > .homeActions { order: 1; }
+}
