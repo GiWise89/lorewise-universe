@@ -955,7 +955,15 @@ function opponentLoadoutFrom<T extends { id: string }>(familiarId: string, learn
   const base = learned.find((move) => move.id === baseMoveId);
   if (!base) return learned.slice(-FAMILIAR_COMBAT_MOVE_SLOTS);
   const others = learned.filter((move) => move !== base);
-  return [base, ...others.slice(-(FAMILIAR_COMBAT_MOVE_SLOTS - 1))];
+  // Le specie curatrici tengono la cura più recente anche ad alto livello: senza, l'IA
+  // non poteva mai curarsi e i Famigli di sostegno quasi non vincevano come avversari.
+  const heal = [...others].reverse().find((move) => {
+    const data = normalizedMove(move.id);
+    return data ? actionKind(data) === "heal" : false;
+  });
+  if (!heal) return [base, ...others.slice(-(FAMILIAR_COMBAT_MOVE_SLOTS - 1))];
+  const rest = others.filter((move) => move !== heal).slice(-(FAMILIAR_COMBAT_MOVE_SLOTS - 2));
+  return [base, ...rest, heal];
 }
 
 function opponentLoadoutForActor(actor: FamiliarCombatActor) {
@@ -1119,7 +1127,8 @@ function chooseOpponentMove(battle: FamiliarCombatBattle) {
     if (kind === "guard" && battle.opponent.hp / battle.opponent.maxHp < rules.guardThreshold) score += 24;
     if (kind === "heal") {
       const healthRatio = battle.opponent.hp / battle.opponent.maxHp;
-      score += healthRatio < .4 ? 28 : -80;
+      // Cura prima di essere allo stremo, con urgenza crescente quanto più è ferito.
+      score += healthRatio < .5 ? 20 + (.5 - healthRatio) * 60 : -80;
     }
     if (kind === "status" || moveStatus(move)) score += rules.statusPreference * 40;
     if (rules.finisherAwareness && estimatedDamage(move, battle.opponent, battle.player) >= battle.player.hp) score += 36;

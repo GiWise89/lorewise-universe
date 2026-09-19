@@ -84,16 +84,18 @@ const CAMPAIGN_LEVEL_CURVE = [1,2,3,4,5,6,7,8,10,11,12,14,15,17,19,21,23,26,29,3
 // Dalla ricalibrazione delle rarità (famiglioCombatCatalog.ts) le statistiche
 // di base sono già più vicine tra loro: la normalizzazione resta attiva
 // (almeno 0.3) ma serve meno, così la rarità del giocatore conta ancora.
+// Le tappe a squadre 8, 16 e 20 hanno un piccolo margine in più: con l'IA che ora
+// sa curarsi i rivali di sostegno reggono più a lungo.
 const CAMPAIGN_RIVAL_BALANCE: readonly (readonly [number, number])[] = [
   // Capitolo 1-2 (normale)
   [1.05, .3], [.84, .78], [.92, .3], [1, .37], [.96, .3],
   [.96, .3], [.92, .3],
   // Capitolo 2-4 (esperto): la "Resistenza" (9, 14) conta la sopravvivenza come vittoria.
-  [.88, .3], [1, 1.01], [.94, .77], [.92, .49], [.85, .3],
+  [.855, .3], [1, 1.01], [.94, .77], [.92, .49], [.85, .3],
   [.86, .6], [.91, .67],
   // Capitolo 4-5 (Nexus): il 17 ha solo 9 turni, quindi un rivale più fragile.
-  [.82, .58], [.82, .3], [.72, .52], [.77, .6], [.81, .38],
-  [.78, .3],
+  [.82, .58], [.8, .3], [.72, .52], [.77, .6], [.81, .38],
+  [.76, .3],
 ];
 
 /** Moltiplicatore di HP/attacco/difesa del rivale di campagna per un giocatore dato. */
