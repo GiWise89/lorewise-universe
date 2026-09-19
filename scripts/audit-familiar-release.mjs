@@ -1,4 +1,4 @@
-import { access } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { STARTER_FAMILIARS, familiarPalettes } from "../lib/nexusFamiliarCatalog.ts";
 import { FAMILIAR_GADGETS, familiarAppearanceWithGadget } from "../lib/nexusFamiliarGadgets.ts";
