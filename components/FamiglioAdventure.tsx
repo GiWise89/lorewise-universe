@@ -246,7 +246,7 @@ export function FamiglioAdventure({ familiarId, familiarName, colorVariant, grow
             <small>{expeditionReady ? "Rientro pronto" : "Spedizione in corso"}</small>
             <h3>{expeditionDungeon.name}</h3>
             <strong role="timer" aria-live="polite">{expeditionReady ? "Completata" : formatRemaining(remaining)}</strong>
-            <p>{expeditionReady ? `${displayedFamiliarName} è tornato con ciò che ha trovato.` : `${displayedFamiliarName} continua a esplorare. Il timer non si interrompe se torni alla Casa.`}</p>
+            <p>{expeditionReady ? `${displayedFamiliarName} è di ritorno con ciò che ha trovato.` : `${displayedFamiliarName} continua a esplorare. Il timer non si interrompe se torni alla Casa.`}</p>
           </div>
         </div>
         {expeditionEvent ? <section className={styles.expeditionChoice} data-resolved={Boolean(state.expedition.choiceId)}>
@@ -276,7 +276,7 @@ export function FamiglioAdventure({ familiarId, familiarName, colorVariant, grow
         <div className={styles.rewardArtwork} style={{ backgroundImage: `linear-gradient(90deg, rgba(18,10,31,.94), rgba(18,10,31,.45)), url(${rewardDungeon.backgroundSrc})` }}>
           <small>Spedizione completata</small>
           <h3>{rewardDungeon.name}</h3>
-          <p>{displayedFamiliarName} è rientrato. La ricompensa resta qui finché non la riscatti.</p>
+          <p>{displayedFamiliarName} è di ritorno. La ricompensa resta qui finché non la riscatti.</p>
         </div>
         <div className={styles.rewardReceipt}>
           <div><small>Ricompensa pronta</small><strong>Rientro completato</strong><p>Il bottino della spedizione è pronto. L’esperienza ottenuta appartiene all’esplorazione e non modifica l’affetto.</p></div>

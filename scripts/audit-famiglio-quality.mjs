@@ -6,7 +6,8 @@ const root = process.cwd();
 const collectionRoot = path.join(root, "public", "famiglio", "rebuild", "collection");
 const npcRoot = path.join(root, "public", "famiglio", "rebuild", "combat", "campaign", "npcs", "levels");
 const stages = ["cucciolo", "giovane", "adulto"];
-const battleActions = ["idle", "entrance", "run", "physical", "magic", "technique", "guard", "hit", "exhausted", "victory", "attack", "win", "lose"];
+// Pose della generazione in uso nell'arena (components/FamiglioCombatArena.tsx → battle-v6).
+const battleActions = ["idle", "entrance", "run", "physical", "magic", "technique", "guard", "hit", "exhausted", "victory", "attack", "heal", "jump"];
 const houseActions = ["idle", "walk", "feed", "play", "clean", "care", "sit", "groom", "sleep", "sleep-calm"];
 
 const failures = [];
@@ -37,13 +38,19 @@ for (const entry of collectionEntries) {
   }
 }
 familiarIds.sort();
-if (familiarIds.length !== 53) failures.push(`Catalogo: attesi 53 Famigli, trovati ${familiarIds.length}`);
+// Il catalogo della lotta è la fonte di verità: ogni Famiglio giocabile deve avere la sua cartella,
+// le cartelle in più (asset legacy come il corvo) sono solo un avviso.
+const { FAMILIAR_COMBAT_CATALOG } = await import("../lib/famiglioCombatCatalog.ts");
+const catalogIds = FAMILIAR_COMBAT_CATALOG.map((entry) => entry.id);
+for (const id of catalogIds) if (!familiarIds.includes(id)) failures.push(`Catalogo: ${id} senza cartella di crescita`);
+for (const id of familiarIds.filter((id) => !catalogIds.includes(id))) warnings.push(`Catalogo: cartella ${id} non usata dalla lotta`);
+familiarIds.splice(0, familiarIds.length, ...familiarIds.filter((id) => catalogIds.includes(id)));
 
 let inspected = 0;
 for (const familiarId of familiarIds) {
   for (const stage of stages) {
     for (const action of battleActions) {
-      await inspectStrip(path.join(collectionRoot, familiarId, "growth", stage, "battle-v2", `${action}.png`), `${familiarId}/${stage}/battle/${action}`);
+      await inspectStrip(path.join(collectionRoot, familiarId, "growth", stage, "battle-v6", `${action}.png`), `${familiarId}/${stage}/battle/${action}`);
       inspected += 1;
     }
     for (const action of houseActions) {

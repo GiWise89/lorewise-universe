@@ -17,6 +17,10 @@ export type FamiliarCampaignLevel = {
   objective: FamiliarCampaignObjective;
   objectiveLabel: string;
   turnLimit: number | null;
+  /** Forza del rivale rispetto al Famiglio del giocatore (1 = stessa forza base). */
+  rivalPower: number;
+  /** Quanto il rivale si adatta alla rarità del giocatore (0 = per nulla, 1 = del tutto). */
+  rivalNormalization: number;
   bossPhases: number;
   teamBattle: boolean;
   npc: {
@@ -66,6 +70,36 @@ const definitions = [
 // stessa, senza obbligare a ripetere numerosi duelli liberi tra due capitoli.
 const CAMPAIGN_LEVEL_CURVE = [1,2,3,4,5,6,7,8,10,11,12,14,15,17,19,21,23,26,29,32] as const;
 
+// Bilanciamento della storia. I rivali della campagna sono Famigli epici e
+// leggendari allo stesso livello del giocatore: senza correzione un Famiglio
+// comune o raro vinceva ~0% dal capitolo 3 in poi, contro il principio "niente
+// grinding". Le statistiche di HP, attacco e difesa del rivale vengono quindi
+// riportate verso quelle del Famiglio del giocatore:
+//   moltiplicatore = rivalPower × (valore giocatore / valore rivale)^(rivalNormalization / 3)
+// dove il valore è HP × attacco × difesa. Con rivalNormalization < 1 resta un
+// vantaggio per le rarità più alte. Coppie [rivalPower, rivalNormalization]
+// tarate con scripts/fuzz-famiglio-combat.mjs --campaign perché, al livello
+// assegnato dalla storia, un comune vinca circa il 45-70% e un leggendario il
+// 75-92% dei duelli; gli obiettivi a tempo e "Resistenza" hanno valori propri.
+const CAMPAIGN_RIVAL_BALANCE: readonly (readonly [number, number])[] = [
+  // Capitolo 1-2 (normale)
+  [1.09, .37], [.9, .63], [.93, .5], [1.05, .63], [.9, .63],
+  [.95, .5], [.96, .4],
+  // Capitolo 2-4 (esperto): la "Resistenza" (9, 14) conta la sopravvivenza come vittoria.
+  [.84, .23], [1.08, 1.19], [.95, .91], [.92, .85], [.87, .5],
+  [.85, .76], [.97, .89],
+  // Capitolo 4-5 (Nexus): il 17 ha solo 9 turni, quindi un rivale più fragile.
+  [.84, .83], [.8, .37], [.65, .55], [.83, .89], [.86, .74],
+  [.75, .29],
+];
+
+/** Moltiplicatore di HP/attacco/difesa del rivale di campagna per un giocatore dato. */
+export function familiarCampaignRivalMultiplier(level: Pick<FamiliarCampaignLevel, "rivalPower" | "rivalNormalization">, playerRating: number, rivalRating: number) {
+  if (!(playerRating > 0) || !(rivalRating > 0)) return level.rivalPower;
+  const normalized = level.rivalPower * Math.pow(playerRating / rivalRating, level.rivalNormalization / 3);
+  return Math.min(1.6, Math.max(0.3, normalized));
+}
+
 const rankTitle: Record<FamiliarCampaignRank, string> = {
   reietto: "Reietto",
   predone: "Predone del Velo",
@@ -104,6 +138,8 @@ export const FAMILIAR_COMBAT_CAMPAIGN: readonly FamiliarCampaignLevel[] = defini
     objective,
     objectiveLabel,
     turnLimit: objective === "rapidita" ? Math.max(6, 12 - Math.floor(index / 5)) : objective === "resistenza" ? 14 : null,
+    rivalPower: CAMPAIGN_RIVAL_BALANCE[index][0],
+    rivalNormalization: CAMPAIGN_RIVAL_BALANCE[index][1],
     bossPhases: bossLevel ? Math.min(3, 2 + Math.floor(index / 12)) : 1,
     teamBattle: [4, 8, 12, 16, 20].includes(index + 1),
     npc: {

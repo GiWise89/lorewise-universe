@@ -63,3 +63,6 @@
   .custodeIdentity small { font-size: 10px; }
   .rankMedal { font-size: 22px; }
 }
+
+/* Su schermi verticali lo sfondo orizzontale in "contain" lasciava fasce vuote sopra e sotto il campo di gioco. */
+@media (max-width:560px){.arena{background-size:cover}}

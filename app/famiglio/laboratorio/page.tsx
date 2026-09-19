@@ -12,12 +12,12 @@ export default function FamiglioLaboratorioPage() {
     <header>
       <small>Strumento interno locale</small>
       <h1>Laboratorio sprite dei Famigli</h1>
-      <p>Controllo rapido di identita, scala, trasparenza e famiglia di movimento. Questa pagina non viene resa disponibile in produzione.</p>
+      <p>Controllo rapido di identità, scala, trasparenza e famiglia di movimento. Questa pagina non viene resa disponibile in produzione.</p>
     </header>
     <section className={styles.summary} aria-label="Riepilogo">
       <strong>{FAMILIAR_COLLECTION.length} Famigli</strong>
-      <span>3 eta</span>
-      <span>23 sequenze per eta</span>
+      <span>3 età</span>
+      <span>23 sequenze per età</span>
       <span>20 NPC campagna</span>
     </section>
     <section className={styles.grid} aria-label="Catalogo tecnico dei Famigli">

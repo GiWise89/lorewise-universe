@@ -15,10 +15,13 @@ function readSeenGuides() {
   }
 }
 
-export function FamiglioGuideOverlay({ section, ready }: { section: FamiliarGuideSection; ready: boolean }) {
+export function FamiglioGuideOverlay({ section, ready, onOpenChange }: { section: FamiliarGuideSection; ready: boolean; onOpenChange?: (open: boolean) => void }) {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const guide = familiarGuide(section);
+
+  // La Casa usa questo segnale per non aprire il Registro presenze sopra la guida.
+  useEffect(() => { onOpenChange?.(open); }, [open, onOpenChange]);
 
   useEffect(() => {
     if (!ready) return;

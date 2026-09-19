@@ -1,5 +1,5 @@
 import { NIGHT_MARKET_OFFERS } from "./famiglioMarketExpansion.ts";
-import { createFamiliarAttendanceState, restoreFamiliarAttendanceState, type FamiliarAttendanceState } from "./famiglioAttendanceYear.ts";
+import { createFamiliarAttendanceState, familiarLocalDateKey, restoreFamiliarAttendanceState, type FamiliarAttendanceState } from "./famiglioAttendanceYear.ts";
 import { createFamiliarWeeklyLoopState, restoreFamiliarWeeklyLoopState, type FamiliarWeeklyLoopState } from "./famiglioWeeklyLoop.ts";
 import {
   advanceFamiliarBondWeek,
@@ -319,13 +319,13 @@ export const FAMILIAR_ITEM_CATALOG: ReadonlyArray<FamiliarInventoryItem> = [
   },
   {
     id: "cuddle-cushion", action: "rest", name: "Cuscino Abbraccio",
-    description: "Un cuscino permanente con una conca centrale su cui il Famiglio puo dormire raccolto.",
+    description: "Un cuscino permanente con una conca centrale su cui il Famiglio può dormire raccolto.",
     assetSrc: "/famiglio/rebuild/market/mirra/cuddle-cushion.png", animationSrc: "/famiglio/rebuild/market/mirra/cuddle-cushion-sheet.png", consumable: false, startingQuantity: 0,
     bonus: { energy: 13, affection: 5 }, outcome: "Si e addormentato al centro del Cuscino Abbraccio.",
   },
   {
     id: "moon-mat", action: "rest", name: "Materassino Mezzaluna",
-    description: "Un materassino permanente blu notte, basso e soffice, su cui il Famiglio puo dormire davvero.",
+    description: "Un materassino permanente blu notte, basso e soffice, su cui il Famiglio può dormire davvero.",
     assetSrc: "/famiglio/rebuild/market/mirra/moon-mat.png", animationSrc: "/famiglio/rebuild/market/mirra/moon-mat-sheet.png", consumable: false, startingQuantity: 0,
     bonus: { energy: 14, affection: 3 }, outcome: "Ha riposato sul Materassino Mezzaluna sotto una luce tranquilla.",
   },
@@ -678,18 +678,10 @@ export function homeActionAvailability(state: FamiliarHomeState, action: Familia
 const clampNeed = (value: number) => Math.max(0, Math.min(100, Math.round(value * 10) / 10));
 const clampXp = (value: number) => Math.max(0, Math.min(999_999, Math.round(value)));
 
+// Stesso giorno di presenze, serie e settimane (Europe/Rome): la routine non deve cambiare
+// giorno in un momento diverso per chi gioca da un altro fuso orario.
 function localDayKey(now: number) {
-  const date = new Date(now);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-function previousDayKey(now: number) {
-  const date = new Date(now);
-  date.setDate(date.getDate() - 1);
-  return localDayKey(date.getTime());
+  return familiarLocalDateKey(new Date(now));
 }
 
 function wishForDay(now: number): FamiliarDailyWish {
@@ -914,9 +906,24 @@ export function performHomeAction(
   preferredItemId: FamiliarInventoryItemId | null = null,
   restPresetId: FamiliarRestPresetId = "nap",
 ): FamiliarHomeState {
+  return performHomeActionWithNotes(state, action, now, preferredItemId, restPresetId).state;
+}
+
+/**
+ * Come performHomeAction, ma restituisce a parte le note su desiderio, routine e limite XP,
+ * così applyFamiliarInventoryItem può conservarle quando sostituisce l'esito con quello dell'oggetto.
+ */
+function performHomeActionWithNotes(
+  state: FamiliarHomeState,
+  action: FamiliarHomeAction,
+  now: number,
+  preferredItemId: FamiliarInventoryItemId | null,
+  restPresetId: FamiliarRestPresetId,
+): { state: FamiliarHomeState; notes: string } {
   const current = advanceFamiliarHome(state, now);
   const availability = homeActionAvailability(current, action, now);
-  if (!availability.available) return { ...current, lastOutcome: availability.reason };
+  if (!availability.available) return { state: { ...current, lastOutcome: availability.reason }, notes: "" };
+  let notes = "";
   const usedItem = preferredItemId
     ? FAMILIAR_ITEM_CATALOG.find((item) => item.id === preferredItemId && item.action === action && current.inventory.quantities[item.id] > 0) ?? null
     : RESOURCE_REQUIRED_ACTIONS.has(action) ? availableConsumableForAction(current, action) : null;
@@ -961,12 +968,13 @@ export function performHomeAction(
   }
   if (action === "rest") {
     const restPreset = FAMILIAR_REST_PRESETS.find((preset) => preset.id === restPresetId) ?? FAMILIAR_REST_PRESETS[0];
-    if (needs.energy >= 92) {
-      earnedXp = 3;
-      outcome = "Non ha molto sonno, ma si rilassa accanto a te.";
-    }
+    // Il messaggio "poco sonno" veniva sovrascritto subito dopo: ora resta visibile.
+    const notSleepy = needs.energy >= 92;
+    if (notSleepy) earnedXp = 3;
     needs.energy = clampNeed(needs.energy + restPreset.energyBonus);
-    outcome = `${restPreset.name} iniziato. ${restPreset.description}`;
+    outcome = notSleepy
+      ? `${restPreset.name} iniziato. Non ha molto sonno, ma si rilassa accanto a te.`
+      : `${restPreset.name} iniziato. ${restPreset.description}`;
   }
 
   const routine = currentRoutine(current.routine, now);
@@ -974,11 +982,12 @@ export function performHomeAction(
   const completedActions = firstToday ? [...routine.completedActions, action] : routine.completedActions;
   const completedDay = completedActions.length === HOME_ACTIONS.length;
   const completedRoutineNow = completedDay && firstToday;
-  const wasPreviousDayComplete = state.routine.completedActions.length === HOME_ACTIONS.length
-    && state.routine.dayKey === previousDayKey(now);
-  const careStreak = completedRoutineNow
-    ? (wasPreviousDayComplete ? current.growth.careStreak + 1 : Math.max(1, current.growth.careStreak))
-    : current.growth.careStreak;
+  // `careStreak` è il contatore dei "giorni di cura" richiesti per crescere (14 per Giovane,
+  // 35 per Adulto): ogni giornata con la routine completa vale un giorno, anche non consecutivo.
+  // Prima serviva che `state.routine` fosse ancora quella di ieri, ma il tick al secondo di
+  // advanceFamiliarHome la azzera a mezzanotte: il contatore restava fermo a 1 e il Famiglio
+  // non poteva mai diventare Giovane.
+  const careStreak = completedRoutineNow ? current.growth.careStreak + 1 : current.growth.careStreak;
   const wishFulfilledNow = current.wish.action === action && current.wish.fulfilledAt === null;
   const wish = wishFulfilledNow ? { ...current.wish, fulfilledAt: now } : current.wish;
   const rewardCoins = (wishFulfilledNow ? DAILY_WISH_REWARD_COINS : 0)
@@ -996,7 +1005,7 @@ export function performHomeAction(
       "Desiderio esaudito",
       `${DAILY_WISHES[action].title}: avete guadagnato ${DAILY_WISH_REWARD_COINS} monete Nexus.`,
     ));
-    outcome = `${outcome} Desiderio esaudito: +${DAILY_WISH_REWARD_COINS} monete Nexus.`;
+    notes += ` Desiderio esaudito: +${DAILY_WISH_REWARD_COINS} monete Nexus.`;
   }
   if (completedRoutineNow) {
     diaryAdditions.push(diaryEntry(
@@ -1005,7 +1014,7 @@ export function performHomeAction(
       "Giornata di cura completa",
       `Tutte le cinque cure sono state completate: +${DAILY_ROUTINE_REWARD_COINS} monete Nexus.`,
     ));
-    outcome = `${outcome} Routine del giorno completata!`;
+    notes += ` Routine del giorno completata: +${DAILY_ROUTINE_REWARD_COINS} monete Nexus!`;
   }
   if (nextStage !== current.growth.stage) {
     diaryAdditions.push(diaryEntry(
@@ -1023,7 +1032,7 @@ export function performHomeAction(
   const actionCooldowns = repeatedLimitReached
     ? { ...current.actionCooldowns, [action]: actionEndsAt + HOME_ACTION_COOLDOWN_MS }
     : current.actionCooldowns;
-  if (grantedXp < requestedXp) outcome = `${outcome} Limite XP delle azioni raggiunto per oggi; i bisogni continuano comunque a migliorare.`;
+  if (grantedXp < requestedXp) notes += " Limite XP delle azioni raggiunto per oggi; i bisogni continuano comunque a migliorare.";
   const inventory = usedItem ? {
     quantities: {
       ...current.inventory.quantities,
@@ -1032,7 +1041,7 @@ export function performHomeAction(
     totalItemsUsed: current.inventory.totalItemsUsed + 1,
   } : current.inventory;
 
-  return {
+  return { notes, state: {
     ...current,
     needs,
     toilet,
@@ -1048,7 +1057,7 @@ export function performHomeAction(
     actionXpEarned: current.actionXpEarned + grantedXp,
     lastUpdatedAt: now,
     lastActionAt: now,
-    lastOutcome: outcome,
+    lastOutcome: `${outcome}${notes}`,
     growth: { bondXp, stage: nextStage, careStreak },
     routine: { ...routine, completedActions, careCount: routine.careCount + 1 },
     wish,
@@ -1062,7 +1071,7 @@ export function performHomeAction(
     },
     inventory,
     diary: appendDiary(current.diary, diaryAdditions),
-  };
+  } };
 }
 
 export function cureFamiliarHome(state: FamiliarHomeState, now = Date.now()): FamiliarHomeState {
@@ -1103,7 +1112,7 @@ export function applyFamiliarInventoryItem(
   }
   const nightRelic = NIGHT_MARKET_OFFERS.find((offer) => offer.itemId === itemId);
   if (nightRelic) return equipNightMarketRelic(state, nightRelic.id);
-  const actionState = performHomeAction(state, item.action, now, item.id, restPresetId);
+  const { state: actionState, notes } = performHomeActionWithNotes(state, item.action, now, item.id, restPresetId);
   if (actionState.lastActionAt !== now) return actionState;
   const needs = { ...actionState.needs };
   for (const [need, bonus] of Object.entries(item.bonus) as Array<[FamiliarNeedId, number]>) {
@@ -1114,7 +1123,9 @@ export function applyFamiliarInventoryItem(
     ...actionState,
     needs,
     activeItemId: item.id,
-    lastOutcome: item.outcome,
+    // L'esito dell'oggetto sostituiva anche le note su desiderio e routine: le monete
+    // arrivavano senza spiegazione. Ora le note seguono il testo dell'oggetto.
+    lastOutcome: `${item.outcome}${notes}`,
     diary: recordsMemory
       ? appendDiary(actionState.diary, [diaryEntry("mission", now, item.name, item.outcome)])
       : actionState.diary,

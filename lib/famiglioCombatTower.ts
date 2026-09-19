@@ -14,12 +14,17 @@ export type FamiliarTowerFloor = {
 export type FamiliarTowerRun = { id: string; seed: number; currentFloor: number; floors: readonly FamiliarTowerFloor[] };
 
 const FLOOR_RULES = [
-  ["sfida", 0, .2, 0, "prime-orme"], ["sfida", .08, .3, 0, "prime-orme"],
-  ["sfida", .18, .42, 0, "bosco-risonanze"], ["mini-boss", .38, .56, 1, "bosco-risonanze"],
+  ["sfida", 0, .2, -1, "prime-orme"], ["sfida", .08, .3, -1, "prime-orme"],
+  ["sfida", .18, .42, -2, "bosco-risonanze"], ["mini-boss", .38, .56, 1, "bosco-risonanze"],
   ["sfida", .34, .6, 1, "grotte-celesti"], ["sfida", .46, .68, 1, "grotte-celesti"],
   ["sfida", .56, .78, 2, "rovine-arcane"], ["mini-boss", .7, .88, 2, "rovine-arcane"],
   ["elite", .82, .97, 3, "valle-titani"], ["boss", .92, 1, 4, "soglia-leggendaria"],
 ] as const;
+// I primi tre piani sono di riscaldamento: il rivale ha una frazione del
+// livello del giocatore (e uno o due livelli in meno), così anche un Famiglio comune,
+// in fondo al roster per forza, li supera di norma. I piani 8-10 restano
+// sfide facoltative e dure.
+const FLOOR_LEVEL_SCALE = [.75, .8, .85, 1, 1, 1, 1, 1, 1, 1] as const;
 
 export const FAMILIAR_TOWER_FLOOR_BACKGROUNDS = [
   "/famiglio/rebuild/combat/arenas/cortile-prime-orme-v1.webp",
@@ -80,7 +85,7 @@ export function createFamiliarTowerRun(playerId: string, playerLevel: number, se
     return {
       floor: index + 1,
       opponentId: selected.id,
-      opponentLevel: Math.max(1, Math.min(50, playerLevel + levelBonus)),
+      opponentLevel: Math.max(1, Math.min(50, Math.round(playerLevel * FLOOR_LEVEL_SCALE[index]) + levelBonus)),
       circuitId,
       rank,
       backgroundSrc: familiarTowerFloorBackground(index + 1),

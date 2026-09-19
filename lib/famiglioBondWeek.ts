@@ -1,3 +1,4 @@
+import { familiarLocalDateKey } from "./famiglioAttendanceYear.ts";
 export type FamiliarBondTraitId = "curiosity" | "courage" | "empathy";
 export type FamiliarBondNeedId = "hunger" | "energy" | "happiness" | "hygiene" | "affection";
 
@@ -167,9 +168,9 @@ export const FAMILIAR_BOND_WEEK: readonly FamiliarBondEvent[] = [
   },
 ] as const;
 
+/** Giorno della settimana del legame nel fuso Europe/Rome, come presenze e routine. */
 export function familiarBondDayKey(now: number) {
-  const date = new Date(now);
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  return familiarLocalDateKey(new Date(now));
 }
 
 export function familiarBondEvent(day: number | null | undefined) {

@@ -113,7 +113,7 @@ import {
   familiarLocalDateKey,
   type FamiliarAttendanceReward,
 } from "@/lib/famiglioAttendanceYear";
-import { claimFamiliarStreakMilestone, type FamiliarStreakMilestone } from "@/lib/famiglioStreak";
+import { claimFamiliarStreakMilestone, familiarStreakSummary, type FamiliarStreakMilestone } from "@/lib/famiglioStreak";
 
 const FamiglioAdventure = dynamic(() => import("./FamiglioAdventure").then((module) => module.FamiglioAdventure), {
   ssr: false,
@@ -488,7 +488,7 @@ const MARKET_VENDORS: ReadonlyArray<{
     id: "arcane",
     name: "Mirra",
     role: "Custode dell'Emporio arcano",
-    stallLabel: "Giochi e rarita",
+    stallLabel: "Giochi e rarità",
     greeting: "Giochi, materiali e oggetti speciali acquistabili con Monete Nexus.",
     ...MERCHANT_ROOMS.arcane,
   },
@@ -539,7 +539,7 @@ const NIGHT_MARKET_MERCHANTS = [
     id: "lich",
     name: "Lich collezionista",
     subtitle: "Ricostruttore delle reliquie",
-    description: "Riunisce frammenti appartenenti a una reliquia precisa: quando la raccolta e completa, il premio e garantito.",
+    description: "Riunisce frammenti appartenenti a una reliquia precisa: quando la raccolta è completa, il premio è garantito.",
     unlock: "Si sblocca dopo il primo evento narrativo del Nexus.",
     sampleName: "Corona delle memorie",
     sampleMeta: "Reliquia evento permanente",
@@ -2172,6 +2172,7 @@ export function FamiglioNexusRebuild() {
   const [attendanceBusy, setAttendanceBusy] = useState(false);
   const [attendanceReveal, setAttendanceReveal] = useState<FamiliarAttendanceReward | null>(null);
   const [attendanceAutoSuppressed, setAttendanceAutoSuppressed] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
   const [streakBusy, setStreakBusy] = useState(false);
   const [streakMessage, setStreakMessage] = useState<string | null>(null);
   const [miniGameOpen, setMiniGameOpen] = useState(false);
@@ -2380,7 +2381,8 @@ export function FamiglioNexusRebuild() {
   useEffect(() => {
     const today = familiarLocalDateKey();
     const attendanceClaimedToday = homeState.attendance.claimedDates.includes(today);
-    if (!storageReady || attendanceAutoSuppressed || miniGameOpen || state.stage !== "home" || attendanceClaimedToday) return;
+    // Con la guida aperta il Registro aspetta: prima si aprivano due finestre modali sovrapposte.
+    if (!storageReady || attendanceAutoSuppressed || miniGameOpen || guideOpen || state.stage !== "home" || attendanceClaimedToday) return;
     const recovery = familiarAttendanceRecovery(homeState.attendance);
     if (recovery.active && !recovery.next) return;
     const promptKey = `${ATTENDANCE_PROMPT_KEY_PREFIX}:${today}`;
@@ -2390,7 +2392,7 @@ export function FamiglioNexusRebuild() {
       setAttendanceOpen(true);
     }, 650);
     return () => window.clearTimeout(timeout);
-  }, [attendanceAutoSuppressed, homeState.attendance, miniGameOpen, state.stage, storageReady]);
+  }, [attendanceAutoSuppressed, guideOpen, homeState.attendance, miniGameOpen, state.stage, storageReady]);
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 760px)");
@@ -3422,7 +3424,7 @@ export function FamiglioNexusRebuild() {
           <button className={styles.houseManagerTrigger} type="button" onClick={() => { setWalletOpen(false); setRestartStep(0); setHouseManagerOpen(true); }} aria-label={`Gestisci le Case. Casa attiva ${activeHouseIndex + 1}`}>
             <span className={styles.headerControlIcon} style={{ backgroundImage: `url(${HEADER_CONTROL_ICONS.houses})` }} aria-hidden="true" /><b>Case</b><small>{activeHouseIndex + 1}/3</small>
           </button>
-          <FamiglioGuideOverlay section={activeGuideSection} ready={storageReady} />
+          <FamiglioGuideOverlay section={activeGuideSection} ready={storageReady} onOpenChange={setGuideOpen} />
           <Link className={styles.exitExperience} href="/" aria-label="Esci dal Nexus Pet"><span className={styles.headerControlIcon} style={{ backgroundImage: `url(${HEADER_CONTROL_ICONS.exit})` }} aria-hidden="true" /><b>Esci</b></Link>
           <span className={styles.statusLight} aria-label="Dispositivo attivo" />
           {walletOpen ? (
@@ -3571,7 +3573,8 @@ export function FamiglioNexusRebuild() {
             <NexusCanvas state={state} egg={homeFamiliar} />
             <div className={styles.focusCopy}>
               <small>Primo ricordo inciso</small>
-              <h2>{familiarDisplayName} è nato</h2>
+              {/* Il titolo concorda con il sesso scelto durante il rituale ("Luna è nata"). */}
+              <h2>{familiarDisplayName} è {state.familiarSex === "female" ? "nata" : "nato"}</h2>
               <p>{homeFamiliar.familiar} · {SEX_OPTIONS.find((option) => option.id === state.familiarSex)?.label}. Il legame è stato riconosciuto dal Nexus.</p>
               <button className={styles.primaryAction} type="button" onClick={() => setState(enterFamiliarHome)}>Entra nella Casa</button>
             </div>
@@ -3683,7 +3686,7 @@ export function FamiglioNexusRebuild() {
               ><span className={styles.homeSceneCureIcon} aria-hidden="true" /><strong>Cura</strong><small>x{homeState.inventory.quantities["comfort-balm"] ?? 0}</small></button> : null}
               <div className={styles.homeNameplate}>
                 <strong>{homeDisplayName}</strong>
-                <span>{familiarAway ? `${homeDisplayName} è sui Sentieri del Nexus. I bisogni restano sospesi.` : homeState.activeAction ? homeState.lastOutcome : toiletMessage ?? `${moodMeta.icon} ${moodMeta.label} · ${autonomousReaction} · ${dailyMoment.title}`}</span>
+                <span>{familiarAway ? `${homeDisplayName} è in spedizione: bisogni in pausa.` : homeState.activeAction ? homeState.lastOutcome : toiletMessage ?? `${moodMeta.icon} ${moodMeta.label} · ${autonomousReaction} · ${dailyMoment.title}`}</span>
                 <small title={dailyMoment.message}>{returnGreeting}</small>
                 <time className={styles.roomClock} dateTime={displayedRoomTime?.toISOString()}>
                   <b>{displayedRoomTime ? displayedRoomTime.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" }) : "--:--"}</b>
@@ -3712,7 +3715,7 @@ export function FamiglioNexusRebuild() {
                 <div>
                   <small>Crescita</small>
                   <strong>{growthMeta.label}</strong>
-                  <span className={styles.growthDetail}>{growthMeta.nextXp ? `${activeGrowth.bondXp}/${growthMeta.nextXp} XP · ${activeGrowth.careStreak} giorni` : "Stadio massimo"}</span>
+                  <span className={styles.growthDetail}>{growthMeta.nextXp ? `${activeGrowth.bondXp}/${growthMeta.nextXp} XP · ${activeGrowth.careStreak}/${activeGrowth.stage === "cucciolo" ? 14 : 35} giorni` : "Stadio massimo"}</span>
                   <span className={styles.statusTrack} aria-label={`Crescita: ${Math.round(growthProgress(activeGrowth))}%`}>
                     <i style={{ width: `${growthProgress(activeGrowth)}%` }} />
                   </span>
@@ -4411,7 +4414,8 @@ export function FamiglioNexusRebuild() {
                   const available = index === 0 || localHouseTrial || purchasedHouse || Boolean(snapshot);
                   return <article className={styles.houseSlotCard} data-active={index === activeHouseIndex} key={index}>
                     <small>Casa {index + 1}{index === activeHouseIndex ? " · attiva" : ""}</small>
-                    <strong>{familiar?.name ?? (available ? "Casa libera" : "Casa da acquistare")}</strong>
+                    {/* Il nome scelto nel rituale ("Luna") identifica la Casa meglio della specie ("Gatto"). */}
+                    <strong>{familiar ? (familiarId === snapshot?.rebuild.selectedId && snapshot?.rebuild.familiarName.trim() ? snapshot.rebuild.familiarName.trim() : familiar.name) : (available ? "Casa libera" : "Casa da acquistare")}</strong>
                     <span>{familiar ? `${GROWTH_STAGES[snapshot!.home.growth.stage].label} · ${snapshot!.home.growth.bondXp} XP` : available ? "Pronta per un nuovo legame" : "Sblocca uno spazio separato"}</span>
                     <button type="button" disabled={index === activeHouseIndex} onClick={() => switchHouse(index)}>{index === activeHouseIndex ? "Selezionata" : available ? "Entra nella Casa" : "Acquista Casa"}</button>
                   </article>;
@@ -4501,16 +4505,19 @@ export function FamiglioNexusRebuild() {
                   const date = new Date(dateMs).toISOString().slice(0, 10);
                   const claimed = homeState.attendance.claimedDates.includes(date);
                   const current = reward.dayIndex === attendancePosition.dayIndex;
+                  // I giorni già trascorsi non si possono più riscattare: prima comparivano "Da sbloccare".
+                  const missed = !claimed && reward.dayIndex < attendancePosition.dayIndex;
                   return <article key={reward.dayIndex} data-current={current} data-claimed={claimed} data-rare={reward.rare}>
                     <small>Giorno {reward.weekday}</small>
                     <img src={reward.icon} alt="" />
                     <strong>{reward.label}</strong>
-                    <span>{claimed ? "Riscosso" : current ? "Oggi" : "Da sbloccare"}</span>
+                    <span>{claimed ? "Riscosso" : current ? "Oggi" : missed ? "Non riscosso" : reward.rare ? "Con 7 giorni di fila" : "Da sbloccare"}</span>
                   </article>;
                 })}
               </div>
               <footer>
-                <span><b>{homeState.attendance.streak}</b> giorni consecutivi</span>
+                {/* Serie calcolata dalle date, come nella scheda della serie: il valore salvato resta vecchio dopo un giorno saltato. */}
+                <span><b>{familiarStreakSummary(homeState.attendance).current}</b> giorni consecutivi</span>
                 <button type="button" disabled={attendanceBusy || homeState.attendance.claimedDates.includes(attendancePosition.date)} onClick={() => void claimAttendance()}>{attendanceBusy ? "Registro…" : homeState.attendance.claimedDates.includes(attendancePosition.date) ? "Già riscosso" : "Riscatta il premio"}</button>
               </footer>
             </>}
