@@ -102,9 +102,10 @@ function mostUrgentNeed(needs: FamiliarNeeds): FamiliarNeedId | null {
 export function autonomousReactionText(species: StarterEgg["id"], behavior: AutonomousFamiliarBehavior) {
   const reactions: Record<AutonomousFamiliarBehavior, string> = {
     roam: species === "horse" ? "Percorre il rifugio con passo fiero." : species === "fox" ? "Esplora ogni angolo del rifugio." : "Esplora la sua Casa.",
-    idle: species === "cat" ? "Osserva in silenzio ciò che lo circonda." : species === "parrot" ? "Ascolta i suoni del Nexus." : "Si guarda intorno con calma.",
+    idle: species === "cat" ? "Osserva in silenzio tutto ciò che ha intorno." : species === "parrot" ? "Ascolta i suoni del Nexus." : "Si guarda intorno con calma.",
     sit: species === "rabbit" ? "Si ferma e tende le orecchie." : species === "turtle" ? "Contempla pazientemente il rifugio." : "Si siede a osservare.",
-    groom: "Si prende cura del proprio pelo.",
+    // Pappagallo e tartaruga non hanno pelo: il testo segue l'anatomia della specie.
+    groom: species === "parrot" ? "Si liscia le piume con cura." : species === "turtle" ? "Si lucida il guscio con calma." : "Si prende cura del proprio pelo.",
     sleep: "Cerca un posto tranquillo per recuperare energia.",
     "seek-food": "Raggiunge la ciotola: ha bisogno di mangiare.",
     "seek-play": "Va verso i giochi: ha bisogno di divertirsi.",

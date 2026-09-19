@@ -246,7 +246,7 @@ export function resolveFamiliarExpeditionChoice(state: FamiliarAdventureState, c
   const event = familiarExpeditionEvent(state);
   if (!expedition || !event) return { ok: false as const, state, error: "Nessun imprevisto disponibile." };
   if (expedition.choiceId) return { ok: false as const, state, error: "La scelta di questa spedizione è già stata compiuta." };
-  if (!expeditionChoiceIsAvailable(state, now, ignoreTimer)) return { ok: false as const, state, error: "L'imprevisto non e ancora comparso." };
+  if (!expeditionChoiceIsAvailable(state, now, ignoreTimer)) return { ok: false as const, state, error: "L'imprevisto non è ancora comparso." };
   const choice = event.choices.find((entry) => entry.id === choiceId);
   if (!choice) return { ok: false as const, state, error: "Scelta non disponibile." };
   return {

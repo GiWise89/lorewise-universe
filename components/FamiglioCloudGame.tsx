@@ -20,6 +20,9 @@ export function FamiglioCloudGame({pet,familiarName,bestScore,rewarded,onClose,o
  const finish=()=>{if(!submitted.current){submitted.current=true;onComplete(run.score);}onExit();};
  const close=()=>{if(run.finished){finish();return;}if(phase==="intro")onClose();else{setPhase("paused");setQuitting(true);}};
  useEffect(()=>{const before=document.activeElement as HTMLElement|null;dialog.current?.focus();return()=>before?.focus();},[]);
+ // "Gioca" e "Riprendi" spariscono appena la partita parte: senza riportare il fuoco nella finestra
+ // Spazio/↑ finivano sul body e il Famiglio non saltava finché non si cliccava lo scenario.
+ useEffect(()=>{if(active&&!dialog.current?.contains(document.activeElement))dialog.current?.focus();},[active]);
  useEffect(()=>{if(!active)return;let last=performance.now(),frame=0;const tick=(now:number)=>{const dt=Math.min(100,now-last);last=now;dispatch({type:"step",value:dt});frame=requestAnimationFrame(tick);};frame=requestAnimationFrame(tick);const hide=()=>{if(document.hidden)setPhase("paused");};document.addEventListener("visibilitychange",hide);return()=>{cancelAnimationFrame(frame);document.removeEventListener("visibilitychange",hide);};},[active,dispatch]);
  const start=async()=>{audio.unlock();if(await match.start()){setQuitting(false);setPhase("playing");}};
  const reward=rewarded?0:8+Math.min(20,run.score);

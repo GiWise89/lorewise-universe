@@ -119,8 +119,9 @@ export function FamiglioProgression({
 
   const growthNodes = [
     { label: "Cucciolo", requirement: "Inizio del legame", xp: 0, reached: true },
-    { label: "Giovane", requirement: `${GROWTH_STAGES.giovane.minimumXp} XP Legame`, xp: GROWTH_STAGES.giovane.minimumXp, reached: growthStage !== "cucciolo" },
-    { label: "Adulto", requirement: `${GROWTH_STAGES.adulto.minimumXp} XP Legame`, xp: GROWTH_STAGES.adulto.minimumXp, reached: growthStage === "adulto" },
+    // La crescita richiede anche i giorni di cura (growthStageForFamiliar): prima erano indicati soltanto gli XP.
+    { label: "Giovane", requirement: `${GROWTH_STAGES.giovane.minimumXp} XP Legame e 14 giorni di cura`, xp: GROWTH_STAGES.giovane.minimumXp, reached: growthStage !== "cucciolo" },
+    { label: "Adulto", requirement: `${GROWTH_STAGES.adulto.minimumXp} XP Legame e 35 giorni di cura`, xp: GROWTH_STAGES.adulto.minimumXp, reached: growthStage === "adulto" },
   ];
   const visibleMoves = moves.slice(page * pageSize, page * pageSize + pageSize);
   const visibleRewards = FAMILIAR_MILESTONES.slice(page * pageSize, page * pageSize + pageSize);
@@ -160,7 +161,7 @@ export function FamiglioProgression({
     <div className={styles.summary}>
       <div><small>Livello Legame</small><strong>{bondLevel}</strong><span>{bondXp} / {nextLevelXp} XP</span></div>
       <div><small>Livello Lotta</small><strong>{combatProgress.combatLevel}</strong><span>{combatProgress.wins} vittorie</span></div>
-      <div><small>Evoluzione</small><strong>{GROWTH_STAGES[growthStage].label}</strong><span>{careDays} giorni di cura</span></div>
+      <div><small>Evoluzione</small><strong>{GROWTH_STAGES[growthStage].label}</strong><span>{careDays === 1 ? "1 giorno" : `${careDays} giorni`} di cura</span></div>
       <div><small>Prossimo premio</small><strong>{nextMilestone ? `Livello ${nextMilestone.level}` : "Completato"}</strong><span>{nextMilestone?.title ?? "Custode leggendario"}</span></div>
     </div>
 

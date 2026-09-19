@@ -73,6 +73,11 @@ function MiniGameSession({ practice = false, kind, familiarName, familiarSprite,
     dialog.current?.focus();
     return () => previousFocus?.focus();
   }, []);
+  // Il pulsante "Gioca" o "Riprendi" scompare all'avvio: senza questo i tasti 1-4 ed Esc
+  // arrivavano al body e non muovevano il Famiglio né mettevano in pausa.
+  useEffect(() => {
+    if (active && !dialog.current?.contains(document.activeElement)) dialog.current?.focus();
+  }, [active]);
   useEffect(() => {
     if (!active) return;
     let last = performance.now();
