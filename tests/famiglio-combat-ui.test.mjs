@@ -349,7 +349,8 @@ test("il 3 contro 3 e una modalita distinta e la scelta Famiglio non viene tagli
   assert.match(source, /aria-selected=\{arenaCategoryTab === "team"\}/);
   assert.match(source, /aria-selected=\{arenaCategoryTab === "arenas"\}/);
   assert.match(source, /aria-selected=\{arenaCategoryTab === "future"\}/);
-  assert.match(source, /teamBattle:\s*battle\.teamBattle/);
+  // La rivincita ripete la richiesta registrata (anche la modalità 3 contro 3).
+  assert.match(source, /loadFamiglioCombatJournal\(battle\.id\)\?\.request/);
   assert.match(source, /className=\{battleStyles\.opponentTeamDock\}/);
   assert.match(styles, /selectionViewport\[data-step="familiar"\][\s\S]*?familiarRosterGrid[^}]*overflow:hidden!important/s);
   assert.match(styles, /selectionViewport\[data-step="familiar"\][\s\S]*?\.teamSummary\s*\{[^}]*max-height:\s*3\.35rem\s*!important/s);

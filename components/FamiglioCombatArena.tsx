@@ -25,10 +25,26 @@ import {
   type FamiliarCombatOutcome,
   type FamiliarCombatState,
   type FamiliarCombatTimelineEvent,
-  type FamiliarCombatReward,
   type FamiliarCombatStats,
 } from "../lib/famiglioCombat.ts";
 import { advanceFamiliarTower, createFamiliarTowerRun, familiarTowerFloor, familiarTowerFloorBackground, type FamiliarTowerRun } from "../lib/famiglioCombatTower.ts";
+import {
+  createFamiliarCombatJournal,
+  familiarCombatNeedTier,
+  familiarCombatReplayFromJournal,
+  familiarCombatRivalTeamIds,
+  familiarCombatStartPlan,
+  recordFamiliarCombatAction,
+  type FamiliarCombatBattleRequest,
+  type FamiliarCombatReplayAction,
+  type FamiliarCombatResolvedOutcome,
+} from "../lib/famiglioCombatVerification.ts";
+import {
+  loadFamiglioCombatJournal,
+  saveFamiglioCombatJournal,
+  type FamiglioCombatBattleReport,
+  type FamiglioCombatVerificationView,
+} from "../lib/famiglioCombatReplayClient.ts";
 import {
   FAMILIAR_COMBAT_CATALOG,
   FAMILIAR_COMBAT_CIRCUITS,
@@ -67,16 +83,24 @@ type FamiglioCombatArenaProps = {
   state: FamiliarCombatState;
   setState: Dispatch<SetStateAction<FamiliarCombatState>>;
   testMode?: boolean;
-  playerStatBonus?: Partial<FamiliarCombatStats>;
-  playerEvolutionPath?: "impeto" | "baluardo" | "risonanza" | null;
   familiarOptions: ReadonlyArray<{ id: string; name: string; growthStage: FamiliarGrowthStage; colorVariant?: string | null }>;
   onSelectFamiliar: (familiarId: string) => void;
   onReturnHome: () => void;
-  onReward: (reward: FamiliarCombatReward) => void;
+  /**
+   * Battaglia conclusa (vittoria, sconfitta o ritirata) con il suo replay. Il premio
+   * non viene più accreditato dall'Arena: lo fa il chiamante dopo la verifica del
+   * server (o subito, con il motore locale, per ospiti e anteprime).
+   */
+  onBattleConcluded?: (report: Omit<FamiglioCombatBattleReport, "houseIndex">) => void;
+  /** Stato della verifica della battaglia mostrata nella schermata finale. */
+  verification?: FamiglioCombatVerificationView | null;
   onMissionActivity?: (activity: "familiar_battle" | "familiar_tower_floor", sourceKey: string) => void;
   onBattleVictory?: (battleId: string) => void;
-  activityGate?: { allowed: boolean; reason: string | null; warnings: string[] };
+  activityGate?: { allowed: boolean; reason: string | null; warnings: string[]; multiplier?: number };
 };
+
+/** Torre con i parametri che l'hanno generata: servono al server per rigenerarla identica. */
+type ArenaTowerRun = FamiliarTowerRun & { origin: { seed: string; level: number } };
 
 type VisibleHealth = {
   battleId: string;
@@ -172,12 +196,6 @@ function combatText(value: string) {
     .split(PROTECTED_MOVE_SPLIT)
     .map((part, index) => index % 2 === 1 ? part : part.replace(FAMILIAR_ID_PATTERN, (id) => FAMILIAR_NAME_BY_ID.get(id) ?? id))
     .join("");
-}
-
-// Stessa stima di forza usata da lib/famiglioCombatTower.ts per le riserve rivali.
-function familiarCombatPower(entry: (typeof FAMILIAR_COMBAT_CATALOG)[number]) {
-  const rarity = { comune: 0, raro: 1, epico: 2, leggendario: 3 }[entry.rarity] ?? 0;
-  return entry.baseStats.hp * .18 + entry.baseStats.attack * .34 + entry.baseStats.defense * .28 + entry.baseStats.speed * .2 + rarity * 8;
 }
 
 function stageLabel(stage: FamiliarGrowthStage) {
@@ -299,12 +317,11 @@ export function FamiglioCombatArena({
   state,
   setState,
   testMode = false,
-  playerStatBonus,
-  playerEvolutionPath = null,
   familiarOptions,
   onSelectFamiliar,
   onReturnHome,
-  onReward,
+  onBattleConcluded,
+  verification = null,
   onMissionActivity,
   onBattleVictory,
   activityGate,
@@ -337,13 +354,14 @@ export function FamiglioCombatArena({
   const [initiativeBattleId, setInitiativeBattleId] = useState<string | null>(null);
   const [battleFormat, setBattleFormat] = useState<"duel" | "team" | "tower" | "campaign">("duel");
   const [selectedCampaignNumber, setSelectedCampaignNumber] = useState(1);
-  const [towerRun, setTowerRun] = useState<FamiliarTowerRun | null>(null);
+  const [towerRun, setTowerRun] = useState<ArenaTowerRun | null>(null);
   const [teamIds, setTeamIds] = useState<string[]>([familiarId]);
   const [roundNotice, setRoundNotice] = useState<number | null>(null);
   const [localMessage, setLocalMessage] = useState<string | null>(null);
   const sequenceRef = useRef(0);
   const towerRunSerialRef = useRef(0);
   const pendingPresentationStateRef = useRef<FamiliarCombatState | null>(null);
+  const reportedBattleIdsRef = useRef<Set<string>>(new Set());
   const activeAudioRef = useRef<Set<HTMLAudioElement>>(new Set());
   const audioContextRef = useRef<AudioContext | null>(null);
   const playedAudioEventIdsRef = useRef<Set<string>>(new Set());
@@ -368,16 +386,19 @@ export function FamiglioCombatArena({
     try {
       const stored = window.localStorage.getItem(towerStorageKey);
       if (!stored) return;
-      const storedRun = JSON.parse(stored) as FamiliarTowerRun;
-      if (!storedRun?.id || !Array.isArray(storedRun.floors) || storedRun.currentFloor < 1 || storedRun.currentFloor > storedRun.floors.length) return;
-      const parsed: FamiliarTowerRun = {
-        ...storedRun,
-        floors: storedRun.floors.map((floor) => {
-          const teamBattle = [4, 8, 10].includes(floor.floor);
-          const fallbackTeam = [floor.opponentId, ...FAMILIAR_COMBAT_CATALOG.map((entry) => entry.id).filter((id) => id !== familiarId && id !== floor.opponentId)].slice(0, 3);
-          return { ...floor, teamBattle, opponentTeamIds: teamBattle ? [...new Set(floor.opponentTeamIds?.length ? floor.opponentTeamIds : fallbackTeam)].slice(0, 3) : [floor.opponentId] };
-        }),
-      };
+      const storedRun = JSON.parse(stored) as Partial<ArenaTowerRun>;
+      const origin = storedRun?.origin;
+      // Le Torri salvate prima della verifica sul server non hanno i parametri di
+      // generazione: non sarebbero verificabili, quindi se ne apre una nuova.
+      if (!origin || typeof origin.seed !== "string" || !Number.isInteger(origin.level)) {
+        window.localStorage.removeItem(towerStorageKey);
+        return;
+      }
+      // I piani vengono sempre rigenerati dal seme, come fa il server.
+      const regenerated = createFamiliarTowerRun(familiarId, origin.level, origin.seed);
+      const currentFloor = Math.floor(Number(storedRun.currentFloor));
+      if (regenerated.id !== storedRun.id || !(currentFloor >= 1 && currentFloor <= regenerated.floors.length)) return;
+      const parsed: ArenaTowerRun = { ...regenerated, currentFloor, origin: { seed: origin.seed, level: origin.level } };
       const floor = familiarTowerFloor(parsed);
       const timer = window.setTimeout(() => {
         setTowerRun(parsed);
@@ -427,23 +448,18 @@ export function FamiglioCombatArena({
   // Rivali scelti esplicitamente (piano della Torre, livello di Campagna), mai
   // già presenti nella squadra del giocatore: il motore scarta allo stesso modo
   // chi è già schierato e usa il primo rimasto come titolare.
-  const explicitRivalIds = [...new Set([
-    safeOpponentId,
-    ...(activeTowerFloor?.opponentTeamIds ?? []),
-    ...(selectedCampaignLevel?.opponentIds ?? []),
-  ])].filter((id) => id && id !== familiarId && !teamIds.includes(id));
-  const leadRivalEntry = familiarCombatEntry(explicitRivalIds[0] ?? safeOpponentId);
   // Le riserve mancanti hanno forza vicina a quella del titolare (come nella
   // Torre): prima si riempiva con i rivali del circuito dal più debole, e il
-  // livello 4 della Campagna in 3 contro 3 diventava il più facile.
-  const reservePool = [...new Set([...opponentIds, ...FAMILIAR_COMBAT_CATALOG.map((entry) => entry.id)])]
-    .filter((id) => id !== familiarId && !teamIds.includes(id) && !explicitRivalIds.includes(id));
-  const leadRivalPower = leadRivalEntry ? familiarCombatPower(leadRivalEntry) : 0;
-  const reserveRivalIds = reservePool
-    .flatMap((id) => { const entry = familiarCombatEntry(id); return entry ? [entry] : []; })
-    .sort((left, right) => Math.abs(familiarCombatPower(left) - leadRivalPower) - Math.abs(familiarCombatPower(right) - leadRivalPower) || left.id.localeCompare(right.id))
-    .map((entry) => entry.id);
-  const opponentTeamIds = [...explicitRivalIds, ...reserveRivalIds].slice(0, teamBattle ? 3 : 1);
+  // livello 4 della Campagna in 3 contro 3 diventava il più facile. Lo stesso
+  // calcolo condiviso avvia la battaglia e la verifica sul server.
+  const opponentTeamIds = familiarCombatRivalTeamIds({
+    playerId: familiarId,
+    teamIds,
+    circuitOpponentIds: opponentIds,
+    leadOpponentId: safeOpponentId,
+    extraRivalIds: [...(activeTowerFloor?.opponentTeamIds ?? []), ...(selectedCampaignLevel?.opponentIds ?? [])],
+    teamBattle,
+  });
   // In 3 contro 3 l'anteprima mostra lo stesso titolare che il motore schiererà.
   const previewOpponentId = teamBattle ? opponentTeamIds[0] ?? safeOpponentId : safeOpponentId;
   const opponentEntry = familiarCombatEntry(previewOpponentId);
@@ -662,7 +678,8 @@ export function FamiglioCombatArena({
 
   const chooseTower = () => {
     towerRunSerialRef.current += 1;
-    const run = towerRun ?? createFamiliarTowerRun(familiarId, progress.combatLevel, `${state.seed}:${progress.battlesCompleted}:${towerRunSerialRef.current}`);
+    const origin = { seed: `${state.seed}:${progress.battlesCompleted}:${towerRunSerialRef.current}`, level: progress.combatLevel };
+    const run: ArenaTowerRun = towerRun ?? { ...createFamiliarTowerRun(familiarId, origin.level, origin.seed), origin };
     const floor = familiarTowerFloor(run);
     if (!floor) return;
     setBattleFormat("tower");
@@ -711,6 +728,55 @@ export function FamiglioCombatArena({
     if (previous) setSetupTab(previous.id);
   };
 
+  // Richiesta d'incontro registrata nel replay. Le opzioni del motore (livelli,
+  // limiti di turno, fasi del boss, squadra rivale) derivano sempre da questa
+  // richiesta tramite familiarCombatStartPlan: il server fa lo stesso calcolo.
+  const buildBattleRequest = (): FamiliarCombatBattleRequest | null => {
+    const towerFloor = battleFormat === "tower" ? familiarTowerFloor(towerRun) : null;
+    const campaignLevel = battleFormat === "campaign" ? selectedCampaignLevel : null;
+    const needTier = familiarCombatNeedTier(activityGate?.multiplier ?? 1);
+    if (campaignLevel) {
+      return { mode: "campaign", playerId: familiarId, teamIds, circuitId: campaignLevel.circuitId, difficulty: campaignLevel.difficulty, opponentId: familiarCampaignOpponent(campaignLevel, familiarId), campaignId: campaignLevel.id, tower: null, needTier };
+    }
+    if (battleFormat === "tower") {
+      if (!towerFloor || !towerRun?.origin) return null;
+      return { mode: "tower", playerId: familiarId, teamIds, circuitId: towerFloor.circuitId, difficulty, opponentId: towerFloor.opponentId, campaignId: null, tower: { seed: towerRun.origin.seed, level: towerRun.origin.level, floor: towerFloor.floor }, needTier };
+    }
+    if (!safeOpponentId) return null;
+    return { mode: battleFormat === "team" ? "team" : "duel", playerId: familiarId, teamIds, circuitId: selectedCircuit.id, difficulty, opponentId: safeOpponentId, campaignId: null, tower: null, needTier };
+  };
+
+  // Avvia l'incontro e apre il diario del replay (richiesta, mosse equipaggiate, azioni).
+  const startRequestedBattle = (baseState: FamiliarCombatState, request: FamiliarCombatBattleRequest) => {
+    const planned = familiarCombatStartPlan(baseState, request, { testMode });
+    if (!planned.ok) return { ok: false as const, error: planned.error };
+    const result = startFamiliarCombatBattle(baseState, planned.plan.options);
+    if (!result.ok) return result;
+    const journal = createFamiliarCombatJournal(result.state, request);
+    if (journal) saveFamiglioCombatJournal(journal);
+    return result;
+  };
+
+  // Battaglia conclusa: il resoconto (con il replay) va al chiamante, una sola volta.
+  const reportConcludedBattle = (nextState: FamiliarCombatState) => {
+    const concluded = nextState.activeBattle;
+    if (!concluded || concluded.outcome === "active" || reportedBattleIdsRef.current.has(concluded.id)) return;
+    reportedBattleIdsRef.current.add(concluded.id);
+    onBattleConcluded?.({
+      battleId: concluded.id,
+      replay: familiarCombatReplayFromJournal(loadFamiglioCombatJournal(concluded.id)),
+      localOutcome: concluded.outcome as FamiliarCombatResolvedOutcome,
+      localReward: nextState.pendingReward,
+    });
+  };
+
+  const recordBattleAction = (before: NonNullable<FamiliarCombatState["activeBattle"]>, action: FamiliarCombatReplayAction, nextState: FamiliarCombatState) => {
+    const after = nextState.activeBattle;
+    const journal = loadFamiglioCombatJournal(before.id);
+    if (journal && after) saveFamiglioCombatJournal(recordFamiliarCombatAction(journal, before, action, after));
+    reportConcludedBattle(nextState);
+  };
+
   const beginBattle = () => {
     if (activityGate && !activityGate.allowed) {
       setLocalMessage(activityGate.reason ?? "Il Famiglio non è pronto a combattere.");
@@ -718,27 +784,12 @@ export function FamiglioCombatArena({
     }
     const towerFloor = battleFormat === "tower" ? familiarTowerFloor(towerRun) : null;
     const campaignLevel = battleFormat === "campaign" ? selectedCampaignLevel : null;
-    const opponentId = campaignLevel ? familiarCampaignOpponent(campaignLevel, familiarId) : towerFloor?.opponentId ?? safeOpponentId;
     const circuitId = campaignLevel?.circuitId ?? towerFloor?.circuitId ?? selectedCircuit.id;
-    if (!opponentId) return;
+    const request = buildBattleRequest();
+    if (!request) return;
     unlockCombatAudio();
     playedAudioEventIdsRef.current.clear();
-    const result = startFamiliarCombatBattle(state, {
-      playerId: familiarId,
-      playerTeamIds: teamBattle ? teamIds : [familiarId],
-      opponentId,
-      opponentTeamIds,
-      circuitId,
-      difficulty: campaignLevel?.difficulty ?? difficulty,
-      opponentLevel: campaignLevel?.opponentLevel ?? towerFloor?.opponentLevel ?? (testMode ? progress.combatLevel : undefined),
-      encounterId: campaignLevel?.id ?? (towerFloor ? `${towerRun?.id}:floor-${towerFloor.floor}` : undefined),
-      ignoreUnlocks: testMode || Boolean(towerFloor) || Boolean(campaignLevel),
-      playerStatBonus,
-      playerEvolutionPath,
-      maxTurns: campaignLevel?.turnLimit ?? null,
-      bossPhases: teamBattle ? 1 : campaignLevel?.bossPhases ?? 1,
-      teamBattle,
-    });
+    const result = startRequestedBattle(state, request);
     if (!result.ok) {
       setLocalMessage(result.error);
       return;
@@ -767,8 +818,10 @@ export function FamiglioCombatArena({
 
   const rotateCombatant = (nextFamiliarId: string) => {
     if (animating || turnLockRef.current) return;
+    const before = state.activeBattle;
     const result = switchFamiliarCombatant(state, nextFamiliarId);
     if (!result.ok) { setLocalMessage(result.error); return; }
+    if (before) recordBattleAction(before, { type: "switch", familiarId: nextFamiliarId }, result.state);
     setLocalMessage(null);
     setState(result.state);
   };
@@ -785,6 +838,7 @@ export function FamiglioCombatArena({
       return;
     }
     turnLockRef.current = true;
+    recordBattleAction(currentBattle, { type: "move", moveId }, result.state);
     setLocalMessage(null);
     setState(result.state);
     void animateTimeline(result.timeline, result.state, currentBattle);
@@ -806,19 +860,13 @@ export function FamiglioCombatArena({
     // arena e modalità) chiudeva la battaglia senza avanzare: il giocatore
     // restava bloccato sullo stesso piano. Ora l'avanzamento non dipende più
     // dalla presenza della ricompensa.
-    let claimedState = state;
-    if (state.pendingReward) {
-      const result = claimFamiliarCombatReward(state);
-      if (result.ok) {
-        setLocalMessage(null);
-        onReward(result.reward);
-        onMissionActivity?.("familiar_battle", result.reward.battleId);
-      } else setLocalMessage(result.error);
-      claimedState = result.state;
-    } else {
-      setLocalMessage(null);
-      if (battle) onMissionActivity?.("familiar_battle", battle.id);
-    }
+    // Il premio non passa più da qui: monete e diario arrivano dal chiamante dopo la
+    // verifica del server. Il riscatto locale allinea soltanto lo stato mostrato.
+    // Se i progressi del server sono già stati riadottati il premio risulta riscattato:
+    // non è un errore da mostrare, il riscatto serve solo a chiudere il premio locale.
+    const claimedState = state.pendingReward ? claimFamiliarCombatReward(state).state : state;
+    setLocalMessage(null);
+    if (battle) onMissionActivity?.("familiar_battle", battle.id);
     if (battle?.outcome === "victory" && battleFormat === "tower" && towerRun) onMissionActivity?.("familiar_tower_floor", `${towerRun.id}:floor-${towerRun.currentFloor}`);
     const cleared = closeFamiliarCombatBattle(claimedState);
     if (battle?.outcome !== "victory") {
@@ -826,7 +874,8 @@ export function FamiglioCombatArena({
       return;
     }
     if (battleFormat === "tower" && towerRun) {
-      const nextRun = advanceFamiliarTower(towerRun);
+      const advanced = advanceFamiliarTower(towerRun);
+      const nextRun: ArenaTowerRun | null = advanced ? { ...advanced, origin: towerRun.origin } : null;
       if (nextRun) {
         const floor = familiarTowerFloor(nextRun);
         setTowerRun(nextRun);
@@ -861,21 +910,14 @@ export function FamiglioCombatArena({
   const finishBattleAtHome = () => {
     sequenceRef.current += 1;
     if (battle?.outcome === "victory") onBattleVictory?.(battle.id);
-    let nextState = state;
-    if (state.pendingReward) {
-      const result = claimFamiliarCombatReward(state);
-      if (result.ok) {
-        onReward(result.reward);
-        onMissionActivity?.("familiar_battle", result.reward.battleId);
-        if (battleFormat === "tower" && towerRun) onMissionActivity?.("familiar_tower_floor", `${towerRun.id}:floor-${towerRun.currentFloor}`);
-        nextState = result.state;
-      }
-    }
+    const nextState = state.pendingReward ? claimFamiliarCombatReward(state).state : state;
+    if (battle?.outcome === "victory" && battleFormat === "tower" && towerRun) onMissionActivity?.("familiar_tower_floor", `${towerRun.id}:floor-${towerRun.currentFloor}`);
     // Una ritirata non conta come battaglia disputata per le missioni.
-    if (!state.pendingReward && battle && battle.outcome !== "retreat") onMissionActivity?.("familiar_battle", battle.id);
+    if (battle && battle.outcome !== "retreat") onMissionActivity?.("familiar_battle", battle.id);
     setState(closeFamiliarCombatBattle(nextState));
     if (battle?.outcome === "victory" && battleFormat === "tower" && towerRun) {
-      const nextRun = advanceFamiliarTower(towerRun);
+      const advanced = advanceFamiliarTower(towerRun);
+      const nextRun: ArenaTowerRun | null = advanced ? { ...advanced, origin: towerRun.origin } : null;
       setTowerRun(nextRun);
       try {
         if (nextRun) window.localStorage.setItem(towerStorageKey, JSON.stringify(nextRun));
@@ -890,26 +932,13 @@ export function FamiglioCombatArena({
     if (!battle || (battle.outcome !== "defeat" && battle.outcome !== "retreat")) return;
     if (battle.outcome !== "retreat") onMissionActivity?.("familiar_battle", battle.id);
     const clearedState = closeFamiliarCombatBattle(state);
-    const result = startFamiliarCombatBattle(clearedState, {
-      playerId: familiarId,
-      playerTeamIds: battle.teamFamiliarIds,
-      opponentId: battle.opponentTeamFamiliarIds[0] ?? battle.opponent.familiarId,
-      opponentTeamIds: battle.opponentTeamFamiliarIds,
-      circuitId: battle.circuitId,
-      difficulty: battle.difficulty,
-      opponentLevel: battle.opponent.level,
-      // La rivincita deve restare lo stesso incontro: senza encounterId un
-      // livello di Campagna vinto alla rivincita non risultava completato
-      // (e perdeva arena/Custode), e senza ignoreUnlocks la rivincita di un
-      // livello oltre gli sblocchi del circuito veniva rifiutata.
-      encounterId: battle.encounterId,
-      ignoreUnlocks: testMode || battleFormat === "tower" || Boolean(battleCampaignLevel),
-      playerStatBonus,
-      playerEvolutionPath,
-      maxTurns: battleCampaignLevel?.turnLimit ?? battle.maxTurns,
-      bossPhases: battle.teamBattle ? 1 : battleCampaignLevel?.bossPhases ?? battle.bossPhasesTotal,
-      teamBattle: battle.teamBattle,
-    });
+    // La rivincita ripete la stessa richiesta d'incontro (stesso capitolo di
+    // Campagna, piano della Torre o rivale): stesso encounterId, stessi sblocchi
+    // e stesso calcolo delle opzioni che il server userà per verificarla. Prima
+    // le opzioni venivano ricopiate a mano dalla battaglia conclusa.
+    const recorded = loadFamiglioCombatJournal(battle.id)?.request ?? buildBattleRequest();
+    const request = recorded ? { ...recorded, needTier: familiarCombatNeedTier(activityGate?.multiplier ?? 1) } : null;
+    const result = request ? startRequestedBattle(clearedState, request) : { ok: false as const, error: "Prepara di nuovo l'incontro dall'Arena." };
     if (!result.ok) {
       setLocalMessage(result.error);
       setState(clearedState);
@@ -939,7 +968,14 @@ export function FamiglioCombatArena({
     setCurrentEvent(null);
     setContactActors([]);
     setPresentationBattle(null);
-    setState(battle?.outcome === "active" ? retreatFromFamiliarCombat(state) : closeFamiliarCombatBattle(state));
+    const active = state.activeBattle;
+    if (active?.outcome === "active") {
+      const retreated = retreatFromFamiliarCombat(state);
+      recordBattleAction(active, { type: "retreat" }, retreated);
+      setState(retreated);
+      return;
+    }
+    setState(closeFamiliarCombatBattle(state));
   };
 
   const skipPresentation = () => {
@@ -976,6 +1012,23 @@ export function FamiglioCombatArena({
   // Finestre modali della battaglia: prima restavano senza focus (la tastiera
   // restava sul link "Vai al contenuto" della pagina), senza Esc e senza
   // trappola del Tab, pur dichiarando aria-modal.
+  // Premio mostrato nella schermata finale: quello confermato dal server quando la
+  // verifica è conclusa, altrimenti quello calcolato dal motore locale (in attesa).
+  const displayedReward = !battle || battle.outcome !== "victory"
+    ? null
+    : verification && (verification.status === "verified" || verification.status === "rejected" || verification.status === "local")
+      ? verification.reward
+      : state.pendingReward;
+  const verificationNote = !battle || battle.outcome === "active" || !verification || verification.status === "local"
+    ? null
+    : verification.message ?? (verification.status === "pending"
+      ? "Verifica del risultato sul server in corso…"
+      : verification.status === "offline"
+        ? "Sei offline: il risultato è salvato sul dispositivo e il premio verrà accreditato appena la connessione torna."
+        : verification.status === "rejected"
+          ? "Il server non ha convalidato questa battaglia: nessun premio è stato accreditato."
+          : battle.outcome === "victory" && verification.reward ? "Risultato verificato: premio accreditato." : "Risultato verificato.");
+
   const openDialog = !animating && battle && battle.outcome !== "active"
     ? "result"
     : battle?.outcome === "active" && retreatConfirmOpen
@@ -1676,12 +1729,13 @@ export function FamiglioCombatArena({
             naturalScale={playerVisual.scale}
           />
         </div>
-        {state.pendingReward ? <dl className={battleStyles.resultRewards}>
-          <div><dt>XP</dt><dd>+{state.pendingReward.combatXp}</dd></div>
-          <div><dt>Monete</dt><dd>+{state.pendingReward.nexusCoins}</dd></div>
-          <div><dt>Sigilli</dt><dd>+{state.pendingReward.nightSigils}</dd></div>
-          <div><dt>Frammenti</dt><dd>+{state.pendingReward.relicFragments}</dd></div>
-        </dl> : <div className={battleStyles.defeatMessage}>{battle.outcome === "victory" ? "Esperienza acquisita · ricompensa di questo incontro già ottenuta" : battle.outcome === "retreat" ? "Nessuna sconfitta nel record · nessuna esperienza o ricompensa" : "Nessun oggetto perso"}</div>}
+        {displayedReward ? <dl className={battleStyles.resultRewards} data-verification={verification?.status ?? "local"}>
+          <div><dt>XP</dt><dd>+{displayedReward.combatXp}</dd></div>
+          <div><dt>Monete</dt><dd>+{displayedReward.nexusCoins}</dd></div>
+          <div><dt>Sigilli</dt><dd>+{displayedReward.nightSigils}</dd></div>
+          <div><dt>Frammenti</dt><dd>+{displayedReward.relicFragments}</dd></div>
+        </dl> : <div className={battleStyles.defeatMessage}>{battle.outcome === "victory" ? (verification?.status === "rejected" ? "Nessun premio accreditato" : "Esperienza acquisita · ricompensa di questo incontro già ottenuta") : battle.outcome === "retreat" ? "Nessuna sconfitta nel record · nessuna esperienza o ricompensa" : "Nessun oggetto perso"}</div>}
+        {verificationNote ? <p className={battleStyles.verificationNote} data-status={verification?.status} role="status">{verificationNote}</p> : null}
         <div className={battleStyles.resultActions}>
           {battle.outcome === "victory"
             ? <button type="button" onClick={collectReward}>{/* Nessun "Raccogli" quando il motore non ha creato una ricompensa (incontro già vinto, anche da un piano della Torre con lo stesso rivale). */}{battleFormat === "tower" && towerRun?.currentFloor !== 10 ? (state.pendingReward ? "Raccogli · prossimo piano" : "Prossimo piano") : state.pendingReward ? "Raccogli e continua" : "Continua"}</button>

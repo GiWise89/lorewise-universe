@@ -47,6 +47,8 @@ test("l'avanzamento arriva al decimo piano e poi conclude la Torre", () => {
 test("la UI salva ogni piano raggiunto e riprende la Torre invece di tornare al primo", () => {
   const source = readFileSync("components/FamiglioCombatArena.tsx", "utf8");
   assert.match(source, /lorewise:famiglio:tower/);
-  assert.match(source, /const run = towerRun \?\?/);
+  assert.match(source, /const run: ArenaTowerRun = towerRun \?\?/);
+  // La Torre salva anche seme e livello di generazione: il server la rigenera identica per verificarla.
+  assert.match(source, /origin: \{ seed: origin\.seed, level: origin\.level \}/);
   assert.match(source, /localStorage\.setItem\(towerStorageKey, JSON\.stringify\(nextRun\)\)/);
 });

@@ -124,3 +124,5 @@
 @media(prefers-reduced-motion:reduce){.hudHealth i,.hudEnergy i{transition:none}}
 /* Ritirata: esito neutro, né trionfo né sconfitta. */
 .resultOverlay[data-outcome="retreat"] .resultScreen{border-color:#9fb6c4}.retreatResultMessage{margin:0;padding:10px 14px;border:1px solid #9fb6c4;border-radius:10px;color:#eef7fb;background:#0d2230;font-weight:800}
+/* Stato della verifica sul server della battaglia conclusa. */
+.verificationNote{margin:0;max-width:34rem;padding:8px 12px;border:1px solid #5a617d;border-radius:10px;color:#d7ebef;background:#07101dcc;font-size:13px}.verificationNote[data-status="verified"]{border-color:#6fd49a}.verificationNote[data-status="offline"],.verificationNote[data-status="pending"]{border-color:#e7c35a}.verificationNote[data-status="rejected"]{border-color:#ff7169;color:#ffd9d6}

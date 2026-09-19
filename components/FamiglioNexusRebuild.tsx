@@ -100,7 +100,14 @@ import {
 import { FamiglioGuideOverlay } from "./FamiglioGuideOverlay";
 import { FamiglioDailyMiniGame } from "./FamiglioDailyMiniGame";
 import { FamiglioStreakCard } from "./FamiglioStreakCard";
-import { familiarActivityGate, familiarCombatNeedBonus } from "@/lib/famiglioWellbeing";
+import { familiarActivityGate } from "@/lib/famiglioWellbeing";
+import { adoptServerCombatProgress } from "@/lib/famiglioCombatVerification";
+import {
+  readFamiglioCombatReports,
+  writeFamiglioCombatReports,
+  type FamiglioCombatBattleReport,
+  type FamiglioCombatVerificationView,
+} from "@/lib/famiglioCombatReplayClient";
 import { familiarDailyMoment, familiarReturnGreeting } from "@/lib/famiglioDailyMoments";
 import { familiarLevelForExperience } from "@/lib/nexusFamiliar";
 import { FAMILIAR_MILESTONES } from "@/lib/nexusFamiliarProgression";
@@ -2224,6 +2231,16 @@ export function FamiglioNexusRebuild() {
   const houseSnapshotsRef = useRef<Array<LocalHouseSnapshot | null>>([null, null, null]);
   const cloudRevisionRef = useRef(0);
   const cloudSaveInFlightRef = useRef(false);
+  // Verifica delle battaglie sul server: coda dei resoconti (persistita nel
+  // browser), stato mostrato nella schermata finale e tipo di sessione cloud.
+  const [combatVerifications, setCombatVerifications] = useState<Record<string, FamiglioCombatVerificationView>>({});
+  const combatReportsRef = useRef<FamiglioCombatBattleReport[]>([]);
+  const combatSyncRunningRef = useRef(false);
+  const combatRetryTimerRef = useRef<number | null>(null);
+  const cloudAccountRef = useRef<"unknown" | "guest" | "account">("unknown");
+  const [cloudGuest, setCloudGuest] = useState(false);
+  const cloudSyncReadyRef = useRef(false);
+  const activeHouseIndexRef = useRef(0);
   const homeActionEndsAtRef = useRef<number | null>(null);
   const [cloudSyncReady, setCloudSyncReady] = useState(false);
   const [cloudReloadToken, setCloudReloadToken] = useState(0);
@@ -2698,8 +2715,13 @@ export function FamiglioNexusRebuild() {
       .then(async (response) => ({ response, payload: await response.json().catch(() => ({})) as { save?: unknown; revision?: unknown } }))
       .then(({ response, payload }) => {
         if (cancelled) return;
-        if (response.status === 401) return;
+        if (response.status === 401) {
+          cloudAccountRef.current = "guest";
+          setCloudGuest(true);
+          return;
+        }
         if (!response.ok) return;
+        cloudAccountRef.current = "account";
         cloudRevisionRef.current = Math.max(0, Math.floor(Number(payload.revision) || 0));
         const save = payload.save;
         if (save && typeof save === "object" && !Array.isArray(save)) {
@@ -3024,6 +3046,161 @@ export function FamiglioNexusRebuild() {
     });
   };
 
+  const setCombatVerification = (battleId: string, view: FamiglioCombatVerificationView) => {
+    setCombatVerifications((current) => Object.fromEntries([...Object.entries(current).filter(([id]) => id !== battleId).slice(-19), [battleId, view]]));
+  };
+
+  // Premio di una battaglia verificata: nella Casa attiva passa dal normale flusso
+  // (portamonete, diario, avanzamenti); per un'altra Casa si aggiorna la sua copia.
+  const creditCombatReward = (houseIndex: number, reward: FamiliarCombatReward) => {
+    if (houseIndex === activeHouseIndexRef.current) {
+      receiveCombatRewardRef.current(reward);
+      return;
+    }
+    const houses = [...houseSnapshotsRef.current];
+    const house = houses[houseIndex];
+    if (!house) return;
+    houses[houseIndex] = {
+      ...house,
+      home: {
+        ...house.home,
+        wallet: {
+          ...house.home.wallet,
+          nexusCoins: house.home.wallet.nexusCoins + reward.nexusCoins,
+          totalEarned: house.home.wallet.totalEarned + reward.nexusCoins,
+          nightSigils: house.home.wallet.nightSigils + reward.nightSigils,
+          relicFragments: house.home.wallet.relicFragments + reward.relicFragments,
+        },
+      },
+    };
+    houseSnapshotsRef.current = houses;
+    setSavedHouseSnapshots(houses);
+  };
+
+  // Riallinea i progressi di combattimento a quelli autorevoli del server, ma solo
+  // quando non restano altre battaglie della stessa Casa in attesa di verifica e
+  // nessun incontro è in corso (non si cambia il Famiglio a metà battaglia).
+  const adoptServerCombat = (houseIndex: number, serverCombat: unknown) => {
+    if (!serverCombat || combatReportsRef.current.some((report) => report.houseIndex === houseIndex)) return;
+    if (houseIndex === activeHouseIndexRef.current) {
+      setCombatState((current) => current.activeBattle?.outcome === "active" ? current : adoptServerCombatProgress(current, serverCombat));
+      return;
+    }
+    const houses = [...houseSnapshotsRef.current];
+    const house = houses[houseIndex];
+    if (!house || house.combat.activeBattle?.outcome === "active") return;
+    houses[houseIndex] = { ...house, combat: adoptServerCombatProgress(house.combat, serverCombat) };
+    houseSnapshotsRef.current = houses;
+    setSavedHouseSnapshots(houses);
+  };
+
+  const scheduleCombatSync = (delay: number) => {
+    if (combatRetryTimerRef.current) window.clearTimeout(combatRetryTimerRef.current);
+    combatRetryTimerRef.current = window.setTimeout(() => {
+      combatRetryTimerRef.current = null;
+      void processCombatReportsRef.current();
+    }, delay);
+  };
+
+  // Invia in ordine i resoconti in coda: ogni battaglia dipende dai progressi
+  // lasciati dalla precedente, quindi la coda si ferma al primo errore di rete e
+  // riprende più tardi. Il PUT del salvataggio aspetta (stesso semaforo) per non
+  // entrare in conflitto con la revisione scritta dalla verifica.
+  const processCombatReports = async () => {
+    if (combatSyncRunningRef.current || previewSessionRef.current) return;
+    combatSyncRunningRef.current = true;
+    try {
+      for (;;) {
+        const report = combatReportsRef.current[0];
+        if (!report) return;
+        if (cloudAccountRef.current === "guest") { settleCombatReportsLocallyRef.current(); return; }
+        if (!cloudSyncReadyRef.current) { scheduleCombatSync(5000); return; }
+        while (cloudSaveInFlightRef.current) await new Promise((resolve) => window.setTimeout(resolve, 250));
+        cloudSaveInFlightRef.current = true;
+        let response: Response | null = null;
+        let payload: { result?: { outcome?: string; reward?: FamiliarCombatReward | null; rewardAlreadyPaid?: boolean }; combat?: unknown; revision?: unknown; error?: string; duplicate?: boolean } = {};
+        try {
+          response = await fetch("/api/famiglio/rebuild/combat", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(report.replay ? { houseIndex: report.houseIndex, replay: report.replay } : { houseIndex: report.houseIndex, resync: true }),
+          });
+          payload = await response.json().catch(() => ({})) as typeof payload;
+        } catch {
+          response = null;
+        } finally {
+          cloudSaveInFlightRef.current = false;
+        }
+        if (!response || response.status >= 500 || response.status === 409 || response.status === 429 || response.status === 401) {
+          setCombatVerification(report.battleId, {
+            status: "offline",
+            reward: null,
+            message: response?.status === 409 || response?.status === 401 ? payload.error ?? null : null,
+          });
+          scheduleCombatSync(response ? 15000 : 10000);
+          return;
+        }
+        combatReportsRef.current = combatReportsRef.current.filter((entry) => entry.battleId !== report.battleId);
+        writeFamiglioCombatReports(combatReportsRef.current);
+        const revision = Math.floor(Number(payload.revision) || 0);
+        if (revision) cloudRevisionRef.current = Math.max(cloudRevisionRef.current, revision);
+        if (response.ok && report.replay && payload.result) {
+          const reward = payload.result.reward ?? null;
+          if (reward) creditCombatReward(report.houseIndex, reward);
+          const outcomeChanged = payload.result.outcome && payload.result.outcome !== report.localOutcome;
+          setCombatVerification(report.battleId, {
+            status: "verified",
+            reward,
+            message: outcomeChanged
+              ? "Il server ha registrato un esito diverso da quello mostrato: vale quello registrato."
+              : payload.result.rewardAlreadyPaid ? "Risultato verificato: questo premio era già stato pagato a questa Casa." : null,
+          });
+        } else {
+          setCombatVerification(report.battleId, {
+            status: "rejected",
+            reward: null,
+            message: report.replay
+              ? `${payload.error ?? "Battaglia non convalidata."} Nessun premio accreditato: i progressi tornano a quelli registrati sul server.`
+              : "Questa battaglia è iniziata prima dell'aggiornamento e non può essere verificata: nessun premio accreditato.",
+          });
+        }
+        adoptServerCombat(report.houseIndex, payload.combat);
+      }
+    } finally {
+      combatSyncRunningRef.current = false;
+    }
+  };
+
+  // Ospiti senza LoreWise ID e anteprime locali: nessun server da interrogare, vale
+  // il motore locale come prima (il salvataggio resta solo sul dispositivo).
+  const settleCombatReportsLocally = () => {
+    const reports = combatReportsRef.current;
+    combatReportsRef.current = [];
+    writeFamiglioCombatReports([]);
+    for (const report of reports) {
+      if (report.localReward) creditCombatReward(report.houseIndex, report.localReward);
+      setCombatVerification(report.battleId, { status: "local", reward: report.localReward, message: null });
+    }
+  };
+
+  const handleCombatBattleConcluded = (concluded: Omit<FamiglioCombatBattleReport, "houseIndex">) => {
+    const report: FamiglioCombatBattleReport = { ...concluded, houseIndex: activeHouseIndex };
+    if (previewSessionRef.current || cloudAccountRef.current === "guest") {
+      if (report.localReward) creditCombatReward(report.houseIndex, report.localReward);
+      setCombatVerification(report.battleId, { status: "local", reward: report.localReward, message: null });
+      return;
+    }
+    if (combatReportsRef.current.some((entry) => entry.battleId === report.battleId)) return;
+    combatReportsRef.current = [...combatReportsRef.current, report];
+    writeFamiglioCombatReports(combatReportsRef.current);
+    setCombatVerification(report.battleId, { status: "pending", reward: null, message: null });
+    void processCombatReports();
+  };
+
+  const processCombatReportsRef = useRef(processCombatReports);
+  const settleCombatReportsLocallyRef = useRef(settleCombatReportsLocally);
+
   const receiveCombatReward = (reward: FamiliarCombatReward) => {
     const recordedLevelUps = reward.levelUps?.length ? reward.levelUps : (() => {
       const previousCombat = combatState.profiles[reward.familiarId];
@@ -3061,6 +3238,45 @@ export function FamiglioNexusRebuild() {
       };
     });
   };
+
+  const receiveCombatRewardRef = useRef(receiveCombatReward);
+  useEffect(() => {
+    receiveCombatRewardRef.current = receiveCombatReward;
+    processCombatReportsRef.current = processCombatReports;
+    settleCombatReportsLocallyRef.current = settleCombatReportsLocally;
+    activeHouseIndexRef.current = activeHouseIndex;
+    cloudSyncReadyRef.current = cloudSyncReady;
+  });
+
+  // Resoconti rimasti in coda (pagina chiusa offline o prima della risposta).
+  useEffect(() => {
+    const queued = readFamiglioCombatReports();
+    if (!queued.length) return;
+    combatReportsRef.current = queued;
+    const timer = window.setTimeout(() => {
+      setCombatVerifications((current) => ({ ...current, ...Object.fromEntries(queued.map((report) => [report.battleId, { status: "pending", reward: null, message: null } satisfies FamiglioCombatVerificationView])) }));
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (cloudGuest) settleCombatReportsLocallyRef.current();
+  }, [cloudGuest]);
+
+  useEffect(() => {
+    if (!cloudSyncReady) return;
+    cloudSyncReadyRef.current = true;
+    void processCombatReportsRef.current();
+  }, [cloudSyncReady]);
+
+  useEffect(() => {
+    const retry = () => void processCombatReportsRef.current();
+    window.addEventListener("online", retry);
+    return () => {
+      window.removeEventListener("online", retry);
+      if (combatRetryTimerRef.current) window.clearTimeout(combatRetryTimerRef.current);
+    };
+  }, []);
 
   const performActiveHomeAction = (action: FamiliarHomeAction, restPresetId: FamiliarRestPresetId = "nap") => {
     const previousActionAt = homeState.lastActionAt;
@@ -3319,7 +3535,9 @@ export function FamiglioNexusRebuild() {
     setState(createRebuildState());
     setHomeState(createFamiliarHomeState());
     setAdventureState(createFamiliarAdventureState());
-    setCombatState(createFamiliarCombatState());
+    // Con il LoreWise ID i progressi di combattimento appartengono al server e
+    // sopravvivono al nuovo inizio: ripartire da zero in locale li disallineerebbe.
+    setCombatState((current) => cloudAccountRef.current === "account" ? { ...createFamiliarCombatState(), seed: current.seed, profiles: current.profiles } : createFamiliarCombatState());
     setTestCollectionFamiliarId(null);
     setHomeFamiliarIndex(0);
     setHomePanel("care");
@@ -3920,11 +4138,11 @@ export function FamiglioNexusRebuild() {
             state={combatState}
             setState={setCombatState}
             testMode={allTestMode}
-            playerStatBonus={familiarCombatNeedBonus(combatGate)}
             activityGate={combatGate}
             familiarOptions={combatFamiliarOptions}
             onSelectFamiliar={selectCombatFamiliar}
-            onReward={receiveCombatReward}
+            onBattleConcluded={handleCombatBattleConcluded}
+            verification={combatState.activeBattle ? combatVerifications[combatState.activeBattle.id] ?? null : null}
             onMissionActivity={(activity, sourceKey) => void recordGameMission(activity, sourceKey)}
             onBattleVictory={() => setHomeState((current) => ({
               ...current,
