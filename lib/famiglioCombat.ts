@@ -7,6 +7,7 @@ import {
   createSeededMoveSchedule,
   type CombatMove,
 } from "./famiglioCombatCatalog.ts";
+import { familiarCampaignLevelById, familiarCampaignRivalMultiplier, type FamiliarCampaignLevel } from "./famiglioCombatCampaign.ts";
 
 export const FAMILIAR_COMBAT_STATE_VERSION = 2;
 export const FAMILIAR_COMBAT_MAX_LEVEL = 50;
@@ -185,6 +186,11 @@ export type FamiliarCombatOpponentPreviewOptions = {
   circuitId: string;
   difficulty?: FamiliarCombatDifficulty;
   opponentLevel?: number;
+  /** Con un id di campagna il rivale viene bilanciato sul Famiglio del giocatore. */
+  encounterId?: string;
+  playerLevel?: number;
+  playerStatBonus?: Partial<FamiliarCombatStats>;
+  playerEvolutionPath?: StartFamiliarCombatBattleOptions["playerEvolutionPath"];
 };
 
 export type FamiliarCombatOpponentPreview = {
@@ -722,6 +728,15 @@ function encounterKey(circuitId: string, difficulty: FamiliarCombatDifficulty, o
   return `${circuitId}:${difficulty}:${opponentId}`;
 }
 
+/** Vero solo per i capitoli con obiettivo "Resistenza": sopravvivere al limite di turni è una vittoria. */
+export function familiarCombatTurnLimitIsVictory(encounterId: string | null | undefined) {
+  return familiarCampaignLevelById(encounterId)?.objective === "resistenza";
+}
+
+function turnLimitMeansVictory(battle: FamiliarCombatBattle) {
+  return familiarCombatTurnLimitIsVictory(battle.encounterId);
+}
+
 function completedEncounterKey(battle: FamiliarCombatBattle) {
   // In 3 contro 3 il rivale in campo alla fine è l'ultimo della squadra: la
   // chiave deve restare quella del titolare con cui l'incontro è iniziato.
@@ -850,7 +865,16 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
     const memberProgress = familiarCombatProgress(withPlayer, id);
     return battleActor(id, memberProgress.combatLevel);
   });
-  const initiativeRoll = rollInitiative(battleSeed, playerActor.stats.speed, opponentPreview.actor.stats.speed);
+  // Capitoli della campagna: ogni rivale è bilanciato sul Famiglio del
+  // giocatore nella stessa posizione (titolare contro titolare, riserve contro
+  // riserve), così una squadra forte non rende più forti anche le riserve rivali.
+  const campaign = familiarCampaignLevelById(encounterId);
+  const playerSide = [playerActor, ...playerBench];
+  const rivalActor = campaign ? campaignRivalActor(opponentPreview.actor, playerActor, campaign) : opponentPreview.actor;
+  const rivalBench = campaign
+    ? opponentBench.map((actor, index) => campaignRivalActor(actor, playerSide[index + 1] ?? playerActor, campaign))
+    : opponentBench;
+  const initiativeRoll = rollInitiative(battleSeed, playerActor.stats.speed, rivalActor.stats.speed);
   const bossPhasesTotal = integer(options.bossPhases, 1, 1, 3);
   const battle: FamiliarCombatBattle = {
     id: `battle-${battleSeed.toString(16)}-${progress.battlesCompleted + 1}`,
@@ -861,8 +885,8 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
     playerBench,
     teamFamiliarIds: teamIds,
     switchCooldown: 0,
-    opponent: opponentPreview.actor,
-    opponentBench,
+    opponent: rivalActor,
+    opponentBench: rivalBench,
     opponentTeamFamiliarIds: opponentTeamIds,
     teamBattle,
     turn: 1,
@@ -937,6 +961,24 @@ function opponentLoadoutForActor(actor: FamiliarCombatActor) {
   return opponentLoadoutFrom(actor.familiarId, learnedMovesForActor(actor));
 }
 
+function combatRating(actor: FamiliarCombatActor) {
+  return actor.stats.hp * actor.stats.attack * actor.stats.defense;
+}
+
+// Rivale della campagna riportato verso la forza del Famiglio del giocatore
+// (vedi CAMPAIGN_RIVAL_NORMALIZATION in famiglioCombatCampaign.ts).
+function campaignRivalActor(actor: FamiliarCombatActor, player: FamiliarCombatActor, campaign: FamiliarCampaignLevel): FamiliarCombatActor {
+  const multiplier = familiarCampaignRivalMultiplier(campaign, combatRating(player), combatRating(actor));
+  const hp = Math.max(1, Math.round(actor.stats.hp * multiplier));
+  const stats = {
+    ...actor.stats,
+    hp,
+    attack: Math.max(1, Math.round(actor.stats.attack * multiplier)),
+    defense: Math.max(1, Math.round(actor.stats.defense * multiplier)),
+  };
+  return { ...actor, stats, hp, maxHp: hp };
+}
+
 export function familiarCombatOpponentPreview(
   options: FamiliarCombatOpponentPreviewOptions,
 ): FamiliarCombatOpponentPreview | null {
@@ -951,7 +993,11 @@ export function familiarCombatOpponentPreview(
     1,
     FAMILIAR_COMBAT_MAX_LEVEL,
   );
-  const actor = battleActor(opponent.id, level, DIFFICULTY_RULES[difficulty].statMultiplier);
+  const campaign = familiarCampaignLevelById(options.encounterId);
+  const baseActor = battleActor(opponent.id, level, DIFFICULTY_RULES[difficulty].statMultiplier);
+  const actor = campaign
+    ? campaignRivalActor(baseActor, battleActor(player.id, integer(options.playerLevel, level, 1, FAMILIAR_COMBAT_MAX_LEVEL), 1, options.playerStatBonus, options.playerEvolutionPath ?? null), campaign)
+    : baseActor;
   const learnedMoves = learnedMovesForActor(actor)
     .map((move) => COMBAT_MOVES_BY_ID[move.id])
     .filter((move): move is CombatMove => Boolean(move));
@@ -1323,6 +1369,7 @@ function concludeBattle(
   outcome: Exclude<FamiliarCombatOutcome, "active">,
   events: FamiliarCombatTimelineEvent[],
   awardXp = true,
+  resultMessage?: string,
 ) {
   if (battle.resultApplied) return { state, battle };
   const old = familiarCombatProgress(state, battle.teamFamiliarIds[0] ?? battle.player.familiarId);
@@ -1354,7 +1401,7 @@ function concludeBattle(
   };
   const resultMove: CatalogMoveLike = { id: "battle-result", name: outcome === "victory" ? "Vittoria" : "Rientro al sicuro", kind: "status", vfx: outcome, audio: outcome };
   phaseEvent(battle, events, battle.player, battle.opponent, resultMove, "result", 900,
-    outcome === "victory" ? `Vittoria. ${earnedXp} XP combattimento.` : `Sconfitta senza perdita di oggetti. ${earnedXp} XP combattimento.`);
+    outcome === "victory" ? `${resultMessage ?? "Vittoria."} ${earnedXp} XP combattimento.` : `Sconfitta senza perdita di oggetti. ${earnedXp} XP combattimento.`);
   const resolvedBattle = { ...battle, outcome, resultApplied: true, timeline: events };
   const teamProfiles = Object.fromEntries((battle.teamFamiliarIds.length ? battle.teamFamiliarIds : [old.familiarId]).map((familiarId) => {
     if (familiarId === old.familiarId) return [familiarId, nextProgress];
@@ -1584,6 +1631,14 @@ export function performFamiliarCombatTurn(state: FamiliarCombatState, playerMove
     messages.push(message);
   }
   if (battle.maxTurns && battle.turn >= battle.maxTurns) {
+    // Obiettivo "Resistenza" della campagna: arrivare in piedi all'ultimo turno
+    // è la vittoria (con il normale premio del primo completamento). Negli
+    // altri incontri a tempo, come "Rapidità", scadere il limite resta una sconfitta.
+    if (turnLimitMeansVictory(battle)) {
+      const message = "Hai resistito fino all'ultimo turno: obiettivo Resistenza completato.";
+      const concluded = concludeBattle(state, battle, "victory", events, true, message);
+      return { ok: true as const, state: { ...concluded.state, lastMessage: message }, timeline: events, opponentMoveId: opponentMove.id };
+    }
     const concluded = concludeBattle(state, battle, "defeat", events);
     return { ok: true as const, state: { ...concluded.state, lastMessage: "Il limite di turni è terminato. Il Famiglio è rientrato al sicuro." }, timeline: events, opponentMoveId: opponentMove.id };
   }
