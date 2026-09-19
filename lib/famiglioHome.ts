@@ -1,5 +1,5 @@
 import { NIGHT_MARKET_OFFERS } from "./famiglioMarketExpansion.ts";
-import { createFamiliarAttendanceState, restoreFamiliarAttendanceState, type FamiliarAttendanceState } from "./famiglioAttendanceYear.ts";
+import { createFamiliarAttendanceState, familiarLocalDateKey, restoreFamiliarAttendanceState, type FamiliarAttendanceState } from "./famiglioAttendanceYear.ts";
 import { createFamiliarWeeklyLoopState, restoreFamiliarWeeklyLoopState, type FamiliarWeeklyLoopState } from "./famiglioWeeklyLoop.ts";
 import {
   advanceFamiliarBondWeek,
@@ -678,12 +678,10 @@ export function homeActionAvailability(state: FamiliarHomeState, action: Familia
 const clampNeed = (value: number) => Math.max(0, Math.min(100, Math.round(value * 10) / 10));
 const clampXp = (value: number) => Math.max(0, Math.min(999_999, Math.round(value)));
 
+// Stesso giorno di presenze, serie e settimane (Europe/Rome): la routine non deve cambiare
+// giorno in un momento diverso per chi gioca da un altro fuso orario.
 function localDayKey(now: number) {
-  const date = new Date(now);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
+  return familiarLocalDateKey(new Date(now));
 }
 
 function wishForDay(now: number): FamiliarDailyWish {
