@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { slimAccountMetadata } from "@/lib/accountMetadataSlim";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
-import { createLoreWiseServerClient } from "@/lib/supabase/server";
+import { createLoreWiseServerClient, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 
 function sameOrigin(request: Request) {
   const origin = request.headers.get("origin");
@@ -44,6 +45,8 @@ export async function POST(request: Request) {
   if (!client) return NextResponse.json({ error: "Il servizio di accesso non è configurato." }, { status: 503 });
   const { data, error } = await client.auth.signInWithPassword({ email, password });
   if (error || !data.user || !data.session) return loginError(error ?? { message: "Sessione non creata." });
+  // Sul sito pubblico i salvataggi di prova delle anteprime non servono e renderebbero il cookie troppo grande.
+  if (!(await isLocalLoreWiseRequest())) await slimAccountMetadata(client, data.user).catch(() => false);
   try {
     await syncLoreWiseCustomer(data.user);
   } catch {

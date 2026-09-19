@@ -8,6 +8,7 @@ import { claimFamiliarOuting, purchaseFamiliarGadgetWithCoins, purchaseFamiliarT
 import { claimFamiliarAttendance } from "@/lib/nexusFamiliarRituals";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
+import { getFamiglioUser, saveLocalGameData } from "@/lib/localPreviewGameStore";
 
 export const dynamic = "force-dynamic";
 
@@ -61,7 +62,7 @@ export async function POST(request: Request) {
   try {
     const origin = request.headers.get("origin");
     if (origin && origin !== new URL(request.url).origin) return json({ error: "Origine non valida." }, 403);
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per proteggere i progressi." }, 401);
     const body = await request.json().catch(() => null) as { command?: unknown; value?: unknown; baseRevision?: unknown } | null;
     const command = typeof body?.command === "string" ? body.command as FamiliarCommand : null;
@@ -84,11 +85,11 @@ export async function POST(request: Request) {
     if (localPreview) {
       const client = await createLoreWiseServerClient();
       if (!client) return json({ error: "Servizio account non disponibile." }, 503);
-      const { error } = await client.auth.updateUser({ data: {
+      const { error } = await saveLocalGameData(user, {
         ...user.user_metadata,
         nexus_familiar_state: result.state,
         nexus_familiar_revision: revision,
-      } });
+      });
       if (error) return json({ error: "Progressi non sincronizzati." }, 503);
       return json({ familiar: result.state, revision, message: result.message, localPreview: true });
     }

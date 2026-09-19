@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { EmailOtpType } from "@supabase/supabase-js";
+import { isPublicBrowserHost, slimAccountMetadata } from "@/lib/accountMetadataSlim";
 import { createLoreWiseBrowserClient } from "@/lib/supabase/client";
 
 function safeNext(value: string | null) {
@@ -45,6 +46,10 @@ export default function AuthCallbackPage() {
               : { error: new Error("Collegamento di conferma incompleto.") };
         if (!active) return;
         if (verification.error) throw verification.error;
+        if (isPublicBrowserHost(window.location.hostname)) {
+          const { data } = await client.auth.getUser();
+          await slimAccountMetadata(client, data.user).catch(() => false);
+        }
 
         // Evita che token temporanei restino nella cronologia o negli screenshot.
         if (window.location.hash) window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);

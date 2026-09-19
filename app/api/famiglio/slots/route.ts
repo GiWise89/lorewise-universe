@@ -7,6 +7,7 @@ import { isPremiumFamiliarAppearance, purchasedFamiliarOfferIds, purchasedPremiu
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 import { getActiveUniversePass } from "@/lib/universePass";
+import { getFamiglioUser, saveLocalGameData } from "@/lib/localPreviewGameStore";
 
 export const dynamic = "force-dynamic";
 
@@ -84,7 +85,7 @@ function rosterResponse(current: Awaited<ReturnType<typeof databaseCurrent>>, st
 
 export async function GET() {
   try {
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return json({ authenticated: false, ...familiarSlotEntitlement(0, 0), slots: [] }, 401);
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
       return json({ authenticated: true, ...rosterResponse(metadataCurrent(user), metadataSlots(user)), localPreview: true });
@@ -109,7 +110,7 @@ export async function POST(request: Request) {
   try {
     const origin = request.headers.get("origin");
     if (origin && origin !== new URL(request.url).origin) return json({ error: "Origine non valida." }, 403);
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per gestire più Famigli." }, 401);
     const body = await request.json() as { action?: unknown; familiarId?: unknown; state?: unknown };
     const action = body.action === "start" || body.action === "switch" || body.action === "reset" ? body.action : null;
@@ -145,12 +146,12 @@ export async function POST(request: Request) {
       const client = await createLoreWiseServerClient();
       if (!client) return json({ error: "Servizio LoreWise ID non disponibile." }, 503);
       const revision = Math.max(current.revision, 0) + 1;
-      const { error } = await client.auth.updateUser({ data: {
+      const { error } = await saveLocalGameData(user, {
         ...user.user_metadata,
         nexus_familiar_state: nextCurrent,
         nexus_familiar_revision: revision,
         nexus_familiar_slots: nextStored,
-      } });
+      });
       if (error) return json({ error: "Non è stato possibile aggiornare gli slot Famiglio." }, 503);
       return json({ ...rosterResponse({ state: nextCurrent, revision }, nextStored), familiar: nextCurrent, revision, localPreview: true });
     }

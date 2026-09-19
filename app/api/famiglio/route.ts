@@ -8,6 +8,7 @@ import { canAdoptFamiliarAppearance, isPremiumFamiliarAppearance } from "@/lib/n
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
+import { getFamiglioUser, saveLocalGameData } from "@/lib/localPreviewGameStore";
 
 export const dynamic = "force-dynamic";
 
@@ -52,7 +53,7 @@ async function readDatabaseFamiliar(database: D1Database, customerId: string) {
 
 export async function GET() {
   try {
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return response({ error: "Accedi al LoreWise ID per sincronizzare il Famiglio." }, 401);
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
       const saved = metadataFamiliar(user);
@@ -75,7 +76,7 @@ export async function PUT(request: Request) {
     const contentLength = Number(request.headers.get("content-length") || 0);
     if (contentLength > FAMILIAR_CLOUD_MAX_BYTES * 2) return response({ error: "Salvataggio troppo grande." }, 413);
 
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return response({ error: "Accedi al LoreWise ID per sincronizzare il Famiglio." }, 401);
     const body = await request.json() as { state?: unknown; baseRevision?: unknown };
     const checked = sanitizeFamiliarCloudState(body.state);
@@ -95,12 +96,10 @@ export async function PUT(request: Request) {
       const client = await createLoreWiseServerClient();
       if (!client) return response({ error: "Servizio account non disponibile." }, 503);
       const revision = current.revision + 1;
-      const { data, error } = await client.auth.updateUser({
-        data: {
-          ...user.user_metadata,
-          nexus_familiar_state: trustedState,
-          nexus_familiar_revision: revision,
-        },
+      const { data, error } = await saveLocalGameData(user, {
+        ...user.user_metadata,
+        nexus_familiar_state: trustedState,
+        nexus_familiar_revision: revision,
       });
       if (error || !data.user) return response({ error: "Non è stato possibile sincronizzare il Famiglio." }, 503);
       return response({ familiar: trustedState, revision, localPreview: true });
@@ -169,7 +168,7 @@ export async function DELETE(request: Request) {
   try {
     const origin = request.headers.get("origin");
     if (origin && origin !== new URL(request.url).origin) return response({ error: "Origine non valida." }, 403);
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return response({ error: "Accedi al LoreWise ID per eliminare il Famiglio sincronizzato." }, 401);
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
       const client = await createLoreWiseServerClient();
@@ -177,12 +176,12 @@ export async function DELETE(request: Request) {
       const revision = Math.max(0, Math.floor(Number(user.user_metadata?.nexus_familiar_revision) || 0)) + 1;
       const stored = metadataFamiliarSlots(user);
       const promoted = stored.at(0);
-      const { error } = await client.auth.updateUser({ data: {
+      const { error } = await saveLocalGameData(user, {
         ...user.user_metadata,
         nexus_familiar_state: promoted?.state ?? null,
         nexus_familiar_revision: revision,
         nexus_familiar_slots: promoted ? stored.slice(1) : [],
-      } });
+      });
       if (error) return response({ error: "Non è stato possibile eliminare il Famiglio sincronizzato." }, 503);
       return response({ deleted: true, promoted: Boolean(promoted), familiar: promoted?.state ?? null, revision, localPreview: true });
     }

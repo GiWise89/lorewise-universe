@@ -4,6 +4,7 @@ import { restoreFamiliarHome } from "@/lib/famiglioHome";
 import { claimFamiliarAttendanceReward } from "@/lib/famiglioAttendanceYear";
 import { sanitizeFamiglioRebuildCloudSave } from "@/lib/famiglioRebuildCloud";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
+import { getFamiglioUser, saveLocalGameData } from "@/lib/localPreviewGameStore";
 
 export const dynamic = "force-dynamic";
 type RuntimeEnv = { DB?: D1Database };
@@ -27,7 +28,7 @@ export async function POST(request: Request) {
   try {
     const origin = request.headers.get("origin");
     if (origin && origin !== new URL(request.url).origin) return json({ error: "Origine non valida." }, 403);
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per registrare la presenza." }, 401);
     const body = await request.json().catch(() => ({})) as { houseIndex?: unknown; baseRevision?: unknown };
     const houseIndex = Math.max(0, Math.min(2, Math.floor(Number(body.houseIndex) || 0)));
@@ -49,7 +50,7 @@ export async function POST(request: Request) {
     if (local) {
       const client = await createLoreWiseServerClient();
       if (!client) return json({ error: "Servizio LoreWise ID non disponibile." }, 503);
-      const { error } = await client.auth.updateUser({ data: { ...user.user_metadata, nexus_pet_rebuild_save: save, nexus_pet_rebuild_revision: revision } });
+      const { error } = await saveLocalGameData(user, { ...user.user_metadata, nexus_pet_rebuild_save: save, nexus_pet_rebuild_revision: revision });
       if (error) return json({ error: "Riscatto non completato: riprova, il premio non \u00e8 stato consumato." }, 503);
     } else {
       if (!database) return json({ error: "Archivio Nexus Pet temporaneamente non disponibile." }, 503);

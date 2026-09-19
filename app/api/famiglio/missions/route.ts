@@ -8,6 +8,7 @@ import { familiarDailyMissionCount } from "@/lib/nexusFamiliarProgression";
 import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
+import { getFamiglioUser } from "@/lib/localPreviewGameStore";
 
 export const dynamic = "force-dynamic";
 
@@ -69,7 +70,7 @@ async function grantMissionRewardToRebuildSave(database: D1Database, customerId:
 
 export async function GET() {
   try {
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per attivare le missioni." }, 401);
     const date = romeDateKey();
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
@@ -100,7 +101,7 @@ export async function POST(request: Request) {
   try {
     const origin = request.headers.get("origin");
     if (origin && origin !== new URL(request.url).origin) return json({ error: "Origine non valida." }, 403);
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per riscuotere le ricompense." }, 401);
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
       return json({ error: "Nella preview le missioni sono dimostrative." }, 409);

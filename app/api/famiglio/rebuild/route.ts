@@ -9,6 +9,7 @@ import {
 } from "@/lib/famiglioRebuildCloud";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
+import { getFamiglioUser, saveLocalGameData } from "@/lib/localPreviewGameStore";
 
 export const dynamic = "force-dynamic";
 
@@ -43,7 +44,7 @@ async function databaseSave(database: D1Database, customerId: string) {
 
 export async function GET() {
   try {
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return json({ authenticated: false, save: null, revision: 0 }, 401);
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
       return json({ authenticated: true, ...metadataSave(user), localPreview: true });
@@ -63,7 +64,7 @@ export async function PUT(request: Request) {
     if (!isFamiglioRequestOriginAllowed(request)) return json({ error: "Origine non valida." }, 403);
     const contentLength = Number(request.headers.get("content-length") || 0);
     if (contentLength > FAMIGLIO_REBUILD_CLOUD_MAX_BYTES * 2) return json({ error: "Salvataggio troppo grande." }, 413);
-    const user = await getLoreWiseUser();
+    const user = await getFamiglioUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per sincronizzare le Case." }, 401);
     const body = await request.json() as { save?: unknown; baseRevision?: unknown };
     const checked = sanitizeFamiglioRebuildCloudSave(body.save);
@@ -77,11 +78,11 @@ export async function PUT(request: Request) {
       const save = preserveServerOwnedAttendance(checked.save, current.save);
       const client = await createLoreWiseServerClient();
       if (!client) return json({ error: "Servizio LoreWise ID non disponibile." }, 503);
-      const { error } = await client.auth.updateUser({ data: {
+      const { error } = await saveLocalGameData(user, {
         ...user.user_metadata,
         nexus_pet_rebuild_save: save,
         nexus_pet_rebuild_revision: revision,
-      } });
+      });
       if (error) return json({ error: "Sincronizzazione delle Case non riuscita." }, 503);
       return json({ save, revision, localPreview: true });
     }

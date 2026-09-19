@@ -187,7 +187,7 @@ test("client saves cannot rewrite the server-owned attendance register", () => {
 
 test("the streak route trusts only the server clock and revision-guarded saves", async () => {
   const source = await readFile(new URL("../app/api/famiglio/rebuild/streak/route.ts", import.meta.url), "utf8");
-  assert.match(source, /getLoreWiseUser\(\)/);
+  assert.match(source, /getFamiglioUser\(\)/);
   assert.match(source, /claimFamiliarStreakMilestone\(home, days\)/);
   assert.match(source, /AND revision = \?/);
   assert.match(source, /private, no-store/);

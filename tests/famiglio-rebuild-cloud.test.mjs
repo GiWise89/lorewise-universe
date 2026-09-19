@@ -38,7 +38,7 @@ test("the rebuilt Nexus Pet save rejects malformed and oversized payloads", () =
 
 test("the account route is private, revisioned and isolated from the legacy Famiglio record", async () => {
   const source = await readFile(new URL("../app/api/famiglio/rebuild/route.ts", import.meta.url), "utf8");
-  assert.match(source, /getLoreWiseUser\(\)/);
+  assert.match(source, /getFamiglioUser\(\)/);
   assert.match(source, /nexus_pet_rebuild_saves/);
   assert.match(source, /baseRevision/);
   assert.match(source, /private, no-store/);

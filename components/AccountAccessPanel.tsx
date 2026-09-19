@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { ACCOUNT_MINIMUM_AGE, ACCOUNT_PRIVACY_VERSION } from "@/lib/accountPolicy";
+import { isPublicBrowserHost, slimAccountMetadata } from "@/lib/accountMetadataSlim";
 import { createLoreWiseBrowserClient, createLoreWiseRecoveryClient } from "@/lib/supabase/client";
 
 export type AuthMode = "login" | "register" | "recover";
@@ -89,6 +90,7 @@ export function AccountAccessPanel({ configured, userEmail, initialMode = "login
           setBusy(false);
           return setMessage(authErrorMessage(error ?? { message: "Sessione non creata." }, targetEmail));
         }
+        if (isPublicBrowserHost(window.location.hostname)) await slimAccountMetadata(browserClient, data.user).catch(() => false);
       }
 
       if (rememberAccess) window.localStorage.setItem("lorewise-remembered-email", targetEmail);
