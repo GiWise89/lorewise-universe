@@ -173,6 +173,12 @@ function combatText(value: string) {
     .join("");
 }
 
+// Stessa stima di forza usata da lib/famiglioCombatTower.ts per le riserve rivali.
+function familiarCombatPower(entry: (typeof FAMILIAR_COMBAT_CATALOG)[number]) {
+  const rarity = { comune: 0, raro: 1, epico: 2, leggendario: 3 }[entry.rarity] ?? 0;
+  return entry.baseStats.hp * .18 + entry.baseStats.attack * .34 + entry.baseStats.defense * .28 + entry.baseStats.speed * .2 + rarity * 8;
+}
+
 function stageLabel(stage: FamiliarGrowthStage) {
   return stage === "cucciolo" ? "Cucciolo" : stage === "giovane" ? "Giovane" : "Adulto";
 }
@@ -415,17 +421,32 @@ export function FamiglioCombatArena({
   const selectedCampaignOpponentId = selectedCampaignLevel ? familiarCampaignOpponent(selectedCampaignLevel, familiarId) : null;
   const safeOpponentId = selectedCampaignOpponentId ?? activeTowerFloor?.opponentId ?? (opponentIds.includes(selectedOpponentId) ? selectedOpponentId : opponentIds[0] ?? "");
   const teamBattle = battleFormat === "team" || Boolean(selectedCampaignLevel?.teamBattle) || Boolean(activeTowerFloor?.teamBattle);
-  const opponentTeamIds = [...new Set([
+  // Rivali scelti esplicitamente (piano della Torre, livello di Campagna), mai
+  // già presenti nella squadra del giocatore: il motore scarta allo stesso modo
+  // chi è già schierato e usa il primo rimasto come titolare.
+  const explicitRivalIds = [...new Set([
     safeOpponentId,
     ...(activeTowerFloor?.opponentTeamIds ?? []),
     ...(selectedCampaignLevel?.opponentIds ?? []),
-    ...opponentIds,
-    ...FAMILIAR_COMBAT_CATALOG.map((entry) => entry.id),
-  ])].filter((id) => id && !teamIds.includes(id)).slice(0, teamBattle ? 3 : 1);
-  const opponentEntry = familiarCombatEntry(safeOpponentId);
-  const opponentPreview = safeOpponentId ? familiarCombatOpponentPreview({
+  ])].filter((id) => id && id !== familiarId && !teamIds.includes(id));
+  const leadRivalEntry = familiarCombatEntry(explicitRivalIds[0] ?? safeOpponentId);
+  // Le riserve mancanti hanno forza vicina a quella del titolare (come nella
+  // Torre): prima si riempiva con i rivali del circuito dal più debole, e il
+  // livello 4 della Campagna in 3 contro 3 diventava il più facile.
+  const reservePool = [...new Set([...opponentIds, ...FAMILIAR_COMBAT_CATALOG.map((entry) => entry.id)])]
+    .filter((id) => id !== familiarId && !teamIds.includes(id) && !explicitRivalIds.includes(id));
+  const leadRivalPower = leadRivalEntry ? familiarCombatPower(leadRivalEntry) : 0;
+  const reserveRivalIds = reservePool
+    .flatMap((id) => { const entry = familiarCombatEntry(id); return entry ? [entry] : []; })
+    .sort((left, right) => Math.abs(familiarCombatPower(left) - leadRivalPower) - Math.abs(familiarCombatPower(right) - leadRivalPower) || left.id.localeCompare(right.id))
+    .map((entry) => entry.id);
+  const opponentTeamIds = [...explicitRivalIds, ...reserveRivalIds].slice(0, teamBattle ? 3 : 1);
+  // In 3 contro 3 l'anteprima mostra lo stesso titolare che il motore schiererà.
+  const previewOpponentId = teamBattle ? opponentTeamIds[0] ?? safeOpponentId : safeOpponentId;
+  const opponentEntry = familiarCombatEntry(previewOpponentId);
+  const opponentPreview = previewOpponentId ? familiarCombatOpponentPreview({
     playerId: familiarId,
-    opponentId: safeOpponentId,
+    opponentId: previewOpponentId,
     circuitId: selectedCircuit.id,
     difficulty,
     opponentLevel: selectedCampaignLevel?.opponentLevel ?? activeTowerFloor?.opponentLevel ?? (testMode ? progress.combatLevel : undefined),
@@ -467,7 +488,7 @@ export function FamiglioCombatArena({
   const battlePlayerOption = familiarOptions.find((option) => option.id === (battle?.player.familiarId ?? familiarId));
   const battlePlayerName = battlePlayerEntry?.name ?? familiarName;
   const playerVisual = familiarHouseVisual(battle?.player.familiarId ?? familiarId);
-  const opponentVisual = familiarHouseVisual(battle?.opponent.familiarId ?? safeOpponentId);
+  const opponentVisual = familiarHouseVisual(battle?.opponent.familiarId ?? previewOpponentId);
   const playerHp = battle && visibleHealth?.battleId === battle.id ? visibleHealth.player : battle?.player.hp ?? 0;
   const opponentHp = battle && visibleHealth?.battleId === battle.id ? visibleHealth.opponent : battle?.opponent.hp ?? 0;
   const playerHpPercent = battle ? Math.max(0, Math.min(100, playerHp / Math.max(1, battle.player.maxHp) * 100)) : 0;
@@ -1330,7 +1351,11 @@ export function FamiglioCombatArena({
             <strong>Quattro slot di combattimento</strong>
             {[0, 1, 2, 3].map((slot) => {
               const locked = slot >= learnedMoves.length;
-              return <label key={slot} data-locked={locked}><span>Slot {slot + 1}</span><select value={progress.equippedMoveIds[slot] ?? ""} disabled={locked || !learnedMoves.length || slot > progress.equippedMoveIds.length} onChange={(event) => changeEquippedMove(slot, event.target.value)}><option value="" disabled>{locked ? "Mossa da sbloccare" : "Slot libero"}</option>{learnedMoves.map((move) => <option key={move.id} value={move.id}>{move.name}</option>)}</select></label>;
+              // Il motore tiene sempre equipaggiata la mossa base gratuita: il suo
+              // slot resta fisso invece di far scegliere una sostituzione rifiutata.
+              const equippedId = progress.equippedMoveIds[slot];
+              const baseSlot = Boolean(equippedId && familiarCombatMoveIsBase(familiarId, equippedId));
+              return <label key={slot} data-locked={locked} data-base={baseSlot} title={baseSlot ? "La mossa base resta sempre equipaggiata: garantisce un'azione gratuita in ogni turno." : undefined}><span>{baseSlot ? `Slot ${slot + 1} · Base fissa` : `Slot ${slot + 1}`}</span><select value={equippedId ?? ""} disabled={baseSlot || locked || !learnedMoves.length || slot > progress.equippedMoveIds.length} onChange={(event) => changeEquippedMove(slot, event.target.value)}><option value="" disabled>{locked ? "Mossa da sbloccare" : "Slot libero"}</option>{learnedMoves.map((move) => <option key={move.id} value={move.id}>{move.name}</option>)}</select></label>;
             })}
           </div>
           <details className={styles.moveArchive}><summary>Archivio mosse apprese ({learnedMoves.length})</summary>{learnedMoves.map((move) => <div key={move.id}><strong>{move.name}</strong><span>{moveSubtitle(move)}</span></div>)}</details>
@@ -1647,10 +1672,10 @@ export function FamiglioCombatArena({
           <div><dt>Monete</dt><dd>+{state.pendingReward.nexusCoins}</dd></div>
           <div><dt>Sigilli</dt><dd>+{state.pendingReward.nightSigils}</dd></div>
           <div><dt>Frammenti</dt><dd>+{state.pendingReward.relicFragments}</dd></div>
-        </dl> : <div className={battleStyles.defeatMessage}>{battle.outcome === "victory" ? "Esperienza di combattimento acquisita" : "Nessun oggetto perso"}</div>}
+        </dl> : <div className={battleStyles.defeatMessage}>{battle.outcome === "victory" ? "Esperienza acquisita · ricompensa di questo incontro già ottenuta" : "Nessun oggetto perso"}</div>}
         <div className={battleStyles.resultActions}>
           {battle.outcome === "victory"
-            ? <button type="button" onClick={collectReward}>{battleFormat === "tower" && towerRun?.currentFloor !== 10 ? "Raccogli · prossimo piano" : "Raccogli e continua"}</button>
+            ? <button type="button" onClick={collectReward}>{/* Nessun "Raccogli" quando il motore non ha creato una ricompensa (incontro già vinto, anche da un piano della Torre con lo stesso rivale). */}{battleFormat === "tower" && towerRun?.currentFloor !== 10 ? (state.pendingReward ? "Raccogli · prossimo piano" : "Prossimo piano") : state.pendingReward ? "Raccogli e continua" : "Continua"}</button>
             : <button type="button" onClick={rematch}>Rivincita</button>}
           <button type="button" onClick={finishBattleAtHome}>Torna alla Casa</button>
         </div>

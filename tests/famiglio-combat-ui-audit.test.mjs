@@ -97,6 +97,17 @@ test("Torre e Campagna avanzano anche quando la vittoria non assegna una nuova r
   assert.match(rematch, /ignoreUnlocks: testMode \|\| battleFormat === "tower" \|\| Boolean\(battleCampaignLevel\)/);
 });
 
+test("preparazione allineata al motore: base fissa, titolare 3v3 reale, riserve di forza simile, niente falso 'Raccogli'", async () => {
+  const arena = await source("components/FamiglioCombatArena.tsx");
+  assert.match(arena, /const baseSlot = Boolean\(equippedId && familiarCombatMoveIsBase\(familiarId, equippedId\)\)/);
+  assert.match(arena, /disabled=\{baseSlot \|\| locked/);
+  assert.match(arena, /const previewOpponentId = teamBattle \? opponentTeamIds\[0\] \?\? safeOpponentId : safeOpponentId;/);
+  assert.match(arena, /const opponentEntry = familiarCombatEntry\(previewOpponentId\)/);
+  assert.match(arena, /Math\.abs\(familiarCombatPower\(left\) - leadRivalPower\)/);
+  assert.match(arena, /state\.pendingReward \? "Raccogli · prossimo piano" : "Prossimo piano"/);
+  assert.match(arena, /state\.pendingReward \? "Raccogli e continua" : "Continua"/);
+});
+
 test("il Custode della Campagna ridisegna solo al cambio di frame e si ferma a fine posa", async () => {
   const npc = await source("components/FamiglioCampaignNpcCanvas.tsx");
   assert.match(npc, /if \(frame === lastFrame\)/);
