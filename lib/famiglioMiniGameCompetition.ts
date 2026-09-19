@@ -3,7 +3,15 @@ import {createCloudRun, advanceCloud, jumpCloud, type CloudRun} from './famiglio
 export const COMPETITION_GAMES = ['light','jump','catch','memory'] as const;
 export type CompetitionGame = typeof COMPETITION_GAMES[number];
 export type MatchAction = {type:'step'|'input'|'trap'|'gold'; value:number};
-export type MatchEngine = {run:MiniGameRun|CloudRun; random:()=>number; kind:CompetitionGame};
+export type MatchEngine = {run:MiniGameRun|CloudRun; random:()=>number; kind:CompetitionGame; lightPlacedAt?:number};
+/*
+ * Nella Luce ogni "input" è un colpo a segno: il server non riceve la posizione del tocco.
+ * Senza un limite un bot poteva inviare un colpo ogni 35 ms (≈28 punti al secondo, per un'ora).
+ * Un colpo arrivato prima di questo tempo dalla comparsa della luce è fisicamente impossibile per
+ * una persona e viene ignorato. La regola vive in applyMatchAction, condivisa da client e server,
+ * così la partita resta deterministica: il client mostra lo stesso punteggio che il server verifica.
+ */
+export const LIGHT_MIN_REACTION_MS=150;
 export function competitionWeek(now=new Date()) {
   const date=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
   const day=new Date(`${date}T12:00:00Z`);
@@ -18,11 +26,14 @@ export function createMatchEngine(kind:CompetitionGame,seed:number):MatchEngine 
 export function applyMatchAction(engine:MatchEngine,action:MatchAction) {
   const {run,kind,random}=engine;
   if(run.finished)return run;
+  if(kind==='light'&&action.type==='input'&&run.elapsed-(engine.lightPlacedAt??0)<LIGHT_MIN_REACTION_MS)return run;
   if(action.type==='step') engine.run=kind==='jump'?advanceCloud(run as CloudRun,action.value,random):advanceMiniGame(run as MiniGameRun,action.value,random);
   else if(kind==='jump')engine.run=jumpCloud(run as CloudRun);
   else if(action.type==='gold')engine.run=catchGoldenLight(run as MiniGameRun);
   else if(action.type==='trap')engine.run=pressMiniGameTrap(run as MiniGameRun,action.value);
   else engine.run=inputMiniGame(run as MiniGameRun,action.value,random);
+  // La luce si sposta dopo un colpo o quando scade: da lì riparte il tempo minimo di reazione.
+  if(kind==='light'&&(engine.run as MiniGameRun).target!==(run as MiniGameRun).target)engine.lightPlacedAt=engine.run.elapsed;
   return engine.run;
 }
 export function verifyMatch(kind:CompetitionGame,seed:number,actions:unknown,wallElapsed:number) {

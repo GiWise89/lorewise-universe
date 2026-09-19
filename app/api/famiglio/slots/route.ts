@@ -1,7 +1,8 @@
 import { env } from "@/lib/netlifyRuntime";
 import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { familiarStarterStateIsTrusted } from "@/lib/nexusFamiliarAuthority";
-import { sanitizeFamiliarCloudState } from "@/lib/nexusFamiliarCloud";
+import { FAMILIAR_CLOUD_MAX_BYTES, sanitizeFamiliarCloudState, slotSwapPrimaryStatement, slotSwapSlotStatement } from "@/lib/nexusFamiliarCloud";
+import { readBoundedJson } from "@/lib/famiglioRequestOrigin";
 import { FAMILIAR_SLOT_OFFER_IDS, familiarSlotEntitlement, familiarSlotSummary, MAX_FAMILIAR_SLOT_COUNT } from "@/lib/nexusFamiliarSlots";
 import { isPremiumFamiliarAppearance, purchasedFamiliarOfferIds, purchasedPremiumFamiliarIds } from "@/lib/nexusFamiliarCommerce";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
@@ -113,7 +114,9 @@ export async function POST(request: Request) {
     if (!isSameSiteOrigin(request, origin)) return json({ error: "Origine non valida." }, 403);
     const user = await getFamiglioUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per gestire più Famigli." }, 401);
-    const body = await request.json() as { action?: unknown; familiarId?: unknown; state?: unknown };
+    const parsed = await readBoundedJson(request, FAMILIAR_CLOUD_MAX_BYTES * 2);
+    if (!parsed.ok) return json({ error: parsed.status === 413 ? "Richiesta troppo grande." : "Richiesta non valida." }, parsed.status);
+    const body = (parsed.value && typeof parsed.value === "object" ? parsed.value : {}) as { action?: unknown; familiarId?: unknown; state?: unknown };
     const action = body.action === "start" || body.action === "switch" || body.action === "reset" ? body.action : null;
     if (!action) return json({ error: "Operazione slot non riconosciuta." }, 400);
 
@@ -201,17 +204,21 @@ export async function POST(request: Request) {
     }
 
     const revision = current.revision + 1;
+    const nextJson = JSON.stringify(nextCurrent);
     const statements = [
-      database.prepare(`UPDATE nexus_familiars SET state_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP
-        WHERE customer_id = ? AND revision = ?`).bind(JSON.stringify(nextCurrent), revision, user.id, current.revision),
-      action === "start"
-        ? database.prepare(`INSERT INTO nexus_familiar_slots (customer_id, familiar_id, state_json, revision)
-          VALUES (?, ?, ?, ?)`).bind(user.id, selectedId, JSON.stringify(current.state), current.revision)
-        : database.prepare(`UPDATE nexus_familiar_slots SET familiar_id = ?, state_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP
-          WHERE customer_id = ? AND familiar_id = ?`).bind(current.state.familiarId, JSON.stringify(current.state), displacedRevision + 1, user.id, selectedId),
+      slotSwapPrimaryStatement(database, action, { customerId: user.id, nextJson, revision, baseRevision: current.revision, selectedId }),
+      slotSwapSlotStatement(database, action, {
+        customerId: user.id, nextJson, revision, selectedId,
+        displacedId: current.state.familiarId, displacedJson: JSON.stringify(current.state),
+        displacedRevision: action === "start" ? current.revision : displacedRevision + 1,
+      }),
     ];
     const results = await database.batch(statements);
-    if (!results.every((result) => result.success)) return json({ error: "Cambio Famiglio non completato; nessun progresso è stato eliminato." }, 409);
+    // "success" è sempre vero: contano le righe toccate. Le due istruzioni sono protette a
+    // vicenda (lib/nexusFamiliarCloud.ts), quindi o cambiano entrambe o nessuna delle due.
+    if (!results.every((result) => Number(result.meta?.changes || 0) === 1)) {
+      return json({ error: "Cambio Famiglio non completato; nessun progresso è stato eliminato." }, 409);
+    }
     const refreshed = await databaseSlots(database, user.id);
     return json({ ...rosterResponse({ state: nextCurrent, revision }, refreshed, purchasedAppearanceIds, purchasedOfferIds), familiar: nextCurrent, revision, passName: pass.name, passEndsAt: pass.currentPeriodEnd });
   } catch {

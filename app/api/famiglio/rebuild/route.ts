@@ -1,12 +1,14 @@
 import { env } from "@/lib/netlifyRuntime";
-import { isFamiglioRequestOriginAllowed } from "@/lib/famiglioRequestOrigin";
+import { isFamiglioRequestOriginAllowed, readBoundedJson } from "@/lib/famiglioRequestOrigin";
 import { syncCompetitionRewards } from "@/lib/famiglioLeaderboardRewards";
 import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import {
   FAMIGLIO_REBUILD_CLOUD_MAX_BYTES,
   preserveServerOwnedAttendance,
+  rebuildSaveEntitlementViolation,
   sanitizeFamiglioRebuildCloudSave,
 } from "@/lib/famiglioRebuildCloud";
+import { purchasedFamiliarOfferIds, purchasedPremiumFamiliarIds } from "@/lib/nexusFamiliarCommerce";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 import { getFamiglioUser, saveLocalGameData } from "@/lib/localPreviewGameStore";
@@ -52,7 +54,9 @@ export async function GET() {
     const database = (env as unknown as RuntimeEnv).DB;
     if (!database) return json({ error: "Archivio Nexus Pet temporaneamente non disponibile." }, 503);
     await syncLoreWiseCustomer(user);
-    await syncCompetitionRewards(user.id);
+    // I premi settimanali sono un extra: un errore delle classifiche (o un portamonete non
+    // accreditabile) non deve impedire di caricare le Case. I premi restano non riscossi.
+    await syncCompetitionRewards(user.id).catch(() => 0);
     return json({ authenticated: true, ...await databaseSave(database, user.id) });
   } catch {
     return json({ error: "Non è stato possibile recuperare le Case del Nexus Pet." }, 503);
@@ -62,11 +66,11 @@ export async function GET() {
 export async function PUT(request: Request) {
   try {
     if (!isFamiglioRequestOriginAllowed(request)) return json({ error: "Origine non valida." }, 403);
-    const contentLength = Number(request.headers.get("content-length") || 0);
-    if (contentLength > FAMIGLIO_REBUILD_CLOUD_MAX_BYTES * 2) return json({ error: "Salvataggio troppo grande." }, 413);
     const user = await getFamiglioUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per sincronizzare le Case." }, 401);
-    const body = await request.json() as { save?: unknown; baseRevision?: unknown };
+    const parsed = await readBoundedJson(request, FAMIGLIO_REBUILD_CLOUD_MAX_BYTES * 2);
+    if (!parsed.ok) return json({ error: parsed.status === 413 ? "Salvataggio troppo grande." : "Richiesta non valida." }, parsed.status);
+    const body = (parsed.value && typeof parsed.value === "object" ? parsed.value : {}) as { save?: unknown; baseRevision?: unknown };
     const checked = sanitizeFamiglioRebuildCloudSave(body.save);
     if (!checked.ok) return json({ error: checked.error }, 400);
     const baseRevision = Math.max(0, Math.floor(Number(body.baseRevision) || 0));
@@ -92,6 +96,14 @@ export async function PUT(request: Request) {
     await syncLoreWiseCustomer(user);
     const current = await databaseSave(database, user.id);
     if (current.revision !== baseRevision) return json({ error: "Le Case sono state aggiornate su un altro dispositivo.", ...current }, 409);
+    // Case 2 e 3 e Famigli premium si sbloccano solo con un acquisto registrato (non nella
+    // prova locale senza database, dove il client apre tutte le Case per i test).
+    const [offerIds, appearanceIds] = await Promise.all([
+      purchasedFamiliarOfferIds(database, user.id),
+      purchasedPremiumFamiliarIds(database, user.id),
+    ]);
+    const violation = rebuildSaveEntitlementViolation(checked.save, current.save, { offerIds, appearanceIds });
+    if (violation) return json({ error: violation }, 403);
     const revision = current.revision + 1;
     const save = preserveServerOwnedAttendance(checked.save, current.save);
     if (current.revision === 0) {

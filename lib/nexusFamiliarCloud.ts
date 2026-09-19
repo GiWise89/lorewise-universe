@@ -128,3 +128,60 @@ export function newerFamiliarState(local: NexusFamiliarState | null, remote: Nex
   const remoteTime = Date.parse(remote.updatedAt);
   return remoteTime > localTime ? "remote" : "local";
 }
+
+/*
+ * Cambio di slot del Famiglio in un'unica transazione (database.batch). Il "success" del batch è
+ * sempre vero, quindi prima un aggiornamento del Famiglio principale respinto dal controllo di
+ * revisione lasciava comunque passare la modifica dello slot: con due schede (per esempio un
+ * riavvio e un cambio in parallelo) il Famiglio scelto veniva sovrascritto e perso.
+ * Ora le due istruzioni si proteggono a vicenda:
+ * - il principale cambia solo se lo slot da scambiare è ancora com'era (esiste, o per "start"
+ *   non esiste già una copia del Famiglio che esce);
+ * - lo slot cambia solo se nella stessa transazione il principale porta la nuova revisione e il
+ *   nuovo stato (cioè se l'istruzione precedente è davvero andata a buon fine).
+ */
+type SlotSwapAction = "start" | "switch";
+type SlotStatementDatabase = Pick<D1Database, "prepare">;
+
+export function slotSwapPrimaryStatement(database: SlotStatementDatabase, action: SlotSwapAction, input: {
+  customerId: string; nextJson: string; revision: number; baseRevision: number; selectedId: string;
+}) {
+  const slotCondition = action === "start"
+    ? "NOT EXISTS (SELECT 1 FROM nexus_familiar_slots WHERE customer_id = ? AND familiar_id = ?)"
+    : "EXISTS (SELECT 1 FROM nexus_familiar_slots WHERE customer_id = ? AND familiar_id = ?)";
+  return database.prepare(`UPDATE nexus_familiars SET state_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP
+    WHERE customer_id = ? AND revision = ? AND ${slotCondition}`)
+    .bind(input.nextJson, input.revision, input.customerId, input.baseRevision, input.customerId, input.selectedId);
+}
+
+export function slotSwapSlotStatement(database: SlotStatementDatabase, action: SlotSwapAction, input: {
+  customerId: string; nextJson: string; revision: number; selectedId: string;
+  displacedId: string; displacedJson: string; displacedRevision: number;
+}) {
+  const primaryApplied = "EXISTS (SELECT 1 FROM nexus_familiars WHERE customer_id = ? AND revision = ? AND state_json = ?)";
+  if (action === "start") {
+    return database.prepare(`INSERT INTO nexus_familiar_slots (customer_id, familiar_id, state_json, revision)
+      SELECT ?, ?, ?, CAST(? AS INTEGER) WHERE ${primaryApplied}`)
+      .bind(input.customerId, input.displacedId, input.displacedJson, input.displacedRevision,
+        input.customerId, input.revision, input.nextJson);
+  }
+  return database.prepare(`UPDATE nexus_familiar_slots SET familiar_id = ?, state_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP
+    WHERE customer_id = ? AND familiar_id = ? AND ${primaryApplied}`)
+    .bind(input.displacedId, input.displacedJson, input.displacedRevision, input.customerId, input.selectedId,
+      input.customerId, input.revision, input.nextJson);
+}
+
+/** Promozione del primo slot dopo l'eliminazione del principale: stesse garanzie del cambio slot. */
+export function slotPromotionStatements(database: SlotStatementDatabase, input: {
+  customerId: string; promotedId: string; promotedJson: string; revision: number; baseRevision: number;
+}) {
+  return [
+    database.prepare(`UPDATE nexus_familiars SET state_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP
+      WHERE customer_id = ? AND revision = ?
+        AND EXISTS (SELECT 1 FROM nexus_familiar_slots WHERE customer_id = ? AND familiar_id = ?)`)
+      .bind(input.promotedJson, input.revision, input.customerId, input.baseRevision, input.customerId, input.promotedId),
+    database.prepare(`DELETE FROM nexus_familiar_slots WHERE customer_id = ? AND familiar_id = ?
+      AND EXISTS (SELECT 1 FROM nexus_familiars WHERE customer_id = ? AND revision = ? AND state_json = ?)`)
+      .bind(input.customerId, input.promotedId, input.customerId, input.revision, input.promotedJson),
+  ];
+}
