@@ -1,6 +1,7 @@
 import { env } from "@/lib/netlifyRuntime";
 import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
-import { FAMILIAR_CLOUD_MAX_BYTES, sanitizeFamiliarCloudState } from "@/lib/nexusFamiliarCloud";
+import { FAMILIAR_CLOUD_MAX_BYTES, sanitizeFamiliarCloudState, slotPromotionStatements } from "@/lib/nexusFamiliarCloud";
+import { readBoundedJson } from "@/lib/famiglioRequestOrigin";
 import { familiarStarterStateIsTrusted, preserveAuthoritativeFamiliarState } from "@/lib/nexusFamiliarAuthority";
 import { recordFamiliarEconomyEvent, recordFamiliarSyncEvent } from "@/lib/nexusFamiliarEconomyServer";
 import { MAX_FAMILIAR_SLOT_COUNT } from "@/lib/nexusFamiliarSlots";
@@ -74,12 +75,11 @@ export async function PUT(request: Request) {
   try {
     const origin = request.headers.get("origin");
     if (!isSameSiteOrigin(request, origin)) return response({ error: "Origine non valida." }, 403);
-    const contentLength = Number(request.headers.get("content-length") || 0);
-    if (contentLength > FAMILIAR_CLOUD_MAX_BYTES * 2) return response({ error: "Salvataggio troppo grande." }, 413);
-
     const user = await getFamiglioUser();
     if (!user) return response({ error: "Accedi al LoreWise ID per sincronizzare il Famiglio." }, 401);
-    const body = await request.json() as { state?: unknown; baseRevision?: unknown };
+    const parsed = await readBoundedJson(request, FAMILIAR_CLOUD_MAX_BYTES * 2);
+    if (!parsed.ok) return response({ error: parsed.status === 413 ? "Salvataggio troppo grande." : "Richiesta non valida." }, parsed.status);
+    const body = (parsed.value && typeof parsed.value === "object" ? parsed.value : {}) as { state?: unknown; baseRevision?: unknown };
     const checked = sanitizeFamiliarCloudState(body.state);
     if (!checked.ok) return response({ error: checked.error }, 400);
     const baseRevision = Math.max(0, Math.floor(Number(body.baseRevision) || 0));
@@ -218,12 +218,15 @@ export async function DELETE(request: Request) {
     }
     if (promotedState && nextSlot) {
       const revision = current.revision + 1;
-      const results = await database.batch([
-        database.prepare(`UPDATE nexus_familiars SET state_json = ?, revision = ?, updated_at = CURRENT_TIMESTAMP
-          WHERE customer_id = ? AND revision = ?`).bind(JSON.stringify(promotedState), revision, user.id, current.revision),
-        database.prepare("DELETE FROM nexus_familiar_slots WHERE customer_id = ? AND familiar_id = ?")
-          .bind(user.id, nextSlot.familiar_id),
-      ]);
+      // Prima lo slot veniva cancellato anche quando l'aggiornamento del principale falliva per
+      // revisione cambiata: il Famiglio promosso andava perso. Ora le istruzioni sono condizionate.
+      const results = await database.batch(slotPromotionStatements(database, {
+        customerId: user.id,
+        promotedId: nextSlot.familiar_id,
+        promotedJson: JSON.stringify(promotedState),
+        revision,
+        baseRevision: current.revision,
+      }));
       const primaryChanged = Number(results[0]?.meta?.changes || 0) === 1;
       const slotRemoved = Number(results[1]?.meta?.changes || 0) === 1;
       if (!primaryChanged || !slotRemoved) return response({ error: "Il cambio di Famiglio non è stato completato. Riprova." }, 409);

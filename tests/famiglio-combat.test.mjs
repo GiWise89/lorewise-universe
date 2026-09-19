@@ -169,11 +169,14 @@ test("four equipped slots and the move archive remain separate and valid", () =>
   assert.equal(profile.learnedMoveIds.length, 8);
   assert.equal(profile.equippedMoveIds.length, 4);
   assert.equal(profile.archivedMoveIds.length, 4);
-  const moved = equipFamiliarCombatMove(state, "cat", entry.ultimateMoveId, 0);
+  // Lo slot 0 contiene la mossa base, che resta sempre equipaggiata: si sostituisce lo slot 1.
+  assert.equal(equipFamiliarCombatMove(state, "cat", entry.ultimateMoveId, 0).ok, false);
+  const moved = equipFamiliarCombatMove(state, "cat", entry.ultimateMoveId, 1);
   assert.equal(moved.ok, true, moved.error);
   state = moved.state;
   profile = familiarCombatProgress(state, "cat");
-  assert.equal(profile.equippedMoveIds[0], entry.ultimateMoveId);
+  assert.equal(profile.equippedMoveIds[1], entry.ultimateMoveId);
+  assert.equal(profile.equippedMoveIds[0], entry.initialMoveIds[0]);
   assert.equal(profile.equippedMoveIds.length, 4);
   assert.equal(new Set([...profile.equippedMoveIds, ...profile.archivedMoveIds]).size, profile.learnedMoveIds.length);
 });

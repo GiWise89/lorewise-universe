@@ -181,7 +181,10 @@ test("client saves cannot rewrite the server-owned attendance register", () => {
   const merged = preserveServerOwnedAttendance(forged, server);
   assert.deepEqual(merged.houses[0].home.attendance, server.houses[0].home.attendance);
   assert.equal(merged.houses[0].home.wallet.nexusCoins, 5);
-  assert.deepEqual(merged.houses[1], forged.houses[1]);
+  // Una Casa assente sul server non porta con sé un registro inventato: riparte da zero.
+  assert.deepEqual(merged.houses[1].home.attendance.claimedDates, []);
+  assert.deepEqual(merged.houses[1].home.attendance.streakMilestones, []);
+  assert.deepEqual(merged.houses[1].rebuild, forged.houses[1].rebuild);
   assert.equal(preserveServerOwnedAttendance(forged, null), forged);
 });
 

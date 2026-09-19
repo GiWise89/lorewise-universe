@@ -17,9 +17,14 @@ async function transaction<T>(db:CompetitionDb,work:()=>Promise<T>){
     const result=await work();await db.query('COMMIT');return result;
   }catch(error){await db.query('ROLLBACK');throw error;}
 }
+/** Troppe partite avviate: la rotta risponde 429 con questo messaggio invece del 503 generico. */
+export class CompetitionRateLimitError extends Error {}
 export async function startCompetition(db:CompetitionDb,userId:string,kind:CompetitionGame,now=Date.now()){
+  // Le partite mai concluse scadono dopo un'ora (verifyMatch le rifiuta comunque): si eliminano
+  // quelle dell'utente, così la tabella non cresce senza limiti a ogni avvio abbandonato.
+  await db.query('DELETE FROM famiglio_matches WHERE customer_id=$1 AND score IS NULL AND started_at<$2',[userId,now-2*3600000]);
   const count=await db.query('SELECT COUNT(*) AS count FROM famiglio_matches WHERE customer_id=$1 AND started_at>$2',[userId,now-60000]);
-  if(Number(count.rows[0]?.count)>=10)throw Error('Troppe partite avviate: attendi un minuto.');
+  if(Number(count.rows[0]?.count)>=10)throw new CompetitionRateLimitError('Troppe partite avviate: attendi un minuto.');
   const id=crypto.randomUUID(),seed=crypto.getRandomValues(new Uint32Array(1))[0];
   await db.query('INSERT INTO famiglio_matches(id,customer_id,kind,seed,started_at) VALUES($1,$2,$3,$4,$5)',[id,userId,kind,seed,now]);
   return {id,seed};

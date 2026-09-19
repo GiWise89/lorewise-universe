@@ -68,7 +68,13 @@ export function createFamiliarTowerRun(playerId: string, playerLevel: number, se
     const selected = pool[Math.min(pool.length - 1, Math.floor(roll * pool.length))] ?? roster[index % roster.length];
     used.add(selected.id);
     const teamBattle = [4, 8, 10].includes(index + 1);
-    const supportPool = roster.filter((entry) => entry.id !== selected.id && !used.has(entry.id));
+    // Le riserve rivali hanno una forza vicina a quella del titolare del piano.
+    // Prima erano i due Famigli più deboli dell'intero roster, così il boss
+    // del decimo piano entrava con gatto e uccellino come compagni e i piani
+    // 3 contro 3 erano i più facili della Torre invece dei più impegnativi.
+    const supportPool = roster
+      .filter((entry) => entry.id !== selected.id && !used.has(entry.id))
+      .sort((a, b) => Math.abs(power(a) - power(selected)) - Math.abs(power(b) - power(selected)) || a.id.localeCompare(b.id));
     const supportIds = teamBattle ? supportPool.slice(0, 2).map((entry) => entry.id) : [];
     supportIds.forEach((id) => used.add(id));
     return {

@@ -19,6 +19,7 @@ import {
   FAMILIAR_COMBAT_CIRCUITS,
   FAMILIAR_COMBAT_DIFFICULTIES,
 } from "../lib/famiglioCombatCatalog.ts";
+import { runFamiliarCombatFuzz } from "./fuzz-famiglio-combat.mjs";
 
 const EXPECTED_FAMILIARS = 53;
 const EXPECTED_DIRECTIONAL_MATCHUPS = EXPECTED_FAMILIARS * (EXPECTED_FAMILIARS - 1);
@@ -316,6 +317,10 @@ export function runFamiliarCombatRosterAudit() {
   }
   const actionClasses = exerciseAllActionClasses();
   const persistence = exercisePersistenceAndOneShotReward();
+  // Battaglie complete (non solo il primo turno) con invarianti, determinismo e salvataggio.
+  const { battles, turns: fuzzTurns, maxTurns, roundTrips, illegalRejected, opponentOutsideLoadout } = runFamiliarCombatFuzz({ battles: 300, seed: "audit" });
+  assert.equal(opponentOutsideLoadout, 0);
+  const fuzz = { battles, turns: fuzzTurns, maxTurns, roundTrips, illegalRejected };
   return {
     familiars: FAMILIAR_COMBAT_CATALOG.length,
     directionalMatchups,
@@ -329,6 +334,7 @@ export function runFamiliarCombatRosterAudit() {
     difficulties: difficultyCounts,
     actionClasses,
     ...persistence,
+    fuzz,
   };
 }
 
