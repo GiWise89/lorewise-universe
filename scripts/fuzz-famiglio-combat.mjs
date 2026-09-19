@@ -7,7 +7,7 @@
 // terminazione, determinismo, round-trip del salvataggio, coerenza della
 // timeline usata dalla UI per animare le barre HP e ricompense limitate.
 //
-// Uso: node scripts/fuzz-famiglio-combat.mjs [--battles 3000] [--seed fuzz] [--balance]
+// Uso: node scripts/fuzz-famiglio-combat.mjs [--battles 3000] [--seed fuzz] [--balance] [--campaign] [--tower] [--copies N]
 import assert from "node:assert/strict";
 import { pathToFileURL } from "node:url";
 import {
@@ -732,6 +732,56 @@ export function runFamiliarCombatBalance({ seed = "balance", seeds = 1, levels =
   };
 }
 
+const RARITY_GROUPS = ["comune", "raro", "epico", "leggendario"].map((rarity) => [rarity, FAMILIAR_COMBAT_CATALOG.filter((entry) => entry.rarity === rarity).map((entry) => entry.id)]);
+
+/**
+ * Vittorie per rarità del Famiglio del giocatore in ogni capitolo della storia,
+ * al livello che la storia stessa assegna (livello del rivale precedente + 1).
+ */
+export function runFamiliarCampaignBalance({ seed = "campaign-balance", copies = 3, levelOffset = 0 } = {}) {
+  const random = createHarnessRandom(seed);
+  return FAMILIAR_COMBAT_CAMPAIGN.map((level) => {
+    const row = { stage: level.number, playerLevel: Math.min(50, campaignPlayerLevel(level.number) + levelOffset), rival: level.opponentLevel, difficulty: level.difficulty, objective: level.objective, turnLimit: level.turnLimit, team: level.teamBattle };
+    let turns = 0;
+    let games = 0;
+    for (const [rarity, members] of RARITY_GROUPS) {
+      let wins = 0;
+      let total = 0;
+      for (const playerId of members) for (let copy = 0; copy < copies; copy += 1) {
+        const team = [playerId, ...random.shuffle(ALL_IDS.filter((id) => id !== playerId)).slice(0, 2)];
+        const scenario = campaignScenario(level, playerId, team, `campaign-${level.id}-${playerId}-${copy}-${levelOffset}`, row.playerLevel);
+        const played = simulateQuick(scenario, random);
+        total += 1;
+        turns += played.turns;
+        games += 1;
+        if (played.outcome === "victory") wins += 1;
+      }
+      row[rarity] = winRate(wins, total);
+    }
+    row.avgTurns = Math.round(turns / games * 10) / 10;
+    return row;
+  });
+}
+
+/** Vittorie per rarità del giocatore sui dieci piani della Torre al livello suggerito (quello del giocatore). */
+export function runFamiliarTowerBalance({ seed = "tower-balance", levels = [5, 20, 35, 50], copies = 1 } = {}) {
+  const random = createHarnessRandom(seed);
+  const rows = [];
+  for (const playerLevel of levels) for (const [rarity, members] of RARITY_GROUPS) {
+    const floors = Array.from({ length: 10 }, () => [0, 0]);
+    for (const playerId of members) for (let copy = 0; copy < copies; copy += 1) {
+      const team = [playerId, ...random.shuffle(ALL_IDS.filter((id) => id !== playerId)).slice(0, 2)];
+      for (let floor = 1; floor <= 10; floor += 1) {
+        const played = simulateQuick(towerScenario(playerId, team, playerLevel, floor, `tower-${playerLevel}-${playerId}-${copy}`), random);
+        floors[floor - 1][1] += 1;
+        if (played.outcome === "victory") floors[floor - 1][0] += 1;
+      }
+    }
+    rows.push({ playerLevel, rarity, floors: floors.map(([wins, total]) => winRate(wins, total)) });
+  }
+  return rows;
+}
+
 const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (invokedDirectly) {
   const argument = (name, fallback) => {
@@ -741,6 +791,8 @@ if (invokedDirectly) {
   const startedAt = performance.now();
   const fuzz = runFamiliarCombatFuzz({ battles: Number(argument("battles", 3000)), seed: argument("seed", "fuzz") });
   console.log(JSON.stringify({ fuzz, durationMs: Math.round(performance.now() - startedAt) }, null, 2));
+  if (process.argv.includes("--campaign")) console.table(runFamiliarCampaignBalance({ copies: Number(argument("copies", 3)), levelOffset: Number(argument("offset", 0)) }));
+  if (process.argv.includes("--tower")) for (const row of runFamiliarTowerBalance({ copies: Number(argument("copies", 1)) })) console.log(row.playerLevel, row.rarity.padEnd(12), row.floors.join(" "));
   if (process.argv.includes("--balance")) {
     const balanceStart = performance.now();
     const balance = runFamiliarCombatBalance({ seeds: Number(argument("seeds", 1)), strict: !process.argv.includes("--lenient") });
