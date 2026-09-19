@@ -14,7 +14,7 @@ export function newsletterPendingCutoff(now: Date = new Date()) {
 export const newsletterTopics = {
   cronache: { label: "Le Cronache del lunedì", description: "la lettera settimanale con uscite, giochi e novità dal Nexus" },
   "avvisami:demon-match-android": { label: "Demon Match Three su Android", description: "un solo avviso quando Demon Match Three sarà disponibile su Android" },
-  "avvisami:sandbox": { label: "SandBox", description: "un solo avviso quando SandBox sarà giocabile" },
+  "avvisami:sandbox": { label: "Prima Terra", description: "un solo avviso quando Prima Terra sarà giocabile" },
 } as const;
 
 export type NewsletterTopic = keyof typeof newsletterTopics;

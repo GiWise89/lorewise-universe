@@ -1069,7 +1069,7 @@ test("renders the real GiWise Studio game catalog without simulated purchases", 
   assert.match(html, /The Wound Remembers/);
   assert.match(html, /Il Patto delle Ceneri/);
   assert.match(html, /Demon Match Three/);
-  assert.match(html, /SandBox/);
+  assert.match(html, /Prima Terra/);
   assert.match(html, /Giocabile ora/);
   assert.match(html, /In sviluppo/);
   assert.match(html, /GS-GAME-001/);
