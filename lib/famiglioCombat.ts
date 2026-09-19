@@ -322,6 +322,31 @@ const STATUS_NAMES: Readonly<Record<string, string>> = {
   ward: "Protezione",
 };
 
+// Stati che si applicano a chi li lancia invece che al bersaglio.
+const SELF_TARGETED_STATUSES: readonly string[] = ["focus", "regen", "guard"];
+// Stati che modificano la prossima azione di chi li porta (blocco, paralisi,
+// attacco ridotto o potenziato). La loro durata conta le azioni subite, non i
+// turni trascorsi: se arrivano dopo che il portatore ha già agito nel turno,
+// non devono scadere alla fine di quello stesso turno.
+const ACTION_STATUSES: readonly string[] = ["freeze", "sleep", "paralysis", "focus", "weaken"];
+// Chiavi possibili: 20 capitoli + 6 circuiti x 3 difficoltà x 52 rivali = 956.
+// Il vecchio limite (le prime 500) scartava proprio le chiavi più recenti: oltre
+// quella soglia ogni nuovo incontro vinto tornava "primo completamento" dopo il
+// ricaricamento, con premio di nuovo riscuotibile, e i capitoli di campagna
+// completati sparivano bloccando la storia. Il limite copre ora l'intero
+// universo; per sicurezza, se superato, si conservano sempre i capitoli e le
+// chiavi più recenti.
+const MAX_STORED_ENCOUNTER_KEYS = 1_000;
+
+function boundedEncounterKeys(keys: readonly unknown[]) {
+  const list = [...new Set(keys.map(String).filter(Boolean))];
+  if (list.length <= MAX_STORED_ENCOUNTER_KEYS) return list;
+  const campaign = list.filter((key) => key.startsWith("campaign-"));
+  const others = list.filter((key) => !key.startsWith("campaign-"));
+  const kept = new Set([...campaign, ...others.slice(-(MAX_STORED_ENCOUNTER_KEYS - campaign.length))]);
+  return list.filter((key) => kept.has(key));
+}
+
 const RARITY_RANK: Readonly<Record<string, number>> = {
   comune: 0,
   common: 0,
@@ -575,7 +600,14 @@ function reconcileMoveLoadout(
     ...(entry.initialEquippedMoveIds ?? entry.initialMoveIds),
     ...learnedMoveIds,
   ]).filter((moveId) => learnedMoveIds.includes(moveId));
-  const equippedMoveIds = preferred.slice(0, FAMILIAR_COMBAT_MOVE_SLOTS);
+  let equippedMoveIds = preferred.slice(0, FAMILIAR_COMBAT_MOVE_SLOTS);
+  // La mossa base (gratuita, illimitata, senza ricarica) resta sempre
+  // equipaggiata: senza di essa quattro mosse costose o a usi limitati possono
+  // esaurire energia e utilizzi e lasciare il Famiglio senza alcuna azione.
+  const baseMoveId = entry.initialMoveIds[0];
+  if (baseMoveId && learnedMoveIds.includes(baseMoveId) && !equippedMoveIds.includes(baseMoveId)) {
+    equippedMoveIds = [...equippedMoveIds.slice(0, FAMILIAR_COMBAT_MOVE_SLOTS - 1), baseMoveId];
+  }
   return {
     learnedMoveIds,
     equippedMoveIds,
@@ -647,6 +679,9 @@ export function equipFamiliarCombatMove(
     const existingSlot = equippedMoveIds.indexOf(moveId);
     const displacedMove = equippedMoveIds[requestedSlot];
     if (existingSlot === requestedSlot) return { ok: true as const, state };
+    if (existingSlot < 0 && displacedMove && familiarCombatMoveIsBase(familiarId, displacedMove)) {
+      return { ok: false as const, state, error: "La mossa base resta sempre equipaggiata: garantisce un'azione gratuita in ogni turno." };
+    }
     if (existingSlot >= 0 && displacedMove) {
       equippedMoveIds[requestedSlot] = moveId;
       equippedMoveIds[existingSlot] = displacedMove;
@@ -688,9 +723,11 @@ function encounterKey(circuitId: string, difficulty: FamiliarCombatDifficulty, o
 }
 
 function completedEncounterKey(battle: FamiliarCombatBattle) {
+  // In 3 contro 3 il rivale in campo alla fine è l'ultimo della squadra: la
+  // chiave deve restare quella del titolare con cui l'incontro è iniziato.
   return battle.encounterId.startsWith("campaign-")
     ? battle.encounterId
-    : encounterKey(battle.circuitId, battle.difficulty, battle.opponent.familiarId);
+    : encounterKey(battle.circuitId, battle.difficulty, battle.opponentTeamFamiliarIds[0] ?? battle.opponent.familiarId);
 }
 
 export function combatDifficultyIsUnlocked(
@@ -763,6 +800,15 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
   const teamIds = unique([playerEntry.id, ...(teamBattle ? options.playerTeamIds ?? [] : [])])
     .filter((id) => Boolean(familiarEntry(id)))
     .slice(0, 3);
+  // In 3 contro 3 il rivale richiesto può coincidere con un membro della squadra
+  // del giocatore (es. la campagna sceglie il rivale evitando solo il capofila):
+  // prima lo stesso Famiglio finiva su entrambi i lati del campo. Il titolare
+  // rivale è quindi il primo membro rivale non già schierato dal giocatore.
+  const opponentTeamIds = unique([opponentEntry.id, ...(teamBattle ? options.opponentTeamIds ?? [] : [])])
+    .filter((id) => Boolean(familiarEntry(id)) && !teamIds.includes(id))
+    .slice(0, 3);
+  const leadOpponent = familiarEntry(opponentTeamIds[0] ?? "");
+  if (!leadOpponent) return { ok: false as const, state, error: "Il rivale fa già parte della tua squadra: scegli un altro avversario." };
   const withPlayer = teamIds.reduce((current, id) => ensureFamiliarCombatProgress(current, id), state);
   const progress = familiarCombatProgress(withPlayer, playerEntry.id);
   const [minimum] = circuitRange(circuit);
@@ -776,20 +822,17 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
     return { ok: false as const, state, error: "Completa la difficoltà precedente per sbloccarla." };
   }
   const opponents = familiarCombatOpponents(playerEntry.id, circuit.id);
-  if (!options.ignoreUnlocks && !opponents.includes(opponentEntry.id)) {
+  if (!options.ignoreUnlocks && !opponents.includes(leadOpponent.id)) {
     return { ok: false as const, state, error: "Questo avversario appartiene a un altro circuito." };
   }
   const opponentPreview = familiarCombatOpponentPreview({
     playerId: playerEntry.id,
-    opponentId: opponentEntry.id,
+    opponentId: leadOpponent.id,
     circuitId: circuit.id,
     difficulty,
     opponentLevel: options.opponentLevel,
   });
   if (!opponentPreview) return { ok: false as const, state, error: "Anteprima dell'avversario non disponibile." };
-  const opponentTeamIds = unique([opponentEntry.id, ...(teamBattle ? options.opponentTeamIds ?? [] : [])])
-    .filter((id) => Boolean(familiarEntry(id)) && !teamIds.includes(id))
-    .slice(0, 3);
   const opponentBench = opponentTeamIds.slice(1).flatMap((id) => {
     const preview = familiarCombatOpponentPreview({
       playerId: playerEntry.id,
@@ -800,8 +843,8 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
     });
     return preview ? [preview.actor] : [];
   });
-  const encounterId = options.encounterId ?? encounterKey(circuit.id, difficulty, opponentEntry.id);
-  const battleSeed = normalizedSeed(`${withPlayer.seed}:${playerEntry.id}:${opponentEntry.id}:${encounterId}:${progress.battlesCompleted}`);
+  const encounterId = options.encounterId ?? encounterKey(circuit.id, difficulty, leadOpponent.id);
+  const battleSeed = normalizedSeed(`${withPlayer.seed}:${playerEntry.id}:${leadOpponent.id}:${encounterId}:${progress.battlesCompleted}`);
   const playerActor = battleActor(playerEntry.id, progress.combatLevel, 1, options.playerStatBonus, options.playerEvolutionPath);
   const playerBench = teamIds.slice(1).map((id) => {
     const memberProgress = familiarCombatProgress(withPlayer, id);
@@ -838,8 +881,8 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
     timeline: [],
     log: [
       `${playerEntry.name} entra nell'Arena.`,
-      `${opponentEntry.name} accetta la sfida.`,
-      `Iniziativa ${initiativeRoll.initiative.playerTotal} a ${initiativeRoll.initiative.opponentTotal}: ${initiativeRoll.initiative.first === "player" ? playerEntry.name : opponentEntry.name} agirà per primo.`,
+      `${leadOpponent.name} accetta la sfida.`,
+      `Iniziativa ${initiativeRoll.initiative.playerTotal} a ${initiativeRoll.initiative.opponentTotal}: ${initiativeRoll.initiative.first === "player" ? playerEntry.name : leadOpponent.name} agirà per primo.`,
     ],
   };
   return {
@@ -849,7 +892,7 @@ export function startFamiliarCombatBattle(state: FamiliarCombatState, options: S
       activeBattle: battle,
       pendingReward: null,
       lastTimeline: [],
-      lastMessage: `Inizia l'incontro contro ${opponentEntry.name}.`,
+      lastMessage: `Inizia l'incontro contro ${leadOpponent.name}.`,
     },
   };
 }
@@ -861,7 +904,9 @@ export function switchFamiliarCombatant(state: FamiliarCombatState, familiarId: 
   if (original.player.energy < FAMILIAR_COMBAT_SWITCH_ENERGY_COST) return { ok: false as const, state, error: `Servono ${FAMILIAR_COMBAT_SWITCH_ENERGY_COST} EN per cambiare Famiglio.` };
   const index = original.playerBench.findIndex((actor) => actor.familiarId === familiarId && actor.hp > 0);
   if (index < 0) return { ok: false as const, state, error: "Questo Famiglio non può entrare ora." };
-  const incoming = { ...original.playerBench[index], statuses: [...original.playerBench[index].statuses, { id: "focus", name: STATUS_NAMES.focus, remainingTurns: 1, potency: 8, sourceMoveId: "team-resonance" }] };
+  // La Risonanza sostituisce un'eventuale Concentrazione passiva ancora in
+  // riserva: due stati con lo stesso id non devono mai coesistere.
+  const incoming = { ...original.playerBench[index], statuses: [...original.playerBench[index].statuses.filter((status) => status.id !== "focus"), { id: "focus", name: STATUS_NAMES.focus, remainingTurns: 1, potency: 8, sourceMoveId: "team-resonance" }] };
   const bench = [...original.playerBench];
   bench.splice(index, 1, { ...original.player, energy: original.player.energy - FAMILIAR_COMBAT_SWITCH_ENERGY_COST });
   const message = `${incoming.familiarId} entra in campo: Risonanza di squadra attiva, ${FAMILIAR_COMBAT_SWITCH_ENERGY_COST} EN consumata.`;
@@ -876,9 +921,20 @@ function learnedMovesForActor(actor: FamiliarCombatActor) {
   return ids.map(normalizedMove).filter((move): move is CatalogMoveLike => Boolean(move));
 }
 
+// Loadout dell'IA: la mossa base gratuita più le tre tecniche più recenti.
+// Prima erano le ultime quattro apprese, che ad alto livello escludevano la
+// mossa base: a energia esaurita l'IA la usava comunque come ripiego, cioè una
+// mossa assente dalle "Mosse osservabili" mostrate al giocatore.
+function opponentLoadoutFrom<T extends { id: string }>(familiarId: string, learned: readonly T[]) {
+  const baseMoveId = familiarEntry(familiarId)?.initialMoveIds[0];
+  const base = learned.find((move) => move.id === baseMoveId);
+  if (!base) return learned.slice(-FAMILIAR_COMBAT_MOVE_SLOTS);
+  const others = learned.filter((move) => move !== base);
+  return [base, ...others.slice(-(FAMILIAR_COMBAT_MOVE_SLOTS - 1))];
+}
+
 function opponentLoadoutForActor(actor: FamiliarCombatActor) {
-  const learned = learnedMovesForActor(actor);
-  return learned.slice(-FAMILIAR_COMBAT_MOVE_SLOTS);
+  return opponentLoadoutFrom(actor.familiarId, learnedMovesForActor(actor));
 }
 
 export function familiarCombatOpponentPreview(
@@ -899,7 +955,7 @@ export function familiarCombatOpponentPreview(
   const learnedMoves = learnedMovesForActor(actor)
     .map((move) => COMBAT_MOVES_BY_ID[move.id])
     .filter((move): move is CombatMove => Boolean(move));
-  const moves = learnedMoves.slice(-FAMILIAR_COMBAT_MOVE_SLOTS);
+  const moves = opponentLoadoutFrom(opponent.id, learnedMoves);
   const moveIds = moves.map((move) => move.id);
   return {
     familiarId: opponent.id,
@@ -966,10 +1022,24 @@ function estimatedDamage(move: CatalogMoveLike, attacker: FamiliarCombatActor, d
   return (integer(move.power, 24, 0, 200) + effectiveAttack(attacker) * .4) * Number(affinity || 1) - defender.stats.defense * .22;
 }
 
+// Formula unica del danno, condivisa da risoluzione e anteprima: la UI mostra
+// "~N danni" e prima usava una stima diversa (fino a +60% sul danno reale).
+function moveDamage(move: CatalogMoveLike, attacker: FamiliarCombatActor, defender: FamiliarCombatActor, varianceRoll: number, critical: number) {
+  const basePower = integer(move.power, actionKind(move) === "status" ? 0 : 24, 0, 200);
+  if (basePower <= 0) return 0;
+  const levelTerm = 2 * attacker.level / 5 + 2;
+  const baseDamage = (levelTerm * basePower * effectiveAttack(attacker) / Math.max(1, defender.stats.defense)) / 32 + 4;
+  const affinity = Number(affinityMultiplier(moveAffinity(move, attacker.familiarId) as never, affinityFor(defender.familiarId) as never) || 1);
+  let damage = Math.max(Math.round(defender.maxHp * .045), Math.round(baseDamage * affinity * (.92 + varianceRoll * .08) * critical));
+  const ward = defender.statuses.find((status) => status.id === "ward");
+  if (defender.guarding || ward) damage = Math.max(1, Math.round(damage * (1 - (ward?.potency ?? 55) / 100)));
+  return damage;
+}
+
 export function familiarCombatDamagePreview(attacker: FamiliarCombatActor, defender: FamiliarCombatActor, moveId: string) {
   const move = normalizedMove(moveId);
   if (!move || !["physical", "magic"].includes(actionKind(move))) return 0;
-  return Math.max(1, Math.round(estimatedDamage(move, attacker, defender)));
+  return Math.max(1, moveDamage(move, attacker, defender, .5, 1));
 }
 
 function chooseOpponentMove(battle: FamiliarCombatBattle) {
@@ -1044,7 +1114,12 @@ function phaseEvent(
   });
 }
 
-function tickStatuses(actor: FamiliarCombatActor, battle: FamiliarCombatBattle, events: FamiliarCombatTimelineEvent[]) {
+function tickStatuses(
+  actor: FamiliarCombatActor,
+  battle: FamiliarCombatBattle,
+  events: FamiliarCombatTimelineEvent[],
+  freshStatusIds: ReadonlySet<string> = new Set(),
+) {
   let hp = actor.hp;
   const statuses: FamiliarCombatStatus[] = [];
   for (const status of actor.statuses) {
@@ -1085,7 +1160,10 @@ function tickStatuses(actor: FamiliarCombatActor, battle: FamiliarCombatBattle, 
         message: `${STATUS_NAMES[status.id] ?? status.name}: ${amount} HP recuperati.`,
       });
     }
-    if (status.remainingTurns > 1) statuses.push({ ...status, remainingTurns: status.remainingTurns - 1 });
+    // Uno stato d'azione arrivato dopo che il portatore aveva già agito non ha
+    // ancora avuto effetto: la sua durata inizia a scalare dal turno successivo.
+    if (freshStatusIds.has(status.id)) statuses.push(status);
+    else if (status.remainingTurns > 1) statuses.push({ ...status, remainingTurns: status.remainingTurns - 1 });
   }
   return { ...actor, hp, statuses };
 }
@@ -1120,7 +1198,7 @@ function applyAction(
       id: "ward", name: STATUS_NAMES.ward, remainingTurns: 1, potency: 55, sourceMoveId: move.id,
     }];
     phaseEvent(battle, events, attacker, defender, move, "guard", 620, `${moveName} protegge ${attacker.familiarId}.`, { statusId: "ward" });
-    return { attacker, defender, rngState, damage: 0 };
+    return { attacker, defender, rngState, damage: 0, appliedStatus: null };
   }
   if (kind === "heal") {
     const rawAmount = move.healingRatio
@@ -1142,51 +1220,52 @@ function applyAction(
       }];
     }
     phaseEvent(battle, events, attacker, attacker, move, "status", 660, `${attacker.familiarId} recupera ${amount} HP.`, { amount, statusId: status?.id ?? "heal" });
-    return { attacker, defender, rngState, damage: 0 };
+    return { attacker, defender, rngState, damage: 0, appliedStatus: null };
   }
   if (kind === "physical") phaseEvent(battle, events, attacker, defender, move, "advance", 520, `${attacker.familiarId} corre verso l'avversario.`);
   else if (kind === "magic") phaseEvent(battle, events, attacker, defender, move, "projectile", 680, `${moveName} attraversa l'Arena.`);
 
   let seed = rngState;
-  const [accuracyRoll, afterAccuracy] = nextRandom(seed);
-  seed = afterAccuracy;
-  const rawAccuracy = Number(move.accuracy ?? 1);
-  const focus = attacker.statuses.find((status) => status.id === "focus");
-  const accuracy = Math.min(1, Math.max(.35, (rawAccuracy > 1 ? rawAccuracy / 100 : rawAccuracy) + (focus ? focus.potency / 100 : 0)));
-  const speedAdvantage = Math.max(-35, Math.min(70, effectiveSpeed(defender) - effectiveSpeed(attacker)));
-  const dodgeChance = Math.min(.11, Math.max(.04, .055 + speedAdvantage / 1_000 + (defender.role === "agile" ? .015 : 0)));
-  const hitThreshold = Math.max(.35, accuracy - dodgeChance);
-  if (accuracyRoll > hitThreshold) {
-    const dodged = accuracyRoll <= accuracy;
-    phaseEvent(battle, events, attacker, defender, move, "impact", 1_460, dodged ? `${defender.familiarId} schiva ${moveName}.` : `${moveName} manca il bersaglio.`, { amount: 0, missed: true });
-    if (kind === "physical") phaseEvent(battle, events, attacker, defender, move, "return", 420, `${attacker.familiarId} torna al proprio posto.`);
-    return { attacker, defender, rngState: seed, damage: 0 };
-  }
-
-  const [varianceRoll, afterVariance] = nextRandom(seed);
-  seed = afterVariance;
-  const [criticalRoll, afterCritical] = nextRandom(seed);
-  seed = afterCritical;
   const basePower = integer(move.power, kind === "status" ? 0 : 24, 0, 200);
+  const status = moveStatus(move);
+  // Un potenziamento su se stessi senza danno (Sigillo stellare) non viaggia
+  // verso l'avversario: non può essere schivato né "raggiungere il bersaglio".
+  const selfOnly = basePower === 0 && Boolean(status && SELF_TARGETED_STATUSES.includes(status.id));
   let damage = 0;
-  if (basePower > 0) {
-    const levelTerm = 2 * attacker.level / 5 + 2;
-    const baseDamage = (levelTerm * basePower * effectiveAttack(attacker) / Math.max(1, defender.stats.defense)) / 32 + 4;
-    const affinity = Number(affinityMultiplier(moveAffinity(move, attacker.familiarId) as never, affinityFor(defender.familiarId) as never) || 1);
-    const critical = initiativeCritical || criticalRoll < Math.min(.24, .045 + (attacker.role === "agile" ? .025 : 0) + Math.max(0, effectiveSpeed(attacker) - effectiveSpeed(defender)) / 420) ? 1.5 : 1;
-    damage = Math.max(Math.round(defender.maxHp * .045), Math.round(baseDamage * affinity * (.92 + varianceRoll * .08) * critical));
-    const ward = defender.statuses.find((status) => status.id === "ward");
-    if (defender.guarding || ward) damage = Math.max(1, Math.round(damage * (1 - (ward?.potency ?? 55) / 100)));
-    defender.hp = Math.max(0, defender.hp - damage);
-    defender.guarding = false;
-    defender.statuses = defender.statuses.filter((status) => status.id !== "ward");
-    phaseEvent(battle, events, attacker, defender, move, "impact", 260, `${initiativeCritical ? "Critico d'iniziativa! " : ""}${moveName} infligge ${damage} danni.`, { amount: damage });
-    phaseEvent(battle, events, attacker, defender, move, "reaction", 420, `${defender.familiarId} reagisce al colpo.`, { amount: damage });
-  } else {
-    phaseEvent(battle, events, attacker, defender, move, "impact", 260, `${moveName} raggiunge il bersaglio.`, { amount: 0 });
+  if (!selfOnly) {
+    const [accuracyRoll, afterAccuracy] = nextRandom(seed);
+    seed = afterAccuracy;
+    const rawAccuracy = Number(move.accuracy ?? 1);
+    const focus = attacker.statuses.find((candidate) => candidate.id === "focus");
+    const accuracy = Math.min(1, Math.max(.35, (rawAccuracy > 1 ? rawAccuracy / 100 : rawAccuracy) + (focus ? focus.potency / 100 : 0)));
+    const speedAdvantage = Math.max(-35, Math.min(70, effectiveSpeed(defender) - effectiveSpeed(attacker)));
+    const dodgeChance = Math.min(.11, Math.max(.04, .055 + speedAdvantage / 1_000 + (defender.role === "agile" ? .015 : 0)));
+    const hitThreshold = Math.max(.35, accuracy - dodgeChance);
+    if (accuracyRoll > hitThreshold) {
+      const dodged = accuracyRoll <= accuracy;
+      phaseEvent(battle, events, attacker, defender, move, "impact", 1_460, dodged ? `${defender.familiarId} schiva ${moveName}.` : `${moveName} manca il bersaglio.`, { amount: 0, missed: true });
+      if (kind === "physical") phaseEvent(battle, events, attacker, defender, move, "return", 420, `${attacker.familiarId} torna al proprio posto.`);
+      return { attacker, defender, rngState: seed, damage: 0, appliedStatus: null };
+    }
+
+    const [varianceRoll, afterVariance] = nextRandom(seed);
+    seed = afterVariance;
+    const [criticalRoll, afterCritical] = nextRandom(seed);
+    seed = afterCritical;
+    if (basePower > 0) {
+      const critical = initiativeCritical || criticalRoll < Math.min(.24, .045 + (attacker.role === "agile" ? .025 : 0) + Math.max(0, effectiveSpeed(attacker) - effectiveSpeed(defender)) / 420) ? 1.5 : 1;
+      damage = moveDamage(move, attacker, defender, varianceRoll, critical);
+      defender.hp = Math.max(0, defender.hp - damage);
+      defender.guarding = false;
+      defender.statuses = defender.statuses.filter((candidate) => candidate.id !== "ward");
+      phaseEvent(battle, events, attacker, defender, move, "impact", 260, `${initiativeCritical ? "Critico d'iniziativa! " : ""}${moveName} infligge ${damage} danni.`, { amount: damage });
+      phaseEvent(battle, events, attacker, defender, move, "reaction", 420, `${defender.familiarId} reagisce al colpo.`, { amount: damage });
+    } else {
+      phaseEvent(battle, events, attacker, defender, move, "impact", 260, `${moveName} raggiunge il bersaglio.`, { amount: 0 });
+    }
   }
 
-  const status = moveStatus(move);
+  let appliedStatus: { id: string; self: boolean } | null = null;
   if (status && defender.hp > 0) {
     const [statusRoll, afterStatus] = nextRandom(seed);
     seed = afterStatus;
@@ -1200,19 +1279,20 @@ function applyAction(
         potency: status.potency,
         sourceMoveId: move.id,
       };
-      const selfTargeted = ["focus", "regen", "guard"].includes(applied.id);
+      const selfTargeted = SELF_TARGETED_STATUSES.includes(applied.id);
       if (selfTargeted) attacker.statuses = [...attacker.statuses.filter((candidate) => candidate.id !== applied.id), applied];
       else {
         const mutuallyExclusiveControl = ["freeze", "paralysis", "sleep"];
         defender.statuses = [...defender.statuses.filter((candidate) => candidate.id !== applied.id
           && !(mutuallyExclusiveControl.includes(applied.id) && mutuallyExclusiveControl.includes(candidate.id))), applied];
       }
+      appliedStatus = { id: applied.id, self: selfTargeted };
       phaseEvent(battle, events, attacker, selfTargeted ? attacker : defender, move, "status", 420,
         selfTargeted ? `${applied.name} rafforza ${attacker.familiarId}.` : `${applied.name} colpisce ${defender.familiarId}.`, { statusId: applied.id });
     }
   }
   if (kind === "physical") phaseEvent(battle, events, attacker, defender, move, "return", 500, `${attacker.familiarId} torna al proprio posto.`);
-  return { attacker, defender, rngState: seed, damage };
+  return { attacker, defender, rngState: seed, damage, appliedStatus };
 }
 
 function combatRewardFor(battle: FamiliarCombatBattle, firstClear: boolean): FamiliarCombatReward {
@@ -1257,7 +1337,7 @@ function concludeBattle(
   const combatLevel = combatLevelForXp(combatXp);
   const entry = familiarEntry(old.familiarId)!;
   const loadout = reconcileMoveLoadout(entry, old.learnedSchedule, combatLevel, old.equippedMoveIds);
-  const completedEncounters = firstClear ? [...old.completedEncounters, key] : old.completedEncounters;
+  const completedEncounters = firstClear ? boundedEncounterKeys([...old.completedEncounters, key]) : old.completedEncounters;
   const updatedWins = old.wins + (outcome === "victory" ? 1 : 0);
   const unlockedDifficulties = difficultyOrder.filter((difficulty) => updatedWins >= DIFFICULTY_RULES[difficulty].unlockWins);
   const nextProgress: FamiliarCombatProgress = {
@@ -1337,10 +1417,16 @@ export function performFamiliarCombatTurn(state: FamiliarCombatState, playerMove
       ? playerPriority > opponentPriority
       : effectiveSpeed(battle.player) >= effectiveSpeed(battle.opponent);
 
+  // Lati che hanno già usato il proprio slot d'azione in questo turno e stati
+  // d'azione ricevuti dopo quel momento (vedi ACTION_STATUSES).
+  const acted = { player: false, opponent: false };
+  const freshStatuses = { player: new Set<string>(), opponent: new Set<string>() };
+
   const execute = (playerActs: boolean) => {
     const source = playerActs ? battle.player : battle.opponent;
     const target = playerActs ? battle.opponent : battle.player;
     if (source.hp <= 0 || target.hp <= 0) return;
+    acted[playerActs ? "player" : "opponent"] = true;
     const move = playerActs ? playerMove : opponentMove;
     const blockingStatus = source.statuses.find((status) => status.id === "freeze" || status.id === "sleep");
     if (blockingStatus) {
@@ -1388,6 +1474,10 @@ export function performFamiliarCombatTurn(state: FamiliarCombatState, playerMove
       ? battle.initiative?.playerCritical
       : battle.initiative?.opponentCritical);
     const result = applyAction(battle, source, target, move, battle.rngState, events, initiativeCritical);
+    if (result.appliedStatus && ACTION_STATUSES.includes(result.appliedStatus.id)) {
+      const recipient = result.appliedStatus.self === playerActs ? "player" : "opponent";
+      if (acted[recipient]) freshStatuses[recipient].add(result.appliedStatus.id);
+    }
     battle = {
       ...battle,
       rngState: result.rngState,
@@ -1405,16 +1495,25 @@ export function performFamiliarCombatTurn(state: FamiliarCombatState, playerMove
   battle = {
     ...battle,
     player: {
-      ...tickStatuses(battle.player, battle, events),
+      ...tickStatuses(battle.player, battle, events, freshStatuses.player),
       energy: Math.min(battle.player.maxEnergy, battle.player.energy + FAMILIAR_COMBAT_ENERGY_REGEN),
     },
     opponent: {
-      ...tickStatuses(battle.opponent, battle, events),
+      ...tickStatuses(battle.opponent, battle, events, freshStatuses.opponent),
       energy: Math.min(battle.opponent.maxEnergy, battle.opponent.energy + FAMILIAR_COMBAT_ENERGY_REGEN),
     },
     log: [...battle.log, ...events.filter((event) => ["impact", "guard", "status", "result"].includes(event.phase)).map((event) => event.message)].slice(-20),
     switchCooldown: Math.max(0, battle.switchCooldown - 1),
   };
+
+  // Risoluzione dei KO di entrambi i lati nello stesso turno. Prima si
+  // controllava solo un lato e si usciva subito: se l'avversario veniva
+  // sostituito (3 contro 3) o passava alla fase successiva del boss mentre il
+  // Famiglio del giocatore cadeva per bruciatura/veleno, quest'ultimo restava in
+  // campo con 0 HP, il giocatore sceglieva una mossa che veniva ignorata e il
+  // cambio arrivava solo un turno dopo.
+  const messages: string[] = [];
+  let opponentContinues = true;
   if (battle.opponent.hp <= 0) {
     const opponentReplacementIndex = battle.opponentBench.findIndex((actor) => actor.hp > 0);
     if (opponentReplacementIndex >= 0) {
@@ -1423,10 +1522,9 @@ export function performFamiliarCombatTurn(state: FamiliarCombatState, playerMove
       bench.splice(opponentReplacementIndex, 1, battle.opponent);
       const message = `${replacement.familiarId} entra per la squadra rivale.`;
       events.push({ id: `${battle.id}-${battle.turn}-${events.length + 1}`, order: events.length, actorId: replacement.familiarId, targetId: replacement.familiarId, moveId: "team-relay", phase: "status", durationMs: 900, actionKind: "status", vfxCue: "ombra-void", audioCue: "status-focus", statusId: "focus", message });
-      battle = { ...battle, opponent: replacement, opponentBench: bench, lastOpponentMoveId: null, opponentMoveStreak: 0, bossPhasesRemaining: 1, turn: battle.turn + 1, timeline: events, log: [...battle.log, message].slice(-20) };
-      return { ok: true as const, state: { ...state, activeBattle: battle, lastTimeline: events, lastMessage: message }, timeline: events, opponentMoveId: opponentMove.id };
-    }
-    if (battle.bossPhasesRemaining > 1) {
+      battle = { ...battle, opponent: replacement, opponentBench: bench, lastOpponentMoveId: null, opponentMoveStreak: 0, bossPhasesRemaining: 1, log: [...battle.log, message].slice(-20) };
+      messages.push(message);
+    } else if (battle.bossPhasesRemaining > 1) {
       const nextRemaining = battle.bossPhasesRemaining - 1;
       const nextPhase = battle.bossPhasesTotal - nextRemaining + 1;
       events.push({
@@ -1457,31 +1555,37 @@ export function performFamiliarCombatTurn(state: FamiliarCombatState, playerMove
           },
         },
         bossPhasesRemaining: nextRemaining,
-        turn: battle.turn + 1,
-        timeline: events,
       };
-      return { ok: true as const, state: { ...state, activeBattle: battle, lastTimeline: events, lastMessage: `Fase ${nextPhase}/${battle.bossPhasesTotal}: la corruzione si intensifica.` }, timeline: events, opponentMoveId: opponentMove.id };
+      messages.push(`Fase ${nextPhase}/${battle.bossPhasesTotal}: la corruzione si intensifica.`);
+    } else {
+      opponentContinues = false;
     }
-    const concluded = concludeBattle(state, { ...battle, rngState: battle.rngState }, "victory", events);
+  }
+  // KO simultaneo senza riserve rivali: la vittoria resta al giocatore, come prima.
+  if (!opponentContinues) {
+    const concluded = concludeBattle(state, battle, "victory", events);
     return { ok: true as const, state: concluded.state, timeline: events, opponentMoveId: opponentMove.id };
   }
   if (battle.player.hp <= 0) {
     const replacementIndex = battle.playerBench.findIndex((actor) => actor.hp > 0);
-    if (replacementIndex >= 0) {
-      const replacement = battle.playerBench[replacementIndex];
-      const bench = [...battle.playerBench];
-      bench.splice(replacementIndex, 1, battle.player);
-      const message = `${replacement.familiarId} raccoglie il Legame e continua la battaglia.`;
-      events.push({ id: `${battle.id}-${battle.turn}-${events.length + 1}`, order: events.length, actorId: replacement.familiarId, targetId: replacement.familiarId, moveId: "team-relay", phase: "status", durationMs: 900, actionKind: "status", vfxCue: "arcano-burst", audioCue: "status-focus", statusId: "focus", message });
-      battle = { ...battle, player: replacement, playerBench: bench, switchCooldown: 1, turn: battle.turn + 1, timeline: events, log: [...battle.log, message].slice(-20) };
-      return { ok: true as const, state: { ...state, activeBattle: battle, lastTimeline: events, lastMessage: message }, timeline: events, opponentMoveId: opponentMove.id };
+    if (replacementIndex < 0) {
+      const concluded = concludeBattle(state, battle, "defeat", events);
+      return { ok: true as const, state: concluded.state, timeline: events, opponentMoveId: opponentMove.id };
     }
-    const concluded = concludeBattle(state, { ...battle, rngState: battle.rngState }, "defeat", events);
-    return { ok: true as const, state: concluded.state, timeline: events, opponentMoveId: opponentMove.id };
+    const replacement = battle.playerBench[replacementIndex];
+    const bench = [...battle.playerBench];
+    bench.splice(replacementIndex, 1, battle.player);
+    const message = `${replacement.familiarId} raccoglie il Legame e continua la battaglia.`;
+    events.push({ id: `${battle.id}-${battle.turn}-${events.length + 1}`, order: events.length, actorId: replacement.familiarId, targetId: replacement.familiarId, moveId: "team-relay", phase: "status", durationMs: 900, actionKind: "status", vfxCue: "arcano-burst", audioCue: "status-focus", statusId: "focus", message });
+    // Come nella rotazione volontaria, ricarica e limite di ripetizione
+    // appartengono al Famiglio uscito: le mosse d'affinità condivise non devono
+    // risultare "in ricarica" per chi entra.
+    battle = { ...battle, player: replacement, playerBench: bench, switchCooldown: 1, lastPlayerMoveId: null, playerMoveStreak: 0, log: [...battle.log, message].slice(-20) };
+    messages.push(message);
   }
   if (battle.maxTurns && battle.turn >= battle.maxTurns) {
-    const concluded = concludeBattle(state, { ...battle, rngState: battle.rngState }, "defeat", events);
-    return { ok: true as const, state: { ...concluded.state, lastMessage: "Il limite di turni e terminato. Il Famiglio e rientrato al sicuro." }, timeline: events, opponentMoveId: opponentMove.id };
+    const concluded = concludeBattle(state, battle, "defeat", events);
+    return { ok: true as const, state: { ...concluded.state, lastMessage: "Il limite di turni è terminato. Il Famiglio è rientrato al sicuro." }, timeline: events, opponentMoveId: opponentMove.id };
   }
   battle = { ...battle, turn: battle.turn + 1, timeline: events };
   return {
@@ -1490,7 +1594,7 @@ export function performFamiliarCombatTurn(state: FamiliarCombatState, playerMove
       ...state,
       activeBattle: battle,
       lastTimeline: events,
-      lastMessage: `Turno ${battle.turn - 1} completato.`,
+      lastMessage: messages.length ? messages.join(" ") : `Turno ${battle.turn - 1} completato.`,
     },
     timeline: events,
     opponentMoveId: opponentMove.id,
@@ -1504,7 +1608,7 @@ export function claimFamiliarCombatReward(state: FamiliarCombatState) {
   if (progress.claimedRewardKeys.includes(reward.key)) {
     return { ok: false as const, state: { ...state, pendingReward: null }, error: "Ricompensa già riscattata." };
   }
-  const next = { ...progress, claimedRewardKeys: [...progress.claimedRewardKeys, reward.key] };
+  const next = { ...progress, claimedRewardKeys: boundedEncounterKeys([...progress.claimedRewardKeys, reward.key]) };
   return {
     ok: true as const,
     reward,
@@ -1560,11 +1664,18 @@ function restoreProgress(familiarId: string, raw: unknown, seed: number): Famili
     battlesCompleted: integer(candidate.battlesCompleted, integer(candidate.wins, 0) + integer(candidate.losses, 0)),
     learnedSchedule,
     ...loadout,
-    completedEncounters: Array.isArray(candidate.completedEncounters) ? unique(candidate.completedEncounters.map(String)).slice(0, 500) : [],
+    // Vedi boundedEncounterKeys: prima si tenevano le prime 500 chiavi e le nuove sparivano.
+    completedEncounters: Array.isArray(candidate.completedEncounters) ? boundedEncounterKeys(candidate.completedEncounters) : [],
     unlockedDifficulties: difficulties,
-    claimedRewardKeys: Array.isArray(candidate.claimedRewardKeys) ? unique(candidate.claimedRewardKeys.map(String)).slice(0, 500) : [],
+    claimedRewardKeys: Array.isArray(candidate.claimedRewardKeys) ? boundedEncounterKeys(candidate.claimedRewardKeys) : [],
     rngState: normalizedSeed(candidate.rngState ?? base.rngState),
   };
+}
+
+function storedTeamOrder(raw: unknown, actors: readonly FamiliarCombatActor[]) {
+  const present = unique(actors.map((actor) => actor.familiarId)).slice(0, 3);
+  const stored = Array.isArray(raw) ? unique(raw.map(String)) : [];
+  return stored.length === present.length && present.every((id) => stored.includes(id)) ? stored : present;
 }
 
 function restoreActor(raw: unknown): FamiliarCombatActor | null {
@@ -1594,7 +1705,7 @@ function restoreActor(raw: unknown): FamiliarCombatActor | null {
     stats,
     statuses: Array.isArray(candidate.statuses) ? candidate.statuses.filter((status): status is FamiliarCombatStatus => Boolean(status && typeof status.id === "string")).map((status) => ({
       id: String(status.id), name: String(status.name ?? status.id), remainingTurns: integer(status.remainingTurns, 1, 1, 5),
-      potency: integer(status.potency, 1, 1, 80), sourceMoveId: String(status.sourceMoveId ?? "restore"),
+      potency: integer(status.potency, 1, 1, 100), sourceMoveId: String(status.sourceMoveId ?? "restore"),
     })).slice(0, 6) : [],
     guarding: Boolean(candidate.guarding),
     energy: integer(candidate.energy, FAMILIAR_COMBAT_MAX_ENERGY, 0, FAMILIAR_COMBAT_MAX_ENERGY),
@@ -1648,16 +1759,19 @@ export function restoreFamiliarCombatState(value: unknown): FamiliarCombatState 
         difficulty,
         player,
         playerBench,
-        teamFamiliarIds: unique([player.familiarId, ...playerBench.map((actor) => actor.familiarId)]).slice(0, 3),
+        // L'ordine salvato conta: teamFamiliarIds[0] è il capofila che riceve
+        // vittorie e premi, opponentTeamFamiliarIds[0] è il rivale della rivincita.
+        // Dopo una rotazione il Famiglio in campo non è più il capofila.
+        teamFamiliarIds: storedTeamOrder(candidate.activeBattle.teamFamiliarIds, [player, ...playerBench]),
         switchCooldown: integer(candidate.activeBattle.switchCooldown, 0, 0, 9),
         opponent,
         opponentBench,
-        opponentTeamFamiliarIds: unique([opponent.familiarId, ...opponentBench.map((actor) => actor.familiarId)]).slice(0, 3),
+        opponentTeamFamiliarIds: storedTeamOrder(candidate.activeBattle.opponentTeamFamiliarIds, [opponent, ...opponentBench]),
         teamBattle: Boolean(candidate.activeBattle.teamBattle || playerBench.length || opponentBench.length),
         turn: integer(candidate.activeBattle.turn, 1, 1, 9999),
         maxTurns: Number.isFinite(candidate.activeBattle.maxTurns) ? integer(candidate.activeBattle.maxTurns, 1, 1, 9999) : null,
         bossPhasesTotal: integer(candidate.activeBattle.bossPhasesTotal, 1, 1, 3),
-        bossPhasesRemaining: integer(candidate.activeBattle.bossPhasesRemaining, 1, 1, 3),
+        bossPhasesRemaining: integer(candidate.activeBattle.bossPhasesRemaining, 1, 1, integer(candidate.activeBattle.bossPhasesTotal, 1, 1, 3)),
         outcome: (["active", "victory", "defeat"] as const).includes(candidate.activeBattle.outcome as FamiliarCombatOutcome)
           ? candidate.activeBattle.outcome as FamiliarCombatOutcome : "active",
         rngState: normalizedSeed(candidate.activeBattle.rngState ?? seed),
