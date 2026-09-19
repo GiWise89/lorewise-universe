@@ -763,6 +763,57 @@ export function runFamiliarCampaignBalance({ seed = "campaign-balance", copies =
   });
 }
 
+/**
+ * Duelli liberi (fuori campagna) a parità di livello: ogni specie, guidata dalla
+ * politica avida, affronta tutte le altre controllate dall'IA del motore.
+ * Restituisce le vittorie medie per rarità, gli estremi per specie, la durata
+ * media e le mosse più usate dal giocatore.
+ */
+export function runFamiliarRarityBalance({ seed = "rarity-balance", levels = [10, 30, 50], strict = true } = {}) {
+  const random = createHarnessRandom(seed);
+  const rarityOf = Object.fromEntries(FAMILIAR_COMBAT_CATALOG.map((entry) => [entry.id, entry.rarity]));
+  const species = Object.fromEntries(ALL_IDS.map((id) => [id, [0, 0]]));
+  const asOpponent = Object.fromEntries(ALL_IDS.map((id) => [id, [0, 0]]));
+  const moveUse = new Map();
+  let moveTotal = 0;
+  let turns = 0;
+  let games = 0;
+  for (const level of levels) for (const playerId of ALL_IDS) for (const opponentId of ALL_IDS) {
+    if (playerId === opponentId) continue;
+    const state = combatStateWithProfiles(`${seed}-${level}-${playerId}-${opponentId}`, [{ id: playerId, level }]);
+    const played = simulateQuick({ kind: "mirror", state, options: { playerId, opponentId, circuitId: "prime-orme", difficulty: "normal", opponentLevel: level, ignoreUnlocks: true } }, random, strict);
+    species[playerId][1] += 1;
+    asOpponent[opponentId][1] += 1;
+    if (played.outcome === "victory") species[playerId][0] += 1;
+    else asOpponent[opponentId][0] += 1;
+    for (const action of played.actions) if (action.type === "move") {
+      moveUse.set(action.id, (moveUse.get(action.id) ?? 0) + 1);
+      moveTotal += 1;
+    }
+    turns += played.turns;
+    games += 1;
+  }
+  // winRate: vittorie come giocatore; overall: anche quando la specie è il rivale dell'IA.
+  const speciesRows = ALL_IDS.map((id) => ({
+    id,
+    rarity: rarityOf[id],
+    winRate: winRate(...species[id]),
+    overall: winRate(species[id][0] + asOpponent[id][0], species[id][1] + asOpponent[id][1]),
+  }));
+  const mean = (rows, key) => Math.round(rows.reduce((total, row) => total + row[key], 0) / rows.length * 10) / 10;
+  const byRarity = Object.fromEntries(RARITY_GROUPS.map(([rarity, members]) => {
+    const rows = speciesRows.filter((row) => members.includes(row.id)).sort((left, right) => left.winRate - right.winRate);
+    return [rarity, { mean: mean(rows, "winRate"), overall: mean(rows, "overall"), min: rows[0], max: rows.at(-1) }];
+  }));
+  return {
+    games,
+    avgTurns: Math.round(turns / games * 10) / 10,
+    byRarity,
+    species: speciesRows.sort((left, right) => right.winRate - left.winRate),
+    mostUsedMoves: [...moveUse.entries()].sort((left, right) => right[1] - left[1]).slice(0, 5).map(([id, uses]) => ({ id, share: winRate(uses, moveTotal) })),
+  };
+}
+
 /** Vittorie per rarità del giocatore sui dieci piani della Torre al livello suggerito (quello del giocatore). */
 export function runFamiliarTowerBalance({ seed = "tower-balance", levels = [5, 20, 35, 50], copies = 1 } = {}) {
   const random = createHarnessRandom(seed);
@@ -792,6 +843,11 @@ if (invokedDirectly) {
   const fuzz = runFamiliarCombatFuzz({ battles: Number(argument("battles", 3000)), seed: argument("seed", "fuzz") });
   console.log(JSON.stringify({ fuzz, durationMs: Math.round(performance.now() - startedAt) }, null, 2));
   if (process.argv.includes("--campaign")) console.table(runFamiliarCampaignBalance({ copies: Number(argument("copies", 3)), levelOffset: Number(argument("offset", 0)) }));
+  if (process.argv.includes("--rarity")) {
+    const rarity = runFamiliarRarityBalance({ seed: argument("rarity-seed", "rarity-balance") });
+    console.table(Object.fromEntries(Object.entries(rarity.byRarity).map(([key, row]) => [key, { mean: row.mean, overall: row.overall, min: `${row.min.id} ${row.min.winRate}`, max: `${row.max.id} ${row.max.winRate}` }])));
+    console.log(JSON.stringify({ games: rarity.games, avgTurns: rarity.avgTurns, mostUsedMoves: rarity.mostUsedMoves }));
+  }
   if (process.argv.includes("--tower")) for (const row of runFamiliarTowerBalance({ copies: Number(argument("copies", 1)) })) console.log(row.playerLevel, row.rarity.padEnd(12), row.floors.join(" "));
   if (process.argv.includes("--balance")) {
     const balanceStart = performance.now();

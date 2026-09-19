@@ -100,9 +100,9 @@ test("i primi tre piani della Torre sono di riscaldamento, gli ultimi restano pi
 });
 
 test("storia senza grinding: ogni capitolo è vincibile al livello assegnato dalla storia", () => {
-  // Campione ridotto (una battaglia per specie e capitolo): soglie larghe contro il rumore.
+  // Campione ridotto (due battaglie per specie e capitolo): soglie larghe contro il rumore.
   // Le tabelle complete: node scripts/fuzz-famiglio-combat.mjs --battles 0 --campaign --copies 6
-  const rows = runFamiliarCampaignBalance({ copies: 1, seed: "node-test-campaign" });
+  const rows = runFamiliarCampaignBalance({ copies: 2, seed: "node-test-campaign" });
   assert.equal(rows.length, 20);
   for (const row of rows) {
     assert.ok(row.comune >= 25, `capitolo ${row.stage}: comune ${row.comune}%`);

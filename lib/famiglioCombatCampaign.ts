@@ -79,18 +79,21 @@ const CAMPAIGN_LEVEL_CURVE = [1,2,3,4,5,6,7,8,10,11,12,14,15,17,19,21,23,26,29,3
 // dove il valore è HP × attacco × difesa. Con rivalNormalization < 1 resta un
 // vantaggio per le rarità più alte. Coppie [rivalPower, rivalNormalization]
 // tarate con scripts/fuzz-famiglio-combat.mjs --campaign perché, al livello
-// assegnato dalla storia, un comune vinca circa il 45-70% e un leggendario il
-// 75-92% dei duelli; gli obiettivi a tempo e "Resistenza" hanno valori propri.
+// assegnato dalla storia, un comune vinca circa il 45-78% e un leggendario il
+// 65-93% dei duelli; gli obiettivi a tempo e "Resistenza" hanno valori propri.
+// Dalla ricalibrazione delle rarità (famiglioCombatCatalog.ts) le statistiche
+// di base sono già più vicine tra loro: la normalizzazione resta attiva
+// (almeno 0.3) ma serve meno, così la rarità del giocatore conta ancora.
 const CAMPAIGN_RIVAL_BALANCE: readonly (readonly [number, number])[] = [
   // Capitolo 1-2 (normale)
-  [1.09, .37], [.9, .63], [.93, .5], [1.05, .63], [.9, .63],
-  [.95, .5], [.96, .4],
+  [1.05, .3], [.84, .78], [.92, .3], [1, .37], [.96, .3],
+  [.96, .3], [.92, .3],
   // Capitolo 2-4 (esperto): la "Resistenza" (9, 14) conta la sopravvivenza come vittoria.
-  [.84, .23], [1.08, 1.19], [.95, .91], [.92, .85], [.87, .5],
-  [.85, .76], [.97, .89],
+  [.88, .3], [1, 1.01], [.94, .77], [.92, .49], [.85, .3],
+  [.86, .6], [.91, .67],
   // Capitolo 4-5 (Nexus): il 17 ha solo 9 turni, quindi un rivale più fragile.
-  [.84, .83], [.8, .37], [.65, .55], [.83, .89], [.86, .74],
-  [.75, .29],
+  [.82, .58], [.82, .3], [.72, .52], [.77, .6], [.81, .38],
+  [.78, .3],
 ];
 
 /** Moltiplicatore di HP/attacco/difesa del rivale di campagna per un giocatore dato. */
