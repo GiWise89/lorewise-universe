@@ -5,7 +5,7 @@
  * classi usate esclusivamente in questa sezione.
  */
 .commission-status-page { min-height: 100vh; padding-bottom: 120px; background: #fff8f1 url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1150px; }
-.commission-status-hero { padding-block: 75px 70px; background: #35143f; color: white; }
+.commission-status-hero { padding-block: 75px 70px; background: #231b28; color: white; }
 .commission-status-hero > div { display: grid; grid-template-columns: minmax(150px, 230px) minmax(0, 1fr); gap: clamp(40px, 7vw, 95px); align-items: center; }
 .commission-status-hero div > p:not(.eyebrow) { max-width: 720px; margin: 0; color: #f4e7f2; font-size: .95rem; line-height: 1.75; }
 .commission-status-hero a { display: inline-block; margin-top: 25px; padding-bottom: 4px; border-bottom: 2px solid #f9a8d4; color: #fff6d0; font-size: .72rem; font-weight: 850; }
@@ -21,7 +21,7 @@
 .commission-status-result > header h2 { margin: 10px 0 9px; color: #3f174e; font: 700 clamp(3rem, 5vw, 5rem)/.94 var(--font-lore-display), serif; }
 .commission-status-result > header p { margin: 0; color: #806679; font-size: .68rem; font-weight: 750; }
 .commission-status-result > header > strong { padding-bottom: 6px; border-bottom: 3px solid #db2777; color: #6d28d9; font-size: .68rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; }
-.commission-status-timeline li:not(:last-child)::after { content: ""; position: absolute; z-index: 0; top: 13px; left: 31px; width: calc(100% - 36px); height: 1px; background: rgba(76,29,87,.18); }
+.commission-status-timeline li:not(:last-child)::after { content: ""; position: absolute; z-index: 0; top: 13px; left: 31px; width: calc(100% - 36px); height: 1px; background: rgba(48,39,56,.18); }
 .commission-status-timeline li.is-complete::after { background: #7c3aed; }
 .commission-status-timeline .is-complete, .commission-status-timeline .is-current { color: #7c3aed; }
 .commission-status-facts div { display: grid; grid-template-columns: 125px 1fr; gap: 15px; padding: 13px 0; border-bottom: 1px solid rgba(76,29,87,.12); }
@@ -116,10 +116,10 @@
 .commission-status-terms span { color: #553249 !important; font-size: .76rem !important; font-weight: 750 !important; letter-spacing: 0 !important; line-height: 1.55; text-transform: none !important; }
 .commission-status-terms a { color: #6d28d9; text-decoration: underline; text-underline-offset: 3px; }
 .commission-terms-page { min-height: 100vh; padding-bottom: 120px; background: #fff8f1 url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1150px; }
-.commission-terms-hero { padding-block: 70px; background: #35143f; color: white; }
+.commission-terms-hero { padding-block: 70px; background: #231b28; color: white; }
 .commission-terms-hero > div { display: grid; grid-template-columns: minmax(140px,220px) 1fr; gap: clamp(35px,7vw,90px); align-items: center; }
 .commission-terms-hero p:not(.eyebrow) { max-width: 740px; color: #f4e7f2; font-size: 1rem; line-height: 1.75; }
-.commission-terms-layout > aside { position: sticky; top: 120px; align-self: start; padding: 28px; border-top: 5px solid #db2777; background: #3f174e; color: white; }
+.commission-terms-layout > aside { position: sticky; top: 120px; align-self: start; padding: 28px; border-top: 5px solid #db2777; background: #28202e; color: white; }
 .commission-terms-layout > aside strong, .commission-terms-layout > aside span { display: block; }
 .commission-terms-layout > aside span { margin-top: 8px; color: #fef08a; font-size: .78rem; font-weight: 850; overflow-wrap: anywhere; }
 .commission-terms-layout > aside p { color: #eadfea; font-size: .77rem; line-height: 1.65; }
@@ -200,7 +200,7 @@
 .commission-card-image:hover img, .commission-card-image:focus-visible img { transform: translateY(-5px); box-shadow: 0 30px 62px rgba(76, 29, 87, .23); }
 .commission-card-copy { padding-top: 20px; }
 .commission-card-feature .commission-card-copy h3 { font-size: clamp(2.35rem, 4vw, 4.5rem); }
-.commission-case-studies { padding-block: 125px; background: #3f174e; color: white; }
+.commission-case-studies { padding-block: 125px; background: #28202e; color: white; }
 .commission-case-studies .eyebrow { color: #f9a8d4; }
 .commission-case-reverse .commission-case-copy { order: 2; }
 .commission-case-copy small { color: #f9a8d4; font-size: .69rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
@@ -208,12 +208,12 @@
 .commission-process { padding-block: 135px; }
 .commission-process .process-grid { border-color: rgba(76, 29, 87, .22); }
 .commission-process .process-grid article { border-color: rgba(76, 29, 87, .22); }
-.commission-pricing { padding-block: 130px; background: #31133d; color: white; }
+.commission-pricing { padding-block: 130px; background: #211a26; color: white; }
 .commission-pricing .eyebrow { color: #f9a8d4; }
 .commission-promotion-banner small { color: #f9a8d4; font-size: .68rem; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
 .commission-promotion-banner dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border-block: 1px solid rgba(255,255,255,.2); }
 .commission-promotion-banner dl div { display: grid; gap: 5px; padding: 16px 12px; text-align: center; }
-.commission-price-grid article > img { width: 100%; height: auto; aspect-ratio: 4 / 4.65; display: block; object-fit: contain; background: #28102f; box-shadow: 0 25px 55px rgba(12, 3, 17, .38); }
+.commission-price-grid article > img { width: 100%; height: auto; aspect-ratio: 4 / 4.65; display: block; object-fit: contain; background: #1c151f; box-shadow: 0 25px 55px rgba(12, 3, 17, .38); }
 .commission-price-grid article > div { position: relative; container-type: inline-size; min-width: 0; margin: 0 18px; padding: 25px 24px 28px; overflow: hidden; background: #fff8f1; color: #3f174e; box-shadow: 0 18px 38px rgba(12, 3, 17, .24); }
 .commission-price-grid .commission-card-promo { width: fit-content; max-width: 100%; margin: 0 0 19px; padding: 8px 11px; border: 0; overflow-wrap: anywhere; background: #db2777; color: white; font-size: .62rem; font-weight: 900; letter-spacing: .045em; text-transform: uppercase; box-shadow: 0 8px 20px rgba(76,29,87,.2); }
 .commission-price-grid small { display: block; color: #db2777; font-size: .66rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
@@ -323,7 +323,7 @@
 .commission-faq details p { max-width: 850px; margin: -7px 0 25px; color: #604d5c; font-size: .86rem; line-height: 1.75; }
 .commission-detail-breadcrumbs { display: flex; justify-content: space-between; gap: 25px; padding-block: 28px; color: #654b61; font-size: .76rem; font-weight: 750; }
 .commission-detail { display: grid; grid-template-columns: minmax(0, 1.06fr) minmax(440px, .94fr); height: calc(100vh - 165px); min-height: 700px; overflow: hidden; box-shadow: 0 30px 72px rgba(76, 29, 87, .18); }
-.commission-detail-visual { min-height: 0; display: flex; flex-direction: column; padding: 40px clamp(26px, 3vw, 48px) 24px; background: #35143f url("/backgrounds/artwork-viewing-stage-v1.webp") center / cover; }
+.commission-detail-visual { min-height: 0; display: flex; flex-direction: column; padding: 40px clamp(26px, 3vw, 48px) 24px; background: #231b28 url("/backgrounds/artwork-viewing-stage-v1.webp") center / cover; }
 .commission-detail-visual img { width: 100%; min-height: 0; flex: 1; object-fit: contain; filter: drop-shadow(0 25px 38px rgba(15, 6, 23, .4)); }
 .commission-detail-visual p { margin: 17px 0 0; color: #fff2f8; font-size: .7rem; font-weight: 750; letter-spacing: .04em; }
 .commission-detail-copy { overflow-y: auto; padding: clamp(48px, 5vw, 76px); background: #fffaf3 url("/backgrounds/lorewise-parchment-v2.webp") 70% center / auto 100%; }
@@ -454,7 +454,7 @@
   .commission-request .commission-guided-form { order: 1; }
   .commission-request .commission-layout > div { order: 2; }
 }
-.commission-status-payment { margin-top: 24px; padding: 24px; border-top: 3px solid #db2777; background: rgba(50, 18, 62, .94); color: #fff7db; }
+.commission-status-payment { margin-top: 24px; padding: 24px; border-top: 3px solid #db2777; background: rgba(32,25,37, .94); color: #fff7db; }
 .commission-status-payment p:not(.eyebrow) { color: #f3dbea; line-height: 1.65; }
 .commission-hero { min-height: 650px; }
 .commission-featured,
@@ -610,9 +610,9 @@
 }
 .commission-hub-page .commission-chapter-navigation nav > a[data-chapter="panoramica"] { color:#3f174e; }
 .commission-hub-page .commission-chapter-navigation nav > a[data-chapter="panoramica"]::before { background:radial-gradient(circle at 75% 14%,rgba(255,255,255,.8),transparent 28%),linear-gradient(150deg,#fde8ec,#efb6cb); }
-.commission-hub-page .commission-chapter-navigation nav > a[data-chapter="prezzi"]::before { background:radial-gradient(circle at 75% 15%,rgba(233,111,255,.28),transparent 30%),linear-gradient(150deg,#371044,#6e1d75); }
+.commission-hub-page .commission-chapter-navigation nav > a[data-chapter="prezzi"]::before { background:radial-gradient(circle at 75% 15%,rgba(233,111,255,.28),transparent 30%),linear-gradient(150deg,#201925,#3a2f43); }
 .commission-hub-page .commission-chapter-navigation nav > a[data-chapter="portfolio"]::before { background:radial-gradient(circle at 72% 15%,rgba(51,218,231,.28),transparent 30%),linear-gradient(150deg,#07304a,#075f73); }
-.commission-hub-page .commission-chapter-navigation nav > a[data-chapter="metodo"]::before { background:radial-gradient(circle at 72% 14%,rgba(255,188,73,.28),transparent 30%),linear-gradient(150deg,#64172f,#b34b24); }
+.commission-hub-page .commission-chapter-navigation nav > a[data-chapter="metodo"]::before { background:radial-gradient(circle at 72% 14%,rgba(255,188,73,.28),transparent 30%),linear-gradient(150deg,#2e2535,#b34b24); }
 .commission-hub-page .commission-chapter-navigation nav > a:hover,
 .commission-hub-page .commission-chapter-navigation nav > a:focus-visible { transform:none;border:0;outline:0;background:none; }
 .commission-hub-page .commission-chapter-navigation nav > a:hover::before,
@@ -656,13 +656,13 @@
   border-top:0;
 }
 .commission-hub-page .commission-chapter-navigation footer > a:last-child { color:#922253; }
-.commission-chapter-masthead.is-prezzi { background:radial-gradient(circle at 82% 25%,rgba(229,95,255,.28),transparent 28%),linear-gradient(125deg,#2c0d39,#61176e 60%,#8f296e); }
+.commission-chapter-masthead.is-prezzi { background:radial-gradient(circle at 82% 25%,rgba(229,95,255,.28),transparent 28%),linear-gradient(125deg,#1b141f,#32293a 60%,#8f296e); }
 .commission-chapter-masthead.is-portfolio { background:radial-gradient(circle at 82% 25%,rgba(48,221,226,.25),transparent 28%),linear-gradient(125deg,#06283e,#07566b 60%,#117d83); }
-.commission-chapter-masthead.is-metodo { background:radial-gradient(circle at 82% 25%,rgba(255,191,74,.3),transparent 28%),linear-gradient(125deg,#541329,#8d2c25 60%,#c26728); }
-.commission-chapter-masthead.is-prezzi .commission-chapter-masthead-emblem { background:radial-gradient(circle,rgba(223,81,255,.22),rgba(28,5,37,.7) 70%); }
+.commission-chapter-masthead.is-metodo { background:radial-gradient(circle at 82% 25%,rgba(255,191,74,.3),transparent 28%),linear-gradient(125deg,#271f2d,#8d2c25 60%,#c26728); }
+.commission-chapter-masthead.is-prezzi .commission-chapter-masthead-emblem { background:radial-gradient(circle,rgba(223,81,255,.22),rgba(16,11,18,.7) 70%); }
 .commission-chapter-masthead.is-portfolio .commission-chapter-masthead-emblem { background:radial-gradient(circle,rgba(45,220,228,.2),rgba(3,32,48,.72) 70%); }
 .commission-chapter-masthead.is-metodo .commission-chapter-masthead-emblem { background:radial-gradient(circle,rgba(255,188,65,.2),rgba(73,10,22,.72) 70%); }
-.commission-hub-page.is-prezzi .commission-pricing { background:radial-gradient(circle at 12% 8%,rgba(219,39,119,.18),transparent 25%),#2d1038; }
+.commission-hub-page.is-prezzi .commission-pricing { background:radial-gradient(circle at 12% 8%,rgba(219,39,119,.18),transparent 25%),#1d1722; }
 .commission-hub-page.is-portfolio { background-color:#edf7f5; }
 .commission-hub-page.is-portfolio .commission-case-studies { background:#073c50; }
 .commission-hub-page.is-metodo { background-color:#fff7ec; }
@@ -1035,7 +1035,7 @@
 .commission-quick-start article { position:relative;isolation:isolate;min-height:315px;display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(76,29,87,.2);background:linear-gradient(145deg,#fffaf4,#f7e9ef);box-shadow:0 22px 55px rgba(76,29,87,.12);transition:transform .25s ease,box-shadow .25s ease; }
 .commission-quick-start article::before { position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,#e73b8c,#7c3aed);content:""; }
 .commission-quick-start article::after { position:absolute;z-index:-1;right:-55px;bottom:-65px;width:170px;aspect-ratio:1;border-radius:50%;background:rgba(219,39,119,.08);content:""; }
-.commission-quick-start article:nth-child(2) { color:#fff;border-color:#9a70ff;background:radial-gradient(circle at 90% 10%,rgba(91,229,232,.18),transparent 34%),linear-gradient(145deg,#23103a,#41205c);box-shadow:0 28px 65px rgba(53,20,75,.24); }
+.commission-quick-start article:nth-child(2) { color:#fff;border-color:#9a70ff;background:radial-gradient(circle at 90% 10%,rgba(91,229,232,.18),transparent 34%),linear-gradient(145deg,#1b151f,#312738);box-shadow:0 28px 65px rgba(53,20,75,.24); }
 .commission-quick-start article:nth-child(2)::before { background:linear-gradient(90deg,#59e5e6,#c58cff); }
 .commission-quick-start article:nth-child(2)::after { background:rgba(86,226,229,.1); }
 .commission-quick-start article:nth-child(3) { border-color:rgba(160,99,28,.32);background:radial-gradient(circle at 88% 12%,rgba(244,190,75,.22),transparent 35%),linear-gradient(145deg,#fff8e9,#f5e2c8); }

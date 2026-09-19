@@ -224,7 +224,7 @@
 .game-journal-hero { position:relative; display:grid; min-height:690px; align-items:end; overflow:hidden; color:#f7eee3; background:#171416; }
 .game-journal-hero > img { object-fit:cover; object-position:center; }
 .game-journal-detail-demon-match-three .game-journal-hero > img { object-fit:contain; object-position:right center; }
-.game-journal-detail-demon-match-three .game-journal-hero { background:linear-gradient(90deg,#0c080a 0 58%,#28133b); }
+.game-journal-detail-demon-match-three .game-journal-hero { background:linear-gradient(90deg,#0c080a 0 58%,#1f1823); }
 .game-journal-overlay { position:absolute; inset:0; background:linear-gradient(90deg,rgba(13,10,12,.93) 0%,rgba(13,10,12,.65) 46%,rgba(13,10,12,.18)),linear-gradient(0deg,rgba(13,10,12,.75),transparent 48%); }
 .game-journal-hero-copy { position:relative; z-index:2; padding-block:95px; }
 .game-journal-hero-copy > p:not(.diary-hand) { max-width:720px; color:#d0c3c4; font-size:1rem; line-height:1.8; }

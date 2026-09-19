@@ -22,10 +22,10 @@
   .personal-dashboard-scroll-hint { display: inline-flex; }
 }
 .account-page { overflow: hidden; background: #fff8f0 url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1200px; color: #172554; }
-.account-hero { position: relative; min-height: 620px; display: grid; align-items: center; background: #291133 url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center / cover no-repeat; color: white; }
-.account-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(34,9,42,.96),rgba(34,9,42,.7) 58%,rgba(34,9,42,.36)); }
+.account-hero { position: relative; min-height: 620px; display: grid; align-items: center; background: #1d1621 url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center / cover no-repeat; color: white; }
+.account-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(21,15,23,.96),rgba(21,15,23,.7) 58%,rgba(21,15,23,.36)); }
 .account-hero-inner { position: relative; display: grid; grid-template-columns: minmax(0,1.25fr) minmax(260px,.55fr); gap: clamp(45px,8vw,110px); align-items: center; padding-block: 82px; }
-.account-hero-copy { min-width:0; padding:clamp(28px,4vw,48px); border:1px solid rgba(255,245,213,.2); border-left:4px solid #f6ce63; background:linear-gradient(115deg,rgba(24,8,34,.58),rgba(24,8,34,.12)); backdrop-filter:blur(4px); }
+.account-hero-copy { min-width:0; padding:clamp(28px,4vw,48px); border:1px solid rgba(255,245,213,.2); border-left:4px solid #f6ce63; background:linear-gradient(115deg,rgba(17,12,19,.58),rgba(17,12,19,.12)); backdrop-filter:blur(4px); }
 .account-hero .eyebrow { display:block; margin:0 0 clamp(30px,3vw,40px); color:#f6ce63; line-height:1.45; }
 .account-hero p:not(.eyebrow) { max-width: 720px; color: #eee0ec; font-size: clamp(1.02rem,1.4vw,1.25rem); line-height: 1.75; }
 .account-access-state { display: inline-flex; margin-top: 28px; padding: 16px 21px; border: 1px solid rgba(255,245,213,.55); color: #fff5d5; font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; }
@@ -99,9 +99,9 @@
 .account-registration-consents strong { font-size: .8rem; }
 .account-registration-consents small { margin-top: 4px; color: #6d6376; font-size: .72rem; font-weight: 600; line-height: 1.5; }
 .account-registration-consents a { color: #6d28d9; text-decoration: underline; text-underline-offset: 3px; }
-.account-signin-pending { padding: 30px; background: #32123e; color: white; }
+.account-signin-pending { padding: 30px; background: #201925; color: white; }
 .account-signin-pending strong { color: #fff2bc; font: 700 1.35rem var(--font-lore-display), serif; }
-.account-session { position: relative; z-index: 2; display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; margin-top: -42px; padding: 25px 30px; background: #32123e; color: white; box-shadow: 0 25px 60px rgba(23,37,84,.22); }
+.account-session { position: relative; z-index: 2; display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; margin-top: -42px; padding: 25px 30px; background: #201925; color: white; box-shadow: 0 25px 60px rgba(23,37,84,.22); }
 .account-session span { color: #f4c65d; font-size: .69rem; font-weight: 900; text-transform: uppercase; }
 .account-session strong { color: #fff4d2; }
 .account-profile-identity { display: grid; gap: 6px; margin-bottom: 20px; padding: 0 0 22px 68px; border-bottom: 1px solid rgba(23,37,84,.2); background: url("/brand/navigation/lorewise-universe-logo.webp") left top / 54px 44px no-repeat; }
@@ -125,7 +125,7 @@
 .account-deletion-pending small { display: block; color: #75636b; }
 .personal-dashboard { margin: 85px 0 130px; color: #172554; }
 .purchase-success-backdrop { position: fixed; inset: 0; z-index: 120; display: grid; place-items: center; padding: clamp(18px,4vw,54px); overflow-y: auto; background: rgba(17,7,31,.78); backdrop-filter: blur(10px); }
-.purchase-success-dialog { position: relative; width: min(1060px,100%); display: grid; grid-template-columns: minmax(210px,.38fr) minmax(0,.62fr); overflow: hidden; color: #fff8da; background: linear-gradient(135deg,rgba(45,18,58,.99),rgba(21,16,53,.99)); box-shadow: 0 34px 100px rgba(7,4,18,.62), inset 0 0 0 1px rgba(255,220,113,.28); }
+.purchase-success-dialog { position: relative; width: min(1060px,100%); display: grid; grid-template-columns: minmax(210px,.38fr) minmax(0,.62fr); overflow: hidden; color: #fff8da; background: linear-gradient(135deg,rgba(31,24,35,.99),rgba(21,16,53,.99)); box-shadow: 0 34px 100px rgba(7,4,18,.62), inset 0 0 0 1px rgba(255,220,113,.28); }
 .purchase-success-dialog::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 15% 45%,rgba(219,39,119,.26),transparent 38%), radial-gradient(circle at 92% 12%,rgba(124,58,237,.3),transparent 36%); }
 .purchase-success-seal { position: relative; align-self: center; justify-self: center; width: min(86%,330px); height: auto; object-fit: contain; filter: drop-shadow(0 22px 30px rgba(0,0,0,.42)); }
 .purchase-success-copy { position: relative; padding: clamp(44px,6vw,78px) clamp(30px,6vw,76px) clamp(38px,5vw,65px); border-left: 1px solid rgba(255,230,156,.2); }
@@ -154,7 +154,7 @@
 .personal-dashboard-intro aside span { color: #db2777; font-size: .68rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
 .personal-dashboard-intro aside strong { overflow-wrap: anywhere; color: #32123e; font-size: .95rem; }
 .personal-dashboard-intro aside small { color: #776d7e; }
-.personal-admin-entry { display: grid; grid-template-columns: 84px 1fr auto; gap: 24px; align-items: center; margin-top: 38px; padding: 20px 28px 20px 20px; background: #34163e url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center / cover; color: white; box-shadow: inset 0 0 0 1000px rgba(46,17,56,.82); }
+.personal-admin-entry { display: grid; grid-template-columns: 84px 1fr auto; gap: 24px; align-items: center; margin-top: 38px; padding: 20px 28px 20px 20px; background: #241c29 url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center / cover; color: white; box-shadow: inset 0 0 0 1000px rgba(46,17,56,.82); }
 .personal-admin-entry .eyebrow { color: #f6ce63; }
 .personal-admin-entry strong { display: block; margin-top: 5px; color: #fff3da; font: 700 1.4rem var(--font-lore-display), serif; }
 .personal-admin-entry a { padding-bottom: 4px; border-bottom: 2px solid #f6ce63; color: #fff3da; font-size: .75rem; font-weight: 900; }
@@ -314,7 +314,7 @@
   .order-document { max-width: none; padding: 28px; box-shadow: none; }
   .order-test-notice { border: 1px solid #9a3412; background: transparent; }
 }
-.account-password-page { min-height: 100vh; display: grid; place-items: center; padding: 28px; background: #291133 url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center / cover no-repeat; }
+.account-password-page { min-height: 100vh; display: grid; place-items: center; padding: 28px; background: #1d1621 url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center / cover no-repeat; }
 .account-password-page > section { width: min(780px,100%); padding: clamp(34px,7vw,78px); border-top: 5px solid #db2777; background: #fffaf2 url("/backgrounds/lorewise-parchment-v2.webp") center / cover; color: #172554; box-shadow: 0 35px 90px rgba(0,0,0,.35); }
 .account-password-page > section > p { color: #59647d; line-height: 1.7; }
 .account-password-page form { display: grid; gap: 10px; margin: 34px 0 20px; }
@@ -370,7 +370,7 @@
 .personal-pass-benefits dt { color: #7c3aed; font-size: .65rem; font-weight: 950; text-transform: uppercase; }
 .personal-pass-benefits dd { margin: 0; color: #354363; font-size: .75rem; font-weight: 800; }
 .personal-benefits-center,
-.account-page-authenticated .personal-chapter.personal-benefits-center { grid-column: 1 / -1; padding: clamp(32px,5vw,64px); color: #f8fafc; background: linear-gradient(135deg,rgba(18,10,40,.99),rgba(55,18,70,.98) 58%,rgba(13,23,62,.98)),url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center/cover; border: 1px solid rgba(244,207,73,.38); box-shadow: 0 30px 80px rgba(41,10,53,.24); }
+.account-page-authenticated .personal-chapter.personal-benefits-center { grid-column: 1 / -1; padding: clamp(32px,5vw,64px); color: #f8fafc; background: linear-gradient(135deg,rgba(18,10,40,.99),rgba(34,27,39,.98) 58%,rgba(13,23,62,.98)),url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center/cover; border: 1px solid rgba(244,207,73,.38); box-shadow: 0 30px 80px rgba(41,10,53,.24); }
 .benefits-center-heading,
 .personal-benefits-center > .benefits-center-heading { display: flex; grid-template-columns: none; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 0; padding-bottom: 28px; border-bottom: 1px solid rgba(255,248,223,.22); }
 .member-badge { display: inline-flex; align-items: center; width: fit-content; border: 1px solid currentColor; border-radius: 999px; font-size: .62rem; font-weight: 950; letter-spacing: .08em; line-height: 1; text-transform: uppercase; }
@@ -436,8 +436,8 @@
 }
 .account-profile-editor { display:grid; grid-template-columns:minmax(270px,310px) minmax(0,1fr); gap:clamp(32px,4.5vw,64px); min-width:0; align-items:start; }
 .account-profile .account-avatar-form { width:100%; min-width:0; box-sizing:border-box; display:grid; align-content:start; gap:16px; align-self:start; overflow:hidden; padding:22px; border:1px solid rgba(23,37,84,.16); border-top:4px solid #7c3aed; background:linear-gradient(155deg,rgba(255,255,255,.94),rgba(246,239,255,.78)); text-align:left; box-shadow:0 20px 45px rgba(23,37,84,.1); }
-.account-profile .account-avatar-preview { position:relative; display:grid; place-items:center; min-width:0; padding:24px 18px 34px; overflow:hidden; background:linear-gradient(145deg,#171127,#382044); }
-.account-avatar-image-frame { position:relative; width:168px; height:168px; overflow:hidden; border:6px solid white; border-radius:50%; background:#2b1836; box-shadow:0 14px 34px rgba(0,0,0,.3); }
+.account-profile .account-avatar-preview { position:relative; display:grid; place-items:center; min-width:0; padding:24px 18px 34px; overflow:hidden; background:linear-gradient(145deg,#171127,#2d2433); }
+.account-avatar-image-frame { position:relative; width:168px; height:168px; overflow:hidden; border:6px solid white; border-radius:50%; background:#231b28; box-shadow:0 14px 34px rgba(0,0,0,.3); }
 .account-avatar-image-frame > img { object-fit:cover; transition:transform .16s ease,object-position .16s ease; }
 .account-profile .account-avatar-preview > span { position:absolute; inset:auto 12px 11px; color:#f6ce63; font-size:.6rem; font-weight:900; letter-spacing:.12em; text-align:center; text-transform:uppercase; }
 .account-avatar-image-frame .account-avatar-fallback { width:100%; height:100%; display:grid; place-items:center; border:0; border-radius:0; background:linear-gradient(135deg,#7c3aed,#db2777); color:white; font:800 4rem var(--font-lore-display),serif; box-shadow:none; }

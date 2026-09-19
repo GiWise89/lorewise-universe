@@ -48,7 +48,7 @@ body { --font-lore-display: var(--font-display); }
 
 .universe-value { max-width: 44ch; margin: 10px auto 0; color: rgba(255,255,255,.82); text-align: center; }
 .universe-primary-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:18px; }
-.universe-primary-actions a { display:inline-flex; min-height:44px; align-items:center; padding:11px 16px; color:#fff; border:1px solid rgba(255,255,255,.58); background:rgba(22,8,35,.66); font-size:.72rem; font-weight:900; letter-spacing:.04em; text-decoration:none; text-transform:uppercase; backdrop-filter:blur(8px); }
+.universe-primary-actions a { display:inline-flex; min-height:44px; align-items:center; padding:11px 16px; color:#fff; border:1px solid rgba(255,255,255,.58); background:rgba(17,12,19,.66); font-size:.72rem; font-weight:900; letter-spacing:.04em; text-decoration:none; text-transform:uppercase; backdrop-filter:blur(8px); }
 .universe-primary-actions a:first-child { color:#35142f; border-color:#f4d58b; background:#f4d58b; }
 .universe-primary-actions a:hover,.universe-primary-actions a:focus-visible { outline:3px solid #fff; outline-offset:3px; transform:translateY(-1px); }
 

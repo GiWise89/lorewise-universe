@@ -40,7 +40,7 @@
 .route-actions a { display:inline-flex; align-items:center; gap:8px; padding:8px 0; color:#5b21b6; border-bottom:2px solid #db2777; font-size:.75rem; font-weight:900; text-decoration:none; }
 .route-actions svg { font-size:1.12rem; }
 .route-actions .whatsapp-action { color:#087d45; border-color:#25d366; }
-.shop-social-stage { color:#fff; background:linear-gradient(125deg,#151a3c 0%,#32204f 50%,#161a37 100%); }
+.shop-social-stage { color:#fff; background:linear-gradient(125deg,#151a3c 0%,#2c2333 50%,#161a37 100%); }
 .shop-social-layout { display:grid; grid-template-columns:minmax(300px,.65fr) minmax(0,1.25fr); gap:clamp(55px,9vw,140px); align-items:center; }
 .shop-social-visual { position:relative; display:grid; place-items:center; min-height:590px; background:radial-gradient(circle,rgba(244,114,182,.17),transparent 55%); }
 .shop-social-visual::before,.shop-social-visual::after { content:""; position:absolute; width:70%; aspect-ratio:1; border:1px solid rgba(255,255,255,.13); transform:rotate(45deg); }

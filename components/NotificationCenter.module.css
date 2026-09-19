@@ -15,7 +15,7 @@
 .panel li { display:grid; grid-template-columns:50px minmax(0,1fr) auto; gap:18px; align-items:center; min-width:0; padding:22px; border:1px solid rgba(23,37,84,.13); background:rgba(255,255,255,.78); box-shadow:0 12px 30px rgba(53,35,59,.06); }
 .read { opacity:.68; }
 .unread { border-left:5px solid #db2777!important; }
-.symbol { width:46px; height:46px; display:grid; place-items:center; border-radius:50%; background:#32123e; color:#f6ce63; font-size:1.25rem; }
+.symbol { width:46px; height:46px; display:grid; place-items:center; border-radius:50%; background:#201925; color:#f6ce63; font-size:1.25rem; }
 .panel li small { color:#7c3aed; font-size:.63rem; font-weight:900; letter-spacing:.04em; text-transform:uppercase; }
 .panel li strong { display:block; margin:6px 0; color:#172554; font-size:1.03rem; }
 .panel li p { margin:0; color:#5f657a; line-height:1.55; overflow-wrap:anywhere; }

@@ -12,7 +12,7 @@
   gap: clamp(30px, 6vw, 90px);
   align-items: center;
   border-top-color: #8768ff;
-  background: linear-gradient(90deg, rgba(14, 12, 29, .96), rgba(42, 17, 40, .88)), url("/games/the-wound-remembers/gameplay-campaign.webp") center / cover no-repeat;
+  background: linear-gradient(90deg, rgba(14, 12, 29, .96), rgba(28,22,32, .88)), url("/games/the-wound-remembers/gameplay-campaign.webp") center / cover no-repeat;
 }
 .game-edition-android .game-purchase-pending { grid-column: 1 / -1; width: fit-content; }
 
@@ -55,7 +55,7 @@
 .game-edition > a { align-self: flex-start; background: #e9b653; color: #16090b; }
 .game-purchase-pending { align-self: flex-start; background: rgba(255,255,255,.1); color: #f2ded6; }
 .game-purchase-action { display: grid; gap: 10px; margin-top: 14px; }
-.game-purchase-action > a { min-height: 52px; border: 1px solid rgba(255,214,157,.5); background: linear-gradient(135deg, #8b2e2b, #5e1830); color: #fff8e8; padding: 14px 18px; font: 850 .78rem/1.2 var(--font-body), sans-serif; text-align: center; text-decoration: none; cursor: pointer; }
+.game-purchase-action > a { min-height: 52px; border: 1px solid rgba(255,214,157,.5); background: linear-gradient(135deg, #8b2e2b, #2e2535); color: #fff8e8; padding: 14px 18px; font: 850 .78rem/1.2 var(--font-body), sans-serif; text-align: center; text-decoration: none; cursor: pointer; }
 .game-purchase-action button:disabled { cursor: not-allowed; opacity: .58; }
 .game-purchase-action span { color: #f2ded6; font-size: .72rem; line-height: 1.55; }
 .game-dossier-release-notes { grid-template-columns: repeat(2,1fr); padding-top: 70px; border-top: 1px solid rgba(255,255,255,.15); }
@@ -222,7 +222,7 @@
 .game-journal-lower ol p { margin: 0; color: #53607c; font-size: .9rem; line-height: 1.65; }
 .game-release-archive { padding-left: clamp(0px,3vw,45px); border-left: 1px solid rgba(23,37,84,.18); }
 .game-release-archive > div { margin-top: 42px; padding: 30px 0; border-block: 1px solid rgba(23,37,84,.16); }
-.game-community-reviews { display: grid; grid-template-columns: 1fr 1.15fr auto; gap: clamp(28px,5vw,75px); align-items: center; padding: clamp(38px,5vw,65px); background: #281130 url("/games/the-wound-remembers/key-art-cover-v2.webp") 75% 45% / cover no-repeat; color: white; box-shadow: inset 0 0 0 1000px rgba(31,10,35,.84); }
+.game-community-reviews { display: grid; grid-template-columns: 1fr 1.15fr auto; gap: clamp(28px,5vw,75px); align-items: center; padding: clamp(38px,5vw,65px); background: #1c1620 url("/games/the-wound-remembers/key-art-cover-v2.webp") 75% 45% / cover no-repeat; color: white; box-shadow: inset 0 0 0 1000px rgba(31,10,35,.84); }
 
 @media (max-width: 900px) {
   .game-journal-heading, .game-latest-update, .game-journal-lower, .game-community-reviews { grid-template-columns: 1fr; }
@@ -295,7 +295,7 @@
   .game-dossier-page .game-project-status,
   .studio-games-page .studio-real-project-copy > p:nth-of-type(1) { font-size: 12px; }
 }
-.game-community-live { padding: clamp(78px,8vw,118px) 0; color: #fff8df; background-color: #2d1238; background-image: linear-gradient(112deg,rgba(35,10,43,.98),rgba(83,29,75,.94) 60%,rgba(45,28,84,.94)),url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg"); background-position: center; background-size: cover; }
+.game-community-live { padding: clamp(78px,8vw,118px) 0; color: #fff8df; background-color: #1f1823; background-image: linear-gradient(112deg,rgba(22,16,25,.98),rgba(49,39,56,.94) 60%,rgba(40,32,47,.94)),url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg"); background-position: center; background-size: cover; }
 .game-community-live-heading { display: grid; grid-template-columns: minmax(0,1fr) 230px; gap: clamp(40px,7vw,100px); align-items: end; padding-bottom: 38px; border-bottom: 1px solid rgba(255,248,223,.24); }
 .game-community-live-heading p:not(.eyebrow) { max-width: 760px; margin: 0; color: #eadcea; font-size: 1rem; line-height: 1.7; }
 .game-community-live-heading > aside { display: grid; gap: 6px; padding-left: 24px; border-left: 4px solid #f4cf49; }
@@ -322,7 +322,7 @@
 .game-community-compose > p[role="status"] { margin: 18px 0 0; color: #6a2b60; font-weight: 800; line-height: 1.5; }
 
 @media (max-width: 800px) {
-  .game-community-live { background-image: linear-gradient(rgba(35,10,43,.97),rgba(55,26,83,.95)),url("/backgrounds/lorewise-celestial-atlas-mobile-4k-v2.jpg"); }
+  .game-community-live { background-image: linear-gradient(rgba(22,16,25,.97),rgba(41,33,47,.95)),url("/backgrounds/lorewise-celestial-atlas-mobile-4k-v2.jpg"); }
   .game-community-live-heading,.game-community-live-body { grid-template-columns: 1fr; }
   .game-community-live-heading > aside { border-left: 0; border-top: 3px solid #f4cf49; padding: 18px 0 0; }
   .game-community-review-list header { grid-template-columns: 1fr auto; }
@@ -837,27 +837,27 @@
 @media (max-width:560px) {
   .studio-games-page .studio-real-project-copy h3 { font-size:clamp(1.75rem,8vw,2.6rem); }
 }
-.studio-games-page .studio-real-project-demon-match-three .studio-real-project-visual { background:linear-gradient(135deg,#17134a 0 49.7%,#4d0a32 50.3% 100%); }
+.studio-games-page .studio-real-project-demon-match-three .studio-real-project-visual { background:linear-gradient(135deg,#17134a 0 49.7%,#1f1824 50.3% 100%); }
 .studio-games-page .studio-real-project-demon-match-three .studio-real-project-visual > img:first-child { object-fit:contain; object-position:center; }
-.studio-games-hero-backdrop img:nth-child(3) { object-fit:contain; object-position:center; background:linear-gradient(145deg,#17144a,#4a092f); }
-.game-dossier-demon-match .game-dossier-hero { min-height:min(94vh,980px); background:linear-gradient(145deg,#141142 0 49.7%,#4a092f 50.3% 100%); }
+.studio-games-hero-backdrop img:nth-child(3) { object-fit:contain; object-position:center; background:linear-gradient(145deg,#17144a,#1e1722); }
+.game-dossier-demon-match .game-dossier-hero { min-height:min(94vh,980px); background:linear-gradient(145deg,#141142 0 49.7%,#1e1722 50.3% 100%); }
 .game-dossier-demon-match .game-dossier-hero-art { object-fit:contain; object-position:center; background:transparent; }
-.game-dossier-demon-match .game-dossier-hero-shade { background:linear-gradient(90deg,rgba(5,5,18,.96) 0%,rgba(5,5,18,.76) 27%,transparent 48% 70%,rgba(24,2,15,.18)),linear-gradient(0deg,rgba(5,3,12,.94),transparent 42%); }
+.game-dossier-demon-match .game-dossier-hero-shade { background:linear-gradient(90deg,rgba(5,5,18,.96) 0%,rgba(5,5,18,.76) 27%,transparent 48% 70%,rgba(11,7,12,.18)),linear-gradient(0deg,rgba(5,3,12,.94),transparent 42%); }
 .game-dossier-demon-match .game-dossier-logo { width:min(56vw,760px); }
-.game-protagonist-reveal { position:relative; overflow:hidden; padding-block:clamp(72px,9vw,138px); color:#f9f5ff; background:radial-gradient(circle at 18% 16%,rgba(84,218,255,.22),transparent 28%),radial-gradient(circle at 82% 72%,rgba(255,48,141,.24),transparent 31%),linear-gradient(135deg,#10103a 0 49.8%,#3c082c 50.2% 100%); }
+.game-protagonist-reveal { position:relative; overflow:hidden; padding-block:clamp(72px,9vw,138px); color:#f9f5ff; background:radial-gradient(circle at 18% 16%,rgba(84,218,255,.22),transparent 28%),radial-gradient(circle at 82% 72%,rgba(255,48,141,.24),transparent 31%),linear-gradient(135deg,#10103a 0 49.8%,#1a131d 50.2% 100%); }
 .game-protagonist-reveal::before { position:absolute; inset:0; background:linear-gradient(116deg,transparent 47.8%,rgba(102,230,255,.82) 49.4%,rgba(255,57,148,.86) 50.6%,transparent 52.2%); opacity:.32; content:""; pointer-events:none; }
 .game-protagonist-intro { position:relative; display:grid; grid-template-columns:minmax(320px,.7fr) minmax(0,1.3fr); gap:clamp(48px,7vw,110px); align-items:center; }
 .game-protagonist-intro > figure img { display:block; width:100%; max-height:880px; height:auto; object-fit:contain; }
 .game-protagonist-intro > div > p:not(.eyebrow) { max-width:68ch; color:#ddd8eb; font-size:clamp(1rem,1.35vw,1.2rem); line-height:1.82; }
 .game-protagonist-intro > div > a { display:inline-flex; margin-top:28px; padding:15px 20px; color:#080918; background:linear-gradient(110deg,#71e7ff,#f7d988); font-size:.76rem; font-weight:950; text-decoration:none; }
 .game-protagonist-pair { position:relative; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(22px,3vw,48px); margin-top:clamp(65px,8vw,118px); }
-.game-protagonist-pair article.is-shadow { background:rgba(39,3,26,.76); }
+.game-protagonist-pair article.is-shadow { background:rgba(16,11,18,.76); }
 .game-protagonist-pair .is-shadow figure { background:radial-gradient(circle at 50% 62%,rgba(255,54,146,.23),transparent 58%); }
 .game-protagonist-pair article > div { display:flex; flex-direction:column; justify-content:center; padding:clamp(28px,4vw,58px); }
 .game-protagonist-pair span { color:#67e4ff; font-size:.66rem; font-weight:950; letter-spacing:.13em; text-transform:uppercase; }
 .game-protagonist-pair .is-shadow span { color:#ff70bc; }
 .game-protagonist-pair p { margin:0; color:#d8d4e2; font-size:.94rem; line-height:1.75; }
-.game-dossier-demon-match .game-nexus-story > img { object-fit:contain; background:linear-gradient(145deg,#17144a,#490a30); }
+.game-dossier-demon-match .game-nexus-story > img { object-fit:contain; background:linear-gradient(145deg,#17144a,#1e1823); }
 .game-dossier-demon-match .game-nexus-story > div[aria-hidden] { background:linear-gradient(90deg,rgba(7,3,18,.97),rgba(7,3,18,.7) 48%,rgba(7,3,18,.18)); }
 
 @media (max-width:1050px) {

@@ -7,7 +7,7 @@
 .support-admin-editor label,.support-admin-toolbar label{display:grid;gap:7px;font-weight:800}
 .support-admin-editor select,.support-admin-editor textarea,.support-admin-toolbar select{width:100%;padding:13px;border:1px solid rgba(255,255,255,.2);color:#fff;background:#0c142c;font:inherit}
 .support-admin-page{min-height:100vh;padding-bottom:100px;color:#fff;background:#080d21}
-.support-admin-page>header{padding:75px 0;background:linear-gradient(110deg,rgba(8,13,33,.96),rgba(55,20,63,.9)),url('/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg') center/cover}
+.support-admin-page>header{padding:75px 0;background:linear-gradient(110deg,rgba(8,13,33,.96),rgba(35,27,40,.9)),url('/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg') center/cover}
 .support-admin-page>header>.shell{display:grid;grid-template-columns:220px 1fr;gap:45px;align-items:center}
 .support-admin-page>header img{width:100%;height:200px;object-fit:contain}
 .support-admin-dashboard{padding:70px 0}

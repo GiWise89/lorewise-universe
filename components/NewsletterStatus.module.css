@@ -1,4 +1,4 @@
-.page{min-height:72vh;display:grid;place-items:center;padding:clamp(48px,9vw,120px) 16px;background:linear-gradient(125deg,#1c0d2a,#3a1447 60%,#172554);color:#fff8df}
+.page{min-height:72vh;display:grid;place-items:center;padding:clamp(48px,9vw,120px) 16px;background:linear-gradient(125deg,#161019,#241d2a 60%,#172554);color:#fff8df}
 .card{width:min(640px,100%);padding:clamp(28px,5vw,52px);border-top:5px solid #db2777;background:#fffaf4;color:#241031;box-shadow:0 30px 80px rgba(8,2,15,.45)}
 .card h1{margin:12px 0 16px;color:#17295e;font-family:var(--font-display),Georgia,serif;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.02}
 .card p{margin:0 0 14px;color:#4a3652;font-size:1.02rem;line-height:1.65}

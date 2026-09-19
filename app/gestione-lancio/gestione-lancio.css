@@ -5,7 +5,7 @@
  * classi usate esclusivamente in questa sezione.
  */
 .launch-readiness-page { min-height: 100vh; padding-bottom: 96px; background: var(--paper, #fffaf2); }
-.launch-readiness-hero { padding: clamp(42px, 7vw, 92px) 0; background: linear-gradient(118deg, #32163f 0%, #65214f 54%, #8d2b58 100%); color: #fff7db; }
+.launch-readiness-hero { padding: clamp(42px, 7vw, 92px) 0; background: linear-gradient(118deg, #231c29 0%, #382e41 54%, #8d2b58 100%); color: #fff7db; }
 .launch-readiness-hero .shell { display: grid; grid-template-columns: minmax(170px, 290px) 1fr; gap: clamp(34px, 6vw, 90px); align-items: center; }
 .launch-readiness-hero p:not(.eyebrow) { max-width: 760px; font-size: clamp(1rem, 1.35vw, 1.3rem); line-height: 1.65; }
 .launch-readiness-loading { display: flex; align-items: center; gap: 28px; min-height: 220px; padding: 48px 0; }

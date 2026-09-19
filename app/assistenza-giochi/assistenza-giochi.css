@@ -4,7 +4,7 @@
  * l'ordine originale delle regole: contiene solo selettori che richiedono
  * classi usate esclusivamente in questa sezione.
  */
-.support-ticket-center{scroll-margin-top:110px;margin:70px 0;padding:clamp(28px,5vw,65px);color:#fff;background:linear-gradient(130deg,#0c142c,#35143f 66%,#172554);border-top:5px solid #41d8e5;box-shadow:0 30px 75px rgba(23,37,84,.2)}
+.support-ticket-center{scroll-margin-top:110px;margin:70px 0;padding:clamp(28px,5vw,65px);color:#fff;background:linear-gradient(130deg,#0c142c,#231b28 66%,#172554);border-top:5px solid #41d8e5;box-shadow:0 30px 75px rgba(23,37,84,.2)}
 .support-ticket-center>header{display:flex;justify-content:space-between;gap:30px;align-items:end;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.17)}
 .support-ticket-center>header>strong{font-size:4rem;color:#f4cf49}
 .support-ticket-center>header>strong span{display:block;font-size:.7rem;text-transform:uppercase}
@@ -29,7 +29,7 @@
   .support-ticket-center>header{align-items:start;flex-direction:column}
 }
 .game-support-page { min-height: 100vh; padding-bottom: 120px; background: #fff8f1 url("/backgrounds/lorewise-parchment-v2.webp") center top / auto 1150px; color: #172554; }
-.game-support-hero { padding: clamp(60px,8vw,110px) 0; border-bottom: 6px solid #db2777; background: linear-gradient(110deg,#24102f 0%,#4c1d57 48%,#172554 100%); color: #fff; }
+.game-support-hero { padding: clamp(60px,8vw,110px) 0; border-bottom: 6px solid #db2777; background: linear-gradient(110deg,#1b141e 0%,#302738 48%,#172554 100%); color: #fff; }
 .game-support-hero > div { display: grid; grid-template-columns: minmax(150px,250px) minmax(0,1fr); gap: clamp(38px,7vw,100px); align-items: center; }
 .game-support-hero .eyebrow { color: #f9a8d4; }
 .game-support-hero p:last-child { max-width: 760px; color: #f0e7ef; font-size: clamp(1rem,1.5vw,1.25rem); line-height: 1.7; }

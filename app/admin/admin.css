@@ -10,7 +10,7 @@
 .admin-notification-toolbar select{min-width:145px;padding:10px;border:1px solid rgba(255,255,255,.18);color:inherit;background:#111832}
 .admin-center-page { min-height: 100vh; overflow: hidden; background: #070d23; color: #e8edf7; }
 .admin-center-hero { position: relative; min-height: 610px; display: grid; align-items: center; background: #070d23 url("/backgrounds/lorewise-celestial-atlas-desktop-4k-v2.jpg") center / cover no-repeat; }
-.admin-center-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg,rgba(4,8,24,.98),rgba(12,20,48,.91) 58%,rgba(35,16,56,.72)); }
+.admin-center-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg,rgba(4,8,24,.98),rgba(12,20,48,.91) 58%,rgba(27,21,31,.72)); }
 .admin-center-hero > .shell { position: relative; display: grid; grid-template-columns: minmax(0,1.2fr) minmax(260px,.6fr); gap: clamp(50px,8vw,130px); align-items: center; padding-block: 85px; }
 .admin-center-hero p:not(.eyebrow) { max-width: 720px; color: #cbd5e1; font-size: clamp(1rem,1.5vw,1.25rem); line-height: 1.75; }
 .admin-center-hero .eyebrow { color: #22d3ee; }
@@ -41,7 +41,7 @@
 .admin-famiglio-status.is-active { border-color:rgba(52,211,153,.45); color:#6ee7b7; }
 .admin-famiglio-privacy,.admin-famiglio-empty { margin:22px 0 0; color:#78869f; font-size:.64rem; line-height:1.65; }
 .admin-famiglio-empty { padding:24px; border:1px dashed rgba(148,163,184,.2); color:#94a3b8; }
-.admin-analytics { scroll-margin-top:110px; margin-top:95px; padding:clamp(28px,4.5vw,64px); border:1px solid rgba(167,139,250,.3); background:linear-gradient(145deg,rgba(18,24,52,.98),rgba(38,20,65,.96)); box-shadow:0 30px 80px rgba(0,0,0,.24); }
+.admin-analytics { scroll-margin-top:110px; margin-top:95px; padding:clamp(28px,4.5vw,64px); border:1px solid rgba(167,139,250,.3); background:linear-gradient(145deg,rgba(18,24,52,.98),rgba(31,24,36,.96)); box-shadow:0 30px 80px rgba(0,0,0,.24); }
 .admin-analytics > header p strong { color:#67e8f9; }
 .admin-analytics > header > span { display:grid; gap:5px; color:#a78bfa; font-size:.62rem; font-weight:900; text-align:right; text-transform:uppercase; }
 .admin-analytics > header > span strong { color:#e2e8f0; font-size:.75rem; }
