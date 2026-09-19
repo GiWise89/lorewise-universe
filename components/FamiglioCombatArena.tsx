@@ -450,6 +450,10 @@ export function FamiglioCombatArena({
     circuitId: selectedCircuit.id,
     difficulty,
     opponentLevel: selectedCampaignLevel?.opponentLevel ?? activeTowerFloor?.opponentLevel ?? (testMode ? progress.combatLevel : undefined),
+    // Le soglie di Campagna scalano il rivale sul livello del giocatore: l'anteprima
+    // deve mostrare le stesse statistiche che il motore userà in battaglia.
+    encounterId: selectedCampaignLevel?.id,
+    playerLevel: selectedCampaignLevel ? progress.combatLevel : undefined,
   }) : null;
   const opponentRoster = opponentIds.flatMap((id) => {
     const entry = familiarCombatEntry(id);
@@ -1207,7 +1211,7 @@ export function FamiglioCombatArena({
           <div className={styles.campaignObjective}>
             <small>Obiettivo dello scontro</small>
             <strong>{selectedCampaignLevel.objectiveLabel}</strong>
-            <span>{selectedCampaignLevel.turnLimit ? `${selectedCampaignLevel.turnLimit} turni massimi` : selectedCampaignLevel.bossPhases > 1 ? `${selectedCampaignLevel.bossPhases} fasi del comandante` : "Duello completo"}</span>
+            <span>{/* In Resistenza il limite di turni è la condizione di vittoria, non una scadenza. */}{selectedCampaignLevel.turnLimit ? selectedCampaignLevel.objective === "resistenza" ? `Resisti ${selectedCampaignLevel.turnLimit} turni per vincere` : `${selectedCampaignLevel.turnLimit} turni massimi` : selectedCampaignLevel.bossPhases > 1 ? `${selectedCampaignLevel.bossPhases} fasi del comandante` : "Duello completo"}</span>
           </div>
           <button className={styles.setupContinue} type="button" disabled={!familiarCampaignIsUnlocked(progress, selectedCampaignLevel, testMode)} onClick={() => prepareCampaignLevel(selectedCampaignLevel)}>Prepara lo scontro</button>
         </article> : null}
@@ -1416,7 +1420,7 @@ export function FamiglioCombatArena({
               corruptionIntensity={battleCampaignLevel?.corruptionIntensity}
               campaignNpc={battleCampaignLevel ? { src: battleCampaignLevel.npc.spriteSrc, name: battleCampaignLevel.npc.name, pose: campaignNpcPose } : null}
             />
-            <div className={battleStyles.arenaPlate}><small>{battleCircuit.name}</small><strong>{battleDifficultyLabel}</strong></div>
+            <div className={battleStyles.arenaPlate}><small>{battleCampaignLevel?.title ?? battleCircuit.name}</small><strong>{/* Obiettivo a turni sempre visibile: "Resisti" vince allo scadere, "Rapidità" perde. */}{battle.maxTurns ? battleCampaignLevel?.objective === "resistenza" ? `Resisti · turno ${Math.min(battle.turn, battle.maxTurns)}/${battle.maxTurns}` : `Turno ${Math.min(battle.turn, battle.maxTurns)}/${battle.maxTurns}` : battleDifficultyLabel}</strong></div>
             {roundNotice === battle.turn && !initiativeOpen && !animating ? <div className={battleStyles.roundNotice} role="status"><small>{battle.bossPhasesTotal > 1 ? `Fase ${battle.bossPhasesTotal - battle.bossPhasesRemaining + 1}/${battle.bossPhasesTotal}` : "Round"}</small><strong>{battle.turn}</strong></div> : null}
           </div>
           <div className={battleStyles.battleHud} data-side="opponent" data-critical={opponentHpPercent <= 25}>
@@ -1653,7 +1657,7 @@ export function FamiglioCombatArena({
     {!animating && battle && battle.outcome !== "active" ? <section className={battleStyles.resultOverlay} data-outcome={battle.outcome} role="dialog" aria-modal="true" aria-labelledby="battle-result-title">
       <article className={battleStyles.resultScreen}>
         <div className={battleStyles.resultAura} aria-hidden="true"><span /></div>
-        <small>{battle.outcome === "victory" ? "Trionfo del Legame" : "Il Legame non si spezza"}</small>
+        <small>{battle.outcome === "victory" ? (battleCampaignLevel?.objective === "resistenza" && battle.maxTurns && battle.turn >= battle.maxTurns ? "Obiettivo Resistenza completato" : "Trionfo del Legame") : "Il Legame non si spezza"}</small>
         <h2 id="battle-result-title">{battle.outcome === "victory" ? "Vittoria!" : "Sconfitta"}</h2>
         {battleCampaignLevel ? <div className={battleStyles.resultDialogue}>
           <FamiglioCampaignNpcCanvas className={battleStyles.resultNpcCanvas} src={battleCampaignLevel.npc.spriteSrc} hue={battleCampaignLevel.npc.costumeHue} pose={battle.outcome === "victory" ? "defeat" : "victory"} label={battleCampaignLevel.npc.name} />

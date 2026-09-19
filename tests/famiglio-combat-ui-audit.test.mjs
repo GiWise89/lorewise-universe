@@ -108,6 +108,14 @@ test("preparazione allineata al motore: base fissa, titolare 3v3 reale, riserve 
   assert.match(arena, /state\.pendingReward \? "Raccogli e continua" : "Continua"/);
 });
 
+test("Campagna: anteprima del rivale scalata, obiettivo Resistenza presentato come vittoria", async () => {
+  const arena = await source("components/FamiglioCombatArena.tsx");
+  assert.match(arena, /encounterId: selectedCampaignLevel\?\.id,\s*playerLevel: selectedCampaignLevel \? progress\.combatLevel : undefined,/);
+  assert.match(arena, /`Resisti \$\{selectedCampaignLevel\.turnLimit\} turni per vincere`/);
+  assert.match(arena, /`Resisti · turno \$\{Math\.min\(battle\.turn, battle\.maxTurns\)\}\/\$\{battle\.maxTurns\}`/);
+  assert.match(arena, /"Obiettivo Resistenza completato"/);
+});
+
 test("il Custode della Campagna ridisegna solo al cambio di frame e si ferma a fine posa", async () => {
   const npc = await source("components/FamiglioCampaignNpcCanvas.tsx");
   assert.match(npc, /if \(frame === lastFrame\)/);
