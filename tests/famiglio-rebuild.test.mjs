@@ -10,6 +10,7 @@ import {
   STARTER_EGGS,
   advanceRitual,
   beginHatching,
+  confirmHatching,
   cancelHatching,
   createRebuildState,
   customizeFamiliar,
@@ -162,16 +163,28 @@ test("the rebuild offers exactly the eight approved identifiable starters", () =
   assert.equal(new Set(STARTER_EGGS.map((egg) => egg.sigil)).size, 8);
 });
 
-test("the egg hatches automatically after three forty-second phases", () => {
+test("the ritual never hatches by itself: it waits for the keeper's confirmation", () => {
   let state = beginHatching(selectStarter(createRebuildState(), "panda"));
 
-  for (let phase = 0; phase < 3; phase += 1) {
+  for (let phase = 0; phase < 4; phase += 1) {
     for (let second = 0; second < RITUAL_PHASE_DURATION_MS / 1000; second += 1) state = advanceRitual(state, 1000);
   }
 
-  assert.equal(state.stage, "hatched");
-  assert.equal(state.totalElapsedMs, 120_000);
-  assert.deepEqual(state.unlockedIds, ["panda"]);
+  assert.equal(state.stage, "hatching");
+  assert.equal(state.ritualPhaseIndex, 2);
+  assert.deepEqual(state.unlockedIds, []);
+});
+
+test("confirming the identity hatches the egg at once and opens the Casa", () => {
+  let state = beginHatching(selectStarter(createRebuildState(), "cat"));
+  state = customizeFamiliar(state, { familiarName: "Luna", familiarSex: "female", colorVariant: "siamese" });
+  state = advanceRitual(state, 1000);
+  state = confirmHatching(state);
+  assert.equal(state.stage, "home");
+  assert.deepEqual(state.unlockedIds, ["cat"]);
+  assert.equal(state.familiarName, "Luna");
+  assert.equal(state.colorVariant, "siamese");
+  assert.equal(confirmHatching(createRebuildState()).stage, "choosing");
 });
 
 test("the ritual can return to confirmation without losing prepared identity", () => {
@@ -185,13 +198,6 @@ test("the ritual can return to confirmation without losing prepared identity", (
   assert.equal(state.colorVariant, "black");
 });
 
-test("the egg does not hatch before the full two minutes", () => {
-  let state = beginHatching(selectStarter(createRebuildState(), "cat"));
-  for (let second = 0; second < 119; second += 1) state = advanceRitual(state, 1000);
-  assert.equal(state.stage, "hatching");
-  state = advanceRitual(state, 1000);
-  assert.equal(state.stage, "hatched");
-});
 
 test("name, sex and real color variants can be prepared during hatching", () => {
   let state = beginHatching(selectStarter(createRebuildState(), "cat"));

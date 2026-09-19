@@ -5137,3 +5137,13 @@
   .homeExperience > .homeScene { order: 0; }
   .homeExperience > .homeActions { order: 1; }
 }
+
+/* Conferma dell'identità prima della schiusa immediata. */
+.hatchConfirm { display: grid; gap: 8px; margin-top: 12px; padding: 12px 14px; border: 1px solid rgba(244, 207, 73, .55); border-radius: 12px; background: rgba(20, 10, 32, .78); }
+.hatchConfirm > strong { color: #f8e7b0; font-size: .95rem; }
+.hatchConfirm > p { margin: 0; color: #fff5dc; font-weight: 800; }
+.hatchConfirm > small { color: #d8c9e6; line-height: 1.4; }
+.hatchConfirm > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.hatchConfirm > div > button { flex: 1 1 160px; min-height: 44px; }
+.hatchConfirm .secondaryAction { color: #f8e7b0; border: 1px solid rgba(248, 231, 176, .55); background: transparent; opacity: 1; }
+.hatchConfirm .secondaryAction:hover,.hatchConfirm .secondaryAction:focus-visible { background: rgba(248, 231, 176, .12); }

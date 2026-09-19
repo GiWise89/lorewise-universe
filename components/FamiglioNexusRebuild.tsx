@@ -12,6 +12,7 @@ import {
   advanceRitual,
   beginHatching,
   cancelHatching,
+  confirmHatching,
   createRebuildState,
   customizeFamiliar,
   enterFamiliarHome,
@@ -2169,6 +2170,7 @@ export function FamiglioNexusRebuild() {
     })]);
   };
   const [attendanceOpen, setAttendanceOpen] = useState(false);
+  const [hatchConfirmOpen, setHatchConfirmOpen] = useState(false);
   const [attendanceBusy, setAttendanceBusy] = useState(false);
   const [attendanceReveal, setAttendanceReveal] = useState<FamiliarAttendanceReward | null>(null);
   const [attendanceAutoSuppressed, setAttendanceAutoSuppressed] = useState(false);
@@ -2844,8 +2846,6 @@ export function FamiglioNexusRebuild() {
   }, [loadMissions, state.stage]);
 
   const phase = RITUAL_PHASES[state.ritualPhaseIndex];
-  const phaseSeconds = Math.max(0, Math.ceil((RITUAL_PHASE_DURATION_MS - state.phaseElapsedMs) / 1000));
-  const totalSeconds = Math.max(0, Math.ceil((RITUAL_PHASE_DURATION_MS * RITUAL_PHASES.length - state.totalElapsedMs) / 1000));
   const colorOptions = selectedEgg ? STARTER_COLOR_OPTIONS[selectedEgg.id] : [];
   const familiarDisplayName = state.familiarName.trim() || selectedEgg?.familiar || "Famiglio";
   const focusedEgg = STARTER_EGGS[focusedEggIndex];
@@ -3452,7 +3452,7 @@ export function FamiglioNexusRebuild() {
         <p>
           {state.stage === "choosing" && "Ogni uovo custodisce un Famiglio preciso. La scelta è tua e non è casuale."}
           {state.stage === "confirming" && "Osserva il sigillo e il carattere del Famiglio. Puoi ancora cambiare scelta."}
-          {state.stage === "hatching" && "La schiusa procede da sola. Nel frattempo prepara l’identità del tuo Famiglio."}
+          {state.stage === "hatching" && "Scegli nome, sesso e colore, poi conferma: l’uovo si schiuderà subito."}
           {state.stage === "hatched" && "Da questo momento il vostro cammino nel Nexus sarà condiviso."}
           {state.stage === "home" && (homePanel === "diary" ? `I ricordi importanti di ${familiarDisplayName} restano custoditi qui.` : homePanel === "missions" ? "Tre incarichi reali, diversi ogni giorno, uniscono il Famiglio al resto di LoreWise." : homePanel === "market" ? "Bancarelle distinte per provviste, cure e future collezioni speciali." : homePanel === "adventure" ? "Spedizioni a tempo con ricompense ed esperienza esplorazione." : homePanel === "combat" ? "Duelli progressivi tra tutti i Famigli, con livelli, statistiche e mosse personali." : homePanel === "progression" ? "Evoluzioni, nuove mosse e ricompense raccolte in un cammino leggibile." : `${homeDisplayName} ti aspetta nel suo rifugio.`)}
         </p>
@@ -3563,7 +3563,22 @@ export function FamiglioNexusRebuild() {
                   <ul className={styles.traitList}>{selectedEgg.traits.map((trait) => <li key={trait}>{trait}</li>)}</ul>
                 </div>
               </div>
-              <span className={styles.countdown}>Schiusa automatica · {totalSeconds}s rimanenti · fase {phaseSeconds}s</span>
+              {hatchConfirmOpen ? (
+                <div className={styles.hatchConfirm} role="group" aria-labelledby="hatch-confirm-title">
+                  <strong id="hatch-confirm-title">Confermi il tuo Famiglio?</strong>
+                  <p>
+                    {familiarDisplayName} · {SEX_OPTIONS.find((option) => option.id === state.familiarSex)?.label}
+                    {colorOptions.length > 1 ? ` · ${colorOptions.find((option) => option.id === state.colorVariant)?.label ?? ""}` : ""}
+                  </p>
+                  <small>Nome, sesso e colore non potranno essere cambiati dopo la schiusa.</small>
+                  <div>
+                    <button className={styles.primaryAction} type="button" onClick={() => { setHatchConfirmOpen(false); setState(confirmHatching); }}>Conferma e inizia ad accudirlo</button>
+                    <button className={styles.secondaryAction} type="button" onClick={() => setHatchConfirmOpen(false)}>Modifica</button>
+                  </div>
+                </div>
+              ) : (
+                <button className={styles.primaryAction} type="button" onClick={() => setHatchConfirmOpen(true)}>Ho scelto: conferma</button>
+              )}
             </div>
           </div>
         ) : null}

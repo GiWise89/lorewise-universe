@@ -135,13 +135,20 @@ export function advanceRitual(state: RebuildState, elapsedMs: number): RebuildSt
   };
 
   if (next.phaseElapsedMs < RITUAL_PHASE_DURATION_MS) return next;
-  if (next.ritualPhaseIndex >= RITUAL_PHASES.length - 1) {
-    const unlockedIds = next.selectedId && !next.unlockedIds.includes(next.selectedId)
-      ? [...next.unlockedIds, next.selectedId]
-      : next.unlockedIds;
-    return { ...next, stage: "hatched", phaseElapsedMs: RITUAL_PHASE_DURATION_MS, unlockedIds };
-  }
+  // Il rituale accompagna la scelta dell'identità ma non schiude più l'uovo da solo:
+  // arrivato all'ultima fase resta in attesa della conferma del custode (confirmHatching).
+  if (next.ritualPhaseIndex >= RITUAL_PHASES.length - 1) return { ...next, phaseElapsedMs: RITUAL_PHASE_DURATION_MS };
   return { ...next, ritualPhaseIndex: next.ritualPhaseIndex + 1, phaseElapsedMs: 0 };
+}
+
+/**
+ * Il custode conferma nome, sesso e colore: l'uovo si schiude subito e si entra nella Casa,
+ * senza aspettare la fine del rituale.
+ */
+export function confirmHatching(state: RebuildState): RebuildState {
+  if (state.stage !== "hatching" || !state.selectedId) return state;
+  const unlockedIds = state.unlockedIds.includes(state.selectedId) ? state.unlockedIds : [...state.unlockedIds, state.selectedId];
+  return { ...state, stage: "home", ritualPhaseIndex: RITUAL_PHASES.length - 1, phaseElapsedMs: RITUAL_PHASE_DURATION_MS, unlockedIds };
 }
 
 export function ritualProgress(state: RebuildState): number {
