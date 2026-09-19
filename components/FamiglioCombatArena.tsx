@@ -22,6 +22,7 @@ import {
   startFamiliarCombatBattle,
   switchFamiliarCombatant,
   type FamiliarCombatDifficulty,
+  type FamiliarCombatOutcome,
   type FamiliarCombatState,
   type FamiliarCombatTimelineEvent,
   type FamiliarCombatReward,
@@ -228,11 +229,13 @@ function poseFor(
   familiarId: string,
   playerId: string,
   event: FamiliarCombatTimelineEvent | null,
-  resultOutcome: "active" | "victory" | "defeat",
+  resultOutcome: FamiliarCombatOutcome,
   entering: boolean,
 ) {
   if (!event) {
     if (entering) return "entrance";
+    // Ritirata: esito neutro, nessuno dei due Famigli festeggia o crolla.
+    if (resultOutcome === "retreat") return "idle";
     if (resultOutcome !== "active") {
       const playerWon = resultOutcome === "victory";
       return familiarId === playerId ? (playerWon ? "victory" : "exhausted") : (playerWon ? "exhausted" : "victory");
@@ -868,7 +871,8 @@ export function FamiglioCombatArena({
         nextState = result.state;
       }
     }
-    if (!state.pendingReward && battle) onMissionActivity?.("familiar_battle", battle.id);
+    // Una ritirata non conta come battaglia disputata per le missioni.
+    if (!state.pendingReward && battle && battle.outcome !== "retreat") onMissionActivity?.("familiar_battle", battle.id);
     setState(closeFamiliarCombatBattle(nextState));
     if (battle?.outcome === "victory" && battleFormat === "tower" && towerRun) {
       const nextRun = advanceFamiliarTower(towerRun);
@@ -882,8 +886,9 @@ export function FamiglioCombatArena({
   };
 
   const rematch = () => {
-    if (!battle || battle.outcome !== "defeat") return;
-    onMissionActivity?.("familiar_battle", battle.id);
+    // Rivincita dopo una sconfitta o una ritirata (esito neutro).
+    if (!battle || (battle.outcome !== "defeat" && battle.outcome !== "retreat")) return;
+    if (battle.outcome !== "retreat") onMissionActivity?.("familiar_battle", battle.id);
     const clearedState = closeFamiliarCombatBattle(state);
     const result = startFamiliarCombatBattle(clearedState, {
       playerId: familiarId,
@@ -1642,7 +1647,7 @@ export function FamiglioCombatArena({
               <Image className={battleStyles.retreatConfirmIcon} src="/famiglio/rebuild/combat/ui/battle-retreat-icon-v2.png" width={192} height={192} unoptimized alt="" aria-hidden="true" />
               <small>Abbandona il duello</small>
               <h2 id="retreat-confirm-title">Vuoi davvero ritirarti?</h2>
-              <p>La battaglia terminerà come ritirata. Non perderai oggetti, ma non riceverai esperienza o ricompense.</p>
+              <p>La battaglia terminerà come ritirata: nessuna sconfitta verrà registrata e non perderai oggetti, ma non riceverai esperienza o ricompense.</p>
               <div className={battleStyles.retreatConfirmActions}>
                 <button type="button" onClick={() => setRetreatConfirmOpen(false)}>Continua a combattere</button>
                 <button type="button" data-danger="true" onClick={leaveBattle}>Conferma ritiro</button>
@@ -1657,17 +1662,17 @@ export function FamiglioCombatArena({
     {!animating && battle && battle.outcome !== "active" ? <section className={battleStyles.resultOverlay} data-outcome={battle.outcome} role="dialog" aria-modal="true" aria-labelledby="battle-result-title">
       <article className={battleStyles.resultScreen}>
         <div className={battleStyles.resultAura} aria-hidden="true"><span /></div>
-        <small>{battle.outcome === "victory" ? (battleCampaignLevel?.objective === "resistenza" && battle.maxTurns && battle.turn >= battle.maxTurns ? "Obiettivo Resistenza completato" : "Trionfo del Legame") : "Il Legame non si spezza"}</small>
-        <h2 id="battle-result-title">{battle.outcome === "victory" ? "Vittoria!" : "Sconfitta"}</h2>
-        {battleCampaignLevel ? <div className={battleStyles.resultDialogue}>
+        <small>{battle.outcome === "victory" ? (battleCampaignLevel?.objective === "resistenza" && battle.maxTurns && battle.turn >= battle.maxTurns ? "Obiettivo Resistenza completato" : "Trionfo del Legame") : battle.outcome === "retreat" ? "Rientro al sicuro" : "Il Legame non si spezza"}</small>
+        <h2 id="battle-result-title">{battle.outcome === "victory" ? "Vittoria!" : battle.outcome === "retreat" ? "Ritirata" : "Sconfitta"}</h2>
+        {battle.outcome === "retreat" ? <p className={battleStyles.retreatResultMessage}>Ti sei ritirato: nessuna sconfitta registrata.</p> : battleCampaignLevel ? <div className={battleStyles.resultDialogue}>
           <FamiglioCampaignNpcCanvas className={battleStyles.resultNpcCanvas} src={battleCampaignLevel.npc.spriteSrc} hue={battleCampaignLevel.npc.costumeHue} pose={battle.outcome === "victory" ? "defeat" : "victory"} label={battleCampaignLevel.npc.name} />
           <div className={battleStyles.comicBubble}><strong>{battleCampaignLevel.npc.name}</strong><p>{battle.outcome === "victory" ? battleCampaignLevel.victoryLine : battleCampaignLevel.defeatLine}</p></div>
         </div> : <p>{battle.outcome === "victory" ? (battleFormat === "tower" && towerRun ? `${familiarName} ha superato il piano ${towerRun.currentFloor} della Torre.` : `${familiarName} ha dominato l'Arena.`) : `${familiarName} è al sicuro e può prepararsi alla rivincita.`}</p>}
         <div className={battleStyles.resultFamiliar} data-outcome={battle.outcome} aria-label={battle.outcome === "victory" ? "Santuario della vittoria" : "Santuario della rivincita"}>
           <FamiglioCombatPreviewCanvas
             className={battleStyles.resultFamiliarCanvas}
-            src={spritePath(familiarId, growthStage, battle.outcome === "victory" ? "victory" : "exhausted", colorVariant)}
-            label={`${familiarName}: ${battle.outcome === "victory" ? "vittoria" : "sconfitta"}`}
+            src={spritePath(familiarId, growthStage, battle.outcome === "victory" ? "victory" : battle.outcome === "retreat" ? "idle" : "exhausted", colorVariant)}
+            label={`${familiarName}: ${battle.outcome === "victory" ? "vittoria" : battle.outcome === "retreat" ? "ritirata" : "sconfitta"}`}
             naturalScale={playerVisual.scale}
           />
         </div>
@@ -1676,7 +1681,7 @@ export function FamiglioCombatArena({
           <div><dt>Monete</dt><dd>+{state.pendingReward.nexusCoins}</dd></div>
           <div><dt>Sigilli</dt><dd>+{state.pendingReward.nightSigils}</dd></div>
           <div><dt>Frammenti</dt><dd>+{state.pendingReward.relicFragments}</dd></div>
-        </dl> : <div className={battleStyles.defeatMessage}>{battle.outcome === "victory" ? "Esperienza acquisita · ricompensa di questo incontro già ottenuta" : "Nessun oggetto perso"}</div>}
+        </dl> : <div className={battleStyles.defeatMessage}>{battle.outcome === "victory" ? "Esperienza acquisita · ricompensa di questo incontro già ottenuta" : battle.outcome === "retreat" ? "Nessuna sconfitta nel record · nessuna esperienza o ricompensa" : "Nessun oggetto perso"}</div>}
         <div className={battleStyles.resultActions}>
           {battle.outcome === "victory"
             ? <button type="button" onClick={collectReward}>{/* Nessun "Raccogli" quando il motore non ha creato una ricompensa (incontro già vinto, anche da un piano della Torre con lo stesso rivale). */}{battleFormat === "tower" && towerRun?.currentFloor !== 10 ? (state.pendingReward ? "Raccogli · prossimo piano" : "Prossimo piano") : state.pendingReward ? "Raccogli e continua" : "Continua"}</button>

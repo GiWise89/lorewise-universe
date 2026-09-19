@@ -122,3 +122,5 @@
 @media(max-width:900px){.battleUtilityDock{flex-wrap:wrap;justify-content:flex-end}}
 @media(max-width:900px) and (pointer:coarse){.battleUtilityButton,.retreatButton{width:44px;height:44px;min-width:44px;min-height:44px}}
 @media(prefers-reduced-motion:reduce){.hudHealth i,.hudEnergy i{transition:none}}
+/* Ritirata: esito neutro, né trionfo né sconfitta. */
+.resultOverlay[data-outcome="retreat"] .resultScreen{border-color:#9fb6c4}.retreatResultMessage{margin:0;padding:10px 14px;border:1px solid #9fb6c4;border-radius:10px;color:#eef7fb;background:#0d2230;font-weight:800}

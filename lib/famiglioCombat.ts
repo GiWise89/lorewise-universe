@@ -17,7 +17,8 @@ export const FAMILIAR_COMBAT_ENERGY_REGEN = 18;
 export const FAMILIAR_COMBAT_SWITCH_ENERGY_COST = 30;
 
 export type FamiliarCombatDifficulty = "normal" | "expert" | "nexus";
-export type FamiliarCombatOutcome = "active" | "victory" | "defeat";
+/** "retreat" è un esito neutro: nessuna sconfitta registrata, nessuna esperienza, nessun premio. */
+export type FamiliarCombatOutcome = "active" | "victory" | "defeat" | "retreat";
 export type FamiliarCombatActionKind = "physical" | "magic" | "guard" | "status" | "heal";
 export type FamiliarCombatEventPhase =
   | "windup"
@@ -1368,7 +1369,7 @@ function combatRewardFor(battle: FamiliarCombatBattle, firstClear: boolean): Fam
 function concludeBattle(
   state: FamiliarCombatState,
   battle: FamiliarCombatBattle,
-  outcome: Exclude<FamiliarCombatOutcome, "active">,
+  outcome: "victory" | "defeat",
   events: FamiliarCombatTimelineEvent[],
   awardXp = true,
   resultMessage?: string,
@@ -1683,12 +1684,37 @@ export function closeFamiliarCombatBattle(state: FamiliarCombatState) {
   return { ...state, activeBattle: null, lastTimeline: [] };
 }
 
+export const FAMILIAR_COMBAT_RETREAT_MESSAGE = "Ti sei ritirato: nessuna sconfitta registrata.";
+
+/**
+ * Ritirata: esito neutro. Prima chiudeva la battaglia come sconfitta (schermata
+ * di sconfitta e una perdita in più nel record). Ora non aggiunge vittorie né
+ * sconfitte, non assegna esperienza né premi e non completa l'incontro (Campagna
+ * e Torre restano al livello/piano attuale). Avanza soltanto il contatore delle
+ * battaglie disputate, così la rivincita usa un nuovo seme come dopo una sconfitta.
+ */
 export function retreatFromFamiliarCombat(state: FamiliarCombatState) {
   const battle = state.activeBattle;
   if (!battle || battle.outcome !== "active") return state;
-  const events: FamiliarCombatTimelineEvent[] = [];
-  const concluded = concludeBattle(state, battle, "defeat", events, false);
-  return { ...concluded.state, pendingReward: null, lastMessage: "Rientro sicuro: nessun oggetto è stato perso." };
+  const leadId = battle.teamFamiliarIds[0] ?? battle.player.familiarId;
+  const memberIds = battle.teamFamiliarIds.length ? battle.teamFamiliarIds : [leadId];
+  const profiles = Object.fromEntries(memberIds.map((familiarId) => {
+    const progress = familiarCombatProgress(state, familiarId);
+    return [familiarId, {
+      ...progress,
+      battlesCompleted: progress.battlesCompleted + 1,
+      ...(familiarId === leadId ? { rngState: battle.rngState } : {}),
+    }];
+  }));
+  const resolvedBattle: FamiliarCombatBattle = { ...battle, outcome: "retreat", resultApplied: true, timeline: [] };
+  return {
+    ...state,
+    profiles: { ...state.profiles, ...profiles },
+    activeBattle: resolvedBattle,
+    pendingReward: null,
+    lastTimeline: [],
+    lastMessage: FAMILIAR_COMBAT_RETREAT_MESSAGE,
+  };
 }
 
 function restoreSchedule(familiarId: string, raw: unknown, seed: number) {
@@ -1829,7 +1855,7 @@ export function restoreFamiliarCombatState(value: unknown): FamiliarCombatState 
         maxTurns: Number.isFinite(candidate.activeBattle.maxTurns) ? integer(candidate.activeBattle.maxTurns, 1, 1, 9999) : null,
         bossPhasesTotal: integer(candidate.activeBattle.bossPhasesTotal, 1, 1, 3),
         bossPhasesRemaining: integer(candidate.activeBattle.bossPhasesRemaining, 1, 1, integer(candidate.activeBattle.bossPhasesTotal, 1, 1, 3)),
-        outcome: (["active", "victory", "defeat"] as const).includes(candidate.activeBattle.outcome as FamiliarCombatOutcome)
+        outcome: (["active", "victory", "defeat", "retreat"] as const).includes(candidate.activeBattle.outcome as FamiliarCombatOutcome)
           ? candidate.activeBattle.outcome as FamiliarCombatOutcome : "active",
         rngState: normalizedSeed(candidate.activeBattle.rngState ?? seed),
         lastPlayerMoveId: typeof candidate.activeBattle.lastPlayerMoveId === "string" ? candidate.activeBattle.lastPlayerMoveId : null,
