@@ -17,6 +17,9 @@ type MissionRow = {
   claimed_at: string | null;
 };
 
+/** Eventi registrabili per tipo di attività e giorno (le missioni ne richiedono al massimo 5). */
+export const FAMILIAR_DAILY_ACTIVITY_EVENT_LIMIT = 100;
+
 function previousDateKey(date: string) {
   const instant = new Date(`${date}T12:00:00.000Z`);
   instant.setUTCDate(instant.getUTCDate() - 1);
@@ -90,6 +93,13 @@ export async function recordFamiliarMissionActivity(database: D1Database, input:
   if (!sourceKey) return false;
   const missionCount = input.missionCount ?? await familiarMissionCountForCustomer(database, input.customerId);
   await ensureDailyFamiliarMissions(database, input.customerId, date, missionCount);
+  // /api/famiglio/activity accetta chiavi scelte dal client (id di battaglia, piano della torre…):
+  // senza un tetto giornaliero ogni chiave nuova era una riga in più, all'infinito. Le missioni
+  // chiedono al massimo pochi eventi al giorno, quindi il tetto non tocca il gioco reale.
+  const recorded = await database.prepare(`SELECT COUNT(*) AS count FROM nexus_familiar_activity_events
+    WHERE customer_id = ? AND activity_date = ? AND activity_type = ?`)
+    .bind(input.customerId, date, input.activity).first<{ count: number | string }>();
+  if (Number(recorded?.count ?? 0) >= FAMILIAR_DAILY_ACTIVITY_EVENT_LIMIT) return false;
   const inserted = await database.prepare(`INSERT INTO nexus_familiar_activity_events
     (customer_id, activity_date, activity_type, source_key, quality_score)
     VALUES (?, ?, ?, ?, ?) ON CONFLICT(customer_id, activity_date, activity_type, source_key) DO NOTHING`)

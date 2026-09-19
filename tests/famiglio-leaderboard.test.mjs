@@ -21,6 +21,8 @@ async function database(){
 function completed(kind='light',seed=12){
   const e=createMatchEngine(kind,seed),actions=[];
   const push=a=>{actions.push(a);applyMatchAction(e,a);};
+  // Nella Luce un colpo prima di LIGHT_MIN_REACTION_MS dalla comparsa viene ignorato.
+  push({type:'step',value:100});push({type:'step',value:100});
   push({type:'input',value:0});
   while(!e.run.finished)push({type:'step',value:100});
   return {actions,elapsed:e.run.elapsed,score:e.run.score};

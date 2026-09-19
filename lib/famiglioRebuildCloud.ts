@@ -1,3 +1,7 @@
+import { createFamiliarAttendanceState } from "./famiglioAttendanceYear.ts";
+import { MEDUSA_FAMILIAR_CATALOG } from "./famiglioMarketExpansion.ts";
+import { PREMIUM_FAMILIARS } from "./nexusFamiliarCatalog.ts";
+
 export const FAMIGLIO_REBUILD_CLOUD_SCHEMA_VERSION = 1;
 export const FAMIGLIO_REBUILD_CLOUD_MAX_BYTES = 512 * 1024;
 
@@ -92,11 +96,73 @@ export function preserveServerOwnedAttendance(
   incoming: FamiglioRebuildCloudSave,
   current: FamiglioRebuildCloudSave | null,
 ): FamiglioRebuildCloudSave {
+  // Primo salvataggio dell'account: il registro dell'ospite viene accettato una sola volta.
   if (!current) return incoming;
   const houses = incoming.houses.map((house, index) => {
+    if (!house || !isRecord(house.home)) return house;
     const stored = current.houses[index];
-    if (!house || !stored || !isRecord(house.home) || !isRecord(stored.home) || !isRecord(stored.home.attendance)) return house;
-    return { ...house, home: { ...house.home, attendance: stored.home.attendance } };
+    if (stored && isRecord(stored.home) && isRecord(stored.home.attendance)) {
+      return { ...house, home: { ...house.home, attendance: stored.home.attendance } };
+    }
+    // Casa nuova (o svuotata e ricreata) su un account che ha già un salvataggio: il registro
+    // riparte da zero. Prima il client poteva azzerare una Casa con un PUT e ricrearla con date
+    // e traguardi inventati, che la rotta /streak avrebbe poi pagato come autentici.
+    return { ...house, home: { ...house.home, attendance: createFamiliarAttendanceState() } };
   });
   return { ...incoming, houses };
+}
+
+/** Case a pagamento: indice 1 → "slot-famiglio-2", indice 2 → "slot-famiglio-3". */
+const PAID_HOUSE_OFFER_IDS: ReadonlyArray<readonly [number, string]> = [[1, "slot-famiglio-2"], [2, "slot-famiglio-3"]];
+const GATED_FAMILIAR_IDS = new Set<string>([
+  ...MEDUSA_FAMILIAR_CATALOG.map((entry) => entry.id),
+  ...PREMIUM_FAMILIARS.map((entry) => entry.id),
+]);
+
+/** Id di Famiglio che il client usa per decidere quali Famigli "possiede" in una Casa. */
+function familiarIdsInHouse(house: unknown, ids: Set<string>) {
+  if (!isRecord(house)) return;
+  const add = (value: unknown) => { if (typeof value === "string" && value) ids.add(value); };
+  add(house.activeFamiliarId);
+  if (isRecord(house.rebuild)) {
+    add(house.rebuild.selectedId);
+    if (Array.isArray(house.rebuild.unlockedIds)) house.rebuild.unlockedIds.forEach(add);
+  }
+  if (isRecord(house.combat) && isRecord(house.combat.activeBattle) && isRecord(house.combat.activeBattle.player)) {
+    add(house.combat.activeBattle.player.familiarId);
+  }
+}
+
+function familiarIdsInSave(save: FamiglioRebuildCloudSave | null) {
+  const ids = new Set<string>();
+  if (!save) return ids;
+  // Il client salva anche una copia della Casa attiva al primo livello del salvataggio.
+  for (const house of [save, ...save.houses]) familiarIdsInHouse(house, ids);
+  return ids;
+}
+
+/**
+ * Contenuti a pagamento nel salvataggio inviato dal client. Il client considera disponibile
+ * ogni Casa presente nel salvataggio e "posseduto" ogni Famiglio indicato come attivo: senza
+ * questo controllo un PUT costruito a mano sbloccava Case e Famigli premium senza acquisto.
+ * Ciò che era già sul server resta valido, così un salvataggio esistente non si blocca mai.
+ * Restituisce il messaggio d'errore, oppure null se il salvataggio è ammesso.
+ */
+export function rebuildSaveEntitlementViolation(
+  incoming: FamiglioRebuildCloudSave,
+  current: FamiglioRebuildCloudSave | null,
+  entitlements: { offerIds: readonly string[]; appearanceIds: readonly string[] },
+): string | null {
+  for (const [index, offerId] of PAID_HOUSE_OFFER_IDS) {
+    if (incoming.houses[index] && !current?.houses[index] && !entitlements.offerIds.includes(offerId)) {
+      return "Questa Casa del Famiglio non è ancora stata acquistata nel tuo LoreWise ID.";
+    }
+  }
+  const alreadyStored = familiarIdsInSave(current);
+  for (const id of familiarIdsInSave(incoming)) {
+    if (GATED_FAMILIAR_IDS.has(id) && !alreadyStored.has(id) && !entitlements.appearanceIds.includes(id)) {
+      return "Questo Famiglio premium non è presente nel tuo LoreWise ID.";
+    }
+  }
+  return null;
 }
