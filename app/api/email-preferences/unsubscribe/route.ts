@@ -1,5 +1,6 @@
 import { env } from "@/lib/netlifyRuntime";
 import { ensureMarketingTables, recordMarketingConsent } from "@/lib/marketingEmail";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database };
 
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine non valida." }, { status: 403 });
   const body = await request.json().catch(() => null) as { token?: unknown } | null;
   if (!validToken(body?.token)) return Response.json({ error: "Link di disattivazione non valido." }, { status: 400 });
   const database = (env as unknown as RuntimeEnv).DB;

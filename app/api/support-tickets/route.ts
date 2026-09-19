@@ -5,6 +5,7 @@ import { ensureAdminNotificationsTable } from "@/lib/adminNotifications";
 import { ensureSupportTicketTables, makeSupportReference } from "@/lib/supportTickets";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser } from "@/lib/supabase/server";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database };
 const categories = new Set(["account", "game", "download", "commission", "subscription", "privacy", "other"]);
@@ -30,9 +31,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const requestUrl = new URL(request.url);
   const origin = request.headers.get("origin");
-  if (origin && origin !== requestUrl.origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
   const result = await context();
   if ("response" in result) return result.response;
   const body = await request.json().catch(() => null) as { category?: unknown; subject?: unknown; description?: unknown; productCode?: unknown } | null;

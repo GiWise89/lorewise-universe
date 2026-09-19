@@ -11,6 +11,7 @@ import { bestFamiliarDiscount, familiarLevelForCustomer } from "@/lib/nexusFamil
 import { purchasedPremiumFamiliarIds } from "@/lib/nexusFamiliarCommerce";
 import { FAMILIAR_SHOP_OFFERS } from "@/lib/nexusFamiliarWorld";
 import { getHorrorArtworkBundle, isHorrorArtworkBundleActive } from "@/lib/horrorArtworkBundles";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = StripeRuntimeEnv & { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket; LOREWISE_MANUAL_DELIVERY_APPROVED?: string };
 
@@ -98,7 +99,7 @@ export async function POST(request: Request) {
     const runtime = await runtimeEnv();
     const requestUrl = new URL(request.url);
     const browserOrigin = request.headers.get("origin");
-    if (browserOrigin && browserOrigin !== requestUrl.origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+    if (!isSameSiteOrigin(request, browserOrigin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
 
     const body = await request.json().catch(() => null) as { productCode?: unknown; productType?: unknown } | null;
     if (typeof body?.productType !== "string" || typeof body.productCode !== "string") {

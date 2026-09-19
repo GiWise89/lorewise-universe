@@ -1,5 +1,6 @@
 import { ensureAdminNotificationsTable, syncAdminNotifications } from "@/lib/adminNotifications";
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 export async function GET() {
   const auth = await requireOrderAdmin();
@@ -13,9 +14,8 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
-  const requestUrl = new URL(request.url);
   const origin = request.headers.get("origin");
-  if (origin && origin !== requestUrl.origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
   const auth = await requireOrderAdmin();
   if ("response" in auth) return auth.response;
   const body = await request.json().catch(() => null) as { action?: unknown; id?: unknown } | null;

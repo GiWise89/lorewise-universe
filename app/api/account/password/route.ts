@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { createLoreWiseServerClient } from "@/lib/supabase/server";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 function sameOrigin(request: Request) {
   const origin = request.headers.get("origin");
-  return !origin || origin === new URL(request.url).origin;
+  return isSameSiteOrigin(request, origin);
 }
 
 export async function POST(request: Request) {

@@ -4,6 +4,7 @@ import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 import { localAccountProfile, netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { removeLocalProfileAvatar, saveLocalProfileAvatar } from "@/lib/localProfileAvatar";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database; COMMISSION_UPLOADS?: R2Bucket; LOREWISE_ADMIN_EMAILS?: string };
 
@@ -25,7 +26,7 @@ async function authenticated() {
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine non valida." }, { status: 403 });
   const form = await request.formData().catch(() => null);
   const file = form?.get("avatar");
   if (!(file instanceof File)) return Response.json({ error: "Scegli un'immagine." }, { status: 400 });
@@ -59,7 +60,7 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine non valida." }, { status: 403 });
   if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {
     const user = await getLoreWiseUser();
     if (!user) return Response.json({ error: "Accedi al tuo LoreWise ID." }, { status: 401 });

@@ -4,6 +4,7 @@ import { ensureArtCommunityTables } from "@/lib/artCommunityServer";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient } from "@/lib/supabase/server";
 import { createUserNotification } from "@/lib/userNotifications";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database };
 type Moderator = { id: string; email: string; role: "admin" | "moderator" };
@@ -137,7 +138,7 @@ export async function GET() {
 export async function PATCH(request: Request) {
   try {
     const origin = request.headers.get("origin");
-    if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
+    if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine non valida." }, { status: 403 });
     const authenticated = await requireModerator();
     if (authenticated.error) return authenticated.error;
     const body = await request.json() as Record<string, unknown>;

@@ -11,6 +11,7 @@ import { localArtCommunityPayload, updateLocalArtCommunity } from "@/lib/localAr
 import { meaningfulMissionComment } from "@/lib/nexusFamiliarMissionCatalog";
 import { recordFamiliarMissionActivity } from "@/lib/nexusFamiliarMissionServer";
 import { familiarCommunityTitle } from "@/lib/nexusFamiliarBenefits";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database; LOREWISE_ADMIN_EMAILS?: string };
 type Viewer = { id: string; canParticipate: boolean };
@@ -89,7 +90,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine non valida." }, { status: 403 });
   const artwork = selectedArtwork(request);
   if (!artwork) return Response.json({ error: "Opera non trovata." }, { status: 404 });
   const body = await request.json().catch(() => null) as Record<string, unknown> | null;

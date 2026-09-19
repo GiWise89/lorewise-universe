@@ -4,6 +4,7 @@ import { recordFamiliarMissionActivity } from "@/lib/nexusFamiliarMissionServer"
 import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database };
 const visitActivities = new Set<FamiliarMissionActivity>(["artwork_visit", "guide_visit", "chronicle_visit", "project_visit"]);
@@ -12,7 +13,7 @@ const gameActivities = new Set<FamiliarMissionActivity>(["familiar_battle", "fam
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine non valida." }, { status: 403 });
   const user = await getLoreWiseUser();
   if (!user) return Response.json({ recorded: false }, { status: 401 });
   const body = await request.json().catch(() => null) as { activity?: unknown; sourceKey?: unknown } | null;

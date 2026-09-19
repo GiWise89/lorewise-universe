@@ -3,10 +3,11 @@ import { cookies } from "next/headers";
 import { slimAccountMetadata } from "@/lib/accountMetadataSlim";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, isLocalLoreWiseRequest } from "@/lib/supabase/server";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 function sameOrigin(request: Request) {
   const origin = request.headers.get("origin");
-  return !origin || origin === new URL(request.url).origin;
+  return isSameSiteOrigin(request, origin);
 }
 
 function loginError(error: { code?: string; message: string; status?: number }) {

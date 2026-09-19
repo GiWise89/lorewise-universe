@@ -4,7 +4,11 @@ export function GET(request: Request) {
   const isProductionHost = host === "lorewisenexus.it" || host === "www.lorewisenexus.it";
   const publicationApproved = process.env.LOREWISE_PUBLICATION_APPROVED?.trim().toLowerCase() === "true";
   const allowIndexing = isProductionHost || publicationApproved;
-  const origin = isProductionHost ? "https://lorewisenexus.it" : url.origin;
+  // Con le build da Git la richiesta arriva dall'indirizzo interno di Netlify (main--lorewise.netlify.app):
+  // la sitemap deve sempre indicare il dominio pubblico configurato.
+  const configuredSite = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  const configuredOrigin = configuredSite && /^https:\/\//.test(configuredSite) ? new URL(configuredSite).origin : null;
+  const origin = isProductionHost ? "https://lorewisenexus.it" : configuredOrigin ?? url.origin;
 
   const body = allowIndexing
     ? [

@@ -1,6 +1,7 @@
 import { env } from "@/lib/netlifyRuntime";
 import { deliverMarketingEmail, ensureMarketingTables, queueMarketingCampaign, sendMarketingTest } from "@/lib/marketingEmail";
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database; RESEND_API_KEY?: string; LOREWISE_EMAIL_SENDER_NAME?: string; LOREWISE_EMAIL_SENDER_ADDRESS?: string; LOREWISE_EMAIL_REPLY_TO?: string; URL?: string };
 type CampaignInput = { id?: unknown; action?: unknown; subject?: unknown; heading?: unknown; body?: unknown; actionLabel?: unknown; actionUrl?: unknown };
@@ -46,7 +47,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
   const auth = await requireOrderAdmin();
   if ("response" in auth) return auth.response;
   await ensureMarketingTables(auth.database);

@@ -8,6 +8,7 @@ import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 import { profileCompletion } from "@/lib/profileCompletion";
 import { recordMarketingConsent } from "@/lib/marketingEmail";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database; LOREWISE_ADMIN_EMAILS?: string };
 
@@ -99,7 +100,7 @@ export async function GET() {
 export async function PATCH(request: Request) {
   try {
     const origin = request.headers.get("origin");
-    if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
+    if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine non valida." }, { status: 403 });
     const localUser = await getLoreWiseUser();
     if (!localUser?.email) return Response.json({ error: "Sessione non valida." }, { status: 401 });
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {

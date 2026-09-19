@@ -9,6 +9,7 @@ import { claimFamiliarAttendance } from "@/lib/nexusFamiliarRituals";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 import { getFamiglioUser, saveLocalGameData } from "@/lib/localPreviewGameStore";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 export const dynamic = "force-dynamic";
 
@@ -61,7 +62,7 @@ function applyCommand(state: NexusFamiliarState, command: FamiliarCommand, value
 export async function POST(request: Request) {
   try {
     const origin = request.headers.get("origin");
-    if (origin && origin !== new URL(request.url).origin) return json({ error: "Origine non valida." }, 403);
+    if (!isSameSiteOrigin(request, origin)) return json({ error: "Origine non valida." }, 403);
     const user = await getFamiglioUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per proteggere i progressi." }, 401);
     const body = await request.json().catch(() => null) as { command?: unknown; value?: unknown; baseRevision?: unknown } | null;

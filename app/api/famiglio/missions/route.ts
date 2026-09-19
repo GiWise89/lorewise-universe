@@ -9,6 +9,7 @@ import { netlifyDatabaseIsConfigured } from "@/lib/localAccountFallback";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 import { getFamiglioUser } from "@/lib/localPreviewGameStore";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 export const dynamic = "force-dynamic";
 
@@ -100,7 +101,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const origin = request.headers.get("origin");
-    if (origin && origin !== new URL(request.url).origin) return json({ error: "Origine non valida." }, 403);
+    if (!isSameSiteOrigin(request, origin)) return json({ error: "Origine non valida." }, 403);
     const user = await getFamiglioUser();
     if (!user) return json({ error: "Accedi al LoreWise ID per riscuotere le ricompense." }, 401);
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {

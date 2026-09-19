@@ -3,6 +3,7 @@ import { ensureAdminNotificationsTable, syncAdminNotifications } from "@/lib/adm
 import { ensureArtCommunityTables } from "@/lib/artCommunityServer";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser } from "@/lib/supabase/server";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database };
 type NotificationRow = { id: string; type: string; title: string; message: string; target_url: string; created_at: string; read_at: string | null };
@@ -56,7 +57,7 @@ export async function GET() {
 export async function PATCH(request: Request) {
   try {
     const origin = request.headers.get("origin");
-    if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403 });
+    if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine non valida." }, { status: 403 });
     const auth = await authenticated();
     if ("response" in auth) return auth.response;
     const body = await request.json().catch(() => null) as { action?: unknown; id?: unknown; scope?: unknown } | null;

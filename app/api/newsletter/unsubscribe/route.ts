@@ -1,6 +1,7 @@
 import { env } from "@/lib/netlifyRuntime";
 import { isNewsletterToken, isNewsletterTopic, newsletterTopicLabel } from "@/lib/newsletter";
 import { findNewsletterUnsubscribe, unsubscribeNewsletter } from "@/lib/newsletterServer";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database };
 
@@ -25,7 +26,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403, headers: noStore });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine non valida." }, { status: 403, headers: noStore });
   const body = await request.json().catch(() => null) as { token?: unknown } | null;
   if (!isNewsletterToken(body?.token)) return Response.json({ error: "Link di disiscrizione non valido." }, { status: 400, headers: noStore });
   const database = (env as unknown as RuntimeEnv).DB;

@@ -3,14 +3,14 @@ import { env } from "@/lib/netlifyRuntime";
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { getStripeConfiguration, setStripeSubscriptionCancellation, type StripeRuntimeEnv } from "@/lib/stripe";
 import { getLoreWiseUser } from "@/lib/supabase/server";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = StripeRuntimeEnv & { DB?: D1Database };
 
 export async function POST(request: Request) {
   try {
-    const url = new URL(request.url);
     const origin = request.headers.get("origin");
-    if (origin && origin !== url.origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+    if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
     const user = await getLoreWiseUser();
     if (!user) return Response.json({ error: "Accedi al tuo LoreWise ID." }, { status: 401 });
     const body = await request.json().catch(() => null) as { cancelAtPeriodEnd?: unknown } | null;

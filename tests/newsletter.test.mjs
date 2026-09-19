@@ -125,7 +125,7 @@ test("signup form ships consent, honeypot and accessible labels, and is placed o
   const route = await readFile(new URL("../app/api/newsletter/route.ts", import.meta.url), "utf8");
   assert.match(route, /isRateLimited\(runtime\.DB, "newsletter-ip"/);
   assert.match(route, /isRateLimited\(runtime\.DB, "newsletter-email"/);
-  assert.match(route, /origin !== new URL\(request\.url\)\.origin/);
+  assert.match(route, /isSameSiteOrigin\(request, origin\)/);
 });
 
 test("cancella le richieste mai confermate dopo il periodo dichiarato nell’informativa", async () => {

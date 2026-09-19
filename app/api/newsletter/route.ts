@@ -2,6 +2,7 @@ import { env } from "@/lib/netlifyRuntime";
 import { newsletterAcceptedMessage, validateNewsletterSignup } from "@/lib/newsletter";
 import { requestNewsletterSubscription } from "@/lib/newsletterServer";
 import { clientAddress, isRateLimited, recordAttempt } from "@/lib/requestRateLimit";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = {
   DB?: D1Database;
@@ -21,7 +22,7 @@ function publicOrigin(runtime: RuntimeEnv, request: Request) {
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) return Response.json({ error: "Origine non valida." }, { status: 403, headers: noStore });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine non valida." }, { status: 403, headers: noStore });
 
   const body = await request.json().catch(() => null) as unknown;
   const validation = validateNewsletterSignup(body);

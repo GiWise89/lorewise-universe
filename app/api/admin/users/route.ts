@@ -2,6 +2,7 @@ import { ensureAdminAuditTable, recordAdminAudit } from "@/lib/adminAudit";
 import { ensureBenefitEngineTables } from "@/lib/benefitEngine";
 import { LOREWISE_OWNER_EMAIL } from "@/lib/accountPolicy";
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 const roles = new Set(["member", "moderator", "admin"]);
 const statuses = new Set(["active", "blocked"]);
@@ -36,9 +37,8 @@ export async function GET(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  const requestUrl = new URL(request.url);
   const origin = request.headers.get("origin");
-  if (origin && origin !== requestUrl.origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
   const auth = await requireOrderAdmin();
   if ("response" in auth) return auth.response;
   await ensureBenefitEngineTables(auth.database);

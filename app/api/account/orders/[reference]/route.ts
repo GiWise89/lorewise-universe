@@ -3,6 +3,7 @@ import { env } from "@/lib/netlifyRuntime";
 import { ensureCommerceTables } from "@/lib/commerceServer";
 import { expireStripeCheckoutSession, getStripeConfiguration, type StripeRuntimeEnv } from "@/lib/stripe";
 import { getLoreWiseUser } from "@/lib/supabase/server";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = StripeRuntimeEnv & { DB?: D1Database };
 type Context = { params: Promise<{ reference: string }> };
@@ -68,9 +69,8 @@ function supportReference() {
 }
 
 export async function POST(request: Request, context: Context) {
-  const requestUrl = new URL(request.url);
   const origin = request.headers.get("origin");
-  if (origin && origin !== requestUrl.origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
   const body = await request.json().catch(() => null) as { requestType?: unknown; reason?: unknown; details?: unknown } | null;
   const requestType = typeof body?.requestType === "string" ? body.requestType.trim() : "";
   const reason = typeof body?.reason === "string" ? body.reason.trim().slice(0, 120) : "";
@@ -101,9 +101,8 @@ export async function POST(request: Request, context: Context) {
 }
 
 export async function PATCH(request: Request, context: Context) {
-  const requestUrl = new URL(request.url);
   const origin = request.headers.get("origin");
-  if (origin && origin !== requestUrl.origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
   const body = await request.json().catch(() => null) as { action?: unknown } | null;
   if (body?.action !== "cancel") return Response.json({ error: "Azione non valida." }, { status: 400 });
   const { reference } = await context.params;

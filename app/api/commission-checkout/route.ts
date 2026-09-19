@@ -6,6 +6,7 @@ import { createStripeCheckoutSession, getStripeConfiguration, type StripeRuntime
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { getLoreWiseUser } from "@/lib/supabase/server";
 import { ensureCommissionBenefitColumns } from "@/lib/universePass";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = StripeRuntimeEnv & { DB?: D1Database };
 const referencePattern = /^LW-REQ-\d{8}-[A-F0-9]{6}$/;
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
   try {
     const requestUrl = new URL(request.url);
     const origin = request.headers.get("origin");
-    if (origin && origin !== requestUrl.origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+    if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
     const user = await getLoreWiseUser();
     if (!user?.email) return Response.json({ error: "Accedi con il LoreWise ID collegato alla richiesta." }, { status: 401 });
     const body = await request.json().catch(() => null) as { referenceCode?: unknown } | null;

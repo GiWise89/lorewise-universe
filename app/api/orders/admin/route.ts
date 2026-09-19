@@ -3,6 +3,7 @@ import { env } from "@/lib/netlifyRuntime";
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
 import { revokeUnusedInvoiceBenefits } from "@/lib/benefitEngine";
 import { cancelStripeSubscription, createStripeRefund, getStripeConfiguration, type StripeRuntimeEnv } from "@/lib/stripe";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 const supportStatuses = new Set(["open", "reviewing", "approved", "rejected", "resolved"]);
 
@@ -63,9 +64,8 @@ export async function GET(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  const requestUrl = new URL(request.url);
   const origin = request.headers.get("origin");
-  if (origin && origin !== requestUrl.origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
   const auth = await requireOrderAdmin();
   if ("response" in auth) return auth.response;
   const body = await request.json().catch(() => null) as { id?: unknown; status?: unknown; adminNotes?: unknown; action?: unknown } | null;

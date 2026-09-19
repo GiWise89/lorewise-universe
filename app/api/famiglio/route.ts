@@ -9,6 +9,7 @@ import { ensureCommerceTables } from "@/lib/commerceServer";
 import { syncLoreWiseCustomer } from "@/lib/supabase/customer";
 import { createLoreWiseServerClient, getLoreWiseUser, isLocalLoreWiseRequest } from "@/lib/supabase/server";
 import { getFamiglioUser, saveLocalGameData } from "@/lib/localPreviewGameStore";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 export const dynamic = "force-dynamic";
 
@@ -72,7 +73,7 @@ export async function GET() {
 export async function PUT(request: Request) {
   try {
     const origin = request.headers.get("origin");
-    if (origin && origin !== new URL(request.url).origin) return response({ error: "Origine non valida." }, 403);
+    if (!isSameSiteOrigin(request, origin)) return response({ error: "Origine non valida." }, 403);
     const contentLength = Number(request.headers.get("content-length") || 0);
     if (contentLength > FAMILIAR_CLOUD_MAX_BYTES * 2) return response({ error: "Salvataggio troppo grande." }, 413);
 
@@ -167,7 +168,7 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const origin = request.headers.get("origin");
-    if (origin && origin !== new URL(request.url).origin) return response({ error: "Origine non valida." }, 403);
+    if (!isSameSiteOrigin(request, origin)) return response({ error: "Origine non valida." }, 403);
     const user = await getFamiglioUser();
     if (!user) return response({ error: "Accedi al LoreWise ID per eliminare il Famiglio sincronizzato." }, 401);
     if (await isLocalLoreWiseRequest() && !netlifyDatabaseIsConfigured()) {

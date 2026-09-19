@@ -2,6 +2,7 @@ import { env } from "@/lib/netlifyRuntime";
 
 import { requireOrderAdmin } from "@/lib/orderAdminAuth";
 import { backfillTransactionalEmailOutbox, deliverTransactionalEmail, ensureTransactionalEmailTable } from "@/lib/transactionalEmail";
+import { isSameSiteOrigin } from "@/lib/requestOrigin";
 
 type RuntimeEnv = { DB?: D1Database; RESEND_API_KEY?: string; LOREWISE_EMAIL_SENDER_NAME?: string; LOREWISE_EMAIL_SENDER_ADDRESS?: string; LOREWISE_EMAIL_REPLY_TO?: string };
 
@@ -37,9 +38,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const requestUrl = new URL(request.url);
   const origin = request.headers.get("origin");
-  if (origin && origin !== requestUrl.origin) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
+  if (!isSameSiteOrigin(request, origin)) return Response.json({ error: "Origine della richiesta non valida." }, { status: 403 });
   const auth = await requireOrderAdmin();
   if ("response" in auth) return auth.response;
   const runtime = await runtimeEnv();
