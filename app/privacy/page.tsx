@@ -29,7 +29,7 @@ export default function PrivacyPage() {
       <p className="eyebrow">Trasparenza LoreWise Universe</p>
       <h1>I tuoi dati non sono una moneta.</h1>
       <p>Qui trovi, in un solo documento, come LoreWise tratta i dati personali, quali strumenti tecnici utilizza e quali scelte restano sempre sotto il tuo controllo.</p>
-      <strong>{ACCOUNT_PRIVACY_VERSION} · aggiornata il 24 agosto 2026</strong>
+      <strong>{ACCOUNT_PRIVACY_VERSION} · aggiornata il 19 settembre 2026</strong>
     </div></header>
 
     <div className="privacy-layout shell">
@@ -54,6 +54,7 @@ export default function PrivacyPage() {
             <article><h3>Ordini e pagamenti</h3><p>Riferimenti dell’ordine, prodotti, importi, stato del pagamento, ricevute, licenze, consegne e rimborsi. LoreWise non riceve il numero completo della carta.</p><small>Base giuridica: contratto e obblighi amministrativi, fiscali e contabili applicabili.</small></article>
             <article><h3>Commissioni e assistenza</h3><p>Contatti, brief, allegati, messaggi, stato della richiesta e informazioni necessarie a preparare un preventivo o risolvere un problema.</p><small>Base giuridica: misure precontrattuali, contratto e gestione della richiesta dell’utente.</small></article>
             <article><h3>Community</h3><p>Profilo pubblico facoltativo, commenti, reazioni, recensioni, segnalazioni e dati necessari alla moderazione.</p><small>Base giuridica: servizio richiesto e legittimo interesse alla tutela della community.</small></article>
+            <article><h3>Newsletter e avvisi</h3><p>Per Le Cronache del lunedì e per gli avvisi “Avvisami” sui giochi trattiamo l’indirizzo email, l’argomento scelto, la pagina da cui parte l’iscrizione, la data e la versione del consenso e lo stato dell’iscrizione. Non serve un LoreWise ID. L’iscrizione diventa attiva solo dopo il clic sul link di conferma, valido 48 ore; ogni avviso riguarda soltanto il gioco indicato.</p><small>Base giuridica: consenso, revocabile in qualsiasi momento con il link di disiscrizione presente in ogni email.</small></article>
             <article><h3>Comunicazioni facoltative</h3><p>Aggiornamenti Community e novità GiWise Studio vengono inviati solo dopo una scelta separata, inizialmente disattivata.</p><small>Base giuridica: consenso, revocabile in qualsiasi momento senza effetti sull’account.</small></article>
           </div>
         </div></section>
@@ -104,6 +105,7 @@ export default function PrivacyPage() {
             <li><strong>Account attivo:</strong> per la durata del rapporto; un account inattivo può essere cancellato dopo 24 mesi, con avviso almeno 30 giorni prima.</li>
             <li><strong>Richieste e assistenza:</strong> per il tempo necessario alla gestione e, successivamente, entro i termini utili alla tutela delle parti.</li>
             <li><strong>Ordini, fatture e dati amministrativi:</strong> per il periodo imposto dalla normativa fiscale, contabile e civilistica applicabile.</li>
+            <li><strong>Newsletter e avvisi:</strong> le iscrizioni confermate restano attive fino alla disiscrizione; le richieste mai confermate vengono cancellate dopo 30 giorni. Dopo la disiscrizione conserviamo solo quanto serve a dimostrare la scelta, cioè indirizzo, argomento e date del consenso e della revoca.</li>
             <li><strong>Consensi e preferenze:</strong> fino alla revoca, sostituzione o cessazione del servizio, conservando quando necessario la prova della scelta.</li>
             <li><strong>Contenuti Community:</strong> finché restano pubblicati o necessari alla moderazione; segnalazioni e provvedimenti possono essere conservati per prevenire abusi e contestazioni.</li>
           </ul>
@@ -125,7 +127,7 @@ export default function PrivacyPage() {
         <section id="aggiornamenti"><span>10</span><div>
           <p className="privacy-kicker">Versione e modifiche</p><h2>Aggiornamenti dell’informativa</h2>
           <p>Questa informativa descrive la configurazione attuale del progetto. Sarà aggiornata quando cambieranno funzioni, fornitori o tempi di conservazione. Le modifiche sostanziali verranno comunicate nell’account o con un avviso adeguato; quando una nuova finalità richiederà il consenso, non sarà attivata prima di una scelta libera e specifica.</p>
-          <p><strong>Versione:</strong> {ACCOUNT_PRIVACY_VERSION}<br /><strong>Ultimo aggiornamento:</strong> 24 agosto 2026</p>
+          <p><strong>Versione:</strong> {ACCOUNT_PRIVACY_VERSION}<br /><strong>Ultimo aggiornamento:</strong> 19 settembre 2026</p>
         </div></section>
 
         <aside><strong>Una regola semplice.</strong><p>Cookie tecnici e preferenze richieste rendono possibile il servizio; non vengono usati per inseguire l’utente sul web. Se questa configurazione cambierà, cambieranno prima l’informativa e gli strumenti di scelta.</p></aside>

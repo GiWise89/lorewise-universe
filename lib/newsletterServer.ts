@@ -4,6 +4,7 @@
 
 import {
   NEWSLETTER_CONSENT_VERSION,
+  newsletterPendingCutoff,
   createNewsletterToken,
   hashNewsletterToken,
   newsletterTopicLabel,
@@ -40,6 +41,7 @@ export async function ensureNewsletterTables(database: D1Database) {
  */
 export async function requestNewsletterSubscription(database: D1Database, runtime: NewsletterRuntimeEnv, input: { email: string; topic: NewsletterTopic; origin: string; source?: string }) {
   await ensureNewsletterTables(database);
+  await purgeStaleNewsletterRequests(database);
   const existing = await database.prepare("SELECT id, status FROM newsletter_subscriptions WHERE email = ? AND topic = ? LIMIT 1")
     .bind(input.email, input.topic).first<{ id: string; status: string }>();
   const plan = planNewsletterSignup(existing?.status);
@@ -85,8 +87,15 @@ export async function requestNewsletterSubscription(database: D1Database, runtim
   return { status: result.status };
 }
 
+/** Cancella le richieste mai confermate più vecchie del periodo indicato nell’informativa. */
+export async function purgeStaleNewsletterRequests(database: D1Database, now: Date = new Date()) {
+  await database.prepare("DELETE FROM newsletter_subscriptions WHERE status = 'pending' AND confirm_sent_at < ?")
+    .bind(newsletterPendingCutoff(now)).run();
+}
+
 export async function confirmNewsletterSubscription(database: D1Database, token: string) {
   await ensureNewsletterTables(database);
+  await purgeStaleNewsletterRequests(database);
   const row = await database.prepare(`SELECT id, topic, status, confirm_sent_at, unsubscribe_token
     FROM newsletter_subscriptions WHERE confirm_token_hash = ? LIMIT 1`)
     .bind(await hashNewsletterToken(token)).first<{ id: string; topic: string; status: string; confirm_sent_at: string | null; unsubscribe_token: string }>();
@@ -107,7 +116,7 @@ export async function findNewsletterUnsubscribe(database: D1Database, token: str
 export async function unsubscribeNewsletter(database: D1Database, token: string) {
   const row = await findNewsletterUnsubscribe(database, token);
   if (!row) return null;
-  await database.prepare(`UPDATE newsletter_subscriptions SET status = 'unsubscribed', confirm_token_hash = NULL,
+  await database.prepare(`UPDATE newsletter_subscriptions SET status = 'unsubscribed', confirm_token_hash = NULL, source = NULL,
     unsubscribed_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND status != 'unsubscribed'`).bind(row.id).run();
   return row;
 }
@@ -115,6 +124,7 @@ export async function unsubscribeNewsletter(database: D1Database, token: string)
 /** Conteggio in sola lettura degli iscritti confermati, per argomento. */
 export async function countConfirmedNewsletterSubscribers(database: D1Database) {
   await ensureNewsletterTables(database);
+  await purgeStaleNewsletterRequests(database);
   const rows = await database.prepare(`SELECT topic, COUNT(*) AS total FROM newsletter_subscriptions
     WHERE status = 'confirmed' GROUP BY topic`).all<{ topic: string; total: number }>();
   const counts = Object.fromEntries(Object.keys(newsletterTopics).map((topic) => [topic, 0])) as Record<string, number>;

@@ -3,6 +3,8 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   NEWSLETTER_CONFIRM_TTL_HOURS,
+  NEWSLETTER_PENDING_RETENTION_DAYS,
+  newsletterPendingCutoff,
   createNewsletterToken,
   hashNewsletterToken,
   isConfirmationExpired,
@@ -124,4 +126,14 @@ test("signup form ships consent, honeypot and accessible labels, and is placed o
   assert.match(route, /isRateLimited\(runtime\.DB, "newsletter-ip"/);
   assert.match(route, /isRateLimited\(runtime\.DB, "newsletter-email"/);
   assert.match(route, /origin !== new URL\(request\.url\)\.origin/);
+});
+
+test("cancella le richieste mai confermate dopo il periodo dichiarato nell’informativa", async () => {
+  assert.equal(NEWSLETTER_PENDING_RETENTION_DAYS, 30);
+  assert.equal(newsletterPendingCutoff(new Date("2026-09-30T12:00:00.000Z")), "2026-08-31T12:00:00.000Z");
+  const server = await readFile(new URL("../lib/newsletterServer.ts", import.meta.url), "utf8");
+  assert.match(server, /DELETE FROM newsletter_subscriptions WHERE status = 'pending' AND confirm_sent_at < \?/);
+  const privacy = await readFile(new URL("../app/privacy/page.tsx", import.meta.url), "utf8");
+  assert.match(privacy, /Newsletter e avvisi/);
+  assert.match(privacy, /30 giorni/);
 });

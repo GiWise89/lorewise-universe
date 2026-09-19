@@ -3,6 +3,13 @@
 
 export const NEWSLETTER_CONSENT_VERSION = "newsletter-2026-09-18";
 export const NEWSLETTER_CONFIRM_TTL_HOURS = 48;
+/** Le richieste mai confermate vengono cancellate dopo questo periodo (vedi informativa privacy). */
+export const NEWSLETTER_PENDING_RETENTION_DAYS = 30;
+
+/** Istante prima del quale una richiesta ancora in attesa è da cancellare. */
+export function newsletterPendingCutoff(now: Date = new Date()) {
+  return new Date(now.getTime() - NEWSLETTER_PENDING_RETENTION_DAYS * 24 * 60 * 60 * 1000).toISOString();
+}
 
 export const newsletterTopics = {
   cronache: { label: "Le Cronache del lunedì", description: "la lettera settimanale con uscite, giochi e novità dal Nexus" },
