@@ -137,7 +137,7 @@ export function ArtworkCommunity({ artworkCode, artworkTitle }: { artworkCode: s
 
   return <section className="art-community" aria-labelledby={`community-${artworkCode}`} id={`community-${artworkCode}`}>
     <div className="shell art-community-heading">
-      <Image src="/brand/art-portals/originals-seal-card-v1.webp" alt="" width={256} height={256} unoptimized />
+      <Image src="/brand/art-portals/originals-seal-card-v2.webp" alt="" width={256} height={256} unoptimized />
       <div><p className="eyebrow">Community LoreWise</p><h2>L’opera continua nella conversazione.</h2><p>Metti Mi piace, racconta cosa ti ha colpito e rispondi agli altri membri sotto l’anteprima protetta di <strong>{artworkTitle}</strong>.</p></div>
       <div className="art-community-stats"><span><strong>{community?.likeCount ?? 0}</strong> Mi piace</span><span><strong>{commentCount}</strong> commenti</span></div>
     </div>

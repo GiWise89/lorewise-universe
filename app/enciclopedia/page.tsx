@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     url: "/enciclopedia",
     siteName: "LoreWise Universe",
     locale: "it_IT",
-    images: [{ url: "/codex/seals/lorewise-codex-emblem-v1.webp", alt: "Emblema LoreWise Codex" }],
+    images: [{ url: "/codex/seals/lorewise-codex-emblem-v2.webp", alt: "Emblema LoreWise Codex" }],
   },
-  twitter: { card: "summary_large_image", title: "LoreWise Codex", description, images: ["/codex/seals/lorewise-codex-emblem-v1.webp"] },
+  twitter: { card: "summary_large_image", title: "LoreWise Codex", description, images: ["/codex/seals/lorewise-codex-emblem-v2.webp"] },
 };
 
 export default function EncyclopediaPage() {
@@ -43,7 +43,7 @@ export default function EncyclopediaPage() {
         </div>
         <aside className="codex-home-signature">
           <Image className="codex-home-scene" src="/backgrounds/codex-archive-convergences-scene-v1.webp" alt="Archivio delle Convergenze, con il grande Codex aperto fra biblioteche, astri e correnti luminose" width={1833} height={858} priority unoptimized />
-          <Image className="codex-home-emblem" src="/codex/seals/lorewise-codex-emblem-v1.webp" alt="Emblema LoreWise Codex con libro aperto e simbolo triangolare GiWise" width={1206} height={1305} priority unoptimized />
+          <Image className="codex-home-emblem" src="/codex/seals/lorewise-codex-emblem-v2.webp" alt="Emblema LoreWise Codex con libro aperto e simbolo triangolare GiWise" width={1206} height={1305} priority unoptimized />
           <div className="codex-home-manifesto" aria-label="Cosa trovi nel LoreWise Codex">
             <span>01</span><strong>Lore originale dichiarata.</strong>
             <span>02</span><strong>Spoiler sotto controllo.</strong>

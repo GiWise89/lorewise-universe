@@ -27,11 +27,11 @@ type VipPayload = {
 type ActiveGame = "the-wound-remembers" | "demon-match-three";
 type ActiveArea = "guides" | "games" | "art" | "atelier" | "downloads";
 const VIP_AREA_ICONS: Record<ActiveArea, string> = {
-  guides: "/brand/icons/vip-guides-v1.webp",
-  games: "/brand/icons/vip-games-v1.webp",
-  art: "/brand/icons/vip-art-v1.webp",
-  atelier: "/brand/icons/vip-atelier-v1.webp",
-  downloads: "/brand/icons/vip-downloads-v1.webp",
+  guides: "/brand/icons/vip-guides-v2.webp",
+  games: "/brand/icons/vip-games-v2.webp",
+  art: "/brand/icons/vip-art-v2.webp",
+  atelier: "/brand/icons/vip-atelier-v2.webp",
+  downloads: "/brand/icons/vip-downloads-v2.webp",
 };
 export function VipGamesExperience({ initialArea = "guides", initialGame = "the-wound-remembers", guidePreview = "" }: {
   initialArea?: ActiveArea;

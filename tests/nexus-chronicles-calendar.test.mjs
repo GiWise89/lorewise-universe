@@ -113,7 +113,7 @@ test("uses only public, existing images in scheduled public announcements", asyn
     "../public/creative-journal/previews/lw-wip-010-preview.jpg",
     "../public/brand/icons/vip-v2.webp",
     "../public/brand/icons/arte-v2.webp",
-    "../public/codex/seals/lorewise-codex-emblem-v1.webp",
+    "../public/codex/seals/lorewise-codex-emblem-v2.webp",
     "../public/codex/display/nhevara.webp",
     "../public/brand/icons/commissioni-v2.webp",
     "../public/universe-pass/benefits-sketch-constellation-v1.webp",

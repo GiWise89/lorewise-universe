@@ -367,7 +367,7 @@ test("renders one intuitive Codex index while keeping origins explicitly switcha
   assert.match(html, /Completezza del dossier/);
   assert.match(html, /Tutti i dossier/);
   assert.match(html, /codex-archive-convergences-scene-v1\.webp/);
-  assert.match(html, /lorewise-codex-emblem-v1\.webp/);
+  assert.match(html, /lorewise-codex-emblem-v2\.webp/);
   assert.match(html, /Filtri avanzati/);
   assert.match(html, /Azzera tutto/);
   assert.match(html, /Pagine dei risultati/);
@@ -523,8 +523,8 @@ test("renders the protected art catalog without deriving public titles from file
   assert.match(html, /Solo esposizione/);
   assert.match(html, /Opera sigillata[\s\S]*18\+/);
   assert.match(html, /adult-cover-v2\.webp/);
-  assert.match(html, /originals-seal-card-v1\.webp/);
-  assert.match(html, /fanart-seal-card-v1\.webp/);
+  assert.match(html, /originals-seal-card-v2\.webp/);
+  assert.match(html, /fanart-seal-card-v2\.webp/);
   assert.doesNotMatch(html, /Art The Clown II2|GiWise Restored|LolaGang/);
   assert.match(html, /href="\/arte\/lw-art-003"/);
 });

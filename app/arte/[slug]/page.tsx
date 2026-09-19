@@ -8,8 +8,8 @@ import { ArtworkPurchaseButton } from "@/components/ArtworkPurchaseButton";
 import { catalogArtworks, type CatalogArtwork } from "@/lib/artCatalog";
 
 const adultCover = "/brand/art-portals/adult-cover-v2.webp";
-const originalSeal = "/brand/art-portals/originals-seal-card-v1.webp";
-const fanartSeal = "/brand/art-portals/fanart-seal-card-v1.webp";
+const originalSeal = "/brand/art-portals/originals-seal-card-v2.webp";
+const fanartSeal = "/brand/art-portals/fanart-seal-card-v2.webp";
 const dossierDivider = "/brand/art-portals/dossier-divider-display-v1.webp";
 
 export function generateStaticParams() {

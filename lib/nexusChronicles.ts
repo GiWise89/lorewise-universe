@@ -756,7 +756,7 @@ export const nexusChronicles: NexusChronicle[] = [
     title: "Personaggi, regole e mondi che crescono.",
     excerpt: "Il Patto delle Ceneri presenta i nuovi custodi del Rifugio e i volti della Corte del Rogo, in una storia costruita attorno a scelte, legami e combattimenti tattici.",
     detail: "Questa edizione apre le porte del Rifugio, introduce Sevrana, Nemor, Edria e Brannoc e mostra la minaccia rappresentata da Valisandra e Vahrokh.",
-    image: "/codex/seals/lorewise-codex-emblem-v1.webp",
+    image: "/codex/seals/lorewise-codex-emblem-v2.webp",
     imageAlt: "Emblema del LoreWise Codex",
     signals: [
       {

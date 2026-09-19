@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Arte in Vetrina | LoreWise Universe",
     description: `${catalogArtworks.length} opere digitali protette, divise tra originali GiWise acquistabili e opere in esposizione.`,
-    images: [{ url: "/brand/art-portals/originals-emblem-v1.webp", alt: "Emblema illustrato delle opere originali GiWise" }],
+    images: [{ url: "/brand/art-portals/originals-emblem-v2.webp", alt: "Emblema illustrato delle opere originali GiWise" }],
   },
 };
 

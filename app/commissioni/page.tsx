@@ -294,10 +294,10 @@ const commissionChapters = [
 }[];
 
 const commissionChapterIcons: Record<CommissionChapter, string> = {
-  panoramica: "/brand/icons/commissioni-panoramica-v2.webp",
-  prezzi: "/brand/icons/commissioni-prezzi-v2.webp",
-  portfolio: "/brand/icons/commissioni-portfolio-v2.webp",
-  metodo: "/brand/icons/commissioni-metodo-v2.webp",
+  panoramica: "/brand/icons/commissioni-panoramica-v3.webp",
+  prezzi: "/brand/icons/commissioni-prezzi-v3.webp",
+  portfolio: "/brand/icons/commissioni-portfolio-v3.webp",
+  metodo: "/brand/icons/commissioni-metodo-v3.webp",
 };
 
 function CommissionChapterIcon({ chapter }: { chapter: CommissionChapter }) {
