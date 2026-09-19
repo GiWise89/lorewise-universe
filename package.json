@@ -8,6 +8,7 @@
   "scripts": {
     "postinstall": "node scripts/patch-vinext-fonts.mjs",
     "dev": "vinext dev",
+    "smoke:next": "node scripts/smoke-next.mjs",
     "preview:famiglio": "next dev -H 0.0.0.0 -p 3016",
     "room-editor": "node scripts/famiglio-room-editor.mjs",
     "asset-review": "node scripts/famiglio-asset-review.mjs",

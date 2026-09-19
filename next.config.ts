@@ -15,6 +15,8 @@ const noIndexHeaders = [
 }));
 
 const nextConfig: NextConfig = {
+  // La prova di fumo (scripts/smoke-next.mjs) compila in una cartella separata.
+  distDir: process.env.LOREWISE_NEXT_DIST_DIR || ".next",
   allowedDevOrigins: ["127.0.0.1", "localhost", "192.168.1.7"],
   experimental: {
     serverActions: {
@@ -25,6 +27,11 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return noIndexHeaders;
+  },
+  // /vip è stato unificato in /abbonamento: un vero 308 anche per le pagine prerenderizzate,
+  // che altrimenti risponderebbero 200 con un reindirizzamento nel contenuto.
+  async redirects() {
+    return [{ source: "/vip", destination: "/abbonamento", permanent: true }];
   },
 };
 

@@ -33,3 +33,6 @@ jobs:
 
       - name: Tests
         run: npm run test:all
+
+      - name: Smoke test of the Netlify (next build) output
+        run: npm run smoke:next
