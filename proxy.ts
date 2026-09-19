@@ -16,6 +16,18 @@ function isLocalPreviewHostname(hostname: string) {
     || /^172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}$/.test(hostname);
 }
 
+// Il browser parla solo con il progetto Supabase configurato (Auth via HTTPS):
+// Stripe è chiamato solo lato server e il checkout è una navigazione top-level.
+function supabaseConnectSource() {
+  const url = getSupabasePublicConfig()?.url;
+  if (!url) return [];
+  try {
+    return [new URL(url).origin];
+  } catch {
+    return [];
+  }
+}
+
 function applySecurityHeaders(response: NextResponse, request: NextRequest) {
   const isDevelopment = process.env.NODE_ENV === "development";
   const isHttpLocalPreview = request.nextUrl.protocol === "http:" && isLocalPreviewHostname(requestHostname(request));
@@ -33,9 +45,9 @@ function applySecurityHeaders(response: NextResponse, request: NextRequest) {
     "style-src 'self' 'unsafe-inline'",
     scriptPolicy,
     "script-src-attr 'none'",
-    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.stripe.com",
-    "frame-src https://js.stripe.com https://hooks.stripe.com",
-    "worker-src 'self' blob:",
+    ["connect-src 'self'", ...supabaseConnectSource()].join(" "),
+    "frame-src 'none'",
+    "worker-src 'self'",
     "manifest-src 'self'",
     "media-src 'self' blob:",
     ...(isDevelopment || isHttpLocalPreview ? [] : ["upgrade-insecure-requests"]),

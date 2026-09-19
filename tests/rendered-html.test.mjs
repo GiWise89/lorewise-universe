@@ -144,10 +144,23 @@ test("keeps the Demon Match Three announcement protected in the public calendar"
   assert.doesNotMatch(html, /nel finale|tradisce|muore|boss finale/i);
 });
 
+test("serves self-hosted Google fonts from public URLs, never from the build machine path", async () => {
+  const response = await render();
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.doesNotMatch(html, /url\([A-Za-z]:\/|\.vinext\/fonts/);
+  assert.match(html, /url\(\/assets\/_vinext_fonts\/[^)]+\.woff2\)/);
+});
+
 test("applies the global browser security policy", async () => {
   const response = await render();
   assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/);
+  const csp = response.headers.get("content-security-policy") ?? "";
+  assert.match(csp, /frame-ancestors 'none'/);
+  assert.match(csp, /frame-src 'none'/);
+  assert.match(csp, /object-src 'none'/);
+  assert.match(csp, /script-src-attr 'none'/);
+  assert.doesNotMatch(csp, /api\.stripe\.com|js\.stripe\.com|\*\.supabase\.co|wss:/);
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   assert.equal(response.headers.get("x-frame-options"), "DENY");
   assert.equal(response.headers.get("referrer-policy"), "strict-origin-when-cross-origin");

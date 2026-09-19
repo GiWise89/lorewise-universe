@@ -6,6 +6,7 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "postinstall": "node scripts/patch-vinext-fonts.mjs",
     "dev": "vinext dev",
     "preview:famiglio": "next dev -H 0.0.0.0 -p 3016",
     "room-editor": "node scripts/famiglio-room-editor.mjs",
