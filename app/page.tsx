@@ -114,7 +114,7 @@ export default async function Home({ searchParams }: { searchParams?: Promise<Re
               </span>
               <span className={styles.gameCopy}>
                 <small>{project.statusTone === "available" ? "Giocabile ora" : "In sviluppo"}</small>
-                {project.slug === "sandbox" && project.logoImage ? <strong className={styles.gameLogo}><Image src={project.logoImage} alt={project.title} width={2139} height={417} unoptimized /></strong> : <strong>{project.title}</strong>}
+                {project.slug === "sandbox" && project.logoImage ? <strong className={styles.gameLogo}><Image src={project.logoImage} alt={project.title} width={1032} height={324} unoptimized /></strong> : <strong>{project.title}</strong>}
                 <span>{project.subtitle}</span>
                 <b>{project.statusTone === "available" ? "Apri il gioco" : "Scopri il progetto"} <i aria-hidden="true">→</i></b>
               </span>

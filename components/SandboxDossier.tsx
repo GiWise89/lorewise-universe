@@ -5,15 +5,18 @@ import styles from "./SandboxDossier.module.css";
 
 const base = "/games/sandbox";
 
-// Contenuti allineati al regolamento di Prima Terra (riscritto il 19 settembre 2026)
+// Contenuti allineati al regolamento di Prima Terra (aggiornato al 21 settembre 2026)
 // e alle schermate reali del gioco, disegnato con il bundle Minifantasy di Krishna Palacio.
+const logo = `${base}/logo-prima-terra-ufficiale.webp`;
 
 const chapters = [
   { id: "mondo", label: "Il mondo" },
   { id: "popoli", label: "I popoli" },
   { id: "vita", label: "La vita" },
   { id: "villaggio", label: "Il villaggio" },
+  { id: "ere", label: "Le ere" },
   { id: "natura", label: "La natura" },
+  { id: "esplorazione", label: "I dungeon" },
   { id: "guerra", label: "La guerra" },
   { id: "poteri", label: "I poteri" },
   { id: "sviluppo", label: "Lo sviluppo" },
@@ -24,6 +27,8 @@ const peoples = [
   { id: "elfi", name: "Elfi", trait: "Vivono a lungo e conoscono il bosco", text: "Abitano sotto le chiome dei grandi alberi e combattono con l’arco. Crescono lentamente, in circa tre anni, e con i Nani hanno una rivalità antica." },
   { id: "nani", name: "Nani", trait: "Lavorano meglio pietra e metallo", text: "Case di pietra grigia, barbe folte e asce da battaglia. Robusti e tenaci, non dimenticano i vecchi torti degli Elfi. Adulti in circa due anni." },
   { id: "orchi", name: "Orchi", trait: "Forti e combattivi", text: "Tende di pelle rossa tese su pali di legno e asce da guerra a due mani. Partono ostili verso tutti, ma la guerra non è un destino obbligato. Crescono in un solo anno." },
+  { id: "halfling", name: "Halfling", trait: "Piccoli, svelti e fortunati", text: "Gran contadini e pessimi soldati. Vivono in case tonde scavate nel fianco della collina, con la porta rotonda, il tetto d’erba e l’orto davanti." },
+  { id: "goblin", name: "Goblin", trait: "Deboli ma prolifici", text: "Crescono in fretta, rubano e si accontentano di poco. Le loro baracche storte di assi, pali e teli si riconoscono da lontano." },
 ];
 
 const lifeMoments = [
@@ -32,7 +37,9 @@ const lifeMoments = [
   ["Cinque bisogni", "Fame, riposo, riparo, salute e compagnia guidano ogni scelta. Le priorità cambiano con l’urgenza, il carattere e la situazione."],
   ["Coppie che nascono da sole", "Due adulti che passano tempo insieme e vanno d’accordo si affezionano piano, fino a diventare coppia e dormire sotto lo stesso tetto."],
   ["Emozioni in un fumetto", "Un cuore quando nasce un amore, una risata per un figlio, il lutto per un caro, la paura davanti a un lupo, la musica attorno al fuoco la sera."],
-  ["Una scheda per ciascuno", "Tocca un abitante e scopri cosa sta facendo e perché, il suo umore e quanto crede nel dio. Da lì puoi anche guarirlo, benedirlo o maledirlo."],
+  ["Tratti che si ereditano", "Forzuto, Pauroso, Laborioso, Pigro, Goloso, Curioso e altri ancora: due o tre tratti per ciascuno, che cambiano lavoro, coraggio e umore e passano dai genitori ai figli."],
+  ["Livelli e soprannomi", "Ogni abitante sale di livello facendo il proprio mestiere, fino al 25. Ogni cinque livelli guadagna un soprannome che entra nella sua biografia, come Berfredo Spaccaossa."],
+  ["Una scheda per ciascuno", "Tocca un abitante e trovi Vita, Mestiere, Famiglia e Storia: barre, icone, le tre caselle di arma, armatura e attrezzo. Da lì puoi anche guarirlo, benedirlo o maledirlo."],
 ];
 
 const trades = ["Raccoglitore", "Cacciatore", "Pescatore", "Taglialegna", "Minatore", "Contadino", "Pastore", "Costruttore", "Trasportatore", "Fabbro", "Soldato", "Avventuriero"];
@@ -46,26 +53,28 @@ const powers = [
 
 const liveNow = [
   "Mondi generati come continente, isole o arcipelago, oppure da costruire da zero, con un codice per ritrovarli",
-  "Terreno da dipingere, quattro biomi, fiumi, laghi e un mondo che si muove col vento e le onde",
+  "Terreno da dipingere, undici biomi, fiumi, laghi e un mondo che si muove col vento e le onde",
   "Giorno e notte, stagioni e un clima che cambia da solo, con la neve che imbianca i tetti",
-  "Umani, Elfi, Nani e Orchi, ognuno con nomi, aspetto, case e armi propri",
-  "Famiglie, nascite, generazioni ed emozioni visibili",
+  "Sei popoli: Umani, Elfi, Nani, Orchi, Halfling e Goblin, ognuno con nomi, aspetto e armi propri",
+  "Famiglie, nascite, generazioni, tratti ereditati, livelli ed emozioni visibili",
   "Villaggi che fondano, costruiscono, coltivano, allevano e se serve traslocano",
-  "Dodici animali selvatici, predatori, caccia, pesca e nuoto",
+  "Il Re con tasse ed editti, la bandiera di ogni paese, l’Eroe, le filiere e il mana dei maghi",
+  "Sei ere, dalla Pietra all’Età Moderna, con il paese che cambia faccia",
+  "Palude, giungla, terre corrotte e bosco fatato, ognuno con piante e bestie proprie",
+  "Dungeon esplorabili dal vivo, avventurieri, bottino, il Circo e il Cimitero",
+  "Animali selvatici, predatori, mostri, caccia, pesca e nuoto",
   "Territori, rancori, soldati, palizzate, battaglie, saccheggi e trattati di pace",
   "I poteri del dio: cielo, miracoli, maledizioni, meteore, terremoti ed eruzioni",
   "Salvataggio automatico ogni minuto, copie da recuperare e mondi da esportare",
 ];
 
 const comingNext = [
-  "Dungeon, grotte, cripte e miniere abbandonate da esplorare dal vivo, con avventurieri che rischiano la vita",
+  "Le case proprie di Halfling e Goblin: tane nella collina e baracche",
+  "Più spedizioni insieme, da seguire una alla volta e scambiare con la mappa",
   "Oggetti leggendari con un nome e una storia, tramandati di generazione in generazione",
   "Githyanki e Tiefling, i due popoli che completano il mondo",
   "Fede e preghiere: culti, santuari e abitanti che interpretano i tuoi interventi",
-  "Una cronaca del mondo con i fatti da ricordare e i personaggi preferiti",
-  "Stalle con cavalli e asini, cavalieri in battaglia",
-  "Deserti, giungle, paludi, terre infernali e boschi fatati",
-  "Sette ere, dalle capanne fino alla società moderna",
+  "Le terre infernali, l’ultimo bioma che manca",
   "Un account facoltativo per ritrovare i propri mondi su ogni dispositivo",
 ];
 
@@ -74,6 +83,10 @@ function Plate({ src, alt, width, height, caption, wide }: { src: string; alt: s
     <Image src={src} alt={alt} width={width} height={height} unoptimized />
     {caption ? <figcaption>{caption}</figcaption> : null}
   </figure>;
+}
+
+function ChapterMark() {
+  return <Image className={styles.chapterMark} src={logo} alt="" width={1032} height={324} unoptimized />;
 }
 
 export function SandboxDossier() {
@@ -89,7 +102,7 @@ export function SandboxDossier() {
       <div className={styles.heroCopy}>
         <span className={styles.status}>In sviluppo</span>
         <p className={styles.eyebrow}>GiWise Studio · Sandbox divino in pixel art</p>
-        <h1 id="sandbox-title" className={styles.logoTitle}><Image className={styles.logo} src={`${base}/logo-prima-terra-v2.webp`} alt="" width={2139} height={417} priority unoptimized /><span className={styles.visuallyHidden}>Prima Terra</span></h1>
+        <h1 id="sandbox-title" className={styles.logoTitle}><Image className={styles.logo} src={logo} alt="" width={1032} height={324} priority unoptimized /><span className={styles.visuallyHidden}>Prima Terra</span></h1>
         <p className={styles.heroLine}>Crea il mondo. Posa i primi abitanti.<br />Poi guarda le civiltà vivere da sole.</p>
         <div className={styles.heroActions}>
           <a className={styles.primary} href="#manifesto">Apri il dossier</a>
@@ -117,7 +130,7 @@ export function SandboxDossier() {
 
     <section className={styles.chapter} id="mondo" aria-labelledby="mondo-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><p className={styles.eyebrow}>Capitolo 01</p><h2 id="mondo-title">Il mondo.</h2><p>Ogni partita comincia da una terra diversa. Scegli la forma, quanta acqua e quanti rilievi desideri: il generatore disegna coste, montagne, fiumi che si allargano scendendo a valle e laghi nelle conche. Ogni mondo ha un codice che puoi copiare e scambiare: lo stesso codice ricrea la stessa terra.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 01</p><h2 id="mondo-title">Il mondo.</h2><p>Ogni partita comincia da una terra diversa. Scegli la forma, quanta acqua e quanti rilievi desideri: il generatore disegna coste, montagne, fiumi che si allargano scendendo a valle e laghi nelle conche. Ogni mondo ha un codice che puoi copiare e scambiare: lo stesso codice ricrea la stessa terra.</p></header>
         <div className={styles.gallery3}>
           <Plate src={`${base}/pt-mondo-continente.webp`} alt="Un continente montuoso di Prima Terra con rilievi innevati" width={1072} height={680} caption="Continente" />
           <Plate src={`${base}/pt-mondo-isole.webp`} alt="Un mondo di Prima Terra fatto di isole grandi e piccole" width={1072} height={680} caption="Isole" />
@@ -126,7 +139,7 @@ export function SandboxDossier() {
         <div className={styles.splitMedia}>
           <Plate src={`${base}/pt-villaggio-bosco.webp`} alt="Un piccolo villaggio di tende rosse degli Orchi in mezzo a una foresta di pini e latifoglie" width={1000} height={438} caption="Visto da vicino, il mondo è fatto di alberi veri: gli stessi che i taglialegna abbatteranno." />
           <div className={styles.factList}>
-            <p><strong>Quattro biomi per cominciare</strong><span>Pianure erbose, foreste, montagne innevate e coste sabbiose. Deserti, giungle, paludi e terre fatate arriveranno quando il mondo di base sarà solido.</span></p>
+            <p><strong>Undici terre diverse</strong><span>Prateria, foresta, collina, montagna, neve, spiaggia e deserto, più quattro biomi con un carattere tutto loro: la palude dove si affonda e si prendono le febbri, la giungla fitta di legname e di bestie grosse, le terre corrotte dove i mostri nascono da soli, il bosco fatato pieno di luce e di mana.</span></p>
             <p><strong>Un mondo che si muove</strong><span>Il mare ondeggia, gli alberi si piegano al vento, l’erba e i fiori si muovono. In pausa tutto si ferma.</span></p>
             <p><strong>Il bosco si rinnova</strong><span>Un albero abbattuto lascia il ceppo, e col tempo al suo posto ne nasce uno nuovo. Un villaggio troppo avido deve andare a tagliare lontano.</span></p>
             <p><strong>Il tempo nelle tue mani</strong><span>Un giorno dura circa venti minuti, una stagione quattro giorni. Puoi mettere in pausa o accelerare due e cinque volte.</span></p>
@@ -137,7 +150,7 @@ export function SandboxDossier() {
 
     <section className={`${styles.chapter} ${styles.chapterAlt}`} id="popoli" aria-labelledby="popoli-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><p className={styles.eyebrow}>Capitolo 02</p><h2 id="popoli-title">Quattro popoli.</h2><p>Umani, Elfi, Nani e Orchi. Ognuno ha corporatura, durata della vita, case, armi e una storia di partenza. Le predisposizioni però inclinano, non obbligano: nessun mestiere è vietato e nessun destino politico è già scritto.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 02</p><h2 id="popoli-title">Sei popoli.</h2><p>Umani, Elfi, Nani, Orchi, Halfling e Goblin. Ognuno ha corporatura, durata della vita, case, armi, nomi dal suono proprio e un Eroe con un potere innato. Le predisposizioni però inclinano, non obbligano: nessun mestiere è vietato e nessun destino politico è già scritto.</p></header>
         <Plate src={`${base}/pt-abitanti.webp`} alt="Abitanti di Prima Terra tra gli alberi: umani con capelli di colori diversi, orchi dalla pelle verde ed elfi" width={1000} height={470} caption="Nessun abitante è uguale a un altro: pelle, capelli, barba e vestiti cambiano da persona a persona." wide />
         <div className={styles.raceGrid}>
           {peoples.map((people) => <article key={people.id} data-race={people.id}>
@@ -146,13 +159,13 @@ export function SandboxDossier() {
             <p>{people.text}</p>
           </article>)}
         </div>
-        <aside className={styles.note}><strong>Due popoli in arrivo</strong><p>Githyanki e Tiefling fanno parte del progetto e arriveranno più avanti, realizzati con la stessa cura degli altri quattro invece che come semplici ricolorazioni.</p></aside>
+        <aside className={styles.note}><strong>Il mondo ha già una storia</strong><p>Gli Orchi partono ostili verso tutti, Elfi e Nani sono rivali di antica data, gli Umani sono neutrali e inclini alle alleanze. Poi contano i fatti: aiuti, tradimenti e guerre cambiano davvero i rapporti. Githyanki e Tiefling arriveranno più avanti, con la stessa cura degli altri.</p></aside>
       </div>
     </section>
 
     <section className={styles.chapter} id="vita" aria-labelledby="vita-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><p className={styles.eyebrow}>Capitolo 03</p><h2 id="vita-title">Ogni abitante<br />è una storia.</h2><p>In Prima Terra non esistono comparse. Le generazioni scorrono abbastanza in fretta da vederle succedersi, ma abbastanza piano da affezionarsi a una persona e seguirla dalla nascita alla vecchiaia.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 03</p><h2 id="vita-title">Ogni abitante<br />è una storia.</h2><p>In Prima Terra non esistono comparse. Le generazioni scorrono abbastanza in fretta da vederle succedersi, ma abbastanza piano da affezionarsi a una persona e seguirla dalla nascita alla vecchiaia.</p></header>
         <div className={styles.twoPlates}>
           <Plate src={`${base}/pt-famiglia-cuori.webp`} alt="Cuoricini che salgono dal tetto di una casa di pietra dei Nani" width={1000} height={438} caption="Quando una coppia decide di avere un figlio, dal tetto salgono i cuoricini." />
           <Plate src={`${base}/pt-nascita-notte.webp`} alt="Di notte, tra due case di pietra, una luce dorata con scintille accoglie un neonato" width={1000} height={438} caption="Alla nascita, attorno al piccolo si accende una luce dorata." />
@@ -165,8 +178,8 @@ export function SandboxDossier() {
 
     <section className={`${styles.chapter} ${styles.chapterAlt}`} id="villaggio" aria-labelledby="villaggio-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><p className={styles.eyebrow}>Capitolo 04</p><h2 id="villaggio-title">Dal focolare<br />al paese.</h2><p>Un gruppo fonda il villaggio quando trova cibo, legna e pietra a sufficienza. Prima il focolare, dove ci si raduna la sera, poi i ripari e il deposito. Niente nasce gratis: ogni edificio richiede materiali raccolti davvero, portati al cantiere e lavorati sotto i tuoi occhi.</p></header>
-        <Plate src={`${base}/pt-campi-villaggio.webp`} alt="Un villaggio dei Nani con case di pietra, campi coltivati e una palizzata di legno" width={976} height={470} caption="Case di pietra, campi arati e palizzata: il villaggio costruisce ciò che gli serve, quando gli serve." wide />
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 04</p><h2 id="villaggio-title">Dal focolare<br />al paese.</h2><p>Un gruppo fonda il villaggio quando trova cibo, legna e pietra a sufficienza. Prima il focolare, dove ci si raduna la sera, poi i ripari e il deposito. Niente nasce gratis: ogni edificio richiede materiali raccolti davvero, portati al cantiere e lavorati sotto i tuoi occhi.</p></header>
+        <Plate src={`${base}/pt-campi-villaggio.webp`} alt="Un villaggio dei Nani con case di pietra, campi coltivati e una palizzata di legno" width={976} height={370} caption="Case di pietra, campi arati e palizzata: il villaggio costruisce ciò che gli serve, quando gli serve." wide />
         <div className={styles.splitMedia}>
           <div className={styles.factList}>
             <p><strong>Campi che seguono le stagioni</strong><span>Si ara, si semina e il raccolto cresce a vista. Grano e mais in pianura, patate e aglio in collina, riso vicino all’acqua. Chi non mette da parte scorte patisce l’inverno.</span></p>
@@ -181,12 +194,38 @@ export function SandboxDossier() {
           <p>Dalla materia prima al prodotto finito. Gli abitanti scelgono e cambiano mestiere nel corso della vita, secondo capacità, carattere e bisogni del villaggio.</p>
           <ul className={styles.chips}>{trades.map((trade) => <li key={trade}>{trade}</li>)}</ul>
         </div>
+        <div className={styles.twoPlates}>
+          <Plate src={`${base}/pt-territori-bandiere.webp`} alt="Un continente visto da lontano con i territori colorati di cinque villaggi e le targhette con bandiera, nome e abitanti" width={808} height={492} caption="Da lontano ogni paese colora il suo territorio e mostra bandiera, nome e numero di abitanti." />
+          <Plate src={`${base}/pt-pannello-villaggio.webp`} alt="Il pannello di un villaggio dei Goblin con scorte, tesoro, tasse e la scelta della bandiera" width={546} height={346} caption="Il pannello del villaggio: scorte, tesoro, tasse e una bandiera unica al mondo." />
+        </div>
+        <div className={styles.lifeGrid}>
+          <article><span>01</span><h3>Il Re e le tasse</h3><p>Ogni tanto il villaggio si sceglie un capo. Il Re mette le tasse, decide quale opera costruire per prima ed emana editti: tutti ai campi, tutti alle armi, festa.</p></article>
+          <article><span>02</span><h3>L’Eroe</h3><p>Uno solo per villaggio, e se lo guadagna sul campo. Il Campione umano trascina chi gli sta vicino, il Vendicatore nano regge i colpi come una roccia, il Goblin astuto colpisce alle spalle.</p></article>
+          <article><span>03</span><h3>Filiere, mana e maghi</h3><p>Legname, metallo, cibo e tessuti passano da un edificio all’altro, con operai che puoi assegnare tu. Chi nasce col talento diventa mago nella torre e spende il mana del villaggio per curare e fulminare.</p></article>
+        </div>
       </div>
     </section>
 
-    <section className={styles.chapter} id="natura" aria-labelledby="natura-title">
+    <section className={styles.chapter} id="ere" aria-labelledby="ere-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><p className={styles.eyebrow}>Capitolo 05</p><h2 id="natura-title">Una natura<br />che non perdona.</h2><p>Cervi, cinghiali, conigli, tacchini e lupi nei prati; alci, volpi e orsi polari sulla neve; cammelli, serpenti e iene nelle terre aride; rane vicino all’acqua. Gli animali vivono in branchi, fanno i piccoli e si tengono in equilibrio: se spariscono i lupi, i cervi aumentano.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 05</p><h2 id="ere-title">Dalla pietra<br />ai lampioni.</h2><p>Ogni villaggio attraversa sei ere: Pietra, Bronzo, Ferro, Acciaio, Vapore e Moderna. Non ci si sale col tempo che passa ma con conquiste vere: abbastanza abitanti, certi edifici finiti, certi metalli lavorati. Ogni salto è una festa, sblocca edifici, armi e attrezzi nuovi e finisce nella cronaca.</p></header>
+        <div className={styles.gallery3}>
+          <Plate src={`${base}/pt-era-bronzo.webp`} alt="Un paese all’Età del Bronzo con case dal tetto rosso e strade di pietra" width={580} height={340} caption="Età del Bronzo" />
+          <Plate src={`${base}/pt-era-vapore.webp`} alt="Lo stesso paese all’Età del Vapore, con una fornace accesa accanto a ogni edificio" width={580} height={340} caption="Età del Vapore" />
+          <Plate src={`${base}/pt-era-moderna.webp`} alt="Lo stesso paese nell’Età Moderna, con lampioni e strade asfaltate con la riga bianca" width={580} height={340} caption="Età Moderna" />
+        </div>
+        <div className={styles.powerGrid}>
+          <article><h3>Il paese cambia faccia</h3><p>Col Vapore ogni edificio si accende di fornaci e comignoli in un colpo solo; con l’Età Moderna arrivano lanterne, lampioni e asfalto.</p></article>
+          <article><h3>Edifici nuovi</h3><p>Officina, pompa e segheria a vapore; poi palazzo, negozio e caffè. Ognuno rende davvero: la pompa raddoppia la miniera, al caffè l’umore risale.</p></article>
+          <article><h3>Armi migliori</h3><p>Il fabbro lavora rame, ferro, acciaio e acciaio lavorato: un’arma d’acciaio vale il doppio di una di rame, e i soldati passano a spadone, ascia da guerra e arco lungo.</p></article>
+          <article><h3>Tre caselle a testa</h3><p>Arma, armatura e attrezzo da lavoro. Il fabbro serve prima l’Eroe e il Re, poi i soldati, gli avventurieri e infine chi lavora nei campi.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section className={`${styles.chapter} ${styles.chapterAlt}`} id="natura" aria-labelledby="natura-title">
+      <div className={styles.wrap}>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 06</p><h2 id="natura-title">Una natura<br />che non perdona.</h2><p>Cervi, cinghiali, conigli, tacchini e lupi nei prati; alci, volpi e orsi polari sulla neve; cammelli, serpenti e iene nelle terre aride; rane vicino all’acqua. Gli animali vivono in branchi, fanno i piccoli e si tengono in equilibrio: se spariscono i lupi, i cervi aumentano.</p></header>
         <div className={styles.twoPlates}>
           <Plate src={`${base}/pt-caccia.webp`} alt="Un cacciatore che si avvicina a una preda tra rocce e neve" width={1000} height={438} caption="Il cacciatore si avvicina piano: se l’animale se ne accorge, scappa." />
           <Plate src={`${base}/pt-pesca.webp`} alt="Un pescatore sulla riva sabbiosa lancia la lenza in mare" width={1000} height={438} caption="Dalla riva si pesca in mare, nei fiumi e nei laghi. I villaggi sulla costa possono vivere di pesca." />
@@ -194,7 +233,7 @@ export function SandboxDossier() {
         <div className={styles.splitMedia}>
           <Plate src={`${base}/pt-neve-villaggio.webp`} alt="Un villaggio degli Orchi coperto di neve, con i tetti imbiancati e la palizzata" width={976} height={345} caption="D’inverno la neve si posa prima sulle zone alte, poi imbianca i tetti; con il sereno si scioglie in qualche giorno." />
           <div className={styles.factList}>
-            <p><strong>Predatori veri</strong><span>Lupi, orsi, iene e serpenti attaccano chi si avvicina troppo, soprattutto chi è solo o è un bambino. Gli adulti accorrono a difendersi insieme.</span></p>
+            <p><strong>Predatori e mostri</strong><span>Lupi, orsi, iene e serpenti attaccano chi si avvicina troppo. Troll, ciclopi, ogre e minotauri sfondano i cancelli: quando entrano nel territorio suona l’allarme, si arruolano soldati e i più deboli corrono al riparo.</span></p>
             <p><strong>Si nuota, e si può annegare</strong><span>Fiumi e laghi si attraversano a nuoto, ma l’acqua stanca in fretta: chi resta in acqua sfinito annega.</span></p>
             <p><strong>Un clima che cambia da solo</strong><span>Piogge in primavera, sereno e temporali d’estate, nebbie d’autunno, neve e bufere d’inverno. Il raccolto ne risente davvero.</span></p>
           </div>
@@ -202,9 +241,25 @@ export function SandboxDossier() {
       </div>
     </section>
 
+    <section className={styles.chapter} id="esplorazione" aria-labelledby="esplorazione-title">
+      <div className={styles.wrap}>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 07</p><h2 id="esplorazione-title">Sotto terra<br />si muore davvero.</h2><p>Cripte, caverne, rovine, miniere abbandonate: il mondo nasconde luoghi da esplorare, e altri ne nascono dalla storia, come un villaggio raso al suolo che diventa rovina. Gli avventurieri ci entrano con lo zaino pieno, combattono, aprono forzieri, cadono in trappola. Tu li guardi dal vivo, stanza per stanza.</p></header>
+        <Plate src={`${base}/pt-dungeon.webp`} alt="L’interno di un dungeon in pixel art: stanze di pietra illuminate dalle torce, forzieri, ossa e un gruppo di avventurieri" width={1176} height={572} caption="Aperto a schermo intero, il luogo mostra ogni stanza: torce, trappole, forzieri e chi ci si avventura." wide />
+        <div className={styles.twoPlates}>
+          <Plate src={`${base}/pt-richiesta-spedizione.webp`} alt="La richiesta di spedizione di un goblin: pericolo, creature che aspettano dentro e il gruppo che partirebbe" width={627} height={480} caption="Nessuno parte senza il tuo sì: la richiesta mostra il pericolo, chi c’è dentro e chi andrebbe." />
+          <Plate src={`${base}/pt-dungeon-riquadro.webp`} alt="Il villaggio sulla mappa con il dungeon aperto in un riquadro in basso a sinistra" width={1168} height={690} caption="Oppure lo segui in un riquadro, mentre il villaggio continua a vivere." />
+        </div>
+        <div className={styles.lifeGrid}>
+          <article><span>01</span><h3>L’avventuriero è un mestiere</h3><p>Chi torna vivo dalla prima spedizione ci prende gusto. Sale di livello, si fa equipaggiare dal fabbro e può diventare celebre.</p></article>
+          <article><span>02</span><h3>Quello che cade resta lì</h3><p>Chi muore lascia arma, armatura e attrezzo nel luogo. Tornare a riprendersi la spada di un compagno è una storia, non una riscossione.</p></article>
+          <article><span>03</span><h3>Il Circo e il Cimitero</h3><p>Due luoghi rari: dal Circo si torna con l’umore alle stelle, dal Cimitero con reliquie piene di mana e, ogni tanto, con i non morti alle calcagna.</p></article>
+        </div>
+      </div>
+    </section>
+
     <section className={`${styles.chapter} ${styles.chapterAlt}`} id="guerra" aria-labelledby="guerra-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><p className={styles.eyebrow}>Capitolo 06</p><h2 id="guerra-title">Rancori, confini<br />e guerre.</h2><p>Ogni villaggio ha un territorio che cresce con lui e un colore che lo distingue. Quando due confini si toccano nascono gli attriti: legna, prede e pesca contese, uno straniero ucciso, un’offesa. Il rancore si accumula finché qualcuno dichiara guerra, e il motivo resta scritto.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 08</p><h2 id="guerra-title">Rancori, confini<br />e guerre.</h2><p>Ogni villaggio ha un territorio che cresce con lui e un colore che lo distingue. Quando due confini si toccano nascono gli attriti: legna, prede e pesca contese, uno straniero ucciso, un’offesa. Il rancore si accumula finché qualcuno dichiara guerra, e il motivo resta scritto.</p></header>
         <Plate src={`${base}/pt-battaglia.webp`} alt="Soldati che si affrontano tra le tende rosse di un villaggio degli Orchi" width={1000} height={438} caption="Le battaglie si combattono sulla mappa, colpo per colpo, sotto i tuoi occhi." wide />
         <div className={styles.lifeGrid}>
           <article><span>01</span><h3>Soldati con la loro arma</h3><p>Ascia per i Nani, arco per gli Elfi, ascia da guerra per gli Orchi, spada e lancia per gli Umani. Ogni esercito si riconosce da lontano, e le frecce si vedono in volo.</p></article>
@@ -216,7 +271,7 @@ export function SandboxDossier() {
 
     <section className={styles.chapter} id="poteri" aria-labelledby="poteri-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><p className={styles.eyebrow}>Capitolo 07</p><h2 id="poteri-title">I poteri<br />del dio.</h2><p>Tutti disponibili da subito, senza ricariche e senza costi. Gli abitanti però si accorgono di te: chi riceve un miracolo diventa devoto, chi vede cadere una meteora scappa terrorizzato, e ogni tuo intervento lascia un segno.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 09</p><h2 id="poteri-title">I poteri<br />del dio.</h2><p>Tutti disponibili da subito, senza ricariche e senza costi. Gli abitanti però si accorgono di te: chi riceve un miracolo diventa devoto, chi vede cadere una meteora scappa terrorizzato, e ogni tuo intervento lascia un segno.</p></header>
         <div className={styles.gallery3}>
           <Plate src={`${base}/pt-meteora.webp`} alt="Una meteora infuocata che cade di notte su un villaggio" width={850} height={292} caption="Meteora" />
           <Plate src={`${base}/pt-eruzione.webp`} alt="Un’eruzione che incendia alberi e terreno accanto a un villaggio" width={876} height={318} caption="Eruzione" />
@@ -230,7 +285,7 @@ export function SandboxDossier() {
 
     <section className={`${styles.chapter} ${styles.chapterAlt}`} id="sviluppo" aria-labelledby="sviluppo-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><p className={styles.eyebrow}>Capitolo 08</p><h2 id="sviluppo-title">A che punto siamo.</h2><p>Prima Terra è stata ricostruita da zero su basi più solide, con una grafica unica e coerente in ogni elemento, pensata per girare fluida anche sul telefono. Il mondo è già vivo nel prototipo; davanti c’è la strada verso i dungeon, la fede e le sette ere.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 10</p><h2 id="sviluppo-title">A che punto siamo.</h2><p>Prima Terra è stata ricostruita da zero su basi più solide, con una grafica unica e coerente in ogni elemento, pensata per girare fluida anche sul telefono. Il mondo è già vivo nel prototipo, dai villaggi ai dungeon fino all’Età Moderna; davanti ci sono la fede, gli ultimi popoli e le rifiniture.</p></header>
         <div className={styles.progress}>
           <article className={styles.progressLive}>
             <span>Già vivo nel prototipo</span>
@@ -242,11 +297,11 @@ export function SandboxDossier() {
           </article>
         </div>
         <div className={styles.interfaceShowcase}>
-          <Plate src={`${base}/pt-interfaccia-telefono.webp`} alt="L’interfaccia di Prima Terra sul telefono: barra in legno e pergamena con le icone dei poteri" width={492} height={674} />
+          <Plate src={`${base}/pt-scheda-abitante.webp`} alt="La scheda di un abitante con le sezioni Vita, Mestiere, Famiglia e Storia, le barre dei bisogni e i poteri sulla persona" width={284} height={334} />
           <div>
             <p className={styles.eyebrow}>Computer e telefono</p>
             <h3>Stessa esperienza, ovunque.</h3>
-            <p>Si gioca dal browser. L’interfaccia in legno e pergamena lascia quasi tutta la mappa libera: cinque schede in basso per terreni, abitanti, animali, poteri e mondo, e sul telefono un dito dipinge mentre due spostano la vista.</p>
+            <p>Si gioca dal browser. L’interfaccia in pixel art lascia quasi tutta la mappa libera: una barra di sole icone in basso per terreni, abitanti, animali, creature, poteri, villaggi, cronaca e mondo. Le schede si aprono con un tocco e si leggono in un secondo, e sul telefono un dito dipinge mentre due spostano la vista.</p>
           </div>
         </div>
         <div className={styles.facts}>
@@ -262,6 +317,7 @@ export function SandboxDossier() {
     </section>
 
     <footer className={styles.finale}>
+      <Image className={styles.finaleLogo} src={logo} alt="Prima Terra" width={1032} height={324} unoptimized />
       <p>Il mondo è pronto. Manca solo il primo abitante.</p>
     </footer>
   </main>;
