@@ -5,7 +5,7 @@ import styles from "./SandboxDossier.module.css";
 
 const base = "/games/sandbox";
 
-// Contenuti allineati al regolamento di Prima Terra (aggiornato al 21 settembre 2026)
+// Contenuti allineati al regolamento di Prima Terra (aggiornato al 22 settembre 2026)
 // e alle schermate reali del gioco, disegnato con il bundle Minifantasy di Krishna Palacio.
 const logo = `${base}/logo-prima-terra-ufficiale.webp`;
 
@@ -16,6 +16,7 @@ const chapters = [
   { id: "villaggio", label: "Il villaggio" },
   { id: "ere", label: "Le ere" },
   { id: "natura", label: "La natura" },
+  { id: "mare", label: "Il mare" },
   { id: "esplorazione", label: "I dungeon" },
   { id: "guerra", label: "La guerra" },
   { id: "poteri", label: "I poteri" },
@@ -27,12 +28,12 @@ const peoples = [
   { id: "elfi", name: "Elfi", trait: "Vivono a lungo e conoscono il bosco", text: "Abitano sotto le chiome dei grandi alberi e combattono con l’arco. Crescono lentamente, in circa tre anni, e con i Nani hanno una rivalità antica." },
   { id: "nani", name: "Nani", trait: "Lavorano meglio pietra e metallo", text: "Case di pietra grigia, barbe folte e asce da battaglia. Robusti e tenaci, non dimenticano i vecchi torti degli Elfi. Adulti in circa due anni." },
   { id: "orchi", name: "Orchi", trait: "Forti e combattivi", text: "Tende di pelle rossa tese su pali di legno e asce da guerra a due mani. Partono ostili verso tutti, ma la guerra non è un destino obbligato. Crescono in un solo anno." },
-  { id: "halfling", name: "Halfling", trait: "Piccoli, svelti e fortunati", text: "Gran contadini e pessimi soldati. Vivono in case tonde scavate nel fianco della collina, con la porta rotonda, il tetto d’erba e l’orto davanti." },
-  { id: "goblin", name: "Goblin", trait: "Deboli ma prolifici", text: "Crescono in fretta, rubano e si accontentano di poco. Le loro baracche storte di assi, pali e teli si riconoscono da lontano." },
+  { id: "halfling", name: "Halfling", trait: "Piccoli, svelti e fortunati", text: "Gran contadini e pessimi soldati, con i capelli rossi e i vestiti da campagna. Vivono in tane scavate nella collina, con la porta tonda nell’arco di pietra e l’orto davanti." },
+  { id: "goblin", name: "Goblin", trait: "Deboli ma prolifici", text: "Pelle verde-giallo acido e vestiti di stracci. Crescono in fretta, rubano e si accontentano di poco: vivono in capanne di pelli tese su pali e ammucchiano il bottino sotto una tettoia rotta." },
 ];
 
 const lifeMoments = [
-  ["Un nome che suona giusto", "Ogni popolo ha il proprio suono: nomi medievali per gli Umani, melodiosi per gli Elfi, brevi e duri per i Nani, gutturali per gli Orchi."],
+  ["Un nome che suona giusto", "Ogni popolo ha il proprio suono: nomi medievali per gli Umani, melodiosi per gli Elfi, brevi e duri per i Nani, gutturali per gli Orchi. E i paesi degli Umani portano il nome di un vero comune italiano."],
   ["Nessuno uguale a un altro", "Tonalità della pelle, colore e lunghezza dei capelli, barba, tunica e calzoni cambiano da persona a persona, sempre nello stile originale della pixel art."],
   ["Cinque bisogni", "Fame, riposo, riparo, salute e compagnia guidano ogni scelta. Le priorità cambiano con l’urgenza, il carattere e la situazione."],
   ["Coppie che nascono da sole", "Due adulti che passano tempo insieme e vanno d’accordo si affezionano piano, fino a diventare coppia e dormire sotto lo stesso tetto."],
@@ -48,7 +49,7 @@ const powers = [
   ["Il cielo", "Sereno, pioggia, temporale, neve e bufera su tutto il mondo. La pioggia fa crescere il cibo e spegne gli incendi, il temporale lancia fulmini, la bufera spinge tutti al riparo."],
   ["Sulla persona", "Guarisci, benedici, maledici o colpisci con un fulmine. Chi riceve un miracolo diventa devoto e si ferma a ringraziare."],
   ["Le catastrofi", "La meteora lascia un cratere di roccia, il terremoto spacca la terra e fa crollare le case, l’eruzione alza una montagna nuova."],
-  ["La natura", "Con il pennello fai crescere alberi e cespugli, o li sradichi. E il terreno si dipinge casella per casella, anche a partita avviata."],
+  ["La natura", "Con il pennello fai crescere alberi e cespugli, o li sradichi. E il terreno si dipinge casella per casella, anche a partita avviata: dove nasce un bioma nuovo crescono i suoi alberi e le sue piante, e le vecchie spariscono."],
 ];
 
 const liveNow = [
@@ -62,17 +63,19 @@ const liveNow = [
   "Sei ere, dalla Pietra all’Età Moderna, con il paese che cambia faccia",
   "Palude, giungla, terre corrotte e bosco fatato, ognuno con piante e bestie proprie",
   "Dungeon esplorabili dal vivo, avventurieri, bottino, il Circo e il Cimitero",
-  "Animali selvatici, predatori, mostri, caccia, pesca e nuoto",
+  "Animali selvatici, predatori, mostri, caccia, pesca e nuoto, e in mare delfini, squali, kraken e serpenti marini",
+  "Porti e canoe per pescare al largo, commerciare e fare la guerra per mare, e velieri abbandonati da esplorare",
+  "Un mercato con prezzi che cambiano da paese a paese, monete d’oro e baratto",
+  "Un disegno proprio per ogni edificio di ogni popolo, porti compresi; solo i palazzi dell’Età Moderna sono uguali per tutti",
+  "Una spedizione per paese, tutte da seguire nella scheda Spedizioni",
+  "Musica, suoni dell’ambiente ed effetti, con volume e muto",
   "Territori, rancori, soldati, palizzate, battaglie, saccheggi e trattati di pace",
   "I poteri del dio: cielo, miracoli, maledizioni, meteore, terremoti ed eruzioni",
   "Salvataggio automatico ogni minuto, copie da recuperare e mondi da esportare",
 ];
 
 const comingNext = [
-  "Le case proprie di Halfling e Goblin: tane nella collina e baracche",
-  "Più spedizioni insieme, da seguire una alla volta e scambiare con la mappa",
   "Oggetti leggendari con un nome e una storia, tramandati di generazione in generazione",
-  "Githyanki e Tiefling, i due popoli che completano il mondo",
   "Fede e preghiere: culti, santuari e abitanti che interpretano i tuoi interventi",
   "Le terre infernali, l’ultimo bioma che manca",
   "Un account facoltativo per ritrovare i propri mondi su ogni dispositivo",
@@ -150,7 +153,7 @@ export function SandboxDossier() {
 
     <section className={`${styles.chapter} ${styles.chapterAlt}`} id="popoli" aria-labelledby="popoli-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 02</p><h2 id="popoli-title">Sei popoli.</h2><p>Umani, Elfi, Nani, Orchi, Halfling e Goblin. Ognuno ha corporatura, durata della vita, case, armi, nomi dal suono proprio e un Eroe con un potere innato. Le predisposizioni però inclinano, non obbligano: nessun mestiere è vietato e nessun destino politico è già scritto.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 02</p><h2 id="popoli-title">Sei popoli.</h2><p>Umani, Elfi, Nani, Orchi, Halfling e Goblin. Ognuno ha corporatura, durata della vita, armi, nomi dal suono proprio e un Eroe con un potere innato. E ogni edificio ha un disegno diverso per ciascun popolo, dal focolare alla fonderia, porti compresi. Solo palazzo, negozio e caffè dell’Età Moderna sono uguali per tutti, con il tetto del colore del popolo. Le predisposizioni però inclinano, non obbligano: nessun mestiere è vietato e nessun destino politico è già scritto.</p></header>
         <Plate src={`${base}/pt-abitanti.webp`} alt="Abitanti di Prima Terra tra gli alberi: umani con capelli di colori diversi, orchi dalla pelle verde ed elfi" width={1000} height={470} caption="Nessun abitante è uguale a un altro: pelle, capelli, barba e vestiti cambiano da persona a persona." wide />
         <div className={styles.raceGrid}>
           {peoples.map((people) => <article key={people.id} data-race={people.id}>
@@ -159,7 +162,8 @@ export function SandboxDossier() {
             <p>{people.text}</p>
           </article>)}
         </div>
-        <aside className={styles.note}><strong>Il mondo ha già una storia</strong><p>Gli Orchi partono ostili verso tutti, Elfi e Nani sono rivali di antica data, gli Umani sono neutrali e inclini alle alleanze. Poi contano i fatti: aiuti, tradimenti e guerre cambiano davvero i rapporti. Githyanki e Tiefling arriveranno più avanti, con la stessa cura degli altri.</p></aside>
+        <Plate src={`${base}/pt-villaggio-goblin.webp`} alt="Un villaggio dei Goblin al crepuscolo: capanne di pelli tese su pali attorno al focolare, con l’orto e le panche" width={968} height={540} caption="Un villaggio dei Goblin al crepuscolo: capanne di pelli su pali, riconoscibili da lontano." wide />
+        <aside className={styles.note}><strong>Il mondo ha già una storia</strong><p>Gli Orchi partono ostili verso tutti, Halfling e Goblin compresi. Elfi e Nani sono rivali di antica data, gli Umani sono neutrali e inclini alle alleanze, Halfling e Goblin partono in buoni rapporti con chiunque non sia un Orco. Poi contano i fatti: aiuti, tradimenti e guerre cambiano davvero i rapporti.</p></aside>
       </div>
     </section>
 
@@ -203,21 +207,33 @@ export function SandboxDossier() {
           <article><span>02</span><h3>L’Eroe</h3><p>Uno solo per villaggio, e se lo guadagna sul campo. Il Campione umano trascina chi gli sta vicino, il Vendicatore nano regge i colpi come una roccia, il Goblin astuto colpisce alle spalle.</p></article>
           <article><span>03</span><h3>Filiere, mana e maghi</h3><p>Legname, metallo, cibo e tessuti passano da un edificio all’altro, con operai che puoi assegnare tu. Chi nasce col talento diventa mago nella torre e spende il mana del villaggio per curare e fulminare.</p></article>
         </div>
+        <div className={styles.interfaceShowcase}>
+          <Plate src={`${base}/pt-mercato-listino.webp`} alt="Il pannello del mercato di un paese umano: cassa, cosa vende e cosa cerca, e il listino con scorte e prezzi di ogni merce" width={278} height={618} caption="Il listino del mercato: scorte, prezzi e frecce che dicono se salgono o scendono." />
+          <div>
+            <p className={styles.eyebrow}>Il mercato</p>
+            <h3>Ogni cosa ha il suo prezzo.</h3>
+            <p>Il mercato ha una sua economia. Ogni merce costa di più quando scarseggia e meno quando abbonda, e il prezzo cambia da paese a paese. Chi ha mercato e fabbro conia monete d’oro; chi non le ha baratta merce contro merce.</p>
+            <p>Toccando il mercato si vedono la cassa, cosa il paese vende e cosa cerca, il listino con le frecce dei prezzi, le carovane in viaggio e la storia degli scambi.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <section className={styles.chapter} id="ere" aria-labelledby="ere-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 05</p><h2 id="ere-title">Dalla pietra<br />ai lampioni.</h2><p>Ogni villaggio attraversa sei ere: Pietra, Bronzo, Ferro, Acciaio, Vapore e Moderna. Non ci si sale col tempo che passa ma con conquiste vere: abbastanza abitanti, certi edifici finiti, certi metalli lavorati. Ogni salto è una festa, sblocca edifici, armi e attrezzi nuovi e finisce nella cronaca.</p></header>
-        <div className={styles.gallery3}>
-          <Plate src={`${base}/pt-era-bronzo.webp`} alt="Un paese all’Età del Bronzo con case dal tetto rosso e strade di pietra" width={580} height={340} caption="Età del Bronzo" />
-          <Plate src={`${base}/pt-era-vapore.webp`} alt="Lo stesso paese all’Età del Vapore, con una fornace accesa accanto a ogni edificio" width={580} height={340} caption="Età del Vapore" />
-          <Plate src={`${base}/pt-era-moderna.webp`} alt="Lo stesso paese nell’Età Moderna, con lampioni e strade asfaltate con la riga bianca" width={580} height={340} caption="Età Moderna" />
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 05</p><h2 id="ere-title">Dalla pietra<br />ai lampioni.</h2><p>Ogni villaggio attraversa sei ere: Pietra, Bronzo, Ferro, Acciaio, Vapore e Moderna. Non ci si sale col tempo che passa ma con conquiste vere: abbastanza abitanti, certi edifici finiti, certi metalli lavorati. Ogni salto è una festa, sblocca edifici, armi e attrezzi nuovi e finisce nella cronaca. Qui sotto, lo stesso paese umano in tutte e sei le ere.</p></header>
+        <div className={`${styles.gallery3} ${styles.eraGallery}`}>
+          <Plate src={`${base}/pt-era-umani-pietra.webp`} alt="Un paese umano all’Età della Pietra: capanne di paglia attorno al focolare, campi e recinti" width={1200} height={665} caption="Età della Pietra · capanne di paglia e focolare" />
+          <Plate src={`${base}/pt-era-umani-bronzo.webp`} alt="Lo stesso paese all’Età del Bronzo, con il tempio di pietra e il mulino a vento" width={1200} height={665} caption="Età del Bronzo · il tempio e il mulino" />
+          <Plate src={`${base}/pt-era-umani-ferro.webp`} alt="Lo stesso paese all’Età del Ferro, con le tende del mercato, il forno e la torre del mago" width={1200} height={665} caption="Età del Ferro · mercato, forno e torre del mago" />
+          <Plate src={`${base}/pt-era-umani-acciaio.webp`} alt="Lo stesso paese all’Età dell’Acciaio, con il presidio e i primi monumenti" width={1200} height={665} caption="Età dell’Acciaio · il presidio e i monumenti" />
+          <Plate src={`${base}/pt-era-umani-vapore.webp`} alt="Lo stesso paese all’Età del Vapore: sul tetto di ogni casa un camino che fuma, e le officine di mattoni" width={1200} height={665} caption="Età del Vapore · un camino che fuma su ogni tetto" />
+          <Plate src={`${base}/pt-era-umani-moderna.webp`} alt="Lo stesso paese nell’Età Moderna, con due hotel, lo store, il saloon, i lampioni e le strade asfaltate con la riga bianca" width={1200} height={665} caption="Età Moderna · hotel, store, saloon e asfalto" />
         </div>
         <div className={styles.powerGrid}>
-          <article><h3>Il paese cambia faccia</h3><p>Col Vapore ogni edificio si accende di fornaci e comignoli in un colpo solo; con l’Età Moderna arrivano lanterne, lampioni e asfalto.</p></article>
-          <article><h3>Edifici nuovi</h3><p>Officina, pompa e segheria a vapore; poi palazzo, negozio e caffè. Ognuno rende davvero: la pompa raddoppia la miniera, al caffè l’umore risale.</p></article>
-          <article><h3>Armi migliori</h3><p>Il fabbro lavora rame, ferro, acciaio e acciaio lavorato: un’arma d’acciaio vale il doppio di una di rame, e i soldati passano a spadone, ascia da guerra e arco lungo.</p></article>
+          <article><h3>Il paese cambia faccia</h3><p>Col Vapore su ogni casa spunta un camino che fuma, e ogni popolo tiene le sue case; con l’Età Moderna arrivano lanterne, lampioni e asfalto.</p></article>
+          <article><h3>Edifici nuovi</h3><p>Officina, pompa e segheria a vapore; poi palazzo, negozio e caffè, uguali per tutti i popoli tranne il colore del tetto. Ognuno rende davvero: la pompa raddoppia la miniera, al caffè l’umore risale.</p></article>
+          <article><h3>Armi migliori</h3><p>Si parte con selce e legno, poi il fabbro lavora rame, ferro, acciaio e acciaio lavorato: un’arma d’acciaio vale il doppio di una di rame, e i soldati passano a spadone, ascia da guerra e arco lungo.</p></article>
           <article><h3>Tre caselle a testa</h3><p>Arma, armatura e attrezzo da lavoro. Il fabbro serve prima l’Eroe e il Re, poi i soldati, gli avventurieri e infine chi lavora nei campi.</p></article>
         </div>
       </div>
@@ -235,15 +251,41 @@ export function SandboxDossier() {
           <div className={styles.factList}>
             <p><strong>Predatori e mostri</strong><span>Lupi, orsi, iene e serpenti attaccano chi si avvicina troppo. Troll, ciclopi, ogre e minotauri sfondano i cancelli: quando entrano nel territorio suona l’allarme, si arruolano soldati e i più deboli corrono al riparo.</span></p>
             <p><strong>Si nuota, e si può annegare</strong><span>Fiumi e laghi si attraversano a nuoto, ma l’acqua stanca in fretta: chi resta in acqua sfinito annega.</span></p>
+            <p><strong>Il posto sbagliato uccide</strong><span>Ogni creatura si piazza dove vuoi, ma fuori dal suo ambiente soffre. Il delfino sulla terra muore in una ventina di secondi, se non riesce a trascinarsi in acqua; la mucca in mare affoga, il cervo nuota finché ha fiato.</span></p>
             <p><strong>Un clima che cambia da solo</strong><span>Piogge in primavera, sereno e temporali d’estate, nebbie d’autunno, neve e bufere d’inverno. Il raccolto ne risente davvero.</span></p>
           </div>
         </div>
       </div>
     </section>
 
-    <section className={styles.chapter} id="esplorazione" aria-labelledby="esplorazione-title">
+    <section className={styles.chapter} id="mare" aria-labelledby="mare-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 07</p><h2 id="esplorazione-title">Sotto terra<br />si muore davvero.</h2><p>Cripte, caverne, rovine, miniere abbandonate: il mondo nasconde luoghi da esplorare, e altri ne nascono dalla storia, come un villaggio raso al suolo che diventa rovina. Gli avventurieri ci entrano con lo zaino pieno, combattono, aprono forzieri, cadono in trappola. Tu li guardi dal vivo, stanza per stanza.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 07</p><h2 id="mare-title">Il mare<br />si apre.</h2><p>Il mare non è più un confine. I paesi sulla costa costruiscono il porto, ognuno nello stile del suo popolo, e le canoe escono al largo: a pescare, a commerciare, a fare la guerra e a esplorare i velieri abbandonati. Ogni canoa ha il suo rematore, e non sempre torna.</p></header>
+        <Plate src={`${base}/pt-porto-peschereccio.webp`} alt="Il porto peschereccio di un paese umano, con i pesci appesi al molo e una canoa con il suo rematore già in acqua" width={1200} height={520} caption="Il porto peschereccio di un paese umano: i pesci appesi al molo, e la canoa già in acqua con il suo rematore." wide />
+        <div className={styles.splitMedia}>
+          <div className={styles.factList}>
+            <p><strong>Pesca al largo</strong><span>La canoa esce sui banchi di pesci, che si vedono come cerchi nell’acqua, e torna al molo con il doppio del pesce che si prende da riva.</span></p>
+            <p><strong>Animali del mare</strong><span>Nel mare vivono delfini in branco e squali. Kraken e serpenti marini sono rarissimi. Tutti nascono con il mondo, e si possono anche piazzare dalla barra.</span></p>
+            <p><strong>Si affonda davvero</strong><span>Squali, kraken e serpenti marini puntano chi va per mare: la canoa si danneggia e affonda, e il rematore torna a riva a nuoto. Dopo mezza giornata il porto ne costruisce un’altra.</span></p>
+          </div>
+          <Plate src={`${base}/pt-mare-animali.webp`} alt="In mare aperto un branco di delfini, la pinna di uno squalo e un kraken con i tentacoli fuori dall’acqua" width={780} height={440} caption="Delfini in branco, la pinna di uno squalo e, rarissimo, un kraken." />
+        </div>
+        <div className={styles.lifeGrid}>
+          <article><span>01</span><h3>Il commercio per mare</h3><p>Il porto mercantile ha una canoa carica di casse. Il paese che ha troppo di qualcosa lo porta a un paese in pace che ne è a corto: la canoa segue una rotta vera lungo le coste e torna con quello che manca.</p></article>
+          <article><span>02</span><h3>La guerra sul mare</h3><p>Se il nemico sta su un’altra isola, o per terra la strada è lunga il doppio, i soldati partono dal porto: uno per canoa, una flottiglia intera. In mare l’arco colpisce da lontano e le altre armi da vicino, e chi viene attaccato esce in canoa a difendere il porto.</p></article>
+          <article><span>03</span><h3>I velieri abbandonati</h3><p>Al largo di ogni mondo ci sono uno o due velieri: la nave pirata fantasma, piena di scheletri e zombi, e il relitto mezzo affondato, con il kraken in fondo alla stiva. Ci arriva solo chi ha un porto.</p></article>
+        </div>
+        <div className={styles.twoPlates}>
+          <Plate src={`${base}/pt-nave-pirata.webp`} alt="La nave pirata fantasma ferma in mare aperto, con le vele nere, i cannoni e la bandiera col teschio" width={1200} height={520} caption="La nave pirata fantasma: vele nere, cannoni e bandiera col teschio." />
+          <Plate src={`${base}/pt-canoe-relitto.webp`} alt="Due canoe partite dal porto di un paese sulla costa si avvicinano al relitto mezzo affondato, mentre dei delfini nuotano lì accanto" width={1200} height={520} caption="Una spedizione parte dal porto verso il relitto: una canoa a testa." />
+        </div>
+        <Plate src={`${base}/pt-stiva-relitto.webp`} alt="L’interno della stiva del relitto in pixel art: corridoi di legno, ancore e torce, il gruppo di avventurieri e le creature con le loro barre della vita" width={734} height={236} caption="Dentro la stiva del relitto: il gruppo avanza fra ancore e torce, e dal buio escono le creature del mare." wide />
+      </div>
+    </section>
+
+    <section className={`${styles.chapter} ${styles.chapterAlt}`} id="esplorazione" aria-labelledby="esplorazione-title">
+      <div className={styles.wrap}>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 08</p><h2 id="esplorazione-title">Sotto terra<br />si muore davvero.</h2><p>Cripte, caverne, rovine, miniere abbandonate: il mondo nasconde luoghi da esplorare, e altri ne nascono dalla storia, come un villaggio raso al suolo che diventa rovina. Gli avventurieri ci entrano con lo zaino pieno, combattono, aprono forzieri, cadono in trappola. Tu li guardi dal vivo, stanza per stanza.</p></header>
         <Plate src={`${base}/pt-dungeon.webp`} alt="L’interno di un dungeon in pixel art: stanze di pietra illuminate dalle torce, forzieri, ossa e un gruppo di avventurieri" width={1176} height={572} caption="Aperto a schermo intero, il luogo mostra ogni stanza: torce, trappole, forzieri e chi ci si avventura." wide />
         <div className={styles.twoPlates}>
           <Plate src={`${base}/pt-richiesta-spedizione.webp`} alt="La richiesta di spedizione di un goblin: pericolo, creature che aspettano dentro e il gruppo che partirebbe" width={627} height={480} caption="Nessuno parte senza il tuo sì: la richiesta mostra il pericolo, chi c’è dentro e chi andrebbe." />
@@ -251,15 +293,29 @@ export function SandboxDossier() {
         </div>
         <div className={styles.lifeGrid}>
           <article><span>01</span><h3>L’avventuriero è un mestiere</h3><p>Chi torna vivo dalla prima spedizione ci prende gusto. Sale di livello, si fa equipaggiare dal fabbro e può diventare celebre.</p></article>
-          <article><span>02</span><h3>Quello che cade resta lì</h3><p>Chi muore lascia arma, armatura e attrezzo nel luogo. Tornare a riprendersi la spada di un compagno è una storia, non una riscossione.</p></article>
-          <article><span>03</span><h3>Il Circo e il Cimitero</h3><p>Due luoghi rari: dal Circo si torna con l’umore alle stelle, dal Cimitero con reliquie piene di mana e, ogni tanto, con i non morti alle calcagna.</p></article>
+          <article><span>02</span><h3>Mai a mani vuote</h3><p>La spedizione passa dal fabbro: armi, armatura e uno zaino di cibo prima di partire. Nell’Età della Pietra bastano selce e legno.</p></article>
+          <article><span>03</span><h3>Quello che cade resta lì</h3><p>Chi muore lascia arma, armatura e attrezzo nel luogo. Tornare a riprendersi la spada di un compagno è una storia, non una riscossione.</p></article>
+        </div>
+        <div className={styles.splitMedia}>
+          <Plate src={`${base}/pt-scheda-spedizioni.webp`} alt="La scheda Spedizioni: il gruppo dentro il relitto, con vita, stamina, armi e tratti di ciascun avventuriero" width={674} height={369} caption="La scheda Spedizioni: chi è in giro, dove, e come sta ciascuno." />
+          <div className={styles.factList}>
+            <p><strong>Una spedizione per paese</strong><span>Ogni paese manda il suo gruppo, e più spedizioni possono essere in giro insieme. Tocchi quella che vuoi seguire e la passi dal riquadro allo schermo intero.</span></p>
+            <p><strong>La scheda Spedizioni</strong><span>Nella barra un numerino dice quante richieste aspettano il tuo sì. Per ogni gruppo in viaggio si vedono vita, stamina, armi e danni di ciascuno; al ritorno un riquadro mostra il bottino portato a casa.</span></p>
+          </div>
+        </div>
+        <div className={styles.splitMedia}>
+          <Plate src={`${base}/pt-circo-spettacolo.webp`} alt="Davanti ai tendoni del circo, un giocoliere e un buffone fanno il loro numero per un gruppo di abitanti" width={560} height={340} caption="Al Circo i saltimbanchi fanno lo spettacolo, e chi arriva si ferma a guardare." />
+          <div className={styles.factList}>
+            <p><strong>Il Circo</strong><span>Una carovana di saltimbanchi si accampa vicino a un villaggio. Giocoliere, buffone e banditore recitano sempre; chi viene a vederli si mette a semicerchio e torna a casa con l’umore alle stelle.</span></p>
+            <p><strong>Il Cimitero</strong><span>Un luogo spettrale da cui si riportano reliquie piene di mana, rischiando di svegliare i non morti che poi assaltano il villaggio.</span></p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section className={`${styles.chapter} ${styles.chapterAlt}`} id="guerra" aria-labelledby="guerra-title">
+    <section className={styles.chapter} id="guerra" aria-labelledby="guerra-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 08</p><h2 id="guerra-title">Rancori, confini<br />e guerre.</h2><p>Ogni villaggio ha un territorio che cresce con lui e un colore che lo distingue. Quando due confini si toccano nascono gli attriti: legna, prede e pesca contese, uno straniero ucciso, un’offesa. Il rancore si accumula finché qualcuno dichiara guerra, e il motivo resta scritto.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 09</p><h2 id="guerra-title">Rancori, confini<br />e guerre.</h2><p>Ogni villaggio ha un territorio che cresce con lui e un colore che lo distingue. Quando due confini si toccano nascono gli attriti: legna, prede e pesca contese, uno straniero ucciso, un’offesa. Il rancore si accumula finché qualcuno dichiara guerra, e il motivo resta scritto. Se il nemico sta oltre il mare, la guerra si combatte anche in canoa.</p></header>
         <Plate src={`${base}/pt-battaglia.webp`} alt="Soldati che si affrontano tra le tende rosse di un villaggio degli Orchi" width={1000} height={438} caption="Le battaglie si combattono sulla mappa, colpo per colpo, sotto i tuoi occhi." wide />
         <div className={styles.lifeGrid}>
           <article><span>01</span><h3>Soldati con la loro arma</h3><p>Ascia per i Nani, arco per gli Elfi, ascia da guerra per gli Orchi, spada e lancia per gli Umani. Ogni esercito si riconosce da lontano, e le frecce si vedono in volo.</p></article>
@@ -269,9 +325,9 @@ export function SandboxDossier() {
       </div>
     </section>
 
-    <section className={styles.chapter} id="poteri" aria-labelledby="poteri-title">
+    <section className={`${styles.chapter} ${styles.chapterAlt}`} id="poteri" aria-labelledby="poteri-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 09</p><h2 id="poteri-title">I poteri<br />del dio.</h2><p>Tutti disponibili da subito, senza ricariche e senza costi. Gli abitanti però si accorgono di te: chi riceve un miracolo diventa devoto, chi vede cadere una meteora scappa terrorizzato, e ogni tuo intervento lascia un segno.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 10</p><h2 id="poteri-title">I poteri<br />del dio.</h2><p>Tutti disponibili da subito, senza ricariche e senza costi. Gli abitanti però si accorgono di te: chi riceve un miracolo diventa devoto, chi vede cadere una meteora scappa terrorizzato, e ogni tuo intervento lascia un segno.</p></header>
         <div className={styles.gallery3}>
           <Plate src={`${base}/pt-meteora.webp`} alt="Una meteora infuocata che cade di notte su un villaggio" width={850} height={292} caption="Meteora" />
           <Plate src={`${base}/pt-eruzione.webp`} alt="Un’eruzione che incendia alberi e terreno accanto a un villaggio" width={876} height={318} caption="Eruzione" />
@@ -283,9 +339,9 @@ export function SandboxDossier() {
       </div>
     </section>
 
-    <section className={`${styles.chapter} ${styles.chapterAlt}`} id="sviluppo" aria-labelledby="sviluppo-title">
+    <section className={styles.chapter} id="sviluppo" aria-labelledby="sviluppo-title">
       <div className={styles.wrap}>
-        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 10</p><h2 id="sviluppo-title">A che punto siamo.</h2><p>Prima Terra è stata ricostruita da zero su basi più solide, con una grafica unica e coerente in ogni elemento, pensata per girare fluida anche sul telefono. Il mondo è già vivo nel prototipo, dai villaggi ai dungeon fino all’Età Moderna; davanti ci sono la fede, gli ultimi popoli e le rifiniture.</p></header>
+        <header className={styles.chapterHead}><ChapterMark /><p className={styles.eyebrow}>Capitolo 11</p><h2 id="sviluppo-title">A che punto siamo.</h2><p>Prima Terra è stata ricostruita da zero su basi più solide, con una grafica unica e coerente in ogni elemento, pensata per girare fluida anche sul telefono. Il mondo è già vivo nel prototipo, dai villaggi ai dungeon fino all’Età Moderna, e da poco anche il mare, con porti, canoe e velieri. Davanti ci sono la fede, gli oggetti leggendari e le rifiniture.</p></header>
         <div className={styles.progress}>
           <article className={styles.progressLive}>
             <span>Già vivo nel prototipo</span>
@@ -301,7 +357,8 @@ export function SandboxDossier() {
           <div>
             <p className={styles.eyebrow}>Computer e telefono</p>
             <h3>Stessa esperienza, ovunque.</h3>
-            <p>Si gioca dal browser. L’interfaccia in pixel art lascia quasi tutta la mappa libera: una barra di sole icone in basso per terreni, abitanti, animali, creature, poteri, villaggi, cronaca e mondo. Le schede si aprono con un tocco e si leggono in un secondo, e sul telefono un dito dipinge mentre due spostano la vista.</p>
+            <p>Si gioca dal browser. L’interfaccia in pixel art lascia quasi tutta la mappa libera: una barra di sole icone in basso per terreni, abitanti, animali, fattoria, mostri, biomi, poteri, villaggi, spedizioni, cronaca e mondo. Le schede si aprono con un tocco e si leggono in un secondo, e sul telefono un dito dipinge mentre due spostano la vista.</p>
+            <p>E il mondo si sente: di solito suona una musica tranquilla, che diventa musica da battaglia quando arrivano guerre o mostri. Si sente l’ambiente che stai guardando, dal bosco al mare, dalla neve al temporale, e da vicino i colpi d’ascia, le porte, le lotte e i versi di molti animali. Musica ed effetti hanno il loro volume, e c’è il tasto muto.</p>
           </div>
         </div>
         <div className={styles.facts}>
