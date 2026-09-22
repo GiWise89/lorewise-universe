@@ -349,6 +349,11 @@
 .studio-games-hero-backdrop img:last-child { object-position: 48% center; }
 .studio-games-page .studio-games-hero-grid { min-height: 690px; display: grid; grid-template-columns: minmax(0,.9fr) minmax(320px,.6fr); gap: clamp(40px,8vw,130px); align-items: end; padding-block: 95px 74px; }
 .studio-games-page .studio-games-hero-copy > p:not(.eyebrow) { max-width: 590px; color: rgba(255,255,255,.83); font-size: 1.02rem; line-height: 1.75; }
+/* #contenuto button impone almeno .82rem ai pulsanti: il link "Gioca" usa la stessa misura per restare allineato al trailer. */
+.studio-games-hero-actions { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; margin-top: 24px; font-size: .82rem; }
+.studio-games-hero-actions .studio-games-hero-action { margin-top: 0; font-size: inherit; }
+.studio-games-hero-actions .studio-games-hero-trailer { padding: 0 0 7px; border: 0; border-bottom: 2px solid rgba(255, 255, 255, .5); background: none; color: #fff; font-family: inherit; line-height: inherit; font-weight: 900; cursor: pointer; }
+.studio-games-hero-actions .studio-games-hero-trailer:hover, .studio-games-hero-actions .studio-games-hero-trailer:focus-visible { border-bottom-color: #ff6a3d; }
 .studio-games-hero-action { display: inline-flex; gap: 14px; align-items: center; margin-top: 24px; padding-bottom: 7px; border-bottom: 2px solid #ff6a3d; color: #fff; font-size: .76rem; font-weight: 900; }
 .studio-games-hero-titles { display: grid; gap: 14px; }
 .studio-games-hero-titles a { min-height: 116px; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 18px; align-items: center; padding: 18px 22px; border-left: 3px solid rgba(255,255,255,.8); background: rgba(5,7,17,.64); backdrop-filter: blur(12px); }

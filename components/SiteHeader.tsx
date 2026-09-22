@@ -5,91 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { createLoreWiseBrowserClient } from "@/lib/supabase/client";
-
-const navIcons: Record<string, string> = {
-  "/": "/brand/navigation/lorewise-universe-logo.webp",
-  "/arte": "/brand/navigation/arte-v2.webp",
-  "/abbonamento": "/brand/navigation/lorewise-wax-seal.webp",
-  "/commissioni": "/brand/navigation/commissioni-v2.webp",
-  "/mondi": "/brand/navigation/mondi-v2.webp",
-  "/dove-nascono-i-mondi": "/brand/navigation/mondi-v2.webp",
-  "/giochi": "/brand/navigation/giochi-v2.webp",
-  "/giochi/the-wound-remembers": "/brand/navigation/giochi-v2.webp",
-  "/vip-zone": "/brand/navigation/vip-v2.webp",
-  "/enciclopedia": "/brand/navigation/codex-v2.webp",
-  "/shop": "/brand/navigation/shop-v2.webp",
-  "/account": "/brand/navigation/community-v2.webp",
-  "/famiglio": "/famiglio/navigation/tana-v1.webp",
-  "/cronache-del-nexus": "/brand/navigation/lorewise-wax-seal.webp",
-  "/community": "/brand/navigation/community-v2.webp",
-  "/contatti": "/brand/navigation/community-v2.webp",
-};
-
-const desktopNavigation = [
-  {
-    label: "Giochi",
-    accent: "giochi",
-    children: [
-      { label: "The Wound Remembers", description: "Il card RPG dark fantasy giocabile ora", href: "/giochi/the-wound-remembers", badge: "Gioca ora" },
-      { label: "Tutti i giochi", description: "Progetti disponibili e mondi in sviluppo", href: "/giochi" },
-    ],
-  },
-  {
-    label: "Esplora",
-    accent: "mondi",
-    children: [
-      { label: "Scopri i mondi", description: "Il punto di partenza per storie e personaggi", href: "/mondi" },
-      { label: "LoreWise Codex", description: "Personaggi, universi e legami da approfondire", href: "/enciclopedia" },
-      { label: "Cronache del Nexus", description: "Le novità e ciò che accade nell’universo", href: "/cronache-del-nexus", badge: "Novità" },
-      { label: "Dove nascono i mondi", description: "Bozze e storie dal diario di GiWise Studio", href: "/dove-nascono-i-mondi" },
-    ],
-  },
-  {
-    label: "Arte e servizi",
-    accent: "arte",
-    children: [
-      { label: "Arte originale", description: "Opere, collezioni e licenze dichiarate con chiarezza", href: "/arte" },
-      { label: "Commissioni", description: "Trasforma la tua idea in un’opera personale", href: "/commissioni" },
-      { label: "GiWise Shop", description: "Merchandising e collezioni ufficiali", href: "/shop" },
-    ],
-  },
-  {
-    label: "Community",
-    accent: "vip",
-    children: [
-      { label: "Entra nella Community", description: "Canali ufficiali e spazi per partecipare", href: "/community" },
-      { label: "Universe Pass", description: "Confronta i piani e scopri cosa sblocchi", href: "/abbonamento" },
-      { label: "Area VIP", description: "Guide, dossier e download per gli abbonati Universe Pass", href: "/vip-zone" },
-      { label: "Contatti", description: "Parla direttamente con GiWise Studio", href: "/contatti" },
-    ],
-  },
-] as const;
-
-const mobileExploreLinks = [
-  { label: "Tutti i giochi", href: "/giochi" },
-  { label: "LoreWise Codex", href: "/enciclopedia" },
-  { label: "Dove nascono i mondi", href: "/dove-nascono-i-mondi" },
-  { label: "Commissioni", href: "/commissioni" },
-  { label: "GiWise Shop", href: "/shop" },
-  { label: "Il mio Famiglio", href: "/famiglio" },
-  { label: "Universe Pass", href: "/abbonamento" },
-  { label: "Area VIP", href: "/vip-zone" },
-  { label: "Account", href: "/account" },
-] as const;
-
-const mobilePrimaryLinks = [
-  { label: "Gioca ora", href: "/giochi/the-wound-remembers" },
-  { label: "Scopri i mondi", href: "/mondi" },
-  { label: "Arte e servizi", href: "/arte" },
-  { label: "Community", href: "/community" },
-] as const;
-
-const desktopGroupIcons = {
-  Giochi: "/brand/navigation/giochi-v2.webp",
-  Esplora: "/brand/navigation/mondi-v2.webp",
-  "Arte e servizi": "/brand/navigation/arte-v2.webp",
-  Community: "/brand/navigation/community-v2.webp",
-} as const;
+import { activeSiteLink, siteAreas } from "@/lib/siteNavigation";
+import styles from "./SiteHeader.module.css";
 
 function isCurrentRoute(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
@@ -102,6 +19,7 @@ export function SiteHeader() {
   const notificationRefreshQueued = useRef(false);
   const syncNotifications = useRef<(() => void) | null>(null);
   const desktopNavigationRef = useRef<HTMLElement>(null);
+  const sectionLinksRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -230,6 +148,15 @@ export function SiteHeader() {
     };
   }, []);
 
+  // Su schermi stretti la barra di sezione scorre: porta in vista la voce della pagina aperta.
+  useEffect(() => {
+    const strip = sectionLinksRef.current;
+    const activeLink = strip?.querySelector<HTMLElement>("[aria-current='page']");
+    if (!strip || !activeLink) return;
+    const overflowRight = activeLink.offsetLeft + activeLink.offsetWidth - (strip.scrollLeft + strip.clientWidth);
+    if (overflowRight > 0) strip.scrollLeft += overflowRight + 16;
+  }, [pathname]);
+
   const notificationPathname = useRef(pathname);
   useEffect(() => {
     if (notificationPathname.current === pathname) return;
@@ -237,7 +164,14 @@ export function SiteHeader() {
     syncNotifications.current?.();
   }, [pathname]);
 
+  const current = activeSiteLink(pathname);
+  // La barra di sezione mostra dove sei e le altre pagine della stessa area.
+  // Il Famiglio è un'esperienza a schermo intero e la home ha già le quattro aree.
+  const showSectionBar = Boolean(current) && !isCurrentRoute(pathname, "/famiglio");
+  const closeMenu = () => setMenuOpen(false);
+
   return (
+    <>
     <header className="site-header">
       <div className="shell header-inner">
         <Link className="brand" href="/" aria-label="LoreWise Universe, home"><Image src="/brand/navigation/lorewise-universe-logo.webp" alt="" width={320} height={213} priority unoptimized /></Link>
@@ -246,23 +180,24 @@ export function SiteHeader() {
         </button>
         <nav className="desktop-navigation" aria-label="Navigazione principale" ref={desktopNavigationRef}>
           <ul className="nav-list">
-            {desktopNavigation.map((item) => {
-              const isActive = item.children.some((child) => isCurrentRoute(pathname, child.href));
-              return <li className="nav-group" key={item.label}><details><summary className={`nav-button nav-button-${item.accent}${isActive ? " is-active" : ""}`}><Image className="nav-art-icon" src={desktopGroupIcons[item.label]} alt="" width={1224} height={1285} unoptimized /><span>{item.label}</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="m1 1 5 5 5-5" /></svg></summary><div className="nav-group-menu">{item.children.map((child) => <Link className={isCurrentRoute(pathname, child.href) ? "is-active" : undefined} aria-current={isCurrentRoute(pathname, child.href) ? "page" : undefined} href={child.href} key={child.href}><span>{child.label}{"badge" in child ? <b>{child.badge}</b> : null}</span><small>{child.description}</small></Link>)}</div></details></li>;
+            {siteAreas.map((area) => {
+              const isActive = current?.area.key === area.key;
+              return <li className="nav-group" key={area.key}><details><summary className={`nav-button nav-button-${area.accent}${isActive ? " is-active" : ""}`}><Image className="nav-art-icon" src={area.icon} alt="" width={1224} height={1285} unoptimized /><span>{area.label}</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="m1 1 5 5 5-5" /></svg></summary><div className="nav-group-menu">{area.links.map((link) => {
+                const linkActive = current?.link.href === link.href;
+                return <Link className={linkActive ? "is-active" : undefined} aria-current={linkActive ? "page" : undefined} href={link.href} key={link.href}><span>{link.label}{link.badge ? <b>{link.badge}</b> : null}</span><small>{link.description}</small></Link>;
+              })}</div></details></li>;
             })}
           </ul>
         </nav>
         <div className="header-actions">
-        <Link className={isCurrentRoute(pathname, "/famiglio") ? "header-familiar is-active" : "header-familiar"} href="/famiglio" aria-label="Apri il mio Famiglio del Nexus" title="Il mio Famiglio">
-          <Image src="/famiglio/navigation/tana-v1.webp" alt="" width={112} height={112} unoptimized />
-        </Link>
         <Link className={isCurrentRoute(pathname, "/cerca") ? "header-search is-active" : "header-search"} href="/cerca" aria-label="Cerca in LoreWise Universe" title="Cerca nell’universo">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg>
         </Link>
-        <Link className={unreadNotifications ? "header-admin-alert has-unread" : "header-admin-alert"} href="/notifiche" aria-label={unreadNotifications ? `${unreadNotifications} notifiche da leggere. Apri il Centro notifiche.` : "Apri il Centro notifiche."} title="Centro notifiche">
+        {/* Le notifiche servono solo a chi ha fatto l'accesso: il contatore resta null finché non c'è una sessione. */}
+        {unreadNotifications !== null ? <Link className={unreadNotifications ? "header-admin-alert has-unread" : "header-admin-alert"} href="/notifiche" aria-label={unreadNotifications ? `${unreadNotifications} notifiche da leggere. Apri il Centro notifiche.` : "Apri il Centro notifiche."} title="Centro notifiche">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" /></svg>
           {unreadNotifications ? <span>{unreadNotifications > 99 ? "99+" : unreadNotifications}</span> : null}
-        </Link>
+        </Link> : null}
         <Link className={isCurrentRoute(pathname, "/account") ? "header-contact is-active" : "header-contact"} aria-current={isCurrentRoute(pathname, "/account") ? "page" : undefined} href="/account">
           <Image src="/brand/navigation/community-v2.webp" alt="" width={112} height={112} unoptimized />
           <span>Account</span>
@@ -270,15 +205,40 @@ export function SiteHeader() {
         </div>
       </div>
       <nav id="mobile-navigation" className={menuOpen ? "mobile-navigation is-open" : "mobile-navigation"} aria-label="Navigazione mobile" hidden={!menuOpen}>
-        <div className="mobile-navigation-heading"><span>Il tuo ingresso nel LoreWise Universe</span><strong>Cosa vuoi fare?</strong></div>
-        <ul className="mobile-navigation-primary">
-          {mobilePrimaryLinks.map((item) => {
-            const active = isCurrentRoute(pathname, item.href);
-            return <li key={item.href}><Link className={active ? "is-active" : undefined} aria-current={active ? "page" : undefined} href={item.href} onClick={() => setMenuOpen(false)}><Image src={navIcons[item.href]} alt="" width={1224} height={1285} unoptimized /><span>{item.label}</span></Link></li>;
-          })}
+        <div className="mobile-navigation-heading"><span>LoreWise Universe</span><strong>Dove vuoi andare?</strong></div>
+        <div className={styles.menuAreas}>
+          {siteAreas.map((area) => (
+            <section className={styles.menuArea} key={area.key} aria-labelledby={`menu-area-${area.key}`}>
+              <h2 className={styles.menuAreaTitle} id={`menu-area-${area.key}`}><Image src={area.icon} alt="" width={1224} height={1285} unoptimized /><span>{area.label}</span></h2>
+              <ul className={styles.menuLinks}>
+                {area.links.map((link) => {
+                  const linkActive = current?.link.href === link.href;
+                  return <li className={styles.menuItem} key={link.href}><Link className={`${styles.menuLink}${linkActive ? ` ${styles.menuLinkActive}` : ""}`} aria-current={linkActive ? "page" : undefined} href={link.href} onClick={closeMenu}><strong className={styles.menuLabel}>{link.label}{link.badge ? <b>{link.badge}</b> : null}</strong><small className={styles.menuDescription}>{link.description}</small></Link></li>;
+                })}
+              </ul>
+            </section>
+          ))}
+        </div>
+        <ul className={styles.menuUtilities}>
+          <li className={styles.menuItem}><Link className={styles.menuUtility} href="/account" onClick={closeMenu}>Account</Link></li>
+          <li className={styles.menuItem}><Link className={styles.menuUtility} href="/cerca" onClick={closeMenu}>Cerca</Link></li>
+          <li className={styles.menuItem}><Link className={styles.menuUtility} href="/contatti" onClick={closeMenu}>Contatti</Link></li>
         </ul>
-        <div id="mobile-explore-links" className="mobile-explore-links is-open"><header><span>Accessi rapidi</span><small>Le destinazioni utili, raccolte senza interrompere il percorso.</small></header><ul>{mobileExploreLinks.map((item) => <li key={item.href}><Link className={isCurrentRoute(pathname, item.href) ? "is-active" : undefined} aria-current={isCurrentRoute(pathname, item.href) ? "page" : undefined} href={item.href} onClick={() => setMenuOpen(false)}><Image src={navIcons[item.href]} alt="" width={1224} height={1285} unoptimized /><span>{item.label}</span></Link></li>)}</ul></div>
       </nav>
     </header>
+    {showSectionBar && current ? (
+      <nav className={styles.sectionBar} aria-label={`Sezione ${current.area.label}`}>
+        <div className={styles.sectionInner} ref={sectionLinksRef}>
+          <Link className={styles.sectionArea} href={current.area.href}>{current.area.label}</Link>
+          <ul className={styles.sectionLinks}>
+            {current.area.links.map((link) => {
+              const linkActive = current.link.href === link.href;
+              return <li key={link.href}><Link className={`${styles.sectionLink}${linkActive ? ` ${styles.sectionLinkActive}` : ""}`} aria-current={linkActive ? "page" : undefined} href={link.href}>{link.label}</Link></li>;
+            })}
+          </ul>
+        </div>
+      </nav>
+    ) : null}
+    </>
   );
 }

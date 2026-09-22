@@ -1,0 +1,236 @@
+/*
+ * Menu mobile per aree e barra di sezione.
+ * I selettori hanno due o tre classi perché globals.css stila ancora ul, li, a, img e span
+ * dentro .mobile-navigation con regole generiche che altrimenti vincerebbero.
+ */
+
+.menuAreas {
+  width: min(calc(100% - 32px), 980px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 auto;
+}
+
+.menuAreas .menuArea {
+  min-width: 0;
+  padding: 14px 14px 10px;
+  border: 1px solid rgba(76, 29, 87, .12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .56);
+}
+
+.menuArea .menuAreaTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 6px;
+  color: #32123e;
+  font: 700 1.3rem/1 var(--font-lore-display, var(--font-display)), Georgia, serif;
+}
+
+.menuArea .menuAreaTitle img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  filter: none;
+  transform: none;
+}
+
+.menuArea .menuAreaTitle span {
+  min-height: 0;
+  display: block;
+  color: inherit;
+  font: inherit;
+}
+
+.menuAreas .menuLinks {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menuArea .menuLinks .menuItem,
+.menuUtilities .menuItem.menuItem {
+  grid-column: auto;
+}
+
+.menuLinks .menuLink {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-flow: row;
+  justify-items: start;
+  align-content: start;
+  align-items: start;
+  gap: 2px;
+  padding: 10px 4px;
+  border: 0;
+  border-top: 1px solid rgba(76, 29, 87, .09);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: #4c1d57;
+  text-align: left;
+  text-decoration: none;
+}
+
+.menuLinks .menuLink:hover,
+.menuLinks .menuLink:focus-visible,
+.menuLinks .menuLinkActive {
+  border-color: rgba(76, 29, 87, .09);
+  background: none;
+  box-shadow: none;
+  color: #be185d;
+}
+
+.menuLinks .menuLinkActive::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: -10px;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #f97316, #db2777, #7c3aed);
+}
+
+.menuLink .menuLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: .86rem;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.menuLabel b {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #fde7f1;
+  color: #be185d;
+  font-size: .6rem;
+  font-weight: 950;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.menuLink .menuDescription {
+  color: #6b5673;
+  font-size: .72rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+:global(.mobile-navigation) .menuUtilities {
+  width: min(calc(100% - 32px), 980px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menuUtilities .menuItem .menuUtility {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border: 1px solid rgba(76, 29, 87, .16);
+  border-radius: 999px;
+  background: #fff;
+  color: #4c1d57;
+  font-size: .78rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.menuUtilities .menuItem .menuUtility:hover,
+.menuUtilities .menuItem .menuUtility:focus-visible {
+  border-color: #db2777;
+  color: #be185d;
+}
+
+@media (max-width: 620px) {
+  .menuAreas { width: calc(100% - 16px); grid-template-columns: 1fr; gap: 8px; }
+  .menuAreas .menuArea { padding: 12px 12px 6px; border-radius: 12px; }
+  :global(.mobile-navigation) .menuUtilities { width: calc(100% - 16px); }
+}
+
+/* Barra di sezione: sotto l'intestazione, non fissa, uguale su ogni pagina di un'area. */
+.sectionBar {
+  border-bottom: 1px solid rgba(76, 29, 87, .12);
+  background: #fbf6ee;
+}
+
+.sectionInner {
+  position: relative;
+  width: min(100% - 28px, 1540px);
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 28px);
+  margin: 0 auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sectionInner::-webkit-scrollbar { display: none; }
+
+.sectionArea {
+  flex: 0 0 auto;
+  padding: 12px 0;
+  color: #32123e;
+  font: 700 1.05rem/1 var(--font-lore-display, var(--font-display)), Georgia, serif;
+  text-decoration: none;
+}
+
+.sectionLinks {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sectionLink {
+  position: relative;
+  display: block;
+  padding: 14px 12px;
+  color: #6b5673;
+  font-size: .78rem;
+  font-weight: 850;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.sectionLink:hover,
+.sectionLink:focus-visible { color: #be185d; }
+
+.sectionLinkActive { color: #32123e; }
+
+.sectionLinkActive::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  bottom: 0;
+  left: 12px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(90deg, #f97316, #db2777, #7c3aed);
+}
+
+@media (max-width: 620px) {
+  .sectionInner { width: 100%; padding-inline: 14px; box-sizing: border-box; }
+  .sectionLink { padding-inline: 10px; }
+}
+
+:global(body:has([data-familiar-dashboard])) .sectionBar { display: none; }

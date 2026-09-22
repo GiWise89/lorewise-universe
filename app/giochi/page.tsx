@@ -5,6 +5,7 @@ import { gameProjects } from "@/lib/gameCatalog";
 import { accessModels, developmentStages, projectDossierFields } from "@/lib/gameStudio";
 import { UniverseGuide } from "@/components/UniverseGuide";
 import { FunnelLink } from "@/components/FunnelLink";
+import { TwrGameplayTrailer } from "@/components/TwrGameplayTrailer";
 
 const gamePresentation = {
   "the-wound-remembers": { label: "Giocabile ora", tone: "available", note: "Apri la versione web e inizia subito." },
@@ -32,7 +33,7 @@ export default function GamesPage() {
             <p className="eyebrow">GiWise Studio · Catalogo videogiochi</p>
             <h1 id="studio-games-title">Entra<br />nel gioco.</h1>
             <p><strong>The Wound Remembers è giocabile ora:</strong> costruisci un Patto, affronta Nemesi PvE e combatti su tre corsie. Gli altri progetti restano consultabili nel catalogo.</p>
-            <FunnelLink className="studio-games-hero-action" href="https://thewoundremembers.com/" eventName="play_cta_click" source="games_hero">Gioca a The Wound Remembers <span aria-hidden="true">→</span></FunnelLink>
+            <div className="studio-games-hero-actions"><FunnelLink className="studio-games-hero-action" href="https://thewoundremembers.com/" eventName="play_cta_click" source="games_hero">Gioca a The Wound Remembers <span aria-hidden="true">→</span></FunnelLink><TwrGameplayTrailer className="studio-games-hero-trailer" /></div>
           </div>
           <div className="studio-games-hero-titles" aria-label="Titoli in catalogo">
             {gameProjects.map((project) => (
